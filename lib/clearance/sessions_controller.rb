@@ -1,6 +1,7 @@
 module Clearance
   module SessionsController
 
+<<<<<<< HEAD:lib/clearance/sessions_controller.rb
     def self.included(base)
       base.class_eval do
         skip_before_filter :authenticate
@@ -12,7 +13,6 @@ module Clearance
       protected
         include ProtectedInstanceMethods
       end
-    end
     
     module InstanceMethods
       def create
@@ -38,7 +38,7 @@ module Clearance
           login_failure
         end
       end
-
+      
       def login_successful
         flash[:notice] = 'Logged in successfully'
         redirect_back_or root_url
@@ -48,7 +48,6 @@ module Clearance
         flash.now[:notice] = message
         render :action => :new
       end
-
       def remember(user)
         user.remember_me!
         cookies[:auth_token] = { :value   => user.remember_token, 
