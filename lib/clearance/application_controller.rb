@@ -5,8 +5,7 @@ module Clearance
       base.class_eval do
         attr_accessor :current_user
         helper_method :current_user
-
-        before_filter :authenticate
+        
       protected
         include ProtectedInstanceMethods
       end
