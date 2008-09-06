@@ -7,7 +7,7 @@ h2. Features
 * email & password
 * modules, not a generator
 * gem, not a plugin
-* tests included
+* should & factory_girl tests included
 
 h2. Schema
 
@@ -34,3 +34,10 @@ h2. Tests
 In test/unit/user_test.rb: 
 
     include ClearanceTest
+
+The tests use Shoulda and Factory Girl.
+
+
+
+
+
