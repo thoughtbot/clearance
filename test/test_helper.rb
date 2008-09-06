@@ -17,7 +17,15 @@ ActiveRecord::Migrator.migrate("#{RAILS_ROOT}/db/migrate")
 # Setup the fixtures path
 Test::Unit::TestCase.fixture_path = File.join(File.dirname(__FILE__), "fixtures")
 
+require 'rubygems'
+require 'quietbacktrace'
+
 class Test::Unit::TestCase #:nodoc:
+  
+  self.backtrace_silencers << :rails_vendor
+  self.backtrace_filters   << :rails_root
+  self.backtrace_silencers << :shoulda
+  self.backtrace_silencers << :gem
   
   include Clearance::TestHelper
   
