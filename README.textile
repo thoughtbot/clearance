@@ -27,15 +27,19 @@ h2. Model
 
 In app/models/user.rb:
 
-    include Clearance
+    include Clearance::Model
 
 h2. Tests
 
+The tests use Shoulda and Factory Girl.
+
+In test/test_helper.rb: 
+
+    include Clearance::TestHelper
+
 In test/unit/user_test.rb: 
 
-    include ClearanceTest
-
-The tests use Shoulda and Factory Girl.
+    include Clearance::UnitTest
 
 
 

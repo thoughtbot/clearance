@@ -1,6 +1,5 @@
 module Clearance
-  
-  module Test
+  module UnitTest
   
     should_require_attributes :email, :password
     should_require_unique_attributes :email
@@ -172,5 +171,4 @@ module Clearance
     end
     
   end
-
 end

@@ -1,5 +1,4 @@
 module Clearance
-
   module Model
 
     attr_accessible :email, :password, :password_confirmation
@@ -65,5 +64,4 @@ module Clearance
     end
   
   end
-
 end
