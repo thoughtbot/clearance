@@ -1,6 +1,6 @@
 h1. Clearance
 
-ActiveRecord authentication scheme. 
+Simple, complete Rails authentication scheme. 
 
 h2. Features
 
