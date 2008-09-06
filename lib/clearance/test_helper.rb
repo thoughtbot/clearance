@@ -31,6 +31,18 @@ module Clearance
           end
         end
       end
+      
+      def should_filter(*keys)
+        keys.each do |key|
+          should "filter #{key}" do
+            assert @controller.respond_to?(:filter_parameters),
+              "The key #{key} is not filtered"
+            filtered = @controller.send(:filter_parameters, {key.to_s => key.to_s})
+            assert_equal '[FILTERED]', filtered[key.to_s],
+              "The key #{key} is not filtered"
+          end
+        end
+      end
 
       def logged_in_user_context(user_name = nil, &blk)
         context "When logged in as a user" do

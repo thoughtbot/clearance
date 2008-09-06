@@ -1,6 +1,6 @@
 h1. Clearance
 
-ActiveRecord authentication scheme. 
+Simple, complete Rails authentication. 
 
 h2. Features
 
@@ -42,9 +42,8 @@ In app/controllers/sessions_controller.rb:
 h2. Routes
 
     map.login  '/login',  :controller => 'sessions', :action => 'new'
-	  map.logout '/logout', :controller => 'sessions', :action => 'destroy'
-
-	  map.resource :session
+    map.logout '/logout', :controller => 'sessions', :action => 'destroy'
+    map.resource :session
 
 h2. Tests
 
@@ -58,6 +57,9 @@ In test/unit/user_test.rb:
 
     include Clearance::UnitTest
 
+In test/functional/sessions_controller_test.rb: 
+
+    include Clearance::UnitTest
 
 
 
