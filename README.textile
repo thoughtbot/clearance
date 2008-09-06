@@ -5,6 +5,5 @@ ActiveRecord authentication scheme.
 h2. Features
 
 * email & password
-* no salt
 * not a generator
 * tests already written

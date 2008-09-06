@@ -9,7 +9,7 @@ module Clearance
   validates_confirmation_of :password,                   :if => :password_required?
   validates_uniqueness_of   :email
   
-  before_save :encrypt_password
+  before_save :initialize_salt, :encrypt_password
 
   def self.authenticate(email, password)
     user = find_by_email(email) # need to get the salt
@@ -26,7 +26,7 @@ module Clearance
   end
   
   def encrypt(password)
-    Digest::SHA1.hexdigest("--#{password}--")
+    Digest::SHA1.hexdigest("--#{salt}--#{password}--")
   end
   
   def remember_token?
@@ -48,6 +48,10 @@ module Clearance
   end
 
   protected
+  
+    def initialize_salt
+      self.salt = Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{email}--") if new_record?
+    end
       
     def encrypt_password
       return if password.blank?
