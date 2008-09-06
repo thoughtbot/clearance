@@ -1,19 +1,22 @@
 module Clearance 
   module TestHelper
-
-    def login_as(user = nil)
-      user ||= Factory(:user)
-      @request.session[:user_id] = user.id
-      return user
-    end
-  
-    def logout 
-      @request.session[:user_id] = nil
-    end
     
-    def included(base)
+    def self.included(base)
       base.class_eval do
+        include InstanceMethods
         extend ClassMethods
+      end
+    end
+
+    module InstanceMethods
+      def login_as(user = nil)
+        user ||= Factory(:user)
+        @request.session[:user_id] = user.id
+        return user
+      end
+
+      def logout 
+        @request.session[:user_id] = nil
       end
     end
     
