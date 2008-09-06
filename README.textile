@@ -58,6 +58,9 @@ In test/unit/user_test.rb:
 
     include Clearance::UnitTest
 
+In test/functional/sessions_controller_test.rb: 
+
+    include Clearance::UnitTest
 
 
 
