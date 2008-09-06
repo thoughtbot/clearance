@@ -1,7 +1,7 @@
 module Clearance
   module ApplicationController
     
-    def included(base)
+    def self.included(base)
       base.class_eval do
         attr_accessor :current_user
         helper_method :current_user

@@ -1,7 +1,7 @@
 module Clearance
   module SessionsController
 
-    def included(base)
+    def self.included(base)
       base.class_eval do
         skip_before_filter :authenticate
         protect_from_forgery :except => :create

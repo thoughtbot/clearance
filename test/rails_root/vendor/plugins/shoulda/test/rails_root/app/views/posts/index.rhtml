@@ -1,0 +1,25 @@
+<h1>Listing posts</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Title</th>
+    <th>Body</th>
+  </tr>
+  
+<% for post in @posts %>
+  <tr>
+    <td><%=h post.user_id %></td>
+    <td><%=h post.title %></td>
+    <td><%=h post.body %></td>
+    <td><%= link_to 'Show', user_post_path(post.user, post) %></td>
+    <td><%= link_to 'Edit', edit_user_post_path(post.user, post) %></td>
+    <td><%= link_to 'Destroy', user_post_path(post.user, post), :confirm => 'Are you sure?', 
+                    :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New post', new_user_post_path(post.user) %>

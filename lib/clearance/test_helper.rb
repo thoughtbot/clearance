@@ -1,7 +1,7 @@
 module Clearance 
   module TestHelper
     
-    def included(base)
+    def self.included(base)
       base.class_eval do
         include InstanceMethods
         extend ClassMethods

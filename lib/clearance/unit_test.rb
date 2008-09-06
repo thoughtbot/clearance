@@ -1,7 +1,7 @@
 module Clearance
   module UnitTest
     
-    def included(base)
+    def self.included(base)
       base.class_eval do
         should_require_attributes :email, :password
         should_require_unique_attributes :email

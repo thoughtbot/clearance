@@ -1,7 +1,7 @@
 module Clearance
   module SessionsControllerTest
     
-    def included(base)
+    def self.included(base)
       base.class_eval do
         context "Given a user" do
           setup do

@@ -1,7 +1,7 @@
 module Clearance
   module Model
     
-    def included(base)
+    def self.included(base)
       base.class_eval do
         
         attr_accessible :email, :password, :password_confirmation

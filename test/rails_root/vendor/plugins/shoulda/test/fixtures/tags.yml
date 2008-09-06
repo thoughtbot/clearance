@@ -1,0 +1,9 @@
+first:
+  id: 1
+  name: Stuff
+second:
+  id: 2
+  name: Rails
+third:
+  id: 3
+  name: Nothing

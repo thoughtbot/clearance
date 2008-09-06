@@ -1,0 +1,4 @@
+sqlite3:
+  :adapter: sqlite3
+  # :dbfile: db/sqlite3.db
+  :dbfile: ":memory:"
