@@ -1,6 +1,8 @@
 require 'clearance/application_controller'
 require 'clearance/sessions_controller'
+require 'clearance/users_controller'
 require 'clearance/model'
 require 'clearance/test_helper'
 require 'clearance/sessions_controller_test'
+require 'clearance/users_controller_test'
 require 'clearance/unit_test'

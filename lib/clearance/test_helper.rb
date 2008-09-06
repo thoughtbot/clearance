@@ -43,12 +43,25 @@ module Clearance
           end
         end
       end
+      
+      def should_have_user_form
+        should "have the user form" do
+          assert_select "form" do
+            %w(name email openid_url).each do |field|
+              assert_select "input[type=text][name=?]", "user[#{field}]"
+            end
+            %w(password password_confirmation).each do |field|
+              assert_select "input[type=password][name=?]", "user[#{field}]"
+            end
+          end
+        end
+      end
 
       def logged_in_user_context(user_name = nil, &blk)
         context "When logged in as a user" do
           setup do
             user = user_name ? instance_variable_get("@#{user_name}") : Factory(:user)
-            assert @current_user    = login_as(user)
+            assert @current_user = login_as(user)
           end
           merge_block(&blk)
         end

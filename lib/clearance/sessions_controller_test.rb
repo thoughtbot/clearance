@@ -40,7 +40,6 @@ module Clearance
         should_set_the_flash_to /bad/i
         should_render_template :new
       end
-
     end
 
     context "While logged out" do
