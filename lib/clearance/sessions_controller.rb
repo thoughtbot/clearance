@@ -1,7 +1,6 @@
 module Clearance
   module SessionsController
 
-<<<<<<< HEAD:lib/clearance/sessions_controller.rb
     def self.included(base)
       base.class_eval do
         skip_before_filter :authenticate
