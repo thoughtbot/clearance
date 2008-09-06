@@ -18,6 +18,9 @@ ActiveRecord::Migrator.migrate("#{RAILS_ROOT}/db/migrate")
 Test::Unit::TestCase.fixture_path = File.join(File.dirname(__FILE__), "fixtures")
 
 class Test::Unit::TestCase #:nodoc:
+  
+  include Clearance::TestHelper
+  
   def create_fixtures(*table_names)
     if block_given?
       Fixtures.create_fixtures(Test::Unit::TestCase.fixture_path, table_names) { yield }
