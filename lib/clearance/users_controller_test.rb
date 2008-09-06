@@ -28,7 +28,11 @@ module Clearance
         end
 
         context "on PUT to /users/:id" do
-          setup { put :update, :id => @user.to_param, :user => {:email => "none@example.com"}}
+          setup do
+            put :update, 
+              :id => @user.to_param, 
+              :user => {:email => "none@example.com"}
+          end
           should_set_the_flash_to /updated/i
           should_redirect_to "root_url"
           should_assign_to :user
