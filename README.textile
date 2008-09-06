@@ -1,9 +1,36 @@
-h1. CLEARANCE
+h1. Clearance
 
 ActiveRecord authentication scheme. 
 
 h2. Features
 
 * email & password
-* not a generator
-* tests already written
+* modules, not a generator
+* gem, not a plugin
+* tests included
+
+h2. Schema
+
+Change your User model so it has these attributes.
+
+    change_table(:users) do |t|
+		  t.column :email, :string
+		  t.column :crypted_password, :string, :limit => 40
+		  t.column :salt, :string, :limit => 40
+		  t.column :remember_token, :string
+		  t.column :remember_token_expires_at, :datetime
+		end
+
+	  add_index :users, [:email, :password]
+
+h2. Model
+
+In app/models/user.rb:
+
+    include Clearance
+
+h2. Tests
+
+In test/unit/user_test.rb: 
+
+    include ClearanceTest

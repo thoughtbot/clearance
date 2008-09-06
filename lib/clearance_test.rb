@@ -1,6 +1,4 @@
-require 'test_helper'
-
-class ClearanceTest < ActiveSupport::TestCase
+module ClearanceTest
   
   should_require_attributes :email, :password
   should_require_unique_attributes :email
