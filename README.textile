@@ -29,6 +29,12 @@ In app/models/user.rb:
 
     include Clearance::Model
 
+h2. Controller
+
+In app/controllers/application_controller.rb:
+
+    include Clearance::ApplicationController
+
 h2. Tests
 
 The tests use Shoulda and Factory Girl.

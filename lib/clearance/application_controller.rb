@@ -1,6 +1,5 @@
 module Clearance
-  
-  module Controller
+  module ApplicationController
 
     attr_accessor :current_user
     helper_method :current_user
@@ -52,5 +51,4 @@ module Clearance
     end
   
   end
-
 end
