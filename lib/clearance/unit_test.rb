@@ -41,9 +41,7 @@ module Clearance
 
     context 'authenticating a user' do
       context 'with good credentials' do
-        setup do
-          @result = User.authenticate @user.email, 'sekrit'
-        end
+        setup { @result = User.authenticate @user.email, 'sekrit' }
 
         should 'return true' do
           assert @result
@@ -51,9 +49,7 @@ module Clearance
       end
     
       context 'with bad credentials' do
-        setup do
-          @result = User.authenticate @user.email, 'horribly_wrong_password'
-        end
+        setup { @result = User.authenticate @user.email, 'horribly_wrong_password' }
 
         should 'return true' do
           assert !@result
@@ -63,9 +59,7 @@ module Clearance
 
     context 'authenticated?' do
       context 'with good credentials' do
-        setup do
-          @result = @user.authenticated? 'sekrit'
-        end
+        setup { @result = @user.authenticated? 'sekrit' }
 
         should 'return true' do
           assert @result
@@ -73,9 +67,7 @@ module Clearance
       end
     
       context 'with bad credentials' do
-        setup do
-          @result = @user.authenticated? 'horribly_wrong_password'
-        end
+        setup { @result = @user.authenticated? 'horribly_wrong_password' }
 
         should 'return true' do
           assert !@result
