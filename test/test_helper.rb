@@ -24,8 +24,6 @@ class Test::Unit::TestCase #:nodoc:
   
   self.backtrace_silencers << :rails_vendor
   self.backtrace_filters   << :rails_root
-  self.backtrace_silencers << :shoulda
-  self.backtrace_silencers << :gem
   
   include Clearance::TestHelper
   
