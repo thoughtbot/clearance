@@ -1,4 +1,4 @@
 class ApplicationController < ActionController::Base
-  include Clearace::ApplicationController
+  include Clearance::ApplicationController
   filter_parameter_logging :password
 end
