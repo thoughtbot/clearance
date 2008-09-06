@@ -12,6 +12,7 @@ module Clearance
       protected
         include ProtectedInstanceMethods
       end
+    end
     
     module InstanceMethods
       def create
@@ -47,6 +48,7 @@ module Clearance
         flash.now[:notice] = message
         render :action => :new
       end
+      
       def remember(user)
         user.remember_me!
         cookies[:auth_token] = { :value   => user.remember_token, 
@@ -58,5 +60,6 @@ module Clearance
         cookies.delete :auth_token
       end
     end
+
   end
 end
