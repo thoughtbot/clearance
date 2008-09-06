@@ -39,6 +39,13 @@ In app/controllers/sessions_controller.rb:
 
     include Clearance::SessionsController
 
+h2. Routes
+
+    map.login  '/login',  :controller => 'sessions', :action => 'new'
+	  map.logout '/logout', :controller => 'sessions', :action => 'destroy'
+
+	  map.resource :session
+
 h2. Tests
 
 The tests use Shoulda and Factory Girl.
