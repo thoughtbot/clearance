@@ -29,11 +29,15 @@ In app/models/user.rb:
 
     include Clearance::Model
 
-h2. Controller
+h2. Controllers
 
 In app/controllers/application_controller.rb:
 
     include Clearance::ApplicationController
+
+In app/controllers/sessions_controller.rb:
+
+    include Clearance::SessionsController
 
 h2. Tests
 
