@@ -6,18 +6,22 @@ module Clearance
         attr_accessor :current_user
         helper_method :current_user
         
+        include InstanceMethods
+
       protected
         include ProtectedInstanceMethods
+      end
+    end
+    
+    module InstanceMethods
+      def current_user
+        @current_user ||= (user_from_session || user_from_cookie)
       end
     end
 
     module ProtectedInstanceMethods
       def authenticate
         deny_access if current_user.nil?
-      end
-
-      def current_user
-        @current_user ||= (user_from_session || user_from_cookie)
       end
 
       def user_from_session
