@@ -4,7 +4,6 @@ module Clearance
     def self.included(base)
       base.class_eval do
         should_require_attributes :email, :password
-        should_require_unique_attributes :email
 
         should "require password validation on create" do
           user = User.new(:password => "blah", :password_confirmation => "boogidy")
@@ -48,6 +47,8 @@ module Clearance
             User.any_instance.stubs(:initialize_salt)
             @user = Factory(:user, :password => @password, :salt => @salt)
           end
+          
+          should_require_unique_attributes :email
           
           context 'authenticating a user' do
             context 'with good credentials' do
