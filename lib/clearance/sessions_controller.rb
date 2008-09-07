@@ -32,6 +32,7 @@ module Clearance
       def login_via_password(email, password, remember_me)
         user = User.authenticate(email, password)
         if login(user)
+          create_session_for(user)
           remember(user) if remember_me == '1'
           login_successful
         else
