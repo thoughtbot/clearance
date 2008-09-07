@@ -6,14 +6,7 @@ module Clearance
         should_require_attributes :email, :password
 
         should "require password validation on create" do
-          user = User.new(:password => "blah", :password_confirmation => "boogidy")
-          assert !user.save
-          assert_match(/confirmation/i, user.errors.on(:password))
-        end
-
-        should "require password validation on update" do
-          assert user = User.find(:first)
-          user.update_attributes(:password => "blah", :password_confirmation => "boogidy")
+          user = Factory.build(:user, :password => 'blah', :password_confirmation => 'boogidy')
           assert !user.save
           assert_match(/confirmation/i, user.errors.on(:password))
         end
@@ -46,6 +39,12 @@ module Clearance
             @salt = 'salt'
             User.any_instance.stubs(:initialize_salt)
             @user = Factory(:user, :password => @password, :salt => @salt)
+          end
+          
+          should "require password validation on update" do
+            @user.update_attributes(:password => "blah", :password_confirmation => "boogidy")
+            assert !@user.save
+            assert_match(/confirmation/i, @user.errors.on(:password))
           end
           
           should_require_unique_attributes :email
