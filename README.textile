@@ -69,4 +69,13 @@ In test/functional/sessions_controller_test.rb:
 
     include Clearance::UsersControllerTest
 
+h2. Authors
 
+* thoughtbot, inc.
+* Dan Croak
+* Josh Nichols
+
+"We have clearance, Clarence."
+"Roger, Roger. What's our vector, Victor?"
+
+<object width="425" height="344"><param name="movie" value="http://www.youtube.com/v/mNRXJEE3Nz8&hl=en&fs=1"></param><param name="allowFullScreen" value="true"></param><embed src="http://www.youtube.com/v/mNRXJEE3Nz8&hl=en&fs=1" type="application/x-shockwave-flash" allowfullscreen="true" width="425" height="344"></embed></object>
