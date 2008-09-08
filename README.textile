@@ -2,6 +2,8 @@ h1. Clearance
 
 Simple, complete Rails authentication. 
 
+"We have clearance, Clarence.":http://www.youtube.com/v/mNRXJEE3Nz8
+
 h2. Features
 
 * email & password
@@ -74,5 +76,3 @@ h2. Authors
 * thoughtbot, inc.
 * Dan Croak
 * Josh Nichols
-
-"We have clearance, Clarence.":http://www.youtube.com/v/mNRXJEE3Nz8
