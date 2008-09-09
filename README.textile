@@ -67,7 +67,7 @@ In test/functional/sessions_controller_test.rb:
 
     include Clearance::SessionsControllerTest
 
-In test/functional/sessions_controller_test.rb: 
+In test/functional/users_controller_test.rb: 
 
     include Clearance::UsersControllerTest
 
