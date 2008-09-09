@@ -7,5 +7,5 @@ Gem::Specification.new do |s|
   s.homepage = "http://github.com/dancroak/clearance"
   s.description = "Simple, complete Rails authentication scheme."
   s.authors = ["thoughtbot, inc.", "Dan Croak", "Josh Nichols"]
-  s.files = ["README.textile", "clearance.gemspec", "lib/clearance.rb", "lib/clearance/application_controller.rb", "lib/clearance/model.rb", "lib/clearance/sessions_controller.rb", "lib/clearance/sessions_controller_test.rb", "lib/clearance/test_helper.rb", "lib/clearance/test_helper.rb", "lib/clearance/users_controller.rb", "lib/clearance/users_controller_test.rb"]
+  s.files = ["README.textile", "clearance.gemspec", "lib/clearance.rb", "lib/clearance/application_controller.rb", "lib/clearance/model.rb", "lib/clearance/sessions_controller.rb", "lib/clearance/sessions_controller_test.rb", "lib/clearance/test_helper.rb", "lib/clearance/unit_test.rb", "lib/clearance/users_controller.rb", "lib/clearance/users_controller_test.rb"]
 end
