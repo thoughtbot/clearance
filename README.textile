@@ -79,3 +79,4 @@ h2. Authors
 * thoughtbot, inc.
 * Dan Croak
 * Josh Nichols
+* Mike Breen
