@@ -1,4 +1,17 @@
-= 0.9.0
+= 0.9.1 (r349)
+
+* Fixed bug #21465 - expects & stubs should support method names as strings (as well as symbols) or fail fast. Convert all expectation method names to a symbol in case they were supplied as a string.
+* By removing Mock#unexpected_method_called we reduce the number of methods vulnerable to the problem that surfaced in bug #21563.
+* Fix bug #21563 - stubbing 'verified?' method is unsafe. Instance method names on the Mock class should be more obscure.
+* Performance improvement. StubbaExampleTest goes twice as fast on my local machine.
+* Added primitive performance test to default rake task.
+* Fix format of case statements which don't work in Ruby 1.9 and make others consistent.
+* There is no point in running (potentially expensive) checks if configuration is set to allow such checks to fail. This is a relatively quick fix in response to Chris McGrath's performance problems.
+* Fix for bug #21161 - 'uninitialized constant Deprecation in stubba.rb'.
+* It's more readable to talk about 'once' and 'twice' rather than '1 time' and '2 times'.
+* Fix bug #20883 - never should raise when called to prevent follow up errors. Fail fast when there are no matching invokable expectations and handle the stub_everything case sensibly. This might not be entirely backwards compatible, but I think the benefits outweigh the risks. The most likely change is that a test that was already failing will now fail faster, which doesn't seem so awful.
+
+= 0.9.0 (r316)
 
 * Configurable warnings or errors
   * when a method on a non-public method is stubbed

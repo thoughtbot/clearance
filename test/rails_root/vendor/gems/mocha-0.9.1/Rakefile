@@ -5,11 +5,11 @@ require 'rake/testtask'
 require 'rake/contrib/sshpublisher'
 
 module Mocha
-  VERSION = "0.9.0"
+  VERSION = "0.9.1"
 end
 
 desc "Run all tests"
-task 'default' => ['test:units', 'test:acceptance']
+task 'default' => ['test:units', 'test:acceptance', 'test:performance']
 
 namespace 'test' do
   
@@ -42,6 +42,23 @@ namespace 'test' do
   #   t.rcov_opts << '--xref'
   # end
 
+  desc "Run performance tests"
+  task 'performance' do
+    require 'test/acceptance/stubba_example_test'
+    require 'test/acceptance/mocha_example_test'
+    iterations = 1000
+    puts "\nBenchmarking with #{iterations} iterations..."
+    [MochaExampleTest, StubbaExampleTest].each do |test_case|
+      puts "#{test_case}: #{benchmark_test_case(test_case, iterations)} seconds."
+    end
+  end
+
+end
+
+def benchmark_test_case(klass, iterations)
+  require 'test/unit/ui/console/testrunner'
+  require 'benchmark'
+  time = Benchmark.realtime { iterations.times { Test::Unit::UI::Console::TestRunner.run(klass, Test::Unit::UI::SILENT) } }
 end
 
 desc 'Generate RDoc'
