@@ -1,3 +1,18 @@
-sqlite3:
-  :adapter: sqlite3
-  :dbfile: ":memory:"
+<% PASSWORD_FILE = File.join(RAILS_ROOT, '..', '..', 'shared', 'config', 'dbpassword') %>
+
+development:
+  adapter: mysql
+  database: <%= PROJECT_NAME %>_development
+  username: root
+  password: 
+  host: localhost
+  encoding: utf8
+  
+test:
+  adapter: mysql
+  database: <%= PROJECT_NAME %>_test
+  username: root
+  password: 
+  host: localhost
+  encoding: utf8
+
