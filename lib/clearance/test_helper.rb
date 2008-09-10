@@ -22,7 +22,7 @@ module Clearance
     
     module ClassMethods
       def should_deny_access_on(command, opts = {})
-        opts[:redirect] ||= "login_url"
+        opts[:redirect] ||= "root_url"
 
         context "on #{command}" do
           setup { eval command }
@@ -60,11 +60,11 @@ module Clearance
         end
       end
 
-      def logged_in_user_context(user_name = nil, &blk)
+      def logged_in_user_context(&blk)
         context "When logged in as a user" do
           setup do
-            @user = user_name ? instance_variable_get("@#{user_name}") : Factory(:user)
-            assert @current_user = login_as(@user)
+            @user = Factory(:user)
+            login_as(@user)
           end
           merge_block(&blk)
         end

@@ -1,0 +1,2 @@
+# move shoulda macros in test_helper to shoulda_macros folder
+

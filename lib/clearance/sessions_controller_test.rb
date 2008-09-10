@@ -42,7 +42,6 @@ module Clearance
             should_set_the_flash_to /bad/i
             should_render_template :new
           end
-
         end
 
         context "While logged out" do
@@ -73,8 +72,8 @@ module Clearance
             end
 
             should 'delete the remember me token in users table' do
-              assert_nil @current_user.reload.remember_token
-              assert_nil @current_user.reload.remember_token_expires_at
+              assert_nil @user.reload.remember_token
+              assert_nil @user.reload.remember_token_expires_at
             end
           end
         end

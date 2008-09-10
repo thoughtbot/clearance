@@ -33,7 +33,7 @@ module Clearance
               setup do
                 put :update, 
                   :id => @user.to_param, 
-                  :user => {:email => "none@example.com"}
+                  :user => { :email => "none@example.com" }
               end
               should_set_the_flash_to /updated/i
               should_redirect_to "root_url"
