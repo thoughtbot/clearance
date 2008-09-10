@@ -4,6 +4,7 @@ module Clearance
     def self.included(base)
       base.class_eval do
         before_filter :authenticate
+        before_filter :redirect_to_root, :only => [:new, :create], :if => :logged_in?
         before_filter :ensure_user_is_accessing_self, :only => [:edit, :update, :show]
 
         filter_parameter_logging :password
@@ -31,8 +32,8 @@ module Clearance
         @user = User.new params[:user]
         if @user.save
           current_user = @user
+          flash[:notice] = "User created and logged in."
           redirect_back_or root_url
-          flash[:notice] = "New user created and you are logged in."
         else
           render :action => "new"
         end
@@ -44,6 +45,13 @@ module Clearance
       
       def update
         @user = User.find params[:id]
+        
+        if @user.update_attributes params[:user]
+          flash[:notice] = "User updated."
+          redirect_back_or root_url
+        else
+          render :action => "edit"
+        end
       end
 
       def destroy

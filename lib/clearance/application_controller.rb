@@ -3,12 +3,12 @@ module Clearance
     
     def self.included(base)
       base.class_eval do
-        attr_accessor :current_user
         helper_method :current_user
+        helper_method :logged_in?
         
         include InstanceMethods
 
-      protected
+     protected
         include ProtectedInstanceMethods
       end
     end
@@ -17,15 +17,19 @@ module Clearance
       def current_user
         @current_user ||= (user_from_session || user_from_cookie)
       end
+      
+      def logged_in?
+        ! current_user.nil?
+      end
     end
 
     module ProtectedInstanceMethods
       def authenticate
-        deny_access if current_user.nil?
+        deny_access if self.current_user.nil?
       end
 
       def user_from_session
-        User.find_by_id(session[:user_id])
+        User.find_by_id session[:user_id]
       end
 
       def user_from_cookie
@@ -45,6 +49,10 @@ module Clearance
       def redirect_back_or(default)
         session[:return_to] ? redirect_to(session[:return_to]) : redirect_to(default)
         session[:return_to] = nil
+      end
+      
+      def redirect_to_root
+        redirect_to root_url
       end
 
       def store_location

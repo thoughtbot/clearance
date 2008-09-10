@@ -5,16 +5,20 @@ module Clearance
       base.class_eval do
         logged_in_user_context do
 
-          should_deny_access_on "get :index"
           should_deny_access_on "get :new"
           should_deny_access_on "post :create, :user => {}" 
           should_filter :password
 
-          context "dealing with their own account" do
+          context "viewing their account" do
             context "on GET to /users/:id/show" do
               setup { get :show, :id => @user.to_param }
-              should_redirect_to "edit_user_url(@user)"
+              should_respond_with :success
+              should_render_template :show
               should_not_set_the_flash
+              
+              should 'assign to @user' do
+                assert_equal @user, assigns(:user)
+              end
             end
 
             should_deny_access_on "delete :destroy, :id => @user.to_param"

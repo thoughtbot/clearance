@@ -50,9 +50,7 @@ module Clearance
       def should_have_user_form
         should "have the user form" do
           assert_select "form" do
-            %w(name email openid_url).each do |field|
-              assert_select "input[type=text][name=?]", "user[#{field}]"
-            end
+            assert_select "input[type=text][name=?]", "user[email]"
             %w(password password_confirmation).each do |field|
               assert_select "input[type=password][name=?]", "user[#{field}]"
             end
@@ -63,8 +61,8 @@ module Clearance
       def logged_in_user_context(&blk)
         context "When logged in as a user" do
           setup do
-            @user = Factory(:user)
-            login_as(@user)
+            @user = Factory :user
+            login_as @user
           end
           merge_block(&blk)
         end
