@@ -56,13 +56,12 @@ module Clearance
 
           context "dealing with another user's account" do
             setup do
-              @target_user = Factory(:user, :account => @user.account) 
-              assert_equal @user.account, @target_user.account
+              @user = Factory :user
             end
 
-            should_deny_access_on "get :show, :id => @target_user.to_param",                :flash => /cannot edit/i
-            should_deny_access_on "get :edit, :id => @target_user.to_param",                :flash => /cannot edit/i
-            should_deny_access_on "put :update, :id => @target_user.to_param, :user => {}", :flash => /cannot edit/i
+            should_deny_access_on "get :show, :id => @user.to_param",                :flash => /cannot edit/i
+            should_deny_access_on "get :edit, :id => @user.to_param",                :flash => /cannot edit/i
+            should_deny_access_on "put :update, :id => @user.to_param, :user => {}", :flash => /cannot edit/i
           end
         end
       end

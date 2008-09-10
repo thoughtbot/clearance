@@ -47,9 +47,12 @@ In app/controllers/users_controller.rb:
 
 h2. Routes
 
-    map.login  '/login',  :controller => 'sessions', :action => 'new'
-    map.logout '/logout', :controller => 'sessions', :action => 'destroy'
-    map.resource :session
+    map.root # :controller => 'sessions'
+    map.with_options :controller => 'sessions'  do |m|
+	    m.login  '/login',  :action => 'new'
+	    m.logout '/logout', :action => 'destroy'
+	  end
+	  map.resource :sessions
 
 h2. Tests
 

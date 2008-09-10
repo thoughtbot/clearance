@@ -63,8 +63,8 @@ module Clearance
       def logged_in_user_context(user_name = nil, &blk)
         context "When logged in as a user" do
           setup do
-            user = user_name ? instance_variable_get("@#{user_name}") : Factory(:user)
-            assert @current_user = login_as(user)
+            @user = user_name ? instance_variable_get("@#{user_name}") : Factory(:user)
+            assert @current_user = login_as(@user)
           end
           merge_block(&blk)
         end
