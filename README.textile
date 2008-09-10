@@ -15,44 +15,44 @@ h2. Schema
 
 Change your User model so it has these attributes.
 
-    change_table(:users) do |t|
-		  t.column :email, :string
-		  t.column :crypted_password, :string, :limit => 40
-		  t.column :salt, :string, :limit => 40
-		  t.column :remember_token, :string
-		  t.column :remember_token_expires_at, :datetime
-		end
+  change_table(:users) do |t|
+    t.column :email, :string
+    t.column :crypted_password, :string, :limit => 40
+    t.column :salt, :string, :limit => 40
+    t.column :remember_token, :string
+    t.column :remember_token_expires_at, :datetime
+  end
 
-	  add_index :users, [:email, :password]
+  add_index :users, [:email, :password]
 
 h2. Model
 
 In app/models/user.rb:
 
-    include Clearance::Model
+  include Clearance::Model
 
 h2. Controllers
 
 In app/controllers/application_controller.rb:
 
-    include Clearance::ApplicationController
+  include Clearance::ApplicationController
 
 In app/controllers/sessions_controller.rb:
 
-    include Clearance::SessionsController
+  include Clearance::SessionsController
 
 In app/controllers/users_controller.rb:
 
-    include Clearance::UsersController
+  include Clearance::UsersController
 
 h2. Routes
 
-    map.root # :controller => 'sessions'
-    map.with_options :controller => 'sessions'  do |m|
-	    m.login  '/login',  :action => 'new'
-	    m.logout '/logout', :action => 'destroy'
-	  end
-	  map.resource :sessions
+  map.root # :controller => 'sessions'
+  map.with_options :controller => 'sessions'  do |m|
+    m.login  '/login',  :action => 'new'
+    m.logout '/logout', :action => 'destroy'
+  end
+  map.resource :sessions
 
 h2. Tests
 
@@ -60,19 +60,19 @@ The tests use Shoulda and Factory Girl.
 
 In test/test_helper.rb: 
 
-    include Clearance::TestHelper
+  include Clearance::TestHelper
 
 In test/unit/user_test.rb: 
 
-    include Clearance::UnitTest
+  include Clearance::UnitTest
 
 In test/functional/sessions_controller_test.rb: 
 
-    include Clearance::SessionsControllerTest
+  include Clearance::SessionsControllerTest
 
 In test/functional/users_controller_test.rb: 
 
-    include Clearance::UsersControllerTest
+  include Clearance::UsersControllerTest
 
 h2. Authors
 
