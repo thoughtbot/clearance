@@ -7,3 +7,6 @@ Rake::TestTask.new do |t|
   t.pattern = test_files_pattern
   t.verbose = false
 end
+
+desc "Run the test suite"
+task :default => :test

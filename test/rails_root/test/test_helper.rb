@@ -6,6 +6,11 @@ require 'test_help'
 ActiveRecord::Migration.verbose = false
 ActiveRecord::Migrator.migrate("#{RAILS_ROOT}/db/migrate")
 
+gem 'mocha'
+gem 'quietbacktrace'
+gem 'thoughtbot-factory_girl' # from github
+
+require 'mocha'
 require 'quietbacktrace'
 require 'factory_girl'
 
