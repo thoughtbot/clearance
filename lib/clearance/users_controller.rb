@@ -18,6 +18,7 @@ module Clearance
 
     module InstanceMethods
       def index
+        @users = User.find :all
       end
       
       def new
