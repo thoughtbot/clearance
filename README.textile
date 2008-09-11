@@ -9,7 +9,7 @@ h2. Features
 * email & password
 * modules, not a generator
 * gem, not a plugin
-* should & factory_girl tests included
+* shoulda & factory_girl tests included
 
 h2. Schema
 

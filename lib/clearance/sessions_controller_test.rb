@@ -10,20 +10,20 @@ module Clearance
 
           should_filter :password
 
-          # context "on GET to /sessions/new" do
-          #   setup { get :new }
-          # 
-          #   should_respond_with :success
-          #   should_render_template :new
-          #   should_not_set_the_flash
-          #   should "render a login form" do
-          #     assert_select "form[action=/session]" do
-          #       assert_select "input[type=text][name=?]",     "session[email]"
-          #       assert_select "input[type=password][name=?]", "session[password]"
-          #       assert_select "input[type=checkbox][name=?]", "session[remember_me]"
-          #     end
-          #   end
-          # end
+          context "on GET to /sessions/new" do
+            setup { get :new }
+          
+            should_respond_with :success
+            should_render_template :new
+            should_not_set_the_flash
+            should "have login form" do
+              assert_select "form[action=/session]" do
+                assert_select "input[type=text][name=?]",     "session[email]"
+                assert_select "input[type=password][name=?]", "session[password]"
+                assert_select "input[type=checkbox][name=?]", "session[remember_me]"
+              end
+            end
+          end
 
           context "a POST to #create with good credentials" do
             setup do
@@ -32,6 +32,7 @@ module Clearance
 
             should_set_the_flash_to /success/i
             should_redirect_to 'root_url'
+            # should set session
           end
 
           context "a POST to #create with bad credentials" do
@@ -41,7 +42,10 @@ module Clearance
 
             should_set_the_flash_to /bad/i
             should_render_template :new
+            # should not set session
           end
+          
+          # two tests for remember me - success and failure
         end
 
         context "While logged out" do

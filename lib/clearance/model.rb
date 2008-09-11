@@ -8,9 +8,8 @@ module Clearance
         attr_accessor :password, :password_confirmation
 
         validates_presence_of     :email
-        validates_presence_of     :password,                   :if => :password_required?
-        validates_length_of       :password, :within => 3..40, :if => :password_required?
-        validates_confirmation_of :password,                   :if => :password_required?
+        validates_presence_of     :password, :if => :password_required?
+        validates_confirmation_of :password, :if => :password_required?
         validates_uniqueness_of   :email
 
         before_save :initialize_salt, :encrypt_password
@@ -27,13 +26,8 @@ module Clearance
     
     module ClassMethods
       def authenticate(email, password)
-        user = find_by_email(email) # need to get the salt
+        user = find_by_email email
         user && user.authenticated?(password) ? user : nil
-      end
-
-      def authenticate_via_auth_token(token)
-        return nil if token.blank?
-        find_by_auth_token(token)
       end
     end
     
@@ -43,7 +37,7 @@ module Clearance
       end
 
       def encrypt(password)
-        Digest::SHA1.hexdigest("--#{salt}--#{password}--")
+        Digest::SHA1.hexdigest "--#{salt}--#{password}--"
       end
 
       def remember_token?

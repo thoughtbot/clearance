@@ -48,16 +48,15 @@ module Clearance
       end
       
       def should_have_user_form
-        should "have the user form" do
+        should "have user form" do
           assert_select "form" do
             assert_select "input[type=text][name=?]", "user[email]"
-            %w(password password_confirmation).each do |field|
-              assert_select "input[type=password][name=?]", "user[#{field}]"
-            end
+            assert_select "input[type=password][name=?]", "user[password]"
+            assert_select "input[type=password][name=?]", "user[password_confirmation]"
           end
         end
       end
-
+      
       def logged_in_user_context(&blk)
         context "When logged in as a user" do
           setup do

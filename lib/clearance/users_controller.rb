@@ -63,6 +63,7 @@ module Clearance
 
     module PrivateInstanceMethods
       def ensure_user_is_accessing_self
+        return if current_user and current_user.respond_to?(:admin?) and current_user.admin?
         deny_access 'You cannot edit that user.' unless current_user.id.to_i == params[:id].to_i
       end
     end

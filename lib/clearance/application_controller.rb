@@ -25,7 +25,7 @@ module Clearance
 
     module ProtectedInstanceMethods
       def authenticate
-        deny_access if self.current_user.nil?
+        deny_access unless self.current_user
       end
 
       def user_from_session
