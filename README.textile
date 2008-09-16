@@ -62,12 +62,12 @@ In app/controllers/users_controller.rb:
 
 h2. Routes
 
-  map.root # :controller => 'sessions'
+  map.root # '/', :controller => 'sessions', :action => 'new'
   map.with_options :controller => 'sessions'  do |m|
     m.login  '/login',  :action => 'new'
     m.logout '/logout', :action => 'destroy'
   end
-  map.resource :sessions
+  map.resource :session
 
 h2. Tests
 
