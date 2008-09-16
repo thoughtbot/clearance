@@ -30364,3 +30364,735 @@ Processing UsersController#destroy (for 0.0.0.0 at 2008-09-10 20:47:05) [DELETE]
 Redirected to http://test.host/
 Completed in 0.00183 (545 reqs/sec) | DB: 0.00180 (97%) | 302 Found [http://test.host/users/2917]
   [4;35;1mSQL (0.000474)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000249)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.000288)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.000771)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (0.011541)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateUsers (1)
+  [4;36;1mSQL (0.000238)[0m   [0;1mSELECT version FROM schema_migrations[0m
+  [4;35;1mSQL (0.000521)[0m   [0mSHOW TABLES[0m
+  [4;36;1mSQL (0.000268)[0m   [0;1mSELECT version FROM schema_migrations[0m
+Migrating to CreateUsers (1)
+  [4;35;1mSQL (0.000177)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.000153)[0m   [0;1mBEGIN[0m
+  [4;35;1mUser Columns (0.017334)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mSQL (0.000366)[0m   [0;1mSELECT `email` FROM `users` WHERE (`users`.email = 'user1@example.com') [0m
+  [4;35;1mUser Create (0.000233)[0m   [0mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('6b5bfd41f65b3345160cadac33b4273157ee0085', '12c27f82e22477fb0b3ed2159a643b0cda696e39', NULL, NULL, 'user1@example.com')[0m
+
+
+Processing SessionsController#create (for 0.0.0.0 at 2008-09-15 16:56:00) [POST]
+  Session ID: 
+  Parameters: {"action"=>"create", "session"=>{"password"=>"[FILTERED]", "email"=>"user1@example.com"}, "controller"=>"sessions"}
+  [4;36;1mUser Load (0.000385)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`email` = 'user1@example.com') LIMIT 1[0m
+Rendering template within layouts/application
+Rendering sessions/new
+Rendered layouts/_flashes (0.00008)
+Completed in 0.02942 (33 reqs/sec) | Rendering: 0.02473 (84%) | DB: 0.03252 (110%) | 200 OK [http://test.host/session?session%5Bemail%5D=user1%40example.com&session%5Bpassword%5D=bad+value]
+  [4;35;1mSQL (0.000645)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000147)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.000336)[0m   [0mSELECT `email` FROM `users` WHERE (`users`.email = 'user2@example.com') [0m
+  [4;36;1mUser Create (0.000237)[0m   [0;1mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('a0bc4c621d1e2e4b7b2021689416b16f9659b84a', 'be9b3ea8e79cd2d13c18786c64562e4682c55c43', NULL, NULL, 'user2@example.com')[0m
+
+
+Processing SessionsController#create (for 0.0.0.0 at 2008-09-15 16:56:00) [POST]
+  Session ID: 
+  Parameters: {"action"=>"create", "session"=>{"password"=>"[FILTERED]", "email"=>"user2@example.com"}, "controller"=>"sessions"}
+  [4;35;1mUser Load (0.000366)[0m   [0mSELECT * FROM `users` WHERE (`users`.`email` = 'user2@example.com') LIMIT 1[0m
+Rendering template within layouts/application
+Rendering sessions/new
+Rendered layouts/_flashes (0.00005)
+Completed in 0.00523 (191 reqs/sec) | Rendering: 0.00348 (66%) | DB: 0.00173 (33%) | 200 OK [http://test.host/session?session%5Bemail%5D=user2%40example.com&session%5Bpassword%5D=bad+value]
+  [4;36;1mSQL (0.000601)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000147)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.000358)[0m   [0;1mSELECT `email` FROM `users` WHERE (`users`.email = 'user3@example.com') [0m
+  [4;35;1mUser Create (0.000260)[0m   [0mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('4b3b039d3beb984e48394fba1f6122dd990920ab', '198712547c1091f68082337215db8d6cdfbf7670', NULL, NULL, 'user3@example.com')[0m
+
+
+Processing SessionsController#create (for 0.0.0.0 at 2008-09-15 16:56:00) [POST]
+  Session ID: 
+  Parameters: {"action"=>"create", "session"=>{"password"=>"[FILTERED]", "email"=>"user3@example.com"}, "controller"=>"sessions"}
+  [4;36;1mUser Load (0.000319)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`email` = 'user3@example.com') LIMIT 1[0m
+Redirected to http://test.host/
+Completed in 0.00132 (757 reqs/sec) | DB: 0.00169 (127%) | 302 Found [http://test.host/session?session%5Bemail%5D=user3%40example.com&session%5Bpassword%5D=sekrit]
+  [4;35;1mSQL (0.000735)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000122)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.000267)[0m   [0mSELECT `email` FROM `users` WHERE (`users`.email = 'user4@example.com') [0m
+  [4;36;1mUser Create (0.000222)[0m   [0;1mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('84e6302c97c44cde4ea4b79bf6ecdc6d255bfe1c', '6b704bde3d12252976d68f20817400696141ae67', NULL, NULL, 'user4@example.com')[0m
+
+
+Processing SessionsController#create (for 0.0.0.0 at 2008-09-15 16:56:00) [POST]
+  Session ID: 
+  Parameters: {"action"=>"create", "session"=>{"password"=>"[FILTERED]", "email"=>"user4@example.com"}, "controller"=>"sessions"}
+  [4;35;1mUser Load (0.000343)[0m   [0mSELECT * FROM `users` WHERE (`users`.`email` = 'user4@example.com') LIMIT 1[0m
+Redirected to http://test.host/
+Completed in 0.00140 (714 reqs/sec) | DB: 0.00169 (120%) | 302 Found [http://test.host/session?session%5Bemail%5D=user4%40example.com&session%5Bpassword%5D=sekrit]
+  [4;36;1mSQL (0.000542)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000138)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.000272)[0m   [0;1mSELECT `email` FROM `users` WHERE (`users`.email = 'user5@example.com') [0m
+  [4;35;1mUser Create (0.000224)[0m   [0mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('e11303d191d4a17d9be2932ad7c8dc2e871d4687', 'b4d362cebdc6f953ee4a279ec27b1b76c549d45b', NULL, NULL, 'user5@example.com')[0m
+
+
+Processing SessionsController#new (for 0.0.0.0 at 2008-09-15 16:56:00) [GET]
+  Session ID: 
+  Parameters: {"action"=>"new", "controller"=>"sessions"}
+Rendering template within layouts/application
+Rendering sessions/new
+Rendered layouts/_flashes (0.00004)
+Completed in 0.00370 (270 reqs/sec) | Rendering: 0.00326 (88%) | DB: 0.00118 (31%) | 200 OK [http://test.host/session/new]
+  [4;36;1mSQL (0.000720)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000125)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.000352)[0m   [0;1mSELECT `email` FROM `users` WHERE (`users`.email = 'user6@example.com') [0m
+  [4;35;1mUser Create (0.000267)[0m   [0mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('2a7f9eca1a0ffd1b4bfd087c72e1c149dd0ead67', '1da655a296f3e3fe87dfd1b6d9667064e498959e', NULL, NULL, 'user6@example.com')[0m
+
+
+Processing SessionsController#new (for 0.0.0.0 at 2008-09-15 16:56:00) [GET]
+  Session ID: 
+  Parameters: {"action"=>"new", "controller"=>"sessions"}
+Rendering template within layouts/application
+Rendering sessions/new
+Rendered layouts/_flashes (0.00009)
+Completed in 0.00358 (279 reqs/sec) | Rendering: 0.00316 (88%) | DB: 0.00146 (40%) | 200 OK [http://test.host/session/new]
+  [4;36;1mSQL (0.000529)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000131)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.000300)[0m   [0;1mSELECT `email` FROM `users` WHERE (`users`.email = 'user7@example.com') [0m
+  [4;35;1mUser Create (0.000236)[0m   [0mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('95efd72fd3b055964335f5b801cbb496b9ea9ece', '450b75db46784ee7b585588eb6df5e96c589a6c6', NULL, NULL, 'user7@example.com')[0m
+
+
+Processing SessionsController#new (for 0.0.0.0 at 2008-09-15 16:56:00) [GET]
+  Session ID: 
+  Parameters: {"action"=>"new", "controller"=>"sessions"}
+Rendering template within layouts/application
+Rendering sessions/new
+Rendered layouts/_flashes (0.00004)
+Completed in 0.00361 (277 reqs/sec) | Rendering: 0.00315 (87%) | DB: 0.00120 (33%) | 200 OK [http://test.host/session/new]
+  [4;36;1mSQL (0.000573)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000126)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.000320)[0m   [0;1mSELECT `email` FROM `users` WHERE (`users`.email = 'user8@example.com') [0m
+  [4;35;1mUser Create (0.000242)[0m   [0mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('8225bc46336c2337fdb5793051491dd7a6c7cbf4', '0dc9dd5073088498c2790b23ba4609d53bbe57e5', NULL, NULL, 'user8@example.com')[0m
+
+
+Processing SessionsController#new (for 0.0.0.0 at 2008-09-15 16:56:00) [GET]
+  Session ID: 
+  Parameters: {"action"=>"new", "controller"=>"sessions"}
+Rendering template within layouts/application
+Rendering sessions/new
+Rendered layouts/_flashes (0.00003)
+Completed in 0.00355 (281 reqs/sec) | Rendering: 0.00309 (87%) | DB: 0.00126 (35%) | 200 OK [http://test.host/session/new]
+  [4;36;1mSQL (0.000592)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000129)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.000326)[0m   [0;1mSELECT `email` FROM `users` WHERE (`users`.email = 'user9@example.com') [0m
+  [4;35;1mUser Create (0.000236)[0m   [0mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('4c48a7914ffba1828360d25e62f50e96561c806a', '1453b48659f62bc281c8490c47fd87453ded456b', NULL, NULL, 'user9@example.com')[0m
+  [4;36;1mSQL (0.000540)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000113)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.000385)[0m   [0;1mSELECT `email` FROM `users` WHERE (`users`.email = 'user10@example.com') [0m
+  [4;35;1mUser Create (0.000269)[0m   [0mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('5ab4f1c02a65318dd9e02392630ba9fdf3d28689', 'ce08a91cb2099be285a4ca0b5a9b731c15c07ad3', NULL, NULL, 'user10@example.com')[0m
+
+
+Processing SessionsController#destroy (for 0.0.0.0 at 2008-09-15 16:56:00) [DELETE]
+  Session ID: 
+  Parameters: {"action"=>"destroy", "controller"=>"sessions"}
+  [4;36;1mUser Load (0.000279)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 2927) LIMIT 1[0m
+Cookie set: auth_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT
+Redirected to http://test.host/login
+Completed in 0.00275 (363 reqs/sec) | DB: 0.00287 (104%) | 302 Found [http://test.host/session]
+  [4;35;1mSQL (0.000647)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000143)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.000284)[0m   [0mSELECT `email` FROM `users` WHERE (`users`.email = 'user11@example.com') [0m
+  [4;36;1mUser Create (0.000377)[0m   [0;1mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('814421b89d4dc25e3f906898f84023c292593bd4', '41f4bf38f436752007f6aae2a14e947bd6ec1989', NULL, NULL, 'user11@example.com')[0m
+
+
+Processing SessionsController#destroy (for 0.0.0.0 at 2008-09-15 16:56:00) [DELETE]
+  Session ID: 
+  Parameters: {"action"=>"destroy", "controller"=>"sessions"}
+  [4;35;1mUser Load (0.000268)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 2928) LIMIT 1[0m
+Cookie set: auth_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT
+Redirected to http://test.host/login
+Completed in 0.00254 (393 reqs/sec) | DB: 0.00172 (67%) | 302 Found [http://test.host/session]
+  [4;36;1mUser Load (0.000213)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 2928) [0m
+  [4;35;1mUser Load (0.000150)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 2928) [0m
+  [4;36;1mSQL (0.000463)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000100)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.000203)[0m   [0;1mSELECT `email` FROM `users` WHERE (`users`.email = 'user12@example.com') [0m
+  [4;35;1mUser Create (0.000173)[0m   [0mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('da5c945d318302f43cfc43ffa1eeb21b2380345c', '17debcae1ae185ee098af2e3658e84939ff72dfe', NULL, NULL, 'user12@example.com')[0m
+
+
+Processing SessionsController#destroy (for 0.0.0.0 at 2008-09-15 16:56:00) [DELETE]
+  Session ID: 
+  Parameters: {"action"=>"destroy", "controller"=>"sessions"}
+  [4;36;1mUser Load (0.000174)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 2929) LIMIT 1[0m
+Cookie set: auth_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT
+Redirected to http://test.host/login
+Completed in 0.00191 (522 reqs/sec) | DB: 0.00148 (77%) | 302 Found [http://test.host/session]
+  [4;35;1mSQL (0.000451)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000080)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.000229)[0m   [0mSELECT `email` FROM `users` WHERE (`users`.email = 'user13@example.com') [0m
+  [4;36;1mUser Create (0.000172)[0m   [0;1mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('516a0c4b7774a31c34d6ec90fdba3a9781c71229', '640e4bc965b11ee94a50e639b6839c9dbf9e5509', NULL, NULL, 'user13@example.com')[0m
+
+
+Processing SessionsController#destroy (for 0.0.0.0 at 2008-09-15 16:56:00) [DELETE]
+  Session ID: 
+  Parameters: {"action"=>"destroy", "controller"=>"sessions"}
+  [4;35;1mUser Load (0.000177)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 2930) LIMIT 1[0m
+Cookie set: auth_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT
+Redirected to http://test.host/login
+Completed in 0.00206 (485 reqs/sec) | DB: 0.00111 (53%) | 302 Found [http://test.host/session]
+  [4;36;1mSQL (0.000574)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000081)[0m   [0mBEGIN[0m
+
+
+Processing SessionsController#destroy (for 0.0.0.0 at 2008-09-15 16:56:00) [DELETE]
+  Session ID: 
+  Parameters: {"action"=>"destroy", "controller"=>"sessions"}
+  [4;36;1mUser Load (0.000208)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` IS NULL) LIMIT 1[0m
+Cookie set: auth_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT
+Redirected to http://test.host/login
+Completed in 0.00116 (862 reqs/sec) | DB: 0.00086 (74%) | 302 Found [http://test.host/session]
+  [4;35;1mSQL (0.000125)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000099)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.000256)[0m   [0mSELECT `email` FROM `users` WHERE (`users`.email = 'user14@example.com') [0m
+  [4;36;1mUser Create (0.000194)[0m   [0;1mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('salt', '01750c12122ad204a99ce23533374b5ddb7206e5', NULL, NULL, 'user14@example.com')[0m
+  [4;35;1mUser Load (0.000231)[0m   [0mSELECT * FROM `users` WHERE (`users`.`email` = 'user14@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.000415)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000075)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.000280)[0m   [0;1mSELECT `email` FROM `users` WHERE (`users`.email = 'user15@example.com') [0m
+  [4;35;1mUser Create (0.000177)[0m   [0mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('salt', '01750c12122ad204a99ce23533374b5ddb7206e5', NULL, NULL, 'user15@example.com')[0m
+  [4;36;1mUser Load (0.000191)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`email` = 'not') LIMIT 1[0m
+  [4;35;1mSQL (0.000441)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000096)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.000256)[0m   [0mSELECT `email` FROM `users` WHERE (`users`.email = 'user16@example.com') [0m
+  [4;36;1mUser Create (0.000180)[0m   [0;1mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('salt', '01750c12122ad204a99ce23533374b5ddb7206e5', NULL, NULL, 'user16@example.com')[0m
+  [4;35;1mSQL (0.000449)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000075)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.000208)[0m   [0mSELECT `email` FROM `users` WHERE (`users`.email = 'user17@example.com') [0m
+  [4;36;1mUser Create (0.000162)[0m   [0;1mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('salt', '01750c12122ad204a99ce23533374b5ddb7206e5', NULL, NULL, 'user17@example.com')[0m
+  [4;35;1mSQL (0.000402)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000072)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.000193)[0m   [0mSELECT `email` FROM `users` WHERE (`users`.email = 'user18@example.com') [0m
+  [4;36;1mUser Create (0.000160)[0m   [0;1mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('salt', '01750c12122ad204a99ce23533374b5ddb7206e5', NULL, NULL, 'user18@example.com')[0m
+  [4;35;1mUser Load (0.000204)[0m   [0mSELECT * FROM `users` WHERE (`users`.`email` = 'user18@example.com') LIMIT 1[0m
+  [4;36;1mSQL (0.000412)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000075)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.000209)[0m   [0;1mSELECT `email` FROM `users` WHERE (`users`.email = 'user19@example.com') [0m
+  [4;35;1mUser Create (0.000155)[0m   [0mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('salt', '01750c12122ad204a99ce23533374b5ddb7206e5', NULL, NULL, 'user19@example.com')[0m
+  [4;36;1mUser Load (0.000234)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`email` = 'user19@example.com') LIMIT 1[0m
+  [4;35;1mSQL (0.000533)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000098)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.000198)[0m   [0mSELECT `email` FROM `users` WHERE (`users`.email = 'user20@example.com') [0m
+  [4;36;1mUser Create (0.000307)[0m   [0;1mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('salt', '01750c12122ad204a99ce23533374b5ddb7206e5', NULL, NULL, 'user20@example.com')[0m
+  [4;35;1mSQL (0.000467)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000101)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.000252)[0m   [0mSELECT `email` FROM `users` WHERE (`users`.email = 'user21@example.com') [0m
+  [4;36;1mUser Create (0.000213)[0m   [0;1mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('salt', '01750c12122ad204a99ce23533374b5ddb7206e5', NULL, NULL, 'user21@example.com')[0m
+  [4;35;1mUser Update (0.000416)[0m   [0mUPDATE `users` SET `remember_token_expires_at` = '2008-09-29 20:56:00' WHERE `id` = 2938[0m
+  [4;36;1mUser Update (0.000229)[0m   [0;1mUPDATE `users` SET `remember_token` = '8ad992545d4c71a935bc94bb35bd37b0239e1791' WHERE `id` = 2938[0m
+  [4;35;1mUser Update (0.000231)[0m   [0mUPDATE `users` SET `remember_token_expires_at` = NULL WHERE `id` = 2938[0m
+  [4;36;1mUser Update (0.000163)[0m   [0;1mUPDATE `users` SET `remember_token` = NULL WHERE `id` = 2938[0m
+  [4;35;1mSQL (0.000540)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000088)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.000262)[0m   [0mSELECT `email` FROM `users` WHERE (`users`.email = 'user22@example.com') [0m
+  [4;36;1mUser Create (0.000180)[0m   [0;1mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('salt', '01750c12122ad204a99ce23533374b5ddb7206e5', NULL, NULL, 'user22@example.com')[0m
+  [4;35;1mUser Update (0.000215)[0m   [0mUPDATE `users` SET `remember_token_expires_at` = '2008-09-29 20:56:00' WHERE `id` = 2939[0m
+  [4;36;1mUser Update (0.000165)[0m   [0;1mUPDATE `users` SET `remember_token` = '9da9882cfd8031c63872046b67df2ebf9fa83696' WHERE `id` = 2939[0m
+  [4;35;1mUser Update (0.000204)[0m   [0mUPDATE `users` SET `remember_token_expires_at` = NULL WHERE `id` = 2939[0m
+  [4;36;1mUser Update (0.000239)[0m   [0;1mUPDATE `users` SET `remember_token` = NULL WHERE `id` = 2939[0m
+  [4;35;1mSQL (0.000652)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000141)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.000237)[0m   [0mSELECT `email` FROM `users` WHERE (`users`.email = 'user23@example.com') [0m
+  [4;36;1mUser Create (0.000174)[0m   [0;1mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('salt', '01750c12122ad204a99ce23533374b5ddb7206e5', NULL, NULL, 'user23@example.com')[0m
+  [4;35;1mUser Update (0.000208)[0m   [0mUPDATE `users` SET `remember_token_expires_at` = '2008-09-29 20:56:00' WHERE `id` = 2940[0m
+  [4;36;1mUser Update (0.000198)[0m   [0;1mUPDATE `users` SET `remember_token` = '508231cc86af7a559800f1a1e943e65cc7f99f86' WHERE `id` = 2940[0m
+  [4;35;1mSQL (0.000531)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000076)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.000219)[0m   [0mSELECT `email` FROM `users` WHERE (`users`.email = 'user24@example.com') [0m
+  [4;36;1mUser Create (0.000168)[0m   [0;1mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('salt', '01750c12122ad204a99ce23533374b5ddb7206e5', NULL, NULL, 'user24@example.com')[0m
+  [4;35;1mUser Update (0.000303)[0m   [0mUPDATE `users` SET `remember_token_expires_at` = '2008-09-29 20:56:00' WHERE `id` = 2941[0m
+  [4;36;1mUser Update (0.000349)[0m   [0;1mUPDATE `users` SET `remember_token` = 'b52110e098b1ddcfb84be19c3875becd0f293029' WHERE `id` = 2941[0m
+  [4;35;1mSQL (0.000596)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000077)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.000228)[0m   [0mSELECT `email` FROM `users` WHERE (`users`.email = 'user25@example.com') [0m
+  [4;36;1mUser Create (0.000194)[0m   [0;1mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('salt', '01750c12122ad204a99ce23533374b5ddb7206e5', NULL, NULL, 'user25@example.com')[0m
+  [4;35;1mUser Update (0.000221)[0m   [0mUPDATE `users` SET `remember_token_expires_at` = '2008-09-01 20:56:00' WHERE `id` = 2942[0m
+  [4;36;1mSQL (0.000491)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000082)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.000205)[0m   [0;1mSELECT `email` FROM `users` WHERE (`users`.email = 'user26@example.com') [0m
+  [4;35;1mUser Create (0.000164)[0m   [0mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('salt', '01750c12122ad204a99ce23533374b5ddb7206e5', NULL, NULL, 'user26@example.com')[0m
+  [4;36;1mUser Update (0.000198)[0m   [0;1mUPDATE `users` SET `remember_token_expires_at` = '2008-09-29 20:56:00' WHERE `id` = 2943[0m
+  [4;35;1mSQL (0.000510)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000077)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.000234)[0m   [0mSELECT `email` FROM `users` WHERE (`users`.email = 'user27@example.com') [0m
+  [4;36;1mUser Create (0.000187)[0m   [0;1mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('salt', '01750c12122ad204a99ce23533374b5ddb7206e5', NULL, NULL, 'user27@example.com')[0m
+  [4;35;1mSQL (0.000275)[0m   [0mSELECT `email` FROM `users` WHERE (`users`.email = 'user27@example.com' AND `users`.id <> 2944) [0m
+  [4;36;1mSQL (0.000196)[0m   [0;1mSELECT `email` FROM `users` WHERE (`users`.email = 'user27@example.com' AND `users`.id <> 2944) [0m
+  [4;35;1mSQL (0.000520)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000079)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.000217)[0m   [0mSELECT `email` FROM `users` WHERE (`users`.email = 'user28@example.com') [0m
+  [4;36;1mUser Create (0.000193)[0m   [0;1mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('salt', '01750c12122ad204a99ce23533374b5ddb7206e5', NULL, NULL, 'user28@example.com')[0m
+  [4;35;1mUser Load (0.000168)[0m   [0mSELECT * FROM `users` LIMIT 1[0m
+  [4;36;1mSQL (0.000211)[0m   [0;1mSELECT `email` FROM `users` WHERE (`users`.email = 'user28@example.com') [0m
+  [4;35;1mSQL (0.000593)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000123)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.000359)[0m   [0mSELECT `email` FROM `users` WHERE (`users`.email = 'user29@example.com') [0m
+  [4;36;1mUser Create (0.000236)[0m   [0;1mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('c7610e2430ec6fa0a14ba19d85d74a9c5b8c17cd', '9d070d78a093bec5b74b51c348f2fc262c60ed74', NULL, NULL, 'user29@example.com')[0m
+  [4;35;1mSQL (0.000542)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000139)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.000278)[0m   [0mSELECT `email` FROM `users` WHERE (`users`.email IS NULL) [0m
+  [4;36;1mSQL (0.000148)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000121)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.000248)[0m   [0;1mSELECT `email` FROM `users` WHERE (`users`.email IS NULL) [0m
+  [4;35;1mSQL (0.000145)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000135)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.000244)[0m   [0mSELECT `email` FROM `users` WHERE (`users`.email = 'user30@example.com') [0m
+  [4;36;1mSQL (0.000133)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000226)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.000314)[0m   [0;1mSELECT `email` FROM `users` WHERE (`users`.email = 'user31@example.com') [0m
+  [4;35;1mUser Create (0.000370)[0m   [0mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('b79d0aac14c304ce8888c4efa7d1f3cbf5f85852', 'b2e6c541bba5ef8b92bea903ea0084144b06e8ac', NULL, NULL, 'user31@example.com')[0m
+  [4;36;1mSQL (0.000311)[0m   [0;1mSELECT `email` FROM `users` WHERE (`users`.email = 'user31@example.com' AND `users`.id <> 2947) [0m
+  [4;35;1mUser Update (0.000229)[0m   [0mUPDATE `users` SET `crypted_password` = '13826407490fc6f47f640b5301d624354956d7a2' WHERE `id` = 2947[0m
+  [4;36;1mUser Load (0.000200)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 2947) [0m
+  [4;35;1mSQL (0.000594)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000115)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.000368)[0m   [0mSELECT `email` FROM `users` WHERE (`users`.email = 'user32@example.com') [0m
+  [4;36;1mUser Create (0.000228)[0m   [0;1mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('4bc7a17b4cba75119cad9eb3e14437df5bc7515c', 'e281522d99437d08f5f653fa332dea14def70cc7', NULL, NULL, 'user32@example.com')[0m
+  [4;35;1mSQL (0.000205)[0m   [0mSELECT `email` FROM `users` WHERE (`users`.email = 'user33@example.com') [0m
+  [4;36;1mUser Create (0.000223)[0m   [0;1mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('03f9ae3ed4def60c36f97ff95dae4fc1ba5129a7', '2a46873edcf263a5b4c088374aa1a89f23f06f89', NULL, NULL, 'user33@example.com')[0m
+
+
+Processing UsersController#edit (for 0.0.0.0 at 2008-09-15 16:56:00) [GET]
+  Session ID: 
+  Parameters: {"action"=>"edit", "id"=>"2949", "controller"=>"users"}
+  [4;35;1mUser Load (0.000227)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 2948) LIMIT 1[0m
+Redirected to http://test.host/login
+Filter chain halted as [:ensure_user_is_accessing_self] rendered_or_redirected.
+Completed in 0.00100 (996 reqs/sec) | DB: 0.02676 (2667%) | 302 Found [http://test.host/users/2949/edit]
+  [4;36;1mSQL (0.000903)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000164)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.000282)[0m   [0;1mSELECT `email` FROM `users` WHERE (`users`.email = 'user34@example.com') [0m
+  [4;35;1mUser Create (0.000227)[0m   [0mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('4ae5164d5239554833d422173596018f266394e9', '9f5cd5ab92d06acaafbaa34d8c921a5647f3da7e', NULL, NULL, 'user34@example.com')[0m
+  [4;36;1mSQL (0.000225)[0m   [0;1mSELECT `email` FROM `users` WHERE (`users`.email = 'user35@example.com') [0m
+  [4;35;1mUser Create (0.000202)[0m   [0mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('67088c628dfc5ff0d7130752978e310dcc974abf', '218bb8d4af95e7b28c939fec8f91b7d4acd9a975', NULL, NULL, 'user35@example.com')[0m
+
+
+Processing UsersController#edit (for 0.0.0.0 at 2008-09-15 16:56:00) [GET]
+  Session ID: 
+  Parameters: {"action"=>"edit", "id"=>"2951", "controller"=>"users"}
+  [4;36;1mUser Load (0.000183)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 2950) LIMIT 1[0m
+Redirected to http://test.host/login
+Filter chain halted as [:ensure_user_is_accessing_self] rendered_or_redirected.
+Completed in 0.00091 (1097 reqs/sec) | DB: 0.00219 (239%) | 302 Found [http://test.host/users/2951/edit]
+  [4;35;1mSQL (0.000514)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000235)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.000249)[0m   [0mSELECT `email` FROM `users` WHERE (`users`.email = 'user36@example.com') [0m
+  [4;36;1mUser Create (0.000297)[0m   [0;1mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('70cee4133dd40fabb3b852fb480f1fedbe7e7122', '79cd1fba0cd7240494f24aba1f2a8b040d2ac77b', NULL, NULL, 'user36@example.com')[0m
+  [4;35;1mSQL (0.000194)[0m   [0mSELECT `email` FROM `users` WHERE (`users`.email = 'user37@example.com') [0m
+  [4;36;1mUser Create (0.000154)[0m   [0;1mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('775ecac59f6272ce92cc682bd782c2f32d110bc2', 'bdd1ee692b3f18e222ba1a1faa44fe1ba36e63c5', NULL, NULL, 'user37@example.com')[0m
+
+
+Processing UsersController#show (for 0.0.0.0 at 2008-09-15 16:56:00) [GET]
+  Session ID: 
+  Parameters: {"action"=>"show", "id"=>"2953", "controller"=>"users"}
+  [4;35;1mUser Load (0.000189)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 2952) LIMIT 1[0m
+Redirected to http://test.host/login
+Filter chain halted as [:ensure_user_is_accessing_self] rendered_or_redirected.
+Completed in 0.00095 (1049 reqs/sec) | DB: 0.00183 (192%) | 302 Found [http://test.host/users/2953]
+  [4;36;1mSQL (0.000484)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000080)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.000215)[0m   [0;1mSELECT `email` FROM `users` WHERE (`users`.email = 'user38@example.com') [0m
+  [4;35;1mUser Create (0.000179)[0m   [0mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('a9e47e330b91cecbe1f8d1a5cc3bded92316235e', '5789281f7ab04474f6b65868386516bb0b2a4ce5', NULL, NULL, 'user38@example.com')[0m
+  [4;36;1mSQL (0.000176)[0m   [0;1mSELECT `email` FROM `users` WHERE (`users`.email = 'user39@example.com') [0m
+  [4;35;1mUser Create (0.000149)[0m   [0mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('c8401ae2499f9c5892d3a6288298a47d278fdd6c', 'd3aec126025be7761064deb51e05019ebe5ace67', NULL, NULL, 'user39@example.com')[0m
+
+
+Processing UsersController#show (for 0.0.0.0 at 2008-09-15 16:56:00) [GET]
+  Session ID: 
+  Parameters: {"action"=>"show", "id"=>"2955", "controller"=>"users"}
+  [4;36;1mUser Load (0.000187)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 2954) LIMIT 1[0m
+Redirected to http://test.host/login
+Filter chain halted as [:ensure_user_is_accessing_self] rendered_or_redirected.
+Completed in 0.00091 (1093 reqs/sec) | DB: 0.00147 (160%) | 302 Found [http://test.host/users/2955]
+  [4;35;1mSQL (0.000487)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000076)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.000261)[0m   [0mSELECT `email` FROM `users` WHERE (`users`.email = 'user40@example.com') [0m
+  [4;36;1mUser Create (0.000176)[0m   [0;1mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('7239778f0db2a86afa21fdc0c489b686225fa98a', 'd9857d7b14cef7db921ba8d5adf59ed5f77f646a', NULL, NULL, 'user40@example.com')[0m
+  [4;35;1mSQL (0.000211)[0m   [0mSELECT `email` FROM `users` WHERE (`users`.email = 'user41@example.com') [0m
+  [4;36;1mUser Create (0.000162)[0m   [0;1mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('00f9f398062bfad6e374bbcde160046be1d210df', '934739941292bdd60e9559685f7309fb83ccd9fb', NULL, NULL, 'user41@example.com')[0m
+
+
+Processing UsersController#update (for 0.0.0.0 at 2008-09-15 16:56:00) [PUT]
+  Session ID: 
+  Parameters: {"user"=>{}, "action"=>"update", "id"=>"2957", "controller"=>"users"}
+  [4;35;1mUser Load (0.000342)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 2956) LIMIT 1[0m
+Redirected to http://test.host/login
+Filter chain halted as [:ensure_user_is_accessing_self] rendered_or_redirected.
+Completed in 0.00121 (827 reqs/sec) | DB: 0.00172 (142%) | 302 Found [http://test.host/users/2957?]
+  [4;36;1mSQL (0.000594)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000081)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.000243)[0m   [0;1mSELECT `email` FROM `users` WHERE (`users`.email = 'user42@example.com') [0m
+  [4;35;1mUser Create (0.000226)[0m   [0mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('2fd913ae3e607615bad4d26ac76c6004fe375300', '9127b88540e4e9e9378cb0e4fdaec831c8cf7ba9', NULL, NULL, 'user42@example.com')[0m
+  [4;36;1mSQL (0.000196)[0m   [0;1mSELECT `email` FROM `users` WHERE (`users`.email = 'user43@example.com') [0m
+  [4;35;1mUser Create (0.000162)[0m   [0mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('983c6d29bb2ce4098573f999a586af52c4f138bf', 'e5ab6c7c768cf80914b5338b16009c24253f7aa6', NULL, NULL, 'user43@example.com')[0m
+
+
+Processing UsersController#update (for 0.0.0.0 at 2008-09-15 16:56:00) [PUT]
+  Session ID: 
+  Parameters: {"user"=>{}, "action"=>"update", "id"=>"2959", "controller"=>"users"}
+  [4;36;1mUser Load (0.000201)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 2958) LIMIT 1[0m
+Redirected to http://test.host/login
+Filter chain halted as [:ensure_user_is_accessing_self] rendered_or_redirected.
+Completed in 0.00096 (1042 reqs/sec) | DB: 0.00170 (177%) | 302 Found [http://test.host/users/2959?]
+  [4;35;1mSQL (0.000460)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000081)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.000246)[0m   [0mSELECT `email` FROM `users` WHERE (`users`.email = 'user44@example.com') [0m
+  [4;36;1mUser Create (0.000178)[0m   [0;1mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('a1b123c90a9f51d66da4c6129cb2ee73abc55a37', '3280de95e8191de75abe52158d547fcfe7038eaf', NULL, NULL, 'user44@example.com')[0m
+
+
+Processing UsersController#new (for 0.0.0.0 at 2008-09-15 16:56:00) [GET]
+  Session ID: 
+  Parameters: {"action"=>"new", "controller"=>"users"}
+  [4;35;1mUser Load (0.000205)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 2960) LIMIT 1[0m
+Redirected to http://test.host/
+Filter chain halted as [:redirect_to_root] rendered_or_redirected.
+Completed in 0.00086 (1164 reqs/sec) | DB: 0.00117 (136%) | 302 Found [http://test.host/users/new]
+  [4;36;1mSQL (0.000491)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000077)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.000214)[0m   [0;1mSELECT `email` FROM `users` WHERE (`users`.email = 'user45@example.com') [0m
+  [4;35;1mUser Create (0.000170)[0m   [0mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('40efcea7a6b8f1920473481c392d454ac9b8e31b', 'c34332dbfdd8b40b8f850b9da463bb783ca1113b', NULL, NULL, 'user45@example.com')[0m
+
+
+Processing UsersController#new (for 0.0.0.0 at 2008-09-15 16:56:00) [GET]
+  Session ID: 
+  Parameters: {"action"=>"new", "controller"=>"users"}
+  [4;36;1mUser Load (0.000201)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 2961) LIMIT 1[0m
+Redirected to http://test.host/
+Filter chain halted as [:redirect_to_root] rendered_or_redirected.
+Completed in 0.00093 (1071 reqs/sec) | DB: 0.00115 (123%) | 302 Found [http://test.host/users/new]
+  [4;35;1mSQL (0.000628)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000124)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.000244)[0m   [0mSELECT `email` FROM `users` WHERE (`users`.email = 'user46@example.com') [0m
+  [4;36;1mUser Create (0.000178)[0m   [0;1mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('b854e4d5d31830f31d71e3633b18348da50fdbd2', 'ae2f657d57bb5523c708415c9e3eca091aece255', NULL, NULL, 'user46@example.com')[0m
+
+
+Processing UsersController#create (for 0.0.0.0 at 2008-09-15 16:56:00) [POST]
+  Session ID: 
+  Parameters: {"user"=>{}, "action"=>"create", "controller"=>"users"}
+  [4;35;1mUser Load (0.000202)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 2962) LIMIT 1[0m
+Redirected to http://test.host/
+Filter chain halted as [:redirect_to_root] rendered_or_redirected.
+Completed in 0.00092 (1085 reqs/sec) | DB: 0.00138 (149%) | 302 Found [http://test.host/users?]
+  [4;36;1mSQL (0.000511)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000083)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.000225)[0m   [0;1mSELECT `email` FROM `users` WHERE (`users`.email = 'user47@example.com') [0m
+  [4;35;1mUser Create (0.000168)[0m   [0mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('21e05d7bf6220c42472028f9d02993d83a45fc17', 'e976ecb9d0868b0f27606860474a8b29b58c7b1e', NULL, NULL, 'user47@example.com')[0m
+
+
+Processing UsersController#create (for 0.0.0.0 at 2008-09-15 16:56:00) [POST]
+  Session ID: 
+  Parameters: {"user"=>{}, "action"=>"create", "controller"=>"users"}
+  [4;36;1mUser Load (0.000203)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 2963) LIMIT 1[0m
+Redirected to http://test.host/
+Filter chain halted as [:redirect_to_root] rendered_or_redirected.
+Completed in 0.00088 (1132 reqs/sec) | DB: 0.00119 (134%) | 302 Found [http://test.host/users?]
+  [4;35;1mSQL (0.000463)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000088)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.000228)[0m   [0mSELECT `email` FROM `users` WHERE (`users`.email = 'user48@example.com') [0m
+  [4;36;1mUser Create (0.000204)[0m   [0;1mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('0357511af2edc21e3638c3f97666eef060d39ee0', '7ac660e9943bfe234885ba09159585da3219bb8b', NULL, NULL, 'user48@example.com')[0m
+  [4;35;1mSQL (0.000578)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000080)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.000231)[0m   [0mSELECT `email` FROM `users` WHERE (`users`.email = 'user49@example.com') [0m
+  [4;36;1mUser Create (0.000170)[0m   [0;1mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('7c7bb8b247ab47ec5baedc1543b355449e985d4f', 'd6a9dc4ef9a7acca96f4c6564ebefa83b162f7e1', NULL, NULL, 'user49@example.com')[0m
+
+
+Processing UsersController#edit (for 0.0.0.0 at 2008-09-15 16:56:00) [GET]
+  Session ID: 
+  Parameters: {"action"=>"edit", "id"=>"2965", "controller"=>"users"}
+  [4;35;1mUser Load (0.000208)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 2965) LIMIT 1[0m
+  [4;36;1mUser Load (0.000251)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 2965) [0m
+Rendering template within layouts/application
+Rendering users/edit
+Rendered users/_form (0.00079)
+Rendered layouts/_flashes (0.00003)
+Completed in 0.00964 (103 reqs/sec) | Rendering: 0.00523 (54%) | DB: 0.00250 (25%) | 200 OK [http://test.host/users/2965/edit]
+  [4;35;1mSQL (0.000508)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000083)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.000273)[0m   [0mSELECT `email` FROM `users` WHERE (`users`.email = 'user50@example.com') [0m
+  [4;36;1mUser Create (0.000234)[0m   [0;1mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('abe6c74ce62f5d741c6bc0156de338c3f37dccdb', '1ef948c924b64d6fc8f6a054c5c082c29bd5a8ff', NULL, NULL, 'user50@example.com')[0m
+
+
+Processing UsersController#edit (for 0.0.0.0 at 2008-09-15 16:56:00) [GET]
+  Session ID: 
+  Parameters: {"action"=>"edit", "id"=>"2966", "controller"=>"users"}
+  [4;35;1mUser Load (0.000267)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 2966) LIMIT 1[0m
+  [4;36;1mUser Load (0.000155)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 2966) [0m
+Rendering template within layouts/application
+Rendering users/edit
+Rendered users/_form (0.00080)
+Rendered layouts/_flashes (0.00003)
+Completed in 0.00423 (236 reqs/sec) | Rendering: 0.00284 (67%) | DB: 0.00152 (35%) | 200 OK [http://test.host/users/2966/edit]
+  [4;35;1mSQL (0.000513)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000079)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.000273)[0m   [0mSELECT `email` FROM `users` WHERE (`users`.email = 'user51@example.com') [0m
+  [4;36;1mUser Create (0.000184)[0m   [0;1mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('a62a014069aefb0aebae301c7818772d48ef8f58', '42639afacd7526e0b8817d82146076a9227a93dd', NULL, NULL, 'user51@example.com')[0m
+
+
+Processing UsersController#edit (for 0.0.0.0 at 2008-09-15 16:56:00) [GET]
+  Session ID: 
+  Parameters: {"action"=>"edit", "id"=>"2967", "controller"=>"users"}
+  [4;35;1mUser Load (0.000196)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 2967) LIMIT 1[0m
+  [4;36;1mUser Load (0.000148)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 2967) [0m
+Rendering template within layouts/application
+Rendering users/edit
+Rendered users/_form (0.00081)
+Rendered layouts/_flashes (0.00003)
+Completed in 0.00455 (219 reqs/sec) | Rendering: 0.00324 (71%) | DB: 0.00139 (30%) | 200 OK [http://test.host/users/2967/edit]
+  [4;35;1mSQL (0.000558)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000087)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.000253)[0m   [0mSELECT `email` FROM `users` WHERE (`users`.email = 'user52@example.com') [0m
+  [4;36;1mUser Create (0.000219)[0m   [0;1mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('dd852ff4848f8498a7f545766b16f9f5c8c7faf8', 'beae26d0659e0c2cb2f3bc3cba69a6b6575f7414', NULL, NULL, 'user52@example.com')[0m
+
+
+Processing UsersController#edit (for 0.0.0.0 at 2008-09-15 16:56:00) [GET]
+  Session ID: 
+  Parameters: {"action"=>"edit", "id"=>"2968", "controller"=>"users"}
+  [4;35;1mUser Load (0.000297)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 2968) LIMIT 1[0m
+  [4;36;1mUser Load (0.000227)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 2968) [0m
+Rendering template within layouts/application
+Rendering users/edit
+Rendered users/_form (0.00090)
+Rendered layouts/_flashes (0.00003)
+Completed in 0.00467 (213 reqs/sec) | Rendering: 0.00307 (65%) | DB: 0.00164 (35%) | 200 OK [http://test.host/users/2968/edit]
+  [4;35;1mSQL (0.000546)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000086)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.000240)[0m   [0mSELECT `email` FROM `users` WHERE (`users`.email = 'user53@example.com') [0m
+  [4;36;1mUser Create (0.000182)[0m   [0;1mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('613643acae55a24121d3c466872c3c0327fbefc3', '6bde3bbcc12e16df47006e2c3690ce3e4485de0f', NULL, NULL, 'user53@example.com')[0m
+
+
+Processing UsersController#edit (for 0.0.0.0 at 2008-09-15 16:56:00) [GET]
+  Session ID: 
+  Parameters: {"action"=>"edit", "id"=>"2969", "controller"=>"users"}
+  [4;35;1mUser Load (0.000189)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 2969) LIMIT 1[0m
+  [4;36;1mUser Load (0.000163)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 2969) [0m
+Rendering template within layouts/application
+Rendering users/edit
+Rendered users/_form (0.00077)
+Rendered layouts/_flashes (0.00003)
+Completed in 0.00407 (246 reqs/sec) | Rendering: 0.00271 (66%) | DB: 0.00141 (34%) | 200 OK [http://test.host/users/2969/edit]
+  [4;35;1mSQL (0.000472)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000079)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.000273)[0m   [0mSELECT `email` FROM `users` WHERE (`users`.email = 'user54@example.com') [0m
+  [4;36;1mUser Create (0.000216)[0m   [0;1mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('5fcb81ce0303cdc12947fcc343ca3d4090c2d46a', '617ab4f7cad528cafb09d62b5e94b24216878bcb', NULL, NULL, 'user54@example.com')[0m
+
+
+Processing UsersController#show (for 0.0.0.0 at 2008-09-15 16:56:00) [GET]
+  Session ID: 
+  Parameters: {"action"=>"show", "id"=>"2970", "controller"=>"users"}
+  [4;35;1mUser Load (0.000262)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 2970) LIMIT 1[0m
+  [4;36;1mUser Load (0.000148)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 2970) [0m
+Rendering template within layouts/application
+Rendering users/show
+Rendered layouts/_flashes (0.00003)
+Completed in 0.00330 (303 reqs/sec) | Rendering: 0.00159 (48%) | DB: 0.00145 (43%) | 200 OK [http://test.host/users/2970]
+  [4;35;1mSQL (0.000551)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000237)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.000240)[0m   [0mSELECT `email` FROM `users` WHERE (`users`.email = 'user55@example.com') [0m
+  [4;36;1mUser Create (0.000180)[0m   [0;1mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('12814029d8b7ceee70e90439eb873078d7a41da4', 'f3f05f56f22c67e711608a2a19f0268020baa893', NULL, NULL, 'user55@example.com')[0m
+
+
+Processing UsersController#show (for 0.0.0.0 at 2008-09-15 16:56:00) [GET]
+  Session ID: 
+  Parameters: {"action"=>"show", "id"=>"2971", "controller"=>"users"}
+  [4;35;1mUser Load (0.000195)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 2971) LIMIT 1[0m
+  [4;36;1mUser Load (0.000152)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 2971) [0m
+Rendering template within layouts/application
+Rendering users/show
+Rendered layouts/_flashes (0.00003)
+Completed in 0.00267 (375 reqs/sec) | Rendering: 0.00138 (51%) | DB: 0.00155 (58%) | 200 OK [http://test.host/users/2971]
+  [4;35;1mSQL (0.000447)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000072)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.000251)[0m   [0mSELECT `email` FROM `users` WHERE (`users`.email = 'user56@example.com') [0m
+  [4;36;1mUser Create (0.000185)[0m   [0;1mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('5efc81705aede4921b13e6dc2392996ad44a1c63', '8ad96255cb473a7486280ab9eba3aa351cacbc81', NULL, NULL, 'user56@example.com')[0m
+
+
+Processing UsersController#show (for 0.0.0.0 at 2008-09-15 16:56:00) [GET]
+  Session ID: 
+  Parameters: {"action"=>"show", "id"=>"2972", "controller"=>"users"}
+  [4;35;1mUser Load (0.000239)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 2972) LIMIT 1[0m
+  [4;36;1mUser Load (0.000142)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 2972) [0m
+Rendering template within layouts/application
+Rendering users/show
+Rendered layouts/_flashes (0.00003)
+Completed in 0.00302 (331 reqs/sec) | Rendering: 0.00161 (53%) | DB: 0.00134 (44%) | 200 OK [http://test.host/users/2972]
+  [4;35;1mSQL (0.000525)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000098)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.000257)[0m   [0mSELECT `email` FROM `users` WHERE (`users`.email = 'user57@example.com') [0m
+  [4;36;1mUser Create (0.000186)[0m   [0;1mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('b19000fefabceb7fc22a3af171785e74046003c5', '382bbec5c6f6279e5b8c6658e61f0e1f57918cd9', NULL, NULL, 'user57@example.com')[0m
+
+
+Processing UsersController#show (for 0.0.0.0 at 2008-09-15 16:56:00) [GET]
+  Session ID: 
+  Parameters: {"action"=>"show", "id"=>"2973", "controller"=>"users"}
+  [4;35;1mUser Load (0.000247)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 2973) LIMIT 1[0m
+  [4;36;1mUser Load (0.000182)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 2973) [0m
+Rendering template within layouts/application
+Rendering users/show
+Rendered layouts/_flashes (0.00003)
+Completed in 0.00263 (379 reqs/sec) | Rendering: 0.00123 (46%) | DB: 0.00149 (56%) | 200 OK [http://test.host/users/2973]
+  [4;35;1mSQL (0.000491)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000100)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.000212)[0m   [0mSELECT `email` FROM `users` WHERE (`users`.email = 'user58@example.com') [0m
+  [4;36;1mUser Create (0.000175)[0m   [0;1mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('9c2f5a2e768213f12a5a38d39a103c3e226e17fe', 'fd2ffb752b91cedbbddb88b28a0a2773e67a9632', NULL, NULL, 'user58@example.com')[0m
+
+
+Processing UsersController#update (for 0.0.0.0 at 2008-09-15 16:56:00) [PUT]
+  Session ID: 
+  Parameters: {"user"=>{"email"=>"none@example.com"}, "action"=>"update", "id"=>"2974", "controller"=>"users"}
+  [4;35;1mUser Load (0.000182)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 2974) LIMIT 1[0m
+  [4;36;1mUser Load (0.000149)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 2974) [0m
+  [4;35;1mSQL (0.000261)[0m   [0mSELECT `email` FROM `users` WHERE (`users`.email = 'none@example.com' AND `users`.id <> 2974) [0m
+  [4;36;1mUser Update (0.000223)[0m   [0;1mUPDATE `users` SET `email` = 'none@example.com' WHERE `id` = 2974[0m
+Redirected to http://test.host/
+Completed in 0.00309 (323 reqs/sec) | DB: 0.00179 (57%) | 302 Found [http://test.host/users/2974?user%5Bemail%5D=none%40example.com]
+  [4;35;1mSQL (0.001041)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000085)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.000250)[0m   [0mSELECT `email` FROM `users` WHERE (`users`.email = 'user59@example.com') [0m
+  [4;36;1mUser Create (0.000181)[0m   [0;1mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('282a6dc612a88cf7eaabdf12bc17c5a3dceaefa3', 'f57ee62fceaf13b767aba747a3c3197482c83d37', NULL, NULL, 'user59@example.com')[0m
+
+
+Processing UsersController#update (for 0.0.0.0 at 2008-09-15 16:56:00) [PUT]
+  Session ID: 
+  Parameters: {"user"=>{"email"=>"none@example.com"}, "action"=>"update", "id"=>"2975", "controller"=>"users"}
+  [4;35;1mUser Load (0.000188)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 2975) LIMIT 1[0m
+  [4;36;1mUser Load (0.000159)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 2975) [0m
+  [4;35;1mSQL (0.000214)[0m   [0mSELECT `email` FROM `users` WHERE (`users`.email = 'none@example.com' AND `users`.id <> 2975) [0m
+  [4;36;1mUser Update (0.000211)[0m   [0;1mUPDATE `users` SET `email` = 'none@example.com' WHERE `id` = 2975[0m
+Redirected to http://test.host/
+Completed in 0.00303 (330 reqs/sec) | DB: 0.00233 (76%) | 302 Found [http://test.host/users/2975?user%5Bemail%5D=none%40example.com]
+  [4;35;1mSQL (0.000547)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000082)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.000225)[0m   [0mSELECT `email` FROM `users` WHERE (`users`.email = 'user60@example.com') [0m
+  [4;36;1mUser Create (0.000255)[0m   [0;1mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('6ed22e057c6099385c0cd303bd5121fe83fcd8a1', '5a3f44e211828e28f60141e9f76ff66692868ff5', NULL, NULL, 'user60@example.com')[0m
+
+
+Processing UsersController#update (for 0.0.0.0 at 2008-09-15 16:56:00) [PUT]
+  Session ID: 
+  Parameters: {"user"=>{"email"=>"none@example.com"}, "action"=>"update", "id"=>"2976", "controller"=>"users"}
+  [4;35;1mUser Load (0.000253)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 2976) LIMIT 1[0m
+  [4;36;1mUser Load (0.000210)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 2976) [0m
+  [4;35;1mSQL (0.000289)[0m   [0mSELECT `email` FROM `users` WHERE (`users`.email = 'none@example.com' AND `users`.id <> 2976) [0m
+  [4;36;1mUser Update (0.000229)[0m   [0;1mUPDATE `users` SET `email` = 'none@example.com' WHERE `id` = 2976[0m
+Redirected to http://test.host/
+Completed in 0.00400 (249 reqs/sec) | DB: 0.00209 (52%) | 302 Found [http://test.host/users/2976?user%5Bemail%5D=none%40example.com]
+  [4;35;1mSQL (0.000752)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000130)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.000251)[0m   [0mSELECT `email` FROM `users` WHERE (`users`.email = 'user61@example.com') [0m
+  [4;36;1mUser Create (0.000183)[0m   [0;1mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('c2469300799959efec1d045177dd704cb1935aa7', '93b5b695a8caf6a3efbca3d4eb7e9242889f8035', NULL, NULL, 'user61@example.com')[0m
+
+
+Processing UsersController#update (for 0.0.0.0 at 2008-09-15 16:56:00) [PUT]
+  Session ID: 
+  Parameters: {"user"=>{"email"=>"none@example.com"}, "action"=>"update", "id"=>"2977", "controller"=>"users"}
+  [4;35;1mUser Load (0.000213)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 2977) LIMIT 1[0m
+  [4;36;1mUser Load (0.000152)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 2977) [0m
+  [4;35;1mSQL (0.000214)[0m   [0mSELECT `email` FROM `users` WHERE (`users`.email = 'none@example.com' AND `users`.id <> 2977) [0m
+  [4;36;1mUser Update (0.000225)[0m   [0;1mUPDATE `users` SET `email` = 'none@example.com' WHERE `id` = 2977[0m
+Redirected to http://test.host/
+Completed in 0.00336 (297 reqs/sec) | DB: 0.00212 (63%) | 302 Found [http://test.host/users/2977?user%5Bemail%5D=none%40example.com]
+  [4;35;1mSQL (0.000534)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000101)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.000211)[0m   [0mSELECT `email` FROM `users` WHERE (`users`.email = 'user62@example.com') [0m
+  [4;36;1mUser Create (0.000171)[0m   [0;1mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('ba66c1321177d6e1210ceeb97e0e16cac8b55348', '437a0bd89e798870a8ee81782c1d790eee5f9eac', NULL, NULL, 'user62@example.com')[0m
+
+
+Processing UsersController#update (for 0.0.0.0 at 2008-09-15 16:56:00) [PUT]
+  Session ID: 
+  Parameters: {"user"=>{"email"=>""}, "action"=>"update", "id"=>"2978", "controller"=>"users"}
+  [4;35;1mUser Load (0.000181)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 2978) LIMIT 1[0m
+  [4;36;1mUser Load (0.000149)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 2978) [0m
+  [4;35;1mSQL (0.000207)[0m   [0mSELECT `email` FROM `users` WHERE (`users`.email = '' AND `users`.id <> 2978) [0m
+Rendering template within layouts/application
+Rendering users/edit
+Rendered users/_form (0.00154)
+Rendered layouts/_flashes (0.00003)
+Completed in 0.00625 (159 reqs/sec) | Rendering: 0.00389 (62%) | DB: 0.00155 (24%) | 200 OK [http://test.host/users/2978?user%5Bemail%5D=]
+  [4;36;1mSQL (0.000526)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000080)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.000253)[0m   [0;1mSELECT `email` FROM `users` WHERE (`users`.email = 'user63@example.com') [0m
+  [4;35;1mUser Create (0.000181)[0m   [0mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('44b8c3fc34c1f45e6cc407276621baa48440467b', '8bffa7ee01949934251465a1378cb4f7324a7fe0', NULL, NULL, 'user63@example.com')[0m
+
+
+Processing UsersController#update (for 0.0.0.0 at 2008-09-15 16:56:00) [PUT]
+  Session ID: 
+  Parameters: {"user"=>{"email"=>""}, "action"=>"update", "id"=>"2979", "controller"=>"users"}
+  [4;36;1mUser Load (0.000198)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 2979) LIMIT 1[0m
+  [4;35;1mUser Load (0.000151)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 2979) [0m
+  [4;36;1mSQL (0.000217)[0m   [0;1mSELECT `email` FROM `users` WHERE (`users`.email = '' AND `users`.id <> 2979) [0m
+Rendering template within layouts/application
+Rendering users/edit
+Rendered users/_form (0.00100)
+Rendered layouts/_flashes (0.00003)
+Completed in 0.00574 (174 reqs/sec) | Rendering: 0.00327 (57%) | DB: 0.00161 (27%) | 200 OK [http://test.host/users/2979?user%5Bemail%5D=]
+  [4;35;1mSQL (0.000611)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000079)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.000278)[0m   [0mSELECT `email` FROM `users` WHERE (`users`.email = 'user64@example.com') [0m
+  [4;36;1mUser Create (0.000185)[0m   [0;1mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('26188746017e94223e27de623042f1ebd303ab5f', 'f4651dccb4368df1617bf61677ec891b03695b5b', NULL, NULL, 'user64@example.com')[0m
+
+
+Processing UsersController#update (for 0.0.0.0 at 2008-09-15 16:56:00) [PUT]
+  Session ID: 
+  Parameters: {"user"=>{"email"=>""}, "action"=>"update", "id"=>"2980", "controller"=>"users"}
+  [4;35;1mUser Load (0.000205)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 2980) LIMIT 1[0m
+  [4;36;1mUser Load (0.000151)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 2980) [0m
+  [4;35;1mSQL (0.000218)[0m   [0mSELECT `email` FROM `users` WHERE (`users`.email = '' AND `users`.id <> 2980) [0m
+Rendering template within layouts/application
+Rendering users/edit
+Rendered users/_form (0.00099)
+Rendered layouts/_flashes (0.00003)
+Completed in 0.00580 (172 reqs/sec) | Rendering: 0.00325 (55%) | DB: 0.00173 (29%) | 200 OK [http://test.host/users/2980?user%5Bemail%5D=]
+  [4;36;1mSQL (0.000574)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000085)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.000280)[0m   [0;1mSELECT `email` FROM `users` WHERE (`users`.email = 'user65@example.com') [0m
+  [4;35;1mUser Create (0.000185)[0m   [0mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('fc0f00095e464db386fbde1e2bc5b9701b137c54', '07f873867ed2e97bb1b94e29b88821f01e8c4b1c', NULL, NULL, 'user65@example.com')[0m
+
+
+Processing UsersController#update (for 0.0.0.0 at 2008-09-15 16:56:00) [PUT]
+  Session ID: 
+  Parameters: {"user"=>{"email"=>""}, "action"=>"update", "id"=>"2981", "controller"=>"users"}
+  [4;36;1mUser Load (0.000236)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 2981) LIMIT 1[0m
+  [4;35;1mUser Load (0.000194)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 2981) [0m
+  [4;36;1mSQL (0.000291)[0m   [0;1mSELECT `email` FROM `users` WHERE (`users`.email = '' AND `users`.id <> 2981) [0m
+Rendering template within layouts/application
+Rendering users/edit
+Rendered users/_form (0.00104)
+Rendered layouts/_flashes (0.00003)
+Completed in 0.00644 (155 reqs/sec) | Rendering: 0.00326 (50%) | DB: 0.00184 (28%) | 200 OK [http://test.host/users/2981?user%5Bemail%5D=]
+  [4;35;1mSQL (0.000533)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000108)[0m   [0;1mBEGIN[0m
+  [4;35;1mSQL (0.000254)[0m   [0mSELECT `email` FROM `users` WHERE (`users`.email = 'user66@example.com') [0m
+  [4;36;1mUser Create (0.000232)[0m   [0;1mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('a6333c4425511d567fa674a9ecccc52a879e497c', '9a918935a530338a30a5e38bd820995cf638fd74', NULL, NULL, 'user66@example.com')[0m
+
+
+Processing UsersController#destroy (for 0.0.0.0 at 2008-09-15 16:56:01) [DELETE]
+  Session ID: 
+  Parameters: {"action"=>"destroy", "id"=>"2982", "controller"=>"users"}
+  [4;35;1mUser Load (0.000211)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 2982) LIMIT 1[0m
+  [4;36;1mUser Load (0.000153)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 2982) [0m
+  [4;35;1mUser Destroy (0.000176)[0m   [0m DELETE FROM `users`
+ WHERE `id` = 2982
+[0m
+Redirected to http://test.host/
+Completed in 0.00189 (529 reqs/sec) | DB: 0.00167 (88%) | 302 Found [http://test.host/users/2982]
+  [4;36;1mSQL (0.000512)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000097)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.000343)[0m   [0;1mSELECT `email` FROM `users` WHERE (`users`.email = 'user67@example.com') [0m
+  [4;35;1mUser Create (0.000296)[0m   [0mINSERT INTO `users` (`salt`, `crypted_password`, `remember_token_expires_at`, `remember_token`, `email`) VALUES('ddccd2090ac5e7dd851dbf56b02a4b0b81405d2e', 'e3dc95518472daca4282e42873d70efac53bd66e', NULL, NULL, 'user67@example.com')[0m
+
+
+Processing UsersController#destroy (for 0.0.0.0 at 2008-09-15 16:56:01) [DELETE]
+  Session ID: 
+  Parameters: {"action"=>"destroy", "id"=>"2983", "controller"=>"users"}
+  [4;36;1mUser Load (0.000563)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 2983) LIMIT 1[0m
+  [4;35;1mUser Load (0.000145)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 2983) [0m
+  [4;36;1mUser Destroy (0.000214)[0m   [0;1m DELETE FROM `users`
+ WHERE `id` = 2983
+[0m
+Redirected to http://test.host/
+Completed in 0.00257 (389 reqs/sec) | DB: 0.00217 (84%) | 302 Found [http://test.host/users/2983]
+  [4;35;1mSQL (0.000553)[0m   [0mROLLBACK[0m
