@@ -17,5 +17,5 @@ Gem::Specification.new do |s|
     "lib/clearance/test/test_helper.rb", 
     "lib/clearance/test/units/user_test.rb", 
     "lib/clearance/app/controllers/users_controller.rb", 
-    "lib/clearance/test/controllers/users_controller_test.rb"]
+    "lib/clearance/test/functionals/users_controller_test.rb"]
 end
