@@ -40,11 +40,11 @@ Change your User model so it has these attributes.
 
   add_index :users, [:email, :crypted_password]
 
-h2. Model
+h2. User Model
 
 In app/models/user.rb:
 
-  include Clearance::Model
+  include Clearance::User
 
 h2. Controllers
 
@@ -79,7 +79,7 @@ In test/test_helper.rb:
 
 In test/unit/user_test.rb: 
 
-  include Clearance::UnitTest
+  include Clearance::UserTest
 
 In test/functional/sessions_controller_test.rb: 
 

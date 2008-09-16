@@ -61,6 +61,5 @@ module Clearance
         cookies.delete :auth_token
       end
     end
-
   end
 end

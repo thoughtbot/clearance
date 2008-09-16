@@ -1,5 +1,5 @@
 module Clearance
-  module UnitTest
+  module UserTest
     
     def self.included(base)
       base.class_eval do
