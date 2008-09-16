@@ -5,12 +5,12 @@ module Clearance
       base.class_eval do
         public_context do
           
-          should_deny_access_on "get :new"
-          should_deny_access_on "post :create, :user => {}"
-          should_deny_access_on "get :edit, :id => 1"
-          should_deny_access_on "put :update, :id => 1"
-          should_deny_access_on "get :show, :id => 1"
-          should_deny_access_on "delete :destroy, :id => 1"
+          should_deny_access_on "get :new", :redirect => "login_url"
+          should_deny_access_on "post :create, :user => {}", :redirect => "login_url"
+          should_deny_access_on "get :edit, :id => 1", :redirect => "login_url"
+          should_deny_access_on "put :update, :id => 1", :redirect => "login_url"
+          should_deny_access_on "get :show, :id => 1", :redirect => "login_url"
+          should_deny_access_on "delete :destroy, :id => 1", :redirect => "login_url"
           
         end
         
