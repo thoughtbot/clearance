@@ -2,3 +2,4 @@
 # check to make sure attr_accessible doesn't override and w/ attr_protected
 # reset password?
 # admin?
+# sessions controller test is missing some tests
