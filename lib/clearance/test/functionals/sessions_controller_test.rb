@@ -32,7 +32,7 @@ module Clearance
 
             should_set_the_flash_to /success/i
             should_redirect_to 'root_url'
-            # should set session
+            # TODO: should set session
           end
 
           context "a POST to #create with bad credentials" do
@@ -42,10 +42,10 @@ module Clearance
 
             should_set_the_flash_to /bad/i
             should_render_template :new
-            # should not set session
+            # TODO: should not set session
           end
           
-          # two tests for remember me - success and failure
+          # TODO: two tests for remember me - success and failure
         end
 
         context "While logged out" do
