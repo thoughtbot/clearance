@@ -4,9 +4,7 @@ module Clearance
     def self.included(base)
       base.class_eval do
         context "Given a user" do
-          setup do
-            @user = Factory(:user)
-          end
+          setup { @user = Factory :user }
 
           should_filter :password
 

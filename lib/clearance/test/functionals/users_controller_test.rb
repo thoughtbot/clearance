@@ -69,10 +69,8 @@ module Clearance
             end
           end
 
-          context "dealing with another user's account" do
-            setup do
-              @user = Factory :user
-            end
+          context "trying to access another user's account" do
+            setup { @user = Factory :user }
 
             should_deny_access_on "get :show, :id => @user.to_param",                :flash => /cannot edit/i
             should_deny_access_on "get :edit, :id => @user.to_param",                :flash => /cannot edit/i
