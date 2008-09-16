@@ -3,6 +3,17 @@ module Clearance
   
     def self.included(base)
       base.class_eval do
+        public_context do
+          
+          should_deny_access_on "get :new"
+          should_deny_access_on "post :create, :user => {}"
+          should_deny_access_on "get :edit, :id => 1"
+          should_deny_access_on "put :update, :id => 1"
+          should_deny_access_on "get :show, :id => 1"
+          should_deny_access_on "delete :destroy, :id => 1"
+          
+        end
+        
         logged_in_user_context do
 
           should_deny_access_on "get :new"

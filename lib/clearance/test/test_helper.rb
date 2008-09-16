@@ -58,11 +58,18 @@ module Clearance
       end
       
       def logged_in_user_context(&blk)
-        context "When logged in as a user" do
+        context "A logged in user" do
           setup do
             @user = Factory :user
             login_as @user
           end
+          merge_block(&blk)
+        end
+      end
+      
+      def public_context(&blk)
+        context "The public" do
+          setup { logout }
           merge_block(&blk)
         end
       end
