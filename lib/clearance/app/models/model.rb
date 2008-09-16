@@ -1,5 +1,5 @@
 module Clearance
-  module User
+  module Model
     
     def self.included(base)
       base.class_eval do

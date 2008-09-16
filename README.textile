@@ -44,7 +44,7 @@ h2. User Model
 
 In app/models/user.rb:
 
-  include Clearance::User
+  include Clearance::Model
 
 h2. Controllers
 

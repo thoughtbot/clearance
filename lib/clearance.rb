@@ -1,7 +1,7 @@
 require 'clearance/app/controllers/application_controller'
 require 'clearance/app/controllers/sessions_controller'
 require 'clearance/app/controllers/users_controller'
-require 'clearance/app/models/user'
+require 'clearance/app/models/model'
 require 'clearance/test/test_helper'
 require 'clearance/test/functionals/sessions_controller_test'
 require 'clearance/test/functionals/users_controller_test'
