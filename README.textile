@@ -26,6 +26,36 @@ Then:
     rake gems:install
     rake gems:unpack
 
+h2. Tests
+
+The tests use Shoulda and Factory Girl. You should create a User Factory:
+
+  Factory.sequence :email do |n|
+	  "user#{n}@example.com"
+	end
+
+	Factory.define :user do |user|
+	  user.email { Factory.next :email }
+	  user.password 'sekrit'
+	  user.password_confirmation 'sekrit'
+	end
+
+In test/test_helper.rb: 
+
+  include Clearance::TestHelper
+
+In test/unit/user_test.rb: 
+
+  include Clearance::UserTest
+
+In test/functional/sessions_controller_test.rb: 
+
+  include Clearance::SessionsControllerTest
+
+In test/functional/users_controller_test.rb: 
+
+  include Clearance::UsersControllerTest
+
 h2. Schema
 
 Change your User model so it has these attributes.
@@ -68,26 +98,6 @@ h2. Routes
     m.logout '/logout', :action => 'destroy'
   end
   map.resource :session
-
-h2. Tests
-
-The tests use Shoulda and Factory Girl.
-
-In test/test_helper.rb: 
-
-  include Clearance::TestHelper
-
-In test/unit/user_test.rb: 
-
-  include Clearance::UserTest
-
-In test/functional/sessions_controller_test.rb: 
-
-  include Clearance::SessionsControllerTest
-
-In test/functional/users_controller_test.rb: 
-
-  include Clearance::UsersControllerTest
 
 h2. Authors
 
