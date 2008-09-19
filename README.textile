@@ -9,7 +9,7 @@ h2. Features
 * email & password
 * modules, not a generator
 * gem, not a plugin
-* shoulda & factory_girl tests included
+* tests included using "shoulda":http://thoughtbot.com/projects/shoulda & "factory_girl":http://thoughtbot.com/projects/factory_girl
 
 h2. Gem installation (Rails 2.1+)
 
@@ -17,8 +17,9 @@ Specify the gem dependency in your config/environment.rb file:
 
     Rails::Initializer.run do |config|
       # ...
-      config.gem "dancroak-clearance", :lib => 'clearance', 
-        :source => 'http://gems.github.com/'
+      config.gem 'thoughtbot-shoulda', :lib => 'shoulda', :source => "http://gems.github.com"
+      config.gem 'thoughtbot-factory_girl', :lib => 'factory_girl', :source => "http://gems.github.com"
+      config.gem "dancroak-clearance", :lib => 'clearance', :source => 'http://gems.github.com/'
     end
 
 Then:
@@ -28,76 +29,119 @@ Then:
 
 h2. Tests
 
-The tests use Shoulda and Factory Girl. You should create a User Factory:
+The tests use "Shoulda":http://thoughtbot.com/projects/shoulda and "Factory Girl":http://thoughtbot.com/projects/factory_girl. You should create a User Factory:
 
-  Factory.sequence :email do |n|
-	  "user#{n}@example.com"
-	end
+    Factory.sequence :email do |n|
+      "user#{n}@example.com"
+    end
 
-	Factory.define :user do |user|
-	  user.email { Factory.next :email }
-	  user.password 'sekrit'
-	  user.password_confirmation 'sekrit'
-	end
+    Factory.define :user do |user|
+      user.email { Factory.next :email }
+      user.password 'sekrit'
+      user.password_confirmation 'sekrit'
+    end
 
 In test/test_helper.rb: 
 
-  include Clearance::TestHelper
+    class Test::Unit::TestCase
+      self.use_transactional_fixtures = true
+      self.use_instantiated_fixtures  = false
+      include Clearance::TestHelper
+    end
 
 In test/unit/user_test.rb: 
 
-  include Clearance::UserTest
+    require File.dirname(__FILE__) + '/../test_helper'
+    
+    class UserTest < Test::Unit::TestCase
+      include Clearance::UserTest
+    end
 
 In test/functional/sessions_controller_test.rb: 
 
-  include Clearance::SessionsControllerTest
+  require File.dirname(__FILE__) + '/../test_helper'
+
+  class SessionsControllerTest < ActionController::TestCase
+    include Clearance::SessionsControllerTest
+  end
 
 In test/functional/users_controller_test.rb: 
 
-  include Clearance::UsersControllerTest
+  require File.dirname(__FILE__) + '/../test_helper'
+
+  class UsersControllerTest < ActionController::TestCase
+    include Clearance::UsersControllerTest
+  end
 
 h2. Schema
 
-Change your User model so it has these attributes.
+Change your User model so it has these attributes:
 
-  change_table(:users) do |t|
-    t.column :email, :string
-    t.column :crypted_password, :string, :limit => 40
-    t.column :salt, :string, :limit => 40
-    t.column :remember_token, :string
-    t.column :remember_token_expires_at, :datetime
-  end
-
-  add_index :users, [:email, :crypted_password]
+    change_table(:users) do |t|
+      t.column :email, :string
+      t.column :crypted_password, :string, :limit => 40
+      t.column :salt, :string, :limit => 40
+      t.column :remember_token, :string
+      t.column :remember_token_expires_at, :datetime
+    end
+    
+    add_index :users, [:email, :crypted_password]
 
 h2. User Model
 
 In app/models/user.rb:
 
-  include Clearance::Model
+    class User < ActiveRecord::Base
+      include Clearance::Model
+    end
 
 h2. Controllers
 
 In app/controllers/application_controller.rb:
 
-  include Clearance::ApplicationController
+    class ApplicationController < ActionController::Base
+      helper :all
+      protect_from_forgery
+      include Clearance::ApplicationController
+    end
+  
 
 In app/controllers/sessions_controller.rb:
 
-  include Clearance::SessionsController
+    class SessionsController < ApplicationController
+      include Clearance::SessionsController
+    end
 
 In app/controllers/users_controller.rb:
 
-  include Clearance::UsersController
+    class UsersController < ApplicationController
+      include Clearance::UsersController
+    end
 
 h2. Routes
 
-  map.root # '/', :controller => 'sessions', :action => 'new'
-  map.with_options :controller => 'sessions'  do |m|
-    m.login  '/login',  :action => 'new'
-    m.logout '/logout', :action => 'destroy'
-  end
-  map.resource :session
+    map.with_options :controller => 'sessions'  do |m|
+      m.login  '/login',  :action => 'new'
+      m.logout '/logout', :action => 'destroy'
+    end
+    map.resource :session
+    map.resources :users
+
+h2. Views
+
+In app/views/sessions/new.html.haml:
+
+  - form_tag(session_path, :method => :post) do
+    %dl
+      %dt Email
+      %dd= text_field_tag 'session[email]'
+      %dt Password
+      %dd= password_field_tag 'session[password]'
+      %dt Remember me
+      %dt= check_box_tag 'session[remember_me]'
+    
+      = submit_tag 'Login'
+
 
 h2. Authors
 
