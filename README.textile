@@ -99,6 +99,29 @@ h2. Routes
   end
   map.resource :session
 
+h2. Views
+
+In app/views/sessions/new.html.erb
+
+  <% form_for :session, :url => session_url do |f| %>
+	  <div class="group">
+	    <%= f.label :email, "Email" %>
+	    <%= f.text_field :email, :tabindex => 1 %>  
+	  </div>
+	  <div class="group">
+	    <%= f.label :password, "Password" %>
+	    <%= f.password_field :password, :tabindex => 2 %>
+	  </div>
+	  <div class="checkbox">
+	    <%= f.check_box :remember_me, :tabindex => 3 %>
+	    <%= f.label :remember_me %>
+	  </div>
+	  <div class="group buttons">
+	    <%= f.submit 'Login', :disable_with => 'Please wait...', :tabindex => 4 %>
+	    <%= link_to 'Cancel', root_url %>
+	  </div>
+	<% end %>
+
 h2. Authors
 
 * thoughtbot, inc.
