@@ -104,7 +104,6 @@ In app/controllers/application_controller.rb:
       protect_from_forgery
       include Clearance::ApplicationController
     end
-  
 
 In app/controllers/sessions_controller.rb:
 
@@ -126,22 +125,6 @@ h2. Routes
     end
     map.resource :session
     map.resources :users
-
-h2. Views
-
-In app/views/sessions/new.html.haml:
-
-  - form_tag(session_path, :method => :post) do
-    %dl
-      %dt Email
-      %dd= text_field_tag 'session[email]'
-      %dt Password
-      %dd= password_field_tag 'session[password]'
-      %dt Remember me
-      %dt= check_box_tag 'session[remember_me]'
-    
-      = submit_tag 'Login'
-
 
 h2. Views
 
