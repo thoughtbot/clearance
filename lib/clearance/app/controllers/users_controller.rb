@@ -3,7 +3,7 @@ module Clearance
 
     def self.included(base)
       base.class_eval do
-        before_filter :authenticate
+        before_filter :authenticate, :except => [:new, :create]
         before_filter :redirect_to_root, :only => [:new, :create], :if => :logged_in?
         before_filter :ensure_user_is_accessing_self, :only => [:edit, :update, :show]
 

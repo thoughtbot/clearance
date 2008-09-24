@@ -1,19 +1,44 @@
 module Clearance
   module UsersControllerTest
-  
+
     def self.included(base)
       base.class_eval do
         public_context do
-          
-          should_deny_access_on "get :new", :redirect => "login_url"
-          should_deny_access_on "post :create, :user => {}", :redirect => "login_url"
+
+          context "on GET to /users/new" do
+            setup { get :new }
+            should_respond_with :success
+            should_render_template :new
+            should_not_set_the_flash
+            should_have_form :action => "users_path",
+              :method => :post,
+              :fields => { :email => :text,
+                :password => :password,
+                :password_confirmation => :password }
+          end
+
+          context "on POST to /users" do
+            setup do
+              post :create, :user => {
+                :email => Factory.next(:email),
+                :password => 'skerit',
+                :password_confirmation => 'skerit'
+              }
+            end
+            
+            should_set_the_flash_to /created/i
+            should_redirect_to "root_url"
+            should_assign_to :user
+            should_change 'User.count', :by => 1
+          end
+
           should_deny_access_on "get :edit, :id => 1", :redirect => "login_url"
           should_deny_access_on "put :update, :id => 1", :redirect => "login_url"
           should_deny_access_on "get :show, :id => 1", :redirect => "login_url"
           should_deny_access_on "delete :destroy, :id => 1", :redirect => "login_url"
-          
+
         end
-        
+
         logged_in_user_context do
 
           should_deny_access_on "get :new"
@@ -43,9 +68,9 @@ module Clearance
               should_assign_to :user
               should_have_form :action => "user_path(@user)",
                 :method => :put,
-                :fields => { "user[email]" => :text,
-                  "user[password]" => :password,
-                  "user[password_confirmation]" => :password }
+                :fields => { :email => :text,
+                  :password => :password,
+                  :password_confirmation => :password }
             end
 
             context "on PUT to /users/:id" do
