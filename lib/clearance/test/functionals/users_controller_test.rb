@@ -41,7 +41,11 @@ module Clearance
               should_render_template :edit
               should_not_set_the_flash
               should_assign_to :user
-              should_have_user_form
+              should_have_form :action => "user_path(@user)",
+                :method => :put,
+                :fields => { "user[email]" => :text,
+                  "user[password]" => :password,
+                  "user[password_confirmation]" => :password }
             end
 
             context "on PUT to /users/:id" do

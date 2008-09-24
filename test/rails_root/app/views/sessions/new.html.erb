@@ -1,18 +1,17 @@
-<% form_for :session, :url => session_url do |f| %>
+<% form_for :session, :url => session_path do |form| %>
   <div class="group">
-    <%= f.label :email, "Email" %>
-    <%= f.text_field :email, :tabindex => 1 %>  
+    <%= form.label :email %>
+    <%= form.text_field :email %>  
   </div>
   <div class="group">
-    <%= f.label :password, "Password" %>
-    <%= f.password_field :password, :tabindex => 2 %>
+    <%= form.label :password %>
+    <%= form.password_field :password %>
   </div>
   <div class="checkbox">
-    <%= f.check_box :remember_me, :tabindex => 3 %>
-    <%= f.label :remember_me %>
+    <%= form.check_box :remember_me %>
+    <%= form.label :remember_me %>
   </div>
   <div class="group buttons">
-    <%= f.submit 'Login', :disable_with => 'Please wait...', :tabindex => 4 %>
-    <%= link_to 'Cancel', root_url %>
+    <%= form.submit 'Login', :disable_with => 'Please wait...' %>
   </div>
 <% end %>

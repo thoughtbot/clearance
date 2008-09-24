@@ -14,13 +14,10 @@ module Clearance
             should_respond_with :success
             should_render_template :new
             should_not_set_the_flash
-            should "have login form" do
-              assert_select "form[action$=/session]" do
-                assert_select "input[type=text][name=?]",     "session[email]"
-                assert_select "input[type=password][name=?]", "session[password]"
-                assert_select "input[type=checkbox][name=?]", "session[remember_me]"
-              end
-            end
+            should_have_form :action => "session_path",
+              :fields => { "session[email]" => :text,
+                "session[password]" => :password,
+                "session[remember_me]" => :checkbox }
           end
 
           context "a POST to #create with good credentials" do

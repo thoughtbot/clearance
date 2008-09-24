@@ -130,22 +130,21 @@ h2. Views
 
 In app/views/sessions/new.html.erb
 
-  <% form_for :session, :url => session_url do |f| %>
+  <% form_for :session, :url => session_path do |f| %>
 	  <div class="group">
-	    <%= f.label :email, "Email" %>
-	    <%= f.text_field :email, :tabindex => 1 %>  
+	    <%= f.label :email %>
+	    <%= f.text_field :email %>  
 	  </div>
 	  <div class="group">
-	    <%= f.label :password, "Password" %>
-	    <%= f.password_field :password, :tabindex => 2 %>
+	    <%= f.label :password %>
+	    <%= f.password_field :password %>
 	  </div>
 	  <div class="checkbox">
-	    <%= f.check_box :remember_me, :tabindex => 3 %>
+	    <%= f.check_box :remember_me %>
 	    <%= f.label :remember_me %>
 	  </div>
 	  <div class="group buttons">
-	    <%= f.submit 'Login', :disable_with => 'Please wait...', :tabindex => 4 %>
-	    <%= link_to 'Cancel', root_url %>
+	    <%= f.submit 'Login', :disable_with => 'Please wait...' %>
 	  </div>
 	<% end %>
 
@@ -155,3 +154,4 @@ h2. Authors
 * Dan Croak
 * Josh Nichols
 * Mike Breen
+* Jason Morrison
