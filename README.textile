@@ -174,4 +174,5 @@ h2. Authors
 * Dan Croak
 * Josh Nichols
 * Mike Breen
+* Mike Burns
 * Jason Morrison
