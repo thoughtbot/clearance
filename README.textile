@@ -19,7 +19,7 @@ Specify the gem dependency in your config/environment.rb file:
       # ...
       config.gem 'thoughtbot-shoulda', :lib => 'shoulda', :source => "http://gems.github.com"
       config.gem 'thoughtbot-factory_girl', :lib => 'factory_girl', :source => "http://gems.github.com"
-      config.gem "dancroak-clearance", :lib => 'clearance', :source => 'http://gems.github.com/'
+      config.gem "thoughtbot-clearance", :lib => 'clearance', :source => 'http://gems.github.com/'
     end
 
 Then:
