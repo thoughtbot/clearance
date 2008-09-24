@@ -27,7 +27,13 @@ module Clearance
 
             should_set_the_flash_to /success/i
             should_redirect_to '@controller.send(:url_after_create)'
-            # TODO: should set session
+            #should_return_from_session(:user_id, '@user.id')
+            should "return the correct value from the session for key :user_id" do
+              instantiate_variables_from_assigns do
+                expected_value = @user.id
+                assert_equal expected_value, session[:user_id], "Expected #{expected_value.inspect} but was #{session[:user_id]}"
+              end
+            end
           end
 
           context "a POST to #create with bad credentials" do
@@ -37,7 +43,13 @@ module Clearance
 
             should_set_the_flash_to /bad/i
             should_render_template :new
-            # TODO: should not set session
+            #should_return_from_session(:user_id, 'nil')
+            should "return the correct value from the session for key :user_id" do
+              instantiate_variables_from_assigns do
+                expected_value = @user.id
+                assert_equal expected_value, session[:user_id], "Expected #{expected_value.inspect} but was #{session[:user_id]}"
+              end
+            end
           end
           
           # TODO: two tests for remember me - success and failure
