@@ -43,9 +43,7 @@ module Clearance
           # TODO: two tests for remember me - success and failure
         end
 
-        context "While logged out" do
-          setup { logout }
-
+        public_context do
           context "logging out again" do
             setup { delete :destroy }
             should_redirect_to '@controller.send(:url_after_destroy)'
