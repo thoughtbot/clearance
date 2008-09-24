@@ -1,10 +1,10 @@
 Gem::Specification.new do |s|
   s.name = "clearance"
-  s.version = "0.1.4"
+  s.version = "0.1.5"
   s.date = "2008-09-24"
   s.summary = "Simple, complete Rails authentication."
   s.email = "dcroak@thoughtbot.com"
-  s.homepage = "http://github.com/dancroak/clearance"
+  s.homepage = "http://github.com/thoughtbot/clearance"
   s.description = "Simple, complete Rails authentication scheme."
   s.authors = ["thoughtbot, inc.", "Dan Croak", "Josh Nichols", "Mike Breen", "Mike Burns", "Jason Morrison"]
   s.files = ["README.textile", 
