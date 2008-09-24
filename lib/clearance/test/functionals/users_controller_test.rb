@@ -27,7 +27,7 @@ module Clearance
             end
             
             should_set_the_flash_to /created/i
-            should_redirect_to "root_url"
+            should_redirect_to "@controller.send(:url_after_create)"
             should_assign_to :user
             should_change 'User.count', :by => 1
           end
@@ -80,7 +80,7 @@ module Clearance
                   :user => { :email => "none@example.com" }
               end
               should_set_the_flash_to /updated/i
-              should_redirect_to "root_url"
+              should_redirect_to "@controller.send(:url_after_update)"
               should_assign_to :user
               should "update the user's attributes" do
                 assert_equal "none@example.com", assigns(:user).email

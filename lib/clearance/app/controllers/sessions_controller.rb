@@ -24,7 +24,7 @@ module Clearance
         forget current_user
         reset_session
         flash[:notice] = 'You have been logged out.'
-        redirect_to login_url
+        redirect_to url_after_destroy
       end
     end
 
@@ -42,7 +42,7 @@ module Clearance
       
       def login_successful
         flash[:notice] = 'Logged in successfully'
-        redirect_back_or root_url
+        redirect_back_or url_after_create
       end
 
       def login_failure(message = "Bad email or password.")
@@ -59,6 +59,14 @@ module Clearance
       def forget(user)
         user.forget_me! if user
         cookies.delete :auth_token
+      end
+
+      def url_after_create
+        root_url
+      end
+
+      def url_after_destroy
+        login_url
       end
     end
   end

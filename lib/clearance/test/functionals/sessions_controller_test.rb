@@ -26,7 +26,7 @@ module Clearance
             end
 
             should_set_the_flash_to /success/i
-            should_redirect_to 'root_url'
+            should_redirect_to '@controller.send(:url_after_create)'
             # TODO: should set session
           end
 
@@ -48,7 +48,7 @@ module Clearance
 
           context "logging out again" do
             setup { delete :destroy }
-            should_redirect_to "login_url"
+            should_redirect_to '@controller.send(:url_after_destroy)'
           end
         end
 
@@ -57,7 +57,7 @@ module Clearance
             setup { delete :destroy }
 
             should_set_the_flash_to(/logged out/i)
-            should_redirect_to "login_url"
+            should_redirect_to '@controller.send(:url_after_destroy)'
           end
 
           context 'a DELETE to #destroy with a cookie' do
