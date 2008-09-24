@@ -63,13 +63,13 @@ In test/functional/sessions_controller_test.rb:
 
   class SessionsControllerTest < ActionController::TestCase
     include Clearance::SessionsControllerTest
-
+    
     private
-
+    
     def url_after_create
       root_url # the default
     end
-
+    
     def url_after_destroy
       login_url # the default
     end
@@ -81,13 +81,13 @@ In test/functional/users_controller_test.rb:
 
   class UsersControllerTest < ActionController::TestCase
     include Clearance::UsersControllerTest
-
+    
     private
-
+    
     def url_after_create
       root_url # the default
     end
-
+    
     def url_after_update
       root_url # the default
     end
