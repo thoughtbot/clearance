@@ -65,7 +65,7 @@ module Clearance
                 @result = User.authenticate @user.email, 'horribly_wrong_password'
               end
 
-              should 'return true' do
+              should 'return false' do
                 assert !@result
               end
             end
@@ -87,7 +87,7 @@ module Clearance
                 @result = @user.authenticated? 'horribly_wrong_password'
               end
 
-              should 'return true' do
+              should 'return false' do
                 assert !@result
               end
             end
