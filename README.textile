@@ -105,7 +105,8 @@ Change your User model so it has these attributes:
       t.column :remember_token_expires_at, :datetime
     end
     
-    add_index :users, [:email, :crypted_password]
+    add_index :users, :email
+    add_index :users, :remember_token
 
 h2. User Model
 
