@@ -44,10 +44,9 @@ module Clearance
             should_set_the_flash_to /bad/i
             should_render_template :new
             #should_return_from_session(:user_id, 'nil')
-            should "return the correct value from the session for key :user_id" do
+            should "return nil from the session for key :user_id" do
               instantiate_variables_from_assigns do
-                expected_value = @user.id
-                assert_equal expected_value, session[:user_id], "Expected #{expected_value.inspect} but was #{session[:user_id]}"
+                assert_nil session[:user_id], "Expected nil but was #{session[:user_id]}"
               end
             end
           end
