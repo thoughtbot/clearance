@@ -35,10 +35,10 @@ module Clearance
         
         context 'A user' do
           setup do
-            @password = 'sekrit'
+            @password = 'mysekrit'
             @salt = 'salt'
             User.any_instance.stubs(:initialize_salt)
-            @user = Factory(:user, :password => @password, :salt => @salt)
+            @user = Factory(:user, :password => @password, :password_confirmation => @password, :salt => @salt)
           end
           
           should "require password validation on update" do
@@ -52,7 +52,7 @@ module Clearance
           context 'authenticating a user' do
             context 'with good credentials' do
               setup do
-                @result = User.authenticate @user.email, 'sekrit'
+                @result = User.authenticate @user.email, @password
               end
 
               should 'return true' do
