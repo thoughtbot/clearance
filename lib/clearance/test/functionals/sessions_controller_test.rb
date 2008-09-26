@@ -46,7 +46,7 @@ module Clearance
             #should_return_from_session(:user_id, 'nil')
             should "return the correct value from the session for key :user_id" do
               instantiate_variables_from_assigns do
-                expected_value = @user.id
+                expected_value = nil
                 assert_equal expected_value, session[:user_id], "Expected #{expected_value.inspect} but was #{session[:user_id]}"
               end
             end
