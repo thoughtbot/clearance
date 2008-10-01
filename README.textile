@@ -51,27 +51,21 @@ In test/test_helper.rb:
 
 In test/unit/user_test.rb: 
 
-    require File.dirname(__FILE__) + '/../test_helper'
-    
     class UserTest < Test::Unit::TestCase
       include Clearance::UserTest
     end
 
 In test/functional/sessions_controller_test.rb: 
 
-  require File.dirname(__FILE__) + '/../test_helper'
-
-  class SessionsControllerTest < ActionController::TestCase
-    include Clearance::SessionsControllerTest
-  end
+    class SessionsControllerTest < ActionController::TestCase
+      include Clearance::SessionsControllerTest
+    end
 
 In test/functional/users_controller_test.rb: 
 
-  require File.dirname(__FILE__) + '/../test_helper'
-
-  class UsersControllerTest < ActionController::TestCase
-    include Clearance::UsersControllerTest
-  end
+    class UsersControllerTest < ActionController::TestCase
+      include Clearance::UsersControllerTest
+    end
 
 h2. Schema
 

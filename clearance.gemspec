@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name = "clearance"
-  s.version = "0.1.5"
-  s.date = "2008-09-24"
+  s.version = "0.1.6"
+  s.date = "2008-09-26"
   s.summary = "Simple, complete Rails authentication."
   s.email = "dcroak@thoughtbot.com"
   s.homepage = "http://github.com/thoughtbot/clearance"
