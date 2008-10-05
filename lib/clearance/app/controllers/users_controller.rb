@@ -16,7 +16,7 @@ module Clearance
 
     module InstanceMethods
       def new
-        @user = User.new
+        @user = User.new(params[:user])
       end
       
       def create

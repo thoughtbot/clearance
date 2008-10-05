@@ -15,6 +15,18 @@ module Clearance
               :fields => { :email => :text,
                 :password => :password,
                 :password_confirmation => :password }
+
+            context "with params" do
+              setup do
+                @email = 'a@example.com'
+                get :new, :user => {:email => @email}
+              end
+
+              should_assign_to :user
+              should "set the @user's params" do
+                assert_equal @email, assigns(:user).email
+              end
+            end
           end
 
           context "on POST to /users" do
