@@ -21,7 +21,7 @@ module Clearance
       end
 
       def destroy
-        forget current_user
+        forget(current_user)
         reset_session
         flash[:notice] = 'You have been logged out.'
         redirect_to url_after_destroy

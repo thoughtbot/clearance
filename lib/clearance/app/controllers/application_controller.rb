@@ -38,7 +38,7 @@ module Clearance
       end
 
       def login(user)
-        create_session_for user
+        create_session_for(user)
         @current_user = user
       end
 
