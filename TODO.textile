@@ -2,5 +2,7 @@
 # check to make sure attr_accessible doesn't override and w/ attr_protected
 # sessions controller test is missing some tests
 # replace should_filter with new shoulda gem's should_filter_params
-# password resets
 # helpers and tests shouldn't depend on login/logout routes
+# refactor Mailer default_url_options[:host]
+# passwords_controller_test needs to be written
+# mailer needs to be documented in README

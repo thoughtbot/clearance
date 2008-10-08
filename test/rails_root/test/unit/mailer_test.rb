@@ -1,4 +1,4 @@
-require 'test_helper'
+require File.dirname(__FILE__) + '/../test_helper'
 
 class MailerTest < ActionMailer::TestCase
   tests Mailer
@@ -6,7 +6,7 @@ class MailerTest < ActionMailer::TestCase
   context "A change password email" do
     setup do
       @user = Factory :user
-      @email = Mailer.create_change_password(@user)
+      @email = Mailer.create_change_password @user
     end
 
     should "set its from address to 'donotreply@example.com'" do
@@ -15,7 +15,7 @@ class MailerTest < ActionMailer::TestCase
 
     should "contain a link to edit the user's password" do
       host = ActionMailer::Base.default_url_options[:host]
-      regexp = %r{http://#{host}/passwords/#{@user.id}/edit\?password=#{@user.crypted_password}}
+      regexp = %r{http://#{host}/users/#{@user.id}/password/edit\?email=#{@user.email.gsub("@", "%40")}&amp;password=#{@user.crypted_password}}
       assert_match regexp, @email.body
     end
     
