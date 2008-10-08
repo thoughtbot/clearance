@@ -30,7 +30,7 @@ module Clearance
 
     module ProtectedInstanceMethods
       def login_via_password(email, password, remember_me)
-        user = User.authenticate(email, password)
+        user = user_model.authenticate(email, password)
         if login(user)
           create_session_for(user)
           remember(user) if remember_me == '1'

@@ -16,11 +16,11 @@ module Clearance
 
     module InstanceMethods
       def new
-        @user = User.new(params[:user])
+        @user = user_model.new(params[:user])
       end
       
       def create
-        @user = User.new params[:user]
+        @user = user_model.new params[:user]
         if @user.save
           current_user = @user
           flash[:notice] = "User created and logged in."

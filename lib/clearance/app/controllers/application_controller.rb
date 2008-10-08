@@ -29,11 +29,11 @@ module Clearance
       end
 
       def user_from_session
-        User.find_by_id session[:user_id]
+        user_model.find_by_id session[:user_id]
       end
 
       def user_from_cookie
-        user = User.find_by_remember_token(cookies[:auth_token]) if cookies[:auth_token]
+        user = user_model.find_by_remember_token(cookies[:auth_token]) if cookies[:auth_token]
         user && user.remember_token? ? user : nil
       end
 
@@ -64,6 +64,10 @@ module Clearance
         store_location
         flash[:error] = flash_message if flash_message
         redirect_to opts[:redirect]
+      end
+      
+      def user_model
+        User
       end
     end
   end
