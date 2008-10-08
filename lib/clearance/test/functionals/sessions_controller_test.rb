@@ -6,7 +6,7 @@ module Clearance
         context "Given a user" do
           setup { @user = Factory :user }
 
-          should_filter :password
+          should_filter_params :password
 
           context "on GET to /sessions/new" do
             setup { get :new }

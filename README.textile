@@ -29,7 +29,7 @@ Then:
 
 h2. Tests
 
-The tests use "Shoulda":http://thoughtbot.com/projects/shoulda and "Factory Girl":http://thoughtbot.com/projects/factory_girl. You should create a User Factory:
+The tests use "Shoulda":http://thoughtbot.com/projects/shoulda >= 2.0.4 and "Factory Girl":http://thoughtbot.com/projects/factory_girl. You should create a User Factory:
 
     Factory.sequence :email do |n|
       "user#{n}@example.com"
@@ -89,6 +89,23 @@ In app/models/user.rb:
     class User < ActiveRecord::Base
       include Clearance::Model
     end
+
+h2. Mailer
+
+In app/models/mailer.rb:
+
+    class Mailer < ActionMailer::Base
+
+		  default_url_options[:host] = HOST
+
+		  def change_password(user)
+		    from       "donotreply@example.com"
+		    recipients user.email
+		    subject    "[YOUR APP] Request to change your password"
+		    body       :user => user
+		  end
+
+		end
 
 h2. Controllers
 

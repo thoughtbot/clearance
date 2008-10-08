@@ -32,6 +32,7 @@ module Clearance
     end
 
     module PrivateInstanceMethods
+
       def url_after_create
         root_url
       end

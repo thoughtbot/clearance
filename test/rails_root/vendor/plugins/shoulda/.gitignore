@@ -1,4 +1,0 @@
-test/rails_root/log/*.log
-doc
-coverage
-.svn/

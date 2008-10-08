@@ -1,0 +1,26 @@
+<div class="page">
+  <div class="plain">
+    <div class="page-header">
+      <h2 class="instructions">
+        Your password has been reset.  Choose a new password below.
+      </h2>
+    </div>
+    <%= error_messages_for :user %>
+    <% form_for(:user, 
+                :url => password_path(:id => @user.id,
+                                      :password => @user.crypted_password),
+                :html => { :method => :put }) do |form| %>
+      <div class="text">
+        <%= form.label :password, 'Choose password' %>
+        <%= form.password_field :password %>
+      </div>
+      <div class="text">
+        <%= form.label :password_confirmation, 'Verify password' %>
+        <%= form.password_field :password_confirmation %>
+      </div>
+      <div class="buttons" id="password-submit">
+        <%= form.submit 'Save this password' %>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -50,7 +50,7 @@ module Clearance
 
           should_deny_access_on "get :new"
           should_deny_access_on "post :create, :user => {}" 
-          should_filter :password
+          should_filter_params :password
 
         end
       end
