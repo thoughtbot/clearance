@@ -3,5 +3,4 @@
 # sessions controller test is missing some tests
 # helpers and tests shouldn't depend on login/logout routes
 # refactor Mailer default_url_options[:host]
-# passwords_controller_test needs to pass (look up user by email and password in test and controller, like playyr)
-# mailer needs to be documented in README
+# passwords_controller needs to be documented in README

@@ -1,0 +1,13 @@
+<h2>Change your password</h2>
+
+<p class="help">We'll email you a link to change your password.</p>
+
+<% form_for :password, :url => passwords_path do |form| %>
+  <div class="text">
+    <%= form.label :email, 'Email address' %>
+    <%= form.text_field :email %>
+  </div>
+  <div class="buttons" id="password-submit">
+    <%= form.submit 'Reset password' %>
+  </div>
+<% end %>
