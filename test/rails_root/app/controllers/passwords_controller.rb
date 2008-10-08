@@ -17,12 +17,12 @@ class PasswordsController < ApplicationController
   end
 
   def edit
-    @user = User.find_by_id_and_crypted_password(params[:id],
+    @user = User.find_by_id_and_crypted_password(params[:email],
                                                  params[:password])
   end
 
   def update
-    @user = User.find_by_id_and_crypted_password(params[:id],
+    @user = User.find_by_id_and_crypted_password(params[:user_id],
                                                  params[:password])
     if @user.update_attributes params[:user]
       session[:user_id] = @user.id

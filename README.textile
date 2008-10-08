@@ -29,7 +29,7 @@ Then:
 
 h2. Tests
 
-The tests use "Shoulda":http://thoughtbot.com/projects/shoulda and "Factory Girl":http://thoughtbot.com/projects/factory_girl. You should create a User Factory:
+The tests use "Shoulda":http://thoughtbot.com/projects/shoulda >= 2.0.4 and "Factory Girl":http://thoughtbot.com/projects/factory_girl. You should create a User Factory:
 
     Factory.sequence :email do |n|
       "user#{n}@example.com"
