@@ -10,13 +10,8 @@ class PasswordsControllerTest < ActionController::TestCase
     context 'A GET to #new' do
       setup { get :new, :user_id => @user_id }
 
-      should 'be a success' do
-        assert_response :success
-      end
-
-      should 'render the "new" template' do
-        assert_template 'new'
-      end
+      should_respond_with :success
+      should_render_template 'new'
     end
 
     context 'A POST to #create' do
@@ -29,12 +24,10 @@ class PasswordsControllerTest < ActionController::TestCase
         end
 
         should 'send an email to the user to edit their password' do
-          assert_equal 'Password Reminder', @email.subject          
+          assert @email.subject =~ /request to change your password/i          
         end
 
-        should 'redirect to the login page' do
-          assert_redirected_to new_session_path
-        end
+        should_redirect_to "new_session_path"
       end
 
       context 'with a non-existing email address' do
@@ -141,7 +134,7 @@ class PasswordsControllerTest < ActionController::TestCase
         should_redirect_to "user_path(@user)"
       end
 
-      context 'without a matching password and password confirmation' do
+      context 'with password but blank password confirmation' do
         setup do
           new_password = 'new_password'
           encryption_format = "--#{@user.salt}--#{new_password}--"

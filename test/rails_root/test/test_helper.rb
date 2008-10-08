@@ -7,7 +7,7 @@ ActiveRecord::Migration.verbose = false
 ActiveRecord::Migrator.migrate("#{RAILS_ROOT}/db/migrate")
 
 gem 'mocha'
-gem 'quietbacktrace'
+gem 'thoughtbot-quietbacktrace'
 gem 'thoughtbot-factory_girl' # from github
 
 require 'mocha'
@@ -19,8 +19,8 @@ class Test::Unit::TestCase
   self.use_transactional_fixtures = true
   self.use_instantiated_fixtures  = false
   
-  # self.backtrace_silencers << :rails_vendor
-  # self.backtrace_filters   << :rails_root
+  self.backtrace_silencers << :rails_vendor
+  self.backtrace_filters   << :rails_root
   
   include Clearance::TestHelper
   
