@@ -24,7 +24,7 @@ class PasswordsControllerTest < ActionController::TestCase
         end
 
         should 'send an email to the user to edit their password' do
-          assert @email.subject =~ /request to change your password/i          
+          assert @email.subject =~ /request to change your password/i
         end
 
         should_redirect_to "new_session_path"
@@ -66,6 +66,18 @@ class PasswordsControllerTest < ActionController::TestCase
 
         should_respond_with :success
         should_render_template "edit"
+
+        should "have a form for the user's email, password, and password confirm" do
+          update_path = ERB::Util.h(user_password_path(@user,
+                :password => @user.crypted_password,
+                :email    => @user.email))
+
+          assert_select 'form[action=?]', update_path do
+            assert_select 'input[name=_method][value=?]', 'put'
+            assert_select 'input[name=?]', 'user[password]'
+            assert_select 'input[name=?]', 'user[password_confirmation]'
+          end
+        end
       end
 
       context "with an existing user's id but not password" do
@@ -90,7 +102,7 @@ class PasswordsControllerTest < ActionController::TestCase
               :user_id => @user.id,
               :password => '')
         end
-        
+
         should "not update the user's password" do
           assert_not_equal @encrypted_new_password, @user.crypted_password
         end
@@ -104,7 +116,7 @@ class PasswordsControllerTest < ActionController::TestCase
         should 'render an empty response' do
           assert @response.body.blank?
         end
-      end      
+      end
 
       context 'with a matching password and password confirmation' do
         setup do
@@ -114,10 +126,11 @@ class PasswordsControllerTest < ActionController::TestCase
           assert_not_equal @encrypted_new_password, @user.crypted_password
 
           put(:update,
-              :user_id => @user.id,
+              :user_id  => @user,
+              :email    => @user.email,
               :password => @user.crypted_password,
               :user => {
-                :password => new_password,
+                :password              => new_password,
                 :password_confirmation => new_password
               })
           @user.reload
@@ -166,5 +179,5 @@ class PasswordsControllerTest < ActionController::TestCase
       end
     end
   end
-    
+
 end

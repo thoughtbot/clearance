@@ -1,5 +1,5 @@
 class PasswordsController < ApplicationController
-  
+
   before_filter :existing_user?, :only => [:edit, :update]
 
   def new
@@ -17,13 +17,13 @@ class PasswordsController < ApplicationController
   end
 
   def edit
-    @user = User.find_by_id_and_crypted_password(params[:email],
-                                                 params[:password])
+    @user = User.find_by_email_and_crypted_password(params[:email],
+                                                    params[:password])
   end
 
   def update
-    @user = User.find_by_id_and_crypted_password(params[:user_id],
-                                                 params[:password])
+    @user = User.find_by_email_and_crypted_password(params[:email],
+                                                    params[:password])
     if @user.update_attributes params[:user]
       session[:user_id] = @user.id
       redirect_to @user
@@ -35,8 +35,8 @@ class PasswordsController < ApplicationController
  private
 
   def existing_user?
-    user = User.find_by_id_and_crypted_password(params[:id],
-                                                params[:password])
+    user = User.find_by_email_and_crypted_password(params[:email],
+                                                   params[:password])
     if user.nil?
       render :nothing => true, :status => :not_found
     end
