@@ -1,6 +1,27 @@
-# move shoulda macros in test_helper to shoulda_macros folder
-# check to make sure attr_accessible doesn't override and w/ attr_protected
-# sessions controller test is missing some tests
-# helpers and tests shouldn't depend on login/logout routes
-# refactor Mailer default_url_options[:host]
+(this is in order of highest priority first)
+
+h2. Password reset
+
+# Fix failing tests
+# Mailer should be re-named PasswordsMailer
 # passwords_controller needs to be documented in README
+
+h2. Test coverage
+
+# sessions controller test is missing some tests
+
+h2. Email confirmation
+
+We do this in every app. It should be in Clearance.
+
+# UsersMailer will contain confirmation email 
+
+h2. Minimize potential problems/conflicts in target Rails apps for Clearance
+
+# check to make sure attr_accessible doesn't override and w/ attr_protected
+# helpers and tests shouldn't depend on login/logout routes
+
+h2. Cleaner code
+
+# move shoulda macros in test_helper to shoulda_macros folder
+# refactor Mailer default_url_options[:host] to something cleaner
