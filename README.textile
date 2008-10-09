@@ -67,6 +67,12 @@ In test/functional/users_controller_test.rb:
       include Clearance::UsersControllerTest
     end
 
+In test/functional/passwords_controller_test.rb: 
+
+    class PasswordsControllerTest < ActionController::TestCase
+      include Clearance::PasswordsControllerTest
+    end
+
 h2. Schema
 
 Change your User model so it has these attributes:
@@ -123,11 +129,11 @@ In app/controllers/sessions_controller.rb:
       include Clearance::SessionsController
 
       private
-      
+
       def url_after_create
         root_url # the default
       end
-      
+
       def url_after_destroy
         login_url # the default
       end
@@ -137,16 +143,22 @@ In app/controllers/users_controller.rb:
 
     class UsersController < ApplicationController
       include Clearance::UsersController
-    
+
       private
-      
+
       def url_after_create
         root_url # the default
       end
-      
+
       def url_after_update
         root_url # the default
       end
+    end
+
+In app/controllers/passwords_controller.rb:
+
+    class PasswordsController < ApplicationController
+      include Clearance::PasswordsController
     end
 
 h2. Routes
@@ -156,7 +168,7 @@ h2. Routes
       m.logout '/logout', :action => 'destroy'
     end
     map.resource :session
-    map.resources :users
+    map.resources :users, :has_one => :password
 
 h2. Views
 
