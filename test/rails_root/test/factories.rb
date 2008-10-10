@@ -4,6 +4,6 @@ end
 
 Factory.define :user do |user|
   user.email { Factory.next :email }
-  user.password 'sekrit'
-  user.password_confirmation 'sekrit'
+  user.password "password"
+  user.password_confirmation "password"
 end

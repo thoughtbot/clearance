@@ -37,8 +37,8 @@ The tests use "Shoulda":http://thoughtbot.com/projects/shoulda >= 2.0.4 and "Fac
 
     Factory.define :user do |user|
       user.email { Factory.next :email }
-      user.password 'sekrit'
-      user.password_confirmation 'sekrit'
+      user.password "password"
+      user.password_confirmation "password"
     end
 
 In test/test_helper.rb: 
