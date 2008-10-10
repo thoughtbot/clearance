@@ -17,6 +17,13 @@ module Clearance
           subject    "[YOUR APP] Request to change your password"
           body       :user => user
         end
+        
+        def confirmation(user)
+          recipients user.email
+          from "donotreply@example.com"
+          subject 'Account Confirmation'
+          body :user => user
+        end
       end
     end
   end

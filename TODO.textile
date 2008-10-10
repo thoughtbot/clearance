@@ -14,6 +14,7 @@ h2. Email confirmation
 
 h2. Minimize potential problems/conflicts
 
+# mailers hardcode example.com as from address
 # check to make sure attr_accessible doesn't override and w/ attr_protected
 # helpers and tests shouldn't depend on login/logout routes
 

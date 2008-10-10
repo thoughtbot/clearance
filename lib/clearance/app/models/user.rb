@@ -58,6 +58,10 @@ module Clearance
           self.update_attribute :remember_token_expires_at, nil
           self.update_attribute :remember_token, nil
         end
+        
+        def confirm!
+          update_attribute :confirmed, true
+        end
       end
     
       module ProtectedInstanceMethods

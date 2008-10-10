@@ -180,6 +180,23 @@ module Clearance
           end
         end
 
+        context "A user" do
+          setup do
+            @user = Factory :user
+          end
+
+          context 'when sent #confirm!' do
+            setup do
+              assert ! @user.confirmed?
+              assert @user.confirm!
+              @user.reload
+            end
+
+            should 'mark the User record as confirmed' do
+              assert @user.confirmed?
+            end
+          end
+        end
       end
     end
   end

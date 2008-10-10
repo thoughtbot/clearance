@@ -1,0 +1,4 @@
+<% form_for :user, :url => user_confirmation_path(:user_id => @user,
+                                                  :salt => @user.salt) do |form| %>
+  <%= form.submit 'Confirm' %>
+<% end %>
