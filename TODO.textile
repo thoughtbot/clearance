@@ -2,7 +2,6 @@
 
 h2. Password reset
 
-# Mailer should be re-named PasswordsMailer
 # passwords_controller needs to be documented in README
 
 h2. Test coverage
@@ -11,7 +10,7 @@ h2. Test coverage
 
 h2. Email confirmation
 
-# UsersMailer will contain confirmation email 
+# UserMailer will contain confirmation email 
 
 h2. Minimize potential problems/conflicts
 

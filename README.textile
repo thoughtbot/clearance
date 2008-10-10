@@ -55,6 +55,12 @@ In test/unit/user_test.rb:
       include Clearance::UserTest
     end
 
+In test/unit/user_mailer_test.rb: 
+
+    class UserMailerTest < Test::Unit::TestCase
+      include Clearance::UserMailerTest
+    end
+
 In test/functional/sessions_controller_test.rb: 
 
     class SessionsControllerTest < ActionController::TestCase
@@ -93,23 +99,18 @@ h2. User Model
 In app/models/user.rb:
 
     class User < ActiveRecord::Base
-      include Clearance::Model
+      include Clearance::Models::User
     end
 
-h2. Mailer
+h2. User Mailer
 
-In app/models/mailer.rb:
+In app/models/user_mailer.rb:
 
-    class Mailer < ActionMailer::Base
+    class UserMailer < ActionMailer::Base
 
 		  default_url_options[:host] = HOST
 
-		  def change_password(user)
-		    from       "donotreply@example.com"
-		    recipients user.email
-		    subject    "[YOUR APP] Request to change your password"
-		    body       :user => user
-		  end
+		  include Clearance::Mailers::User
 
 		end
 
@@ -196,7 +197,7 @@ h2. Authors
 
 * thoughtbot, inc.
 * Dan Croak
+* Jason Morrison
+* Mike Burns
 * Josh Nichols
 * Mike Breen
-* Mike Burns
-* Jason Morrison
