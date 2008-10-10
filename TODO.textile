@@ -2,7 +2,6 @@
 
 h2. Password reset
 
-# Fix failing tests
 # Mailer should be re-named PasswordsMailer
 # passwords_controller needs to be documented in README
 

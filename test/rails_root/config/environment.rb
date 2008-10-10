@@ -1,5 +1,5 @@
 PROJECT_NAME = "clearance"
-RAILS_GEM_VERSION = '2.1.0' unless defined? RAILS_GEM_VERSION
+RAILS_GEM_VERSION = '2.1.1' unless defined? RAILS_GEM_VERSION
 require File.join(File.dirname(__FILE__), 'boot')
 require 'md5' # Need this up here to generate the session[:secret] value down there
 
