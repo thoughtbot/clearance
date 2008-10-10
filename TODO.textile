@@ -12,11 +12,9 @@ h2. Test coverage
 
 h2. Email confirmation
 
-We do this in every app. It should be in Clearance.
-
 # UsersMailer will contain confirmation email 
 
-h2. Minimize potential problems/conflicts in target Rails apps for Clearance
+h2. Minimize potential problems/conflicts
 
 # check to make sure attr_accessible doesn't override and w/ attr_protected
 # helpers and tests shouldn't depend on login/logout routes
