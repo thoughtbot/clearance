@@ -34,6 +34,15 @@ This will create:
     app/controllers/users_controller.rb
     app/models/user.rb
     app/models/user_mailer.rb
+    app/views/confirmations/new.html.erb
+    app/views/passwords/edit.html.erb
+    app/views/passwords/new.html.erb
+    app/views/sessions/new.html.erb
+    app/views/user_mailer/change_password.html.erb
+    app/views/user_mailer/confirmation.html.erb
+    app/views/users/_form.html.erb
+    app/views/users/edit.html.erb
+    app/views/users/new.html.erb
     test/functional/confirmations_controller_test.rb
     test/functional/passwords_controller_test.rb
     test/functional/sessions_controller_test.rb
