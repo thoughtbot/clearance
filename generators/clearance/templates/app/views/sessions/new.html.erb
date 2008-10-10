@@ -1,0 +1,17 @@
+<% form_for :session, :url => session_path do |form| %>
+  <div class="group">
+    <%= form.label :email %>
+    <%= form.text_field :email %>  
+  </div>
+  <div class="group">
+    <%= form.label :password %>
+    <%= form.password_field :password %>
+  </div>
+  <div class="checkbox">
+    <%= form.check_box :remember_me %>
+    <%= form.label :remember_me %>
+  </div>
+  <div class="group buttons">
+    <%= form.submit 'Login', :disable_with => 'Please wait...' %>
+  </div>
+<% end %>

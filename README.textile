@@ -4,13 +4,6 @@ Simple, complete Ruby web app authentication.
 
 "We have clearance, Clarence.":http://www.youtube.com/v/mNRXJEE3Nz8
 
-h2. Features
-
-* email & password
-* modules, not a generator
-* gem, not a plugin
-* tests included using "shoulda":http://thoughtbot.com/projects/shoulda & "factory_girl":http://thoughtbot.com/projects/factory_girl
-
 h2. Gem installation (Rails 2.1+)
 
 Specify the gem dependency in your config/environment.rb file:
@@ -26,6 +19,37 @@ Then:
 
     rake gems:install
     rake gems:unpack
+
+h2. Generator
+
+In a greenfield application, just run the generator:
+
+    script/generate clearance
+
+This will create:
+
+    app/controllers/confirmations_controller.rb
+    app/controllers/passwords_controller.rb
+    app/controllers/sessions_controller.rb
+    app/controllers/users_controller.rb
+    app/models/user.rb
+    app/models/user_mailer.rb
+    test/functional/confirmations_controller_test.rb
+    test/functional/passwords_controller_test.rb
+    test/functional/sessions_controller_test.rb
+    test/functional/users_controller_test.rb
+    test/unit/user_mailer_test.rb
+    test/unit/user_test.rb
+
+If you already have some of these files created, the generator will:
+
+# NOT overwrite your files
+# print out instructions to include Clearance modules in those files manually
+
+For example: 
+
+    app/models/user.rb already exists. Add this line to it:
+    include Clearance::Models::User
 
 h2. Tests
 
@@ -49,71 +73,6 @@ In test/test_helper.rb:
       include Clearance::TestHelper
     end
 
-In test/unit/user_test.rb: 
-
-    class UserTest < Test::Unit::TestCase
-      include Clearance::UserTest
-    end
-
-In test/unit/user_mailer_test.rb: 
-
-    class UserMailerTest < Test::Unit::TestCase
-      include Clearance::UserMailerTest
-    end
-
-In test/functional/sessions_controller_test.rb: 
-
-    class SessionsControllerTest < ActionController::TestCase
-      include Clearance::SessionsControllerTest
-    end
-
-In test/functional/users_controller_test.rb: 
-
-    class UsersControllerTest < ActionController::TestCase
-      include Clearance::UsersControllerTest
-    end
-
-In test/functional/passwords_controller_test.rb: 
-
-    class PasswordsControllerTest < ActionController::TestCase
-      include Clearance::PasswordsControllerTest
-    end
-
-h2. Schema
-
-Change your User model so it has these attributes:
-
-    change_table(:users) do |t|
-      t.column :email, :string
-      t.column :crypted_password, :string, :limit => 40
-      t.column :salt, :string, :limit => 40
-      t.column :remember_token, :string
-      t.column :remember_token_expires_at, :datetime
-    end
-    
-    add_index :users, :email
-    add_index :users, :remember_token
-
-h2. User Model
-
-In app/models/user.rb:
-
-    class User < ActiveRecord::Base
-      include Clearance::Models::User
-    end
-
-h2. User Mailer
-
-In app/models/user_mailer.rb:
-
-    class UserMailer < ActionMailer::Base
-
-		  default_url_options[:host] = HOST
-
-		  include Clearance::Mailers::User
-
-		end
-
 h2. Controllers
 
 In app/controllers/application_controller.rb:
@@ -124,74 +83,27 @@ In app/controllers/application_controller.rb:
       include Clearance::ApplicationController
     end
 
-In app/controllers/sessions_controller.rb:
-
-    class SessionsController < ApplicationController
-      include Clearance::SessionsController
-
-      private
-
-      def url_after_create
-        root_url # the default
-      end
-
-      def url_after_destroy
-        login_url # the default
-      end
-    end
-
-In app/controllers/users_controller.rb:
-
-    class UsersController < ApplicationController
-      include Clearance::UsersController
-
-      private
-
-      def url_after_create
-        root_url # the default
-      end
-
-      def url_after_update
-        root_url # the default
-      end
-    end
-
-In app/controllers/passwords_controller.rb:
-
-    class PasswordsController < ApplicationController
-      include Clearance::PasswordsController
-    end
-
-h2. Routes
-
-    map.with_options :controller => 'sessions'  do |m|
-      m.login  '/login',  :action => 'new'
-      m.logout '/logout', :action => 'destroy'
-    end
-    map.resource :session
-    map.resources :users, :has_one => :password
-
 h2. Views
 
 In app/views/sessions/new.html.erb
 
-  <% form_for :session, :url => session_path do |f| %>
-	  <div class="group">
-	    <%= f.label :email %>
-	    <%= f.text_field :email %>  
-	  </div>
-	  <div class="group">
-	    <%= f.label :password %>
-	    <%= f.password_field :password %>
-	  </div>
-	  <div class="checkbox">
-	    <%= f.check_box :remember_me %>
-	    <%= f.label :remember_me %>
-	  </div>
-	  <div class="group buttons">
-	    <%= f.submit 'Login', :disable_with => 'Please wait...' %>
-	  </div>
-	<% end %>
+    <% form_for :session, :url => session_path do |f| %>
+      <div class="group">
+        <%= f.label :email %>
+        <%= f.text_field :email %>  
+      </div>
+      <div class="group">
+        <%= f.label :password %>
+        <%= f.password_field :password %>
+      </div>
+      <div class="checkbox">
+        <%= f.check_box :remember_me %>
+        <%= f.label :remember_me %>
+      </div>
+      <div class="group buttons">
+        <%= f.submit 'Login', :disable_with => 'Please wait...' %>
+      </div>
+    <% end %>
 
 h2. Authors
 
