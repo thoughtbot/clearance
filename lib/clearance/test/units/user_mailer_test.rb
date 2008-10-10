@@ -1,12 +1,12 @@
 module Clearance
-  module MailerTest
+  module UserMailerTest
   
     def self.included(base)
       base.class_eval do
         context "A change password email" do
           setup do
             @user = Factory :user
-            @email = Mailer.create_change_password @user
+            @email = UserMailer.create_change_password @user
           end
 
           should "set its from address to 'donotreply@example.com'" do

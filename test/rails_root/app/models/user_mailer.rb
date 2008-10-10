@@ -1,4 +1,4 @@
-class Mailer < ActionMailer::Base
+class UserMailer < ActionMailer::Base
   
   default_url_options[:host] = HOST
   
