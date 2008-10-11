@@ -44,8 +44,7 @@ Gem::Specification.new do |s|
     "lib/clearance/test/functionals/confirmations_controller_test.rb",
     "lib/clearance/test/functionals/passwords_controller_test.rb",
     "lib/clearance/test/functionals/sessions_controller_test.rb",
-    "lib/clearance/test/functionals/users_controller_test.rb",
     "lib/clearance/test/test_helper.rb",
-    "lib/clearance/test/units/user_mailer_test.rb"
-    "lib/clearance/test/units/user_test.rb"]
+    "lib/clearance/test/units/user_test.rb",
+    "lib/clearance/test/units/user_mailer_test.rb"]
 end
