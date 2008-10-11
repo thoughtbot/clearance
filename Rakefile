@@ -1,7 +1,6 @@
 require 'rake'
 require 'rake/testtask'
 require 'date'
-require 'activerecord'
 require 'lib/clearance/version'
 
 test_files_pattern = 'test/rails_root/test/{unit,functional,other}/**/*_test.rb'

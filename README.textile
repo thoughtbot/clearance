@@ -92,27 +92,47 @@ In app/controllers/application_controller.rb:
       include Clearance::ApplicationController
     end
 
-h2. Views
+h2. Migration
 
-In app/views/sessions/new.html.erb
+Your users table needs a few columns.
 
-    <% form_for :session, :url => session_path do |f| %>
-      <div class="group">
-        <%= f.label :email %>
-        <%= f.text_field :email %>  
-      </div>
-      <div class="group">
-        <%= f.label :password %>
-        <%= f.password_field :password %>
-      </div>
-      <div class="checkbox">
-        <%= f.check_box :remember_me %>
-        <%= f.label :remember_me %>
-      </div>
-      <div class="group buttons">
-        <%= f.submit 'Login', :disable_with => 'Please wait...' %>
-      </div>
-    <% end %>
+    create_table(:users) do |t|
+      t.string :email
+      t.string :crypted_password, :limit => 40
+      t.string :salt, :limit => 40
+      t.string :remember_token
+      t.datetime :remember_token_expires_at
+      t.boolean :confirmed, :default => false, :null => false
+    end
+
+    add_index :users, [:email, :crypted_password]
+
+h2. Routes
+
+    ActionController::Routing::Routes.draw do |map|
+      
+      map.resources :users
+      map.resource :session
+      
+      map.resources :users, :has_one => :password
+      map.resources :users, :has_one => :confirmation
+      
+      map.resources :passwords
+      
+      map.root :controller => 'sessions', :action => 'new'
+      
+      map.with_options :controller => 'sessions'  do |m|
+        m.login  '/login',  :action => 'new'
+        m.logout '/logout', :action => 'destroy'
+      end
+      
+    end
+
+h2. Environments
+
+In config/environments/test.rb and config/environments/development.rb:
+
+    HOST = "localhost"
 
 h2. Authors
 

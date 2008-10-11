@@ -1,11 +1,12 @@
 (this is in order of highest priority first)
 
-# Gemspec rake task
+# force email confirmation by default
 # sessions controller test is missing some tests
 # mailers should not hardcode example.com as from address
 # check to make sure attr_accessible doesn't override and w/ attr_protected
 # helpers and tests shouldn't depend on login/logout routes
 # move shoulda macros in test_helper to shoulda_macros folder
+# add shoulda and factory girl dependencies to gemspec
 # refactor Mailer default_url_options[:host] to something cleaner
 
 ideas stolen from merb-auth:
