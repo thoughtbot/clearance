@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name = "clearance"
-  s.version = "0.1.9"
-  s.date = "2008-10-10"
+  s.version = "0.1.10"
+  s.date = "2008-10-11"
   s.summary = "Simple, complete Rails authentication."
   s.email = "dcroak@thoughtbot.com"
   s.homepage = "http://github.com/thoughtbot/clearance"
@@ -17,6 +17,7 @@ Gem::Specification.new do |s|
     "lib/clearance/test/functionals/sessions_controller_test.rb",
     "lib/clearance/test/test_helper.rb",
     "lib/clearance/test/units/user_test.rb",
+    "lib/clearance/test/units/user_mailer_test.rb",
     "lib/clearance/app/controllers/users_controller.rb",
     "lib/clearance/test/functionals/users_controller_test.rb",
     "lib/clearance/app/controllers/passwords_controller.rb",
