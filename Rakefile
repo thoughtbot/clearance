@@ -1,5 +1,7 @@
 require 'rake'
 require 'rake/testtask'
+require 'date'
+require 'activerecord'
 
 test_files_pattern = 'test/rails_root/test/{unit,functional,other}/**/*_test.rb'
 Rake::TestTask.new do |t|
@@ -10,3 +12,24 @@ end
 
 desc "Run the test suite"
 task :default => :test
+
+spec = Gem::Specification.new do |s|
+  s.name = "clearance"
+  s.version = "0.2.0"
+  date = DateTime.now
+  s.date = "#{date.year}-#{date.month}-#{date.day}"
+  s.summary = "Simple, complete Rails authentication."
+  s.email = "dcroak@thoughtbot.com"
+  s.homepage = "http://github.com/thoughtbot/clearance"
+  s.description = "Simple, complete Rails authentication scheme."
+  s.authors = ["thoughtbot, inc.", "Dan Croak", "Josh Nichols", "Mike Breen", "Mike Burns", "Jason Morrison"]
+  s.files = FileList["[A-Z]*", "{generators,lib,test}/**/*"]
+end
+
+desc "Generate a gemspec file for GitHub"
+task :gemspec do
+  File.open("#{spec.name}.gemspec", 'w') do |f|
+    f.write spec.to_ruby
+  end
+end
+
