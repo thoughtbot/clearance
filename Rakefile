@@ -2,6 +2,7 @@ require 'rake'
 require 'rake/testtask'
 require 'date'
 require 'activerecord'
+require 'lib/clearance/version'
 
 test_files_pattern = 'test/rails_root/test/{unit,functional,other}/**/*_test.rb'
 Rake::TestTask.new do |t|
@@ -15,7 +16,7 @@ task :default => :test
 
 spec = Gem::Specification.new do |s|
   s.name = "clearance"
-  s.version = "0.2.0"
+  s.version = "#{Clearance::Version::MAJOR}.#{Clearance::Version::MINOR}.#{Clearance::Version::PATCH}"
   date = DateTime.now
   s.date = "#{date.year}-#{date.month}-#{date.day}"
   s.summary = "Simple, complete Rails authentication."
@@ -26,10 +27,73 @@ spec = Gem::Specification.new do |s|
   s.files = FileList["[A-Z]*", "{generators,lib,test}/**/*"]
 end
 
-desc "Generate a gemspec file for GitHub"
-task :gemspec do
-  File.open("#{spec.name}.gemspec", 'w') do |f|
-    f.write spec.to_ruby
+namespace :gemspec do
+  desc "Generate a gemspec file for GitHub"
+  task :write do
+    File.open("#{spec.name}.gemspec", 'w') do |f|
+      f.write spec.to_ruby
+    end
+  end
+  
+  namespace :bump do
+    desc "Bump the gemspec a major version."
+    task :major do
+      major = Clearance::Version::MAJOR + 1
+      File.open("lib/clearance/version.rb", 'w') do |file|
+        file.write <<-END
+module Clearance
+  module Version
+    MAJOR = #{major}
+    MINOR = 0
+    PATCH = 0
   end
 end
-
+        END
+      end
+      
+      spec.version = "#{major}.0.0"
+      Rake::Task["gemspec:write"].invoke
+      puts "Gem bumped to #{spec.version}"
+    end
+    
+    desc "Bump the gemspec a minor version."
+    task :minor do
+      minor = Clearance::Version::MINOR + 1
+      File.open("lib/clearance/version.rb", 'w') do |file|
+        file.write <<-END
+module Clearance
+  module Version
+    MAJOR = #{Clearance::Version::MAJOR}
+    MINOR = #{minor}
+    PATCH = 0
+  end
+end
+        END
+      end
+      
+      spec.version = "#{Clearance::Version::MAJOR}.#{minor}.0"
+      Rake::Task["gemspec:write"].invoke
+      puts "Gem bumped to #{spec.version}"
+    end
+    
+    desc "Bump the gemspec a patch version."
+    task :patch do
+      patch = Clearance::Version::PATCH + 1
+      File.open("lib/clearance/version.rb", 'w') do |file|
+        file.write <<-END
+module Clearance
+  module Version
+    MAJOR = #{Clearance::Version::MAJOR}
+    MINOR = #{Clearance::Version::MINOR}
+    PATCH = #{patch}
+  end
+end
+        END
+      end
+      
+      spec.version = "#{Clearance::Version::MAJOR}.#{Clearance::Version::MINOR}.#{patch}"
+      Rake::Task["gemspec:write"].invoke
+      puts "Gem bumped to #{spec.version}"
+    end
+  end
+end
