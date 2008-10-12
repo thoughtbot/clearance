@@ -1,3 +1,3 @@
 class SessionsController < ApplicationController
-  include Clearance::SessionsController
+  include Clearance::App::Controllers::SessionsController
 end

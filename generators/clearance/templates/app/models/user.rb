@@ -1,3 +1,3 @@
 class User < ActiveRecord::Base
-  include Clearance::Models::User
+  include Clearance::App::Models::User
 end

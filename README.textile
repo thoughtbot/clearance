@@ -53,7 +53,7 @@ This will create:
 For example: 
 
     app/models/user.rb already exists. Add this line to it:
-    include Clearance::Models::User
+    include Clearance::App::Models::User
 
 h2. Tests
 
@@ -74,7 +74,7 @@ In test/test_helper.rb:
     class Test::Unit::TestCase
       self.use_transactional_fixtures = true
       self.use_instantiated_fixtures  = false
-      include Clearance::TestHelper
+      include Clearance::Test::TestHelper
     end
 
 h2. Controllers
@@ -84,7 +84,7 @@ In app/controllers/application_controller.rb:
     class ApplicationController < ActionController::Base
       helper :all
       protect_from_forgery
-      include Clearance::ApplicationController
+      include Clearance::App::Controllers::ApplicationController
     end
 
 h2. Migration

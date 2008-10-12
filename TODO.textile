@@ -1,9 +1,11 @@
 (highest priority first)
 
+# activation code instead of salt?
 # users#show doesn't exist, but confirmations create redirects there
-# generator should print out instructions to include modules existing files
-# sessions controller test is missing some tests
+# sessions controller test is missing remember_me tests
 # mailers should not hardcode example.com as from address
+# should_have_form should be pulled into shoulda
+# generator should print out instructions to include modules existing files
 # check to make sure attr_accessible doesn't override and w/ attr_protected
 # move shoulda macros in test_helper to shoulda_macros folder
 # add shoulda and factory girl dependencies to gemspec

@@ -1,29 +1,32 @@
 module Clearance
-  module Mailers
-    module User
+  module App
+    module Models
+      module UserMailer
     
-      def self.included(base)
-        base.class_eval do
+        def self.included(base)
+          base.class_eval do
         
-          include InstanceMethods
+            include InstanceMethods
         
+          end
         end
-      end
     
-      module InstanceMethods
-        def change_password(user)
-          from       "donotreply@example.com"
-          recipients user.email
-          subject    "[YOUR APP] Request to change your password"
-          body       :user => user
+        module InstanceMethods
+          def change_password(user)
+            from       "donotreply@example.com"
+            recipients user.email
+            subject    "[YOUR APP] Request to change your password"
+            body       :user => user
+          end
+        
+          def confirmation(user)
+            recipients user.email
+            from "donotreply@example.com"
+            subject 'Account Confirmation'
+            body :user => user
+          end
         end
         
-        def confirmation(user)
-          recipients user.email
-          from "donotreply@example.com"
-          subject 'Account Confirmation'
-          body :user => user
-        end
       end
     end
   end

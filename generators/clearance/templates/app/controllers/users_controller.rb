@@ -1,3 +1,3 @@
 class UsersController < ApplicationController
-  include Clearance::UsersController
+  include Clearance::App::Controllers::UsersController
 end

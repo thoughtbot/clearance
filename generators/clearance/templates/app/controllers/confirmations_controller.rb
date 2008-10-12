@@ -1,3 +1,3 @@
 class ConfirmationsController < ApplicationController
-  include Clearance::ConfirmationsController
+  include Clearance::App::Controllers::ConfirmationsController
 end

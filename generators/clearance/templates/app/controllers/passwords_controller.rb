@@ -1,3 +1,3 @@
 class PasswordsController < ApplicationController
-  include Clearance::PasswordsController
+  include Clearance::App::Controllers::PasswordsController
 end
