@@ -1,7 +1,7 @@
-  module Clearance
-    module Version
-      MAJOR = 0
-      MINOR = 2
-      PATCH = 9
-    end
+module Clearance
+  module Version
+    MAJOR = 0
+    MINOR = 3
+    PATCH = 0
   end
+end
