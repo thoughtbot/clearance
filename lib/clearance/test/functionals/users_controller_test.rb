@@ -38,7 +38,7 @@ module Clearance
               }
             end
             
-            should_set_the_flash_to /created/i
+            should_set_the_flash_to /confirm/i
             should_redirect_to "@controller.send(:url_after_create)"
             should_assign_to :user
             should_change 'User.count', :by => 1
