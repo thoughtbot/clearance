@@ -13,17 +13,17 @@ module Clearance
     
         module InstanceMethods
           def change_password(user)
-            from       "donotreply@example.com"
+            from       DO_NOT_REPLY
             recipients user.email
-            subject    "[YOUR APP] Request to change your password"
+            subject    "[#{PROJECT_NAME.humanize}] Change your password"
             body       :user => user
           end
         
           def confirmation(user)
             recipients user.email
-            from "donotreply@example.com"
-            subject 'Account Confirmation'
-            body :user => user
+            from       DO_NOT_REPLY
+            subject   "[#{PROJECT_NAME.humanize}] Email confirmation"
+            body      :user => user
           end
         end
         

@@ -1,9 +1,9 @@
 (highest priority first)
 
+# change url_after_creates to be a class method or use after_filter
 # activation code (like restful-auth) instead of salt?
 # remove dependency on root_url?
 # users#show doesn't exist, but confirmations create redirects there
-# mailers should not hardcode example.com as from address
 # should_have_form should be pulled into shoulda
 # generator should print out instructions to include modules existing files
 # check to make sure attr_accessible doesn't override and w/ attr_protected

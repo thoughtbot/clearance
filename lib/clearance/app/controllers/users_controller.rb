@@ -38,6 +38,7 @@ module Clearance
           def url_after_create
             new_session_url
           end
+        
         end
 
       end

@@ -121,6 +121,11 @@ In config/environments/test.rb and config/environments/development.rb:
 
     HOST = "localhost"
 
+In config/environment.rb:
+
+    DO_NOT_REPLY = "donotreply@example.com"
+    PROJECT_NAME = "my_app_name"
+
 h2. Authors
 
 * thoughtbot, inc.
