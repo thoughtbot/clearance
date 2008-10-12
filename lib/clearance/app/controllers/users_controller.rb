@@ -22,9 +22,9 @@ module Clearance
       def create
         @user = user_model.new params[:user]
         if @user.save
-          current_user = @user
-          flash[:notice] = "User created and logged in."
-          redirect_back_or root_url
+          UserMailer.deliver_confirmation @user
+          flash[:notice] = "You will receive an email within the next few minutes. It contains instructions to confirm your account."
+          redirect_to new_session_url
         else
           render :action => "new"
         end
@@ -34,7 +34,7 @@ module Clearance
     module PrivateInstanceMethods
 
       def url_after_create
-        root_url
+        new_session_url
       end
     end
 

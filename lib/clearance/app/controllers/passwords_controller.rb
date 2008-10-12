@@ -22,7 +22,7 @@ module Clearance
           render :action => :new
         else
           UserMailer.deliver_change_password user
-          redirect_to login_path
+          redirect_to new_session_url
         end
       end
 
