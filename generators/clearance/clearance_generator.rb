@@ -17,7 +17,7 @@ class ClearanceGenerator < Rails::Generator::Base
       end
       
       m.directory File.join("app", "views")
-      system `mkdir app/views/confirmations`
+      m.directory File.join("app", "views", "confirmations")
       ["app/views/confirmations/new.html.erb"].each do |file|
         m.file file, file
       end

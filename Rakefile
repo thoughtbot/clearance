@@ -2,6 +2,10 @@ require 'rake'
 require 'rake/testtask'
 require 'date'
 require 'lib/clearance/version'
+begin
+  require 'jeweler'
+rescue LoadError 
+end
 
 test_files_pattern = 'test/rails_root/test/{unit,functional,other}/**/*_test.rb'
 Rake::TestTask.new do |t|
@@ -13,11 +17,8 @@ end
 desc "Run the test suite"
 task :default => :test
 
-spec = Gem::Specification.new do |s|
+Jeweler.gemspec = Gem::Specification.new do |s|
   s.name = "clearance"
-  s.version = "#{Clearance::Version::MAJOR}.#{Clearance::Version::MINOR}.#{Clearance::Version::PATCH}"
-  date = DateTime.now
-  s.date = "#{date.year}-#{date.month}-#{date.day}"
   s.summary = "Simple, complete Rails authentication."
   s.email = "dcroak@thoughtbot.com"
   s.homepage = "http://github.com/thoughtbot/clearance"
@@ -25,82 +26,30 @@ spec = Gem::Specification.new do |s|
   s.authors = ["thoughtbot, inc.", "Dan Croak", "Josh Nichols", "Mike Breen", "Mike Burns", "Jason Morrison"]
   s.files = FileList["[A-Z]*", "{generators,lib,test}/**/*"]
 end
-
-namespace :gemspec do
-  desc "Generate a gemspec file for GitHub"
-  task :write do
-    File.open("#{spec.name}.gemspec", 'w') do |f|
-      f.write spec.to_ruby
+ 
+namespace :generator do
+  task :templates do
+    app_files = FileList["test/rails_root/app/{controllers,models,views}/**/*"]
+    app_files.reject! { |file| file.include?("test/rails_root/app/views/layouts") }
+    test_files = FileList["test/rails_root/test/{functional,unit}/**/*"]
+    test_files += ["test/rails_root/test/factories.rb"]
+    files = test_files + app_files
+    templates_path = "generators/clearance/templates"
+    system `rm -rf #{templates_path}`
+    system `mkdir #{templates_path}`
+    ["app", "app/controllers", "app/models", "app/views",
+     "test", "test/functional", "test/unit"].each do |directory|
+      system `mkdir #{templates_path}/#{directory}`
     end
-  end
-end
-
-namespace :version do
-  namespace :bump do
-    desc "Bump the gemspec a major version."
-    task :major do
-      major = Clearance::Version::MAJOR + 1
-      File.open("lib/clearance/version.rb", 'w') do |file|
-        file.write <<-END
-module Clearance
-  module Version
-    MAJOR = #{major}
-    MINOR = 0
-    PATCH = 0
-  end
-end
-        END
+    files.each do |file|
+      template = "generators/clearance/templates/#{file.gsub("test/rails_root/", "")}"
+      if File.directory?(file)
+        system `rm -rf #{template}`
+        system `mkdir #{template}`
+      else
+        system `rm #{template}` if File.exists?(template)
+        system `cp #{file} #{template}`
       end
-      
-      spec.version = "#{major}.0.0"
-      puts "Version bumped to #{spec.version}"
-      
-      Rake::Task["gemspec:write"].invoke
-      puts "Gemspec updated"
-    end
-    
-    desc "Bump the gemspec a minor version."
-    task :minor do
-      minor = Clearance::Version::MINOR + 1
-      File.open("lib/clearance/version.rb", 'w') do |file|
-        file.write <<-END
-module Clearance
-  module Version
-    MAJOR = #{Clearance::Version::MAJOR}
-    MINOR = #{minor}
-    PATCH = 0
-  end
-end
-        END
-      end
-      
-      spec.version = "#{Clearance::Version::MAJOR}.#{minor}.0"
-      puts "Version bumped to #{spec.version}"
-      
-      Rake::Task["gemspec:write"].invoke
-      puts "Gemspec updated"
-    end
-    
-    desc "Bump the gemspec a patch version."
-    task :patch do
-      patch = Clearance::Version::PATCH + 1
-      File.open("lib/clearance/version.rb", 'w') do |file|
-        file.write <<-END
-module Clearance
-  module Version
-    MAJOR = #{Clearance::Version::MAJOR}
-    MINOR = #{Clearance::Version::MINOR}
-    PATCH = #{patch}
-  end
-end
-        END
-      end
-      
-      spec.version = "#{Clearance::Version::MAJOR}.#{Clearance::Version::MINOR}.#{patch}"
-      puts "Version bumped to #{spec.version}"
-      
-      Rake::Task["gemspec:write"].invoke
-      puts "Gemspec updated"
     end
   end
 end
