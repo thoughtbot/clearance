@@ -2,10 +2,6 @@ require 'rake'
 require 'rake/testtask'
 require 'date'
 require 'lib/clearance/version'
-begin
-  require 'jeweler'
-rescue LoadError 
-end
 
 test_files_pattern = 'test/rails_root/test/{unit,functional,other}/**/*_test.rb'
 Rake::TestTask.new do |t|
@@ -17,7 +13,7 @@ end
 desc "Run the test suite"
 task :default => :test
 
-Jeweler.gemspec = Gem::Specification.new do |s|
+spec = Gem::Specification.new do |s|
   s.name = "clearance"
   s.summary = "Simple, complete Rails authentication."
   s.email = "dcroak@thoughtbot.com"
@@ -25,6 +21,12 @@ Jeweler.gemspec = Gem::Specification.new do |s|
   s.description = "Simple, complete Rails authentication scheme."
   s.authors = ["thoughtbot, inc.", "Dan Croak", "Josh Nichols", "Mike Breen", "Mike Burns", "Jason Morrison"]
   s.files = FileList["[A-Z]*", "{generators,lib,test}/**/*"]
+end
+
+begin
+  require 'jeweler'
+  Jeweler.gemspec = spec
+rescue LoadError 
 end
  
 namespace :generator do
