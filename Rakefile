@@ -1,18 +1,17 @@
 require 'rake'
 require 'rake/testtask'
 require 'date'
-require 'lib/clearance/version'
-
+ 
 test_files_pattern = 'test/rails_root/test/{unit,functional,other}/**/*_test.rb'
 Rake::TestTask.new do |t|
   t.libs << 'lib'
   t.pattern = test_files_pattern
   t.verbose = false
 end
-
+ 
 desc "Run the test suite"
 task :default => :test
-
+ 
 spec = Gem::Specification.new do |s|
   s.name = "clearance"
   s.summary = "Simple, complete Rails authentication."
@@ -22,7 +21,7 @@ spec = Gem::Specification.new do |s|
   s.authors = ["thoughtbot, inc.", "Dan Croak", "Josh Nichols", "Mike Breen", "Mike Burns", "Jason Morrison"]
   s.files = FileList["[A-Z]*", "{generators,lib,test}/**/*"]
 end
-
+ 
 begin
   require 'jeweler'
   Jeweler.gemspec = spec
