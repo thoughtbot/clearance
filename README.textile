@@ -50,9 +50,9 @@ This will create:
     test/unit/user_mailer_test.rb
     test/unit/user_test.rb
 
-For example: 
+Add the corresponding Clearance module for any file(s) you don't want to override. They are namespaced exactly like the directory structure of a Rails app: 
 
-    app/models/user.rb already exists. Add this line to it:
+    app/models/user.rb already exists.
     include Clearance::App::Models::User
 
 h2. Tests

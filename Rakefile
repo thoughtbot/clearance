@@ -18,11 +18,12 @@ spec = Gem::Specification.new do |s|
   s.email = "dcroak@thoughtbot.com"
   s.homepage = "http://github.com/thoughtbot/clearance"
   s.description = "Simple, complete Rails authentication scheme."
-  s.authors = ["thoughtbot, inc.", "Dan Croak", "Josh Nichols", "Mike Breen", "Mike Burns", "Jason Morrison"]
+  s.authors = ["thoughtbot, inc.", "Dan Croak", "Josh Nichols", "Jason Morrison", "Mike Burns", "Mike Breen"]
   s.files = FileList["[A-Z]*", "{generators,lib,test}/**/*"]
 end
  
 begin
+  require 'rubygems'
   require 'jeweler'
   Jeweler.gemspec = spec
 rescue LoadError 

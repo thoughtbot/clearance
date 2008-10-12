@@ -2,7 +2,6 @@
 
 # activation code instead of salt?
 # users#show doesn't exist, but confirmations create redirects there
-# sessions controller test is missing remember_me tests
 # mailers should not hardcode example.com as from address
 # should_have_form should be pulled into shoulda
 # generator should print out instructions to include modules existing files

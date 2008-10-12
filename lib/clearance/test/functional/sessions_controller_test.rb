@@ -24,36 +24,65 @@ module Clearance
 
               context "a POST to #create with good credentials" do
                 setup do
-                  post :create, :session => { :email => @user.email, :password => @user.password }
+                  post :create, :session => { :email => @user.email, 
+                    :password => @user.password }
                 end
 
                 should_set_the_flash_to /success/i
                 should_redirect_to '@controller.send(:url_after_create)'
-                #should_return_from_session(:user_id, '@user.id')
-                should "return the correct value from the session for key :user_id" do
-                  instantiate_variables_from_assigns do
-                    expected_value = @user.id
-                    assert_equal expected_value, session[:user_id], "Expected #{expected_value.inspect} but was #{session[:user_id]}"
-                  end
-                end
+                should_return_from_session :user_id, "@user.id"
               end
 
               context "a POST to #create with bad credentials" do
                 setup do
-                  post :create, :session => { :email => @user.email, :password => "bad value" }
+                  post :create, :session => { :email => @user.email, 
+                    :password => "bad value" }
                 end
 
                 should_set_the_flash_to /bad/i
                 should_render_template :new
-                #should_return_from_session(:user_id, 'nil')
-                should "return nil from the session for key :user_id" do
-                  instantiate_variables_from_assigns do
-                    assert_nil session[:user_id], "Expected nil but was #{session[:user_id]}"
-                  end
-                end
+                should_return_from_session :user_id, "nil"
               end
           
-              # TODO: two tests for remember me - success and failure
+              context "a POST to #create with good credentials and remember me" do
+                setup do
+                  post :create, :session => { :email => @user.email, 
+                    :password => @user.password, :remember_me => '1' }
+                end
+
+                should_set_the_flash_to /success/i
+                should_redirect_to '@controller.send(:url_after_create)'
+                should_return_from_session :user_id, "@user.id"
+                
+                should 'set the cookie' do
+                  assert ! cookies['auth_token'].empty?
+                end
+
+                should 'set the remember me token in users table' do
+                  assert_not_nil @user.reload.remember_token
+                  assert_not_nil @user.reload.remember_token_expires_at
+                end
+              end
+              
+              context "a POST to #create with bad credentials and remember me" do
+                setup do
+                  post :create, :session => { :email => @user.email, 
+                    :password => "bad value", :remember_me => '1' }
+                end
+
+                should_set_the_flash_to /bad/i
+                should_render_template :new
+                should_return_from_session :user_id, "nil"
+                
+                should 'not create the cookie' do
+                  assert_nil cookies['auth_token']
+                end
+
+                should 'not set the remember me token in users table' do
+                  assert_nil @user.reload.remember_token
+                  assert_nil @user.reload.remember_token_expires_at
+                end
+              end
             end
 
             public_context do
