@@ -11,8 +11,8 @@ module Clearance
         
             include InstanceMethods
         
-          protected
-            include ProtectedInstanceMethods
+          private
+            include PrivateInstanceMethods
           end
         end
     
@@ -30,7 +30,7 @@ module Clearance
           end
         end
 
-        module ProtectedInstanceMethods
+        module PrivateInstanceMethods
           def login_via_password(email, password, remember_me)
             user = user_model.authenticate(email, password)
             if login(user)

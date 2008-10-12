@@ -7,7 +7,9 @@ module Clearance
           base.class_eval do
             before_filter :existing_user?, :only => [:edit, :update]
             filter_parameter_logging :password, :password_confirmation
+            
             include InstanceMethods
+            
           private
             include PrivateInstanceMethods
           end
@@ -24,7 +26,7 @@ module Clearance
               render :action => :new
             else
               UserMailer.deliver_change_password user
-              redirect_to new_session_url
+              redirect_to url_after_create
             end
           end
 
@@ -52,6 +54,10 @@ module Clearance
             if user.nil?
               render :nothing => true, :status => :not_found
             end
+          end
+          
+          def url_after_create
+            new_session_url
           end
         end
 

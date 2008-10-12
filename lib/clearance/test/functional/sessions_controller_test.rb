@@ -51,7 +51,7 @@ module Clearance
                 end
 
                 should_set_the_flash_to /success/i
-                should_redirect_to '@controller.send(:url_after_create)'
+                should_redirect_to "@controller.send(:url_after_create)"
                 should_return_from_session :user_id, "@user.id"
                 
                 should 'set the cookie' do

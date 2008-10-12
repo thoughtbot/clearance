@@ -28,10 +28,10 @@ module Clearance
                   end
 
                   should 'send an email to the user to edit their password' do
-                    assert @email.subject =~ /request to change your password/i
+                    assert @email.subject =~ /change your password/i
                   end
 
-                  should_redirect_to "new_session_path"
+                  should_redirect_to "@controller.send(:url_after_create)"
                 end
 
                 context 'with a non-existing email address' do
@@ -86,9 +86,7 @@ module Clearance
 
                 context "with an existing user's id but not password" do
                   setup do
-                    get(:edit,
-                        :user_id => @user.id,
-                        :password => '')
+                    get :edit, :user_id => @user.id, :password => ''
                   end
 
                   should_respond_with :not_found
@@ -102,9 +100,7 @@ module Clearance
               context 'A PUT to #update' do
                 context "with an existing user's id but not password" do
                   setup do
-                    put(:update,
-                        :user_id => @user.id,
-                        :password => '')
+                    put :update, :user_id => @user.id, :password => ''
                   end
 
                   should "not update the user's password" do

@@ -56,7 +56,7 @@ module Clearance
                   assert_equal @user.id, session[:user_id]
                 end
 
-                should_redirect_to "user_path(@user)"
+                should_redirect_to "@controller.send(:url_after_create)"
               end
 
               context "without the User with the given id's salt" do

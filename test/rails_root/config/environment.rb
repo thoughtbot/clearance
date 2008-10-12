@@ -13,5 +13,4 @@ Rails::Initializer.run do |config|
   config.gem 'thoughtbot-shoulda', :lib => 'shoulda', :source => 'http://gems.github.com'
 end
 
-
-
+DO_NOT_REPLY = "donotreply@example.com"

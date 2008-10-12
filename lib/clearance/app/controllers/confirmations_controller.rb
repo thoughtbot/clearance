@@ -23,7 +23,7 @@ module Clearance
             @user = User.find_by_id_and_salt(params[:user_id], params[:salt])
             @user.confirm!
             session[:user_id] = @user.id
-            redirect_to user_path(@user)
+            redirect_to url_after_create
           end
         end
     
@@ -33,6 +33,10 @@ module Clearance
             if user.nil?
               render :nothing => true, :status => :not_found
             end
+          end
+          
+          def url_after_create
+            root_url
           end
         end
     
