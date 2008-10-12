@@ -27,6 +27,7 @@ begin
   require 'jeweler'
   Jeweler.gemspec = spec
 rescue LoadError 
+  puts "Jeweler not available. sudo gem install technicalpickles-jeweler --source=http://gems.github.com"
 end
  
 namespace :generator do
