@@ -1,6 +1,7 @@
-(this is in order of highest priority first)
+(highest priority first)
 
-# force email confirmation by default
+# users#show doesn't exist, but confirmations create redirects there
+# generator should print out instructions to include modules existing files
 # sessions controller test is missing some tests
 # mailers should not hardcode example.com as from address
 # check to make sure attr_accessible doesn't override and w/ attr_protected
@@ -8,7 +9,7 @@
 # add shoulda and factory girl dependencies to gemspec
 # refactor Mailer default_url_options[:host] to something cleaner
 
-ideas stolen from merb-auth:
+ideas to steal from merb-auth:
 
 # store current_user on the session, not controller
 # respond with 401 Unauthorized when request requires authentication 

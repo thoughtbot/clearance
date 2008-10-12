@@ -50,11 +50,6 @@ This will create:
     test/unit/user_mailer_test.rb
     test/unit/user_test.rb
 
-If you already have some of these files created, the generator will:
-
-# NOT overwrite your files
-# print out instructions to include Clearance modules in those files manually
-
 For example: 
 
     app/models/user.rb already exists. Add this line to it:
@@ -112,14 +107,11 @@ h2. Routes
     ActionController::Routing::Routes.draw do |map|
       
       map.resources :users
-      map.resource :session
-      
-      map.resources :users, :has_one => :password
-      map.resources :users, :has_one => :confirmation
-      
-      map.resources :passwords
-      
-      map.root :controller => 'sessions', :action => 'new'
+		  map.resource :session
+		  map.resources :users, :has_one => :password
+		  map.resources :users, :has_one => :confirmation
+		  map.resources :passwords
+		  map.root :controller => 'sessions', :action => 'new'
       
     end
 
