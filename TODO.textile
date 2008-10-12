@@ -1,6 +1,7 @@
 (highest priority first)
 
-# activation code instead of salt?
+# activation code (like restful-auth) instead of salt?
+# remove dependency on root_url?
 # users#show doesn't exist, but confirmations create redirects there
 # mailers should not hardcode example.com as from address
 # should_have_form should be pulled into shoulda
@@ -18,6 +19,6 @@ ideas to steal from merb-auth:
 # email confirmation is a strategy
 # forgot password is a strategy
 # salted password is a strategy
-# 401 and 405 need to be in Exceptions controller
+# 401 and 405 need to be in Exceptions controller or use safety_valve
 
 http://adam.speaksoutofturn.com/articles/entication_vs_orization.html
