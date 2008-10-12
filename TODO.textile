@@ -9,15 +9,16 @@
 # add shoulda and factory girl dependencies to gemspec
 # refactor Mailer default_url_options[:host] to something cleaner
 # application controller uses protected, all other controllers use private
+# add information about url_after_create to README or github wikis
 
 ideas to steal from merb-auth:
 
 # store current_user on the session, not controller
 # respond with 401 Unauthorized when request requires authentication 
 # respond with 405 Method Not Allowed when action requested isn’t allowed
+# 401 and 405 need to be in Exceptions controller or use safety_valve
 # email confirmation is a strategy
 # forgot password is a strategy
 # salted password is a strategy
-# 401 and 405 need to be in Exceptions controller or use safety_valve
 
 http://adam.speaksoutofturn.com/articles/entication_vs_orization.html
