@@ -33,7 +33,9 @@ namespace :gemspec do
       f.write spec.to_ruby
     end
   end
-  
+end
+
+namespace :version do
   namespace :bump do
     desc "Bump the gemspec a major version."
     task :major do
@@ -51,8 +53,10 @@ end
       end
       
       spec.version = "#{major}.0.0"
+      puts "Version bumped to #{spec.version}"
+      
       Rake::Task["gemspec:write"].invoke
-      puts "Gem bumped to #{spec.version}"
+      puts "Gemspec updated"
     end
     
     desc "Bump the gemspec a minor version."
@@ -71,8 +75,10 @@ end
       end
       
       spec.version = "#{Clearance::Version::MAJOR}.#{minor}.0"
+      puts "Version bumped to #{spec.version}"
+      
       Rake::Task["gemspec:write"].invoke
-      puts "Gem bumped to #{spec.version}"
+      puts "Gemspec updated"
     end
     
     desc "Bump the gemspec a patch version."
@@ -91,8 +97,10 @@ end
       end
       
       spec.version = "#{Clearance::Version::MAJOR}.#{Clearance::Version::MINOR}.#{patch}"
+      puts "Version bumped to #{spec.version}"
+      
       Rake::Task["gemspec:write"].invoke
-      puts "Gem bumped to #{spec.version}"
+      puts "Gemspec updated"
     end
   end
 end
