@@ -12,7 +12,7 @@ module Clearance
               setup { @user = Factory :user }
 
               context 'A GET to #new' do
-                setup { get :new, :user_id => @user_id }
+                setup { get :new, :user_id => @user.to_param }
 
                 should_respond_with :success
                 should_render_template 'new'
@@ -59,7 +59,7 @@ module Clearance
                 context "with an existing user's id and password" do
                   setup do
                     get :edit, 
-                      :user_id => @user.id, 
+                      :user_id => @user.to_param, 
                       :password => @user.crypted_password, 
                       :email => @user.email
                   end
@@ -86,7 +86,7 @@ module Clearance
 
                 context "with an existing user's id but not password" do
                   setup do
-                    get :edit, :user_id => @user.id, :password => ''
+                    get :edit, :user_id => @user.to_param, :password => ''
                   end
 
                   should_respond_with :not_found
@@ -100,7 +100,7 @@ module Clearance
               context 'A PUT to #update' do
                 context "with an existing user's id but not password" do
                   setup do
-                    put :update, :user_id => @user.id, :password => ''
+                    put :update, :user_id => @user.to_param, :password => ''
                   end
 
                   should "not update the user's password" do
@@ -154,7 +154,7 @@ module Clearance
                     @encrypted_new_password = Digest::SHA1.hexdigest encryption_format
 
                     put(:update,
-                        :user_id => @user.id,
+                        :user_id => @user.to_param,
                         :password => @user.crypted_password,
                         :user => {
                           :password => new_password,

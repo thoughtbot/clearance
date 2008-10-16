@@ -10,7 +10,7 @@ module Clearance
               context "with the User with the given id's salt" do
                 setup do
                   @user = Factory :user
-                  get :new, :user_id => @user.id, :salt => @user.salt
+                  get :new, :user_id => @user.to_param, :salt => @user.salt
                 end
 
                 should 'find the User record with the given id and salt' do
@@ -27,7 +27,7 @@ module Clearance
                   salt = ''
                   assert_not_equal salt, user.salt
 
-                  get :new, :user_id => user.id, :salt => ''
+                  get :new, :user_id => user.to_param, :salt => ''
                 end
 
                 should_respond_with :not_found
