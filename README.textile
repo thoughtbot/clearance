@@ -6,14 +6,14 @@ Simple, complete Ruby web app authentication.
 
 h2. Gem installation (Rails 2.1+)
 
-Specify the gem dependency in your config/environment.rb file:
+In config/environments/test.rb:
 
-    Rails::Initializer.run do |config|
-      # ...
-      config.gem 'thoughtbot-shoulda', :lib => 'shoulda', :source => "http://gems.github.com"
-      config.gem 'thoughtbot-factory_girl', :lib => 'factory_girl', :source => "http://gems.github.com"
-      config.gem "thoughtbot-clearance", :lib => 'clearance', :source => 'http://gems.github.com/'
-    end
+    config.gem 'thoughtbot-shoulda', :lib => 'shoulda', :source => "http://gems.github.com"
+    config.gem 'thoughtbot-factory_girl', :lib => 'factory_girl', :source => "http://gems.github.com"
+
+In config/environment.rb:
+
+    config.gem "thoughtbot-clearance", :lib => 'clearance', :source => 'http://gems.github.com/'
 
 Then:
 
@@ -101,6 +101,9 @@ Your users table needs a few columns.
     end
 
     add_index :users, [:email, :crypted_password]
+    add_index :users, [:id, :salt]
+    add_index :users, :email
+    add_index :users, :remember_token
 
 h2. Routes
 
