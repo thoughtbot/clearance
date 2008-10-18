@@ -62,7 +62,7 @@ module Clearance
           end
 
           def deny_access(flash_message = nil, opts = {})
-            opts[:redirect] ||= new_session_url
+            opts[:redirect] ||= root_url
             store_location
             flash[:error] = flash_message if flash_message
             redirect_to opts[:redirect]
