@@ -27,7 +27,7 @@ module Clearance
 
         module ProtectedInstanceMethods
           def authenticate
-            deny_access unless self.current_user
+            deny_access unless logged_in?
           end
 
           def user_from_session
@@ -62,7 +62,7 @@ module Clearance
           end
 
           def deny_access(flash_message = nil, opts = {})
-            opts[:redirect] ||= root_url
+            opts[:redirect] ||= new_session_path
             store_location
             flash[:error] = flash_message if flash_message
             redirect_to opts[:redirect]

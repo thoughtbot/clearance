@@ -7,7 +7,9 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :users, :has_one => :confirmation
 
   map.resources :passwords
+
+  map.resource :account
  
-  map.root :controller => 'sessions', :action => 'new'
+  map.root :controller => 'users', :action => 'new'
 
 end

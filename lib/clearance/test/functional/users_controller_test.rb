@@ -49,15 +49,20 @@ module Clearance
             end
 
             logged_in_user_context do
+              context "GET to new" do
+                setup { get :new }
+                should_redirect_to 'root_url'
+              end
 
-              should_deny_access_on "get :new"
-              should_deny_access_on "post :create, :user => {}" 
+              context "POST to create" do
+                setup { post :create, :user => {} }
+                should_redirect_to 'root_url'
+              end
+
               should_filter_params :password
-
             end
           end
         end
-
       end
     end
   end

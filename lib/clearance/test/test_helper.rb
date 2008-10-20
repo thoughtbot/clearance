@@ -23,7 +23,7 @@ module Clearance
     
       module ClassMethods
         def should_deny_access_on(command, opts = {})
-          opts[:redirect] ||= "root_url"
+          opts[:redirect] ||= "new_session_path"
 
           context "on #{command}" do
             setup { eval command }
