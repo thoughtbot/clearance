@@ -11,6 +11,7 @@ gem 'thoughtbot-factory_girl' # from github
 
 require 'mocha'
 require 'factory_girl'
+require File.expand_path(File.dirname(__FILE__)) + '/factories'
 
 class Test::Unit::TestCase
   self.use_transactional_fixtures = true
