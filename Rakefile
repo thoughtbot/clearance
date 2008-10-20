@@ -1,17 +1,17 @@
 require 'rake'
 require 'rake/testtask'
 require 'date'
- 
+
 test_files_pattern = 'test/rails_root/test/{unit,functional,other}/**/*_test.rb'
 Rake::TestTask.new do |t|
   t.libs << 'lib'
   t.pattern = test_files_pattern
   t.verbose = false
 end
- 
+
 desc "Run the test suite"
 task :default => :test
- 
+
 spec = Gem::Specification.new do |s|
   s.name = "clearance"
   s.summary = "Simple, complete Rails authentication."
@@ -21,15 +21,7 @@ spec = Gem::Specification.new do |s|
   s.authors = ["thoughtbot, inc.", "Dan Croak", "Josh Nichols", "Jason Morrison", "Mike Burns", "Mike Breen"]
   s.files = FileList["[A-Z]*", "{generators,lib,test}/**/*"]
 end
- 
-begin
-  require 'rubygems'
-  require 'jeweler'
-  Jeweler.gemspec = spec
-rescue LoadError 
-  puts "Jeweler not available. sudo gem install technicalpickles-jeweler --source=http://gems.github.com"
-end
- 
+
 namespace :generator do
   task :templates do
     app_files = FileList["test/rails_root/app/{controllers,models,views}/**/*"]
