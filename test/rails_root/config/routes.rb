@@ -2,6 +2,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :users
   map.resource :session
+  map.resource :session_mailer_override
   
   map.resources :users, :has_one => :password
   map.resources :users, :has_one => :confirmation

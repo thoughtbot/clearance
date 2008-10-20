@@ -1,4 +1,4 @@
-class ClearanceMailer < ActionMailer::Base
+class ClearanceOverrideMailer < ActionMailer::Base
   default_url_options[:host] = HOST
   
   include Clearance::App::Models::ClearanceMailer

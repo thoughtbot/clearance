@@ -18,8 +18,20 @@ module Clearance
     
         module InstanceMethods
           def create
-            remember_me = params[:session][:remember_me] if params[:session]
-            login_via_password(params[:session][:email], params[:session][:password], remember_me)
+            @user = user_model.authenticate(params[:session][:email], params[:session][:password])
+            if @user.nil?
+              login_failure
+            else
+              if @user.confirmed?
+                remember_me = params[:session][:remember_me] if params[:session]
+                remember(@user) if remember_me == '1'
+                log_user_in(@user)
+                login_successful
+              else
+                mailer_model.deliver_confirmation(@user)
+                deny_access('Account not confirmed. Confirmation email sent.')
+              end
+            end
           end
 
           def destroy
@@ -31,22 +43,6 @@ module Clearance
         end
 
         module PrivateInstanceMethods
-          def login_via_password(email, password, remember_me)
-            user = user_model.authenticate(email, password)
-            if user.nil?
-              login_failure
-            else
-              if user.confirmed?
-                remember(user) if remember_me == '1'
-                login(user)
-                login_successful
-              else
-                ClearanceMailer.deliver_confirmation(user)
-                deny_access('Account not confirmed. Confirmation email sent.')
-              end
-            end
-          end
-      
           def login_successful
             flash[:notice] = 'Logged in successfully'
             redirect_back_or url_after_create
