@@ -23,16 +23,20 @@ module Clearance
     
       module ClassMethods
         def should_deny_access_on(command, opts = {})
-          opts[:redirect] ||= "new_session_path"
 
           context "on #{command}" do
             setup { eval command }
-            should_redirect_to opts[:redirect]
-            if opts[:flash]
-              should_set_the_flash_to opts[:flash]
-            else
-              should_not_set_the_flash
-            end
+            should_deny_access(opts)
+          end
+        end
+
+        def should_deny_access(opts = {})
+          opts[:redirect] ||= "new_session_path"
+          should_redirect_to opts[:redirect]
+          if opts[:flash]
+            should_set_the_flash_to opts[:flash]
+          else
+            should_not_set_the_flash
           end
         end
       

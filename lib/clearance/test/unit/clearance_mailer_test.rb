@@ -1,14 +1,14 @@
 module Clearance
   module Test
     module Unit
-      module UserMailerTest
+      module ClearanceMailerTest
   
         def self.included(base)
           base.class_eval do
             context "A change password email" do
               setup do
                 @user = Factory :user
-                @email = UserMailer.create_change_password @user
+                @email = ClearanceMailer.create_change_password @user
               end
 
               should "set its from address to DO_NOT_REPLY" do
@@ -33,7 +33,7 @@ module Clearance
             context "A confirmation email" do
               setup do
                 @user = Factory :user
-                @email = UserMailer.create_confirmation @user
+                @email = ClearanceMailer.create_confirmation @user
               end
 
               should 'set its recipient to the given user' do
@@ -41,7 +41,7 @@ module Clearance
               end
 
               should 'set its subject' do
-                assert_equal "[#{PROJECT_NAME.humanize}] Email confirmation", @email.subject
+                assert_equal "[#{PROJECT_NAME.humanize}] Account confirmation", @email.subject
               end
 
               should 'set its from address to DO_NOT_REPLY' do

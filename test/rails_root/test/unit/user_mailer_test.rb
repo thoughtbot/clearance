@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class UserMailerTest < ActionMailer::TestCase
-  tests UserMailer
-  include Clearance::Test::Unit::UserMailerTest
+class ClearanceMailerTest < ActionMailer::TestCase
+  tests ClearanceMailer
+  include Clearance::Test::Unit::ClearanceMailerTest
 end

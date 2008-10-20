@@ -33,12 +33,17 @@ module Clearance
         module PrivateInstanceMethods
           def login_via_password(email, password, remember_me)
             user = user_model.authenticate(email, password)
-            if login(user)
-              create_session_for(user)
-              remember(user) if remember_me == '1'
-              login_successful
-            else
+            if user.nil?
               login_failure
+            else
+              if user.confirmed?
+                remember(user) if remember_me == '1'
+                login(user)
+                login_successful
+              else
+                ClearanceMailer.deliver_confirmation(user)
+                deny_access('Account not confirmed. Confirmation email sent.')
+              end
             end
           end
       
