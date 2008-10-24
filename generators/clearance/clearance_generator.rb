@@ -12,7 +12,7 @@ class ClearanceGenerator < Rails::Generator::Base
       
       m.directory File.join("app", "models")
       ["app/models/user.rb",
-       "app/models/user_mailer.rb"].each do |file|
+       "app/models/clearance_mailer.rb"].each do |file|
         m.file file, file
       end
       
@@ -34,8 +34,8 @@ class ClearanceGenerator < Rails::Generator::Base
       end
       
       m.directory File.join("app", "views", "user_mailer")
-      ["app/views/user_mailer/change_password.html.erb",
-       "app/views/user_mailer/confirmation.html.erb"].each do |file|
+      ["app/views/clearance_mailer/change_password.html.erb",
+       "app/views/clearance_mailer/confirmation.html.erb"].each do |file|
         m.file file, file
       end
       
@@ -55,7 +55,7 @@ class ClearanceGenerator < Rails::Generator::Base
       end
       
       m.directory File.join("test", "unit")
-      ["test/unit/user_mailer_test.rb",
+      ["test/unit/clearance_mailer_test.rb",
        "test/unit/user_test.rb"].each do |file|
         m.file file, file
       end

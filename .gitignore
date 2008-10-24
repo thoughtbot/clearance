@@ -1,4 +1,4 @@
 test/rails_root/log/*.log
 *.DS_Store
 *.swp
-
+.rake_tasks
