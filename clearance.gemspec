@@ -1,5 +1,5 @@
 Gem::Specification.new do |s|
-  s.version = "0.3.3"
+  s.version = "0.3.4"
   s.date = %q{2008-10-16}
 
   s.name = %q{clearance}
