@@ -39,13 +39,15 @@ module Clearance
             user && user.remember_token? ? user : nil
           end
 
-          def login(user)
-            create_session_for(user)
-            @current_user = user
+          # Level of indirection so you can easily override this method
+          # but also call #login .
+          def log_user_in(user)
+            login(user)
           end
 
-          def create_session_for(user)
+          def login(user)
             session[:user_id] = user.id if user
+            @current_user = user
           end
 
           def redirect_back_or(default)
@@ -70,6 +72,10 @@ module Clearance
       
           def user_model
             User
+          end
+
+          def mailer_model
+            ClearanceMailer
           end
         end
       end

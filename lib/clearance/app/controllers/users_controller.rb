@@ -24,7 +24,7 @@ module Clearance
           def create
             @user = user_model.new params[:user]
             if @user.save
-              UserMailer.deliver_confirmation @user
+              ClearanceMailer.deliver_confirmation @user
               flash[:notice] = "You will receive an email within the next few minutes. It contains instructions for you to confirm your account."
               redirect_to url_after_create
             else

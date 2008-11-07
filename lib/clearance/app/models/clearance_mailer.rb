@@ -1,7 +1,7 @@
 module Clearance
   module App
     module Models
-      module UserMailer
+      module ClearanceMailer
     
         def self.included(base)
           base.class_eval do
@@ -22,7 +22,7 @@ module Clearance
           def confirmation(user)
             recipients user.email
             from       DO_NOT_REPLY
-            subject   "[#{PROJECT_NAME.humanize}] Email confirmation"
+            subject   "[#{PROJECT_NAME.humanize}] Account confirmation"
             body      :user => user
           end
         end

@@ -25,7 +25,7 @@ module Clearance
               flash.now[:warning] = 'Unknown email'
               render :action => :new
             else
-              UserMailer.deliver_change_password user
+              ClearanceMailer.deliver_change_password user
               redirect_to url_after_create
             end
           end

@@ -5,22 +5,45 @@ module Clearance
     
         def self.included(base)
           base.class_eval do
-            context "Given a user" do
-              setup { @user = Factory :user }
+            should_filter_params :password
 
-              should_filter_params :password
+            context "on GET to /sessions/new" do
+              setup { get :new }
+        
+              should_respond_with :success
+              should_render_template :new
+              should_not_set_the_flash
+              should_have_form :action => "session_path",
+                :fields => { "session[email]" => :text,
+                  "session[password]" => :password,
+                  "session[remember_me]" => :checkbox }
+            end
 
-              context "on GET to /sessions/new" do
-                setup { get :new }
-          
-                should_respond_with :success
-                should_render_template :new
-                should_not_set_the_flash
-                should_have_form :action => "session_path",
-                  :fields => { "session[email]" => :text,
-                    "session[password]" => :password,
-                    "session[remember_me]" => :checkbox }
+            context "Given an unconfirmed user" do
+              setup do
+                @user = Factory(:user, :confirmed => false)
               end
+
+              context "a POST to #create with good credentials" do
+                setup do
+                  ActionMailer::Base.deliveries.clear
+                  post :create, :session => {
+                                  :email => @user.email,
+                                  :password => @user.password
+                  }
+                end
+
+                should_deny_access(:flash => /confirm/i)
+
+                should "send the confirmation email" do
+                  assert_not_nil email = ActionMailer::Base.deliveries[0]
+                  assert_match /account confirmation/i, email.subject
+                end
+              end
+            end
+
+            context "Given a confirmed user" do
+              setup { @user = Factory(:user, :confirmed => true) }
 
               context "a POST to #create with good credentials" do
                 setup do
