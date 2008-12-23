@@ -1,3 +1,5 @@
+require 'digest/sha1'
+
 module Clearance
   module App
     module Models
