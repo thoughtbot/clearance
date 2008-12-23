@@ -8,8 +8,13 @@ h2. Gem installation (Rails 2.1+)
 
 In config/environments/test.rb:
 
-    config.gem 'thoughtbot-shoulda', :lib => 'shoulda', :source => "http://gems.github.com"
-    config.gem 'thoughtbot-factory_girl', :lib => 'factory_girl', :source => "http://gems.github.com"
+    config.gem 'mocha'
+    config.gem 'thoughtbot-shoulda',
+      :lib    => 'shoulda',
+      :source => "http://gems.github.com"
+    config.gem 'thoughtbot-factory_girl',
+      :lib    => 'factory_girl',
+      :source => "http://gems.github.com"
 
 In config/environment.rb:
 
