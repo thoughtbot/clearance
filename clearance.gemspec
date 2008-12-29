@@ -1,10 +1,10 @@
 Gem::Specification.new do |s|
-  s.version = "0.3.5"
-  s.date = %q{2008-11-10}
+  s.version = "0.3.6"
+  s.date = %q{2008-12-29}
 
   s.name = %q{clearance}
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["thoughtbot, inc.", "Dan Croak", "Josh Nichols", "Jason Morrison", "Mike Burns", "Mike Breen"]
+  s.authors = ["thoughtbot, inc.", "Dan Croak", "Mike Burns", "Jason Morrison", "Josh Nichols", "Mike Breen"]
   s.description = %q{Simple, complete Rails authentication scheme.}
   s.email = %q{dcroak@thoughtbot.com}
   s.files = FileList["[A-Z]*", "{generators,lib,rails,test}/**/*"]
