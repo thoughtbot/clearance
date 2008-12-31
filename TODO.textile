@@ -2,11 +2,9 @@
 
 # activation code (like restful-auth) instead of salt?
 # remove dependency on root_url?
-# should_have_form should be pulled into shoulda
 # generator should print out instructions to include modules existing files
 # check to make sure attr_accessible doesn't override and w/ attr_protected
 # move shoulda macros in test_helper to shoulda_macros folder
-# add shoulda and factory girl dependencies to gemspec
 # refactor Mailer default_url_options[:host] to something cleaner
 # application controller uses protected, all other controllers use private
 # add information about url_after_create to README or github wikis
@@ -21,4 +19,4 @@ ideas to steal from merb-auth:
 # forgot password is a strategy
 # salted password is a strategy
 
-http://adam.speaksoutofturn.com/articles/entication_vs_orization.html
+http://adam.speaksoutofturn.com/post/57615195/entication-vs-orization
