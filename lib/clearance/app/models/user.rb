@@ -15,6 +15,7 @@ module Clearance
             validates_presence_of     :password, :if => :password_required?
             validates_confirmation_of :password, :if => :password_required?
             validates_uniqueness_of   :email
+            validates_format_of       :email, :with => %r{.+@.+\..+}
 
             before_save :initialize_salt, :encrypt_password
         

@@ -6,6 +6,9 @@ module Clearance
         def self.included(base)
           base.class_eval do
             should_require_attributes :email, :password
+            should_allow_values_for :email, 'foo@example.com'
+            should_not_allow_values_for :email, 'foo'
+            should_not_allow_values_for :email, 'example.com'
 
             should "require password validation on create" do
               user = Factory.build(:user, :password => 'blah', :password_confirmation => 'boogidy')
