@@ -40,6 +40,6 @@ end
 desc "Generate a gemspec file"
 task :gemspec do
   File.open("#{spec.name}.gemspec", 'w') do |f|
-    f.write spec.to_ruby
+    f.write spec.to_yaml
   end
 end
