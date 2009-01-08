@@ -87,8 +87,6 @@ h2. Controllers
 In app/controllers/application_controller.rb:
 
     class ApplicationController < ActionController::Base
-      helper :all
-      protect_from_forgery
       include Clearance::App::Controllers::ApplicationController
     end
 
