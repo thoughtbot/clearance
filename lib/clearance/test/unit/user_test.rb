@@ -53,6 +53,11 @@ module Clearance
               end
           
               should_require_unique_attributes :email
+              
+              should 'store email in lower case' do
+                @user.update_attributes(:email => 'John.Doe@example.com')
+                assert_equal 'john.doe@example.com', @user.email
+              end
           
               context 'authenticating a user' do
                 context 'with good credentials' do
@@ -64,6 +69,16 @@ module Clearance
                     assert @result
                   end
                 end
+                
+                context 'with an email in upper case and a good password' do
+                  setup do
+                    @result = User.authenticate @user.email.upcase, @password
+                  end
+
+                  should 'return true' do
+                    assert @result
+                  end
+                end                
 
                 context 'with bad credentials' do
                   setup do

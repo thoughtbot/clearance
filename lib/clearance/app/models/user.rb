@@ -14,7 +14,7 @@ module Clearance
             validates_presence_of     :email
             validates_presence_of     :password, :if => :password_required?
             validates_confirmation_of :password, :if => :password_required?
-            validates_uniqueness_of   :email
+            validates_uniqueness_of   :email, :case_sensitive => false
             validates_format_of       :email, :with => %r{.+@.+\..+}
 
             before_save :initialize_salt, :encrypt_password
@@ -31,12 +31,17 @@ module Clearance
     
         module ClassMethods
           def authenticate(email, password)
-            user = find_by_email email
+            user = find(:first, :conditions => ['LOWER(email) = ?', email.to_s.downcase])
             user && user.authenticated?(password) ? user : nil
           end
         end
     
         module InstanceMethods
+          def email=(value)
+            value = value.to_s.downcase if value
+            write_attribute(:email, value.to_s)
+          end
+        
           def authenticated?(password)
             crypted_password == encrypt(password)
           end
