@@ -15,14 +15,14 @@ module Clearance
           def change_password(user)
             from       DO_NOT_REPLY
             recipients user.email
-            subject    "[#{PROJECT_NAME.humanize}] Change your password"
+            subject    "Change your password"
             body       :user => user
           end
         
           def confirmation(user)
             recipients user.email
             from       DO_NOT_REPLY
-            subject   "[#{PROJECT_NAME.humanize}] Account confirmation"
+            subject   "Account confirmation"
             body      :user => user
           end
         end

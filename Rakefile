@@ -14,9 +14,10 @@ namespace :generator do
   desc "Run the generator on the tests"
   task :tests do
     FileList["generators/clearance/templates/**/*.*"].each do |f|
-      File.delete("test/rails_root/#{f.gsub("generators/clearance/templates/",'')}")
+      file = "test/rails_root/#{f.gsub("generators/clearance/templates/",'')}"
+      File.delete(file) if File.exists?(file)
     end
-    FileUtils.rm_r("test/rails_root/vendor/plugins/clearance")
+    FileUtils.rm_r("test/rails_root/vendor/plugins/clearance") if File.exists?("test/rails_root/vendor/plugins/clearance")
     system "mkdir -p test/rails_root/vendor/plugins/clearance"
     system "cp -R generators test/rails_root/vendor/plugins/clearance"
     system "cd test/rails_root && ./script/generate clearance"

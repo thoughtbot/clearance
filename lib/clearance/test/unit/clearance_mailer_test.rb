@@ -25,8 +25,8 @@ module Clearance
                 assert_equal [@user.email], @email.to
               end
 
-              should "have a subject of '[PROJECT_NAME] Change your password'" do
-                assert_equal @email.subject, "[#{PROJECT_NAME.humanize}] Change your password"
+              should "set its subject" do
+                assert_match /Change your password/, @email.subject
               end
             end
             
@@ -41,7 +41,7 @@ module Clearance
               end
 
               should 'set its subject' do
-                assert_equal "[#{PROJECT_NAME.humanize}] Account confirmation", @email.subject
+                assert_match /Account confirmation/, @email.subject
               end
 
               should 'set its from address to DO_NOT_REPLY' do
