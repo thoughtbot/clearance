@@ -127,6 +127,71 @@ In config/environment.rb:
 
     DO_NOT_REPLY = "donotreply@example.com"
     PROJECT_NAME = "my_app_name"
+    
+h2. Usage
+
+To protect your controllers with authentication add:
+
+    class ProtectedController < ApplicationController
+      before_filter :authenticate
+
+The filter will ensure that only authenticated users can access the controller.
+If someone who's not logged in tries to access a protected action, the URL 
+is stored in the session, the user is redirected to log in page and after 
+successful authentication will be be redirected back to that URL.
+
+Clearance provides 2 methods that can be used in controllers and views to 
+check if current user is authenticated and get the actual user: logged_in? and
+current_user:
+    
+    <% if logged_in? -%>
+      Hello, <%= current_user.name %>!
+    <% else -%>
+      Please <%= link_to 'Log in', new_session_path %>
+    <% end -%>
+    
+h2. Tweaks
+
+Clearance is flexible. If you want to use a model other than User for 
+authentication you can specify your model by overriding user_model metod in
+ApplicationController:
+
+    class ApplicationController < ActionController::Base
+      include Clearance::App::Controllers::ApplicationController
+      
+      private
+        
+        def user_model
+          Person
+        end
+    end
+    
+The same works for the mailer:
+
+    class ApplicationController < ActionController::Base
+      include Clearance::App::Controllers::ApplicationController
+      
+      private
+        
+        def user_mailer
+          MyMailer
+        end
+    end
+
+If you need to do something special when a user logs in, Clearance allows that
+too. Just override log_user_in method and call login inside it:
+
+    class ApplicationController < ActionController::Base
+      include Clearance::App::Controllers::ApplicationController
+      
+      private
+        
+        def log_user_in(user)
+          # store current time to display "last logged in at" message
+          user.update_attribute(:last_logged_in_at, Time.now)
+          login(user)
+        end
+    end 
 
 h2. Authors
 
