@@ -67,8 +67,9 @@ class ClearanceGenerator < Rails::Generator::Base
         m.file file, file
       end
       
-      ["test/factories.rb"].each do |file|
-        m.file file, file
+      unless Factory.factories[:user]
+        m.directory File.join("test", "factories")
+        m.file "test/factories/clearance_user.rb", "test/factories/clearance_user.rb"
       end
       
       if ActiveRecord::Base.connection.table_exists?(:users)      
@@ -78,6 +79,8 @@ class ClearanceGenerator < Rails::Generator::Base
         m.migration_template 'db/migrate/create_users_with_clearance_columns.rb', 
           'db/migrate', :migration_file_name => 'create_users_with_clearance_columns'
       end
+      
+      
       
       m.readme "USER_MODEL_EXISTS" if user_model_exists
       m.readme "APPLICATION_CONTROLLER_EXISTS" if application_controller_exists      
