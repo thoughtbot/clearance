@@ -1,10 +1,18 @@
+require File.expand_path(File.dirname(__FILE__) + "/lib/insert_commands.rb")
+require File.expand_path(File.dirname(__FILE__) + "/lib/rake_commands.rb")
+
 class ClearanceGenerator < Rails::Generator::Base
   
   def manifest
     record do |m|
       m.directory File.join("app", "controllers")
-      m.file "app/controllers/application.rb", "app/controllers/application.rb", :collision => :skip
-      
+      file = "app/controllers/application.rb"
+      if File.exists?(file)
+        m.insert_into file, "include Clearance::App::Controllers::ApplicationController"
+      else
+        m.file file, file 
+      end
+     
       ["app/controllers/confirmations_controller.rb",
        "app/controllers/passwords_controller.rb", 
        "app/controllers/sessions_controller.rb", 
@@ -13,7 +21,12 @@ class ClearanceGenerator < Rails::Generator::Base
       end
       
       m.directory File.join("app", "models")
-      m.file 'app/models/user.rb', 'app/models/user.rb', :collision => :skip
+      file = "app/models/user.rb"
+      if File.exists?(file)
+        m.insert_into file, "include Clearance::App::Models::User"        
+      else
+        m.file file, file
+      end
      
       ["app/models/clearance_mailer.rb"].each do |file|
         m.file file, file
@@ -76,7 +89,11 @@ class ClearanceGenerator < Rails::Generator::Base
           'db/migrate', :migration_file_name => 'create_users_with_clearance_columns'
       end
       
-      m.readme "README"
+      m.route_resources ':passwords'      
+      m.route_resource  ':session'      
+      m.route_resources ':users, :has_one => [:password, :confirmation]'
+            
+      m.rake_db_migrate
     end
   end
   

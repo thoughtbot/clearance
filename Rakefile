@@ -17,8 +17,10 @@ namespace :generator do
       file = "test/rails_root/#{f.gsub("generators/clearance/templates/",'')}"
       File.delete(file) if File.exists?(file)
     end
+    
     FileUtils.rm_rf("test/rails_root/db/migrate")
-    FileUtils.rm_r("test/rails_root/vendor/plugins/clearance") if File.exists?("test/rails_root/vendor/plugins/clearance")
+    FileUtils.rm_rf("test/rails_root/vendor/plugins/clearance")
+    system "cp generators/clearance/templates/config/routes.rb test/rails_root/config"      
     system "mkdir -p test/rails_root/vendor/plugins/clearance"
     system "cp -R generators test/rails_root/vendor/plugins/clearance"  
   end
