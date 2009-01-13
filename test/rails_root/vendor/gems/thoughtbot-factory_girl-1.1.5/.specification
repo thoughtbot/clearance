@@ -1,0 +1,79 @@
+--- !ruby/object:Gem::Specification 
+name: thoughtbot-factory_girl
+version: !ruby/object:Gem::Version 
+  version: 1.1.5
+platform: ruby
+authors: 
+- Joe Ferris
+autorequire: 
+bindir: bin
+cert_chain: []
+
+date: 2008-12-11 00:00:00 -05:00
+default_executable: 
+dependencies: []
+
+description: factory_girl provides a framework and DSL for defining and using factories - less error-prone, more explicit, and  all-around easier to work with than fixtures.
+email: jferris@thoughtbot.com
+executables: []
+
+extensions: []
+
+extra_rdoc_files: 
+- README.textile
+files: 
+- Changelog
+- CONTRIBUTION_GUIDELINES.rdoc
+- LICENSE
+- Rakefile
+- README.textile
+- lib/factory_girl/aliases.rb
+- lib/factory_girl/attribute.rb
+- lib/factory_girl/attribute_proxy.rb
+- lib/factory_girl/factory.rb
+- lib/factory_girl/sequence.rb
+- lib/factory_girl.rb
+- test/aliases_test.rb
+- test/attribute_proxy_test.rb
+- test/attribute_test.rb
+- test/factory_test.rb
+- test/integration_test.rb
+- test/models.rb
+- test/sequence_test.rb
+- test/test_helper.rb
+has_rdoc: true
+homepage: 
+post_install_message: 
+rdoc_options: 
+- --line-numbers
+- --inline-source
+- --main
+- README.textile
+require_paths: 
+- lib
+required_ruby_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      version: "0"
+  version: 
+required_rubygems_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      version: "0"
+  version: 
+requirements: []
+
+rubyforge_project: 
+rubygems_version: 1.3.1
+signing_key: 
+specification_version: 2
+summary: factory_girl provides a framework and DSL for defining and using model instance factories.
+test_files: 
+- test/aliases_test.rb
+- test/attribute_proxy_test.rb
+- test/attribute_test.rb
+- test/factory_test.rb
+- test/integration_test.rb
+- test/sequence_test.rb

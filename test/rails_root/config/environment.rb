@@ -10,6 +10,7 @@ Rails::Initializer.run do |config|
     :secret      => [PROJECT_NAME, 'random', 'words', 'here'].map {|k| Digest::MD5.hexdigest(k) }.join
   }
   config.gem 'thoughtbot-shoulda', :lib => 'shoulda', :source => 'http://gems.github.com'
+  config.gem 'thoughtbot-factory_girl', :lib => 'factory_girl', :source => 'http://gems.github.com'  
 end
 
 DO_NOT_REPLY = "donotreply@example.com"
