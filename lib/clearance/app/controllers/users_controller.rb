@@ -18,11 +18,11 @@ module Clearance
 
         module InstanceMethods
           def new
-            @user = user_model.new(params[:user])
+            @user = User.new(params[:user])
           end
       
           def create
-            @user = user_model.new params[:user]
+            @user = User.new params[:user]
             if @user.save
               ClearanceMailer.deliver_confirmation @user
               flash[:notice] = "You will receive an email within the next few minutes. It contains instructions for you to confirm your account."

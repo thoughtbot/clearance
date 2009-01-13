@@ -18,7 +18,7 @@ module Clearance
     
         module InstanceMethods
           def create
-            @user = user_model.authenticate(params[:session][:email], params[:session][:password])
+            @user = User.authenticate(params[:session][:email], params[:session][:password])
             if @user.nil?
               login_failure
             else
@@ -28,7 +28,7 @@ module Clearance
                 log_user_in(@user)
                 login_successful
               else
-                mailer_model.deliver_confirmation(@user)
+                ClearanceMailer.deliver_confirmation(@user)
                 deny_access('Account not confirmed. Confirmation email sent.')
               end
             end

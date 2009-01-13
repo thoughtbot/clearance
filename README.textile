@@ -152,32 +152,6 @@ current_user:
     
 h2. Tweaks
 
-Clearance is flexible. If you want to use a model other than User for 
-authentication you can specify your model by overriding user_model metod in
-ApplicationController:
-
-    class ApplicationController < ActionController::Base
-      include Clearance::App::Controllers::ApplicationController
-      
-      private
-        
-        def user_model
-          Person
-        end
-    end
-    
-The same works for the mailer:
-
-    class ApplicationController < ActionController::Base
-      include Clearance::App::Controllers::ApplicationController
-      
-      private
-        
-        def user_mailer
-          MyMailer
-        end
-    end
-
 If you need to do something special when a user logs in, Clearance allows that
 too. Just override log_user_in method and call login inside it:
 
