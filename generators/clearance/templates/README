@@ -1,0 +1,21 @@
+********************************************************************************
+
+What's next?
+
+1. Add "include Clearance::App::Controllers::ApplicationController"
+to your app/controllers/application.rb:
+
+class ApplicationController < ActionController::Base
+  include Clearance::App::Controllers::ApplicationController
+...
+
+2. If you had a User model already, add "include Clearance::App::Models::User"
+to your app/models/user.rb:
+
+class User < ActiveRecord::Base
+  include Clearance::App::Models::User
+...
+
+3. Run "rake db:migrate"
+
+********************************************************************************

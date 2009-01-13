@@ -3,9 +3,7 @@ class ClearanceGenerator < Rails::Generator::Base
   def manifest
     record do |m|
       m.directory File.join("app", "controllers")
-      file = "app/controllers/application.rb"
-      application_controller_exists = File.exists?(destination_path(file))
-      m.file file, file, :collision => :skip
+      m.file "app/controllers/application.rb", "app/controllers/application.rb", :collision => :skip
       
       ["app/controllers/confirmations_controller.rb",
        "app/controllers/passwords_controller.rb", 
@@ -15,9 +13,7 @@ class ClearanceGenerator < Rails::Generator::Base
       end
       
       m.directory File.join("app", "models")
-      file = "app/models/user.rb"
-      user_model_exists = File.exists?(destination_path(file))
-      m.file file, file, :collision => :skip
+      m.file 'app/models/user.rb', 'app/models/user.rb', :collision => :skip
      
       ["app/models/clearance_mailer.rb"].each do |file|
         m.file file, file
@@ -80,10 +76,7 @@ class ClearanceGenerator < Rails::Generator::Base
           'db/migrate', :migration_file_name => 'create_users_with_clearance_columns'
       end
       
-      
-      
-      m.readme "USER_MODEL_EXISTS" if user_model_exists
-      m.readme "APPLICATION_CONTROLLER_EXISTS" if application_controller_exists      
+      m.readme "README"
     end
   end
   
