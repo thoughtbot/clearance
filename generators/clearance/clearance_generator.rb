@@ -1,5 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + "/lib/insert_commands.rb")
 require File.expand_path(File.dirname(__FILE__) + "/lib/rake_commands.rb")
+require 'factory_girl'
 
 class ClearanceGenerator < Rails::Generator::Base
   

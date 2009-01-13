@@ -1,7 +1,10 @@
 Rails::Generator::Commands::Create.class_eval do
   def rake_db_migrate
-    logger.rake "db:migrate" 
-    `rake db:migrate`   
+    logger.rake "db:migrate"
+    unless system("rake db:migrate")
+      logger.rake "db:migrate failed. Rolling back"      
+      command(:destroy).invoke!
+    end
   end
 end
 
