@@ -3,7 +3,7 @@ require 'rake/testtask'
  
 test_files_pattern = 'test/rails_root/test/{unit,functional,other}/**/*_test.rb'
 namespace :test do
-  Rake::TestTask.new(:all => 'generator:tests') do |t|
+  Rake::TestTask.new(:all => ['generator:cleanup', 'generator:generate']) do |t|
     t.libs << 'lib'
     t.pattern = test_files_pattern
     t.verbose = false
@@ -11,15 +11,20 @@ namespace :test do
 end
 
 namespace :generator do
-  desc "Run the generator on the tests"
-  task :tests do
+  desc "Cleans up the test app before running the generator"
+  task :cleanup do
     FileList["generators/clearance/templates/**/*.*"].each do |f|
       file = "test/rails_root/#{f.gsub("generators/clearance/templates/",'')}"
       File.delete(file) if File.exists?(file)
     end
+    FileUtils.rm_rf("test/rails_root/db/migrate")
     FileUtils.rm_r("test/rails_root/vendor/plugins/clearance") if File.exists?("test/rails_root/vendor/plugins/clearance")
     system "mkdir -p test/rails_root/vendor/plugins/clearance"
-    system "cp -R generators test/rails_root/vendor/plugins/clearance"
+    system "cp -R generators test/rails_root/vendor/plugins/clearance"  
+  end
+
+  desc "Run the generator on the tests"
+  task :generate do
     system "cd test/rails_root && ./script/generate clearance"
   end
 end

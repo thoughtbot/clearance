@@ -1,4 +1,4 @@
-class CreateUsers < ActiveRecord::Migration
+class CreateUsersWithClearanceColumns < ActiveRecord::Migration
   def self.up
     create_table(:users) do |t|
       t.string :email
@@ -9,10 +9,13 @@ class CreateUsers < ActiveRecord::Migration
       t.boolean :confirmed, :default => false, :null => false
     end
 
-    add_index :users, [:email, :crypted_password]    
+    add_index :users, [:email, :crypted_password]
+    add_index :users, [:id, :salt]
+    add_index :users, :email
+    add_index :users, :remember_token    
   end
-
+  
   def self.down
-    drop_table :users
+    drop_table :users  
   end
 end

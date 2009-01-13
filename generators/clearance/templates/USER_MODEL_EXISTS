@@ -1,0 +1,4 @@
+********************************************************************************
+User model already exists. Please be sure to add 
+'include Clearance::App::Models::User' to your User model.
+********************************************************************************

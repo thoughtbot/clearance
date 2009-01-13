@@ -1,0 +1,4 @@
+********************************************************************************
+Application Controller exists. Please be sure to add 
+'include Clearance::App::Controllers::ApplicationController' to it.
+********************************************************************************

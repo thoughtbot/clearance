@@ -3,8 +3,11 @@ class ClearanceGenerator < Rails::Generator::Base
   def manifest
     record do |m|
       m.directory File.join("app", "controllers")
-      ["app/controllers/application.rb",
-       "app/controllers/confirmations_controller.rb",
+      file = "app/controllers/application.rb"
+      application_controller_exists = File.exists?(destination_path(file))
+      m.file file, file, :collision => :skip
+      
+      ["app/controllers/confirmations_controller.rb",
        "app/controllers/passwords_controller.rb", 
        "app/controllers/sessions_controller.rb", 
        "app/controllers/users_controller.rb"].each do |file|
@@ -12,8 +15,11 @@ class ClearanceGenerator < Rails::Generator::Base
       end
       
       m.directory File.join("app", "models")
-      ["app/models/user.rb",
-       "app/models/clearance_mailer.rb"].each do |file|
+      file = "app/models/user.rb"
+      user_model_exists = File.exists?(destination_path(file))
+      m.file file, file, :collision => :skip
+     
+      ["app/models/clearance_mailer.rb"].each do |file|
         m.file file, file
       end
       
@@ -64,6 +70,17 @@ class ClearanceGenerator < Rails::Generator::Base
       ["test/factories.rb"].each do |file|
         m.file file, file
       end
+      
+      if ActiveRecord::Base.connection.table_exists?(:users)      
+        m.migration_template 'db/migrate/update_users_with_clearance_columns.rb', 
+          'db/migrate', :migration_file_name => 'update_users_with_clearance_columns'
+      else
+        m.migration_template 'db/migrate/create_users_with_clearance_columns.rb', 
+          'db/migrate', :migration_file_name => 'create_users_with_clearance_columns'
+      end
+      
+      m.readme "USER_MODEL_EXISTS" if user_model_exists
+      m.readme "APPLICATION_CONTROLLER_EXISTS" if application_controller_exists      
     end
   end
   

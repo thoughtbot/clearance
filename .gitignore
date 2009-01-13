@@ -3,3 +3,4 @@ test/rails_root/log/*.log
 *.swp
 .rake_tasks
 test/rails_root/vendor/plugins
+test/rails_root/db/migrate
