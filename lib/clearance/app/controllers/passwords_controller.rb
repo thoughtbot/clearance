@@ -26,6 +26,7 @@ module Clearance
               render :action => :new
             else
               ClearanceMailer.deliver_change_password user
+              flash[:notice] = "Details for changing your password have been sent to #{user.email}"
               redirect_to url_after_create
             end
           end

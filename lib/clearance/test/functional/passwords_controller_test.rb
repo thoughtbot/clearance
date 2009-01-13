@@ -30,6 +30,10 @@ module Clearance
                   should 'send an email to the user to edit their password' do
                     assert @email.subject =~ /change your password/i
                   end
+                  
+                  should 'set a :notice flash with the user email address' do
+                    assert_match /#{@user.email}/, flash[:notice]
+                  end
 
                   should_redirect_to "@controller.send(:url_after_create)"
                 end
