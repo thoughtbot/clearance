@@ -39,7 +39,6 @@ This will create:
     app/controllers/users_controller.rb
     app/models/user.rb
     app/models/user_mailer.rb
-    app/views/confirmations/new.html.erb
     app/views/passwords/edit.html.erb
     app/views/passwords/new.html.erb
     app/views/sessions/new.html.erb
@@ -52,73 +51,31 @@ This will create:
     test/functional/passwords_controller_test.rb
     test/functional/sessions_controller_test.rb
     test/functional/users_controller_test.rb
-    test/unit/user_mailer_test.rb
+    test/unit/clearance_mailer_test.rb
     test/unit/user_test.rb
-
-Add the corresponding Clearance module for any file(s) you don't want to override. They are namespaced exactly like the directory structure of a Rails app: 
-
-    app/models/user.rb already exists.
-    include Clearance::App::Models::User
-
-h2. Tests
-
-The tests use "Shoulda":http://thoughtbot.com/projects/shoulda >= 2.0.4 and "Factory Girl":http://thoughtbot.com/projects/factory_girl. You should create a User Factory:
-
-    Factory.sequence :email do |n|
-      "user#{n}@example.com"
-    end
-
-    Factory.define :user do |user|
-      user.email { Factory.next :email }
-      user.password "password"
-      user.password_confirmation "password"
-    end
-
-In test/test_helper.rb: 
-
-    class Test::Unit::TestCase
-      self.use_transactional_fixtures = true
-      self.use_instantiated_fixtures  = false
-      include Clearance::Test::TestHelper
-    end
-
-h2. Controllers
-
-In app/controllers/application_controller.rb:
+    
+And it will add a Clearance module to the application.rb:
 
     class ApplicationController < ActionController::Base
       include Clearance::App::Controllers::ApplicationController
     end
 
-h2. Migration
+For any other file(s) that you already have and don't want to override, add the corresponding Clearance module. They are namespaced exactly like the directory structure of a Rails app: 
 
-Your users table needs a few columns.
+    app/models/user.rb already exists.
+    include Clearance::App::Models::User
+    
+The generator will also create a migration to add a "users" table and run it. If the table already exists in the database the migration will just add fields and indexes that are missing and required by Clearance. If the migration fails, the generator will revert all changes back.
 
-    create_table(:users) do |t|
-      t.string :email
-      t.string :crypted_password, :limit => 40
-      t.string :salt, :limit => 40
-      t.string :remember_token
-      t.datetime :remember_token_expires_at
-      t.boolean :confirmed, :default => false, :null => false
-    end
+Finally it will add these routes to your routes.rb:
 
-    add_index :users, [:email, :crypted_password]
-    add_index :users, [:id, :salt]
-    add_index :users, :email
-    add_index :users, :remember_token
-
-h2. Routes
-
-    map.resources :users
+    map.resources :users, :has_one => [:password, :confirmation]
     map.resource :session
-    map.resources :users, :has_one => :password
-    map.resources :users, :has_one => :confirmation
     map.resources :passwords
-    map.root :controller => 'sessions', :action => 'new'
-
+    
 h2. Environments
 
+There's a couple of things you need to add to your environments files.
 In config/environments/test.rb and config/environments/development.rb:
 
     HOST = "localhost"
@@ -126,23 +83,39 @@ In config/environments/test.rb and config/environments/development.rb:
 In config/environment.rb:
 
     DO_NOT_REPLY = "donotreply@example.com"
-    PROJECT_NAME = "my_app_name"
-    
+    PROJECT_NAME = "my_app_name"    
+
+h2. Tests
+
+The tests use "Shoulda":http://thoughtbot.com/projects/shoulda >= 2.0.4 and "Factory Girl":http://thoughtbot.com/projects/factory_girl. You need to add the Clearance module to your test/test_helper.rb:
+
+    class Test::Unit::TestCase
+      self.use_transactional_fixtures = true
+      self.use_instantiated_fixtures  = false
+      include Clearance::Test::TestHelper
+    end
+
+The generator will create a user factory in test/factories/clearance_user.rb unless
+you have it defined somewhere else.
+
 h2. Usage
 
+Clearance provides all the basics you need to get started with authentication. 
+
+Users can sign up (UsersController) using an email address and a password (User model) and get an email with a confirmation link (ClearanceMailer) to finish the registration (ConfirmationController).
+
+Registered users can sign in and out (SessionsController) and request an email with a link to change their password if they forget it (PasswordsController). 
+    
 To protect your controllers with authentication add:
 
     class ProtectedController < ApplicationController
       before_filter :authenticate
 
-The filter will ensure that only authenticated users can access the controller.
-If someone who's not logged in tries to access a protected action, the URL 
-is stored in the session, the user is redirected to log in page and after 
-successful authentication will be be redirected back to that URL.
+The filter will ensure that only authenticated users can access the controller. If someone who's not logged in tries to access a protected action, the URL is stored in the session, the user is redirected to log in page and after successful authentication will be be redirected back to that URL.
 
-Clearance provides 2 methods that can be used in controllers and views to 
-check if current user is authenticated and get the actual user: logged_in? and
-current_user:
+h2. Hooks and Tweaks
+
+Clearance provides 2 methods that can be used in controllers and views to check if current user is authenticated and get the actual user: logged_in? and current_user:
     
     <% if logged_in? -%>
       Hello, <%= current_user.name %>!
@@ -150,7 +123,25 @@ current_user:
       Please <%= link_to 'Log in', new_session_path %>
     <% end -%>
     
-h2. Tweaks
+URLs that used by Clearance controllers are customizable. If you want to redirect a user to a specific page after signing in you need to override "url_after_create" method in the SessionsController:
+
+    class SessionsController < ApplicationController
+      include Clearance::App::Controllers::SessionsController
+      
+      private
+      
+        def url_after_create
+          new_blog_post_path
+        end
+    end
+
+There are similar methods in other controllers as well:
+
+    UsersController#url_after_create (sign up)
+    ConfirmationsController#url_after_confirmation
+    SessionsController#url_after_create (sign in)
+    SessionsController#url_after_destroy (sign out)
+    PasswordsController#url_after_create (pasword reset request)
 
 If you need to do something special when a user logs in, Clearance allows that
 too. Just override log_user_in method and call login inside it:

@@ -71,6 +71,10 @@ class ClearanceGenerator < Rails::Generator::Base
         m.file "test/factories/clearance_user.rb", "test/factories/clearance_user.rb"
       end
       
+      m.route_resources ':passwords'      
+      m.route_resource  ':session'      
+      m.route_resources ':users, :has_one => [:password, :confirmation]'      
+      
       if ActiveRecord::Base.connection.table_exists?(:users)      
         m.migration_template 'db/migrate/update_users_with_clearance_columns.rb', 
           'db/migrate', :migration_file_name => 'update_users_with_clearance_columns'
@@ -78,10 +82,6 @@ class ClearanceGenerator < Rails::Generator::Base
         m.migration_template 'db/migrate/create_users_with_clearance_columns.rb', 
           'db/migrate', :migration_file_name => 'create_users_with_clearance_columns'
       end
-      
-      m.route_resources ':passwords'      
-      m.route_resource  ':session'      
-      m.route_resources ':users, :has_one => [:password, :confirmation]'
             
       m.rake_db_migrate
     end
