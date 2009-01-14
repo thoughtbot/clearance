@@ -1,0 +1,36 @@
+*******************************************************************************
+Ok, enough fancy automatic stuff. Time for some old school monkey copy-pasting.
+
+1. For any other file(s) that you already had and didn't want to override, add 
+the corresponding Clearance module. They are namespaced exactly like the 
+directory structure of a Rails app, e.g:
+
+if app/models/user.rb already exists, add:
+
+class User < ActiveRecord::Base
+  include Clearance::App::Models::User
+...
+
+2. There's a couple of things you need to add to your environments files.
+In config/environments/test.rb and config/environments/development.rb:
+
+    HOST = "localhost"
+
+In config/environment.rb:
+
+    DO_NOT_REPLY = "donotreply@example.com"
+    PROJECT_NAME = "my_app_name"  
+    
+3. Clearance depends on root_url, so please make sure that it is defined in your config/routes.rb:
+
+    map.root :controller => 'my_home_controller'
+    
+4. To run tests you need to add the Clearance module to your 
+test/test_helper.rb:
+
+    class Test::Unit::TestCase
+      self.use_transactional_fixtures = true
+      self.use_instantiated_fixtures  = false
+      include Clearance::Test::TestHelper
+    end
+

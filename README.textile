@@ -73,6 +73,10 @@ Finally it will add these routes to your routes.rb:
     map.resource :session
     map.resources :passwords
     
+Please note that Clearance depends on root_url, so please make sure that it is defined in your config/routes.rb:
+
+    map.root :controller => 'my_home_controller'
+    
 h2. Environments
 
 There's a couple of things you need to add to your environments files.
