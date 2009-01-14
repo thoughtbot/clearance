@@ -22,14 +22,7 @@ class ClearanceGenerator < Rails::Generator::Base
       end
       
       m.directory File.join("app", "models")
-      file = "app/models/user.rb"
-      if File.exists?(file)
-        m.insert_into file, "include Clearance::App::Models::User"        
-      else
-        m.file file, file
-      end
-     
-      ["app/models/clearance_mailer.rb"].each do |file|
+      ["app/models/user.rb", "app/models/clearance_mailer.rb"].each do |file|
         m.file file, file
       end
       
