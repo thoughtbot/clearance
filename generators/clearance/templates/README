@@ -21,7 +21,8 @@ In config/environment.rb:
     DO_NOT_REPLY = "donotreply@example.com"
     PROJECT_NAME = "my_app_name"  
     
-3. Clearance depends on root_url, so please make sure that it is defined in your config/routes.rb:
+3. Clearance depends on root_url, so please make sure that it is defined in 
+your config/routes.rb:
 
     map.root :controller => 'my_home_controller'
     
@@ -33,3 +34,4 @@ test/test_helper.rb:
       self.use_instantiated_fixtures  = false
       include Clearance::Test::TestHelper
     end
+*******************************************************************************    
