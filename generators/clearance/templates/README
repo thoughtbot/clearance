@@ -33,4 +33,3 @@ test/test_helper.rb:
       self.use_instantiated_fixtures  = false
       include Clearance::Test::TestHelper
     end
-

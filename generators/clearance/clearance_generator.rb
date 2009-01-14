@@ -84,6 +84,8 @@ class ClearanceGenerator < Rails::Generator::Base
       end
             
       m.rake_db_migrate
+      
+      m.readme "README"
     end
   end
   
