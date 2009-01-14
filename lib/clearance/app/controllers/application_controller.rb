@@ -51,6 +51,7 @@ module Clearance
           end
 
           def redirect_back_or(default)
+            session[:return_to] ||= params[:return_to]
             session[:return_to] ? redirect_to(session[:return_to]) : redirect_to(default)
             session[:return_to] = nil
           end

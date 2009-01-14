@@ -106,6 +106,34 @@ module Clearance
                   assert_nil @user.reload.remember_token_expires_at
                 end
               end
+              
+              context "a POST to #create with good credentials and A URL to return back" do
+                context "in the session" do
+                  setup do
+                    @request.session[:return_to] = '/url_in_the_session'
+                    post :create, :session => { :email => @user.email, 
+                      :password => @user.password }                    
+                  end
+                  should_redirect_to "'/url_in_the_session'"
+                end
+                context "in the request" do
+                  setup do
+                    post :create, :session => { :email => @user.email, 
+                      :password => @user.password },
+                      :return_to => '/url_in_the_request'                    
+                  end
+                  should_redirect_to "'/url_in_the_request'"
+                end                
+                context "in the request and in the session" do
+                  setup do
+                    @request.session[:return_to] = '/url_in_the_session'
+                    post :create, :session => { :email => @user.email, 
+                      :password => @user.password },
+                      :return_to => '/url_in_the_request'                    
+                  end
+                  should_redirect_to "'/url_in_the_session'"
+                end
+              end              
             end
 
             public_context do
