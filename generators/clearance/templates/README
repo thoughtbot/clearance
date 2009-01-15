@@ -11,15 +11,15 @@ class User < ActiveRecord::Base
   include Clearance::App::Models::User
 ...
 
-2. There's a couple of things you need to add to your environments files.
-In config/environments/test.rb and config/environments/development.rb:
+2. You need to define HOST constant in your environments files. In config/environments/test.rb and config/environments/development.rb it can be:
 
     HOST = "localhost"
+
+While in config/environments/production.rb it must be the actual host your application is deployed to because the constant is used by mailers to generate URLs in emails.
 
 In config/environment.rb:
 
     DO_NOT_REPLY = "donotreply@example.com"
-    PROJECT_NAME = "my_app_name"  
     
 3. Clearance depends on root_url, so please make sure that it is defined in 
 your config/routes.rb:
