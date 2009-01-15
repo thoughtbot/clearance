@@ -16,9 +16,13 @@ module Clearance
     
         module InstanceMethods
           def new
+            create
+          end
+          
+          def create
             @user.confirm!
             session[:user_id] = @user.id
-            redirect_to url_after_confirmation
+            redirect_to url_after_create
           end
         end
     
@@ -30,7 +34,7 @@ module Clearance
             end
           end
           
-          def url_after_confirmation
+          def url_after_create
             root_url
           end
         end
