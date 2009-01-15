@@ -1,11 +1,8 @@
 # Mostly pinched from http://github.com/ryanb/nifty-generators/tree/master
 
 Rails::Generator::Commands::Base.class_eval do
-  def gsub_file_once(relative_destination, regexp, *args, &block)
-    gsub_file(relative_destination, regexp, *args, &block)
-#    path = destination_path(relative_destination)
-#    content = File.read(path).gsub(regexp, *args, &block)
-#    File.open(path, 'wb') { |file| file.write(content) }
+  def file_contains?(relative_destination, line)
+    File.read(destination_path(relative_destination)).include?(line)
   end
 end
 
@@ -15,8 +12,8 @@ Rails::Generator::Commands::Create.class_eval do
     sentinel = 'ActionController::Routing::Routes.draw do |map|'
     
     logger.route "map.resources #{resource_list}"
-    unless options[:pretend]
-      gsub_file_once 'config/routes.rb', /(#{Regexp.escape(sentinel)})/mi do |match|
+    unless options[:pretend] || file_contains?('config/routes.rb', resource_list)
+      gsub_file 'config/routes.rb', /(#{Regexp.escape(sentinel)})/mi do |match|
         "#{match}\n  map.resources #{resource_list}"
       end
     end
@@ -26,8 +23,8 @@ Rails::Generator::Commands::Create.class_eval do
     sentinel = 'ActionController::Routing::Routes.draw do |map|'
     
     logger.route "map.resource #{resource_list}"
-    unless options[:pretend]
-      gsub_file_once 'config/routes.rb', /(#{Regexp.escape(sentinel)})/mi do |match|
+    unless options[:pretend] || file_contains?('config/routes.rb', resource_list)
+      gsub_file 'config/routes.rb', /(#{Regexp.escape(sentinel)})/mi do |match|
         "#{match}\n  map.resource #{resource_list}"
       end
     end
@@ -37,7 +34,7 @@ Rails::Generator::Commands::Create.class_eval do
     sentinel = 'ActionController::Routing::Routes.draw do |map|'
     
     logger.route "map.#{name} '#{path}', :controller => '#{route_options[:controller]}', :action => '#{route_options[:action]}'"
-    unless options[:pretend]
+    unless options[:pretend] 
       gsub_file_once 'config/routes.rb', /(#{Regexp.escape(sentinel)})/mi do |match|
         "#{match}\n  map.#{name} '#{path}', :controller => '#{route_options[:controller]}', :action => '#{route_options[:action]}'"
       end
@@ -46,8 +43,8 @@ Rails::Generator::Commands::Create.class_eval do
   
   def insert_into(file, line)
     logger.insert "#{line} into #{file}"
-    unless options[:pretend]
-      gsub_file_once file, /^(class|module) .+$/ do |match|
+    unless options[:pretend] || file_contains?(file, line)
+      gsub_file file, /^(class|module) .+$/ do |match|
         "#{match}\n  #{line}"
       end
     end
