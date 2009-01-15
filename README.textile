@@ -1,12 +1,12 @@
 h1. Clearance
 
-Simple, complete Ruby web app authentication. 
+Rails authentication for developers who write tests.
 
 "We have clearance, Clarence.":http://www.youtube.com/v/mNRXJEE3Nz8
 
 h2. Gem installation (Rails 2.1+)
 
-In config/environments/test.rb:
+In config/environment.rb:
 
     config.gem 'mocha'
     config.gem 'thoughtbot-shoulda',
@@ -15,9 +15,6 @@ In config/environments/test.rb:
     config.gem 'thoughtbot-factory_girl',
       :lib    => 'factory_girl',
       :source => "http://gems.github.com"
-
-In config/environment.rb:
-
     config.gem "thoughtbot-clearance", :lib => 'clearance', :source => 'http://gems.github.com'
 
 Then:
@@ -25,7 +22,7 @@ Then:
     rake gems:install
     rake gems:unpack
 
-h2. Generator
+h2. The generator
 
 In a greenfield application, just run the generator:
 
@@ -53,29 +50,46 @@ This will create:
     test/functional/users_controller_test.rb
     test/unit/clearance_mailer_test.rb
     test/unit/user_test.rb
-    
-And it will add a Clearance module to the application.rb:
+
+You may already have some of these files. Don't worry. You'll be asked if you want to override them.
+
+h2. Modules
+
+Clearance works by mixing behavior into tests, controllers, and models. For any file that you do not want to override, include the corresponding Clearance module. They are namespaced exactly like the directory structure of a Rails app.
+
+Application controller example:
 
     class ApplicationController < ActionController::Base
       include Clearance::App::Controllers::ApplicationController
     end
 
-For any other file(s) that you already have and don't want to override, add the corresponding Clearance module. They are namespaced exactly like the directory structure of a Rails app: 
+User model example:
 
-    app/models/user.rb already exists.
-    include Clearance::App::Models::User
+    class User < ActiveRecord::Base
+      include Clearance::App::Models::User
+    end
+
+User test example:
+
+    class UserTest < Test::Unit::TestCase
+      include Clearance::Test::Unit::UserTest
+    end
+
+h2. The migration    
     
-The generator will also create a migration to add a "users" table and run it. If the table already exists in the database the migration will just add fields and indexes that are missing and required by Clearance. If the migration fails, the generator will revert all changes back.
+The generator will also create a migration to add a "users" table and run it. If the table already exists in the database, the migration will just add fields and indexes that are missing and required by Clearance. If the migration fails, the generator will revert all changes back.
 
-Finally it will add these routes to your routes.rb:
+h2. Routes
+
+Clearance will add these routes to your routes.rb:
 
     map.resources :users, :has_one => [:password, :confirmation]
     map.resource :session
     map.resources :passwords
     
-Please note that Clearance depends on root_url, so please make sure that it is defined in your config/routes.rb:
+Please note that Clearance depends on root_url, so please make sure that it is defined to *something* in your config/routes.rb:
 
-    map.root :controller => 'my_home_controller'
+    map.root :controller => 'home'
     
 h2. Environments
 
@@ -102,37 +116,52 @@ The tests use "Shoulda":http://thoughtbot.com/projects/shoulda >= 2.0.4 and "Fac
 The generator will create a user factory in test/factories/clearance_user.rb unless
 you have it defined somewhere else.
 
-h2. Usage
+h2. Usage: basic workflow
 
-Clearance provides all the basics you need to get started with authentication. 
+Rails authentication with Clearance uses the standard approach thoughtbot and our clients have agreed upon. 
 
-Users can sign up (UsersController) using an email address and a password (User model) and get an email with a confirmation link (ClearanceMailer) to finish the registration (ConfirmationController).
+Users register (UsersController) using an email address and a password (User model). They get an email with a confirmation link (ClearanceMailer) to confirm their registration (ConfirmationController).
 
-Registered users can sign in and out (SessionsController) and request an email with a link to change their password if they forget it (PasswordsController). 
-    
+Registered users can sign in and out (SessionsController). If they forget their password, they request an email containing a link to change it (PasswordsController). 
+
+h2. Usage: actions that require the user to be logged in
+
 To protect your controllers with authentication add:
 
     class ProtectedController < ApplicationController
       before_filter :authenticate
 
-The filter will ensure that only authenticated users can access the controller. If someone who's not logged in tries to access a protected action, the URL is stored in the session, the user is redirected to log in page and after successful authentication will be be redirected back to that URL.
+The filter will ensure that only authenticated users can access the controller. If someone who's not logged in tries to access a protected action: 
 
-If you want to specify where to redirect a user (say you want to have a login box on every page and redirect the user to the same page) after he signs in, you can add a "return_to" parameter to the request (thanks to "Phillippe":http://www.sivarg.com/2009/01/clearance-coming-from-where-your-were.html for the tip):
+* the URL is stored in the session, 
+* the user is redirected to log in page, and
+* after successful authentication will be be redirected back to that URL.
 
-    <% form_for :session, :url => session_path(:return_to => request.request_uri) do |form| %> 
-    ...
+h2. Usage: logged_in?, current_user
 
-h2. Hooks and Tweaks
+Clearance provides two methods that can be used in controllers, helpers, and views to check if current user is authenticated and get the actual user: 
 
-Clearance provides 2 methods that can be used in controllers and views to check if current user is authenticated and get the actual user: logged_in? and current_user:
+* logged_in?
+* current_user
+
+This may be familiar to you if you've used "restful_authentication":http://github.com/technoweenie/restful-authentication.
     
     <% if logged_in? -%>
       Hello, <%= current_user.name %>!
     <% else -%>
       Please <%= link_to 'Log in', new_session_path %>
     <% end -%>
+
+h2. Hooks and overrides: return_to parameter
+
+If you want to specify where to redirect a user (say you want to have a login box on every page and redirect the user to the same page) after he/she signs in, you can add a "return_to" parameter to the request (thanks to "Phillippe":http://www.sivarg.com/2009/01/clearance-coming-from-where-your-were.html for the tip):
+
+    <% form_for :session, :url => session_path(:return_to => request.request_uri) do |form| %> 
+    ...
+
+h2. Hooks and overrides: url_after_create, url_after_destroy
     
-URLs that used by Clearance controllers are customizable. If you want to redirect a user to a specific page after signing in you need to override "url_after_create" method in the SessionsController:
+Actions that redirect (create and destroy) in Clearance controllers are customizable. If you want to redirect a user to a specific route after signing in, override the "url_after_create" method in the SessionsController:
 
     class SessionsController < ApplicationController
       include Clearance::App::Controllers::SessionsController
@@ -147,13 +176,16 @@ URLs that used by Clearance controllers are customizable. If you want to redirec
 There are similar methods in other controllers as well:
 
     UsersController#url_after_create (sign up)
-    ConfirmationsController#url_after_confirmation
     SessionsController#url_after_create (sign in)
     SessionsController#url_after_destroy (sign out)
-    PasswordsController#url_after_create (pasword reset request)
+    PasswordsController#url_after_create (password reset request)
+    ConfirmationsController#url_after_create (confirmation)
 
-If you need to do something special when a user logs in, Clearance allows that
-too. Just override log_user_in method and call login inside it:
+h2. Hooks and overrides: log_user_in
+
+Say you want to add a last_logged_in_at attribute to your User model. You would want to update it when the User logs in.
+
+Clearance has a method named log_user_in that you can override with that logic. Be sure to call login(user) at the end (and write tests!).
 
     class ApplicationController < ActionController::Base
       include Clearance::App::Controllers::ApplicationController
@@ -175,3 +207,4 @@ h2. Authors
 * Mike Burns
 * Josh Nichols
 * Mike Breen
+* Eugene Bolshakov
