@@ -12,12 +12,20 @@ module Clearance
                 should_respond_with :success
                 should_render_template :new
                 should_not_set_the_flash
-                should_have_form :action => "users_path",
-                  :method => :post,
-                  :fields => { :email => :text,
-                    :password => :password,
-                    :password_confirmation => :password }
-
+                should "display a form to register" do
+                 assert_select "form[action=#{users_path}][method=post]", 
+                  true, "There must be a form to register" do
+                    assert_select "input[type=text][name=?]", 
+                      "user[email]", true, "There must be an email field"
+                    assert_select "input[type=password][name=?]", 
+                      "user[password]", true, "There must be a password field"
+                    assert_select "input[type=password][name=?]", 
+                      "user[password_confirmation]", true, "There must be a password confirmation field"                      
+                    assert_select "input[type=submit]", true, 
+                      "There must be a submit button"
+                 end
+                end
+                
                 context "with params" do
                   setup do
                     @email = 'a@example.com'

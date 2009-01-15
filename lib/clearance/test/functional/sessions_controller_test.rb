@@ -13,10 +13,19 @@ module Clearance
               should_respond_with :success
               should_render_template :new
               should_not_set_the_flash
-              should_have_form :action => "session_path",
-                :fields => { "session[email]" => :text,
-                  "session[password]" => :password,
-                  "session[remember_me]" => :checkbox }
+              should 'display a "sign in" form' do
+                assert_select "form[action=#{session_path}][method=post]", 
+                  true, "There must be a form to log in" do
+                    assert_select "input[type=text][name=?]", 
+                      "session[email]", true, "There must be an email field"
+                    assert_select "input[type=password][name=?]", 
+                      "session[password]", true, "There must be a password field"
+                    assert_select "input[type=checkbox][name=?]", 
+                      "session[remember_me]", true, "There must be a 'remember me' check box"
+                    assert_select "input[type=submit]", true, 
+                      "There must be a submit button"
+                end                
+              end
             end
 
             context "Given an unconfirmed user" do
