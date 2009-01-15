@@ -1,4 +1,4 @@
-class UpdateUsersWithClearanceColumns < ActiveRecord::Migration
+class CreateOrUpdateUsersWithClearanceColumns < ActiveRecord::Migration
   def self.up
 <% 
       existing_columns = ActiveRecord::Base.connection.columns(:users).map { |column| column.name }

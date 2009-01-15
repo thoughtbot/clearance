@@ -1,4 +1,13 @@
-# Pinched from http://github.com/ryanb/nifty-generators/tree/master
+# Mostly pinched from http://github.com/ryanb/nifty-generators/tree/master
+
+Rails::Generator::Commands::Base.class_eval do
+  def gsub_file_once(relative_destination, regexp, *args, &block)
+    gsub_file(relative_destination, regexp, *args, &block)
+#    path = destination_path(relative_destination)
+#    content = File.read(path).gsub(regexp, *args, &block)
+#    File.open(path, 'wb') { |file| file.write(content) }
+  end
+end
 
 Rails::Generator::Commands::Create.class_eval do
 
@@ -7,8 +16,8 @@ Rails::Generator::Commands::Create.class_eval do
     
     logger.route "map.resources #{resource_list}"
     unless options[:pretend]
-      gsub_file 'config/routes.rb', /(#{Regexp.escape(sentinel)})/mi do |match|
-        "#{match}\n  map.resources #{resource_list}\n"
+      gsub_file_once 'config/routes.rb', /(#{Regexp.escape(sentinel)})/mi do |match|
+        "#{match}\n  map.resources #{resource_list}"
       end
     end
   end
@@ -18,8 +27,8 @@ Rails::Generator::Commands::Create.class_eval do
     
     logger.route "map.resource #{resource_list}"
     unless options[:pretend]
-      gsub_file 'config/routes.rb', /(#{Regexp.escape(sentinel)})/mi do |match|
-        "#{match}\n  map.resource #{resource_list}\n"
+      gsub_file_once 'config/routes.rb', /(#{Regexp.escape(sentinel)})/mi do |match|
+        "#{match}\n  map.resource #{resource_list}"
       end
     end
   end
@@ -29,7 +38,7 @@ Rails::Generator::Commands::Create.class_eval do
     
     logger.route "map.#{name} '#{path}', :controller => '#{route_options[:controller]}', :action => '#{route_options[:action]}'"
     unless options[:pretend]
-      gsub_file 'config/routes.rb', /(#{Regexp.escape(sentinel)})/mi do |match|
+      gsub_file_once 'config/routes.rb', /(#{Regexp.escape(sentinel)})/mi do |match|
         "#{match}\n  map.#{name} '#{path}', :controller => '#{route_options[:controller]}', :action => '#{route_options[:action]}'"
       end
     end
@@ -38,7 +47,7 @@ Rails::Generator::Commands::Create.class_eval do
   def insert_into(file, line)
     logger.insert "#{line} into #{file}"
     unless options[:pretend]
-      gsub_file file, /^(class|module) .+$/ do |match|
+      gsub_file_once file, /^(class|module) .+$/ do |match|
         "#{match}\n  #{line}"
       end
     end
@@ -46,14 +55,21 @@ Rails::Generator::Commands::Create.class_eval do
 end
 
 Rails::Generator::Commands::Destroy.class_eval do
-  def route_resource(*resources)
-    resource_list = resources.map { |r| r.to_sym.inspect }.join(', ')
-    look_for = "\n  map.resource #{resource_list}\n"
-    logger.route "map.resource #{resource_list}"
+  def route_resource(resource_list)
+    look_for = "  map.resource #{resource_list}\n".gsub(/[\[\]]/, '\\\\\0')
+    logger.route "map.resource #{resource_list} #{look_for}"
     unless options[:pretend]
       gsub_file 'config/routes.rb', /(#{look_for})/mi, ''
     end
   end
+  
+  def route_resources(resource_list)
+    look_for = "  map.resources #{resource_list}\n".gsub(/[\[\]]/, '\\\\\0')
+    logger.route "map.resources #{resource_list} #{look_for}"
+    unless options[:pretend]
+      gsub_file 'config/routes.rb', /(#{look_for})/mi, ''
+    end
+  end  
   
   def route_name(name, path, route_options = {})
     look_for =   "\n  map.#{name} '#{path}', :controller => '#{route_options[:controller]}', :action => '#{route_options[:action]}'"
@@ -72,10 +88,13 @@ Rails::Generator::Commands::Destroy.class_eval do
 end
 
 Rails::Generator::Commands::List.class_eval do
-  def route_resource(*resources)
-    resource_list = resources.map { |r| r.to_sym.inspect }.join(', ')
+  def route_resource(resources_list)
     logger.route "map.resource #{resource_list}"
   end
+  
+  def route_resources(resources_list)
+    logger.route "map.resource #{resource_list}"
+  end  
   
   def route_name(name, path, options = {})
     logger.route "map.#{name} '#{path}', :controller => '{options[:controller]}', :action => '#{options[:action]}'"

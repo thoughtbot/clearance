@@ -77,10 +77,10 @@ class ClearanceGenerator < Rails::Generator::Base
       
       if ActiveRecord::Base.connection.table_exists?(:users)      
         m.migration_template 'db/migrate/update_users_with_clearance_columns.rb', 
-          'db/migrate', :migration_file_name => 'update_users_with_clearance_columns'
+          'db/migrate', :migration_file_name => 'create_or_update_users_with_clearance_columns'
       else
         m.migration_template 'db/migrate/create_users_with_clearance_columns.rb', 
-          'db/migrate', :migration_file_name => 'create_users_with_clearance_columns'
+          'db/migrate', :migration_file_name => 'create_or_update_users_with_clearance_columns'
       end
             
       m.rake_db_migrate

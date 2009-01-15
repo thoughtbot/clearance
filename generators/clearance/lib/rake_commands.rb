@@ -10,7 +10,8 @@ end
 
 Rails::Generator::Commands::Destroy.class_eval do
   def rake_db_migrate
-    logger.rake "db:migrate"    
+    logger.rake "db:rollback"  
+    system "rake db:rollback"  
   end
 end
 
