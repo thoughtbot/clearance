@@ -11,7 +11,7 @@ autorequire:
 bindir: bin
 cert_chain: []
 
-date: 2009-01-02 00:00:00 -05:00
+date: 2009-01-15 00:00:00 -05:00
 default_executable: 
 dependencies: []
 
@@ -30,6 +30,9 @@ files:
 - TODO.textile
 - generators/clearance
 - generators/clearance/clearance_generator.rb
+- generators/clearance/lib
+- generators/clearance/lib/insert_commands.rb
+- generators/clearance/lib/rake_commands.rb
 - generators/clearance/templates
 - generators/clearance/templates/app
 - generators/clearance/templates/app/controllers
@@ -45,8 +48,6 @@ files:
 - generators/clearance/templates/app/views/clearance_mailer
 - generators/clearance/templates/app/views/clearance_mailer/change_password.html.erb
 - generators/clearance/templates/app/views/clearance_mailer/confirmation.html.erb
-- generators/clearance/templates/app/views/confirmations
-- generators/clearance/templates/app/views/confirmations/new.html.erb
 - generators/clearance/templates/app/views/passwords
 - generators/clearance/templates/app/views/passwords/edit.html.erb
 - generators/clearance/templates/app/views/passwords/new.html.erb
@@ -56,8 +57,16 @@ files:
 - generators/clearance/templates/app/views/users/_form.html.erb
 - generators/clearance/templates/app/views/users/edit.html.erb
 - generators/clearance/templates/app/views/users/new.html.erb
+- generators/clearance/templates/config
+- generators/clearance/templates/config/routes.rb
+- generators/clearance/templates/db
+- generators/clearance/templates/db/migrate
+- generators/clearance/templates/db/migrate/create_users_with_clearance_columns.rb
+- generators/clearance/templates/db/migrate/update_users_with_clearance_columns.rb
+- generators/clearance/templates/README
 - generators/clearance/templates/test
-- generators/clearance/templates/test/factories.rb
+- generators/clearance/templates/test/factories
+- generators/clearance/templates/test/factories/clearance_user.rb
 - generators/clearance/templates/test/functional
 - generators/clearance/templates/test/functional/confirmations_controller_test.rb
 - generators/clearance/templates/test/functional/passwords_controller_test.rb
