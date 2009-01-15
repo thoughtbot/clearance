@@ -21,7 +21,7 @@ module Clearance
 
             context "Given an unconfirmed user" do
               setup do
-                @user = Factory(:user, :confirmed => false)
+                @user = Factory(:clearance_user, :confirmed => false)
               end
 
               context "a POST to #create with good credentials" do
@@ -43,7 +43,7 @@ module Clearance
             end
 
             context "Given a confirmed user" do
-              setup { @user = Factory(:user, :confirmed => true) }
+              setup { @user = Factory(:clearance_user, :confirmed => true) }
 
               context "a POST to #create with good credentials" do
                 setup do

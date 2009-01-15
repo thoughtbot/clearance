@@ -66,9 +66,9 @@ class ClearanceGenerator < Rails::Generator::Base
         m.file file, file
       end
       
-      unless Factory.factories[:user]
-        m.directory File.join("test", "factories")
-        m.file "test/factories/clearance_user.rb", "test/factories/clearance_user.rb"
+      m.directory File.join("test", "factories")
+      ["test/factories/clearance_user.rb"].each do |file|
+        m.file file, file
       end
       
       m.route_resources ':passwords'      

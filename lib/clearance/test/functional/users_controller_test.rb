@@ -33,7 +33,7 @@ module Clearance
 
               context "on POST to /users" do
                 setup do
-                  post :create, :user => Factory.build(:user).attributes.merge(
+                  post :create, :user => Factory.build(:clearance_user).attributes.merge(
                                             {:password => 'skerit',
                                               :password_confirmation => 'skerit'})
                 end

@@ -9,7 +9,7 @@ module Clearance
             context 'A GET to #new' do
               context "with the User with the given id's salt" do
                 setup do
-                  @user = Factory :user
+                  @user = Factory :clearance_user
                   get :new, :user_id => @user.to_param, :salt => @user.salt
                 end
 
@@ -30,7 +30,7 @@ module Clearance
 
               context "without the User with the given id's salt" do
                 setup do
-                  user = Factory :user
+                  user = Factory :clearance_user
                   salt = ''
                   assert_not_equal salt, user.salt
 

@@ -11,7 +11,7 @@ module Clearance
 
       module InstanceMethods
         def login_as(user = nil)
-          user ||= Factory(:user)
+          user ||= Factory(:clearance_user)
           @request.session[:user_id] = user.id
           return user
         end
@@ -74,7 +74,7 @@ module Clearance
         def logged_in_user_context(&blk)
           context "A logged in user" do
             setup do
-              @user = Factory :user
+              @user = Factory :clearance_user
               login_as @user
             end
             merge_block(&blk)

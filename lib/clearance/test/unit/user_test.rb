@@ -11,18 +11,18 @@ module Clearance
             should_not_allow_values_for :email, 'example.com'
 
             should "require password validation on create" do
-              user = Factory.build(:user, :password => 'blah', :password_confirmation => 'boogidy')
+              user = Factory.build(:clearance_user, :password => 'blah', :password_confirmation => 'boogidy')
               assert !user.save
               assert_match(/confirmation/i, user.errors.on(:password))
             end
 
             should "create a crypted_password on save" do
-              assert_not_nil Factory(:user, :crypted_password => nil).crypted_password
+              assert_not_nil Factory(:clearance_user, :crypted_password => nil).crypted_password
             end
 
             context 'updating a password' do
               setup do
-                @user = Factory(:user)
+                @user = Factory(:clearance_user)
                 assert_not_nil @user.crypted_password
                 @crypt = @user.crypted_password
                 assert_not_nil @user.salt
@@ -42,7 +42,7 @@ module Clearance
               setup do
                 @salt = 'salt'
                 User.any_instance.stubs(:initialize_salt)
-                @user = Factory :user, :salt => @salt
+                @user = Factory :clearance_user, :salt => @salt
                 @password = @user.password
               end
           
@@ -202,7 +202,7 @@ module Clearance
 
             context "A user" do
               setup do
-                @user = Factory :user
+                @user = Factory :clearance_user
               end
 
               context 'when sent #confirm!' do
