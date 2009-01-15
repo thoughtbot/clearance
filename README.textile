@@ -4,6 +4,10 @@ Rails authentication for developers who write tests.
 
 "We have clearance, Clarence.":http://www.youtube.com/v/mNRXJEE3Nz8
 
+h2. Integration with Suspenders
+
+Clearance is based on the same conventions and tools as "Suspenders":http://github.com/thoughtbot/suspenders/tree/master Thus if you use it, you may already have some configuration mentioned below in place.
+
 h2. Gem installation (Rails 2.1+)
 
 In config/environment.rb:
@@ -24,7 +28,7 @@ Then:
 
 h2. The generator
 
-In a greenfield application, just run the generator:
+In a greenfield application, make sure the development database exists and just run the generator:
 
     script/generate clearance
 
@@ -151,6 +155,15 @@ This may be familiar to you if you've used "restful_authentication":http://githu
     <% else -%>
       Please <%= link_to 'Log in', new_session_path %>
     <% end -%>
+    
+h2. Usage: mass assignment
+
+Please note that all User attributes except email, password and password_confirmation are protected from mass assignment by default. Use attr_accessible to enable it for your custom attributes.
+    
+    class User < ActiveRecord::Base
+      include Clearance::App::Models::User
+      attr_accessible :first_name, :last_name
+    ...
 
 h2. Hooks and overrides: return_to parameter
 
