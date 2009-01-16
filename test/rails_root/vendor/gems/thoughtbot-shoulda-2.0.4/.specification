@@ -175,6 +175,8 @@ rdoc_options:
 - README.rdoc
 require_paths: 
 - bin
+- bin
+- bin
 - lib
 required_ruby_version: !ruby/object:Gem::Requirement 
   requirements: 
@@ -191,7 +193,7 @@ required_rubygems_version: !ruby/object:Gem::Requirement
 requirements: []
 
 rubyforge_project: shoulda
-rubygems_version: 1.2.0
+rubygems_version: 1.3.1
 signing_key: 
 specification_version: 2
 summary: Making tests easy on the fingers and eyes
