@@ -14,14 +14,16 @@ In config/environment.rb:
 
     config.gem 'mocha'
     config.gem 'thoughtbot-shoulda',
-      :lib    => 'shoulda',
-      :source => "http://gems.github.com"
+      :lib     => 'shoulda',
+      :source  => "http://gems.github.com", 
+      :version => '>= 2.0.6'
     config.gem 'thoughtbot-factory_girl',
-      :lib    => 'factory_girl',
-      :source => "http://gems.github.com"
+      :lib     => 'factory_girl',
+      :source  => "http://gems.github.com", 
+      :version => '>= 1.1.5'
     config.gem "thoughtbot-clearance", 
-      :lib    => 'clearance', 
-      :source => 'http://gems.github.com'
+      :lib     => 'clearance', 
+      :source  => 'http://gems.github.com'
 
 Then:
 
@@ -130,7 +132,7 @@ Users register (UsersController) using an email address and a password (User mod
 
 Registered users can sign in and out (SessionsController). If they forget their password, they request an email containing a link to change it (PasswordsController). 
 
-h2. Usage: actions that require the user to be logged in
+h2. Usage: actions which require an authenticated user
 
 To protect your controllers with authentication add:
 

@@ -1,9 +1,6 @@
 (highest priority first)
 
 # deny_access sets flash[:error]. do we want that to be flash[:failure]?
-# 
-# respond with 405 Method Not Allowed when action requested isn’t allowed
-# Update README to contain config.gem version minimums for shoulda, FG
 # check to make sure attr_accessible doesn't override and w/ attr_protected
 # 401 and 405 in Exceptions controller or use safety_valve
 # email confirmation is a strategy
