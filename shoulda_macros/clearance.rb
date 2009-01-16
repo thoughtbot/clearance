@@ -9,12 +9,17 @@ module Clearance
     end
 
     def should_deny_access(opts = {})
-      opts[:redirect] ||= "new_session_path"
-      should_redirect_to opts[:redirect]
       if opts[:flash]
         should_set_the_flash_to opts[:flash]
       else
         should_not_set_the_flash
+      end
+      
+      should "respond with 401 Unauthorized and render login template" do
+        assert_response :unauthorized, 
+          "access was expected to be denied (401 unauthorized)"
+        assert_template "sessions/new",
+          "template was expected to be login (sessions/new)"
       end
     end
 

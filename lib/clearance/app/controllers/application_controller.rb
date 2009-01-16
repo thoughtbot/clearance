@@ -66,10 +66,9 @@ module Clearance
           end
 
           def deny_access(flash_message = nil, opts = {})
-            opts[:redirect] ||= new_session_path
             store_location
             flash[:error] = flash_message if flash_message
-            redirect_to opts[:redirect]
+            render :template => "/sessions/new",:status => :unauthorized 
           end
         end
       end
