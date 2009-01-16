@@ -63,9 +63,9 @@ module Clearance
                 context "with an existing user's id and password" do
                   setup do
                     get :edit, 
-                      :user_id => @user.to_param, 
+                      :user_id  => @user.to_param, 
                       :password => @user.crypted_password, 
-                      :email => @user.email
+                      :email    => @user.email
                   end
 
                   should 'find the user with the given id and password' do

@@ -1,1 +1,0 @@
-map.root :controller => 'sessions', :action => 'new'
