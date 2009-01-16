@@ -19,7 +19,9 @@ In config/environment.rb:
     config.gem 'thoughtbot-factory_girl',
       :lib    => 'factory_girl',
       :source => "http://gems.github.com"
-    config.gem "thoughtbot-clearance", :lib => 'clearance', :source => 'http://gems.github.com'
+    config.gem "thoughtbot-clearance", 
+      :lib    => 'clearance', 
+      :source => 'http://gems.github.com'
 
 Then:
 

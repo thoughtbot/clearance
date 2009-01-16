@@ -99,6 +99,8 @@ files:
 - lib/clearance/test/unit/user_test.rb
 - lib/clearance/version.rb
 - lib/clearance.rb
+- shoulda_macros/clearance.rb
+- rails/init.rb
 has_rdoc: false
 homepage: http://github.com/thoughtbot/clearance
 post_install_message: 

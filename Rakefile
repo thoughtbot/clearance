@@ -3,18 +3,18 @@ require 'rake/testtask'
  
 test_files_pattern = 'test/rails_root/test/{unit,functional,other}/**/*_test.rb'
 namespace :test do
-  Rake::TestTask.new(:all => ['generator:cleanup', 'generator:generate']) do |t|
-    t.libs << 'lib'
-    t.pattern = test_files_pattern
-    t.verbose = false
+  Rake::TestTask.new(:all => ['generator:cleanup', 'generator:generate']) do |task|
+    task.libs << 'lib'
+    task.pattern = test_files_pattern
+    task.verbose = false
   end
 end
 
 namespace :generator do
   desc "Cleans up the test app before running the generator"
   task :cleanup do
-    FileList["generators/clearance/templates/**/*.*"].each do |f|
-      file = "test/rails_root/#{f.gsub("generators/clearance/templates/",'')}"
+    FileList["generators/clearance/templates/**/*.*"].each do |each|
+      file = "test/rails_root/#{each.gsub("generators/clearance/templates/",'')}"
       File.delete(file) if File.exists?(file)
     end
     
@@ -34,20 +34,20 @@ end
 desc "Run the test suite"
 task :default => 'test:all'
 
-spec = Gem::Specification.new do |s|
-  s.name = "clearance"
-  s.version = '0.3.7'
-  s.summary = "Simple, complete Rails authentication."
-  s.email = "support@thoughtbot.com"
-  s.homepage = "http://github.com/thoughtbot/clearance"
-  s.description = "Simple, complete Rails authentication scheme."
-  s.authors = ["thoughtbot, inc.", "Josh Nichols", "Mike Breen"]
-  s.files = FileList["[A-Z]*", "{generators,lib}/**/*"]
+gem_spec = Gem::Specification.new do |gem_spec|
+  gem_spec.name = "clearance"
+  gem_spec.version = '0.3.7'
+  gem_spec.summary = "Simple, complete Rails authentication."
+  gem_spec.email = "support@thoughtbot.com"
+  gem_spec.homepage = "http://github.com/thoughtbot/clearance"
+  gem_spec.description = "Simple, complete Rails authentication scheme."
+  gem_spec.authors = ["thoughtbot, inc.", "Josh Nichols", "Mike Breen"]
+  gem_spec.files = FileList["[A-Z]*", "{generators,lib,shoulda_macros,rails}/**/*"]
 end
 
 desc "Generate a gemspec file"
 task :gemspec do
-  File.open("#{spec.name}.gemspec", 'w') do |f|
-    f.write spec.to_yaml
+  File.open("#{gem_spec.name}.gemspec", 'w') do |f|
+    f.write gem_spec.to_yaml
   end
 end
