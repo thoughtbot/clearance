@@ -126,7 +126,7 @@ module Clearance
                   setup do
                     new_password = 'new_password'
                     encryption_format = "--#{@user.salt}--#{new_password}--"
-                    @encrypted_new_password = Digest::SHA1.hexdigest encryption_format
+                    @encrypted_new_password = Digest::SHA512.hexdigest encryption_format
                     assert_not_equal @encrypted_new_password, @user.crypted_password
 
                     put(:update,
@@ -155,7 +155,7 @@ module Clearance
                   setup do
                     new_password = 'new_password'
                     encryption_format = "--#{@user.salt}--#{new_password}--"
-                    @encrypted_new_password = Digest::SHA1.hexdigest encryption_format
+                    @encrypted_new_password = Digest::SHA512.hexdigest encryption_format
 
                     put(:update,
                         :user_id => @user.to_param,

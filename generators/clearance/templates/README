@@ -1,7 +1,7 @@
 *******************************************************************************
 Ok, enough fancy automatic stuff. Time for some old school monkey copy-pasting.
 
-1. For any other file(s) that you already had and didn't want to override, add 
+1. For any other file(s) that you already had and didn't want to overwrite, add 
 the corresponding Clearance module. They are namespaced exactly like the 
 directory structure of a Rails app, e.g:
 

@@ -41,7 +41,7 @@ module Clearance
             user && user.remember_token? ? user : nil
           end
 
-          # Level of indirection so you can easily override this method
+          # Level of indirection so you can easily overwrite this method
           # but also call #login .
           def log_user_in(user)
             login(user)

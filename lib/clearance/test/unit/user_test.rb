@@ -116,10 +116,10 @@ module Clearance
               context 'encrypt' do
                 setup do
                   @crypted  = @user.encrypt(@password)
-                  @expected = Digest::SHA1.hexdigest("--#{@salt}--#{@password}--")
+                  @expected = Digest::SHA512.hexdigest("--#{@salt}--#{@password}--")
                 end
 
-                should 'create a Hash using SHA1 encryption' do
+                should 'create a Hash using SHA512 encryption' do
                   assert_equal @expected, @crypted
                   assert_not_equal @password, @crypted
                 end

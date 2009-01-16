@@ -1,4 +1,4 @@
-require 'digest/sha1'
+require 'digest/sha2'
 
 module Clearance
   module App
@@ -47,7 +47,7 @@ module Clearance
           end
 
           def encrypt(password)
-            Digest::SHA1.hexdigest "--#{salt}--#{password}--"
+            Digest::SHA512.hexdigest "--#{salt}--#{password}--"
           end
 
           def remember_token?
@@ -60,7 +60,8 @@ module Clearance
 
           def remember_me_until(time)
             self.update_attribute :remember_token_expires_at, time
-            self.update_attribute :remember_token, encrypt("#{email}--#{remember_token_expires_at}")
+            self.update_attribute :remember_token, 
+              encrypt("#{email}--#{remember_token_expires_at}")
           end
 
           def forget_me!
@@ -75,7 +76,9 @@ module Clearance
     
         module ProtectedInstanceMethods
           def initialize_salt
-            self.salt = Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{email}--") if new_record?
+            if new_record?
+              self.salt = Digest::SHA512.hexdigest("--#{Time.now.to_s}--#{email}--")
+            end
           end
 
           def encrypt_password

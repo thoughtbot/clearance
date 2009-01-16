@@ -37,9 +37,8 @@ module Clearance
                 setup do
                   ActionMailer::Base.deliveries.clear
                   post :create, :session => {
-                                  :email => @user.email,
-                                  :password => @user.password
-                  }
+                                  :email    => @user.email,
+                                  :password => @user.password }
                 end
 
                 should_deny_access(:flash => /confirm/i)
@@ -56,8 +55,9 @@ module Clearance
 
               context "a POST to #create with good credentials" do
                 setup do
-                  post :create, :session => { :email => @user.email, 
-                    :password => @user.password }
+                  post :create, :session => { 
+                                  :email    => @user.email, 
+                                  :password => @user.password }
                 end
 
                 should_set_the_flash_to /success/i
@@ -67,8 +67,9 @@ module Clearance
 
               context "a POST to #create with bad credentials" do
                 setup do
-                  post :create, :session => { :email => @user.email, 
-                    :password => "bad value" }
+                  post :create, :session => { 
+                                  :email    => @user.email, 
+                                  :password => "bad value" }
                 end
 
                 should_set_the_flash_to /bad/i
@@ -78,8 +79,10 @@ module Clearance
           
               context "a POST to #create with good credentials and remember me" do
                 setup do
-                  post :create, :session => { :email => @user.email, 
-                    :password => @user.password, :remember_me => '1' }
+                  post :create, :session => { 
+                                  :email       => @user.email, 
+                                  :password    => @user.password, 
+                                  :remember_me => '1' }
                 end
 
                 should_set_the_flash_to /success/i
@@ -98,8 +101,10 @@ module Clearance
               
               context "a POST to #create with bad credentials and remember me" do
                 setup do
-                  post :create, :session => { :email => @user.email, 
-                    :password => "bad value", :remember_me => '1' }
+                  post :create, :session => { 
+                                  :email       => @user.email, 
+                                  :password    => "bad value", 
+                                  :remember_me => '1' }
                 end
 
                 should_set_the_flash_to /bad/i
@@ -120,26 +125,34 @@ module Clearance
                 context "in the session" do
                   setup do
                     @request.session[:return_to] = '/url_in_the_session'
-                    post :create, :session => { :email => @user.email, 
-                      :password => @user.password }                    
+                    post :create, :session => { 
+                                    :email    => @user.email, 
+                                    :password => @user.password }                    
                   end
+                  
                   should_redirect_to "'/url_in_the_session'"
                 end
+                
                 context "in the request" do
                   setup do
-                    post :create, :session => { :email => @user.email, 
-                      :password => @user.password },
-                      :return_to => '/url_in_the_request'                    
+                    post :create, :session => { 
+                                    :email => @user.email, 
+                                    :password => @user.password },
+                                   :return_to => '/url_in_the_request'                    
                   end
+                  
                   should_redirect_to "'/url_in_the_request'"
-                end                
+                end   
+                             
                 context "in the request and in the session" do
                   setup do
                     @request.session[:return_to] = '/url_in_the_session'
-                    post :create, :session => { :email => @user.email, 
-                      :password => @user.password },
-                      :return_to => '/url_in_the_request'                    
+                    post :create, :session => { 
+                                    :email    => @user.email, 
+                                    :password => @user.password },
+                                  :return_to => '/url_in_the_request'                    
                   end
+                  
                   should_redirect_to "'/url_in_the_session'"
                 end
               end              

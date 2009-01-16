@@ -59,11 +59,11 @@ This will create:
     test/unit/clearance_mailer_test.rb
     test/unit/user_test.rb
 
-You may already have some of these files. Don't worry. You'll be asked if you want to override them.
+You may already have some of these files. Don't worry. You'll be asked if you want to overwrite them.
 
 h2. Modules
 
-Clearance works by mixing behavior into tests, controllers, and models. For any file that you do not want to override, include the corresponding Clearance module. They are namespaced exactly like the directory structure of a Rails app.
+Clearance works by mixing behavior into tests, controllers, and models. For any file that you do not want to overwrite, include the corresponding Clearance module. They are namespaced exactly like the directory structure of a Rails app.
 
 Application controller example:
 
@@ -169,16 +169,16 @@ Please note that all User attributes except email, password and password_confirm
       attr_accessible :first_name, :last_name
     ...
 
-h2. Hooks and overrides: return_to parameter
+h2. Hooks and overwritables: return_to parameter
 
 If you want to specify where to redirect a user (say you want to have a login box on every page and redirect the user to the same page) after he/she signs in, you can add a "return_to" parameter to the request (thanks to "Phillippe":http://www.sivarg.com/2009/01/clearance-coming-from-where-your-were.html for the tip):
 
     <% form_for :session, :url => session_path(:return_to => request.request_uri) do |form| %> 
     ...
 
-h2. Hooks and overrides: url_after_create, url_after_destroy
+h2. Hooks and overwritables: url_after_create, url_after_destroy
     
-Actions that redirect (create and destroy) in Clearance controllers are customizable. If you want to redirect a user to a specific route after signing in, override the "url_after_create" method in the SessionsController:
+Actions that redirect (create and destroy) in Clearance controllers are customizable. If you want to redirect a user to a specific route after signing in, overwrite the "url_after_create" method in the SessionsController:
 
     class SessionsController < ApplicationController
       include Clearance::App::Controllers::SessionsController
