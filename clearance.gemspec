@@ -11,7 +11,7 @@ autorequire:
 bindir: bin
 cert_chain: []
 
-date: 2009-01-15 00:00:00 -05:00
+date: 2009-01-16 00:00:00 -05:00
 default_executable: 
 dependencies: []
 
@@ -57,8 +57,6 @@ files:
 - generators/clearance/templates/app/views/users/_form.html.erb
 - generators/clearance/templates/app/views/users/edit.html.erb
 - generators/clearance/templates/app/views/users/new.html.erb
-- generators/clearance/templates/config
-- generators/clearance/templates/config/routes.rb
 - generators/clearance/templates/db
 - generators/clearance/templates/db/migrate
 - generators/clearance/templates/db/migrate/create_users_with_clearance_columns.rb
