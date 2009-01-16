@@ -17,7 +17,7 @@ module Clearance
     
         module InstanceMethods
           def current_user
-            @current_user ||= (user_from_session || user_from_cookie)
+            user_from_session || user_from_cookie
           end
       
           def logged_in?
@@ -35,7 +35,9 @@ module Clearance
           end
 
           def user_from_cookie
-            user = User.find_by_remember_token(cookies[:auth_token]) if cookies[:auth_token]
+            if cookies[:auth_token]
+              user = User.find_by_remember_token(cookies[:auth_token])
+            end
             user && user.remember_token? ? user : nil
           end
 
@@ -47,7 +49,6 @@ module Clearance
 
           def login(user)
             session[:user_id] = user.id if user
-            @current_user = user
           end
 
           def redirect_back_or(default)

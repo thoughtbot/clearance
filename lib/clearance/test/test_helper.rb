@@ -5,7 +5,6 @@ module Clearance
       def self.included(base)
         base.class_eval do
           include InstanceMethods
-          extend ClassMethods
         end
       end
 
@@ -19,9 +18,6 @@ module Clearance
         def logout 
           @request.session[:user_id] = nil
         end
-      end
-    
-      module ClassMethods
       end
  
     end 
