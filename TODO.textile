@@ -1,6 +1,5 @@
 (highest priority first)
 
-# check to make sure attr_accessible doesn't overwrite and w/ attr_protected
 # email confirmation is a strategy
 # forgot password is a strategy
 # salted password is a strategy

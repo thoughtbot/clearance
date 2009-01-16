@@ -5,8 +5,8 @@ module Clearance
     
         def self.included(base)
           base.class_eval do
-            should_require_attributes :email, :password
-            should_allow_values_for :email, 'foo@example.com'
+            should_require_attributes   :email, :password
+            should_allow_values_for     :email, 'foo@example.com'
             should_not_allow_values_for :email, 'foo'
             should_not_allow_values_for :email, 'example.com'
 
@@ -42,12 +42,14 @@ module Clearance
               setup do
                 @salt = 'salt'
                 User.any_instance.stubs(:initialize_salt)
-                @user = Factory :clearance_user, :salt => @salt
+                
+                @user     = Factory(:clearance_user, :salt => @salt)
                 @password = @user.password
               end
           
               should "require password validation on update" do
-                @user.update_attributes(:password => "blah", :password_confirmation => "boogidy")
+                @user.update_attributes :password => "blah", 
+                  :password_confirmation => "boogidy"
                 assert !@user.save
                 assert_match(/confirmation/i, @user.errors.on(:password))
               end
@@ -58,59 +60,25 @@ module Clearance
                 @user.update_attributes(:email => 'John.Doe@example.com')
                 assert_equal 'john.doe@example.com', @user.email
               end
-          
-              context 'authenticating a user' do
-                context 'with good credentials' do
-                  setup do
-                    @result = User.authenticate @user.email, @password
-                  end
-
-                  should 'return true' do
-                    assert @result
-                  end
-                end
-                
-                context 'with an email in upper case and a good password' do
-                  setup do
-                    @result = User.authenticate @user.email.upcase, @password
-                  end
-
-                  should 'return true' do
-                    assert @result
-                  end
-                end                
-
-                context 'with bad credentials' do
-                  setup do
-                    @result = User.authenticate @user.email, 'horribly_wrong_password'
-                  end
-
-                  should 'return false' do
-                    assert !@result
-                  end
-                end
+              
+              should "authenticate with good credentials" do
+                assert User.authenticate(@user.email, @password)
               end
-          
-              context 'authenticated?' do
-                context 'with good credentials' do
-                  setup do
-                    @result = @user.authenticated? @password
-                  end
-
-                  should 'return true' do
-                    assert @result
-                  end
-                end
-
-                context 'with bad credentials' do
-                  setup do
-                    @result = @user.authenticated? 'horribly_wrong_password'
-                  end
-
-                  should 'return false' do
-                    assert !@result
-                  end
-                end
+              
+              should "authenticate with good credentials, email in uppercase" do
+                assert User.authenticate(@user.email.upcase, @password)
+              end
+              
+              should "not authenticate with bad credentials" do
+                assert ! User.authenticate(@user.email, 'horribly_wrong_password')
+              end
+              
+              should "be authenticated with a good password" do
+                assert @user.authenticated?(@password)
+              end
+              
+              should "not be authenticated with a bad password" do
+                assert ! @user.authenticated?('horribly_wrong_password')
               end
 
               context 'encrypt' do
@@ -142,9 +110,7 @@ module Clearance
                 end
 
                 context 'forget_me!' do
-                  setup do
-                    @user.forget_me!
-                  end
+                  setup { @user.forget_me! }
 
                   should 'unset the remember token and expiration date' do
                     assert_nil @user.remember_token
@@ -160,7 +126,8 @@ module Clearance
               context 'remember_token?' do
                 context 'when token expires in the future' do
                   setup do
-                    @user.update_attribute :remember_token_expires_at, 2.weeks.from_now.utc
+                    @user.update_attribute :remember_token_expires_at, 
+                      2.weeks.from_now.utc
                   end
 
                   should 'be true' do
@@ -170,7 +137,8 @@ module Clearance
 
                 context 'when token expired' do
                   setup do
-                    @user.update_attribute :remember_token_expires_at, 2.weeks.ago.utc
+                    @user.update_attribute :remember_token_expires_at, 
+                      2.weeks.ago.utc
                   end
 
                   should 'be false' do
@@ -181,7 +149,7 @@ module Clearance
 
               context "User.authenticate with a valid email and password" do
                 setup do
-                  @found_user = User.authenticate @user.email, @user.password
+                  @found_user = User.authenticate(@user.email, @user.password)
                 end
 
                 should "find that user" do
@@ -191,7 +159,7 @@ module Clearance
 
               context "When sent authenticate with an invalid email and password" do
                 setup do
-                  @found_user = User.authenticate "not", "valid" 
+                  @found_user = User.authenticate("not", "valid")
                 end
 
                 should "find nothing" do
@@ -202,7 +170,7 @@ module Clearance
 
             context "A user" do
               setup do
-                @user = Factory :clearance_user
+                @user = Factory(:clearance_user)
               end
 
               context 'when sent #confirm!' do
