@@ -1,5 +1,6 @@
 (highest priority first)
 
+# existing_user? methods ... if salt is wrong, user may not be found b/c of invalid credentials. is :not_found the correct code to return in that use case? if not, method probably needs to be split into another conditional.
 # email confirmation is a strategy
 # forgot password is a strategy
 # salted password is a strategy

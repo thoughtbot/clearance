@@ -3,27 +3,23 @@ module Clearance
     module Models
       module ClearanceMailer
     
-        def self.included(base)
-          base.class_eval do
+        def self.included(mailer)
+          mailer.class_eval do
         
-            include InstanceMethods
+            def change_password(user)
+              from       DO_NOT_REPLY
+              recipients user.email
+              subject    "Change your password"
+              body       :user => user
+            end
+
+            def confirmation(user)
+              recipients user.email
+              from       DO_NOT_REPLY
+              subject   "Account confirmation"
+              body      :user => user
+            end
         
-          end
-        end
-    
-        module InstanceMethods
-          def change_password(user)
-            from       DO_NOT_REPLY
-            recipients user.email
-            subject    "Change your password"
-            body       :user => user
-          end
-        
-          def confirmation(user)
-            recipients user.email
-            from       DO_NOT_REPLY
-            subject   "Account confirmation"
-            body      :user => user
           end
         end
         

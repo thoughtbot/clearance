@@ -6,7 +6,7 @@ Rails authentication for developers who write tests.
 
 h2. Integration with Suspenders
 
-Clearance is based on the same conventions and tools as "Suspenders":http://github.com/thoughtbot/suspenders/tree/master Thus if you use it, you may already have some configuration mentioned below in place.
+Clearance is based on the same conventions and tools as "Suspenders":http://github.com/thoughtbot/suspenders Thus if you use it, you may already have some configuration mentioned below in place.
 
 h2. Gem installation (Rails 2.1+)
 
