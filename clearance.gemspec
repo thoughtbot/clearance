@@ -1,7 +1,7 @@
 --- !ruby/object:Gem::Specification 
 name: clearance
 version: !ruby/object:Gem::Version 
-  version: 0.3.7
+  version: 0.3.8
 platform: ruby
 authors: 
 - thoughtbot, inc.
@@ -11,7 +11,7 @@ autorequire:
 bindir: bin
 cert_chain: []
 
-date: 2009-01-16 00:00:00 -05:00
+date: 2009-01-17 00:00:00 -05:00
 default_executable: 
 dependencies: []
 
@@ -95,7 +95,6 @@ files:
 - lib/clearance/test/unit
 - lib/clearance/test/unit/clearance_mailer_test.rb
 - lib/clearance/test/unit/user_test.rb
-- lib/clearance/version.rb
 - lib/clearance.rb
 - shoulda_macros/clearance.rb
 - rails/init.rb
