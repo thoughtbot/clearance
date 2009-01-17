@@ -29,14 +29,14 @@ module Clearance
             def destroy
               forget(current_user)
               reset_session
-              flash[:notice] = 'You have been logged out.'
+              flash[:notice] = "You have been logged out."
               redirect_to url_after_destroy
             end
         
             private
             
             def login_successful
-              flash[:notice] = 'Logged in successfully'
+              flash[:notice] = "Logged in successfully"
               redirect_back_or url_after_create
             end
 
