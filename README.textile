@@ -113,7 +113,7 @@ In config/environment.rb:
 
 h2. Tests
 
-The tests use "Shoulda":http://thoughtbot.com/projects/shoulda >= 2.0.4 and "Factory Girl":http://thoughtbot.com/projects/factory_girl. You need to add the Clearance module to your test/test_helper.rb:
+The tests use "Shoulda":http://thoughtbot.com/projects/shoulda >= 2.0.6 and "Factory Girl":http://thoughtbot.com/projects/factory_girl >= 1.1.5. You need to add the Clearance module to your test/test_helper.rb:
 
     class Test::Unit::TestCase
       self.use_transactional_fixtures = true
@@ -169,14 +169,14 @@ Please note that all User attributes except email, password and password_confirm
       attr_accessible :first_name, :last_name
     ...
 
-h2. Hooks and overwritables: return_to parameter
+h2. Hooks: return_to parameter
 
 If you want to specify where to redirect a user (say you want to have a login box on every page and redirect the user to the same page) after he/she signs in, you can add a "return_to" parameter to the request (thanks to "Phillippe":http://www.sivarg.com/2009/01/clearance-coming-from-where-your-were.html for the tip):
 
     <% form_for :session, :url => session_path(:return_to => request.request_uri) do |form| %> 
     ...
 
-h2. Hooks and overwritables: url_after_create, url_after_destroy
+h2. Hooks: url_after_create, url_after_destroy
     
 Actions that redirect (create and destroy) in Clearance controllers are customizable. If you want to redirect a user to a specific route after signing in, overwrite the "url_after_create" method in the SessionsController:
 
@@ -198,7 +198,7 @@ There are similar methods in other controllers as well:
     PasswordsController#url_after_create (password reset request)
     ConfirmationsController#url_after_create (confirmation)
 
-h2. Hooks and overrides: log_user_in
+h2. Hooks: log_user_in
 
 Say you want to add a last_logged_in_at attribute to your User model. You would want to update it when the User logs in.
 
