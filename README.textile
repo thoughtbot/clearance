@@ -23,7 +23,8 @@ In config/environment.rb:
       :version => '>= 1.1.5'
     config.gem "thoughtbot-clearance", 
       :lib     => 'clearance', 
-      :source  => 'http://gems.github.com'
+      :source  => 'http://gems.github.com', 
+      :version => '>= 0.3.8'
 
 Then:
 
