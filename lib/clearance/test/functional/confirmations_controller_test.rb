@@ -15,7 +15,7 @@ module Clearance
                 end
 
                 should_be_logged_in_and_confirmed_as { @user }
-                should_redirect_to "@controller.send(:url_after_create)"
+                should_redirect_to_url_after_create
               end
               
               context "on GET to #new with incorrect salt" do

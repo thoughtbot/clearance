@@ -34,7 +34,7 @@ module Clearance
                                                               params[:password])
               if @user.update_attributes params[:user]
                 log_user_in(@user)
-                redirect_to @user
+                redirect_to url_after_update
               else
                 render :action => :edit
               end
@@ -52,6 +52,10 @@ module Clearance
 
             def url_after_create
               new_session_url
+            end
+            
+            def url_after_update
+              @user
             end
             
           end

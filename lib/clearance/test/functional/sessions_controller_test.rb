@@ -13,6 +13,7 @@ module Clearance
               should_respond_with :success
               should_render_template :new
               should_not_set_the_flash
+              
               should 'display a "sign in" form' do
                 assert_select "form[action=#{session_path}][method=post]", 
                   true, "There must be a form to log in" do
@@ -61,8 +62,8 @@ module Clearance
                 end
 
                 should_set_the_flash_to /success/i
-                should_redirect_to '@controller.send(:url_after_create)'
-                should_return_from_session :user_id, "@user.id"
+                should_redirect_to_url_after_create
+                should_be_logged_in_as { @user }
               end
 
               context "a POST to #create with bad credentials" do
@@ -74,7 +75,7 @@ module Clearance
 
                 should_set_the_flash_to /bad/i
                 should_render_template :new
-                should_return_from_session :user_id, "nil"
+                should_not_be_logged_in
               end
           
               context "a POST to #create with good credentials and remember me" do
@@ -86,8 +87,8 @@ module Clearance
                 end
 
                 should_set_the_flash_to /success/i
-                should_redirect_to "@controller.send(:url_after_create)"
-                should_return_from_session :user_id, "@user.id"
+                should_redirect_to_url_after_create
+                should_be_logged_in_as { @user }
                 
                 should 'set the cookie' do
                   assert ! cookies['remember_token'].empty?
@@ -161,7 +162,7 @@ module Clearance
             public_context do
               context "logging out again" do
                 setup { delete :destroy }
-                should_redirect_to '@controller.send(:url_after_destroy)'
+                should_redirect_to_url_after_destroy
               end
             end
 
@@ -170,7 +171,7 @@ module Clearance
                 setup { delete :destroy }
 
                 should_set_the_flash_to(/logged out/i)
-                should_redirect_to '@controller.send(:url_after_destroy)'
+                should_redirect_to_url_after_destroy
               end
 
               context 'a DELETE to #destroy with a cookie' do

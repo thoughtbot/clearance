@@ -35,7 +35,7 @@ module Clearance
                     assert_match /#{@user.email}/, flash[:notice]
                   end
 
-                  should_redirect_to "@controller.send(:url_after_create)"
+                  should_redirect_to_url_after_create
                 end
 
                 context 'with a non-existent email address' do
@@ -117,7 +117,7 @@ module Clearance
                   setup do
                     new_password = 'new_password'
                     encryption_format = "--#{@user.salt}--#{new_password}--"
-                    @encrypted_new_password = Digest::SHA512.hexdigest encryption_format
+                    @encrypted_new_password = Digest::SHA512.hexdigest(encryption_format)
                     assert_not_equal @encrypted_new_password, @user.crypted_password
 
                     put(:update,
@@ -136,14 +136,14 @@ module Clearance
                   end
 
                   should_be_logged_in_as { @user }
-                  should_redirect_to "user_path(@user)"
+                  should_redirect_to_url_after_update
                 end
 
                 context 'with password but blank password confirmation' do
                   setup do
                     new_password = 'new_password'
                     encryption_format = "--#{@user.salt}--#{new_password}--"
-                    @encrypted_new_password = Digest::SHA512.hexdigest encryption_format
+                    @encrypted_new_password = Digest::SHA512.hexdigest(encryption_format)
 
                     put(:update,
                         :user_id => @user.to_param,

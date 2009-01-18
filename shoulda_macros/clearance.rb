@@ -83,6 +83,20 @@ module Clearance
       end
     end
     
+    # REDIRECTS
+    
+    def should_redirect_to_url_after_create
+      should_redirect_to "@controller.send(:url_after_create)"
+    end
+    
+    def should_redirect_to_url_after_update
+      should_redirect_to "@controller.send(:url_after_update)"
+    end
+    
+    def should_redirect_to_url_after_destroy
+      should_redirect_to "@controller.send(:url_after_destroy)"
+    end
+    
   end
 end
 
