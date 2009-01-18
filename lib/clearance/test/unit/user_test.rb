@@ -105,8 +105,8 @@ module Clearance
                   assert_not_nil @user.remember_token_expires_at
                 end
 
-                should 'remember_token?' do
-                  assert @user.remember_token?
+                should 'have an unexpired remember_token' do
+                  assert @user.unexpired_remember_token?
                 end
 
                 context 'forget_me!' do
@@ -168,19 +168,19 @@ module Clearance
               end
             end
 
-            context "A user" do
+            context "An unconfirmed user" do
               setup do
                 @user = Factory(:clearance_user)
+                assert ! @user.confirmed?
               end
 
-              context 'when sent #confirm!' do
+              context "when sent #confirm!" do
                 setup do
-                  assert ! @user.confirmed?
                   assert @user.confirm!
                   @user.reload
                 end
 
-                should 'mark the User record as confirmed' do
+                should "mark the User record as confirmed" do
                   assert @user.confirmed?
                 end
               end

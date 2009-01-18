@@ -30,7 +30,7 @@ module Clearance
               if cookies[:auth_token]
                 user = User.find_by_remember_token(cookies[:auth_token])
               end
-              user && user.remember_token? ? user : nil
+              user && user.unexpired_remember_token? ? user : nil
             end
 
             # Level of indirection so you can easily overwrite this method

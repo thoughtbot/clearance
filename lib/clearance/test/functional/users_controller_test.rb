@@ -9,9 +9,11 @@ module Clearance
 
               context "on GET to /users/new" do
                 setup { get :new }
+                
                 should_respond_with :success
                 should_render_template :new
                 should_not_set_the_flash
+                
                 should "display a form to register" do
                  assert_select "form[action=#{users_path}][method=post]", 
                   true, "There must be a form to register" do
@@ -29,10 +31,11 @@ module Clearance
                 context "with params" do
                   setup do
                     @email = 'a@example.com'
-                    get :new, :user => {:email => @email}
+                    get :new, :user => { :email => @email }
                   end
 
                   should_assign_to :user
+                  
                   should "set the @user's params" do
                     assert_equal @email, assigns(:user).email
                   end
@@ -41,9 +44,10 @@ module Clearance
 
               context "on POST to /users" do
                 setup do
-                  post :create, :user => Factory.build(:clearance_user).attributes.merge(
-                                            {:password => 'skerit',
-                                              :password_confirmation => 'skerit'})
+                  user_attributes = Factory.attributes_for(:clearance_user, 
+                                      :password              => "secret", 
+                                      :password_confirmation => "secret" })
+                  post :create, :user => user_attributes
                 end
             
                 should_set_the_flash_to /confirm/i
