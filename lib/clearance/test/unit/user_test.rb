@@ -6,15 +6,7 @@ module Clearance
         def self.included(unit_test)
           unit_test.class_eval do
             
-            # registering - confirmation branches
-            # enrypting the user's password
-            # not confirming password
-            # confirming account
-            # authenticating
-            # remember me
-            # logging out
-            # recovering password
-            # updating password
+            # registering
             
             context "When registering" do
               should_require_attributes        :email
@@ -22,7 +14,13 @@ module Clearance
               should_allow_values_for          :email, "foo@example.com"
               should_not_allow_values_for      :email, "foo"
               should_not_allow_values_for      :email, "example.com"
-              should_validate_confirmation_of  :password, :factory => :registered_user
+              
+              should_validate_confirmation_of  :password, 
+                :factory => :registered_user, :on => :create
+              
+              should "initialize salt" do
+                assert_not_nil Factory(:registered_user).salt
+              end
               
               should "encrypt password" do
                 assert_not_nil Factory(:registered_user).encrypted_password
@@ -33,6 +31,14 @@ module Clearance
                 assert_equal "john.doe@example.com", user.email
               end
             end
+            
+            # not confirming password
+            # confirming account
+            # authenticating
+            # remember me
+            # logging out
+            # recovering password
+            # updating password
          
             context "password is not confirmed on update" do
               setup do
@@ -109,12 +115,14 @@ module Clearance
               end
               
               should "remember user when token expires in the future" do
-                @user.update_attribute :remember_token_expires_at, 2.weeks.from_now.utc
+                @user.update_attribute :remember_token_expires_at, 
+                  2.weeks.from_now.utc
                 assert @user.remember?
               end
 
               should "not remember user when token has already expired" do
-                @user.update_attribute :remember_token_expires_at, 2.weeks.ago.utc
+                @user.update_attribute :remember_token_expires_at, 
+                  2.weeks.ago.utc
                 assert ! @user.remember?
               end
 
