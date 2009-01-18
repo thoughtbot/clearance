@@ -64,7 +64,7 @@ files:
 - generators/clearance/templates/README
 - generators/clearance/templates/test
 - generators/clearance/templates/test/factories
-- generators/clearance/templates/test/factories/clearance_user.rb
+- generators/clearance/templates/test/factories/clearance.rb
 - generators/clearance/templates/test/functional
 - generators/clearance/templates/test/functional/confirmations_controller_test.rb
 - generators/clearance/templates/test/functional/passwords_controller_test.rb

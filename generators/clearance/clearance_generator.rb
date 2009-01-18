@@ -67,7 +67,7 @@ class ClearanceGenerator < Rails::Generator::Base
       end
       
       m.directory File.join("test", "factories")
-      ["test/factories/clearance_user.rb"].each do |file|
+      ["test/factories/clearance.rb"].each do |file|
         m.file file, file
       end
       

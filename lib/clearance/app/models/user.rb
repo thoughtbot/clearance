@@ -51,8 +51,8 @@ module Clearance
               self.update_attribute :remember_token, nil
             end
 
-            def confirm!
-              self.update_attribute :confirmed, true
+            def confirm_email!
+              self.update_attribute :email_confirmed, true
             end
         
             protected

@@ -15,13 +15,13 @@ module Clearance
               if @user.nil?
                 login_failure
               else
-                if @user.confirmed?
+                if @user.email_confirmed?
                   remember(@user) if remember?
                   log_user_in(@user)
                   login_successful
                 else
                   ClearanceMailer.deliver_confirmation(@user)
-                  deny_access("Account not confirmed. Confirmation email sent.")
+                  deny_access("User has not confirmed email. Confirmation email sent.")
                 end
               end
             end
@@ -35,8 +35,8 @@ module Clearance
         
             private
             
-            def login_successful
-              flash[:notice] = "Logged in successfully"
+            def login_successful(message = "Logged in successfully")
+              flash[:notice] = message
               redirect_back_or url_after_create
             end
 

@@ -8,7 +8,7 @@ class CreateOrUpdateUsersWithClearanceColumns < ActiveRecord::Migration
         [:salt,                      't.string :salt, :limit => 40'],
         [:remember_token,            't.string :remember_token'],
         [:remember_token_expires_at, 't.datetime :remember_token_expires_at'],
-        [:confirmed,                 't.boolean :confirmed, :default => false, :null => false']
+        [:email_confirmed,           't.boolean :email_confirmed, :default => false, :null => false']
       ].delete_if {|c| existing_columns.include?(c.first.to_s)} 
 -%>
     change_table(:users) do |t|

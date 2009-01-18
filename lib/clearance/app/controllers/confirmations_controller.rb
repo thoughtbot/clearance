@@ -14,7 +14,7 @@ module Clearance
             end
 
             def create
-              @user.confirm!
+              @user.confirm_email!
               log_user_in(@user)
               redirect_to url_after_create
             end

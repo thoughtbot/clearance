@@ -10,7 +10,7 @@ module Clearance
               :action  => 'edit', :user_id => '1'
 
             context 'with a user' do
-              setup { @user = Factory(:clearance_user) }
+              setup { @user = Factory(:authorized_user) }
 
               context 'A GET to #new' do
                 setup { get :new, :user_id => @user.to_param }

@@ -122,7 +122,7 @@ The tests use "Shoulda":http://thoughtbot.com/projects/shoulda >= 2.0.6 and "Fac
       include Clearance::Test::TestHelper
     end
 
-The generator will create a user factory in test/factories/clearance_user.rb unless
+The generator will create a user factory in test/factories/clearance.rb unless
 you have it defined somewhere else.
 
 h2. Usage: basic workflow

@@ -7,7 +7,7 @@ module Clearance
           unit_test.class_eval do
             
             context "a User" do
-              setup { @user = Factory(:clearance_user) }
+              setup { @user = Factory(:authorized_user) }
 
               should_require_attributes        :email
               should_require_unique_attributes :email
@@ -16,7 +16,8 @@ module Clearance
               should_not_allow_values_for      :email, "example.com"
             end
             
-            # registering
+            # registering - confirmation branches
+            # enrypting the user's password
             # not confirming password
             # confirming account
             # remember me
@@ -24,32 +25,17 @@ module Clearance
             # recovering password
             # updating password
             
-            context "password is confirmed but encrypted_password is blank" do
-              setup do
-                @user = Factory(:clearance_user, :encrypted_password => nil)
-              end
-
+            context "creating a User" do
+              should_validate_confirmation_of :authorized_user, :password
+              
               should "encrypt password" do
-                assert_not_nil @user.encrypted_password
+                assert_not_nil Factory(:authorized_user).encrypted_password
               end
             end
-            
-            context "password is not confirmed on create" do
-              setup do
-                @user = Factory.build(:clearance_user, 
-                          :password              => "password", 
-                          :password_confirmation => "unconfirmed_password")
-                assert ! @user.save
-              end
-
-              should "raise error on password" do
-                assert_match(/confirmation/i, @user.errors.on(:password))
-              end
-            end
-            
+         
             context "password is not confirmed on update" do
               setup do
-                @user = Factory(:clearance_user)
+                @user = Factory(:authorized_user)
                 @user.update_attributes(
                   :password              => "password", 
                   :password_confirmation => "unconfirmed_password")
@@ -61,7 +47,7 @@ module Clearance
             end
             
             context "An existing User" do
-              setup { @user = Factory(:clearance_user) }
+              setup { @user = Factory(:authorized_user) }
 
               context "who changes and confirms password" do
                 setup do
@@ -79,7 +65,7 @@ module Clearance
                 @salt = "salt"
                 User.any_instance.stubs(:initialize_salt)
                 
-                @user     = Factory(:clearance_user, :salt => @salt)
+                @user     = Factory(:authorized_user, :salt => @salt)
                 @password = @user.password
               end
               
@@ -111,7 +97,7 @@ module Clearance
 
             context "remember_me!" do
               setup do
-                @user = Factory(:clearance_user)
+                @user = Factory(:authorized_user)
                 assert_nil @user.remember_token
                 assert_nil @user.remember_token_expires_at
                 @user.remember_me!
@@ -155,7 +141,7 @@ module Clearance
                 @salt = "salt"
                 User.any_instance.stubs(:initialize_salt)
                 
-                @user     = Factory(:clearance_user, :salt => @salt)
+                @user     = Factory(:authorized_user, :salt => @salt)
                 @password = @user.password
                 
                 @user.encrypt(@password)
@@ -168,20 +154,20 @@ module Clearance
               end
             end
             
-            context "An unconfirmed user" do
+            context "A user who has not confirmed their email" do
               setup do
-                @user = Factory(:clearance_user)
-                assert ! @user.confirmed?
+                @user = Factory(:authorized_user)
+                assert ! @user.email_confirmed?
               end
 
-              context "after #confirm!" do
+              context "after #confirm_email!" do
                 setup do
-                  assert @user.confirm!
+                  assert @user.confirm_email!
                   @user.reload
                 end
 
-                should "be confirmed" do
-                  assert @user.confirmed?
+                should "have confirmed their email" do
+                  assert @user.email_confirmed?
                 end
               end
             end

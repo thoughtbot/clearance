@@ -15,14 +15,14 @@ module Clearance
       end
     end
 
-    def should_be_logged_in_and_confirmed_as(&block)
+    def should_be_logged_in_and_email_confirmed_as(&block)
       should_be_logged_in_as &block
       
-      should "be a confirmed" do
+      should "have confirmed email" do
         user = block.bind(self).call
         assert_not_nil user
         assert_equal user, assigns(:user)
-        assert assigns(:user).confirmed?
+        assert assigns(:user).email_confirmed?
       end
     end
     
@@ -60,8 +60,8 @@ module Clearance
     def logged_in_user_context(&blk)
       context "A logged in user" do
         setup do
-          @user = Factory(:clearance_user)
-          @user.confirm!
+          @user = Factory(:authorized_user)
+          @user.confirm_email!
           login_as @user
         end
         merge_block(&blk)
@@ -99,43 +99,50 @@ module Clearance
     
     # VALIDATIONS
     
-    def should_validate_confirmation_of(attribute, opts = {})
-      parent_test = self
+    # This Shoulda macro also depends on Factory Girl
+    # default :on => :save, other options :create, :update    
+    def should_validate_confirmation_of(factory, attribute, opts = { :on => :save })
       
-      while parent_test.name.empty?
-        parent_test = parent_test.superclass
-      end
-      
-      model_class = parent_test.name.gsub(/Test$/, '').constantize
-      
-      should "validate confirmation of password" do
-        user = Factory.build(:clearance_user, 
-                 :password              => "password", 
-                 :password_confirmation => "unconfirmed_password")
-        assert ! user.save
-        assert_match(/confirmation/i, user.errors.on(:password))
-      end
-      
-      should "require password validation on update" do
-        @user.update_attributes :password              => "blah", 
-                                :password_confirmation => "boogidy"
-        assert !@user.save
-        assert_match(/confirmation/i, @user.errors.on(:password))
-      end
-      
-      context "An existing User" do
-        setup { @user = Factory(:clearance_user) }
-
-        context "who changes and confirms their password" do
+      if opts[:on] == :save
+        context "#{attribute} is not correctly confirmed" do
           setup do
-            @user.password              = "new_password"
-            @user.password_confirmation = "new_password"
-            @user.save
+            @model = Factory.build(factory, 
+                      attribute                               => attribute.to_s, 
+                      "#{attribute.to_s}_confirmation".to_sym => "unconfirmed_#{attribute.to_s}")
+            @model.save
+          end
+        
+          should "be invalid" do
+            assert ! @model.valid?, "#{attribute} was not confirmed but #{@model.class} saved anyway"
           end
 
-          should_change "@user.encrypted_password"
+          should "raise confirmation error on #{attribute}" do
+            assert_match(/confirmation/i, @model.errors.on(attribute))
+          end
+        end
+      
+        context "#{attribute} is blank" do
+          setup do
+            @model = Factory.build(factory,
+                      attribute                               => "", 
+                      "#{attribute.to_s}_confirmation".to_sym => "unconfirmed_#{attribute.to_s}")
+            @model.save
+          end
+        
+          should "be invalid" do
+            assert ! @model.valid?, "#{attribute} was not confirmed but #{@model.class} saved anyway"
+          end
+
+          should "raise blank and confirmation error on #{attribute}" do
+            errors = @model.errors.on(attribute)
+            confirmation_errors = errors.collect { |each| each =~ /confirmation/i }
+            blank_errors = errors.collect { |each| each =~ /blank/i }
+            assert confirmation_errors.any?, "no confirmation error on #{attribute}"
+            assert blank_errors.any?, "no blank error on #{attribute}"
+          end
         end
       end
+      
     end
     
   end

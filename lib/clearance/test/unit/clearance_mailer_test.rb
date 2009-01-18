@@ -8,7 +8,7 @@ module Clearance
             
             context "A change password email" do
               setup do
-                @user  = Factory(:clearance_user)
+                @user  = Factory(:authorized_user)
                 @email = ClearanceMailer.create_change_password @user
               end
 
@@ -33,7 +33,7 @@ module Clearance
             
             context "A confirmation email" do
               setup do
-                @user  = Factory(:clearance_user)
+                @user  = Factory(:authorized_user)
                 @email = ClearanceMailer.create_confirmation @user
               end
 

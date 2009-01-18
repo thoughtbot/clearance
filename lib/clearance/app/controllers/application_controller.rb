@@ -27,7 +27,7 @@ module Clearance
               if session[:user_id] && session[:salt]
                 user = User.find_by_id_and_salt(session[:user_id], session[:salt])
               end
-              user && user.confirmed? ? user : nil
+              user && user.email_confirmed? ? user : nil
             end
 
             def user_from_cookie

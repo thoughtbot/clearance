@@ -46,7 +46,7 @@ module Clearance
 
               context "on POST to /users" do
                 setup do
-                  user_attributes = Factory.attributes_for(:clearance_user, 
+                  user_attributes = Factory.attributes_for(:authorized_user, 
                                       :password              => "secret", 
                                       :password_confirmation => "secret")
                   post :create, :user => user_attributes

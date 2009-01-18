@@ -7,8 +7,8 @@ module Clearance
           
           def login_as(user = nil)
             unless user
-              user = Factory(:clearance_user)
-              user.confirm!
+              user = Factory(:authorized_user)
+              user.confirm_email!
             end
             @request.session[:user_id] = user.id
             @request.session[:salt]    = user.salt
