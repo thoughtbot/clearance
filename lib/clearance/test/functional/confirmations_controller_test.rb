@@ -6,45 +6,32 @@ module Clearance
         def self.included(base)
           base.class_eval do
 
-            context 'A GET to #new' do
-              context "with the User with the given id's salt" do
+            context "Given a User with id and salt" do
+              setup do
+                @user = Factory(:clearance_user)
+              end
+              
+              context "When GET to #new with correct id and salt" do
                 setup do
-                  @user = Factory :clearance_user
                   get :new, :user_id => @user.to_param, :salt => @user.salt
                 end
 
-                should 'find the User record with the given id and salt' do
-                  assert_equal @user, assigns(:user)
-                end
-
-                should 'confirm the User record with the given id' do
-                  assert assigns(:user).confirmed?
-                end
-
-                should 'log the User in' do
-                  assert_equal @user.id, session[:user_id]
-                end
-
+                should_be_logged_in_and_confirmed_as "@user"
                 should_redirect_to "@controller.send(:url_after_create)"
               end
-
-              context "without the User with the given id's salt" do
+              
+              context "When GET to #new with incorrect id and salt" do
                 setup do
-                  user = Factory :clearance_user
-                  salt = ''
-                  assert_not_equal salt, user.salt
+                  salt = ""
+                  assert_not_equal salt, @user.salt
 
-                  get :new, :user_id => user.to_param, :salt => ''
+                  get :new, :user_id => @user.to_param, :salt => salt
                 end
 
                 should_respond_with :not_found
-
-                should 'render nothing' do
-                  assert @response.body.blank?
-                end
+                should_render_nothing
               end
             end
-
           end
         end
 

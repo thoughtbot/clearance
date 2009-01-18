@@ -9,7 +9,7 @@ module Clearance
             should_route :get, '/users/1/password/edit', :action => 'edit', :user_id => '1'
 
             context 'with a user' do
-              setup { @user = Factory :clearance_user }
+              setup { @user = Factory(:clearance_user) }
 
               context 'A GET to #new' do
                 setup { get :new, :user_id => @user.to_param }
@@ -38,7 +38,7 @@ module Clearance
                   should_redirect_to "@controller.send(:url_after_create)"
                 end
 
-                context 'with a non-existing email address' do
+                context 'with a non-existent email address' do
                   setup do
                     email = 'user1@example.com'
                     assert ! User.exists?(['email = ?', email])

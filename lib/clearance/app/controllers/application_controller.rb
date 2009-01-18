@@ -23,7 +23,10 @@ module Clearance
             end
 
             def user_from_session
-              User.find_by_id session[:user_id]
+              if session[:user_id] && session[:salt]
+                user = User.find_by_id_and_salt(session[:user_id], session[:salt])
+              end
+              user && user.confirmed? ? user : nil
             end
 
             def user_from_cookie
@@ -33,8 +36,7 @@ module Clearance
               user && user.unexpired_remember_token? ? user : nil
             end
 
-            # Level of indirection so you can easily overwrite this method
-            # but also call #login .
+            # Hook
             def log_user_in(user)
               login(user)
             end
