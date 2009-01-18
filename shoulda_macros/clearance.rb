@@ -20,6 +20,7 @@ module Clearance
       
       should "have confirmed email" do
         user = block.bind(self).call
+        
         assert_not_nil user
         assert_equal user, assigns(:user)
         assert assigns(:user).email_confirmed?
@@ -60,7 +61,7 @@ module Clearance
     def logged_in_user_context(&blk)
       context "A logged in user" do
         setup do
-          @user = Factory(:authorized_user)
+          @user = Factory(:registered_user)
           @user.confirm_email!
           login_as @user
         end
@@ -101,12 +102,13 @@ module Clearance
     
     # This Shoulda macro also depends on Factory Girl
     # default :on => :save, other options :create, :update    
-    def should_validate_confirmation_of(factory, attribute, opts = { :on => :save })
+    def should_validate_confirmation_of(attribute, opts = { :on => :save })
+      raise ArgumentError if opts[:factory].nil?
       
       if opts[:on] == :save
         context "#{attribute} is not correctly confirmed" do
           setup do
-            @model = Factory.build(factory, 
+            @model = Factory.build(opts[:factory], 
                       attribute                               => attribute.to_s, 
                       "#{attribute.to_s}_confirmation".to_sym => "unconfirmed_#{attribute.to_s}")
             @model.save
@@ -123,7 +125,7 @@ module Clearance
       
         context "#{attribute} is blank" do
           setup do
-            @model = Factory.build(factory,
+            @model = Factory.build(opts[:factory],
                       attribute                               => "", 
                       "#{attribute.to_s}_confirmation".to_sym => "unconfirmed_#{attribute.to_s}")
             @model.save

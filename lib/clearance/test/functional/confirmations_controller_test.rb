@@ -9,7 +9,7 @@ module Clearance
             should_filter_params :salt
             
             context "Given a user whose email has not been confirmed" do
-              setup { @user = Factory(:authorized_user) }
+              setup { @user = Factory(:registered_user) }
               
               context "on GET to #new with correct id and salt" do
                 setup do

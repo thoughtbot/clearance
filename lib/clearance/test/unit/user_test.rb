@@ -6,36 +6,37 @@ module Clearance
         def self.included(unit_test)
           unit_test.class_eval do
             
-            context "a User" do
-              setup { @user = Factory(:authorized_user) }
-
-              should_require_attributes        :email
-              should_require_unique_attributes :email
-              should_allow_values_for          :email, "foo@example.com"
-              should_not_allow_values_for      :email, "foo"
-              should_not_allow_values_for      :email, "example.com"
-            end
-            
             # registering - confirmation branches
             # enrypting the user's password
             # not confirming password
             # confirming account
+            # authenticating
             # remember me
-            # forget me
+            # logging out
             # recovering password
             # updating password
             
-            context "creating a User" do
-              should_validate_confirmation_of :authorized_user, :password
+            context "When registering" do
+              should_require_attributes        :email
+              # should_require_unique_attributes :email
+              should_allow_values_for          :email, "foo@example.com"
+              should_not_allow_values_for      :email, "foo"
+              should_not_allow_values_for      :email, "example.com"
+              should_validate_confirmation_of  :password, :factory => :registered_user
               
               should "encrypt password" do
-                assert_not_nil Factory(:authorized_user).encrypted_password
+                assert_not_nil Factory(:registered_user).encrypted_password
+              end
+              
+              should "store email in lower case" do
+                user = Factory(:registered_user, :email => "John.Doe@example.com")
+                assert_equal "john.doe@example.com", user.email
               end
             end
          
             context "password is not confirmed on update" do
               setup do
-                @user = Factory(:authorized_user)
+                @user = Factory(:registered_user)
                 @user.update_attributes(
                   :password              => "password", 
                   :password_confirmation => "unconfirmed_password")
@@ -47,7 +48,7 @@ module Clearance
             end
             
             context "An existing User" do
-              setup { @user = Factory(:authorized_user) }
+              setup { @user = Factory(:registered_user) }
 
               context "who changes and confirms password" do
                 setup do
@@ -65,13 +66,8 @@ module Clearance
                 @salt = "salt"
                 User.any_instance.stubs(:initialize_salt)
                 
-                @user     = Factory(:authorized_user, :salt => @salt)
+                @user     = Factory(:registered_user, :salt => @salt)
                 @password = @user.password
-              end
-              
-              should "store email in lower case" do
-                @user.update_attributes(:email => 'John.Doe@example.com')
-                assert_equal 'john.doe@example.com', @user.email
               end
               
               should "authenticate with good credentials" do
@@ -97,7 +93,7 @@ module Clearance
 
             context "remember_me!" do
               setup do
-                @user = Factory(:authorized_user)
+                @user = Factory(:registered_user)
                 assert_nil @user.remember_token
                 assert_nil @user.remember_token_expires_at
                 @user.remember_me!
@@ -141,7 +137,7 @@ module Clearance
                 @salt = "salt"
                 User.any_instance.stubs(:initialize_salt)
                 
-                @user     = Factory(:authorized_user, :salt => @salt)
+                @user     = Factory(:registered_user, :salt => @salt)
                 @password = @user.password
                 
                 @user.encrypt(@password)
@@ -156,7 +152,7 @@ module Clearance
             
             context "A user who has not confirmed their email" do
               setup do
-                @user = Factory(:authorized_user)
+                @user = Factory(:registered_user)
                 assert ! @user.email_confirmed?
               end
 
