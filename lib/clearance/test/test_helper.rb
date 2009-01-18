@@ -6,15 +6,18 @@ module Clearance
         test_helper.class_eval do
           
           def login_as(user = nil)
-            user ||= Factory(:clearance_user)
+            unless user
+              user = Factory(:clearance_user)
+              user.confirm!
+            end
             @request.session[:user_id] = user.id
-            @request.session[:salt] = user.salt
+            @request.session[:salt]    = user.salt
             return user
           end
 
           def logout 
             @request.session[:user_id] = nil
-            @request.session[:salt] = nil
+            @request.session[:salt]    = nil
           end
           
         end

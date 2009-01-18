@@ -3,17 +3,23 @@ module Clearance
 
     # STATE OF AUTHENTICATION
 
-    def should_be_logged_in_as(user)
-      should "be logged in as #{user}" do
-        assert_equal user.id,   session[:user_id]
-        assert_equal user.salt, session[:salt]
+    def should_be_logged_in_as(&block)
+      should "be logged in as #{block.bind(self).call}" do
+        user = block.bind(self).call
+        assert_not_nil user, 
+          "please pass a User. try: should_be_logged_in_as { @user }"
+        assert_equal user.id,   session[:user_id], 
+          "session[:user_id] is not set to User's id"
+        assert_equal user.salt, session[:salt], 
+          "session[:salt] is not set to User's salt"
       end
     end
 
-    def should_be_logged_in_and_confirmed_as(user)
-      should_be_logged_in_as "user"
+    def should_be_logged_in_and_confirmed_as(&block)
+      should_be_logged_in_as &block
       
-      should "be a confirmed user" do
+      should "be a confirmed" do
+        user = block.bind(self).call
         assert_not_nil user
         assert_equal user, assigns(:user)
         assert assigns(:user).confirmed?
@@ -54,7 +60,8 @@ module Clearance
     def logged_in_user_context(&blk)
       context "A logged in user" do
         setup do
-          @user = Factory :clearance_user
+          @user = Factory(:clearance_user)
+          @user.confirm!
           login_as @user
         end
         merge_block(&blk)

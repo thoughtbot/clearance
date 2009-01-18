@@ -123,7 +123,7 @@ module Clearance
                 end
               end
 
-              context 'remember_token?' do
+              context 'unexpired_remember_token?' do
                 context 'when token expires in the future' do
                   setup do
                     @user.update_attribute :remember_token_expires_at, 
@@ -131,7 +131,7 @@ module Clearance
                   end
 
                   should 'be true' do
-                    assert @user.remember_token?
+                    assert @user.unexpired_remember_token?
                   end
                 end
 
@@ -142,7 +142,7 @@ module Clearance
                   end
 
                   should 'be false' do
-                    assert ! @user.remember_token?
+                    assert ! @user.unexpired_remember_token?
                   end
                 end
               end

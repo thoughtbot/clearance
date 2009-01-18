@@ -17,10 +17,6 @@ Rails::Initializer.run do |config|
     :lib     => 'factory_girl',
     :source  => "http://gems.github.com", 
     :version => '>= 1.1.5'
-  config.gem "thoughtbot-clearance", 
-    :lib     => 'clearance', 
-    :source  => 'http://gems.github.com', 
-    :version => '>= 0.3.8'  
 end
 
 DO_NOT_REPLY = "donotreply@example.com"

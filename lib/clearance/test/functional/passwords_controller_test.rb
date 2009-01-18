@@ -135,7 +135,7 @@ module Clearance
                     assert_equal @encrypted_new_password, @user.crypted_password
                   end
 
-                  should_be_logged_in_as "@user"
+                  should_be_logged_in_as { @user }
                   should_redirect_to "user_path(@user)"
                 end
 

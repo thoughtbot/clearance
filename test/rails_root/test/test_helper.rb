@@ -11,6 +11,8 @@ gem 'thoughtbot-factory_girl' # from github
 
 require 'mocha'
 require 'factory_girl'
+require 'quietbacktrace'
+require 'redgreen'
 
 require File.join(File.dirname(__FILE__), '..', '..', '..', 'shoulda_macros', 'clearance')
 

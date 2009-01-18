@@ -46,7 +46,7 @@ module Clearance
                 setup do
                   user_attributes = Factory.attributes_for(:clearance_user, 
                                       :password              => "secret", 
-                                      :password_confirmation => "secret" })
+                                      :password_confirmation => "secret")
                   post :create, :user => user_attributes
                 end
             
@@ -61,12 +61,12 @@ module Clearance
             logged_in_user_context do
               context "GET to new" do
                 setup { get :new }
-                should_redirect_to 'root_url'
+                should_redirect_to "root_url"
               end
 
               context "POST to create" do
                 setup { post :create, :user => {} }
-                should_redirect_to 'root_url'
+                should_redirect_to "root_url"
               end
 
               should_filter_params :password
