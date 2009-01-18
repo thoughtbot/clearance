@@ -25,12 +25,12 @@ module Clearance
             end
 
             def edit
-              @user = User.find_by_email_and_crypted_password(params[:email],
+              @user = User.find_by_email_and_encrypted_password(params[:email],
                                                               params[:password])
             end
 
             def update
-              @user = User.find_by_email_and_crypted_password(params[:email],
+              @user = User.find_by_email_and_encrypted_password(params[:email],
                                                               params[:password])
               if @user.update_attributes params[:user]
                 log_user_in(@user)
@@ -43,7 +43,7 @@ module Clearance
             private
             
             def existing_user?
-              user = User.find_by_email_and_crypted_password(params[:email],
+              user = User.find_by_email_and_encrypted_password(params[:email],
                                                              params[:password])
               if user.nil?
                 render :nothing => true, :status => :not_found

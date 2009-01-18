@@ -97,6 +97,47 @@ module Clearance
       should_redirect_to "@controller.send(:url_after_destroy)"
     end
     
+    # VALIDATIONS
+    
+    def should_validate_confirmation_of(attribute, opts = {})
+      parent_test = self
+      
+      while parent_test.name.empty?
+        parent_test = parent_test.superclass
+      end
+      
+      model_class = parent_test.name.gsub(/Test$/, '').constantize
+      
+      should "validate confirmation of password" do
+        user = Factory.build(:clearance_user, 
+                 :password              => "password", 
+                 :password_confirmation => "unconfirmed_password")
+        assert ! user.save
+        assert_match(/confirmation/i, user.errors.on(:password))
+      end
+      
+      should "require password validation on update" do
+        @user.update_attributes :password              => "blah", 
+                                :password_confirmation => "boogidy"
+        assert !@user.save
+        assert_match(/confirmation/i, @user.errors.on(:password))
+      end
+      
+      context "An existing User" do
+        setup { @user = Factory(:clearance_user) }
+
+        context "who changes and confirms their password" do
+          setup do
+            @user.password              = "new_password"
+            @user.password_confirmation = "new_password"
+            @user.save
+          end
+
+          should_change "@user.encrypted_password"
+        end
+      end
+    end
+    
   end
 end
 

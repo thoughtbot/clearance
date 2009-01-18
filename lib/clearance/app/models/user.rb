@@ -25,14 +25,14 @@ module Clearance
             end
 
             def authenticated?(password)
-              crypted_password == encrypt(password)
+              encrypted_password == encrypt(password)
             end
 
             def encrypt(string)
               Digest::SHA512.hexdigest("--#{salt}--#{string}--")
             end
 
-            def unexpired_remember_token?
+            def remember?
               remember_token_expires_at && Time.now.utc < remember_token_expires_at
             end
 
@@ -65,11 +65,11 @@ module Clearance
 
             def encrypt_password
               return if password.blank?
-              self.crypted_password = encrypt(password)
+              self.encrypted_password = encrypt(password)
             end
 
             def password_required?
-              crypted_password.blank? || !password.blank?
+              encrypted_password.blank? || !password.blank?
             end
             
             def downcase_email

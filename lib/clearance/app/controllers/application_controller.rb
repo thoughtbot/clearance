@@ -33,7 +33,7 @@ module Clearance
               if cookies[:remember_token]
                 user = User.find_by_remember_token(cookies[:remember_token])
               end
-              user && user.unexpired_remember_token? ? user : nil
+              user && user.remember? ? user : nil
             end
 
             # Hook

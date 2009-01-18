@@ -7,7 +7,7 @@
 <% form_for(:user,
             :url => user_password_path(@user,
                       :email    => @user.email,
-                      :password => @user.crypted_password),
+                      :password => @user.encrypted_password),
             :html => { :method => :put }) do |form| %>
   <div class="password_field">
     <%= form.label :password, 'Choose password' %>

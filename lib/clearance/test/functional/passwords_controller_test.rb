@@ -65,7 +65,7 @@ module Clearance
                   setup do
                     get :edit, 
                       :user_id  => @user.to_param, 
-                      :password => @user.crypted_password, 
+                      :password => @user.encrypted_password, 
                       :email    => @user.email
                   end
 
@@ -78,7 +78,7 @@ module Clearance
 
                   should "have a form for the user's email, password, and password confirm" do
                     update_path = ERB::Util.h(user_password_path(@user,
-                          :password => @user.crypted_password,
+                          :password => @user.encrypted_password,
                           :email    => @user.email))
 
                     assert_select 'form[action=?]', update_path do
@@ -106,7 +106,7 @@ module Clearance
                   end
 
                   should "not update the user's password" do
-                    assert_not_equal @encrypted_new_password, @user.crypted_password
+                    assert_not_equal @encrypted_new_password, @user.encrypted_password
                   end
 
                   should_not_be_logged_in
@@ -118,12 +118,12 @@ module Clearance
                   setup do
                     new_password = 'new_password'
                     @encrypted_new_password = @user.encrypt(new_password)
-                    assert_not_equal @encrypted_new_password, @user.crypted_password
+                    assert_not_equal @encrypted_new_password, @user.encrypted_password
 
                     put(:update,
                         :user_id  => @user,
                         :email    => @user.email,
-                        :password => @user.crypted_password,
+                        :password => @user.encrypted_password,
                         :user => {
                           :password              => new_password,
                           :password_confirmation => new_password
@@ -132,7 +132,7 @@ module Clearance
                   end
 
                   should "update the user's password" do
-                    assert_equal @encrypted_new_password, @user.crypted_password
+                    assert_equal @encrypted_new_password, @user.encrypted_password
                   end
 
                   should_be_logged_in_as { @user }
@@ -146,7 +146,7 @@ module Clearance
 
                     put(:update,
                         :user_id => @user.to_param,
-                        :password => @user.crypted_password,
+                        :password => @user.encrypted_password,
                         :user => {
                           :password => new_password,
                           :password_confirmation => ''
@@ -155,7 +155,7 @@ module Clearance
                   end
 
                   should "not update the user's password" do
-                    assert_not_equal @encrypted_new_password, @user.crypted_password
+                    assert_not_equal @encrypted_new_password, @user.encrypted_password
                   end
 
                   should_not_be_logged_in

@@ -6,58 +6,76 @@ module Clearance
         def self.included(unit_test)
           unit_test.class_eval do
             
-            should_require_attributes   :email, :password
-            should_allow_values_for     :email, 'foo@example.com'
-            should_not_allow_values_for :email, 'foo'
-            should_not_allow_values_for :email, 'example.com'
+            context "a User" do
+              setup { @user = Factory(:clearance_user) }
 
-            should "require password validation on create" do
-              user = Factory.build(:clearance_user, :password => 'blah', :password_confirmation => 'boogidy')
-              assert !user.save
-              assert_match(/confirmation/i, user.errors.on(:password))
+              should_require_attributes        :email
+              should_require_unique_attributes :email
+              should_allow_values_for          :email, "foo@example.com"
+              should_not_allow_values_for      :email, "foo"
+              should_not_allow_values_for      :email, "example.com"
             end
-
-            should "create a crypted_password on save" do
-              assert_not_nil Factory(:clearance_user, :crypted_password => nil).crypted_password
-            end
-
-            context 'updating a password' do
+            
+            context "password is confirmed but encrypted_password is blank" do
               setup do
-                @user = Factory(:clearance_user)
-                assert_not_nil @user.crypted_password
-                @crypt = @user.crypted_password
-                assert_not_nil @user.salt
-                @salt = @user.salt
-                @user.password = 'a_new_password'
-                @user.password_confirmation = 'a_new_password'
-                assert @user.save
+                @user = Factory(:clearance_user, :encrypted_password => nil)
               end
 
-              should 'update a crypted_password' do
-                @user.reload
-                assert @user.crypted_password != @crypt
+              should "encrypt password" do
+                assert_not_nil @user.encrypted_password
+              end
+            end
+            
+            context "password is not confirmed on create" do
+              setup do
+                @user = Factory.build(:clearance_user, 
+                          :password              => "password", 
+                          :password_confirmation => "unconfirmed_password")
+                assert ! @user.save
+              end
+
+              should "raise error on password" do
+                assert_match(/confirmation/i, @user.errors.on(:password))
+              end
+            end
+            
+            context "password is not confirmed on update" do
+              setup do
+                @user = Factory(:clearance_user)
+                @user.update_attributes(
+                  :password              => "password", 
+                  :password_confirmation => "unconfirmed_password")
+              end
+
+              should "raise error on password" do
+                assert_match(/confirmation/i, @user.errors.on(:password))
+              end
+            end
+            
+            context "An existing User" do
+              setup { @user = Factory(:clearance_user) }
+
+              context "who changes and confirms password" do
+                setup do
+                  @user.password              = "new_password"
+                  @user.password_confirmation = "new_password"
+                  @user.save
+                end
+
+                should_change "@user.encrypted_password"
               end
             end
         
-            context 'A user' do
+            context "A user" do
               setup do
-                @salt = 'salt'
+                @salt = "salt"
                 User.any_instance.stubs(:initialize_salt)
                 
                 @user     = Factory(:clearance_user, :salt => @salt)
                 @password = @user.password
               end
-          
-              should "require password validation on update" do
-                @user.update_attributes :password => "blah", 
-                  :password_confirmation => "boogidy"
-                assert !@user.save
-                assert_match(/confirmation/i, @user.errors.on(:password))
-              end
-          
-              should_require_unique_attributes :email
               
-              should 'store email in lower case' do
+              should "store email in lower case" do
                 @user.update_attributes(:email => 'John.Doe@example.com')
                 assert_equal 'john.doe@example.com', @user.email
               end
@@ -82,90 +100,64 @@ module Clearance
                 assert ! @user.authenticated?('horribly_wrong_password')
               end
 
-              context 'encrypt' do
+              context "encrypt" do
                 setup do
                   @crypted  = @user.encrypt(@password)
                   @expected = Digest::SHA512.hexdigest("--#{@salt}--#{@password}--")
                 end
 
-                should 'create a Hash using SHA512 encryption' do
-                  assert_equal @expected, @crypted
+                should "create a Hash using SHA512 encryption" do
+                  assert_equal     @expected, @crypted
                   assert_not_equal @password, @crypted
                 end
               end
 
-              context 'remember_me!' do
+              context "remember_me!" do
                 setup do
                   assert_nil @user.remember_token
                   assert_nil @user.remember_token_expires_at
                   @user.remember_me!
                 end
 
-                should 'set the remember token and expiration date' do
+                should "set the remember token and expiration date" do
                   assert_not_nil @user.remember_token
                   assert_not_nil @user.remember_token_expires_at
                 end
 
-                should 'have an unexpired remember_token' do
-                  assert @user.unexpired_remember_token?
+                should "have an unexpired remember_token" do
+                  assert @user.remember?
                 end
 
-                context 'forget_me!' do
+                context "forget_me!" do
                   setup { @user.forget_me! }
 
-                  should 'unset the remember token and expiration date' do
+                  should "unset the remember token and expiration date" do
                     assert_nil @user.remember_token
                     assert_nil @user.remember_token_expires_at
                   end
 
-                  should 'not remember_token?' do
+                  should "not remember token?" do
                     assert ! @user.remember_token?
                   end
                 end
               end
-
-              context 'unexpired_remember_token?' do
-                context 'when token expires in the future' do
-                  setup do
-                    @user.update_attribute :remember_token_expires_at, 
-                      2.weeks.from_now.utc
-                  end
-
-                  should 'be true' do
-                    assert @user.unexpired_remember_token?
-                  end
-                end
-
-                context 'when token expired' do
-                  setup do
-                    @user.update_attribute :remember_token_expires_at, 
-                      2.weeks.ago.utc
-                  end
-
-                  should 'be false' do
-                    assert ! @user.unexpired_remember_token?
-                  end
-                end
+              
+              should "remember user when token expires in the future" do
+                @user.update_attribute :remember_token_expires_at, 2.weeks.from_now.utc
+                assert @user.remember?
               end
 
-              context "User.authenticate with a valid email and password" do
-                setup do
-                  @found_user = User.authenticate(@user.email, @user.password)
-                end
-
-                should "find that user" do
-                  assert_equal @user, @found_user
-                end
+              should "not remember user when token has already expired" do
+                @user.update_attribute :remember_token_expires_at, 2.weeks.ago.utc
+                assert ! @user.remember?
               end
 
-              context "When sent authenticate with an invalid email and password" do
-                setup do
-                  @found_user = User.authenticate("not", "valid")
-                end
+              should "authenticate with a valid email and password" do
+                assert_equal @user, User.authenticate(@user.email, @user.password)
+              end
 
-                should "find nothing" do
-                  assert_nil @found_user
-                end
+              should "not authenticate with an invalid email and password" do
+                assert_nil User.authenticate("not", "valid")
               end
             end
 
@@ -175,18 +167,17 @@ module Clearance
                 assert ! @user.confirmed?
               end
 
-              context "when sent #confirm!" do
+              context "after #confirm!" do
                 setup do
                   assert @user.confirm!
                   @user.reload
                 end
 
-                should "mark the User record as confirmed" do
+                should "be confirmed" do
                   assert @user.confirmed?
                 end
               end
             end
-         
           end
         end
 
