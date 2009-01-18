@@ -3,8 +3,9 @@ module Clearance
     module Functional
       module SessionsControllerTest
     
-        def self.included(base)
-          base.class_eval do
+        def self.included(controller_test)
+          controller_test.class_eval do
+            
             should_filter_params :password
 
             context "on GET to /sessions/new" do

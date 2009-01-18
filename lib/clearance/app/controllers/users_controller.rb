@@ -17,7 +17,8 @@ module Clearance
               @user = User.new params[:user]
               if @user.save
                 ClearanceMailer.deliver_confirmation @user
-                flash[:notice] = "You will receive an email within the next few minutes. It contains instructions for you to confirm your account."
+                flash[:notice] = "You will receive an email within the next few minutes. " <<
+                                 "It contains instructions for you to confirm your account."
                 redirect_to url_after_create
               else
                 render :action => "new"

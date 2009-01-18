@@ -3,9 +3,11 @@ module Clearance
     module Functional
       module ConfirmationsControllerTest
 
-        def self.included(base)
-          base.class_eval do
-
+        def self.included(controller_test)
+          controller_test.class_eval do
+            
+            should_filter_params :salt
+            
             context "Given a user" do
               setup { @user = Factory(:clearance_user) }
               

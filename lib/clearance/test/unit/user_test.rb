@@ -3,8 +3,9 @@ module Clearance
     module Unit
       module UserTest
     
-        def self.included(base)
-          base.class_eval do
+        def self.included(unit_test)
+          unit_test.class_eval do
+            
             should_require_attributes   :email, :password
             should_allow_values_for     :email, 'foo@example.com'
             should_not_allow_values_for :email, 'foo'
@@ -185,6 +186,7 @@ module Clearance
                 end
               end
             end
+         
           end
         end
 

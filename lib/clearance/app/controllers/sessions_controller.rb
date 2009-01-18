@@ -5,12 +5,12 @@ module Clearance
 
         def self.included(controller)
           controller.class_eval do
-            skip_before_filter :authenticate
             protect_from_forgery :except => :create
             filter_parameter_logging :password
         
             def create
-              @user = User.authenticate(params[:session][:email], params[:session][:password])
+              @user = User.authenticate(params[:session][:email], 
+                                        params[:session][:password])
               if @user.nil?
                 login_failure
               else
@@ -51,7 +51,7 @@ module Clearance
             def remember(user)
               user.remember_me!
               cookies[:remember_token] = { :value   => user.remember_token, 
-                                          :expires => user.remember_token_expires_at }
+                                           :expires => user.remember_token_expires_at }
             end
 
             def forget(user)

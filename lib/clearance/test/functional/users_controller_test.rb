@@ -3,10 +3,12 @@ module Clearance
     module Functional
       module UsersControllerTest
 
-        def self.included(base)
-          base.class_eval do
+        def self.included(controller_test)
+          controller_test.class_eval do
+            
+            should_filter_params :password
+            
             public_context do
-
               context "on GET to /users/new" do
                 setup { get :new }
                 
@@ -55,7 +57,6 @@ module Clearance
                 should_assign_to :user
                 should_change 'User.count', :by => 1
               end
-
             end
 
             logged_in_user_context do
@@ -68,9 +69,8 @@ module Clearance
                 setup { post :create, :user => {} }
                 should_redirect_to "root_url"
               end
-
-              should_filter_params :password
             end
+          
           end
         end
       end
