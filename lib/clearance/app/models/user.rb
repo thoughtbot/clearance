@@ -43,7 +43,7 @@ module Clearance
             def remember_me_until(time)
               self.update_attribute :remember_token_expires_at, time
               self.update_attribute :remember_token, 
-                encrypt("--#{remember_token_expires_at}--#{email}--")
+                encrypt("--#{remember_token_expires_at}--#{password}--")
             end
 
             def forget_me!
@@ -59,7 +59,7 @@ module Clearance
 
             def initialize_salt
               if new_record?
-                self.salt = Digest::SHA512.hexdigest("--#{Time.now.utc.to_s}--#{email}--")
+                self.salt = encrypt("--#{Time.now.utc.to_s}--#{password}--")
               end
             end
 

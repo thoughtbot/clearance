@@ -5,6 +5,7 @@ module Clearance
     
         def self.included(controller)
           controller.class_eval do
+            
             helper_method :current_user
             helper_method :logged_in?
         
@@ -50,7 +51,11 @@ module Clearance
 
             def redirect_back_or(default)
               session[:return_to] ||= params[:return_to]
-              session[:return_to] ? redirect_to(session[:return_to]) : redirect_to(default)
+              if session[:return_to] 
+                redirect_to(session[:return_to])
+              else 
+                redirect_to(default)
+              end
               session[:return_to] = nil
             end
 
@@ -65,10 +70,12 @@ module Clearance
             def deny_access(flash_message = nil, opts = {})
               store_location
               flash[:failure] = flash_message if flash_message
-              render :template => "/sessions/new",:status => :unauthorized 
+              render :template => "/sessions/new", :status => :unauthorized 
             end
+            
           end
         end
+        
       end
     end
   end

@@ -16,6 +16,14 @@ module Clearance
               should_not_allow_values_for      :email, "example.com"
             end
             
+            # registering
+            # not confirming password
+            # confirming account
+            # remember me
+            # forget me
+            # recovering password
+            # updating password
+            
             context "password is confirmed but encrypted_password is blank" do
               setup do
                 @user = Factory(:clearance_user, :encrypted_password => nil)
@@ -99,47 +107,23 @@ module Clearance
               should "not be authenticated with a bad password" do
                 assert ! @user.authenticated?('horribly_wrong_password')
               end
+            end
 
-              context "encrypt" do
-                setup do
-                  @crypted  = @user.encrypt(@password)
-                  @expected = Digest::SHA512.hexdigest("--#{@salt}--#{@password}--")
-                end
-
-                should "create a Hash using SHA512 encryption" do
-                  assert_equal     @expected, @crypted
-                  assert_not_equal @password, @crypted
-                end
+            context "remember_me!" do
+              setup do
+                @user = Factory(:clearance_user)
+                assert_nil @user.remember_token
+                assert_nil @user.remember_token_expires_at
+                @user.remember_me!
               end
 
-              context "remember_me!" do
-                setup do
-                  assert_nil @user.remember_token
-                  assert_nil @user.remember_token_expires_at
-                  @user.remember_me!
-                end
+              should "set the remember token and expiration date" do
+                assert_not_nil @user.remember_token
+                assert_not_nil @user.remember_token_expires_at
+              end
 
-                should "set the remember token and expiration date" do
-                  assert_not_nil @user.remember_token
-                  assert_not_nil @user.remember_token_expires_at
-                end
-
-                should "have an unexpired remember_token" do
-                  assert @user.remember?
-                end
-
-                context "forget_me!" do
-                  setup { @user.forget_me! }
-
-                  should "unset the remember token and expiration date" do
-                    assert_nil @user.remember_token
-                    assert_nil @user.remember_token_expires_at
-                  end
-
-                  should "not remember token?" do
-                    assert ! @user.remember_token?
-                  end
-                end
+              should "have an unexpired remember_token" do
+                assert @user.remember?
               end
               
               should "remember user when token expires in the future" do
@@ -152,15 +136,38 @@ module Clearance
                 assert ! @user.remember?
               end
 
-              should "authenticate with a valid email and password" do
-                assert_equal @user, User.authenticate(@user.email, @user.password)
-              end
+              context "forget_me!" do
+                setup { @user.forget_me! }
 
-              should "not authenticate with an invalid email and password" do
-                assert_nil User.authenticate("not", "valid")
+                should "unset the remember token and expiration date" do
+                  assert_nil @user.remember_token
+                  assert_nil @user.remember_token_expires_at
+                end
+
+                should "not remember user" do
+                  assert ! @user.remember?
+                end
               end
             end
 
+            context "encrypt the user's password" do
+              setup do
+                @salt = "salt"
+                User.any_instance.stubs(:initialize_salt)
+                
+                @user     = Factory(:clearance_user, :salt => @salt)
+                @password = @user.password
+                
+                @user.encrypt(@password)
+                @expected = Digest::SHA512.hexdigest("--#{@salt}--#{@password}--")
+              end
+
+              should "create an encrypted password using SHA512 encryption" do
+                assert_equal     @expected, @user.encrypted_password
+                assert_not_equal @password, @user.encrypted_password
+              end
+            end
+            
             context "An unconfirmed user" do
               setup do
                 @user = Factory(:clearance_user)
@@ -178,6 +185,7 @@ module Clearance
                 end
               end
             end
+          
           end
         end
 

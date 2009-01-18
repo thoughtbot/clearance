@@ -5,6 +5,7 @@ module Clearance
 
         def self.included(controller)
           controller.class_eval do
+            
             protect_from_forgery :except => :create
             filter_parameter_logging :password
         
@@ -68,7 +69,8 @@ module Clearance
             end
             
           end
-        end        
+        end
+          
       end
     end
   end

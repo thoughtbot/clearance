@@ -41,7 +41,7 @@ gem_spec = Gem::Specification.new do |gem_spec|
   gem_spec.email = "support@thoughtbot.com"
   gem_spec.homepage = "http://github.com/thoughtbot/clearance"
   gem_spec.description = "Simple, complete Rails authentication scheme."
-  gem_spec.authors = ["thoughtbot, inc.", "Josh Nichols", "Mike Breen"]
+  gem_spec.authors = ["thoughtbot, inc.", "Dan Croak", "Mike Burns", "Eugene Bolshakov", "Josh Nichols", "Mike Breen", "Jason Morrison"]
   gem_spec.files = FileList["[A-Z]*", "{generators,lib,shoulda_macros,rails}/**/*"]
 end
 

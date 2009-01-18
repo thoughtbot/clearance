@@ -32,6 +32,7 @@ module Clearance
                 should_render_nothing
               end
             end
+          
           end
         end
 

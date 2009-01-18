@@ -14,8 +14,8 @@ module Clearance
             end
 
             def confirmation(user)
-              recipients user.email
               from       DO_NOT_REPLY
+              recipients user.email
               subject   "Account confirmation"
               body      :user => user
             end

@@ -5,6 +5,7 @@ module Clearance
     
         def self.included(controller)
           controller.class_eval do
+            
             before_filter :existing_user?, :only => :new
             filter_parameter_logging :salt
         
@@ -32,7 +33,8 @@ module Clearance
             end
             
           end
-        end    
+        end
+        
       end
     end
   end

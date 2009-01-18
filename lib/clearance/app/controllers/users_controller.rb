@@ -5,8 +5,8 @@ module Clearance
 
         def self.included(controller)
           controller.class_eval do
+            
             before_filter :redirect_to_root, :only => [:new, :create], :if => :logged_in?
-        
             filter_parameter_logging :password
         
             def new

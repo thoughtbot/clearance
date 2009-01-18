@@ -5,6 +5,7 @@ module Clearance
 
         def self.included(controller)
           controller.class_eval do
+            
             before_filter :existing_user?, :only => [:edit, :update]
             filter_parameter_logging :password, :password_confirmation
             
@@ -60,6 +61,7 @@ module Clearance
             
           end
         end
+        
       end
     end
   end
