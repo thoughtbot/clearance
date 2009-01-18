@@ -15,13 +15,12 @@ module Clearance
                 login_failure
               else
                 if @user.confirmed?
-                  remember_me = params[:session][:remember_me] if params[:session]
-                  remember(@user) if remember_me == '1'
+                  remember(@user) if remember?
                   log_user_in(@user)
                   login_successful
                 else
                   ClearanceMailer.deliver_confirmation(@user)
-                  deny_access('Account not confirmed. Confirmation email sent.')
+                  deny_access("Account not confirmed. Confirmation email sent.")
                 end
               end
             end
@@ -45,6 +44,10 @@ module Clearance
               render :action => :new
             end
 
+            def remember?
+              params[:session] && params[:session][:remember_me] == "1"
+            end
+            
             def remember(user)
               user.remember_me!
               cookies[:auth_token] = { :value   => user.remember_token, 

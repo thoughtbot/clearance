@@ -13,7 +13,7 @@ module Clearance
 
             def create
               @user.confirm!
-              session[:user_id] = @user.id
+              log_user_in(@user)
               redirect_to url_after_create
             end
         

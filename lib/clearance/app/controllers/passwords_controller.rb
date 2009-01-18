@@ -33,7 +33,7 @@ module Clearance
               @user = User.find_by_email_and_crypted_password(params[:email],
                                                               params[:password])
               if @user.update_attributes params[:user]
-                session[:user_id] = @user.id
+                log_user_in(@user)
                 redirect_to @user
               else
                 render :action => :edit
