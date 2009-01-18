@@ -116,8 +116,7 @@ module Clearance
                 context 'with a matching password and password confirmation' do
                   setup do
                     new_password = 'new_password'
-                    encryption_format = "--#{@user.salt}--#{new_password}--"
-                    @encrypted_new_password = Digest::SHA512.hexdigest(encryption_format)
+                    @encrypted_new_password = @user.encrypt(new_password)
                     assert_not_equal @encrypted_new_password, @user.crypted_password
 
                     put(:update,
@@ -142,8 +141,7 @@ module Clearance
                 context 'with password but blank password confirmation' do
                   setup do
                     new_password = 'new_password'
-                    encryption_format = "--#{@user.salt}--#{new_password}--"
-                    @encrypted_new_password = Digest::SHA512.hexdigest(encryption_format)
+                    @encrypted_new_password = @user.encrypt(new_password)
 
                     put(:update,
                         :user_id => @user.to_param,

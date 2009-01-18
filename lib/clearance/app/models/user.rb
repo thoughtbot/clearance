@@ -28,8 +28,8 @@ module Clearance
               crypted_password == encrypt(password)
             end
 
-            def encrypt(password)
-              Digest::SHA512.hexdigest("--#{salt}--#{password}--")
+            def encrypt(string)
+              Digest::SHA512.hexdigest("--#{salt}--#{string}--")
             end
 
             def unexpired_remember_token?
@@ -43,7 +43,7 @@ module Clearance
             def remember_me_until(time)
               self.update_attribute :remember_token_expires_at, time
               self.update_attribute :remember_token, 
-                encrypt("--#{email}--#{remember_token_expires_at}--")
+                encrypt("--#{remember_token_expires_at}--#{email}--")
             end
 
             def forget_me!
