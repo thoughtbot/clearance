@@ -14,7 +14,7 @@ module Clearance
             def create
               user = User.find_by_email(params[:password][:email])
               if user.nil?
-                flash.now[:warning] = 'Unknown email'
+                flash.now[:notice] = 'Unknown email'
                 render :action => :new
               else
                 ClearanceMailer.deliver_change_password user

@@ -30,8 +30,8 @@ module Clearance
             end
 
             def user_from_cookie
-              if cookies[:auth_token]
-                user = User.find_by_remember_token(cookies[:auth_token])
+              if cookies[:remember_token]
+                user = User.find_by_remember_token(cookies[:remember_token])
               end
               user && user.unexpired_remember_token? ? user : nil
             end
@@ -42,7 +42,10 @@ module Clearance
             end
 
             def login(user)
-              session[:user_id] = user.id if user
+              if user
+                session[:user_id] = user.id
+                session[:salt]    = user.salt
+              end
             end
 
             def redirect_back_or(default)

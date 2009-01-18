@@ -51,8 +51,8 @@ module Clearance
                     assert ActionMailer::Base.deliveries.empty?
                   end
 
-                  should 'set a :warning flash' do
-                    assert_not_nil flash.now[:warning]
+                  should 'set a :notice flash' do
+                    assert_not_nil flash.now[:notice]
                   end
 
                   should_render_template "new"
@@ -94,10 +94,7 @@ module Clearance
                   end
 
                   should_respond_with :not_found
-
-                  should 'render an empty response' do
-                    assert @response.body.blank?
-                  end
+                  should_render_nothing
                 end
               end
 
@@ -111,15 +108,9 @@ module Clearance
                     assert_not_equal @encrypted_new_password, @user.crypted_password
                   end
 
-                  should 'not log the user in' do
-                    assert_nil session[:user_id]
-                  end
-
+                  should_not_be_logged_in
                   should_respond_with :not_found
-
-                  should 'render an empty response' do
-                    assert @response.body.blank?
-                  end
+                  should_render_nothing
                 end
 
                 context 'with a matching password and password confirmation' do
@@ -144,10 +135,7 @@ module Clearance
                     assert_equal @encrypted_new_password, @user.crypted_password
                   end
 
-                  should 'log the user in' do
-                    assert_equal session[:user_id], @user.id
-                  end
-
+                  should_be_logged_in_as "@user"
                   should_redirect_to "user_path(@user)"
                 end
 
@@ -171,15 +159,9 @@ module Clearance
                     assert_not_equal @encrypted_new_password, @user.crypted_password
                   end
 
-                  should 'not log the user in' do
-                    assert_nil session[:user_id]
-                  end
-
+                  should_not_be_logged_in
                   should_respond_with :not_found
-
-                  should 'render an empty response' do
-                    assert @response.body.blank?
-                  end
+                  should_render_nothing
                 end
               end
             end

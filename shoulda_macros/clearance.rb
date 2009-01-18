@@ -3,16 +3,27 @@ module Clearance
 
     # STATE OF AUTHENTICATION
 
-    def should_be_logged_in_and_confirmed_as(user)
-      should "be logged in" do
+    def should_be_logged_in_as(user)
+      should "be logged in as #{user}" do
         assert_equal user.id,   session[:user_id]
         assert_equal user.salt, session[:salt]
       end
+    end
+
+    def should_be_logged_in_and_confirmed_as(user)
+      should_be_logged_in_as "user"
       
       should "be a confirmed user" do
         assert_not_nil user
         assert_equal user, assigns(:user)
         assert assigns(:user).confirmed?
+      end
+    end
+    
+    def should_not_be_logged_in
+      should "not be logged in" do
+        assert_nil session[:user_id]
+        assert_nil session[:salt]
       end
     end
 

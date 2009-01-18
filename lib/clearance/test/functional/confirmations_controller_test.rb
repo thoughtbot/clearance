@@ -7,9 +7,7 @@ module Clearance
           base.class_eval do
 
             context "Given a User with id and salt" do
-              setup do
-                @user = Factory(:clearance_user)
-              end
+              setup { @user = Factory(:clearance_user) }
               
               context "When GET to #new with correct id and salt" do
                 setup do

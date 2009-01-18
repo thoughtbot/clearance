@@ -90,7 +90,7 @@ module Clearance
                 should_return_from_session :user_id, "@user.id"
                 
                 should 'set the cookie' do
-                  assert ! cookies['auth_token'].empty?
+                  assert ! cookies['remember_token'].empty?
                 end
 
                 should 'set the remember me token in users table' do
@@ -112,7 +112,7 @@ module Clearance
                 should_return_from_session :user_id, "nil"
                 
                 should 'not create the cookie' do
-                  assert_nil cookies['auth_token']
+                  assert_nil cookies['remember_token']
                 end
 
                 should 'not set the remember me token in users table' do
@@ -175,12 +175,12 @@ module Clearance
 
               context 'a DELETE to #destroy with a cookie' do
                 setup do
-                  cookies['auth_token'] = CGI::Cookie.new 'token', 'value'
+                  cookies['remember_token'] = CGI::Cookie.new 'token', 'value'
                   delete :destroy
                 end
 
                 should 'delete the cookie' do
-                  assert cookies['auth_token'].empty?
+                  assert cookies['remember_token'].empty?
                 end
 
                 should 'delete the remember me token in users table' do

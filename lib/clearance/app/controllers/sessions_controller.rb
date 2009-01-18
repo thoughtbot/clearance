@@ -50,13 +50,13 @@ module Clearance
             
             def remember(user)
               user.remember_me!
-              cookies[:auth_token] = { :value   => user.remember_token, 
-                                       :expires => user.remember_token_expires_at }
+              cookies[:remember_token] = { :value   => user.remember_token, 
+                                          :expires => user.remember_token_expires_at }
             end
 
             def forget(user)
               user.forget_me! if user
-              cookies.delete :auth_token
+              cookies.delete :remember_token
             end
 
             def url_after_create
