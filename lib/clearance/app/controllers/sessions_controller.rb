@@ -13,12 +13,12 @@ module Clearance
               @user = User.authenticate(params[:session][:email], 
                                         params[:session][:password])
               if @user.nil?
-                login_failure
+                sign_in_failure
               else
                 if @user.email_confirmed?
                   remember(@user) if remember?
                   log_user_in(@user)
-                  login_successful
+                  sign_in_successful
                 else
                   deny_access("User has not confirmed email.")
                 end
@@ -28,18 +28,18 @@ module Clearance
             def destroy
               forget(current_user)
               reset_session
-              flash[:notice] = "You have been logged out."
+              flash[:notice] = "You have been signed out."
               redirect_to url_after_destroy
             end
         
             private
             
-            def login_successful(message = "Logged in successfully")
+            def sign_in_successful(message = "Signed in successfully")
               flash[:notice] = message
               redirect_back_or url_after_create
             end
 
-            def login_failure(message = "Bad email or password.")
+            def sign_in_failure(message = "Bad email or password.")
               flash.now[:notice] = message
               render :action => :new
             end

@@ -7,20 +7,20 @@ module Clearance
           controller.class_eval do
             
             helper_method :current_user
-            helper_method :logged_in?
+            helper_method :signed_in?
         
             def current_user
               user_from_session || user_from_cookie
             end
 
-            def logged_in?
+            def signed_in?
               ! current_user.nil?
             end
             
             protected
             
             def authenticate
-              deny_access unless logged_in?
+              deny_access unless signed_in?
             end
 
             def user_from_session
@@ -39,10 +39,10 @@ module Clearance
 
             # Hook
             def log_user_in(user)
-              login(user)
+              sign_in(user)
             end
 
-            def login(user)
+            def sign_in(user)
               if user
                 session[:user_id] = user.id
                 session[:salt]    = user.salt

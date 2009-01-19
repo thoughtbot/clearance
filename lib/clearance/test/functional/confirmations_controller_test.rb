@@ -16,7 +16,7 @@ module Clearance
                   get :new, :user_id => @user.to_param, :salt => @user.salt
                 end
 
-                should_be_logged_in_and_email_confirmed_as { @user }
+                should_be_signed_in_and_email_confirmed_as { @user }
                 should_redirect_to_url_after_create
               end
               

@@ -109,7 +109,7 @@ module Clearance
                     assert_not_equal @encrypted_new_password, @user.encrypted_password
                   end
 
-                  should_not_be_logged_in
+                  should_not_be_signed_in
                   should_respond_with :not_found
                   should_render_nothing
                 end
@@ -135,7 +135,7 @@ module Clearance
                     assert_equal @encrypted_new_password, @user.encrypted_password
                   end
 
-                  should_be_logged_in_as { @user }
+                  should_be_signed_in_as { @user }
                   should_redirect_to_url_after_update
                 end
 
@@ -158,7 +158,7 @@ module Clearance
                     assert_not_equal @encrypted_new_password, @user.encrypted_password
                   end
 
-                  should_not_be_logged_in
+                  should_not_be_signed_in
                   should_respond_with :not_found
                   should_render_nothing
                 end

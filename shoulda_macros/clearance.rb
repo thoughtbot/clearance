@@ -3,11 +3,11 @@ module Clearance
 
     # STATE OF AUTHENTICATION
 
-    def should_be_logged_in_as(&block)
-      should "be logged in as #{block.bind(self).call}" do
+    def should_be_signed_in_as(&block)
+      should "be signed in as #{block.bind(self).call}" do
         user = block.bind(self).call
         assert_not_nil user, 
-          "please pass a User. try: should_be_logged_in_as { @user }"
+          "please pass a User. try: should_be_signed_in_as { @user }"
         assert_equal user.id,   session[:user_id], 
           "session[:user_id] is not set to User's id"
         assert_equal user.salt, session[:salt], 
@@ -15,8 +15,8 @@ module Clearance
       end
     end
 
-    def should_be_logged_in_and_email_confirmed_as(&block)
-      should_be_logged_in_as &block
+    def should_be_signed_in_and_email_confirmed_as(&block)
+      should_be_signed_in_as &block
       
       should "have confirmed email" do
         user = block.bind(self).call
@@ -27,8 +27,8 @@ module Clearance
       end
     end
     
-    def should_not_be_logged_in
-      should "not be logged in" do
+    def should_not_be_signed_in
+      should "not be signed in" do
         assert_nil session[:user_id]
         assert_nil session[:salt]
       end
@@ -48,22 +48,22 @@ module Clearance
         should_not_set_the_flash
       end
       
-      should "respond with 401 Unauthorized and render login template" do
+      should "respond with 401 Unauthorized and render sign_in template" do
         assert_response :unauthorized, 
           "access was expected to be denied (401 unauthorized)"
         assert_template "sessions/new",
-          "template was expected to be login (sessions/new)"
+          "template was expected to be sign in (sessions/new)"
       end
     end
     
     # CONTEXTS
 
-    def logged_in_user_context(&blk)
-      context "A logged in user" do
+    def signed_in_user_context(&blk)
+      context "A signed in user" do
         setup do
           @user = Factory(:registered_user)
           @user.confirm_email!
-          login_as @user
+          sign_in_as @user
         end
         merge_block(&blk)
       end

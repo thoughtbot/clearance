@@ -140,22 +140,22 @@ To protect your controllers with authentication add:
     class ProtectedController < ApplicationController
       before_filter :authenticate
 
-The filter will ensure that only authenticated users can access the controller. If someone who's not logged in tries to access a protected action: 
+The filter will ensure that only authenticated users can access the controller. If someone who's not signed in tries to access a protected action: 
 
 * the URL is stored in the session, 
 * the user is redirected to log in page, and
 * after successful authentication will be be redirected back to that URL.
 
-h2. Usage: logged_in?, current_user
+h2. Usage: signed_in?, current_user
 
 Clearance provides two methods that can be used in controllers, helpers, and views to check if current user is authenticated and get the actual user: 
 
-* logged_in?
+* signed_in?
 * current_user
 
 This may be familiar to you if you've used "restful_authentication":http://github.com/technoweenie/restful-authentication.
     
-    <% if logged_in? -%>
+    <% if signed_in? -%>
       Hello, <%= current_user.name %>!
     <% else -%>
       Please <%= link_to 'Log in', new_session_path %>
@@ -172,7 +172,7 @@ Please note that all User attributes except email, password and password_confirm
 
 h2. Hooks: return_to parameter
 
-If you want to specify where to redirect a user (say you want to have a login box on every page and redirect the user to the same page) after he/she signs in, you can add a "return_to" parameter to the request (thanks to "Phillippe":http://www.sivarg.com/2009/01/clearance-coming-from-where-your-were.html for the tip):
+If you want to specify where to redirect a user (say you want to have a sign in box on every page and redirect the user to the same page) after he/she signs in, you can add a "return_to" parameter to the request (thanks to "Phillippe":http://www.sivarg.com/2009/01/clearance-coming-from-where-your-were.html for the tip):
 
     <% form_for :session, :url => session_path(:return_to => request.request_uri) do |form| %> 
     ...
@@ -201,9 +201,9 @@ There are similar methods in other controllers as well:
 
 h2. Hooks: log_user_in
 
-Say you want to add a last_logged_in_at attribute to your User model. You would want to update it when the User logs in.
+Say you want to add a last_signed_in_at attribute to your User model. You would want to update it when the User logs in.
 
-Clearance has a method named log_user_in that you can overwrite with that logic. Be sure to call login(user) at the end (and write tests!).
+Clearance has a method named log_user_in that you can overwrite with that logic. Be sure to call sign_in(user) at the end (and write tests!).
 
     class ApplicationController < ActionController::Base
       include Clearance::App::Controllers::ApplicationController
@@ -211,9 +211,9 @@ Clearance has a method named log_user_in that you can overwrite with that logic.
       private
         
         def log_user_in(user)
-          # store current time to display "last logged in at" message
-          user.update_attribute(:last_logged_in_at, Time.now)
-          login(user)
+          # store current time to display "last signed in at" message
+          user.update_attribute(:last_signed_in_at, Time.now)
+          sign_in(user)
         end
     end 
 

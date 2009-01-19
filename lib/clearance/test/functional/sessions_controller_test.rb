@@ -57,7 +57,7 @@ module Clearance
 
                 should_set_the_flash_to /success/i
                 should_redirect_to_url_after_create
-                should_be_logged_in_as { @user }
+                should_be_signed_in_as { @user }
               end
 
               context "a POST to #create with bad credentials" do
@@ -69,7 +69,7 @@ module Clearance
 
                 should_set_the_flash_to /bad/i
                 should_render_template :new
-                should_not_be_logged_in
+                should_not_be_signed_in
               end
           
               context "a POST to #create with good credentials and remember me" do
@@ -82,7 +82,7 @@ module Clearance
 
                 should_set_the_flash_to /success/i
                 should_redirect_to_url_after_create
-                should_be_logged_in_as { @user }
+                should_be_signed_in_as { @user }
                 
                 should 'set the cookie' do
                   assert ! cookies['remember_token'].empty?
@@ -160,11 +160,11 @@ module Clearance
               end
             end
 
-            logged_in_user_context do
+            signed_in_user_context do
               context "a DELETE to #destroy without a cookie" do
                 setup { delete :destroy }
 
-                should_set_the_flash_to(/logged out/i)
+                should_set_the_flash_to(/signed out/i)
                 should_redirect_to_url_after_destroy
               end
 

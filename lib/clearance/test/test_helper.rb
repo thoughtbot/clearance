@@ -5,7 +5,7 @@ module Clearance
       def self.included(test_helper)
         test_helper.class_eval do
           
-          def login_as(user = nil)
+          def sign_in_as(user = nil)
             unless user
               user = Factory(:registered_user)
               user.confirm_email!

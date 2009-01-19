@@ -65,7 +65,7 @@ module Clearance
               end
             end
 
-            logged_in_user_context do
+            signed_in_user_context do
               context "GET to new" do
                 setup { get :new }
                 should_redirect_to "root_url"
