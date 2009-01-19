@@ -101,28 +101,16 @@ module Clearance
     # VALIDATIONS
     
     # This Shoulda macro also depends on Factory Girl
-    # :on => :save, :create, or :update    
     def should_validate_confirmation_of(attribute, opts = {})
       raise ArgumentError if opts[:factory].nil?
-      raise ArgumentError if opts[:on].nil?
       
-      if opts[:on] == :create
-        should_validate_attribute_is_not_blank    opts[:factory], attribute
+      context "on save" do  
         should_validate_confirmation_is_not_blank opts[:factory], attribute
         should_validate_confirmation_is_not_bad   opts[:factory], attribute
       end
     end
     
-    def should_validate_attribute_is_not_blank(factory, attribute)
-      should "validate #{attribute} is not blank" do
-        model = Factory.build(factory, blank_attribute_options(attribute))
-        model.save
-        assert_confirmation_error(model, attribute, 
-          "#{attribute} cannot be blank")
-      end
-    end
-    
-    def should_validate_confirmation_is_not_blank(factory, attribute)
+    def should_validate_confirmation_is_not_blank(factory, attribute, opts = {})
       should "validate #{attribute}_confirmation is not blank" do
         model = Factory.build(factory, blank_confirmation_options(attribute))
         model.save
@@ -131,7 +119,7 @@ module Clearance
       end
     end
     
-    def should_validate_confirmation_is_not_bad(factory, attribute)
+    def should_validate_confirmation_is_not_bad(factory, attribute, opts = {})
       should "validate #{attribute}_confirmation is different than #{attribute}" do
         model = Factory.build(factory, bad_confirmation_options(attribute))
         model.save
@@ -146,19 +134,14 @@ end
 module Clearance
   module Shoulda
     module Helpers
-      def blank_attribute_options(attribute)
-        opts = { attribute => "" }
-        opts.merge("#{attribute}_confirmation".to_sym => attribute.to_s)
-      end
-
-      def bad_confirmation_options(attribute)
-        opts = { attribute => attribute.to_s }
-        opts.merge("#{attribute}_confirmation".to_sym => "not_#{attribute}")
-      end
-
       def blank_confirmation_options(attribute)
         opts = { attribute => attribute.to_s }
         opts.merge("#{attribute}_confirmation".to_sym => "")
+      end
+      
+      def bad_confirmation_options(attribute)
+        opts = { attribute => attribute.to_s }
+        opts.merge("#{attribute}_confirmation".to_sym => "not_#{attribute}")
       end
       
       def assert_confirmation_error(model, attribute, message = "confirmation error")
