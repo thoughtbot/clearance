@@ -15,7 +15,8 @@ module Clearance
 
             def create
               @user.confirm_email!
-              log_user_in(@user)
+              sign_user_in(@user)
+              flash[:success] = "Confirmed email and signed in."
               redirect_to url_after_create
             end
         

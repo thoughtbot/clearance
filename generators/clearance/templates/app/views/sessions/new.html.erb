@@ -12,7 +12,7 @@
     <%= form.label :remember_me %>
   </div>
   <div class="submit_field">
-    <%= form.submit 'Sign in', :disable_with => 'Please wait...' %>
+    <%= form.submit "Sign in", :disable_with => "Please wait..." %>
   </div>
 <% end %>
 
@@ -21,6 +21,6 @@
     <%= link_to "Register", new_user_path %>
   </li>
   <li>
-    <%= link_to "Forgot My Password", new_password_path %>
+    <%= link_to "Forgot password?", new_password_path %>
   </li>
 </ul>

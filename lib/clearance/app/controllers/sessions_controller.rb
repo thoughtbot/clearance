@@ -17,7 +17,7 @@ module Clearance
               else
                 if @user.email_confirmed?
                   remember(@user) if remember?
-                  log_user_in(@user)
+                  sign_user_in(@user)
                   sign_in_successful
                 else
                   deny_access("User has not confirmed email.")

@@ -71,7 +71,7 @@ module Clearance
 
     def public_context(&blk)
       context "The public" do
-        setup { logout }
+        setup { sign_out }
         merge_block(&blk)
       end
     end

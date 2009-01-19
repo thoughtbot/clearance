@@ -38,7 +38,7 @@ module Clearance
             end
 
             # Hook
-            def log_user_in(user)
+            def sign_user_in(user)
               sign_in(user)
             end
 

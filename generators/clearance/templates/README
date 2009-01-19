@@ -1,30 +1,46 @@
+
 *******************************************************************************
+
 Ok, enough fancy automatic stuff. Time for some old school monkey copy-pasting.
 
 1. For any other file(s) that you already had and didn't want to overwrite, add 
 the corresponding Clearance module. They are namespaced exactly like the 
-directory structure of a Rails app, e.g:
+directory structure of a Rails app.
 
-if app/models/user.rb already exists, add:
+Application controller example:
 
-class User < ActiveRecord::Base
-  include Clearance::App::Models::User
-...
+    class ApplicationController < ActionController::Base
+      include Clearance::App::Controllers::ApplicationController
+    end
 
-2. You need to define HOST constant in your environments files. In config/environments/test.rb and config/environments/development.rb it can be:
+User model example:
+
+    class User < ActiveRecord::Base
+      include Clearance::App::Models::User
+    end
+
+User test example:
+
+    class UserTest < Test::Unit::TestCase
+      include Clearance::Test::Unit::UserTest
+    end
+
+2. You need to define HOST constant in your environments files. 
+In config/environments/test.rb and config/environments/development.rb it can be:
 
     HOST = "localhost"
 
-While in config/environments/production.rb it must be the actual host your application is deployed to because the constant is used by mailers to generate URLs in emails.
+In production.rb it must be the actual host your application is deployed to. 
+The constant is used by mailers to generate URLs in emails.
 
 In config/environment.rb:
 
     DO_NOT_REPLY = "donotreply@example.com"
     
-3. Clearance depends on root_url, so please make sure that it is defined in 
-your config/routes.rb:
+3. Clearance depends on root_url, so please make sure that it is defined to
+*something* your config/routes.rb:
 
-    map.root :controller => 'my_home_controller'
+    map.root :controller => 'home'
     
 4. To run tests you need to add the Clearance module to your 
 test/test_helper.rb:
@@ -34,4 +50,5 @@ test/test_helper.rb:
       self.use_instantiated_fixtures  = false
       include Clearance::Test::TestHelper
     end
+
 *******************************************************************************    

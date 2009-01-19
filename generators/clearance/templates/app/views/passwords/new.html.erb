@@ -6,10 +6,10 @@
 
 <% form_for :password, :url => passwords_path do |form| %>
   <div class="text_field">
-    <%= form.label :email, 'Email address' %>
+    <%= form.label :email, "Email address" %>
     <%= form.text_field :email %>
   </div>
   <div class="submit_field">
-    <%= form.submit 'Reset password' %>
+    <%= form.submit "Reset password", :disable_with => "Please wait..." %>
   </div>
 <% end %>

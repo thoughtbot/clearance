@@ -15,7 +15,7 @@ module Clearance
             return user
           end
 
-          def logout 
+          def sign_out 
             @request.session[:user_id] = nil
             @request.session[:salt]    = nil
           end

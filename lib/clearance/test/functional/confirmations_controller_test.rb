@@ -16,6 +16,8 @@ module Clearance
                   get :new, :user_id => @user.to_param, :salt => @user.salt
                 end
 
+                should_set_the_flash_to /confirmed email/i
+                should_set_the_flash_to /signed in/i
                 should_be_signed_in_and_email_confirmed_as { @user }
                 should_redirect_to_url_after_create
               end

@@ -10,14 +10,14 @@
                       :password => @user.encrypted_password),
             :html => { :method => :put }) do |form| %>
   <div class="password_field">
-    <%= form.label :password, 'Choose password' %>
+    <%= form.label :password, "Choose password" %>
     <%= form.password_field :password %>
   </div>
   <div class="password_field">
-    <%= form.label :password_confirmation, 'Verify password' %>
+    <%= form.label :password_confirmation, "Verify password" %>
     <%= form.password_field :password_confirmation %>
   </div>
   <div class="submit_field">
-    <%= form.submit 'Save this password' %>
+    <%= form.submit "Save this password", :disable_with => "Please wait..." %>
   </div>
 <% end %>
