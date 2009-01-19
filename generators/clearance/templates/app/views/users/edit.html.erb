@@ -1,3 +1,5 @@
+<h2>Edit user information</h2>
+
 <% form_for @user do |form| %>
   <%= render :partial => '/users/form', :object => form %>
   <%= form.submit 'Update', :disable_with => 'Please wait...' %>

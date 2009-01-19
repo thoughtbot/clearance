@@ -13,12 +13,14 @@ module Clearance
               @user = User.authenticate(params[:session][:email], 
                                         params[:session][:password])
               if @user.nil?
-                sign_in_failure
+                flash.now[:notice] = "Bad email or password."
+                render :action => :new
               else
                 if @user.email_confirmed?
                   remember(@user) if remember?
                   sign_user_in(@user)
-                  sign_in_successful
+                  flash[:notice] = "Signed in successfully"
+                  redirect_back_or url_after_create
                 else
                   deny_access("User has not confirmed email.")
                 end
@@ -34,16 +36,6 @@ module Clearance
         
             private
             
-            def sign_in_successful(message = "Signed in successfully")
-              flash[:notice] = message
-              redirect_back_or url_after_create
-            end
-
-            def sign_in_failure(message = "Bad email or password.")
-              flash.now[:notice] = message
-              render :action => :new
-            end
-
             def remember?
               params[:session] && params[:session][:remember_me] == "1"
             end

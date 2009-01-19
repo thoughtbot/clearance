@@ -16,43 +16,44 @@ module Clearance
                 setup { get :new, :user_id => @user.to_param }
 
                 should_respond_with :success
-                should_render_template 'new'
+                should_render_template "new"
               end
 
-              context 'A POST to #create' do
+              context "A POST to #create" do
                 context "with an existing user's email address" do
                   setup do
                     ActionMailer::Base.deliveries.clear
 
                     post :create, :password => { :email => @user.email }
-                    @email = ActionMailer::Base.deliveries[0]
-                  end
-
-                  should 'send an email to the user to edit their password' do
-                    assert @email.subject =~ /change your password/i
                   end
                   
-                  should 'set a :notice flash with the user email address' do
+                  should "send the change your password email" do
+                    assert_sent_email do |email|
+                      email.subject =~ /change your password/i
+                    end
+                  end
+                  
+                  should "set a :notice flash with the user email address" do
                     assert_match /#{@user.email}/, flash[:notice]
                   end
 
                   should_redirect_to_url_after_create
                 end
 
-                context 'with a non-existent email address' do
+                context "with a non-existent email address" do
                   setup do
-                    email = 'user1@example.com'
+                    email = "user1@example.com"
                     assert ! User.exists?(['email = ?', email])
                     ActionMailer::Base.deliveries.clear
 
                     post :create, :password => { :email => email }
                   end
 
-                  should 'not send a password reminder email' do
+                  should "not send a password reminder email" do
                     assert ActionMailer::Base.deliveries.empty?
                   end
 
-                  should 'set a :notice flash' do
+                  should "set a :notice flash" do
                     assert_not_nil flash.now[:notice]
                   end
 
@@ -60,7 +61,7 @@ module Clearance
                 end
               end
 
-              context 'A GET to #edit' do
+              context "A GET to #edit" do
                 context "with an existing user's id and password" do
                   setup do
                     get :edit, 
@@ -69,7 +70,7 @@ module Clearance
                       :email    => @user.email
                   end
 
-                  should 'find the user with the given id and password' do
+                  should "find the user with the given id and password" do
                     assert_equal @user, assigns(:user)
                   end
 
@@ -99,7 +100,7 @@ module Clearance
                 end
               end
 
-              context 'A PUT to #update' do
+              context "A PUT to #update" do
                 context "with an existing user's id but not password" do
                   setup do
                     put :update, :user_id => @user.to_param, :password => ''
@@ -116,7 +117,7 @@ module Clearance
 
                 context 'with a matching password and password confirmation' do
                   setup do
-                    new_password = 'new_password'
+                    new_password = "new_password"
                     @encrypted_new_password = @user.encrypt(new_password)
                     assert_not_equal @encrypted_new_password, @user.encrypted_password
 
@@ -139,9 +140,9 @@ module Clearance
                   should_redirect_to_url_after_update
                 end
 
-                context 'with password but blank password confirmation' do
+                context "with password but blank password confirmation" do
                   setup do
-                    new_password = 'new_password'
+                    new_password = "new_password"
                     @encrypted_new_password = @user.encrypt(new_password)
 
                     put(:update,

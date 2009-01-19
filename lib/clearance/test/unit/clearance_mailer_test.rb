@@ -18,7 +18,7 @@ module Clearance
 
               should "contain a link to edit the user's password" do
                 host = ActionMailer::Base.default_url_options[:host]
-                regexp = %r{http://#{host}/users/#{@user.id}/password/edit\?email=#{@user.email.gsub("@", "%40")}&amp;password=#{@user.encrypted_password}}
+                regexp = %r{http://#{host}/users/#{@user.id}/password/edit\?email=#{@user.email.gsub("@", "%40")}&password=#{@user.encrypted_password}}
                 assert_match regexp, @email.body
               end
 
@@ -37,15 +37,15 @@ module Clearance
                 @email = ClearanceMailer.create_confirmation @user
               end
 
-              should 'set its recipient to the given user' do
+              should "set its recipient to the given user" do
                 assert_equal @user.email, @email.to[0]
               end
 
-              should 'set its subject' do
+              should "set its subject" do
                 assert_match /Account confirmation/, @email.subject
               end
 
-              should 'set its from address to DO_NOT_REPLY' do
+              should "set its from address to DO_NOT_REPLY" do
                 assert_equal DO_NOT_REPLY, @email.from[0]
               end
 
