@@ -92,7 +92,7 @@ module Clearance
 
                 context "with an existing user's id but not password" do
                   setup do
-                    get :edit, :user_id => @user.to_param, :password => ''
+                    get :edit, :user_id => @user.to_param, :password => ""
                   end
 
                   should_respond_with :not_found
@@ -103,7 +103,7 @@ module Clearance
               context "A PUT to #update" do
                 context "with an existing user's id but not password" do
                   setup do
-                    put :update, :user_id => @user.to_param, :password => ''
+                    put :update, :user_id => @user.to_param, :password => ""
                   end
 
                   should "not update the user's password" do
@@ -115,7 +115,7 @@ module Clearance
                   should_render_nothing
                 end
 
-                context 'with a matching password and password confirmation' do
+                context "with a matching password and password confirmation" do
                   setup do
                     new_password = "new_password"
                     @encrypted_new_password = @user.encrypt(new_password)
