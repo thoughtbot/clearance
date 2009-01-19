@@ -17,7 +17,7 @@ module Clearance
               
               should 'display a "sign in" form' do
                 assert_select "form[action=#{session_path}][method=post]", 
-                  true, "There must be a form to log in" do
+                  true, "There must be a form to sign in" do
                     assert_select "input[type=text][name=?]", 
                       "session[email]", true, "There must be an email field"
                     assert_select "input[type=password][name=?]", 
@@ -30,10 +30,8 @@ module Clearance
               end
             end
 
-            context "Given an unconfirmed user" do
-              setup do
-                @user = Factory(:registered_user, :email_confirmed => false)
-              end
+            context "Given a registered user" do
+              setup { @user = Factory(:registered_user) }
 
               context "a POST to #create with good credentials" do
                 setup do
@@ -44,16 +42,11 @@ module Clearance
                 end
 
                 should_deny_access(:flash => /confirm/i)
-
-                should "send the confirmation email" do
-                  assert_not_nil email = ActionMailer::Base.deliveries[0]
-                  assert_match /account confirmation/i, email.subject
-                end
               end
             end
 
-            context "Given a confirmed user" do
-              setup { @user = Factory(:registered_user, :email_confirmed => true) }
+            context "Given an email confirmed user" do
+              setup { @user = Factory(:email_confirmed_user) }
 
               context "a POST to #create with good credentials" do
                 setup do

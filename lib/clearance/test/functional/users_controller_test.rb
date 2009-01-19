@@ -9,7 +9,7 @@ module Clearance
             should_filter_params :password
             
             public_context do
-              context "on GET to /users/new" do
+              context "When getting new User view" do
                 setup { get :new }
                 
                 should_respond_with :success
@@ -29,33 +29,39 @@ module Clearance
                       "There must be a submit button"
                  end
                 end
-                
-                context "with params" do
-                  setup do
-                    @email = 'a@example.com'
-                    get :new, :user => { :email => @email }
-                  end
+              end
+              
+              context "Given email parameter when getting new User view" do
+                setup do
+                  @email = "a@example.com"
+                  get :new, :user => { :email => @email }
+                end
 
-                  should_assign_to :user
-                  
-                  should "set the @user's params" do
-                    assert_equal @email, assigns(:user).email
-                  end
+                should "set assigned user's email" do
+                  assert_equal @email, assigns(:user).email
                 end
               end
 
-              context "on POST to /users" do
+              context "Given valid attributes when creating a new user" do
                 setup do
-                  user_attributes = Factory.attributes_for(:registered_user, 
-                                      :password              => "secret", 
-                                      :password_confirmation => "secret")
+                  user_attributes = Factory.attributes_for(:registered_user)
                   post :create, :user => user_attributes
                 end
             
-                should_set_the_flash_to /confirm/i
-                should_redirect_to "@controller.send(:url_after_create)"
-                should_assign_to :user
-                should_change 'User.count', :by => 1
+                should_create_user_successfully
+              end
+              
+              context "Given valid email confirmation attributes when creating a new user" do
+                setup do
+                  user_attributes = Factory.attributes_for(:email_confirmed_user)
+                  post :create, :user => user_attributes
+                end
+            
+                should_create_user_successfully
+                
+                should "not confirm email" do
+                  assert ! assigns(:user).email_confirmed
+                end
               end
             end
 

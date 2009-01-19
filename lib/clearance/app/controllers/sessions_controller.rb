@@ -20,8 +20,7 @@ module Clearance
                   log_user_in(@user)
                   login_successful
                 else
-                  ClearanceMailer.deliver_confirmation(@user)
-                  deny_access("User has not confirmed email. Confirmation email sent.")
+                  deny_access("User has not confirmed email.")
                 end
               end
             end

@@ -76,6 +76,22 @@ module Clearance
       end
     end
     
+    # CREATING USERS
+    
+    def should_create_user_successfully
+      should_assign_to :user
+      should_change 'User.count', :by => 1
+      
+      should "send the confirmation email" do
+        assert_sent_email do |email|
+          email.subject =~ /account confirmation/i
+        end
+      end
+      
+      should_set_the_flash_to /confirm/i
+      should_redirect_to_url_after_create
+    end
+    
     # RENDERING
     
     def should_render_nothing
