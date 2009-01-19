@@ -153,9 +153,9 @@ To specify where to redirect a user (say you want to have a sign in form on ever
 
     <% form_for :session, :url => session_path(:return_to => request.request_uri) do |form| %>
 
-h2. Hooks: url_after_create, url_after_destroy
+h2. Hooks: url_after_create, url_after_update, url_after_destroy
     
-Actions that redirect (create and destroy) in Clearance controllers are customizable. If you want to redirect a user to a specific route after signing in, overwrite the "url_after_create" method in the SessionsController:
+Actions that redirect (create, update, and destroy) in Clearance controllers are customizable. If you want to redirect a user to a specific route after signing in, overwrite the "url_after_create" method in the SessionsController:
 
     class SessionsController < ApplicationController
       include Clearance::App::Controllers::SessionsController
@@ -173,6 +173,7 @@ There are similar methods in other controllers as well:
     SessionsController#url_after_create (sign in)
     SessionsController#url_after_destroy (sign out)
     PasswordsController#url_after_create (password request)
+    PasswordsController#url_after_update (password)
     ConfirmationsController#url_after_create (confirmation)
 
 h2. Hooks: sign_user_in
@@ -197,8 +198,8 @@ h2. Authors
 
 * thoughtbot, inc.
 * Dan Croak
-* Jason Morrison
 * Mike Burns
+* Jason Morrison
+* Eugene Bolshakov
 * Josh Nichols
 * Mike Breen
-* Eugene Bolshakov

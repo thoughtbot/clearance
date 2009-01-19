@@ -9,7 +9,7 @@ module Clearance
             should_route :get, '/users/1/password/edit', 
               :action  => 'edit', :user_id => '1'
 
-            context 'with a user' do
+            context "with a user" do
               setup { @user = Factory(:registered_user) }
 
               context 'A GET to #new' do
