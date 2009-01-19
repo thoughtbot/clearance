@@ -116,7 +116,6 @@ module Clearance
     
     # VALIDATIONS
     
-    # This Shoulda macro also depends on Factory Girl
     def should_validate_confirmation_of(attribute, opts = {})
       raise ArgumentError if opts[:factory].nil?
       
