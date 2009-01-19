@@ -35,14 +35,15 @@ desc "Run the test suite"
 task :default => 'test:all'
 
 gem_spec = Gem::Specification.new do |gem_spec|
-  gem_spec.name = "clearance"
-  gem_spec.version = '0.3.8'
-  gem_spec.summary = "Simple, complete Rails authentication."
-  gem_spec.email = "support@thoughtbot.com"
-  gem_spec.homepage = "http://github.com/thoughtbot/clearance"
+  gem_spec.name        = "clearance"
+  gem_spec.version     = "0.3.9"
+  gem_spec.summary     = "Simple, complete Rails authentication."
+  gem_spec.email       = "support@thoughtbot.com"
+  gem_spec.homepage    = "http://github.com/thoughtbot/clearance"
   gem_spec.description = "Simple, complete Rails authentication scheme."
-  gem_spec.authors = ["thoughtbot, inc.", "Dan Croak", "Mike Burns", "Eugene Bolshakov", "Josh Nichols", "Mike Breen", "Jason Morrison"]
-  gem_spec.files = FileList["[A-Z]*", "{generators,lib,shoulda_macros,rails}/**/*"]
+  gem_spec.authors     = ["thoughtbot, inc.", "Dan Croak", "Mike Burns", "Jason Morrison",
+                          "Eugene Bolshakov", "Josh Nichols", "Mike Breen"]
+  gem_spec.files       = FileList["[A-Z]*", "{generators,lib,shoulda_macros,rails}/**/*"]
 end
 
 desc "Generate a gemspec file"

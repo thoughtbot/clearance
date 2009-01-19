@@ -1,17 +1,21 @@
 --- !ruby/object:Gem::Specification 
 name: clearance
 version: !ruby/object:Gem::Version 
-  version: 0.3.8
+  version: 0.3.9
 platform: ruby
 authors: 
 - thoughtbot, inc.
+- Dan Croak
+- Mike Burns
+- Jason Morrison
+- Eugene Bolshakov
 - Josh Nichols
 - Mike Breen
 autorequire: 
 bindir: bin
 cert_chain: []
 
-date: 2009-01-17 00:00:00 -05:00
+date: 2009-01-18 00:00:00 -05:00
 default_executable: 
 dependencies: []
 
