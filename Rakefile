@@ -20,7 +20,6 @@ namespace :generator do
     
     FileUtils.rm_rf("test/rails_root/db/migrate")
     FileUtils.rm_rf("test/rails_root/vendor/plugins/clearance")
-    system "cp generators/clearance/templates/config/routes.rb test/rails_root/config"      
     system "mkdir -p test/rails_root/vendor/plugins/clearance"
     system "cp -R generators test/rails_root/vendor/plugins/clearance"  
   end
