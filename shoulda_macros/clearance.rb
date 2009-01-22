@@ -200,6 +200,21 @@ module Clearance
       end    
     end
     
+    def should_display_a_sign_in_form 
+      should 'display a "sign in" form' do
+        assert_select "form[action=#{session_path}][method=post]", 
+          true, "There must be a form to sign in" do
+            assert_select "input[type=text][name=?]", 
+              "session[email]", true, "There must be an email field"
+            assert_select "input[type=password][name=?]", 
+              "session[password]", true, "There must be a password field"
+            assert_select "input[type=checkbox][name=?]", 
+              "session[remember_me]", true, "There must be a 'remember me' check box"
+            assert_select "input[type=submit]", true, 
+              "There must be a submit button"
+        end                
+      end        
+    end
   end
 end
 
