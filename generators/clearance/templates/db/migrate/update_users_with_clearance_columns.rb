@@ -4,8 +4,8 @@ class CreateOrUpdateUsersWithClearanceColumns < ActiveRecord::Migration
       existing_columns = ActiveRecord::Base.connection.columns(:users).collect { |each| each.name }
       columns = [
         [:email,                     't.string :email'],
-        [:encrypted_password,        't.string :encrypted_password, :limit => 40'],
-        [:salt,                      't.string :salt, :limit => 40'],
+        [:encrypted_password,        't.string :encrypted_password, :limit => 180'],
+        [:salt,                      't.string :salt, :limit => 180'],
         [:remember_token,            't.string :remember_token'],
         [:remember_token_expires_at, 't.datetime :remember_token_expires_at'],
         [:email_confirmed,           't.boolean :email_confirmed, :default => false, :null => false']
