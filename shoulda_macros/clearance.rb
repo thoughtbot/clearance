@@ -143,6 +143,63 @@ module Clearance
       end
     end
     
+    # EMAILS
+    
+    def should_send_the_change_your_password_email
+      should "generate a token for the change your password email" do
+        assert_not_nil @user.reload.token                                   
+      end
+                        
+      should "send the change your password email" do
+        assert_sent_email do |email|
+          email.subject =~ /change your password/i
+        end
+      end    
+    end
+    
+    def should_not_send_the_change_your_password_email
+      should "generate a token for the change your password email" do
+        assert_nil @user.reload.token                                   
+      end                  
+
+      should "not send a password reminder email" do
+        assert ActionMailer::Base.deliveries.empty?
+      end        
+    end
+    
+    
+    # FORMS
+    
+    def should_display_a_password_update_form
+      should "have a form for the user's token, password, and password confirm" do
+        update_path = ERB::Util.h(
+          user_password_path(@user, :token => @user.token)
+        )
+
+        assert_select 'form[action=?]', update_path do
+          assert_select 'input[name=_method][value=?]', 'put'
+          assert_select 'input[name=?]', 'user[password]'
+          assert_select 'input[name=?]', 'user[password_confirmation]'
+        end
+      end      
+    end
+    
+    def should_display_a_registration_form
+      should "display a form to register" do
+        assert_select "form[action=#{users_path}][method=post]", 
+        true, "There must be a form to register" do
+          assert_select "input[type=text][name=?]", 
+            "user[email]", true, "There must be an email field"
+          assert_select "input[type=password][name=?]", 
+            "user[password]", true, "There must be a password field"
+          assert_select "input[type=password][name=?]", 
+            "user[password_confirmation]", true, "There must be a password confirmation field"                      
+          assert_select "input[type=submit]", true, 
+            "There must be a submit button"
+        end
+      end    
+    end
+    
   end
 end
 

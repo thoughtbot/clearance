@@ -16,19 +16,7 @@ module Clearance
                 should_render_template :new
                 should_not_set_the_flash
                 
-                should "display a form to register" do
-                 assert_select "form[action=#{users_path}][method=post]", 
-                  true, "There must be a form to register" do
-                    assert_select "input[type=text][name=?]", 
-                      "user[email]", true, "There must be an email field"
-                    assert_select "input[type=password][name=?]", 
-                      "user[password]", true, "There must be a password field"
-                    assert_select "input[type=password][name=?]", 
-                      "user[password_confirmation]", true, "There must be a password confirmation field"                      
-                    assert_select "input[type=submit]", true, 
-                      "There must be a submit button"
-                 end
-                end
+                should_display_a_registration_form
               end
               
               context "Given email parameter when getting new User view" do

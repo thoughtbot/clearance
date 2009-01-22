@@ -29,15 +29,7 @@ module Clearance
                     post :create, :password => { :email => @user.email }
                   end
                   
-                  should "generate a token for the change your password email" do
-                    assert_not_nil @user.reload.token                                   
-                  end
-                                    
-                  should "send the change your password email" do
-                    assert_sent_email do |email|
-                      email.subject =~ /change your password/i
-                    end
-                  end
+                  should_send_the_change_your_password_email
                   
                   should "set a :notice flash with the user email address" do
                     assert_match /#{@user.email}/, flash[:notice]
@@ -55,14 +47,8 @@ module Clearance
                     post :create, :password => { :email => email }
                   end
                   
-                  should "generate a token for the change your password email" do
-                    assert_nil @user.reload.token                                   
-                  end                  
-
-                  should "not send a password reminder email" do
-                    assert ActionMailer::Base.deliveries.empty?
-                  end
-
+                  should_not_send_the_change_your_password_email
+                  
                   should "set a :notice flash" do
                     assert_not_nil flash.now[:notice]
                   end
@@ -77,9 +63,7 @@ module Clearance
                 context "A GET to #edit" do
                   context "with an existing user's id and token" do
                     setup do
-                      get :edit, 
-                        :user_id  => @user.to_param, 
-                        :token    => @user.token
+                      get :edit, :user_id => @user.to_param, :token => @user.token
                     end
 
                     should "find the user with the given id and token" do
@@ -88,18 +72,7 @@ module Clearance
 
                     should_respond_with :success
                     should_render_template "edit"
-
-                    should "have a form for the user's token, password, and password confirm" do
-                      update_path = ERB::Util.h(
-                        user_password_path(@user, :token => @user.token)
-                      )
-
-                      assert_select 'form[action=?]', update_path do
-                        assert_select 'input[name=_method][value=?]', 'put'
-                        assert_select 'input[name=?]', 'user[password]'
-                        assert_select 'input[name=?]', 'user[password_confirmation]'
-                      end
-                    end
+                    should_display_a_password_update_form
                   end
 
                   context "with an existing user's id but not token" do
@@ -113,28 +86,6 @@ module Clearance
                 end
 
                 context "A PUT to #update" do
-                  context "with an existing user's id but not token" do
-                    setup do
-                      new_password = "new_password"
-                      @encrypted_new_password = @user.encrypt(new_password)                    
-                      put(:update, 
-                          :user_id => @user.to_param, 
-                          :token   => "",
-                          :user    => {
-                            :password => new_password,
-                            :password => new_password                          
-                          })
-                    end
-
-                    should "not update the user's password" do
-                      assert_not_equal @encrypted_new_password, @user.encrypted_password
-                    end
-
-                    should_not_be_signed_in
-                    should_respond_with :not_found
-                    should_render_nothing
-                  end
-
                   context "with a matching password and password confirmation" do
                     setup do
                       new_password = "new_password"
@@ -185,24 +136,35 @@ module Clearance
                     should "not clear the token" do
                       assert_not_nil @user.token
                     end                    
-                    
-                    should "have a form for the user's token, password, and password confirm" do
-                      update_path = ERB::Util.h(
-                        user_password_path(@user, :token => @user.token)
-                      )
-
-                      assert_select 'form[action=?]', update_path do
-                        assert_select 'input[name=_method][value=?]', 'put'
-                        assert_select 'input[name=?]', 'user[password]'
-                        assert_select 'input[name=?]', 'user[password_confirmation]'
-                      end
-                    end                    
 
                     should_not_be_signed_in
                     should_respond_with :success
                     should_render_template :edit
+                    
+                    should_display_a_password_update_form                       
                   end
+                  
+                  context "with an existing user's id but not token" do
+                    setup do
+                      new_password = "new_password"
+                      @encrypted_new_password = @user.encrypt(new_password)                    
+                      put(:update, 
+                          :user_id => @user.to_param, 
+                          :token   => "",
+                          :user    => {
+                            :password => new_password,
+                            :password => new_password                          
+                          })
+                    end
 
+                    should "not update the user's password" do
+                      assert_not_equal @encrypted_new_password, @user.encrypted_password
+                    end
+
+                    should_not_be_signed_in
+                    should_respond_with :not_found
+                    should_render_nothing
+                  end                  
                 end
            
               end

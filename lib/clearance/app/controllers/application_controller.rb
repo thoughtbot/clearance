@@ -28,15 +28,15 @@ module Clearance
             def user_from_session
               if session[:user_id] && session[:salt]
                 user = User.find_by_id_and_salt(session[:user_id], session[:salt])
+                user && user.email_confirmed? ? user : nil                
               end
-              user && user.email_confirmed? ? user : nil
             end
 
             def user_from_cookie
               if cookies[:remember_token]
                 user = User.find_by_remember_token(cookies[:remember_token])
+                user && user.remember? ? user : nil                
               end
-              user && user.remember? ? user : nil
             end
 
             # Hook
