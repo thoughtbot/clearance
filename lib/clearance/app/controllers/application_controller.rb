@@ -5,9 +5,11 @@ module Clearance
     
         def self.included(controller)
           controller.class_eval do
-            
+                      
             helper_method :current_user
             helper_method :signed_in?
+            
+            hide_action :current_user, :signed_in?
         
             def current_user
               user_from_session || user_from_cookie
