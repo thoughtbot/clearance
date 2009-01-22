@@ -42,8 +42,8 @@ module Clearance
             
             def remember(user)
               user.remember_me!
-              cookies[:remember_token] = { :value   => user.remember_token, 
-                                           :expires => user.remember_token_expires_at }
+              cookies[:remember_token] = { :value   => user.token, 
+                                           :expires => user.token_expires_at }
             end
 
             def forget(user)

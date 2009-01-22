@@ -17,7 +17,7 @@ module Clearance
             validates_uniqueness_of   :email, :case_sensitive => false
             validates_format_of       :email, :with => %r{.+@.+\..+}
 
-            before_save :initialize_salt, :encrypt_password, :downcase_email
+            before_save :initialize_salt, :encrypt_password, :initialize_token, :downcase_email
         
             def self.authenticate(email, password)
               user = find(:first, :conditions => ['LOWER(email) = ?', email.to_s.downcase])
@@ -33,7 +33,7 @@ module Clearance
             end
 
             def remember?
-              remember_token_expires_at && Time.now.utc < remember_token_expires_at
+              token_expires_at && Time.now.utc < token_expires_at
             end
 
             def remember_me!
@@ -41,18 +41,19 @@ module Clearance
             end
 
             def remember_me_until(time)
-              self.update_attribute :remember_token_expires_at, time
-              self.update_attribute :remember_token, 
-                encrypt("--#{remember_token_expires_at}--#{password}--")
+              self.update_attribute :token_expires_at, time
+              self.update_attribute :token, 
+                encrypt("--#{token_expires_at}--#{password}--")
             end
 
             def forget_me!
-              self.update_attribute :remember_token_expires_at, nil
-              self.update_attribute :remember_token, nil
+              self.update_attribute :token_expires_at, nil
+              self.update_attribute :token, nil
             end
 
             def confirm_email!
               self.update_attribute :email_confirmed, true
+              self.update_attribute :token, nil
             end
         
             protected
@@ -70,6 +71,12 @@ module Clearance
             def encrypt_password
               return if password.blank?
               self.encrypted_password = encrypt(password)
+            end
+            
+            def initialize_token
+              if new_record?
+                self.token = encrypt("--#{Time.now.utc.to_s}--#{password}--")
+              end
             end
 
             def password_required?

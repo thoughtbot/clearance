@@ -7,7 +7,7 @@ module Clearance
           controller.class_eval do
             
             before_filter :existing_user?, :only => :new
-            filter_parameter_logging :salt
+            filter_parameter_logging :token
         
             def new
               create
@@ -23,7 +23,7 @@ module Clearance
             private
             
             def existing_user?
-              @user = User.find_by_id_and_salt(params[:user_id], params[:salt])
+              @user = User.find_by_id_and_token(params[:user_id], params[:token])
               if @user.nil?
                 render :nothing => true, :status => :not_found
               end

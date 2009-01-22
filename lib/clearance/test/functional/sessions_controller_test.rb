@@ -46,7 +46,10 @@ module Clearance
             end
 
             context "Given an email confirmed user" do
-              setup { @user = Factory(:email_confirmed_user) }
+              setup do
+                @user = Factory(:registered_user)
+                @user.confirm_email!              
+              end 
 
               context "a POST to #create with good credentials" do
                 setup do
@@ -88,9 +91,9 @@ module Clearance
                   assert ! cookies['remember_token'].empty?
                 end
 
-                should 'set the remember me token in users table' do
-                  assert_not_nil @user.reload.remember_token
-                  assert_not_nil @user.reload.remember_token_expires_at
+                should 'set the token in users table' do
+                  assert_not_nil @user.reload.token
+                  assert_not_nil @user.reload.token_expires_at
                 end
               end
               
@@ -111,8 +114,8 @@ module Clearance
                 end
 
                 should 'not set the remember me token in users table' do
-                  assert_nil @user.reload.remember_token
-                  assert_nil @user.reload.remember_token_expires_at
+                  assert_nil @user.reload.token
+                  assert_nil @user.reload.token_expires_at
                 end
               end
               
@@ -179,8 +182,8 @@ module Clearance
                 end
 
                 should 'delete the remember me token in users table' do
-                  assert_nil @user.reload.remember_token
-                  assert_nil @user.reload.remember_token_expires_at
+                  assert_nil @user.reload.token
+                  assert_nil @user.reload.token_expires_at
                 end
               end
             end

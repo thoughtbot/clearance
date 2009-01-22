@@ -8,7 +8,7 @@ module Clearance
           
             should_protect_attributes :email_confirmed, 
               :salt, :encrypted_password, 
-              :remember_token, :remember_token_expires_at
+              :token, :token_expires_at
             
             # registering
             
@@ -23,6 +23,10 @@ module Clearance
               
               should "initialize salt" do
                 assert_not_nil Factory(:registered_user).salt
+              end
+              
+              should "intiialize token" do
+                assert_not_nil Factory(:registered_user).token
               end
               
               context "encrypt password" do
@@ -72,6 +76,10 @@ module Clearance
                 should "have confirmed their email" do
                   assert @user.email_confirmed?
                 end
+                
+                should "reset token" do
+                  assert_nil @user.token
+                end
               end
             end
             
@@ -101,30 +109,35 @@ module Clearance
 
             # remember me
             
-            context "When registering with remember_me!" do
+            context "When authenticating with remember_me!" do
               setup do
-                @user = Factory(:registered_user)
-                assert_nil @user.remember_token
-                assert_nil @user.remember_token_expires_at
+                @user = Factory(:email_confirmed_user)
+                @token = @user.token
+                assert_nil @user.token_expires_at
                 @user.remember_me!
               end
 
               should "set the remember token and expiration date" do
-                assert_not_nil @user.remember_token
-                assert_not_nil @user.remember_token_expires_at
+                assert_not_equal @token, @user.token
+                assert_not_nil @user.token_expires_at
               end
               
               should "remember user when token expires in the future" do
-                @user.update_attribute :remember_token_expires_at, 
+                @user.update_attribute :token_expires_at, 
                   2.weeks.from_now.utc
                 assert @user.remember?
               end
 
               should "not remember user when token has already expired" do
-                @user.update_attribute :remember_token_expires_at, 
+                @user.update_attribute :token_expires_at, 
                   2.weeks.ago.utc
                 assert ! @user.remember?
               end
+              
+              should "not remember user when token expiry date is not set" do
+                @user.update_attribute :token_expires_at, nil
+                assert ! @user.remember?
+              end              
               
               # logging out
               
@@ -132,8 +145,8 @@ module Clearance
                 setup { @user.forget_me! }
 
                 should "unset the remember token and expiration date" do
-                  assert_nil @user.remember_token
-                  assert_nil @user.remember_token_expires_at
+                  assert_nil @user.token
+                  assert_nil @user.token_expires_at
                 end
 
                 should "not remember user" do
