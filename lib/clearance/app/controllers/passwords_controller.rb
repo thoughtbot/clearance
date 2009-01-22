@@ -18,6 +18,7 @@ module Clearance
                 flash.now[:notice] = "Unknown email"
                 render :action => :new
               else
+                user.forgot_password!
                 ClearanceMailer.deliver_change_password user
                 flash[:notice] = "Details for changing your password " <<
                                  "have been sent to #{user.email}"
@@ -26,14 +27,10 @@ module Clearance
             end
 
             def edit
-              @user = User.find_by_email_and_encrypted_password(params[:email],
-                                                                params[:password])
             end
 
             def update
-              @user = User.find_by_email_and_encrypted_password(params[:email],
-                                                                params[:password])
-              if @user.update_attributes params[:user]
+              if @user.update_password(params[:user])
                 sign_user_in(@user)
                 redirect_to url_after_update
               else
@@ -44,9 +41,8 @@ module Clearance
             private
             
             def existing_user?
-              user = User.find_by_email_and_encrypted_password(params[:email],
-                                                               params[:password])
-              if user.nil?
+              @user = User.find_by_id_and_token(params[:user_id], params[:token])
+              if @user.nil?
                 render :nothing => true, :status => :not_found
               end
             end

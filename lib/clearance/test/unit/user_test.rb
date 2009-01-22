@@ -25,8 +25,9 @@ module Clearance
                 assert_not_nil Factory(:registered_user).salt
               end
               
-              should "intiialize token" do
+              should "initialize token witout expiry date" do
                 assert_not_nil Factory(:registered_user).token
+                assert_nil Factory(:registered_user).token_expires_at
               end
               
               context "encrypt password" do
@@ -169,6 +170,54 @@ module Clearance
 
                 should_change "@user.encrypted_password"
               end
+            end
+            
+            # recovering forgotten password
+            
+            context "An email confirmed user" do
+              setup do
+                @user = Factory(:registered_user)
+                @user.confirm_email!
+              end
+              
+              context "who forgets password" do
+                setup do
+                  assert_nil @user.token
+                  @user.forgot_password!                  
+                end
+                should "generate token" do
+                  assert_not_nil @user.token
+                end
+                
+                context "and then updates password" do
+                  context 'with a valid new password and confirmation' do
+                    setup do
+                      @user.update_password(
+                        :password              => "new_password",
+                        :password_confirmation => "new_password"
+                      )
+                    end
+                    
+                    should_change "@user.encrypted_password"
+                    should "clear token" do
+                      assert_nil @user.token
+                    end                  
+                  end
+                  context 'with a password without a confirmation' do
+                    setup do
+                      @user.update_password(
+                        :password              => "new_password",
+                        :password_confirmation => ""
+                      )                      
+                    end                  
+                    should "not clear token" do
+                      assert_not_nil @user.token
+                    end                                      
+                  end
+                end                
+              end
+              
+             
             end
           
           end

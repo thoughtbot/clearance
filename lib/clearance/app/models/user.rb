@@ -55,6 +55,19 @@ module Clearance
               self.update_attribute :email_confirmed, true
               self.update_attribute :token, nil
             end
+            
+            def forgot_password!
+              generate_token
+              save(false)
+            end
+            
+            def update_password(attrs)
+              self.token            = nil
+              self.token_expires_at = nil
+              returning update_attributes(attrs) do |r|
+                reload unless r
+              end                                          
+            end
         
             protected
             
@@ -73,10 +86,13 @@ module Clearance
               self.encrypted_password = encrypt(password)
             end
             
+            def generate_token
+              self.token = encrypt("--#{Time.now.utc.to_s}--#{password}--")
+              self.token_expires_at = nil              
+            end
+            
             def initialize_token
-              if new_record?
-                self.token = encrypt("--#{Time.now.utc.to_s}--#{password}--")
-              end
+              generate_token if new_record?
             end
 
             def password_required?

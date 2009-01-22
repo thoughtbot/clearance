@@ -18,7 +18,7 @@ module Clearance
 
               should "contain a link to edit the user's password" do
                 host = ActionMailer::Base.default_url_options[:host]
-                regexp = %r{http://#{host}/users/#{@user.id}/password/edit\?email=#{@user.email.gsub("@", "%40")}&password=#{@user.encrypted_password}}
+                regexp = %r{http://#{host}/users/#{@user.id}/password/edit\?token=#{@user.token}}
                 assert_match regexp, @email.body
               end
 

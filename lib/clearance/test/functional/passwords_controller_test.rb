@@ -9,8 +9,11 @@ module Clearance
             should_route :get, '/users/1/password/edit', 
               :action  => 'edit', :user_id => '1'
 
-            context "with a user" do
-              setup { @user = Factory(:registered_user) }
+            context "with a confirmed user" do
+              setup do
+                @user = Factory(:registered_user)
+                @user.confirm_email!
+              end
 
               context 'A GET to #new' do
                 setup { get :new, :user_id => @user.to_param }
@@ -23,10 +26,13 @@ module Clearance
                 context "with an existing user's email address" do
                   setup do
                     ActionMailer::Base.deliveries.clear
-
                     post :create, :password => { :email => @user.email }
                   end
                   
+                  should "generate a token for the change your password email" do
+                    assert_not_nil @user.reload.token                                   
+                  end
+                                    
                   should "send the change your password email" do
                     assert_sent_email do |email|
                       email.subject =~ /change your password/i
@@ -48,6 +54,10 @@ module Clearance
 
                     post :create, :password => { :email => email }
                   end
+                  
+                  should "generate a token for the change your password email" do
+                    assert_nil @user.reload.token                                   
+                  end                  
 
                   should "not send a password reminder email" do
                     assert ActionMailer::Base.deliveries.empty?
@@ -60,112 +70,144 @@ module Clearance
                   should_render_template "new"
                 end
               end
+              
+              context 'who requested password recovery' do
+                setup { @user.forgot_password! }
 
-              context "A GET to #edit" do
-                context "with an existing user's id and password" do
-                  setup do
-                    get :edit, 
-                      :user_id  => @user.to_param, 
-                      :password => @user.encrypted_password, 
-                      :email    => @user.email
-                  end
+                context "A GET to #edit" do
+                  context "with an existing user's id and token" do
+                    setup do
+                      get :edit, 
+                        :user_id  => @user.to_param, 
+                        :token    => @user.token
+                    end
 
-                  should "find the user with the given id and password" do
-                    assert_equal @user, assigns(:user)
-                  end
+                    should "find the user with the given id and token" do
+                      assert_equal @user, assigns(:user)
+                    end
 
-                  should_respond_with :success
-                  should_render_template "edit"
+                    should_respond_with :success
+                    should_render_template "edit"
 
-                  should "have a form for the user's email, password, and password confirm" do
-                    update_path = ERB::Util.h(user_password_path(@user,
-                          :password => @user.encrypted_password,
-                          :email    => @user.email))
+                    should "have a form for the user's token, password, and password confirm" do
+                      update_path = ERB::Util.h(
+                        user_password_path(@user, :token => @user.token)
+                      )
 
-                    assert_select 'form[action=?]', update_path do
-                      assert_select 'input[name=_method][value=?]', 'put'
-                      assert_select 'input[name=?]', 'user[password]'
-                      assert_select 'input[name=?]', 'user[password_confirmation]'
+                      assert_select 'form[action=?]', update_path do
+                        assert_select 'input[name=_method][value=?]', 'put'
+                        assert_select 'input[name=?]', 'user[password]'
+                        assert_select 'input[name=?]', 'user[password_confirmation]'
+                      end
                     end
                   end
+
+                  context "with an existing user's id but not token" do
+                    setup do
+                      get :edit, :user_id => @user.to_param, :token => ""
+                    end
+
+                    should_respond_with :not_found
+                    should_render_nothing
+                  end
                 end
 
-                context "with an existing user's id but not password" do
-                  setup do
-                    get :edit, :user_id => @user.to_param, :password => ""
+                context "A PUT to #update" do
+                  context "with an existing user's id but not token" do
+                    setup do
+                      new_password = "new_password"
+                      @encrypted_new_password = @user.encrypt(new_password)                    
+                      put(:update, 
+                          :user_id => @user.to_param, 
+                          :token   => "",
+                          :user    => {
+                            :password => new_password,
+                            :password => new_password                          
+                          })
+                    end
+
+                    should "not update the user's password" do
+                      assert_not_equal @encrypted_new_password, @user.encrypted_password
+                    end
+
+                    should_not_be_signed_in
+                    should_respond_with :not_found
+                    should_render_nothing
                   end
 
-                  should_respond_with :not_found
-                  should_render_nothing
+                  context "with a matching password and password confirmation" do
+                    setup do
+                      new_password = "new_password"
+                      @encrypted_new_password = @user.encrypt(new_password)
+                      assert_not_equal @encrypted_new_password, @user.encrypted_password
+
+                      put(:update,
+                          :user_id  => @user,
+                          :token    => @user.token,
+                          :user     => {
+                            :password              => new_password,
+                            :password_confirmation => new_password
+                          })
+                      @user.reload
+                    end
+
+                    should "update the user's password" do
+                      assert_equal @encrypted_new_password, @user.encrypted_password
+                    end
+                    
+                    should "clear the token" do
+                      assert_nil @user.token
+                    end                    
+
+                    should_be_signed_in_as { @user }
+                    should_redirect_to_url_after_update
+                  end
+
+                  context "with password but blank password confirmation" do
+                    setup do
+                      new_password = "new_password"
+                      @encrypted_new_password = @user.encrypt(new_password)
+
+                      put(:update,
+                          :user_id => @user.to_param,
+                          :token   => @user.token,
+                          :user    => {
+                            :password => new_password,
+                            :password_confirmation => ''
+                          })
+                      @user.reload
+                    end
+
+                    should "not update the user's password" do
+                      assert_not_equal @encrypted_new_password, @user.encrypted_password
+                    end
+                    
+                    should "not clear the token" do
+                      assert_not_nil @user.token
+                    end                    
+                    
+                    should "have a form for the user's token, password, and password confirm" do
+                      update_path = ERB::Util.h(
+                        user_password_path(@user, :token => @user.token)
+                      )
+
+                      assert_select 'form[action=?]', update_path do
+                        assert_select 'input[name=_method][value=?]', 'put'
+                        assert_select 'input[name=?]', 'user[password]'
+                        assert_select 'input[name=?]', 'user[password_confirmation]'
+                      end
+                    end                    
+
+                    should_not_be_signed_in
+                    should_respond_with :success
+                    should_render_template :edit
+                  end
+
                 end
+           
               end
-
-              context "A PUT to #update" do
-                context "with an existing user's id but not password" do
-                  setup do
-                    put :update, :user_id => @user.to_param, :password => ""
-                  end
-
-                  should "not update the user's password" do
-                    assert_not_equal @encrypted_new_password, @user.encrypted_password
-                  end
-
-                  should_not_be_signed_in
-                  should_respond_with :not_found
-                  should_render_nothing
-                end
-
-                context "with a matching password and password confirmation" do
-                  setup do
-                    new_password = "new_password"
-                    @encrypted_new_password = @user.encrypt(new_password)
-                    assert_not_equal @encrypted_new_password, @user.encrypted_password
-
-                    put(:update,
-                        :user_id  => @user,
-                        :email    => @user.email,
-                        :password => @user.encrypted_password,
-                        :user => {
-                          :password              => new_password,
-                          :password_confirmation => new_password
-                        })
-                    @user.reload
-                  end
-
-                  should "update the user's password" do
-                    assert_equal @encrypted_new_password, @user.encrypted_password
-                  end
-
-                  should_be_signed_in_as { @user }
-                  should_redirect_to_url_after_update
-                end
-
-                context "with password but blank password confirmation" do
-                  setup do
-                    new_password = "new_password"
-                    @encrypted_new_password = @user.encrypt(new_password)
-
-                    put(:update,
-                        :user_id => @user.to_param,
-                        :password => @user.encrypted_password,
-                        :user => {
-                          :password => new_password,
-                          :password_confirmation => ''
-                        })
-                    @user.reload
-                  end
-
-                  should "not update the user's password" do
-                    assert_not_equal @encrypted_new_password, @user.encrypted_password
-                  end
-
-                  should_not_be_signed_in
-                  should_respond_with :not_found
-                  should_render_nothing
-                end
-              end
-            end
-          
+              
+           end
           end
         end
 
