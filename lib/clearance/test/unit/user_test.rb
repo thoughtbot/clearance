@@ -5,6 +5,10 @@ module Clearance
     
         def self.included(unit_test)
           unit_test.class_eval do
+          
+            should_protect_attributes :email_confirmed, 
+              :salt, :encrypted_password, 
+              :remember_token, :remember_token_expires_at
             
             # registering
             

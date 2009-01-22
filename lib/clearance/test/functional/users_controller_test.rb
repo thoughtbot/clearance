@@ -50,19 +50,6 @@ module Clearance
             
                 should_create_user_successfully
               end
-              
-              context "Given valid email confirmation attributes when creating a new user" do
-                setup do
-                  user_attributes = Factory.attributes_for(:email_confirmed_user)
-                  post :create, :user => user_attributes
-                end
-            
-                should_create_user_successfully
-                
-                should "not confirm email" do
-                  assert ! assigns(:user).email_confirmed
-                end
-              end
             end
 
             signed_in_user_context do
