@@ -12,7 +12,7 @@ module Clearance
             attr_accessor :password, :password_confirmation
 
             validates_presence_of     :email
-            validates_presence_of     :password, :if => :password_required?
+            validates_length_of       :password, :if => :password_required?, :minimum => 6
             validates_confirmation_of :password, :if => :password_required?
             validates_uniqueness_of   :email, :case_sensitive => false
             validates_format_of       :email, :with => %r{.+@.+\..+}

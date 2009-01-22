@@ -3,6 +3,6 @@
 # refactor password controller test
 # existing_user? methods ... if salt is wrong, user may not be found b/c of invalid credentials. is :not_found the correct code to return in that use case? if not, method probably needs to be split into another conditional.
 # document shoulda macros
-# will SHA512 hashes fit in all the places they are being used? (db columns, sessions) 128 characters
+# will SHA512 hashes fit in all the places they are being used? (db columns - fit now, sessions) 128 characters
 
 http://adam.speaksoutofturn.com/post/57615195/entication-vs-orization
