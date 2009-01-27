@@ -13,11 +13,10 @@ module Clearance
             # registering
             
             context "When registering" do
-              should_require_attributes        :email
+              should_require_attributes        :email, :password
               should_allow_values_for          :email, "foo@example.com"
               should_not_allow_values_for      :email, "foo"
               should_not_allow_values_for      :email, "example.com"
-              should_ensure_length_at_least    :password, 6
               
               should_validate_confirmation_of  :password, 
                 :factory => :registered_user
