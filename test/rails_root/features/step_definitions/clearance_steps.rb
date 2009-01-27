@@ -57,6 +57,24 @@ When /^I follow the confirmation link sent to "(.*)"$/ do |email|
   visit new_user_confirmation_path(:user_id => user, :salt => user.salt)
 end
 
+Then /^a password reset message should be sent to "(.*)"$/ do |email|
+  user = User.find_by_email(email)
+  sent = ActionMailer::Base.deliveries.first
+  assert_equal [user.email], sent.to
+  assert_equal 'Change your password', sent.subject
+  assert !user.encrypted_password.blank?
+  assert_match /#{user.encrypted_password}/, sent.body
+end
+
+When /^I follow the password reset link sent to "(.*)"$/ do |email|
+  user = User.find_by_email(email)
+  visit edit_user_password_path(
+    :user_id => user, 
+    :email => user.email, 
+    :password => user.encrypted_password
+  )
+end
+
 # Actions
 
 When /^I sign in( with "remember me")? as "(.*)\/(.*)"$/ do |remember, email, password|
@@ -69,6 +87,18 @@ end
 
 When /^I sign out$/ do
   visit '/session', :delete    
+end
+
+When /^I request password reset link to be sent to "(.*)"$/ do |email|
+  When %{I go to the password reset request page}
+  And %{I fill in "Email address" with "#{email}"}
+  And %{I press "Reset password"}
+end
+
+When /^I update my password with "(.*)\/(.*)"$/ do |password, confirmation|
+  And %{I fill in "Choose password" with "#{password}"}
+  And %{I fill in "Verify password" with "#{confirmation}"}
+  And %{I press "Save this password"}   
 end
 
 When /^I return next time$/ do
