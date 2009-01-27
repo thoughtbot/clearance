@@ -41,19 +41,20 @@ module Clearance
             end
 
             def remember_me_until(time)
-              self.update_attribute :token_expires_at, time
-              self.update_attribute :token, 
-                encrypt("--#{token_expires_at}--#{password}--")
+              self.token_expires_at = time
+              self.token            = encrypt("--#{token_expires_at}--#{password}--")
+              save(false)                
             end
 
             def forget_me!
-              self.update_attribute :token_expires_at, nil
-              self.update_attribute :token, nil
+              clear_token
+              save(false)
             end
 
             def confirm_email!
-              self.update_attribute :email_confirmed, true
-              self.update_attribute :token, nil
+              self.email_confirmed  = true
+              self.token            = nil
+              save(false)
             end
             
             def forgot_password!
@@ -62,8 +63,7 @@ module Clearance
             end
             
             def update_password(attrs)
-              self.token            = nil
-              self.token_expires_at = nil
+              clear_token
               returning update_attributes(attrs) do |r|
                 reload unless r
               end                                          
@@ -89,6 +89,11 @@ module Clearance
             def generate_token
               self.token = encrypt("--#{Time.now.utc.to_s}--#{password}--")
               self.token_expires_at = nil              
+            end
+            
+            def clear_token
+              self.token            = nil
+              self.token_expires_at = nil            
             end
             
             def initialize_token
