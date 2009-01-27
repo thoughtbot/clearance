@@ -9,6 +9,9 @@ def path_to(page_name)
     
   when /the signin page/i
     new_session_path
+    
+  when /the password reset request page/i
+    new_password_path
   
   # Add more page name => path mappings here
   
