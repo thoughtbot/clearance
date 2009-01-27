@@ -18,7 +18,7 @@ namespace :generator do
       File.delete(file) if File.exists?(file)
     end
     
-    FileUtils.rm_rf("test/rails_root/db/migrate")
+    FileUtils.rm_rf("test/rails_root/db/*")
     FileUtils.rm_rf("test/rails_root/vendor/plugins/clearance")
     system "mkdir -p test/rails_root/vendor/plugins/clearance"
     system "cp -R generators test/rails_root/vendor/plugins/clearance"  
