@@ -12,7 +12,7 @@ module Clearance
             hide_action :current_user, :signed_in?
         
             def current_user
-              user_from_session || user_from_cookie
+              @_current_user ||= (user_from_session || user_from_cookie)
             end
 
             def signed_in?
