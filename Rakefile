@@ -1,5 +1,6 @@
 require 'rake'
 require 'rake/testtask'
+require 'cucumber/rake/task'
  
 test_files_pattern = 'test/rails_root/test/{unit,functional,other}/**/*_test.rb'
 namespace :test do
@@ -8,6 +9,11 @@ namespace :test do
     task.pattern = test_files_pattern
     task.verbose = false
   end
+  
+  Cucumber::Rake::Task.new(:features) do |t|
+    t.cucumber_opts = "--format progress"
+    t.feature_pattern = 'test/rails_root/features/*.feature'
+  end  
 end
 
 namespace :generator do
@@ -18,7 +24,9 @@ namespace :generator do
       File.delete(file) if File.exists?(file)
     end
     
-    FileUtils.rm_rf("test/rails_root/db/*")
+    FileList["test/rails_root/db/**/*"].each do |each| 
+      FileUtils.rm_rf(each)
+    end
     FileUtils.rm_rf("test/rails_root/vendor/plugins/clearance")
     system "mkdir -p test/rails_root/vendor/plugins/clearance"
     system "cp -R generators test/rails_root/vendor/plugins/clearance"  
@@ -31,7 +39,7 @@ namespace :generator do
 end
 
 desc "Run the test suite"
-task :default => 'test:all'
+task :default => ['test:all', 'test:features']
 
 gem_spec = Gem::Specification.new do |gem_spec|
   gem_spec.name        = "clearance"
