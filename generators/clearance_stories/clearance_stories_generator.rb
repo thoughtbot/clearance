@@ -1,4 +1,4 @@
-class ClearanceStoriesGenerator < Rails::Generator::Base
+class ClearanceGenerator < Rails::Generator::Base
   
   def manifest
     record do |m|
