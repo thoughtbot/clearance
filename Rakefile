@@ -29,7 +29,9 @@ namespace :generator do
       end    
     end
     
-    FileUtils.rm_rf("test/rails_root/db/*")
+    FileList["test/rails_root/db/**/*"].each do |each| 
+      FileUtils.rm_rf(each)
+    end
     FileUtils.rm_rf("test/rails_root/vendor/plugins/clearance")
     system "mkdir -p test/rails_root/vendor/plugins/clearance"
     system "cp -R generators test/rails_root/vendor/plugins/clearance"  
