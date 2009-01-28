@@ -3,6 +3,7 @@ require 'rake/testtask'
 require 'cucumber/rake/task'
  
 test_files_pattern = 'test/rails_root/test/{unit,functional,other}/**/*_test.rb'
+
 namespace :test do
   Rake::TestTask.new(:all => ['generator:cleanup', 'generator:generate']) do |task|
     task.libs << 'lib'
@@ -16,12 +17,16 @@ namespace :test do
   end  
 end
 
+generators = %w(clearance clearance_stories)
+
 namespace :generator do
   desc "Cleans up the test app before running the generator"
   task :cleanup do
-    FileList["generators/clearance/templates/**/*.*"].each do |each|
-      file = "test/rails_root/#{each.gsub("generators/clearance/templates/",'')}"
-      File.delete(file) if File.exists?(file)
+    generators.each do |generator|
+      FileList["generators/#{generator}/templates/**/*.*"].each do |each|
+        file = "test/rails_root/#{each.gsub("generators/#{generator}/templates/",'')}"
+        File.delete(file) if File.exists?(file)
+      end    
     end
     
     FileList["test/rails_root/db/**/*"].each do |each| 
@@ -31,10 +36,12 @@ namespace :generator do
     system "mkdir -p test/rails_root/vendor/plugins/clearance"
     system "cp -R generators test/rails_root/vendor/plugins/clearance"  
   end
-
+  
   desc "Run the generator on the tests"
   task :generate do
-    system "cd test/rails_root && ./script/generate clearance"
+    generators.each do |generator|
+      system "cd test/rails_root && ./script/generate #{generator}"
+    end
   end
 end
 
