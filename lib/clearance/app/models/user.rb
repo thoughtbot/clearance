@@ -29,7 +29,7 @@ module Clearance
             end
 
             def encrypt(string)
-              hash("--#{salt}--#{string}--")
+              generate_hash("--#{salt}--#{string}--")
             end
 
             def remember?
@@ -57,13 +57,13 @@ module Clearance
         
             protected
             
-            def hash(string)
+            def generate_hash(string)
               Digest::SHA512.hexdigest(string)
             end
 
             def initialize_salt
               if new_record?
-                self.salt = hash("--#{Time.now.utc.to_s}--#{password}--")
+                self.salt = generate_hash("--#{Time.now.utc.to_s}--#{password}--")
               end
             end
 
