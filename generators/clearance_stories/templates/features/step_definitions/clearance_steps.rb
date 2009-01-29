@@ -48,13 +48,13 @@ Then /^a confirmation message should be sent to "(.*)"$/ do |email|
   sent = ActionMailer::Base.deliveries.first
   assert_equal [user.email], sent.to
   assert_equal 'Account confirmation', sent.subject
-  assert !user.salt.blank?
-  assert_match /#{user.salt}/, sent.body
+  assert !user.token.blank?
+  assert_match /#{user.token}/, sent.body
 end
 
 When /^I follow the confirmation link sent to "(.*)"$/ do |email|
   user = User.find_by_email(email)
-  visit new_user_confirmation_path(:user_id => user, :salt => user.salt)
+  visit new_user_confirmation_path(:user_id => user, :token => user.token)
 end
 
 Then /^a password reset message should be sent to "(.*)"$/ do |email|
@@ -62,17 +62,13 @@ Then /^a password reset message should be sent to "(.*)"$/ do |email|
   sent = ActionMailer::Base.deliveries.first
   assert_equal [user.email], sent.to
   assert_equal 'Change your password', sent.subject
-  assert !user.encrypted_password.blank?
-  assert_match /#{user.encrypted_password}/, sent.body
+  assert !user.token.blank?
+  assert_match /#{user.token}/, sent.body
 end
 
 When /^I follow the password reset link sent to "(.*)"$/ do |email|
   user = User.find_by_email(email)
-  visit edit_user_password_path(
-    :user_id => user, 
-    :email => user.email, 
-    :password => user.encrypted_password
-  )
+  visit edit_user_password_path(:user_id => user, :token => user.token)
 end
 
 # Actions
