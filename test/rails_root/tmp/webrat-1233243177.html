@@ -1,0 +1,228 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Action Controller: Exception caught</title>
+  <style>
+    body { background-color: #fff; color: #333; }
+
+    body, p, ol, ul, td {
+      font-family: verdana, arial, helvetica, sans-serif;
+      font-size:   13px;
+      line-height: 18px;
+    }
+
+    pre {
+      background-color: #eee;
+      padding: 10px;
+      font-size: 11px;
+    }
+
+    a { color: #000; }
+    a:visited { color: #666; }
+    a:hover { color: #fff; background-color:#000; }
+  </style>
+</head>
+<body>
+
+<h1>
+  NoMethodError
+  
+    in AccountsController#edit
+  
+</h1>
+<pre>undefined method `find_by_remember_token' for #&lt;Class:0xb7148478&gt;</pre>
+
+
+
+<p><code>RAILS_ROOT: /home/eugene/projects/thoughtbot/clearance/test/rails_root</code></p>
+
+<div id="traces">
+  
+    
+    <a href="#" onclick="document.getElementById('Framework-Trace').style.display='none';document.getElementById('Full-Trace').style.display='none';document.getElementById('Application-Trace').style.display='block';; return false;">Application Trace</a> |
+  
+    
+    <a href="#" onclick="document.getElementById('Application-Trace').style.display='none';document.getElementById('Full-Trace').style.display='none';document.getElementById('Framework-Trace').style.display='block';; return false;">Framework Trace</a> |
+  
+    
+    <a href="#" onclick="document.getElementById('Application-Trace').style.display='none';document.getElementById('Framework-Trace').style.display='none';document.getElementById('Full-Trace').style.display='block';; return false;">Full Trace</a> 
+  
+
+  
+    <div id="Application-Trace" style="display: block;">
+      <pre><code>/usr/lib/ruby/gems/1.8/gems/activerecord-2.2.2/lib/active_record/base.rb:1778:in `method_missing'
+../../lib/clearance/app/controllers/application_controller.rb:37:in `user_from_cookie'
+../../lib/clearance/app/controllers/application_controller.rb:15:in `current_user'
+../../lib/clearance/app/controllers/application_controller.rb:19:in `signed_in?'
+../../lib/clearance/app/controllers/application_controller.rb:25:in `authenticate'
+(eval):2:in `visit'
+test/rails_root/features/step_definitions/webrat_steps.rb:7:in `__cucumber_-611475698'
+test/rails_root/features/step_definitions/clearance_steps.rb:106:in `__cucumber_-611465848'</code></pre>
+    </div>
+  
+    <div id="Framework-Trace" style="display: none;">
+      <pre><code>/usr/lib/ruby/gems/1.8/gems/activerecord-2.2.2/lib/active_record/base.rb:1778:in `method_missing'
+/usr/lib/ruby/gems/1.8/gems/activesupport-2.2.2/lib/active_support/callbacks.rb:178:in `send'
+/usr/lib/ruby/gems/1.8/gems/activesupport-2.2.2/lib/active_support/callbacks.rb:178:in `evaluate_method'
+/usr/lib/ruby/gems/1.8/gems/activesupport-2.2.2/lib/active_support/callbacks.rb:166:in `call'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.2.2/lib/action_controller/filters.rb:225:in `call'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.2.2/lib/action_controller/filters.rb:629:in `run_before_filters'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.2.2/lib/action_controller/filters.rb:615:in `call_filters'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.2.2/lib/action_controller/filters.rb:610:in `perform_action_without_benchmark'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.2.2/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+/usr/lib/ruby/1.8/benchmark.rb:293:in `measure'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.2.2/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.2.2/lib/action_controller/rescue.rb:136:in `perform_action_without_caching'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.2.2/lib/action_controller/caching/sql_cache.rb:13:in `perform_action'
+/usr/lib/ruby/gems/1.8/gems/activerecord-2.2.2/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+/usr/lib/ruby/gems/1.8/gems/activerecord-2.2.2/lib/active_record/query_cache.rb:8:in `cache'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.2.2/lib/action_controller/caching/sql_cache.rb:12:in `perform_action'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.2.2/lib/action_controller/base.rb:524:in `send'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.2.2/lib/action_controller/base.rb:524:in `process_without_filters'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.2.2/lib/action_controller/filters.rb:606:in `process_without_session_management_support'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.2.2/lib/action_controller/session_management.rb:134:in `process_without_test'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.2.2/lib/action_controller/test_process.rb:18:in `process'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.2.2/lib/action_controller/base.rb:392:in `process'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.2.2/lib/action_controller/dispatcher.rb:183:in `handle_request'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.2.2/lib/action_controller/dispatcher.rb:110:in `dispatch_unlocked'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.2.2/lib/action_controller/dispatcher.rb:123:in `dispatch'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.2.2/lib/action_controller/dispatcher.rb:122:in `synchronize'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.2.2/lib/action_controller/dispatcher.rb:122:in `dispatch'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.2.2/lib/action_controller/dispatcher.rb:141:in `call'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.2.2/lib/action_controller/integration.rb:279:in `process'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.2.2/lib/action_controller/integration.rb:185:in `get'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.2.2/lib/action_controller/integration.rb:134:in `send'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.2.2/lib/action_controller/integration.rb:134:in `request_via_redirect'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.2.2/lib/action_controller/integration.rb:498:in `__send__'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.2.2/lib/action_controller/integration.rb:498:in `method_missing'
+/usr/lib/ruby/gems/1.8/gems/aslakhellesoy-webrat-0.3.2.1/lib/webrat/rails.rb:52:in `do_request'
+/usr/lib/ruby/gems/1.8/gems/aslakhellesoy-webrat-0.3.2.1/lib/webrat/rails.rb:16:in `get'
+/usr/lib/ruby/gems/1.8/gems/aslakhellesoy-webrat-0.3.2.1/lib/webrat/core/session.rb:91:in `send'
+/usr/lib/ruby/gems/1.8/gems/aslakhellesoy-webrat-0.3.2.1/lib/webrat/core/session.rb:91:in `request_page'
+/usr/lib/ruby/gems/1.8/gems/aslakhellesoy-webrat-0.3.2.1/lib/webrat/core/session.rb:152:in `visit'
+/usr/lib/ruby/gems/1.8/gems/cucumber-0.1.16/lib/cucumber/core_ext/proc.rb:48:in `__send__'
+/usr/lib/ruby/gems/1.8/gems/cucumber-0.1.16/lib/cucumber/core_ext/proc.rb:48:in `call_in'
+/usr/lib/ruby/gems/1.8/gems/cucumber-0.1.16/lib/cucumber/executor.rb:195:in `And'
+/usr/lib/ruby/gems/1.8/gems/cucumber-0.1.16/lib/cucumber/core_ext/proc.rb:48:in `__send__'
+/usr/lib/ruby/gems/1.8/gems/cucumber-0.1.16/lib/cucumber/core_ext/proc.rb:48:in `call_in'
+/usr/lib/ruby/gems/1.8/gems/cucumber-0.1.16/lib/cucumber/tree/step.rb:37:in `execute_in'
+/usr/lib/ruby/gems/1.8/gems/cucumber-0.1.16/lib/cucumber/executor.rb:119:in `visit_step'
+/usr/lib/ruby/gems/1.8/gems/cucumber-0.1.16/lib/cucumber/executor.rb:106:in `visit_regular_step'
+/usr/lib/ruby/gems/1.8/gems/cucumber-0.1.16/lib/cucumber/tree/scenario.rb:17:in `accept'
+/usr/lib/ruby/gems/1.8/gems/cucumber-0.1.16/lib/cucumber/tree/scenario.rb:11:in `each'
+/usr/lib/ruby/gems/1.8/gems/cucumber-0.1.16/lib/cucumber/tree/scenario.rb:11:in `accept'
+/usr/lib/ruby/gems/1.8/gems/cucumber-0.1.16/lib/cucumber/executor.rb:87:in `execute_scenario'
+/usr/lib/ruby/gems/1.8/gems/cucumber-0.1.16/lib/cucumber/executor.rb:75:in `visit_scenario'
+/usr/lib/ruby/gems/1.8/gems/cucumber-0.1.16/lib/cucumber/executor.rb:65:in `visit_regular_scenario'
+/usr/lib/ruby/gems/1.8/gems/cucumber-0.1.16/lib/cucumber/tree/feature.rb:82:in `accept'
+/usr/lib/ruby/gems/1.8/gems/cucumber-0.1.16/lib/cucumber/tree/feature.rb:76:in `each'
+/usr/lib/ruby/gems/1.8/gems/cucumber-0.1.16/lib/cucumber/tree/feature.rb:76:in `accept'
+/usr/lib/ruby/gems/1.8/gems/cucumber-0.1.16/lib/cucumber/executor.rb:48:in `visit_feature'
+/usr/lib/ruby/gems/1.8/gems/cucumber-0.1.16/lib/cucumber/tree/features.rb:17:in `accept'
+/usr/lib/ruby/gems/1.8/gems/cucumber-0.1.16/lib/cucumber/tree/features.rb:17:in `each'
+/usr/lib/ruby/gems/1.8/gems/cucumber-0.1.16/lib/cucumber/tree/features.rb:17:in `accept'
+/usr/lib/ruby/gems/1.8/gems/cucumber-0.1.16/lib/cucumber/executor.rb:39:in `visit_features'
+/usr/lib/ruby/gems/1.8/gems/cucumber-0.1.16/lib/cucumber/cli.rb:155:in `execute!'
+/usr/lib/ruby/gems/1.8/gems/cucumber-0.1.16/lib/cucumber/cli.rb:13:in `execute'
+/usr/lib/ruby/gems/1.8/gems/cucumber-0.1.16/bin/cucumber:6</code></pre>
+    </div>
+  
+    <div id="Full-Trace" style="display: none;">
+      <pre><code>/usr/lib/ruby/gems/1.8/gems/activerecord-2.2.2/lib/active_record/base.rb:1778:in `method_missing'
+../../lib/clearance/app/controllers/application_controller.rb:37:in `user_from_cookie'
+../../lib/clearance/app/controllers/application_controller.rb:15:in `current_user'
+../../lib/clearance/app/controllers/application_controller.rb:19:in `signed_in?'
+../../lib/clearance/app/controllers/application_controller.rb:25:in `authenticate'
+/usr/lib/ruby/gems/1.8/gems/activesupport-2.2.2/lib/active_support/callbacks.rb:178:in `send'
+/usr/lib/ruby/gems/1.8/gems/activesupport-2.2.2/lib/active_support/callbacks.rb:178:in `evaluate_method'
+/usr/lib/ruby/gems/1.8/gems/activesupport-2.2.2/lib/active_support/callbacks.rb:166:in `call'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.2.2/lib/action_controller/filters.rb:225:in `call'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.2.2/lib/action_controller/filters.rb:629:in `run_before_filters'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.2.2/lib/action_controller/filters.rb:615:in `call_filters'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.2.2/lib/action_controller/filters.rb:610:in `perform_action_without_benchmark'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.2.2/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+/usr/lib/ruby/1.8/benchmark.rb:293:in `measure'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.2.2/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.2.2/lib/action_controller/rescue.rb:136:in `perform_action_without_caching'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.2.2/lib/action_controller/caching/sql_cache.rb:13:in `perform_action'
+/usr/lib/ruby/gems/1.8/gems/activerecord-2.2.2/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+/usr/lib/ruby/gems/1.8/gems/activerecord-2.2.2/lib/active_record/query_cache.rb:8:in `cache'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.2.2/lib/action_controller/caching/sql_cache.rb:12:in `perform_action'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.2.2/lib/action_controller/base.rb:524:in `send'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.2.2/lib/action_controller/base.rb:524:in `process_without_filters'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.2.2/lib/action_controller/filters.rb:606:in `process_without_session_management_support'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.2.2/lib/action_controller/session_management.rb:134:in `process_without_test'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.2.2/lib/action_controller/test_process.rb:18:in `process'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.2.2/lib/action_controller/base.rb:392:in `process'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.2.2/lib/action_controller/dispatcher.rb:183:in `handle_request'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.2.2/lib/action_controller/dispatcher.rb:110:in `dispatch_unlocked'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.2.2/lib/action_controller/dispatcher.rb:123:in `dispatch'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.2.2/lib/action_controller/dispatcher.rb:122:in `synchronize'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.2.2/lib/action_controller/dispatcher.rb:122:in `dispatch'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.2.2/lib/action_controller/dispatcher.rb:141:in `call'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.2.2/lib/action_controller/integration.rb:279:in `process'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.2.2/lib/action_controller/integration.rb:185:in `get'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.2.2/lib/action_controller/integration.rb:134:in `send'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.2.2/lib/action_controller/integration.rb:134:in `request_via_redirect'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.2.2/lib/action_controller/integration.rb:498:in `__send__'
+/usr/lib/ruby/gems/1.8/gems/actionpack-2.2.2/lib/action_controller/integration.rb:498:in `method_missing'
+/usr/lib/ruby/gems/1.8/gems/aslakhellesoy-webrat-0.3.2.1/lib/webrat/rails.rb:52:in `do_request'
+/usr/lib/ruby/gems/1.8/gems/aslakhellesoy-webrat-0.3.2.1/lib/webrat/rails.rb:16:in `get'
+/usr/lib/ruby/gems/1.8/gems/aslakhellesoy-webrat-0.3.2.1/lib/webrat/core/session.rb:91:in `send'
+/usr/lib/ruby/gems/1.8/gems/aslakhellesoy-webrat-0.3.2.1/lib/webrat/core/session.rb:91:in `request_page'
+/usr/lib/ruby/gems/1.8/gems/aslakhellesoy-webrat-0.3.2.1/lib/webrat/core/session.rb:152:in `visit'
+(eval):2:in `visit'
+test/rails_root/features/step_definitions/webrat_steps.rb:7:in `__cucumber_-611475698'
+/usr/lib/ruby/gems/1.8/gems/cucumber-0.1.16/lib/cucumber/core_ext/proc.rb:48:in `__send__'
+/usr/lib/ruby/gems/1.8/gems/cucumber-0.1.16/lib/cucumber/core_ext/proc.rb:48:in `call_in'
+/usr/lib/ruby/gems/1.8/gems/cucumber-0.1.16/lib/cucumber/executor.rb:195:in `And'
+test/rails_root/features/step_definitions/clearance_steps.rb:106:in `__cucumber_-611465848'
+/usr/lib/ruby/gems/1.8/gems/cucumber-0.1.16/lib/cucumber/core_ext/proc.rb:48:in `__send__'
+/usr/lib/ruby/gems/1.8/gems/cucumber-0.1.16/lib/cucumber/core_ext/proc.rb:48:in `call_in'
+/usr/lib/ruby/gems/1.8/gems/cucumber-0.1.16/lib/cucumber/tree/step.rb:37:in `execute_in'
+/usr/lib/ruby/gems/1.8/gems/cucumber-0.1.16/lib/cucumber/executor.rb:119:in `visit_step'
+/usr/lib/ruby/gems/1.8/gems/cucumber-0.1.16/lib/cucumber/executor.rb:106:in `visit_regular_step'
+/usr/lib/ruby/gems/1.8/gems/cucumber-0.1.16/lib/cucumber/tree/scenario.rb:17:in `accept'
+/usr/lib/ruby/gems/1.8/gems/cucumber-0.1.16/lib/cucumber/tree/scenario.rb:11:in `each'
+/usr/lib/ruby/gems/1.8/gems/cucumber-0.1.16/lib/cucumber/tree/scenario.rb:11:in `accept'
+/usr/lib/ruby/gems/1.8/gems/cucumber-0.1.16/lib/cucumber/executor.rb:87:in `execute_scenario'
+/usr/lib/ruby/gems/1.8/gems/cucumber-0.1.16/lib/cucumber/executor.rb:75:in `visit_scenario'
+/usr/lib/ruby/gems/1.8/gems/cucumber-0.1.16/lib/cucumber/executor.rb:65:in `visit_regular_scenario'
+/usr/lib/ruby/gems/1.8/gems/cucumber-0.1.16/lib/cucumber/tree/feature.rb:82:in `accept'
+/usr/lib/ruby/gems/1.8/gems/cucumber-0.1.16/lib/cucumber/tree/feature.rb:76:in `each'
+/usr/lib/ruby/gems/1.8/gems/cucumber-0.1.16/lib/cucumber/tree/feature.rb:76:in `accept'
+/usr/lib/ruby/gems/1.8/gems/cucumber-0.1.16/lib/cucumber/executor.rb:48:in `visit_feature'
+/usr/lib/ruby/gems/1.8/gems/cucumber-0.1.16/lib/cucumber/tree/features.rb:17:in `accept'
+/usr/lib/ruby/gems/1.8/gems/cucumber-0.1.16/lib/cucumber/tree/features.rb:17:in `each'
+/usr/lib/ruby/gems/1.8/gems/cucumber-0.1.16/lib/cucumber/tree/features.rb:17:in `accept'
+/usr/lib/ruby/gems/1.8/gems/cucumber-0.1.16/lib/cucumber/executor.rb:39:in `visit_features'
+/usr/lib/ruby/gems/1.8/gems/cucumber-0.1.16/lib/cucumber/cli.rb:155:in `execute!'
+/usr/lib/ruby/gems/1.8/gems/cucumber-0.1.16/lib/cucumber/cli.rb:13:in `execute'
+/usr/lib/ruby/gems/1.8/gems/cucumber-0.1.16/bin/cucumber:6</code></pre>
+    </div>
+  
+</div>
+
+
+
+
+
+
+<h2 style="margin-top: 30px">Request</h2>
+<p><b>Parameters</b>: <pre>None</pre></p>
+
+<p><a href="#" onclick="document.getElementById('session_dump').style.display='block'; return false;">Show session dump</a></p>
+<div id="session_dump" style="display:none"><pre class='debug_dump'>--- 
+flash: !map:ActionController::Flash::FlashHash {}
+
+</pre></div>
+
+
+<h2 style="margin-top: 30px">Response</h2>
+<p><b>Headers</b>: <pre>{&quot;cookie&quot;=&gt;[],
+ &quot;Content-Type&quot;=&gt;&quot;&quot;,
+ &quot;Cache-Control&quot;=&gt;&quot;no-cache&quot;}</pre></p>
+
+
+
+</body>
+</html>
