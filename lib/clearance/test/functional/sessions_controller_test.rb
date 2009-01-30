@@ -29,7 +29,13 @@ module Clearance
                                   :password => @user.password }
                 end
 
-                should_deny_access(:flash => /confirm/i)
+                should_deny_access(:flash => /User has not confirmed email.  Confirmation email will be resent./i)
+
+                should "send the confirmation email" do
+                  assert_not_nil email = ActionMailer::Base.deliveries[0]
+                  assert_match /account confirmation/i, email.subject
+                end
+
               end
             end
 
