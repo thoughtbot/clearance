@@ -35,7 +35,7 @@ task :default => 'test:all'
 
 gem_spec = Gem::Specification.new do |gem_spec|
   gem_spec.name        = "clearance"
-  gem_spec.version     = "0.4.2"
+  gem_spec.version     = "0.4.3"
   gem_spec.summary     = "Rails authentication for developers who write tests."
   gem_spec.email       = "support@thoughtbot.com"
   gem_spec.homepage    = "http://github.com/thoughtbot/clearance"
