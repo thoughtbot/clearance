@@ -6,6 +6,7 @@ module Clearance
         def self.included(controller)
           controller.class_eval do
             
+            before_filter :email_confirmed_user?, :only => :new
             before_filter :existing_user?, :only => :new
             filter_parameter_logging :token
         
@@ -21,6 +22,15 @@ module Clearance
             end
         
             private
+            
+            def email_confirmed_user?
+              @user = User.find_by_id(params[:user_id])
+              if @user.nil?
+                render :nothing => true, :status => :not_found
+              elsif @user.email_confirmed?
+                redirect_to new_session_url
+              end
+            end
             
             def existing_user?
               @user = User.find_by_id_and_token(params[:user_id], params[:token])
