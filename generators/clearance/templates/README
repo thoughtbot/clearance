@@ -36,9 +36,9 @@ The constant is used by mailers to generate URLs in emails.
 In config/environment.rb:
 
     DO_NOT_REPLY = "donotreply@example.com"
-    
+
 3. Clearance depends on root_url, so please make sure that it is defined to
-*something* your config/routes.rb:
+*something* in your config/routes.rb:
 
     map.root :controller => 'home'
     
@@ -51,4 +51,4 @@ test/test_helper.rb:
       include Clearance::Test::TestHelper
     end
 
-*******************************************************************************    
+*******************************************************************************
