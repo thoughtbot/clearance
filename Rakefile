@@ -17,7 +17,7 @@ namespace :test do
   end  
 end
 
-generators = %w(clearance clearance_stories)
+generators = %w(clearance clearance_features)
 
 namespace :generator do
   desc "Cleans up the test app before running the generator"
