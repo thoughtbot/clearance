@@ -61,7 +61,7 @@ module Clearance
     def signed_in_user_context(&blk)
       context "A signed in user" do
         setup do
-          @user = Factory(:registered_user)
+          @user = Factory(:user)
           @user.confirm_email!
           sign_in_as @user
         end
@@ -184,10 +184,10 @@ module Clearance
       end      
     end
     
-    def should_display_a_registration_form
-      should "display a form to register" do
+    def should_display_a_sign_up_form
+      should "display a form to sign up" do
         assert_select "form[action=#{users_path}][method=post]", 
-        true, "There must be a form to register" do
+        true, "There must be a form to sign up" do
           assert_select "input[type=text][name=?]", 
             "user[email]", true, "There must be an email field"
           assert_select "input[type=password][name=?]", 

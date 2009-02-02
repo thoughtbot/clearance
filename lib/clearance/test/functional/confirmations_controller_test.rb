@@ -9,8 +9,8 @@ module Clearance
             should_filter_params :token
 
             context "Given a user whose email has not been confirmed" do
-              setup { @user = Factory(:registered_user) }
-
+              setup { @user = Factory(:user) }
+              
               context "on GET to #new with correct id and token" do
                 setup do
                   get :new, :user_id => @user.to_param, :token => @user.token

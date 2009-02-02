@@ -4,10 +4,10 @@ def path_to(page_name)
   when /the homepage/i
     root_path
     
-  when /the signup page/i
+  when /the sign up page/i
     new_user_path
     
-  when /the signin page/i
+  when /the sign in page/i
     new_session_path
     
   when /the password reset request page/i

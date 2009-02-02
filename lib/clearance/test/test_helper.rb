@@ -7,7 +7,7 @@ module Clearance
           
           def sign_in_as(user = nil)
             unless user
-              user = Factory(:registered_user)
+              user = Factory(:user)
               user.confirm_email!
             end
             @request.session[:user_id] = user.id

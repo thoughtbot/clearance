@@ -5,9 +5,9 @@ class ClearanceFeaturesGenerator < Rails::Generator::Base
       m.directory File.join("features", "step_definitions")
       
       ["features/step_definitions/clearance_steps.rb",
-       "features/signin.feature",
-       "features/signout.feature",       
-       "features/signup.feature"].each do |file|
+       "features/sign_in.feature",
+       "features/sign_out.feature",       
+       "features/sign_up.feature"].each do |file|
         m.file file, file
        end
     end

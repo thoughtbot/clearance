@@ -16,7 +16,7 @@ module Clearance
                 should_render_template :new
                 should_not_set_the_flash
                 
-                should_display_a_registration_form
+                should_display_a_sign_up_form
               end
               
               context "Given email parameter when getting new User view" do
@@ -32,7 +32,7 @@ module Clearance
 
               context "Given valid attributes when creating a new user" do
                 setup do
-                  user_attributes = Factory.attributes_for(:registered_user)
+                  user_attributes = Factory.attributes_for(:user)
                   post :create, :user => user_attributes
                 end
             

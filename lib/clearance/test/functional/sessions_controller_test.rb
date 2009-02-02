@@ -18,8 +18,8 @@ module Clearance
               should_display_a_sign_in_form
             end
 
-            context "Given a registered user" do
-              setup { @user = Factory(:registered_user) }
+            context "Given a user" do
+              setup { @user = Factory(:user) }
 
               context "a POST to #create with good credentials" do
                 setup do
@@ -41,7 +41,7 @@ module Clearance
 
             context "Given an email confirmed user" do
               setup do
-                @user = Factory(:registered_user)
+                @user = Factory(:user)
                 @user.confirm_email!              
               end 
 

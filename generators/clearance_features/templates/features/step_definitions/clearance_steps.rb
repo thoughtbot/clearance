@@ -11,7 +11,7 @@ Given /^there is no user with "(.*)"$/ do |email|
 end
 
 Given /^I signed up with "(.*)\/(.*)"$/ do |email, password|
-  user = Factory :registered_user, 
+  user = Factory :user, 
     :email                 => email, 
     :password              => password,
     :password_confirmation => password
@@ -74,7 +74,7 @@ end
 # Actions
 
 When /^I sign in( with "remember me")? as "(.*)\/(.*)"$/ do |remember, email, password|
-  When %{I go to the signin page}
+  When %{I go to the sign in page}
   And %{I fill in "Email" with "#{email}"}
   And %{I fill in "Password" with "#{password}"}
   And %{I check "Remember me"} if remember

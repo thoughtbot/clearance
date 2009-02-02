@@ -11,7 +11,7 @@ module Clearance
 
             context "with a confirmed user" do
               setup do
-                @user = Factory(:registered_user)
+                @user = Factory(:user)
                 @user.confirm_email!
               end
 

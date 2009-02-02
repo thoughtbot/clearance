@@ -10,24 +10,24 @@ module Clearance
               :salt, :encrypted_password, 
               :token, :token_expires_at
             
-            # registering
+            # signing up
             
-            context "When registering" do
+            context "When signing up" do
               should_require_attributes        :email, :password
               should_allow_values_for          :email, "foo@example.com"
               should_not_allow_values_for      :email, "foo"
               should_not_allow_values_for      :email, "example.com"
               
               should_validate_confirmation_of  :password, 
-                :factory => :registered_user
+                :factory => :user
               
               should "initialize salt" do
-                assert_not_nil Factory(:registered_user).salt
+                assert_not_nil Factory(:user).salt
               end
               
               should "initialize token witout expiry date" do
-                assert_not_nil Factory(:registered_user).token
-                assert_nil Factory(:registered_user).token_expires_at
+                assert_not_nil Factory(:user).token
+                assert_nil Factory(:user).token_expires_at
               end
               
               context "encrypt password" do
@@ -35,7 +35,7 @@ module Clearance
                   @salt = "salt"
                   User.any_instance.stubs(:initialize_salt)
 
-                  @user     = Factory(:registered_user, :salt => @salt)
+                  @user     = Factory(:user, :salt => @salt)
                   @password = @user.password
 
                   @user.encrypt(@password)
@@ -49,22 +49,22 @@ module Clearance
               end
               
               should "store email in lower case" do
-                user = Factory(:registered_user, :email => "John.Doe@example.com")
+                user = Factory(:user, :email => "John.Doe@example.com")
                 assert_equal "john.doe@example.com", user.email
               end
             end
             
-            context "When multiple users have registerd" do
-              setup { @user = Factory(:registered_user) }
+            context "When multiple users have signed up" do
+              setup { @user = Factory(:user) }
               
               should_require_unique_attributes :email
             end
             
             # confirming email
             
-            context "A registered user without email confirmation" do
+            context "A user without email confirmation" do
               setup do
-                @user = Factory(:registered_user)
+                @user = Factory(:user)
                 assert ! @user.email_confirmed?
               end
 
@@ -88,7 +88,7 @@ module Clearance
         
             context "A user" do
               setup do
-                @user     = Factory(:registered_user)
+                @user     = Factory(:user)
                 @password = @user.password
               end
               
@@ -176,7 +176,7 @@ module Clearance
             
             context "An email confirmed user" do
               setup do
-                @user = Factory(:registered_user)
+                @user = Factory(:user)
                 @user.confirm_email!
               end
               
