@@ -1,7 +1,7 @@
 --- !ruby/object:Gem::Specification 
 name: clearance
 version: !ruby/object:Gem::Version 
-  version: 0.4.3
+  version: 0.4.4
 platform: ruby
 authors: 
 - thoughtbot, inc.
@@ -15,7 +15,7 @@ autorequire:
 bindir: bin
 cert_chain: []
 
-date: 2009-01-30 00:00:00 -05:00
+date: 2009-02-02 00:00:00 -05:00
 default_executable: 
 dependencies: []
 
@@ -28,6 +28,7 @@ extensions: []
 extra_rdoc_files: []
 
 files: 
+- CHANGELOG.textile
 - LICENSE
 - Rakefile
 - README.textile
@@ -78,6 +79,17 @@ files:
 - generators/clearance/templates/test/unit/clearance_mailer_test.rb
 - generators/clearance/templates/test/unit/user_test.rb
 - generators/clearance/USAGE
+- generators/clearance_features
+- generators/clearance_features/clearance_features_generator.rb
+- generators/clearance_features/templates
+- generators/clearance_features/templates/features
+- generators/clearance_features/templates/features/password_reset.feature
+- generators/clearance_features/templates/features/sign_in.feature
+- generators/clearance_features/templates/features/sign_out.feature
+- generators/clearance_features/templates/features/sign_up.feature
+- generators/clearance_features/templates/features/step_definitions
+- generators/clearance_features/templates/features/step_definitions/clearance_steps.rb
+- generators/clearance_features/USAGE
 - lib/clearance
 - lib/clearance/app
 - lib/clearance/app/controllers

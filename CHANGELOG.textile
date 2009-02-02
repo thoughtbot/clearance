@@ -1,0 +1,4 @@
+h2. 0.4.4 (2/2/2009)
+
+* Added a generator for Cucumber features
+* Standarized naming for "Sign up," "Sign in," and "Sign out"
