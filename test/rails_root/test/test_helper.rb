@@ -6,17 +6,15 @@ require 'test_help'
 ActiveRecord::Migration.verbose = false
 ActiveRecord::Migrator.migrate("#{RAILS_ROOT}/db/migrate")
 
-gem 'mocha'
 gem 'thoughtbot-factory_girl' # from github
 
-require 'mocha'
 require 'factory_girl'
 require 'quietbacktrace'
 require 'redgreen'
 
 require File.join(File.dirname(__FILE__), '..', '..', '..', 'shoulda_macros', 'clearance')
 
-class Test::Unit::TestCase
+class ActiveSupport::TestCase
   self.use_transactional_fixtures = true
   self.use_instantiated_fixtures  = false
 

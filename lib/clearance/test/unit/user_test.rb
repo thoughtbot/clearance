@@ -6,14 +6,14 @@ module Clearance
         def self.included(unit_test)
           unit_test.class_eval do
           
-            should_protect_attributes :email_confirmed, 
+            should_not_allow_mass_assignment_of :email_confirmed, 
               :salt, :encrypted_password, 
               :token, :token_expires_at
             
             # signing up
             
             context "When signing up" do
-              should_require_attributes        :email, :password
+              should_validate_presence_of      :email, :password
               should_allow_values_for          :email, "foo@example.com"
               should_not_allow_values_for      :email, "foo"
               should_not_allow_values_for      :email, "example.com"
@@ -33,9 +33,9 @@ module Clearance
               context "encrypt password" do
                 setup do
                   @salt = "salt"
-                  User.any_instance.stubs(:initialize_salt)
-
-                  @user     = Factory(:user, :salt => @salt)
+                  @user = Factory.build(:user, :salt => @salt)
+                  def @user.initialize_salt; end
+                  @user.save!
                   @password = @user.password
 
                   @user.encrypt(@password)
@@ -57,7 +57,7 @@ module Clearance
             context "When multiple users have signed up" do
               setup { @user = Factory(:user) }
               
-              should_require_unique_attributes :email
+              should_validate_uniqueness_of :email
             end
             
             # confirming email

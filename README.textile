@@ -10,24 +10,28 @@ Clearance is based on the same conventions and tools as "Suspenders":http://gith
 
 h2. Gem installation (Rails 2.1+)
 
+In config/environment.rb:
+
+    config.gem "thoughtbot-clearance", 
+      :lib     => 'clearance', 
+      :source  => 'http://gems.github.com', 
+      :version => '>= 0.4.3'
+
 In config/environments/test.rb:
 
-    config.gem 'mocha'
     config.gem 'thoughtbot-shoulda',
       :lib     => 'shoulda',
       :source  => "http://gems.github.com", 
-      :version => '>= 2.0.6'
+      :version => '>= 2.9.1'
     config.gem 'thoughtbot-factory_girl',
       :lib     => 'factory_girl',
       :source  => "http://gems.github.com", 
       :version => '>= 1.1.5'
-    config.gem "thoughtbot-clearance", 
-      :lib     => 'clearance', 
-      :source  => 'http://gems.github.com', 
-      :version => '>= 0.3.9'
 
 Then:
 
+    rake gems:install
+    rake gems:unpack 
     rake gems:install RAILS_ENV=test
     rake gems:unpack  RAILS_ENV=test
 
@@ -93,7 +97,7 @@ In config/environment.rb:
 
 h2. Tests
 
-The tests use "Shoulda":http://thoughtbot.com/projects/shoulda >= 2.0.6 and "Factory Girl":http://thoughtbot.com/projects/factory_girl >= 1.1.5. There needs to be a Clearance module in your test/test_helper.rb:
+The tests use "Shoulda":http://thoughtbot.com/projects/shoulda >= 2.9.1 and "Factory Girl":http://thoughtbot.com/projects/factory_girl >= 1.1.5. There needs to be a Clearance module in your test/test_helper.rb:
 
     class Test::Unit::TestCase
       self.use_transactional_fixtures = true
@@ -108,7 +112,7 @@ h2. Usage: basic workflow
 
 Rails authentication with Clearance uses the standard approach thoughtbot and our clients have agreed upon. 
 
-Users register (UsersController) using an email address and a password (User model). They get an email (ClearanceMailer) with a confirmation link to confirm their registration (ConfirmationController).
+Users sign up (UsersController) using an email address and a password (User model). They get an email (ClearanceMailer) with a confirmation link to confirm their registration (ConfirmationController).
 
 Registered users can sign in and out (SessionsController). If they forget their password, they request an email (ClearanceMailer) containing a link to change it (PasswordsController). 
 
@@ -169,7 +173,7 @@ Actions that redirect (create, update, and destroy) in Clearance controllers are
 
 There are similar methods in other controllers as well:
 
-    UsersController#url_after_create (register)
+    UsersController#url_after_create (sign up)
     SessionsController#url_after_create (sign in)
     SessionsController#url_after_destroy (sign out)
     PasswordsController#url_after_create (password request)
