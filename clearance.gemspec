@@ -1,7 +1,7 @@
 --- !ruby/object:Gem::Specification 
 name: clearance
 version: !ruby/object:Gem::Version 
-  version: 0.4.4
+  version: 0.4.5
 platform: ruby
 authors: 
 - thoughtbot, inc.
@@ -15,7 +15,7 @@ autorequire:
 bindir: bin
 cert_chain: []
 
-date: 2009-02-02 00:00:00 -05:00
+date: 2009-02-09 00:00:00 -05:00
 default_executable: 
 dependencies: []
 
@@ -32,7 +32,6 @@ files:
 - LICENSE
 - Rakefile
 - README.textile
-- TODO.textile
 - generators/clearance
 - generators/clearance/clearance_generator.rb
 - generators/clearance/lib
