@@ -66,7 +66,7 @@ module Clearance
             end
 
             def store_location
-              session[:return_to] = request.request_uri
+              session[:return_to] = request.request_uri if request.get?
             end
 
             def deny_access(flash_message = nil, opts = {})
