@@ -10,8 +10,6 @@ module Clearance
           "please pass a User. try: should_be_signed_in_as { @user }"
         assert_equal user.id,   session[:user_id], 
           "session[:user_id] is not set to User's id"
-        assert_equal user.salt, session[:salt], 
-          "session[:salt] is not set to User's salt"
       end
     end
 
@@ -30,7 +28,6 @@ module Clearance
     def should_not_be_signed_in
       should "not be signed in" do
         assert_nil session[:user_id]
-        assert_nil session[:salt]
       end
     end
 

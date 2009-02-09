@@ -28,17 +28,14 @@ end
 
 Then /^I should be signed in$/ do
   assert_not_nil request.session[:user_id]
-  assert_not_nil request.session[:salt]
 end
 
 Then /^I should not be signed in$/ do
   assert_nil request.session[:user_id]
-  assert_nil request.session[:salt]
 end
 
 When /^session is cleared$/ do
   request.session[:user_id] = nil
-  request.session[:salt]    = nil
 end
 
 # Emails

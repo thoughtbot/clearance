@@ -11,13 +11,11 @@ module Clearance
               user.confirm_email!
             end
             @request.session[:user_id] = user.id
-            @request.session[:salt]    = user.salt
             return user
           end
 
           def sign_out 
             @request.session[:user_id] = nil
-            @request.session[:salt]    = nil
           end
           
         end

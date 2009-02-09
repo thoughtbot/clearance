@@ -26,8 +26,8 @@ module Clearance
             end
 
             def user_from_session
-              if session[:user_id] && session[:salt]
-                user = User.find_by_id_and_salt(session[:user_id], session[:salt])
+              if session[:user_id]
+                user = User.find_by_id(session[:user_id])
                 user && user.email_confirmed? ? user : nil                
               end
             end
@@ -47,7 +47,6 @@ module Clearance
             def sign_in(user)
               if user
                 session[:user_id] = user.id
-                session[:salt]    = user.salt
               end
             end
 
