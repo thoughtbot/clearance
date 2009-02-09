@@ -97,11 +97,6 @@ module Clearance
                 assert @user.authenticated?(@password)
               end
               
-              should "authenticate with good credentials" do
-                assert User.authenticate(@user.email, @password)
-                assert @user.authenticated?(@password)
-              end
-              
               should "not authenticate with bad credentials" do
                 assert ! User.authenticate(@user.email, 'horribly_wrong_password')
                 assert ! @user.authenticated?('horribly_wrong_password')
@@ -185,6 +180,7 @@ module Clearance
                   assert_nil @user.token
                   @user.forgot_password!                  
                 end
+                
                 should "generate token" do
                   assert_not_nil @user.token
                 end
@@ -199,17 +195,20 @@ module Clearance
                     end
                     
                     should_change "@user.encrypted_password"
+                    
                     should "clear token" do
                       assert_nil @user.token
                     end                  
                   end
+                  
                   context 'with a password without a confirmation' do
                     setup do
                       @user.update_password(
                         :password              => "new_password",
                         :password_confirmation => ""
                       )                      
-                    end                  
+                    end 
+                                    
                     should "not clear token" do
                       assert_not_nil @user.token
                     end                                      
