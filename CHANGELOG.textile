@@ -1,3 +1,7 @@
+h2. 0.4.5 (unreleased)
+
+* removed email downcasing. (local-part is case sensitive per RFC5321)
+
 h2. 0.4.4 (2/2/2009)
 
 * Added a generator for Cucumber features

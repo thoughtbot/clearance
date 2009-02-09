@@ -17,10 +17,10 @@ module Clearance
             validates_uniqueness_of   :email, :case_sensitive => false
             validates_format_of       :email, :with => %r{.+@.+\..+}
 
-            before_save :initialize_salt, :encrypt_password, :initialize_token, :downcase_email
+            before_save :initialize_salt, :encrypt_password, :initialize_token
         
             def self.authenticate(email, password)
-              user = find(:first, :conditions => ['LOWER(email) = ?', email.to_s.downcase])
+              user = find(:first, :conditions => ['email = ?', email.to_s])
               user && user.authenticated?(password) ? user : nil
             end
 
@@ -104,10 +104,6 @@ module Clearance
               encrypted_password.blank? || !password.blank?
             end
             
-            def downcase_email
-              self.email = email.to_s.downcase
-            end
-        
           end
         end
   

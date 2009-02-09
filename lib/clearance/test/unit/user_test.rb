@@ -48,9 +48,9 @@ module Clearance
                 end
               end
               
-              should "store email in lower case" do
+              should "store email in exact case" do
                 user = Factory(:user, :email => "John.Doe@example.com")
-                assert_equal "john.doe@example.com", user.email
+                assert_equal "John.Doe@example.com", user.email
               end
             end
             
@@ -97,8 +97,8 @@ module Clearance
                 assert @user.authenticated?(@password)
               end
               
-              should "authenticate with good credentials, email in uppercase" do
-                assert User.authenticate(@user.email.upcase, @password)
+              should "authenticate with good credentials" do
+                assert User.authenticate(@user.email, @password)
                 assert @user.authenticated?(@password)
               end
               
