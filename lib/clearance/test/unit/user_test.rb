@@ -39,7 +39,7 @@ module Clearance
                   @password = @user.password
 
                   @user.encrypt(@password)
-                  @expected = Digest::SHA512.hexdigest("--#{@salt}--#{@password}--")
+                  @expected = Digest::SHA1.hexdigest("--#{@salt}--#{@password}--")
                 end
 
                 should "create an encrypted password using SHA512 encryption" do

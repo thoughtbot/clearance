@@ -1,8 +1,13 @@
 h2. 0.4.5 (unreleased)
 
-* Removed email downcasing. (local-part is case sensitive per RFC5321)
-* Removed dependency on Mocha.
-* Requiring Shoulda >= 2.9.1.
+* [#43] Removed email downcasing. (local-part is case sensitive per RFC5321)
+* [#42] Removed dependency on Mocha.
+* Required Shoulda >= 2.9.1.
+* Added password reset feature to clearance_features generator.
+* Removed unnecessary session[:salt].
+* [#41] Only store location for session[:return_to] for GET requests.
+* Audited "sign up" naming convention. "Register" had slipped in a few places.
+* Switched to SHA1 encryption. Cypher doesn't matter much for email confirmation, password reset. Better to have shorter hashes in the emails for clients who line break on 72 chars.
 
 h2. 0.4.4 (2/2/2009)
 

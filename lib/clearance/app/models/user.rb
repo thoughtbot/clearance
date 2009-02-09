@@ -1,4 +1,4 @@
-require 'digest/sha2'
+require 'digest/sha1'
 
 module Clearance
   module App
@@ -72,7 +72,7 @@ module Clearance
             protected
             
             def generate_hash(string)
-              Digest::SHA512.hexdigest(string)
+              Digest::SHA1.hexdigest(string)
             end
 
             def initialize_salt
