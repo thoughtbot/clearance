@@ -167,7 +167,6 @@ module Clearance
       end        
     end
     
-    
     # FORMS
     
     def should_display_a_password_update_form

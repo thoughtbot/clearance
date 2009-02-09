@@ -10,7 +10,7 @@ Clearance is based on the same conventions and tools as "Suspenders":http://gith
 
 h2. Gem installation (Rails 2.1+)
 
-In config/environment.rb:
+In config/environments/test.rb:
 
     config.gem 'mocha'
     config.gem 'thoughtbot-shoulda',
@@ -28,8 +28,8 @@ In config/environment.rb:
 
 Then:
 
-    rake gems:install
-    rake gems:unpack
+    rake gems:install RAILS_ENV=test
+    rake gems:unpack  RAILS_ENV=test
 
 h2. The generator
 
