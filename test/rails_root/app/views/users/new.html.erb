@@ -1,6 +1,0 @@
-<h2>Register</h2>
-
-<% form_for @user do |form| %>
-  <%= render :partial => '/users/form', :object => form %>
-  <%= form.submit 'Sign up', :disable_with => 'Please wait...' %>
-<% end %>

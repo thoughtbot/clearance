@@ -3,7 +3,7 @@ Fature: Password Reset
   A user
   Should be able to reset it
   
-    Scenario: User is not registered
+    Scenario: User is not signed up
       Given there is no user with "email@person.com"
       When I request password reset link to be sent to "email@person.com"
       Then I should see "Unknown email"

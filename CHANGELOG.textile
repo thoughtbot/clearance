@@ -1,7 +1,8 @@
 h2. 0.4.5 (unreleased)
 
 * Removed email downcasing. (local-part is case sensitive per RFC5321)
-* Removed dependency on Mocha
+* Removed dependency on Mocha.
+* Requiring Shoulda >= 2.9.1.
 
 h2. 0.4.4 (2/2/2009)
 
