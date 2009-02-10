@@ -1,4 +1,4 @@
-h2. 0.4.5 (unreleased)
+h2. 0.4.5 (2/9/2009)
 
 * [#43] Removed email downcasing. (local-part is case sensitive per RFC5321)
 * [#42] Removed dependency on Mocha.

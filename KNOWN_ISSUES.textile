@@ -1,0 +1,11 @@
+h1. Known Issues
+
+h2. Rails 2.3
+
+* default_test failures - this is a "Rails 2.3 bug":http://is.gd/iZkY
+* CGI::Cookie.new('token', 'value') returns nil "[#42]":http://is.gd/iZlO
+* application.rb/application_controller.rb "[#44]":http://is.gd/iZl5
+
+h2. i18n
+
+* flash messages are in English-only "[#40]":http://is.gd/iZmq & "[#24]":http://is.gd/iZmz
