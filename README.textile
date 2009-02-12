@@ -6,7 +6,7 @@ Rails authentication for developers who write tests.
 
 h2. Integration with Suspenders
 
-Clearance is based on the same conventions and tools as "Suspenders":http://github.com/thoughtbot/suspenders Thus if you use it, you may already have some configuration mentioned below in place.
+Clearance is based on the same conventions and tools as "Suspenders":http://github.com/thoughtbot/suspenders If you use it, you already have some configuration mentioned below.
 
 h2. Gem installation (Rails 2.1+)
 
@@ -15,7 +15,7 @@ In config/environment.rb:
     config.gem "thoughtbot-clearance", 
       :lib     => 'clearance', 
       :source  => 'http://gems.github.com', 
-      :version => '>= 0.4.5'
+      :version => '>= 0.4.6'
 
 In config/environments/test.rb:
 
@@ -97,13 +97,7 @@ In config/environment.rb:
 
 h2. Tests
 
-The tests use "Shoulda":http://thoughtbot.com/projects/shoulda >= 2.9.1 and "Factory Girl":http://thoughtbot.com/projects/factory_girl >= 1.1.5. There needs to be a Clearance module in your test/test_helper.rb:
-
-    class Test::Unit::TestCase
-      self.use_transactional_fixtures = true
-      self.use_instantiated_fixtures  = false
-      include Clearance::Test::TestHelper
-    end
+The tests use "Shoulda":http://thoughtbot.com/projects/shoulda >= 2.9.1 and "Factory Girl":http://thoughtbot.com/projects/factory_girl >= 1.1.5.
 
 The generator will create a user factory in test/factories/clearance.rb unless
 you have it defined somewhere else.
@@ -114,7 +108,7 @@ Rails authentication with Clearance uses the standard approach thoughtbot and ou
 
 Users sign up (UsersController) using an email address and a password (User model). They get an email (ClearanceMailer) with a confirmation link to confirm their registration (ConfirmationController).
 
-Registered users can sign in and out (SessionsController). If they forget their password, they request an email (ClearanceMailer) containing a link to change it (PasswordsController). 
+Signed up and email confirmed users can sign in and out (SessionsController). If they forget their password, they request an email (ClearanceMailer) containing a link to change it (PasswordsController). 
 
 h2. Usage: actions which require an authenticated user
 
@@ -197,6 +191,19 @@ Clearance has a method named sign_user_in that you can overwrite with that logic
           sign_in(user)
         end
     end 
+
+h2. Writing your own tests
+
+There are two helpers provided
+
+    context "when signed in on GET to new" do
+	    setup do
+	      @user = Factory(:email_confirmed_user)
+	      sign_in_as @user
+	      get :new
+	    end
+	    should_be_signed_in_as { @user }
+    end
 
 h2. Authors
 

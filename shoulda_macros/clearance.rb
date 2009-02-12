@@ -217,6 +217,19 @@ end
 module Clearance
   module Shoulda
     module Helpers
+      def sign_in_as(user = nil)
+        unless user
+          user = Factory(:user)
+          user.confirm_email!
+        end
+        @request.session[:user_id] = user.id
+        return user
+      end
+
+      def sign_out 
+        @request.session[:user_id] = nil
+      end
+      
       def blank_confirmation_options(attribute)
         opts = { attribute => attribute.to_s }
         opts.merge("#{attribute}_confirmation".to_sym => "")
