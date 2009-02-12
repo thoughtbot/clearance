@@ -1,7 +1,7 @@
 --- !ruby/object:Gem::Specification 
 name: clearance
 version: !ruby/object:Gem::Version 
-  version: 0.4.6
+  version: 0.4.7
 platform: ruby
 authors: 
 - thoughtbot, inc.
@@ -15,7 +15,7 @@ autorequire:
 bindir: bin
 cert_chain: []
 
-date: 2009-02-11 00:00:00 -05:00
+date: 2009-02-12 00:00:00 -05:00
 default_executable: 
 dependencies: []
 
@@ -107,7 +107,6 @@ files:
 - lib/clearance/test/functional/passwords_controller_test.rb
 - lib/clearance/test/functional/sessions_controller_test.rb
 - lib/clearance/test/functional/users_controller_test.rb
-- lib/clearance/test/test_helper.rb
 - lib/clearance/test/unit
 - lib/clearance/test/unit/clearance_mailer_test.rb
 - lib/clearance/test/unit/user_test.rb
