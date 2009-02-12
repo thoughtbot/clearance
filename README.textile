@@ -192,9 +192,9 @@ Clearance has a method named sign_user_in that you can overwrite with that logic
         end
     end 
 
-h2. Writing your own tests
+h2. Write your own tests with Clearance's helpers
 
-There are two helpers provided
+sign_in_as, sign_out, should_be_signed_in_as, should_not_be_signed_in, should_deny_access, signed_in_user_context, and more helpers are available in your test suite. Look in vendor/gems/clearance/shoulda_macros for the full list.
 
     context "when signed in on GET to new" do
 	    setup do
