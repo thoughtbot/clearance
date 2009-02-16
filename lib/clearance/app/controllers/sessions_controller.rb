@@ -18,17 +18,17 @@ module Clearance
             @user = User.authenticate(params[:session][:email], 
                                       params[:session][:password])
             if @user.nil?
-              flash.now[:notice] = "Bad email or password."
+              flash.now[:notice] = "Bad email or password. Tip: email is case-sensitive."
               render :action => :new
             else
               if @user.email_confirmed?
                 remember(@user) if remember?
                 sign_user_in(@user)
-                flash[:notice] = "Signed in successfully"
+                flash[:notice] = "Signed in successfully."
                 redirect_back_or url_after_create
               else
                 ClearanceMailer.deliver_confirmation(@user)
-                deny_access("User has not confirmed email.  Confirmation email will be resent.")
+                deny_access("User has not confirmed email. Confirmation email will be resent.")
               end
             end
           end

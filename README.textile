@@ -95,6 +95,20 @@ In config/environment.rb:
 
     DO_NOT_REPLY = "donotreply@example.com"
 
+h2. The flash
+
+You will need to display the success, failure, and notice flash messages in your layout. We recommend creating an app/layouts/_flashes.html.erb partial similar to the _flashes partial in Suspenders:
+
+    <div id="flash">
+      <% flash.each do |key, value| -%>
+        <div id="flash_<%= key -%>"><%= html_escape(value) %></div>
+      <% end -%>
+    </div>
+
+which is then rendered inside the body tag of your application layout:
+
+    <%= render :partial => 'layouts/flashes' -%>
+
 h2. Tests
 
 The tests use "Shoulda":http://thoughtbot.com/projects/shoulda >= 2.9.1 and "Factory Girl":http://thoughtbot.com/projects/factory_girl >= 1.1.5.

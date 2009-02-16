@@ -5,6 +5,7 @@ class ClearanceFeaturesGenerator < Rails::Generator::Base
       m.directory File.join("features", "step_definitions")
       
       ["features/step_definitions/clearance_steps.rb",
+       "features/support/paths.rb",
        "features/sign_in.feature",
        "features/sign_out.feature",       
        "features/sign_up.feature",
