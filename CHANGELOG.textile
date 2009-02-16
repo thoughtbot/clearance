@@ -1,8 +1,10 @@
-h2. 0.4.8 (not yet released)
+h2. 0.4.8 (2/16/2009)
 
 * adding support paths for Cucumber (bmabey)
 * adding documentation for the flash (bmabey)
 * generators require "test_helper" instead of File.join. for rr compatibility. (Joe Ferris)
+* removed interpolated email address from flash message to make i18n easier. 
+* standardized flash messages that refer to email delivery.
 
 h2. 0.4.7 (2/12/2009)
 

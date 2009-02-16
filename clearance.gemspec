@@ -1,7 +1,7 @@
 --- !ruby/object:Gem::Specification 
 name: clearance
 version: !ruby/object:Gem::Version 
-  version: 0.4.7
+  version: 0.4.8
 platform: ruby
 authors: 
 - thoughtbot, inc.
@@ -15,7 +15,7 @@ autorequire:
 bindir: bin
 cert_chain: []
 
-date: 2009-02-12 00:00:00 -05:00
+date: 2009-02-16 00:00:00 -05:00
 default_executable: 
 dependencies: []
 
@@ -89,6 +89,8 @@ files:
 - generators/clearance_features/templates/features/sign_up.feature
 - generators/clearance_features/templates/features/step_definitions
 - generators/clearance_features/templates/features/step_definitions/clearance_steps.rb
+- generators/clearance_features/templates/features/support
+- generators/clearance_features/templates/features/support/paths.rb
 - generators/clearance_features/USAGE
 - lib/clearance
 - lib/clearance/app
