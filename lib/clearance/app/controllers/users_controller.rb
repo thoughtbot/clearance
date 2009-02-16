@@ -23,7 +23,7 @@ module Clearance
             if @user.save
               ClearanceMailer.deliver_confirmation @user
               flash[:notice] = "You will receive an email within the next few minutes. " <<
-                               "It contains instructions for you to confirm your account."
+                               "It contains instructions for confirming your account."
               redirect_to url_after_create
             else
               render :action => "new"

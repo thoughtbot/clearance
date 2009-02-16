@@ -17,7 +17,7 @@ Feature: Sign up
       And I fill in "Password" with "password"
       And I fill in "Verify Password" with "password"
       And I press "Sign Up"
-      Then I should see "You will receive an email within the next few minutes"
+      Then I should see "instructions for confirming"
       And a confirmation message should be sent to "email@person.com"
       
     Scenario: User confirms his account

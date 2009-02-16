@@ -2,6 +2,7 @@ h2. 0.4.8 (not yet released)
 
 * adding support paths for Cucumber (bmabey)
 * adding documentation for the flash (bmabey)
+* generators require "test_helper" instead of File.join. for rr compatibility. (Joe Ferris)
 
 h2. 0.4.7 (2/12/2009)
 

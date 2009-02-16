@@ -25,8 +25,8 @@ module Clearance
             else
               user.forgot_password!
               ClearanceMailer.deliver_change_password user
-              flash[:notice] = "Details for changing your password " <<
-                               "have been sent to #{user.email}"
+              flash[:notice] = "You will receive an email within the next few minutes. " <<
+                               "It contains instructions for changing your password."
               redirect_to url_after_create
             end
           end

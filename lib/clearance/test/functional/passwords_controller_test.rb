@@ -30,11 +30,7 @@ module Clearance
                   end
                   
                   should_send_the_change_your_password_email
-                  
-                  should "set a :notice flash with the user email address" do
-                    assert_match /#{@user.email}/, flash[:notice]
-                  end
-
+                  should_set_the_flash_to /password/i
                   should_redirect_to_url_after_create
                 end
 
