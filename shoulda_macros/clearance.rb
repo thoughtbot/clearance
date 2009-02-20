@@ -53,7 +53,9 @@ module Clearance
       end
     end
     
-    def should_forbid
+    # HTTP FLUENCY
+    
+    def should_forbid 
       should_respond_with :forbidden
       should_render_nothing
     end

@@ -1,3 +1,5 @@
+class Forbidden < Exception; end
+
 require 'clearance/app/controllers/application_controller'
 require 'clearance/app/controllers/confirmations_controller'
 require 'clearance/app/controllers/passwords_controller'

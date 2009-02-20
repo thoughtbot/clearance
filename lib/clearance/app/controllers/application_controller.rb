@@ -7,6 +7,8 @@ module Clearance
           controller.send(:include, InstanceMethods)
           
           controller.class_eval do
+            rescue_from Forbidden, :with => :forbid
+            
             helper_method :current_user
             helper_method :signed_in?
             

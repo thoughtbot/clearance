@@ -31,7 +31,6 @@ module Clearance
                 setup do 
                   bad_token = "bad token"
                   assert_not_equal bad_token, @user.token
-                  
                   get :new, :user_id => @user.to_param, :token => bad_token
                 end
                 

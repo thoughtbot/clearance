@@ -52,11 +52,11 @@ module Clearance
           private
           
           def forbid_missing_token
-            forbid if params[:token].blank?
+            raise Forbidden if params[:token].blank?
           end
           
           def forbid_non_existant_user
-            forbid unless User.find_by_id_and_token(params[:user_id], params[:token])
+            raise Forbidden unless User.find_by_id_and_token(params[:user_id], params[:token])
           end
 
           def url_after_create

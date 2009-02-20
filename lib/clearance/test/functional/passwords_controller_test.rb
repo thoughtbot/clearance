@@ -159,17 +159,7 @@ module Clearance
               end
               
               context "on PUT to #update with id but no token" do
-                setup do
-                  new_password = "new_password"
-                  @encrypted_new_password = @user.encrypt(new_password)                    
-                  put(:update, 
-                      :user_id => @user.to_param, 
-                      :token   => "",
-                      :user    => {
-                        :password => new_password,
-                        :password => new_password                          
-                      })
-                end
+                setup { put :update, :user_id => @user.to_param, :token => "" }
               
                 should "not update password" do
                   assert_not_equal @encrypted_new_password, @user.encrypted_password
