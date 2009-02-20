@@ -1,5 +1,5 @@
-Feature: Password Reset
-  In order to sign in even if he forgot his password
+Feature: Password reset
+  In order to sign in even if user forgot their password
   A user
   Should be able to reset it
   

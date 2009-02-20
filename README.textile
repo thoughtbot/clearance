@@ -15,7 +15,7 @@ In config/environment.rb:
     config.gem "thoughtbot-clearance", 
       :lib     => 'clearance', 
       :source  => 'http://gems.github.com', 
-      :version => '>= 0.4.8'
+      :version => '>= 0.4.9'
 
 In config/environments/test.rb:
 
@@ -140,7 +140,7 @@ h2. Usage: basic workflow
 
 Rails authentication with Clearance uses the standard approach thoughtbot and our clients have agreed upon. 
 
-Users sign up (UsersController) using an email address and a password (User model). They get an email (ClearanceMailer) with a confirmation link to confirm their registration (ConfirmationController).
+Users sign up (UsersController) using an email address and a password (User model). They get an email (ClearanceMailer) with a confirmation link to confirm sign up (ConfirmationController).
 
 Signed up and email confirmed users can sign in and out (SessionsController). If they forget their password, they request an email (ClearanceMailer) containing a link to change it (PasswordsController). 
 
@@ -178,6 +178,15 @@ Please note that all User attributes except email, password and password_confirm
       include Clearance::App::Models::User
       attr_accessible :first_name, :last_name
     end
+
+h2. Usage: when bad things happen to good users
+
+Clearance is HTTP fluent. If someone tries to hack the URLs for passwords or confirmations actions, they will be met with a 403 Forbidden HTTP status code. Internally, the Rails app will raise a ApplicationController::Forbidden error. This is a custom error in Clearance.
+
+Layman's 403 Forbidden definition:
+
+    "The request was a legal request, but the server is refusing to respond to it. 
+     Unlike a 401 Unauthorized response, authenticating will make no difference."
 
 h2. Hooks: return_to parameter
 
