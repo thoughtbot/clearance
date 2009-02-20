@@ -111,7 +111,7 @@ which is then rendered inside the body tag of your application layout:
 
 h2. Tests
 
-The tests use "Shoulda":http://thoughtbot.com/projects/shoulda >= 2.9.1 and "Factory Girl":http://thoughtbot.com/projects/factory_girl >= 1.1.5.
+The tests use "Shoulda":http://thoughtbot.com/projects/shoulda >= 2.9.1 and "Factory Girl":http://thoughtbot.com/projects/factory_girl >= 1.2.0.
 
 The generator will create a user factory in test/factories/clearance.rb unless
 you have it defined somewhere else.
@@ -164,11 +164,11 @@ Clearance provides two methods that can be used in controllers, helpers, and vie
 * signed_in?
 * current_user
    
-    <% if signed_in? -%>
-      Hello, <%= current_user.name %>!
-    <% else -%>
-      Please <%= link_to 'Sign in', new_session_path %>
-    <% end -%>
+<pre><code><% if signed_in? -%>
+    Hello, <%= current_user.name %>!
+  <% else -%>
+    Please <%= link_to 'Sign in', new_session_path %>
+  <% end -%></code></pre>
     
 h2. Usage: mass assignment
 
@@ -239,7 +239,7 @@ h2. Write your own tests with Clearance's helpers
 
 sign_in_as, sign_out, should_be_signed_in_as, should_not_be_signed_in, should_deny_access, signed_in_user_context, and more helpers are available in your test suite. Look in vendor/gems/clearance/shoulda_macros for the full list.
 
-<pre></code>context "when signed in on GET to new" do
+<pre><code>context "when signed in on GET to new" do
   setup do
     @user = Factory(:email_confirmed_user)
     sign_in_as @user

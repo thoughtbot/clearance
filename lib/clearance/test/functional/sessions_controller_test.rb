@@ -11,7 +11,7 @@ module Clearance
             context "on GET to /sessions/new" do
               setup { get :new }
         
-              should_respond_with :success
+              should_respond_with    :success
               should_render_template :new
               should_not_set_the_flash
               
@@ -30,12 +30,12 @@ module Clearance
                 end
 
                 should_deny_access(:flash => /User has not confirmed email. Confirmation email will be resent./i)
+                should_respond_with :unauthorized
 
                 should "send the confirmation email" do
                   assert_not_nil email = ActionMailer::Base.deliveries[0]
                   assert_match /account confirmation/i, email.subject
                 end
-
               end
             end
 
@@ -65,6 +65,7 @@ module Clearance
                 end
 
                 should_set_the_flash_to /bad/i
+                should_respond_with    :unauthorized
                 should_render_template :new
                 should_not_be_signed_in
               end
@@ -100,6 +101,7 @@ module Clearance
                 end
 
                 should_set_the_flash_to /bad/i
+                should_respond_with    :unauthorized
                 should_render_template :new
                 should_return_from_session :user_id, "nil"
                 
