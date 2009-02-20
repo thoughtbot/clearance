@@ -7,8 +7,9 @@ module Clearance
           controller.send(:include, Actions)
           controller.send(:include, PrivateMethods)
           
-          controller.class_eval do  
-            before_filter :existing_user?, :only => [:edit, :update]
+          controller.class_eval do
+            before_filter :forbid_missing_token,     :only => [:edit, :update]
+            before_filter :forbid_non_existant_user, :only => [:edit, :update]
             filter_parameter_logging :password, :password_confirmation
           end
         end
@@ -32,9 +33,12 @@ module Clearance
           end
 
           def edit
+            @user = User.find_by_id_and_token(params[:user_id], params[:token])
           end
 
           def update
+            @user = User.find_by_id_and_token(params[:user_id], params[:token])
+            
             if @user.update_password(params[:user])
               sign_user_in(@user)
               redirect_to url_after_update
@@ -47,11 +51,12 @@ module Clearance
         module PrivateMethods  
           private
           
-          def existing_user?
-            @user = User.find_by_id_and_token(params[:user_id], params[:token])
-            if @user.nil?
-              render :nothing => true, :status => :not_found
-            end
+          def forbid_missing_token
+            forbid if params[:token].blank?
+          end
+          
+          def forbid_non_existant_user
+            forbid unless User.find_by_id_and_token(params[:user_id], params[:token])
           end
 
           def url_after_create

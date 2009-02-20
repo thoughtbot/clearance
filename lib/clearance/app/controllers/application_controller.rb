@@ -76,6 +76,10 @@ module Clearance
             flash[:failure] = flash_message if flash_message
             render :template => "/sessions/new", :status => :unauthorized 
           end
+          
+          def forbid
+            render :nothing => true, :status => :forbidden
+          end
         end
         
       end

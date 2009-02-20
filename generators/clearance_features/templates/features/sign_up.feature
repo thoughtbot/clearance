@@ -7,7 +7,7 @@ Feature: Sign up
       When I go to the sign up page
       And I fill in "Email" with "invalidemail"
       And I fill in "Password" with "password"
-      And I fill in "Verify Password" with ""
+      And I fill in "Confirm password" with ""
       And I press "Sign Up"
       Then I should see error messages
       
@@ -15,7 +15,7 @@ Feature: Sign up
       When I go to the sign up page
       And I fill in "Email" with "email@person.com"
       And I fill in "Password" with "password"
-      And I fill in "Verify Password" with "password"
+      And I fill in "Confirm password" with "password"
       And I press "Sign Up"
       Then I should see "instructions for confirming"
       And a confirmation message should be sent to "email@person.com"

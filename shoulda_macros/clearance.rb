@@ -53,6 +53,11 @@ module Clearance
       end
     end
     
+    def should_forbid
+      should_respond_with :forbidden
+      should_render_nothing
+    end
+    
     # CONTEXTS
 
     def signed_in_user_context(&blk)
@@ -138,30 +143,6 @@ module Clearance
         assert_confirmation_error(model, attribute, 
           "#{attribute}_confirmation cannot be different than #{attribute}")
       end
-    end
-    
-    # EMAILS
-    
-    def should_send_the_change_your_password_email
-      should "generate a token for the change your password email" do
-        assert_not_nil @user.reload.token                                   
-      end
-                        
-      should "send the change your password email" do
-        assert_sent_email do |email|
-          email.subject =~ /change your password/i
-        end
-      end    
-    end
-    
-    def should_not_send_the_change_your_password_email
-      should "generate a token for the change your password email" do
-        assert_nil @user.reload.token                                   
-      end                  
-
-      should "not send a password reminder email" do
-        assert ActionMailer::Base.deliveries.empty?
-      end        
     end
     
     # FORMS

@@ -81,7 +81,7 @@ Clearance will add these routes to your routes.rb:
     
 Please note that Clearance depends on root_url, so please make sure that it is defined to *something* in your config/routes.rb:
 
-    map.root :controller => 'home'
+    map.root :controller => 'users', :action => 'new'
     
 h2. Environments
 
@@ -99,11 +99,11 @@ h2. The flash
 
 You will need to display the success, failure, and notice flash messages in your layout. We recommend creating an app/layouts/_flashes.html.erb partial similar to the _flashes partial in Suspenders:
 
-    <div id="flash">
-      <% flash.each do |key, value| -%>
-        <div id="flash_<%= key -%>"><%= html_escape(value) %></div>
-      <% end -%>
-    </div>
+<pre><code><div id="flash">
+  <% flash.each do |key, value| -%>
+    <div id="flash_<%= key -%>"><%= html_escape(value) %></div>
+  <% end -%>
+</div></code></pre>
 
 which is then rendered inside the body tag of your application layout:
 
@@ -230,14 +230,14 @@ h2. Write your own tests with Clearance's helpers
 
 sign_in_as, sign_out, should_be_signed_in_as, should_not_be_signed_in, should_deny_access, signed_in_user_context, and more helpers are available in your test suite. Look in vendor/gems/clearance/shoulda_macros for the full list.
 
-    context "when signed in on GET to new" do
-	    setup do
-	      @user = Factory(:email_confirmed_user)
-	      sign_in_as @user
-	      get :new
-	    end
-	    should_be_signed_in_as { @user }
-    end
+<pre></code>context "when signed in on GET to new" do
+  setup do
+    @user = Factory(:email_confirmed_user)
+    sign_in_as @user
+    get :new
+  end
+  should_be_signed_in_as { @user }
+end</code></pre>
 
 h2. Authors
 

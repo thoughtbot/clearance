@@ -90,7 +90,7 @@ end
 
 When /^I update my password with "(.*)\/(.*)"$/ do |password, confirmation|
   And %{I fill in "Choose password" with "#{password}"}
-  And %{I fill in "Verify password" with "#{confirmation}"}
+  And %{I fill in "Confirm password" with "#{confirmation}"}
   And %{I press "Save this password"}   
 end
 

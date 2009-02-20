@@ -8,8 +8,13 @@ module Clearance
 
             should_filter_params :token
 
-            context "Given a user whose email has not been confirmed" do
+            context "a user whose email has not been confirmed" do
               setup { @user = Factory(:user) }
+              
+              should "have a token" do
+                assert_not_nil @user.token
+                assert_not_equal "", @user.token
+              end
               
               context "on GET to #new with correct id and token" do
                 setup do
@@ -23,52 +28,42 @@ module Clearance
               end
 
               context "on GET to #new with incorrect token" do
-                setup do
-                  token = ""
-                  assert_not_equal token, @user.token
-
-                  get :new, :user_id => @user.to_param, :token => token
+                setup do 
+                  bad_token = "bad token"
+                  assert_not_equal bad_token, @user.token
+                  
+                  get :new, :user_id => @user.to_param, :token => bad_token
                 end
-
-                should_respond_with :not_found
-                should_render_nothing
+                
+                should_forbid
+              end
+              
+              context "on GET to #new with blank token" do
+                setup { get :new, :user_id => @user.to_param, :token => "" }
+                should_forbid
+              end
+              
+              context "on GET to #new with no token" do
+                setup { get :new, :user_id => @user.to_param }
+                should_forbid
               end
             end
 
-            context "Given a user whose email has been confirmed" do
+            context "a user with email confirmed" do
               setup { @user = Factory(:email_confirmed_user) }
 
-              context "on GET to #new with correct id and token" do
-                setup do
-                  get :new, :user_id => @user.to_param, :token => @user.token
-                end
-
-                should_not_be_signed_in
-                should_redirect_to 'new_session_url'
-              end
-
-              context "on GET to #new with incorrect token" do
-                setup do
-                  token = ""
-                  assert_not_equal token, @user.token
-
-                  get :new, :user_id => @user.to_param, :token => token
-                end
-
-                should_not_be_signed_in
-                should_redirect_to 'new_session_url'
+              context "on GET to #new with correct id" do
+                setup { get :new, :user_id => @user.to_param }
+                should_forbid
               end
             end
 
-            context "Given no user records" do
+            context "no users" do
               setup { assert_equal 0, User.count }
+              
               context "on GET to #new with nonexistent id and token" do
-                setup do
-                  get :new, :user_id => '123', :token => '123'
-                end
-
-                should_respond_with :not_found
-                should_render_nothing
+                setup { get :new, :user_id => '123', :token => '123' }
+                should_forbid
               end
             end
 

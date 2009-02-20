@@ -8,8 +8,9 @@ module Clearance
           controller.send(:include, PrivateMethods)
           
           controller.class_eval do
-            before_filter :email_confirmed_user?, :only => :new
-            before_filter :existing_user?, :only => :new
+            before_filter :forbid_confirmed_user,    :only => :new
+            before_filter :forbid_missing_token,     :only => :new
+            before_filter :forbid_non_existant_user, :only => :new
             filter_parameter_logging :token    
           end
         end
@@ -20,7 +21,9 @@ module Clearance
           end
 
           def create
+            @user = User.find_by_id_and_token(params[:user_id], params[:token])
             @user.confirm_email!
+            
             sign_user_in(@user)
             flash[:success] = "Confirmed email and signed in."
             redirect_to url_after_create
@@ -30,20 +33,17 @@ module Clearance
         module PrivateMethods
           private
           
-          def email_confirmed_user?
-            @user = User.find_by_id(params[:user_id])
-            if @user.nil?
-              render :nothing => true, :status => :not_found
-            elsif @user.email_confirmed?
-              redirect_to new_session_url
-            end
+          def forbid_confirmed_user
+            user = User.find_by_id(params[:user_id])
+            forbid if user && user.email_confirmed?
           end
           
-          def existing_user?
-            @user = User.find_by_id_and_token(params[:user_id], params[:token])
-            if @user.nil?
-              render :nothing => true, :status => :not_found
-            end
+          def forbid_missing_token
+            forbid if params[:token].blank?
+          end
+          
+          def forbid_non_existant_user
+            forbid unless User.find_by_id_and_token(params[:user_id], params[:token])
           end
 
           def url_after_create
