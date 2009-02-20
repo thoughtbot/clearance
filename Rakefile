@@ -51,13 +51,14 @@ task :default => ['test:all', 'test:features']
 
 gem_spec = Gem::Specification.new do |gem_spec|
   gem_spec.name        = "clearance"
-  gem_spec.version     = "0.4.8"
+  gem_spec.version     = "0.4.9"
   gem_spec.summary     = "Rails authentication for developers who write tests."
   gem_spec.email       = "support@thoughtbot.com"
   gem_spec.homepage    = "http://github.com/thoughtbot/clearance"
   gem_spec.description = "Simple, complete Rails authentication scheme."
   gem_spec.authors     = ["thoughtbot, inc.", "Dan Croak", "Mike Burns", "Jason Morrison",
-                          "Eugene Bolshakov", "Josh Nichols", "Mike Breen"]
+                          "Eugene Bolshakov", "Josh Nichols", "Mike Breen", "Joe Ferris", 
+                          "Bence Nagy", "Marcel Görner", "Ben Mabey", "Tim Pope", "Eloy Duran"]
   gem_spec.files       = FileList["[A-Z]*", "{generators,lib,shoulda_macros,rails}/**/*"]
 end
 

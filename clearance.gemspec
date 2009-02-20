@@ -1,7 +1,7 @@
 --- !ruby/object:Gem::Specification 
 name: clearance
 version: !ruby/object:Gem::Version 
-  version: 0.4.8
+  version: 0.4.9
 platform: ruby
 authors: 
 - thoughtbot, inc.
@@ -11,11 +11,17 @@ authors:
 - Eugene Bolshakov
 - Josh Nichols
 - Mike Breen
+- Joe Ferris
+- Bence Nagy
+- "Marcel G\xC3\xB6rner"
+- Ben Mabey
+- Tim Pope
+- Eloy Duran
 autorequire: 
 bindir: bin
 cert_chain: []
 
-date: 2009-02-16 00:00:00 -05:00
+date: 2009-02-20 00:00:00 -05:00
 default_executable: 
 dependencies: []
 
@@ -103,6 +109,10 @@ files:
 - lib/clearance/app/models
 - lib/clearance/app/models/clearance_mailer.rb
 - lib/clearance/app/models/user.rb
+- lib/clearance/lib
+- lib/clearance/lib/extensions
+- lib/clearance/lib/extensions/errors.rb
+- lib/clearance/lib/extensions/rescue.rb
 - lib/clearance/test
 - lib/clearance/test/functional
 - lib/clearance/test/functional/confirmations_controller_test.rb

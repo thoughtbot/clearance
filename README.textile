@@ -250,10 +250,6 @@ end</code></pre>
 
 h2. Authors
 
-* thoughtbot, inc.
-* Dan Croak
-* Mike Burns
-* Jason Morrison
-* Eugene Bolshakov
-* Josh Nichols
-* Mike Breen
+Clearance was extracted out of "Hoptoad":http://hoptoadapp.com. We merged the authentication code from two of thoughtbot's client's Rails apps. The following people have made significant contributions, suggestions, and generally improved the library. Thank you!
+
+Dan Croak, Mike Burns, Jason Morrison, Joe Ferris, Eugene Bolshakov, Josh Nichols, Mike Breen, Marcel Görner, Bence Nagy, Ben Mabey, Eloy Duran, & Tim Pope.
