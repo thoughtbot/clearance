@@ -55,9 +55,12 @@ module Clearance
     
     # HTTP FLUENCY
     
-    def should_forbid 
-      should_respond_with :forbidden
-      should_render_nothing
+    def should_forbid(description, &block)
+      should "forbid #{description}" do
+        assert_raises ActionController::Forbidden do
+          instance_eval(&block)
+        end
+      end
     end
     
     # CONTEXTS

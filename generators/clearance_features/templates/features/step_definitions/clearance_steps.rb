@@ -4,7 +4,13 @@ Then /^I should see error messages$/ do
   Then %{I should see "error(s)? prohibited"}
 end
 
-# DB
+# Database
+
+Factory.factories.each do |name, factory|
+  Given /^an? #{name} exists with an? (.*) of "([^"]*)"$/ do |attr, value|
+    Factory(name, attr.gsub(' ', '_') => value)
+  end
+end
 
 Given /^there is no user with "(.*)"$/ do |email|
   assert_nil User.find_by_email(email)
@@ -67,6 +73,16 @@ When /^I follow the password reset link sent to "(.*)"$/ do |email|
   user = User.find_by_email(email)
   visit edit_user_password_path(:user_id => user, :token => user.token)
 end
+
+When /^I try to change the password of "(.*)" without token$/ do |email|
+  user = User.find_by_email(email)
+  visit edit_user_password_path(:user_id => user)
+end
+
+Then /^I should be forbidden$/ do
+  assert_response :forbidden
+end
+
 
 # Actions
 

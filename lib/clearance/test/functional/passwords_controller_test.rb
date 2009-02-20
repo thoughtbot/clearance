@@ -90,14 +90,12 @@ module Clearance
                 should_display_a_password_update_form
               end
               
-              context "on GET to #edit with correct id but blank token" do
-                setup { get :edit, :user_id => @user.to_param, :token => "" }
-                should_forbid
+              should_forbid "on GET to #edit with correct id but blank token" do
+                get :edit, :user_id => @user.to_param, :token => ""
               end
               
-              context "on GET to #edit with correct id but no token" do
-                setup { get :edit, :user_id => @user.to_param }
-                should_forbid
+              should_forbid "on GET to #edit with correct id but no token" do
+                get :edit, :user_id => @user.to_param
               end
               
               context "on PUT to #update with matching password and password confirmation" do
@@ -158,30 +156,20 @@ module Clearance
                 should_display_a_password_update_form                       
               end
               
-              context "on PUT to #update with id but no token" do
-                setup { put :update, :user_id => @user.to_param, :token => "" }
-              
-                should "not update password" do
-                  assert_not_equal @encrypted_new_password, @user.encrypted_password
-                end
-              
-                should_forbid                  
+              should_forbid "on PUT to #update with id but no token" do
+                put :update, :user_id => @user.to_param, :token => ""
               end
             end
             
-            context "given two users" do
+            context "given two users and user one signs in" do
               setup do
                 @user_one = Factory(:user)
                 @user_two = Factory(:user)
+                sign_in_as @user_one
               end
 
-              context "when user one signs in" do
-                setup { sign_in_as @user_one }
-
-                context "and tries to change user two's password" do
-                  setup { get :edit, :user_id => @user_two.to_param }
-                  should_forbid
-                end
+              should_forbid "when user one tries to change user two's password on GET with no token" do
+                get :edit, :user_id => @user_two.to_param
               end
             end  
           end

@@ -13,7 +13,7 @@ namespace :test do
   end
   
   Cucumber::Rake::Task.new(:features) do |t|
-    t.cucumber_opts = "--format progress"
+    t.cucumber_opts = "--format pretty"
     t.feature_pattern = 'test/rails_root/features/*.feature'
   end  
 end

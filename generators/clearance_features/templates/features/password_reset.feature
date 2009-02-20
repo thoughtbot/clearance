@@ -1,4 +1,4 @@
-Fature: Password Reset
+Feature: Password Reset
   In order to sign in even if he forgot his password
   A user
   Should be able to reset it
@@ -30,3 +30,10 @@ Fature: Password Reset
       And I sign in as "email@person.com/newpassword"
       Then I should be signed in
       
+    Scenario: User requests password reset without token
+      Given a user exists with an email of "user@one.com"
+      When I try to change the password of "user@one.com" without token
+      Then I should be forbidden
+
+
+

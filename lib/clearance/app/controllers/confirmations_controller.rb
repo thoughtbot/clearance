@@ -35,15 +35,21 @@ module Clearance
           
           def forbid_confirmed_user
             user = User.find_by_id(params[:user_id])
-            raise Forbidden if user && user.email_confirmed?
+            if user && user.email_confirmed?
+              raise ActionController::Forbidden, "confirmed user"
+            end
           end
           
           def forbid_missing_token
-            raise Forbidden if params[:token].blank?
+            if params[:token].blank?
+              raise ActionController::Forbidden, "missing token"
+            end
           end
           
           def forbid_non_existant_user
-            raise Forbidden unless User.find_by_id_and_token(params[:user_id], params[:token])
+            unless User.find_by_id_and_token(params[:user_id], params[:token])
+              raise ActionController::Forbidden, "non-existant user"
+            end
           end
 
           def url_after_create

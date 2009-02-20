@@ -27,42 +27,39 @@ module Clearance
                 should_redirect_to_url_after_create
               end
 
-              context "on GET to #new with incorrect token" do
+              context "with an incorrect token" do
                 setup do 
-                  bad_token = "bad token"
-                  assert_not_equal bad_token, @user.token
-                  get :new, :user_id => @user.to_param, :token => bad_token
+                  @bad_token = "bad token"
+                  assert_not_equal @bad_token, @user.token
                 end
                 
-                should_forbid
+                should_forbid "on GET to #new with incorrect token" do
+                  get :new, :user_id => @user.to_param, :token => @bad_token
+                end
               end
               
-              context "on GET to #new with blank token" do
-                setup { get :new, :user_id => @user.to_param, :token => "" }
-                should_forbid
+              should_forbid "on GET to #new with blank token" do
+                get :new, :user_id => @user.to_param, :token => ""
               end
               
-              context "on GET to #new with no token" do
-                setup { get :new, :user_id => @user.to_param }
-                should_forbid
+              should_forbid "on GET to #new with no token" do
+                get :new, :user_id => @user.to_param
               end
             end
 
             context "a user with email confirmed" do
               setup { @user = Factory(:email_confirmed_user) }
 
-              context "on GET to #new with correct id" do
-                setup { get :new, :user_id => @user.to_param }
-                should_forbid
+              should_forbid "on GET to #new with correct id" do
+                get :new, :user_id => @user.to_param
               end
             end
 
             context "no users" do
               setup { assert_equal 0, User.count }
               
-              context "on GET to #new with nonexistent id and token" do
-                setup { get :new, :user_id => '123', :token => '123' }
-                should_forbid
+              should_forbid "on GET to #new with nonexistent id and token" do
+                get :new, :user_id => '123', :token => '123'
               end
             end
 
