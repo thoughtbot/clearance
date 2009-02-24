@@ -40,6 +40,6 @@ In config/environment.rb:
 3. Clearance depends on root_url, so please make sure that it is defined to
 *something* in your config/routes.rb:
 
-    map.root :controller => 'users', :action => 'new'
+    map.root :controller => 'home'
 
 *******************************************************************************

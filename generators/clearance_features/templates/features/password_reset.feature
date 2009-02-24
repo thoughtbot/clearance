@@ -4,7 +4,7 @@ Feature: Password reset
   Should be able to reset it
   
     Scenario: User is not signed up
-      Given there is no user with "email@person.com"
+      Given no user exists with an email of "email@person.com"
       When I request password reset link to be sent to "email@person.com"
       Then I should see "Unknown email"
   
@@ -29,11 +29,3 @@ Feature: Password reset
       When I sign out
       And I sign in as "email@person.com/newpassword"
       Then I should be signed in
-      
-    Scenario: User requests password reset without token
-      Given a user exists with an email of "user@one.com"
-      When I try to change the password of "user@one.com" without token
-      Then I should be forbidden
-
-
-

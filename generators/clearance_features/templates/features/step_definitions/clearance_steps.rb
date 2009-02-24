@@ -6,13 +6,7 @@ end
 
 # Database
 
-Factory.factories.each do |name, factory|
-  Given /^an? #{name} exists with an? (.*) of "([^"]*)"$/ do |attr, value|
-    Factory(name, attr.gsub(' ', '_') => value)
-  end
-end
-
-Given /^there is no user with "(.*)"$/ do |email|
+Given /^no user exists with an email of "(.*)"$/ do |email|
   assert_nil User.find_by_email(email)
 end
 
