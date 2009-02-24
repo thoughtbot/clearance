@@ -21,7 +21,7 @@ autorequire:
 bindir: bin
 cert_chain: []
 
-date: 2009-02-20 00:00:00 -05:00
+date: 2009-02-24 00:00:00 -05:00
 default_executable: 
 dependencies: []
 
@@ -95,6 +95,7 @@ files:
 - generators/clearance_features/templates/features/sign_up.feature
 - generators/clearance_features/templates/features/step_definitions
 - generators/clearance_features/templates/features/step_definitions/clearance_steps.rb
+- generators/clearance_features/templates/features/step_definitions/factory_girl_steps.rb
 - generators/clearance_features/templates/features/support
 - generators/clearance_features/templates/features/support/paths.rb
 - generators/clearance_features/USAGE

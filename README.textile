@@ -15,7 +15,7 @@ In config/environment.rb:
     config.gem "thoughtbot-clearance", 
       :lib     => 'clearance', 
       :source  => 'http://gems.github.com', 
-      :version => '>= 0.4.9'
+      :version => '>= 0.5.0'
 
 In config/environments/test.rb:
 
