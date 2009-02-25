@@ -6,14 +6,14 @@ module Clearance
         def self.included(controller)
           controller.send(:include, Actions)
           controller.send(:include, PrivateMethods)
-          
+
           controller.class_eval do
             before_filter :forbid_missing_token,     :only => [:edit, :update]
             before_filter :forbid_non_existant_user, :only => [:edit, :update]
             filter_parameter_logging :password, :password_confirmation
           end
         end
-        
+
         module Actions
           def new
           end
@@ -38,8 +38,9 @@ module Clearance
 
           def update
             @user = User.find_by_id_and_token(params[:user_id], params[:token])
-            
-            if @user.update_password(params[:user])
+
+            if @user.update_password(params[:user][:password], 
+                                     params[:user][:password_confirmation])
               sign_user_in(@user)
               redirect_to url_after_update
             else
@@ -47,16 +48,16 @@ module Clearance
             end
           end
         end
-        
+
         module PrivateMethods  
           private
-          
+
           def forbid_missing_token
             if params[:token].blank?
               raise ActionController::Forbidden, "missing token"
             end
           end
-          
+
           def forbid_non_existant_user
             unless User.find_by_id_and_token(params[:user_id], params[:token])
               raise ActionController::Forbidden, "non-existant user"
@@ -66,12 +67,12 @@ module Clearance
           def url_after_create
             new_session_url
           end
-          
+
           def url_after_update
             root_url
           end
         end
-        
+
       end
     end
   end
