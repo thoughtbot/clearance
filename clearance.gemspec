@@ -1,7 +1,7 @@
 --- !ruby/object:Gem::Specification 
 name: clearance
 version: !ruby/object:Gem::Version 
-  version: 0.5.0
+  version: 0.5.1
 platform: ruby
 authors: 
 - thoughtbot, inc.
@@ -17,6 +17,7 @@ authors:
 - Ben Mabey
 - Tim Pope
 - Eloy Duran
+- Mihai Anca
 autorequire: 
 bindir: bin
 cert_chain: []

@@ -1,4 +1,4 @@
-h1. 0.5.1 (not yet released)
+h1. 0.5.1 (2/27/2009)
 
 * [#46] A user with unconfirmed email who resets password now confirms email.
 (Marcel Görner)
