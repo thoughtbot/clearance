@@ -16,7 +16,7 @@ module Clearance
 
         module InstanceMethods
           def current_user
-            @_current_user ||= (user_from_session || user_from_cookie)
+            @_current_user ||= (user_from_cookie || user_from_session)
           end
 
           def signed_in?
@@ -55,9 +55,9 @@ module Clearance
 
           def redirect_back_or(default)
             session[:return_to] ||= params[:return_to]
-            if session[:return_to] 
+            if session[:return_to]
               redirect_to(session[:return_to])
-            else 
+            else
               redirect_to(default)
             end
             session[:return_to] = nil
