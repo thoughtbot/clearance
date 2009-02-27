@@ -49,7 +49,7 @@ module Clearance
           end
         end
 
-        module PrivateMethods  
+        module PrivateMethods
           private
 
           def forbid_missing_token

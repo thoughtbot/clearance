@@ -1,3 +1,10 @@
+h1. 0.5.1 (not yet released)
+
+* [#46] A user with unconfirmed email who resets password now confirms email.
+(Marcel Görner)
+* Refactored user_from_cookie, user_from_session, User#authenticate to use
+more direct return code instead of ugly, harder to read ternary. (Dan Croak)
+
 h2. 0.5.0 (2/27/2009)
 
 * Fixed problem with Cucumber features. (Dan Croak)
