@@ -2,18 +2,18 @@ module Clearance
   module App
     module Controllers
       module ApplicationController
-    
+
         def self.included(controller)
           controller.send(:include, InstanceMethods)
-          
+
           controller.class_eval do
             helper_method :current_user
             helper_method :signed_in?
-            
+
             hide_action :current_user, :signed_in?
           end
         end
-        
+
         module InstanceMethods
           def current_user
             @_current_user ||= (user_from_session || user_from_cookie)
@@ -31,15 +31,15 @@ module Clearance
 
           def user_from_session
             if session[:user_id]
-              user = User.find_by_id(session[:user_id])
-              user && user.email_confirmed? ? user : nil
+              return nil  unless user = User.find_by_id(session[:user_id])
+              return user if     user.email_confirmed?
             end
           end
 
           def user_from_cookie
-            if cookies[:remember_token]
-              user = User.find_by_token(cookies[:remember_token])
-              user && user.remember? ? user : nil
+            if token = cookies[:remember_token]
+              return nil  unless user = User.find_by_token(token)
+              return user if     user.remember?
             end
           end
 

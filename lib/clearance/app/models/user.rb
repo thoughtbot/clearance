@@ -100,7 +100,7 @@ module Clearance
 
           def remember_me_until!(time)
             self.token_expires_at = time
-            self.token            = encrypt("--#{token_expires_at}--#{password}--")
+            self.token = encrypt("--#{token_expires_at}--#{password}--")
             save(false)
           end
         end
