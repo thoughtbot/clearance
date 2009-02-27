@@ -1,7 +1,10 @@
-h2. 0.5.0 (2/24/2009)
+h2. 0.5.0 (2/27/2009)
 
 * Fixed problem with Cucumber features. (Dan Croak)
 * Fixed mising HTTP fluency use case. (Dan Croak)
+* Refactored User#update_password to take just parameters it needs. (Dan
+Croak)
+* Refactored User unit tests to be more readable. (Dan Croak)
 
 h2. 0.4.9 (2/20/2009)
 

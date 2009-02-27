@@ -1,7 +1,7 @@
 --- !ruby/object:Gem::Specification 
 name: clearance
 version: !ruby/object:Gem::Version 
-  version: 0.4.9
+  version: 0.5.0
 platform: ruby
 authors: 
 - thoughtbot, inc.
@@ -21,7 +21,7 @@ autorequire:
 bindir: bin
 cert_chain: []
 
-date: 2009-02-24 00:00:00 -05:00
+date: 2009-02-27 00:00:00 -05:00
 default_executable: 
 dependencies: []
 
