@@ -107,8 +107,8 @@ module Clearance
 
         module ClassMethods
           def authenticate(email, password)
-            user = find(:first, :conditions => ['email = ?', email.to_s])
-            user && user.authenticated?(password) ? user : nil
+            return nil  unless user = find_by_email(email)
+            return user if     user.authenticated?(password)
           end
         end
 
