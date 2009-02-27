@@ -22,9 +22,9 @@ module Clearance
           def signed_in?
             ! current_user.nil?
           end
-          
+
           protected
-          
+
           def authenticate
             deny_access unless signed_in?
           end
@@ -32,14 +32,14 @@ module Clearance
           def user_from_session
             if session[:user_id]
               user = User.find_by_id(session[:user_id])
-              user && user.email_confirmed? ? user : nil                
+              user && user.email_confirmed? ? user : nil
             end
           end
 
           def user_from_cookie
             if cookies[:remember_token]
               user = User.find_by_token(cookies[:remember_token])
-              user && user.remember? ? user : nil                
+              user && user.remember? ? user : nil
             end
           end
 
@@ -77,7 +77,7 @@ module Clearance
             render :template => "/sessions/new", :status => :unauthorized 
           end
         end
-        
+
       end
     end
   end

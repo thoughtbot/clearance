@@ -56,9 +56,9 @@ module Clearance
             save(false)
           end
 
-          def update_password(pass, pass_confirmation)
-            self.password              = pass
-            self.password_confirmation = pass_confirmation
+          def update_password(new_password, new_password_confirmation)
+            self.password              = new_password
+            self.password_confirmation = new_password_confirmation
             clear_token if valid?
             save
           end

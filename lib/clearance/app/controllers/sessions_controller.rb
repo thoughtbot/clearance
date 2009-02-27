@@ -6,13 +6,13 @@ module Clearance
         def self.included(controller)
           controller.send(:include, Actions)
           controller.send(:include, PrivateMethods)
-          
+
           controller.class_eval do
             protect_from_forgery :except => :create
-            filter_parameter_logging :password            
+            filter_parameter_logging :password
           end
         end
-        
+
         module Actions
           def create
             @user = User.authenticate(params[:session][:email], 
@@ -40,14 +40,14 @@ module Clearance
             redirect_to url_after_destroy
           end
         end
-        
+
         module PrivateMethods
           private
-          
+
           def remember?
             params[:session] && params[:session][:remember_me] == "1"
           end
-          
+
           def remember(user)
             user.remember_me!
             cookies[:remember_token] = { :value   => user.token, 
@@ -67,7 +67,7 @@ module Clearance
             new_session_url
           end
         end
-          
+
       end
     end
   end
