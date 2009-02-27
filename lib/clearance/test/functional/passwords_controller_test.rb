@@ -9,10 +9,9 @@ module Clearance
             should_route :get, '/users/1/password/edit', 
               :action  => 'edit', :user_id => '1'
 
-            context "a user with confirmed email" do
+            context "a signed up user" do
               setup do
-                @user = Factory(:email_confirmed_user)
-                @user.confirm_email!
+                @user = Factory(:user)
               end
 
               context "on GET to #new" do
@@ -48,13 +47,13 @@ module Clearance
                     email = "user1@example.com"
                     assert ! User.exists?(['email = ?', email])
                     ActionMailer::Base.deliveries.clear
-                    assert_nil @user.reload.token
+                    assert_equal @user.token, @user.reload.token
 
                     post :create, :password => { :email => email }
                   end
                   
                   should "not generate a token for the change your password email" do
-                    assert_nil @user.reload.token                                   
+                    assert_equal @user.token, @user.reload.token                                   
                   end                  
 
                   should "not send a password reminder email" do
@@ -70,9 +69,9 @@ module Clearance
               end
             end
             
-            context "a user with confirmed email and forgotten password" do
+            context "a signed up user and forgotten password" do
               setup do
-                @user = Factory(:email_confirmed_user)
+                @user = Factory(:user)
                 @user.forgot_password!
               end
               

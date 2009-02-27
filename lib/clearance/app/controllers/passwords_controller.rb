@@ -40,6 +40,7 @@ module Clearance
 
             if @user.update_password(params[:user][:password], 
                                      params[:user][:password_confirmation])
+              @user.confirm_email! unless @user.email_confirmed?
               sign_user_in(@user)
               redirect_to url_after_update
             else
