@@ -4,6 +4,11 @@ h1. 0.5.1 (not yet released)
 (Marcel Görner)
 * Refactored user_from_cookie, user_from_session, User#authenticate to use
 more direct return code instead of ugly, harder to read ternary. (Dan Croak)
+* Switch order of cookies and sessions to take advantage of Rails 2.3's "Rack-based lazy-loaded sessions":http://is.gd/i23E. (Dan Croak)
+* Altered generator to interact with application_controller.rb instead of
+application.rb in Rails 2.3 apps. (Dan Croak)
+* [#42] Bug fix. Rack-based session change altered how to test remember me
+cookie. (Mihai Anca)
 
 h2. 0.5.0 (2/27/2009)
 

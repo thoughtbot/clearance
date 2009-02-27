@@ -2,19 +2,18 @@ module Clearance
   module Test
     module Functional
       module SessionsControllerTest
-    
+
         def self.included(controller_test)
           controller_test.class_eval do
-            
+
             should_filter_params :password
 
             context "on GET to /sessions/new" do
               setup { get :new }
-        
+
               should_respond_with    :success
               should_render_template :new
               should_not_set_the_flash
-              
               should_display_a_sign_in_form
             end
 
@@ -42,7 +41,7 @@ module Clearance
             context "Given an email confirmed user" do
               setup do
                 @user = Factory(:user)
-                @user.confirm_email!              
+                @user.confirm_email!
               end 
 
               context "a POST to #create with good credentials" do
@@ -69,7 +68,7 @@ module Clearance
                 should_render_template :new
                 should_not_be_signed_in
               end
-          
+
               context "a POST to #create with good credentials and remember me" do
                 setup do
                   post :create, :session => { 
@@ -81,7 +80,7 @@ module Clearance
                 should_set_the_flash_to /success/i
                 should_redirect_to_url_after_create
                 should_be_signed_in_as { @user }
-                
+
                 should 'set the cookie' do
                   assert ! cookies['remember_token'].empty?
                 end
@@ -91,7 +90,7 @@ module Clearance
                   assert_not_nil @user.reload.token_expires_at
                 end
               end
-              
+
               context "a POST to #create with bad credentials and remember me" do
                 setup do
                   post :create, :session => { 
@@ -104,7 +103,7 @@ module Clearance
                 should_respond_with    :unauthorized
                 should_render_template :new
                 should_return_from_session :user_id, "nil"
-                
+
                 should 'not create the cookie' do
                   assert_nil cookies['remember_token']
                 end
@@ -114,42 +113,42 @@ module Clearance
                   assert_nil @user.reload.token_expires_at
                 end
               end
-              
+
               context "a POST to #create with good credentials and A URL to return back" do
                 context "in the session" do
                   setup do
                     @request.session[:return_to] = '/url_in_the_session'
-                    post :create, :session => { 
-                                    :email    => @user.email, 
-                                    :password => @user.password }                    
+                    post :create, :session => {
+                                    :email    => @user.email,
+                                    :password => @user.password }
                   end
-                  
+
                   should_redirect_to "'/url_in_the_session'"
                 end
-                
+
                 context "in the request" do
                   setup do
                     post :create, :session => { 
                                     :email => @user.email, 
                                     :password => @user.password },
-                                    :return_to => '/url_in_the_request'                    
+                                    :return_to => '/url_in_the_request'
                   end
-                  
+
                   should_redirect_to "'/url_in_the_request'"
-                end   
-                             
+                end
+
                 context "in the request and in the session" do
                   setup do
                     @request.session[:return_to] = '/url_in_the_session'
                     post :create, :session => { 
                                     :email    => @user.email, 
                                     :password => @user.password },
-                                    :return_to => '/url_in_the_request'                    
+                                    :return_to => '/url_in_the_request'
                   end
-                  
+
                   should_redirect_to "'/url_in_the_session'"
                 end
-              end              
+              end
             end
 
             public_context do
@@ -169,12 +168,17 @@ module Clearance
 
               context 'a DELETE to #destroy with a cookie' do
                 setup do
-                  cookies['remember_token'] = CGI::Cookie.new('token', 'value')
+                  @request.cookies['remember_token'] = {
+                    :name  => 'token', 
+                    :value => 'value'
+                  }
+                  @controller.request = @request
                   delete :destroy
                 end
 
                 should 'delete the cookie' do
-                  assert cookies['remember_token'].empty?
+                  assert cookies['remember_token'].nil? || # Rails >= 2.3
+                         cookies['remember_token'].empty?  # Rails <  2.3
                 end
 
                 should 'delete the remember me token in users table' do
@@ -183,7 +187,7 @@ module Clearance
                 end
               end
             end
-          
+
           end
         end
 
