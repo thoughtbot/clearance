@@ -168,11 +168,7 @@ module Clearance
 
               context 'a DELETE to #destroy with a cookie' do
                 setup do
-                  @request.cookies['remember_token'] = {
-                    :name  => 'token', 
-                    :value => 'value'
-                  }
-                  @controller.request = @request
+                  cookies['remember_token'] = CGI::Cookie.new('token', 'value')
                   delete :destroy
                 end
 
