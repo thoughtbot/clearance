@@ -21,7 +21,7 @@ User model example:
 
 User test example:
 
-    class UserTest < Test::Unit::TestCase
+    class UserTest < ActiveSupport::TestCase
       include Clearance::Test::Unit::UserTest
     end
 
