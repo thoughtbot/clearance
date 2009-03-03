@@ -15,7 +15,7 @@ module Clearance
 
         module Actions
           def create
-            @user = User.authenticate(params[:session][:email], 
+            @user = User.authenticate(params[:session][:email],
                                       params[:session][:password])
             if @user.nil?
               flash.now[:notice] = "Bad email or password."
@@ -50,7 +50,7 @@ module Clearance
 
           def remember(user)
             user.remember_me!
-            cookies[:remember_token] = { :value   => user.token, 
+            cookies[:remember_token] = { :value   => user.token,
                                          :expires => user.token_expires_at }
           end
 

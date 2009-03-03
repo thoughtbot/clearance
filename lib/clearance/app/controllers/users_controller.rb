@@ -6,13 +6,13 @@ module Clearance
         def self.included(controller)
           controller.send(:include, Actions)
           controller.send(:include, PrivateMethods)
-          
+
           controller.class_eval do
             before_filter :redirect_to_root, :only => [:new, :create], :if => :signed_in?
-            filter_parameter_logging :password      
+            filter_parameter_logging :password
           end
         end
-        
+
         module Actions
           def new
             @user = User.new(params[:user])
@@ -30,10 +30,10 @@ module Clearance
             end
           end
         end
-        
+
         module PrivateMethods
           private
-          
+
           def url_after_create
             new_session_url
           end

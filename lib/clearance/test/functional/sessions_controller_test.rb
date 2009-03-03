@@ -46,8 +46,8 @@ module Clearance
 
               context "a POST to #create with good credentials" do
                 setup do
-                  post :create, :session => { 
-                                  :email    => @user.email, 
+                  post :create, :session => {
+                                  :email    => @user.email,
                                   :password => @user.password }
                 end
 
@@ -58,8 +58,8 @@ module Clearance
 
               context "a POST to #create with bad credentials" do
                 setup do
-                  post :create, :session => { 
-                                  :email    => @user.email, 
+                  post :create, :session => {
+                                  :email    => @user.email,
                                   :password => "bad value" }
                 end
 
@@ -71,9 +71,9 @@ module Clearance
 
               context "a POST to #create with good credentials and remember me" do
                 setup do
-                  post :create, :session => { 
-                                  :email       => @user.email, 
-                                  :password    => @user.password, 
+                  post :create, :session => {
+                                  :email       => @user.email,
+                                  :password    => @user.password,
                                   :remember_me => '1' }
                 end
 
@@ -93,9 +93,9 @@ module Clearance
 
               context "a POST to #create with bad credentials and remember me" do
                 setup do
-                  post :create, :session => { 
-                                  :email       => @user.email, 
-                                  :password    => "bad value", 
+                  post :create, :session => {
+                                  :email       => @user.email,
+                                  :password    => "bad value",
                                   :remember_me => '1' }
                 end
 
@@ -128,8 +128,8 @@ module Clearance
 
                 context "in the request" do
                   setup do
-                    post :create, :session => { 
-                                    :email => @user.email, 
+                    post :create, :session => {
+                                    :email => @user.email,
                                     :password => @user.password },
                                     :return_to => '/url_in_the_request'
                   end
@@ -140,8 +140,8 @@ module Clearance
                 context "in the request and in the session" do
                   setup do
                     @request.session[:return_to] = '/url_in_the_session'
-                    post :create, :session => { 
-                                    :email    => @user.email, 
+                    post :create, :session => {
+                                    :email    => @user.email,
                                     :password => @user.password },
                                     :return_to => '/url_in_the_request'
                   end

@@ -11,11 +11,11 @@ namespace :test do
     task.pattern = test_files_pattern
     task.verbose = false
   end
-  
+
   Cucumber::Rake::Task.new(:features) do |t|
     t.cucumber_opts = "--format pretty"
     t.feature_pattern = 'test/rails_root/features/*.feature'
-  end  
+  end
 end
 
 generators = %w(clearance clearance_features)
@@ -27,17 +27,17 @@ namespace :generator do
       FileList["generators/#{generator}/templates/**/*.*"].each do |each|
         file = "test/rails_root/#{each.gsub("generators/#{generator}/templates/",'')}"
         File.delete(file) if File.exists?(file)
-      end    
+      end
     end
-    
+
     FileList["test/rails_root/db/**/*"].each do |each| 
       FileUtils.rm_rf(each)
     end
     FileUtils.rm_rf("test/rails_root/vendor/plugins/clearance")
     system "mkdir -p test/rails_root/vendor/plugins/clearance"
-    system "cp -R generators test/rails_root/vendor/plugins/clearance"  
+    system "cp -R generators test/rails_root/vendor/plugins/clearance"
   end
-  
+
   desc "Run the generator on the tests"
   task :generate do
     generators.each do |generator|

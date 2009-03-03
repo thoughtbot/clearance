@@ -5,20 +5,20 @@ module Clearance
 
         def self.included(controller_test)
           controller_test.class_eval do
-            
+
             should_filter_params :password
-            
+
             public_context do
               context "When getting new User view" do
                 setup { get :new }
-                
+
                 should_respond_with :success
                 should_render_template :new
                 should_not_set_the_flash
-                
+
                 should_display_a_sign_up_form
               end
-              
+
               context "Given email parameter when getting new User view" do
                 setup do
                   @email = "a@example.com"
@@ -35,7 +35,7 @@ module Clearance
                   user_attributes = Factory.attributes_for(:user)
                   post :create, :user => user_attributes
                 end
-            
+
                 should_create_user_successfully
               end
             end
@@ -51,7 +51,7 @@ module Clearance
                 should_redirect_to "root_url"
               end
             end
-          
+
           end
         end
       end

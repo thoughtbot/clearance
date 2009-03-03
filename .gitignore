@@ -2,5 +2,4 @@ test/rails_root/log/*.log
 *.DS_Store
 *.swp
 .rake_tasks
-test/rails_root/vendor/plugins
-test/rails_root/db/migrate
+test/rails_root/*

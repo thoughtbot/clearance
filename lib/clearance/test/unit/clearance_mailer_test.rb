@@ -2,10 +2,10 @@ module Clearance
   module Test
     module Unit
       module ClearanceMailerTest
-  
+
         def self.included(mailer_test)
           mailer_test.class_eval do
-            
+
             context "A change password email" do
               setup do
                 @user  = Factory(:user)
@@ -30,7 +30,7 @@ module Clearance
                 assert_match /Change your password/, @email.subject
               end
             end
-            
+
             context "A confirmation email" do
               setup do
                 @user  = Factory(:user)
@@ -55,11 +55,11 @@ module Clearance
                 assert_match regexp, @email.body
               end
             end
-          
+
           end
         end
 
       end
-    end  
+    end
   end
 end

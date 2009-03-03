@@ -6,8 +6,8 @@ module Clearance
         def self.included(unit_test)
           unit_test.class_eval do
 
-            should_not_allow_mass_assignment_of :email_confirmed, 
-              :salt, :encrypted_password, 
+            should_not_allow_mass_assignment_of :email_confirmed,
+              :salt, :encrypted_password,
               :token, :token_expires_at
 
             # signing up
@@ -19,9 +19,9 @@ module Clearance
               should_not_allow_values_for :email, "example.com"
 
               should "require password confirmation on create" do
-                user = Factory.build(:user, :password              => 'blah', 
+                user = Factory.build(:user, :password              => 'blah',
                                             :password_confirmation => 'boogidy')
-                assert !user.save
+                assert ! user.save
                 assert user.errors.on(:password)
               end
 
@@ -121,13 +121,13 @@ module Clearance
               end
 
               should "remember user when token expires in the future" do
-                @user.update_attribute :token_expires_at, 
+                @user.update_attribute :token_expires_at,
                   2.weeks.from_now.utc
                 assert @user.remember?
               end
 
               should "not remember user when token has already expired" do
-                @user.update_attribute :token_expires_at, 
+                @user.update_attribute :token_expires_at,
                   2.weeks.ago.utc
                 assert ! @user.remember?
               end
@@ -167,7 +167,7 @@ module Clearance
                 end
 
                 should "change encrypted password" do
-                  assert_not_equal @user.encrypted_password, 
+                  assert_not_equal @user.encrypted_password,
                                    @old_encrypted_password
                 end
               end
@@ -199,7 +199,7 @@ module Clearance
                     end
 
                     should "change encrypted password" do
-                      assert_not_equal @user.encrypted_password, 
+                      assert_not_equal @user.encrypted_password,
                                        @old_encrypted_password
                     end
 
