@@ -89,7 +89,7 @@ When /^I sign in( with "remember me")? as "(.*)\/(.*)"$/ do |remember, email, pa
 end
 
 When /^I sign out$/ do
-  visit '/session', :delete    
+  visit '/session', :delete
 end
 
 When /^I request password reset link to be sent to "(.*)"$/ do |email|
@@ -101,7 +101,7 @@ end
 When /^I update my password with "(.*)\/(.*)"$/ do |password, confirmation|
   And %{I fill in "Choose password" with "#{password}"}
   And %{I fill in "Confirm password" with "#{confirmation}"}
-  And %{I press "Save this password"}   
+  And %{I press "Save this password"}
 end
 
 When /^I return next time$/ do
