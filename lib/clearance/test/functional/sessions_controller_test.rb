@@ -117,36 +117,39 @@ module Clearance
               context "a POST to #create with good credentials and A URL to return back" do
                 context "in the session" do
                   setup do
-                    @request.session[:return_to] = '/url_in_the_session'
+                    @return_url = '/url_in_the_session'
+                    @request.session[:return_to] = @return_url
                     post :create, :session => {
                                     :email    => @user.email,
                                     :password => @user.password }
                   end
 
-                  should_redirect_to "'/url_in_the_session'"
+                  should_redirect_to("the return URL") { @return_url }
                 end
 
                 context "in the request" do
                   setup do
+                    @return_url = '/url_in_the_request'
                     post :create, :session => {
                                     :email => @user.email,
                                     :password => @user.password },
-                                    :return_to => '/url_in_the_request'
+                                    :return_to => @return_url
                   end
 
-                  should_redirect_to "'/url_in_the_request'"
+                  should_redirect_to("the return URL") { @return_url }
                 end
 
                 context "in the request and in the session" do
                   setup do
-                    @request.session[:return_to] = '/url_in_the_session'
+                    @return_url = '/url_in_the_session'
+                    @request.session[:return_to] = @return_url
                     post :create, :session => {
                                     :email    => @user.email,
                                     :password => @user.password },
                                     :return_to => '/url_in_the_request'
                   end
 
-                  should_redirect_to "'/url_in_the_session'"
+                  should_redirect_to("the return URL") { @return_url }
                 end
               end
             end

@@ -110,15 +110,21 @@ module Clearance
     # REDIRECTS
 
     def should_redirect_to_url_after_create
-      should_redirect_to "@controller.send(:url_after_create)"
+      should_redirect_to("the post-create url") do
+        @controller.send(:url_after_create)
+      end
     end
 
     def should_redirect_to_url_after_update
-      should_redirect_to "@controller.send(:url_after_update)"
+      should_redirect_to("the post-update url") do
+        @controller.send(:url_after_update)
+      end
     end
 
     def should_redirect_to_url_after_destroy
-      should_redirect_to "@controller.send(:url_after_destroy)"
+      should_redirect_to("the post-destroy url") do
+        @controller.send(:url_after_destroy)
+      end
     end
 
     # VALIDATIONS
