@@ -1,0 +1,20 @@
+h1. To-do list for move to engine
+
+* convert sessions controller to engine controller
+* convert passwords controller to engine controller
+* convert users controller to engine controller
+* convert confirmations controller to engine controller
+
+* convert application controller to module
+
+* convert user model to module
+* convert clearance mailer to engine mailer
+
+* convert generator to not generate functional tests
+* keep features generator as is
+
+* views live in the engine. no mechanism for generating your own right now.
+* views & controller tests are now not included in app. test clearance internally.
+
+* convert UsersController to SignUpsController
+
