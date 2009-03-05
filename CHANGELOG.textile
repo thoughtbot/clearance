@@ -1,3 +1,10 @@
+h1. 0.5.3 (3/5/2009)
+
+* Clearance now works with (and requires) Shoulda 2.10.0. (Mark Cornick, Joe
+Ferris, Dan Croak)
+* Prefer flat over nested contexts in sessions_controller_test. (Joe Ferris,
+Dan Croak)
+
 h1. 0.5.2 (3/2/2009)
 
 * Fixed last remaining errors in Rails 2.3 tests. Now fully compatible. (Joe
