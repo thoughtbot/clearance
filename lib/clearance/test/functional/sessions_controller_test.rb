@@ -102,7 +102,7 @@ module Clearance
                 should_set_the_flash_to /bad/i
                 should_respond_with    :unauthorized
                 should_render_template :new
-                should_return_from_session :user_id, "nil"
+                should_not_be_signed_in
 
                 should 'not create the cookie' do
                   assert_nil cookies['remember_token']
