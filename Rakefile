@@ -35,8 +35,9 @@ namespace :generator do
       FileUtils.rm_rf(each)
     end
     FileUtils.rm_rf("test/rails_root/vendor/plugins/clearance")
-    system "mkdir -p test/rails_root/vendor/plugins/clearance"
-    system "cp -R generators test/rails_root/vendor/plugins/clearance"
+    FileUtils.mkdir_p("test/rails_root/vendor/plugins")
+    clearance_root = File.expand_path(File.dirname(__FILE__))
+    system("ln -s #{clearance_root} test/rails_root/vendor/plugins/clearance")
   end
 
   desc "Run the generator on the tests"

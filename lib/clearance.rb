@@ -1,7 +1,6 @@
 require 'clearance/lib/extensions/errors'
 require 'clearance/lib/extensions/rescue'
 require 'clearance/app/controllers/application_controller'
-require 'clearance/app/controllers/confirmations_controller'
 require 'clearance/app/controllers/passwords_controller'
 require 'clearance/app/controllers/sessions_controller'
 require 'clearance/app/controllers/users_controller'

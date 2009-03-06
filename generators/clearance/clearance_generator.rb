@@ -18,9 +18,8 @@ class ClearanceGenerator < Rails::Generator::Base
         m.file file, file 
       end
 
-      ["app/controllers/confirmations_controller.rb",
-       "app/controllers/passwords_controller.rb", 
-       "app/controllers/sessions_controller.rb", 
+      ["app/controllers/passwords_controller.rb",
+       "app/controllers/sessions_controller.rb",
        "app/controllers/users_controller.rb"].each do |file|
         m.file file, file
       end
