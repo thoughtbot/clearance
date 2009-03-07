@@ -19,7 +19,7 @@ class ClearanceGenerator < Rails::Generator::Base
       end
 
       m.directory File.join("app", "models")
-      ["app/models/user.rb", "app/models/clearance_mailer.rb"].each do |file|
+      ["app/models/user.rb"].each do |file|
         m.file file, file
       end
 
