@@ -1,5 +1,5 @@
-require 'clearance/lib/extensions/errors'
-require 'clearance/lib/extensions/rescue'
+require 'clearance/extensions/errors'
+require 'clearance/extensions/rescue'
 require 'clearance/authentication'
 require 'clearance/user'
 require 'clearance/test/functional/confirmations_controller_test'
