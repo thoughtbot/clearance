@@ -1,6 +1,6 @@
 require 'clearance/lib/extensions/errors'
 require 'clearance/lib/extensions/rescue'
-require 'clearance/app/controllers/application_controller'
+require 'clearance/authentication'
 require 'clearance/app/models/clearance_mailer'
 require 'clearance/app/models/user'
 require 'clearance/test/functional/confirmations_controller_test'

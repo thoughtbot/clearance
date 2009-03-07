@@ -1,6 +1,6 @@
 class UsersController < ActionController::Base
 
-  include Clearance::App::Controllers::ApplicationController
+  include Clearance::Authentication
 
   before_filter :redirect_to_root, :only => [:new, :create], :if => :signed_in?
   filter_parameter_logging :password
