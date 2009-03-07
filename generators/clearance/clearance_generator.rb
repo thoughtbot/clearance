@@ -23,31 +23,6 @@ class ClearanceGenerator < Rails::Generator::Base
         m.file file, file
       end
 
-      m.directory File.join("app", "views")
-
-      m.directory File.join("app", "views", "passwords")
-      ["app/views/passwords/new.html.erb",
-       "app/views/passwords/edit.html.erb"].each do |file|
-        m.file file, file
-      end
-
-      m.directory File.join("app", "views", "sessions")
-      ["app/views/sessions/new.html.erb"].each do |file|
-        m.file file, file
-      end
-
-      m.directory File.join("app", "views", "clearance_mailer")
-      ["app/views/clearance_mailer/change_password.html.erb",
-       "app/views/clearance_mailer/confirmation.html.erb"].each do |file|
-        m.file file, file
-      end
-
-      m.directory File.join("app", "views", "users")
-      ["app/views/users/_form.html.erb",
-       "app/views/users/new.html.erb"].each do |file|
-        m.file file, file
-      end
-
       m.directory File.join("test", "functional")
       ["test/functional/confirmations_controller_test.rb",
        "test/functional/passwords_controller_test.rb",
