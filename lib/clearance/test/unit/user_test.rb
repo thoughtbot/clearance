@@ -95,12 +95,12 @@ module Clearance
               end
 
               should "authenticate with good credentials" do
-                assert User.authenticate(@user.email, @password)
+                assert ::User.authenticate(@user.email, @password)
                 assert @user.authenticated?(@password)
               end
 
               should "not authenticate with bad credentials" do
-                assert ! User.authenticate(@user.email, 'bad_password')
+                assert ! ::User.authenticate(@user.email, 'bad_password')
                 assert ! @user.authenticated?('bad_password')
               end
             end

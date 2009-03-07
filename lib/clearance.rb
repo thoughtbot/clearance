@@ -1,7 +1,7 @@
 require 'clearance/lib/extensions/errors'
 require 'clearance/lib/extensions/rescue'
 require 'clearance/authentication'
-require 'clearance/app/models/user'
+require 'clearance/user'
 require 'clearance/test/functional/confirmations_controller_test'
 require 'clearance/test/functional/passwords_controller_test'
 require 'clearance/test/functional/sessions_controller_test'

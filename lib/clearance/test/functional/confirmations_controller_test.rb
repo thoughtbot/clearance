@@ -56,7 +56,7 @@ module Clearance
             end
 
             context "no users" do
-              setup { assert_equal 0, User.count }
+              setup { assert_equal 0, ::User.count }
 
               should_forbid "on GET to #new with nonexistent id and token" do
                 get :new, :user_id => '123', :token => '123'

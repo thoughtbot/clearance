@@ -29,14 +29,14 @@ module Clearance
 
       def user_from_session
         if session[:user_id]
-          return nil  unless user = User.find_by_id(session[:user_id])
+          return nil  unless user = ::User.find_by_id(session[:user_id])
           return user if     user.email_confirmed?
         end
       end
 
       def user_from_cookie
         if token = cookies[:remember_token]
-          return nil  unless user = User.find_by_token(token)
+          return nil  unless user = ::User.find_by_token(token)
           return user if     user.remember?
         end
       end

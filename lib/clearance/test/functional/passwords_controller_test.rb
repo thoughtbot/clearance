@@ -45,7 +45,7 @@ module Clearance
                 context "with incorrect email address" do
                   setup do
                     email = "user1@example.com"
-                    assert ! User.exists?(['email = ?', email])
+                    assert ! ::User.exists?(['email = ?', email])
                     ActionMailer::Base.deliveries.clear
                     assert_equal @user.token, @user.reload.token
 
