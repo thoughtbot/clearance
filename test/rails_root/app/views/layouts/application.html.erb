@@ -8,7 +8,11 @@
     <%= javascript_include_tag :defaults %>
   </head>
   <body class="<%= body_class %>">
-    <%= render :partial => 'layouts/flashes' %>
+    <div id="flash">
+      <% flash.each do |key, value| -%>
+        <div id="flash_<%= key %>"><%=h value %></div>
+      <% end %>
+    </div>
     <%= yield %>
   </body>
 </html>
