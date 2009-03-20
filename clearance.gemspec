@@ -1,7 +1,7 @@
 --- !ruby/object:Gem::Specification 
 name: clearance
 version: !ruby/object:Gem::Version 
-  version: 0.5.3
+  version: 0.5.4
 platform: ruby
 authors: 
 - thoughtbot, inc.
