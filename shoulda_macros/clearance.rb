@@ -45,12 +45,7 @@ module Clearance
         should_not_set_the_flash
       end
 
-      should "respond with 401 Unauthorized and render sign_in template" do
-        assert_response :unauthorized,
-          "access was expected to be denied (401 unauthorized)"
-        assert_template "sessions/new",
-          "template was expected to be sign in (sessions/new)"
-      end
+      should_redirect_to('new_session_url') { new_session_url }
     end
 
     # HTTP FLUENCY

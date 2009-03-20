@@ -27,7 +27,7 @@ module Clearance
               end
 
               should_deny_access(:flash => /User has not confirmed email. Confirmation email will be resent./i)
-              should_respond_with :unauthorized
+              should_redirect_to('new_session_url') { new_session_url }
 
               should "send the confirmation email" do
                 assert_not_nil email = ActionMailer::Base.deliveries[0]
