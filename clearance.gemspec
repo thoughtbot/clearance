@@ -1,7 +1,7 @@
 --- !ruby/object:Gem::Specification 
 name: clearance
 version: !ruby/object:Gem::Version 
-  version: 0.5.4
+  version: 0.5.5
 platform: ruby
 authors: 
 - thoughtbot, inc.
@@ -37,7 +37,6 @@ extra_rdoc_files: []
 
 files: 
 - CHANGELOG.textile
-- KNOWN_ISSUES.textile
 - LICENSE
 - Rakefile
 - README.textile

@@ -1,3 +1,12 @@
+h1. 0.5.5 (3/23/2009)
+
+* Removing duplicate test to get rid of warning. (Nick Quaranto)
+
+h1. 0.5.4 (3/21/2009)
+
+* When users fail logging in, redirect them instead of rendering. (Matt
+Jankowski)
+
 h1. 0.5.3 (3/5/2009)
 
 * Clearance now works with (and requires) Shoulda 2.10.0. (Mark Cornick, Joe
