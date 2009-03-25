@@ -9,8 +9,7 @@ ActiveRecord::Migrator.migrate("#{RAILS_ROOT}/db/migrate")
 gem 'thoughtbot-factory_girl' # from github
 
 require 'factory_girl'
-require 'quietbacktrace'
-require 'redgreen'
+require 'redgreen' rescue LoadError
 
 require File.join(File.dirname(__FILE__), '..', '..', '..', 'shoulda_macros', 'clearance')
 
