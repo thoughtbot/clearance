@@ -1,6 +1,4 @@
-class SessionsController < ActionController::Base
-
-  include Clearance::Authentication
+class SessionsController < ApplicationController
 
   protect_from_forgery :except => :create
   filter_parameter_logging :password

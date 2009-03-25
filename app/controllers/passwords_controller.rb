@@ -1,6 +1,4 @@
-class PasswordsController < ActionController::Base
-
-  include Clearance::Authentication
+class PasswordsController < ApplicationController
 
   before_filter :forbid_missing_token,     :only => [:edit, :update]
   before_filter :forbid_non_existant_user, :only => [:edit, :update]

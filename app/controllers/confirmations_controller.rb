@@ -1,6 +1,4 @@
-class ConfirmationsController < ActionController::Base
-
-  include Clearance::Authentication
+class ConfirmationsController < ApplicationController
 
   before_filter :forbid_confirmed_user,    :only => :new
   before_filter :forbid_missing_token,     :only => :new
