@@ -7,16 +7,8 @@ class ClearanceGenerator < Rails::Generator::Base
   def manifest
     record do |m|
       m.directory File.join("app", "controllers")
-      if Rails.version >= "2.3.0"
-        file = "app/controllers/application_controller.rb"
-      else
-        file = "app/controllers/application.rb"
-      end
-      if File.exists?(file)
-        m.insert_into file, "include Clearance::Authentication"
-      else # will this file ever not exist?
-        m.file file, file 
-      end
+      file = "app/controllers/application_controller.rb"
+      m.insert_into file, "include Clearance::Authentication"
 
       m.directory File.join("app", "models")
       ["app/models/user.rb"].each do |file|
