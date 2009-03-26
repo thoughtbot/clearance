@@ -23,7 +23,6 @@ class SessionsControllerTest < ActionController::TestCase
     end
 
     should_deny_access(:flash => /User has not confirmed email. Confirmation email will be resent./i)
-    should_respond_with :unauthorized
 
     should "send the confirmation email" do
       assert_not_nil email = ActionMailer::Base.deliveries[0]
