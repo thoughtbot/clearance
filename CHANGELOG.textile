@@ -11,7 +11,9 @@ url_after_create. (Dan Croak & Joe Ferris)
 * Controllers, mailer, model, routes all unit tested inside engine. Use
 script/generate clearance_features to test integration of Clearance with your
 Rails app. No longer including modules in your app's test files. (Dan Croak & Joe Ferris)
-* Moved views to engine.
+* Moved views to engine. (Joe Ferris)
+* Converted generated test/factories/clearance.rb to use inheritence for
+email_confirmed_user.
 
 h1. 0.5.5 (3/23/2009)
 
