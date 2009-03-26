@@ -1,14 +1,18 @@
-class SessionsController < ApplicationController
+class Clearance::SessionsController < ApplicationController
 
   protect_from_forgery :except => :create
   filter_parameter_logging :password
+
+  def new
+    render :template => 'sessions/new'
+  end
 
   def create
     @user = User.authenticate(params[:session][:email],
                               params[:session][:password])
     if @user.nil?
       flash.now[:notice] = "Bad email or password."
-      render :action => :new, :status => :unauthorized
+      render :template => 'sessions/new', :status => :unauthorized
     else
       if @user.email_confirmed?
         remember(@user) if remember?

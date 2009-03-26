@@ -2,6 +2,8 @@ require 'test_helper'
 
 class SessionsControllerTest < ActionController::TestCase
 
+  tests Clearance::SessionsController
+
   should_filter_params :password
 
   context "on GET to /sessions/new" do
