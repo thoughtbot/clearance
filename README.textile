@@ -78,3 +78,12 @@ h2. Authors
 Clearance was extracted out of "Hoptoad":http://hoptoadapp.com. We merged the authentication code from two of thoughtbot's client's Rails apps. The following people have made significant contributions, suggestions, and generally improved the library. Thank you!
 
 Dan Croak, Mike Burns, Jason Morrison, Joe Ferris, Eugene Bolshakov, Josh Nichols, Mike Breen, Marcel Görner, Bence Nagy, Ben Mabey, Eloy Duran, Tim Pope, Mihai Anca, & Mark Cornick.
+
+h2. Questions?
+
+* Ask the "mailing list":http://groups.google.com/group/thoughtbot-clearance
+
+h2. Bugs?
+
+* Open up a "Lighthouse ticket":https://thoughtbot.lighthouseapp.com/projects/18503-clearance
+
