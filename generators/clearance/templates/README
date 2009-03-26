@@ -3,42 +3,25 @@
 
 Ok, enough fancy automatic stuff. Time for some old school monkey copy-pasting.
 
-1. For any other file(s) that you already had and didn't want to overwrite, add 
-the corresponding Clearance module. They are namespaced exactly like the 
-directory structure of a Rails app.
-
-Application controller example:
-
-    class ApplicationController < ActionController::Base
-      include Clearance::App::Controllers::ApplicationController
-    end
-
-User model example:
+1. If you already had a User model, include the Clearance::User module now:
 
     class User < ActiveRecord::Base
-      include Clearance::App::Models::User
+      include Clearance::User
     end
 
-User test example:
-
-    class UserTest < ActiveSupport::TestCase
-      include Clearance::Test::Unit::UserTest
-    end
-
-2. You need to define HOST constant in your environments files. 
+2. Define a HOST constant in your environments files.
 In config/environments/test.rb and config/environments/development.rb it can be:
 
     HOST = "localhost"
 
-In production.rb it must be the actual host your application is deployed to. 
+In production.rb it must be the actual host your application is deployed to.
 The constant is used by mailers to generate URLs in emails.
 
-In config/environment.rb:
+3. In config/environment.rb:
 
     DO_NOT_REPLY = "donotreply@example.com"
 
-3. Clearance depends on root_url, so please make sure that it is defined to
-*something* in your config/routes.rb:
+4. Define root_url to *something* in your config/routes.rb:
 
     map.root :controller => 'home'
 

@@ -1,8 +1,12 @@
 h1. Clearance
 
-Rails authentication for developers who write tests.
+Rails authentication with email and password.
 
 "We have clearance, Clarence.":http://www.youtube.com/v/mNRXJEE3Nz8
+
+h2. Engine
+
+Clearance is a Rails engine. It works with versions of Rails greater than 2.3.
 
 h2. Wiki
 
@@ -12,7 +16,7 @@ h2. Integration with Suspenders
 
 Clearance is based on the same conventions and tools as "Suspenders":http://github.com/thoughtbot/suspenders If you use it, you already have some configuration mentioned below.
 
-h2. Gem installation (Rails 2.1+)
+h2. Gem installation
 
 In config/environment.rb:
 
@@ -35,7 +39,7 @@ In config/environments/test.rb:
 Then:
 
     rake gems:install
-    rake gems:unpack 
+    rake gems:unpack
     rake gems:install RAILS_ENV=test
     rake gems:unpack  RAILS_ENV=test
 
