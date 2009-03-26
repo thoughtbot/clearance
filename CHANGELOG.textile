@@ -1,3 +1,18 @@
+h1. 0.5.6 (not yet released)
+
+* Converted Clearance to a Rails engine. (Dan Croak & Joe Ferris)
+* Include Clearance::User in User model in app. (Dan Croak & Joe Ferris)
+* Include Clearance::Authentication in ApplicationController. (Dan Croak & Joe Ferris)
+* Namespace controllers under Clearance. (Dan Croak & Joe Ferris)
+* Routes move to engine, use namespaced controllers but publicly the same. (Dan Croak & Joe Ferris)
+* If you want to override a controller, subclass it like SessionsController <
+Clearance::SessionsController. This gives you access to usual hooks such as
+url_after_create. (Dan Croak & Joe Ferris)
+* Controllers, mailer, model, routes all unit tested inside engine. Use
+script/generate clearance_features to test integration of Clearance with your
+Rails app. No longer including modules in your app's test files. (Dan Croak & Joe Ferris)
+* Moved views to engine.
+
 h1. 0.5.5 (3/23/2009)
 
 * Removing duplicate test to get rid of warning. (Nick Quaranto)
