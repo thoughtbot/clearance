@@ -2,6 +2,8 @@ require 'test_helper'
 
 class ConfirmationsControllerTest < ActionController::TestCase
 
+  tests Clearance::ConfirmationsController
+
   should_filter_params :token
 
   context "a user whose email has not been confirmed" do
