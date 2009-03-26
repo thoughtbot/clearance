@@ -15,10 +15,6 @@ class ClearanceGenerator < Rails::Generator::Base
       m.directory File.join("test", "factories")
       m.file "factories.rb", "test/factories/clearance.rb"
 
-      m.route_resources ':passwords'
-      m.route_resource  ':session'
-      m.route_resources ':users, :has_one => [:password, :confirmation]'
-
       m.migration_template "migrations/#{migration_name}.rb",
                            'db/migrate',
                            :migration_file_name => "clearance_#{migration_name}"
