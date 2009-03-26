@@ -1,10 +1,5 @@
 require 'clearance/extensions/errors'
 require 'clearance/extensions/rescue'
+
 require 'clearance/authentication'
 require 'clearance/user'
-require 'clearance/test/functional/confirmations_controller_test'
-require 'clearance/test/functional/passwords_controller_test'
-require 'clearance/test/functional/sessions_controller_test'
-require 'clearance/test/functional/users_controller_test'
-require 'clearance/test/unit/clearance_mailer_test'
-require 'clearance/test/unit/user_test'

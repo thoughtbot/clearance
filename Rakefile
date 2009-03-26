@@ -2,19 +2,17 @@ require 'rake'
 require 'rake/testtask'
 require 'cucumber/rake/task'
 
-test_files_pattern = 'test/rails_root/test/{unit,functional,other}/**/*_test.rb'
-
 namespace :test do
   Rake::TestTask.new(:all => ['generator:cleanup', 
                               'generator:generate']) do |task|
     task.libs << 'lib'
-    task.libs << File.join(File.dirname(__FILE__), "test/rails_root/test")
-    task.pattern = test_files_pattern
+    task.libs << "test"
+    task.pattern = 'test/**/*_test.rb'
     task.verbose = false
   end
 
   Cucumber::Rake::Task.new(:features) do |t|
-    t.cucumber_opts = "--format pretty"
+    t.cucumber_opts = "--format progress"
     t.feature_pattern = 'test/rails_root/features/*.feature'
   end
 end
@@ -43,7 +41,7 @@ namespace :generator do
   desc "Run the generator on the tests"
   task :generate do
     generators.each do |generator|
-      system "cd test/rails_root && ./script/generate #{generator}"
+      system "cd test/rails_root && ./script/generate #{generator} && rake db:migrate db:test:prepare"
     end
   end
 end

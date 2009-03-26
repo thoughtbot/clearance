@@ -15,20 +15,6 @@ class ClearanceGenerator < Rails::Generator::Base
         m.file file, file
       end
 
-      m.directory File.join("test", "functional")
-      ["test/functional/confirmations_controller_test.rb",
-       "test/functional/passwords_controller_test.rb",
-       "test/functional/sessions_controller_test.rb",
-       "test/functional/users_controller_test.rb"].each do |file|
-        m.file file, file
-      end
-
-      m.directory File.join("test", "unit")
-      ["test/unit/clearance_mailer_test.rb",
-       "test/unit/user_test.rb"].each do |file|
-        m.file file, file
-      end
-
       m.directory File.join("test", "factories")
       ["test/factories/clearance.rb"].each do |file|
         m.file file, file
