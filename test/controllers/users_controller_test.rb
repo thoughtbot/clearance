@@ -2,6 +2,8 @@ require 'test_helper'
 
 class UsersControllerTest < ActionController::TestCase
 
+  tests Clearance::UsersController
+
   should_filter_params :password
 
   public_context do
