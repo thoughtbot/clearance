@@ -6,35 +6,34 @@ class ClearanceGenerator < Rails::Generator::Base
 
   def manifest
     record do |m|
-      m.directory File.join("app", "controllers")
-      file = "app/controllers/application_controller.rb"
-      m.insert_into file, "include Clearance::Authentication"
+      m.insert_into "app/controllers/application_controller.rb",
+                    "include Clearance::Authentication"
 
       m.directory File.join("app", "models")
-      ["app/models/user.rb"].each do |file|
-        m.file file, file
-      end
+      m.file "user.rb", "app/models/user.rb"
 
       m.directory File.join("test", "factories")
-      ["test/factories/clearance.rb"].each do |file|
-        m.file file, file
-      end
+      m.file "factories.rb", "test/factories/clearance.rb"
 
       m.route_resources ':passwords'
       m.route_resource  ':session'
       m.route_resources ':users, :has_one => [:password, :confirmation]'
 
-      if ActiveRecord::Base.connection.table_exists?(:users)
-        m.migration_template 'db/migrate/update_users_with_clearance_columns.rb', 
-          'db/migrate', :migration_file_name => 'create_or_update_users_with_clearance_columns'
-      else
-        m.migration_template 'db/migrate/create_users_with_clearance_columns.rb', 
-          'db/migrate', :migration_file_name => 'create_or_update_users_with_clearance_columns'
-      end
-
-      m.rake_db_migrate
+      m.migration_template "migrations/#{migration_name}.rb",
+                           'db/migrate',
+                           :migration_file_name => "clearance_#{migration_name}"
 
       m.readme "README"
+    end
+  end
+
+  private
+
+  def migration_name
+    if ActiveRecord::Base.connection.table_exists?(:users)
+      'update_users'
+    else
+      'create_users'
     end
   end
 

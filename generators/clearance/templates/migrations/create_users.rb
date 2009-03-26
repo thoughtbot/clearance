@@ -1,4 +1,4 @@
-class CreateOrUpdateUsersWithClearanceColumns < ActiveRecord::Migration
+class ClearanceCreateUsers < ActiveRecord::Migration
   def self.up
     create_table(:users) do |t|
       t.string   :email

@@ -1,14 +1,14 @@
-class CreateOrUpdateUsersWithClearanceColumns < ActiveRecord::Migration
+class ClearanceUpdateUsers < ActiveRecord::Migration
   def self.up
 <% 
       existing_columns = ActiveRecord::Base.connection.columns(:users).collect { |each| each.name }
       columns = [
-        [:email,                     't.string :email'],
-        [:encrypted_password,        't.string :encrypted_password, :limit => 128'],
-        [:salt,                      't.string :salt, :limit => 128'],
-        [:token,                     't.string :token, :limit => 128'],
-        [:token_expires_at,          't.datetime :token_expires_at'],
-        [:email_confirmed,           't.boolean :email_confirmed, :default => false, :null => false']
+        [:email,              't.string :email'],
+        [:encrypted_password, 't.string :encrypted_password, :limit => 128'],
+        [:salt,               't.string :salt, :limit => 128'],
+        [:token,              't.string :token, :limit => 128'],
+        [:token_expires_at,   't.datetime :token_expires_at'],
+        [:email_confirmed,    't.boolean :email_confirmed, :default => false, :null => false']
       ].delete_if {|c| existing_columns.include?(c.first.to_s)} 
 -%>
     change_table(:users) do |t|
