@@ -1,10 +1,11 @@
-class PasswordsController < ApplicationController
+class Clearance::PasswordsController < ApplicationController
 
   before_filter :forbid_missing_token,     :only => [:edit, :update]
   before_filter :forbid_non_existant_user, :only => [:edit, :update]
   filter_parameter_logging :password, :password_confirmation
 
   def new
+    render :template => 'passwords/new'
   end
 
   def create
@@ -16,12 +17,13 @@ class PasswordsController < ApplicationController
       redirect_to url_after_create
     else
       flash.now[:notice] = "Unknown email"
-      render :action => :new
+      render :template => 'passwords/new'
     end
   end
 
   def edit
     @user = User.find_by_id_and_token(params[:user_id], params[:token])
+    render :template => 'passwords/edit'
   end
 
   def update
@@ -33,7 +35,7 @@ class PasswordsController < ApplicationController
       sign_user_in(@user)
       redirect_to url_after_update
     else
-      render :action => :edit
+      render :template => 'passwords/edit'
     end
   end
 

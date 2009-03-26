@@ -1,7 +1,8 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :passwords
+  map.resources :passwords, :controller => 'clearance/passwords'
   map.resource  :session
-  map.resources :users, :has_one => [:password] do |users|
+  map.resources :users do |users|
+    users.resource :password, :controller => 'clearance/passwords'
     users.resource :confirmation, :controller => 'clearance/confirmations'
   end
 end
