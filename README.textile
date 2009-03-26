@@ -1,6 +1,6 @@
 h1. Clearance
 
-Rails authentication with email and password.
+Rails authentication with email & password.
 
 "We have clearance, Clarence.":http://www.youtube.com/v/mNRXJEE3Nz8
 
