@@ -1,0 +1,6 @@
+h1. To-do
+
+* Make insertion of Clearance::User into User model automatic from the generator.
+* Change generated README to include instruction about running the migration.
+* DO_NOT_REPLY, HOST refactoring.
+
