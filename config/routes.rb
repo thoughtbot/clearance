@@ -7,7 +7,7 @@ ActionController::Routing::Routes.draw do |map|
     :controller => 'clearance/sessions',
     :only => [:new, :create, :destroy]
 
-  map.resources :users, :controller => 'clearance/users' do |users|
+  map.resources :users do |users|
     users.resource :password,
       :controller => 'clearance/passwords',
       :only => [:create, :edit, :update]
