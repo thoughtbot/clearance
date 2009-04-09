@@ -1,7 +1,7 @@
 # General
 
 Then /^I should see error messages$/ do
-  Then %{I should see "error(s)? prohibited"}
+  response.should contain(/error(s)? prohibited/)
 end
 
 # Database
