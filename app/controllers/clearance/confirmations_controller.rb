@@ -2,7 +2,7 @@ class Clearance::ConfirmationsController < ApplicationController
 
   before_filter :forbid_confirmed_user,    :only => :new
   before_filter :forbid_missing_token,     :only => :new
-  before_filter :forbid_non_existant_user, :only => :new
+  before_filter :forbid_non_existent_user, :only => :new
   filter_parameter_logging :token
 
   def new
@@ -33,9 +33,9 @@ class Clearance::ConfirmationsController < ApplicationController
     end
   end
 
-  def forbid_non_existant_user
+  def forbid_non_existent_user
     unless User.find_by_id_and_token(params[:user_id], params[:token])
-      raise ActionController::Forbidden, "non-existant user"
+      raise ActionController::Forbidden, "non-existent user"
     end
   end
 

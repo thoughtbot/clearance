@@ -1,7 +1,7 @@
 class Clearance::PasswordsController < ApplicationController
 
   before_filter :forbid_missing_token,     :only => [:edit, :update]
-  before_filter :forbid_non_existant_user, :only => [:edit, :update]
+  before_filter :forbid_non_existent_user, :only => [:edit, :update]
   filter_parameter_logging :password, :password_confirmation
 
   def new
@@ -47,9 +47,9 @@ class Clearance::PasswordsController < ApplicationController
     end
   end
 
-  def forbid_non_existant_user
+  def forbid_non_existent_user
     unless User.find_by_id_and_token(params[:user_id], params[:token])
-      raise ActionController::Forbidden, "non-existant user"
+      raise ActionController::Forbidden, "non-existent user"
     end
   end
 
