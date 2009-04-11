@@ -1,25 +1,30 @@
-h1. 0.5.5 (3/23/2009)
+h2. 0.5.6 (4/11/2009)
+
+* [#57] Step definition changed for "User should see error messages" so
+features won't fail for certain validations. (Nick Quaranto)
+
+h2. 0.5.5 (3/23/2009)
 
 * Removing duplicate test to get rid of warning. (Nick Quaranto)
 
-h1. 0.5.4 (3/21/2009)
+h2. 0.5.4 (3/21/2009)
 
 * When users fail logging in, redirect them instead of rendering. (Matt
 Jankowski)
 
-h1. 0.5.3 (3/5/2009)
+h2. 0.5.3 (3/5/2009)
 
 * Clearance now works with (and requires) Shoulda 2.10.0. (Mark Cornick, Joe
 Ferris, Dan Croak)
 * Prefer flat over nested contexts in sessions_controller_test. (Joe Ferris,
 Dan Croak)
 
-h1. 0.5.2 (3/2/2009)
+h2. 0.5.2 (3/2/2009)
 
 * Fixed last remaining errors in Rails 2.3 tests. Now fully compatible. (Joe
 Ferris, Dan Croak)
 
-h1. 0.5.1 (2/27/2009)
+h2. 0.5.1 (2/27/2009)
 
 * [#46] A user with unconfirmed email who resets password now confirms email.
 (Marcel Görner)

@@ -1,6 +1,6 @@
 h1. Clearance
 
-Rails authentication for developers who write tests.
+Rails authentication with email & password.
 
 "We have clearance, Clarence.":http://www.youtube.com/v/mNRXJEE3Nz8
 
@@ -19,7 +19,7 @@ In config/environment.rb:
     config.gem "thoughtbot-clearance", 
       :lib     => 'clearance', 
       :source  => 'http://gems.github.com', 
-      :version => '0.5.3'
+      :version => '0.5.5'
 
 In config/environments/test.rb:
 
