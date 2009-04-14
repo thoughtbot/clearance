@@ -4,12 +4,12 @@ class Clearance::UsersController < ApplicationController
   filter_parameter_logging :password
 
   def new
-    @user = User.new(params[:user])
+    @user = ::User.new(params[:user])
     render :template => 'users/new'
   end
 
   def create
-    @user = User.new params[:user]
+    @user = ::User.new params[:user]
     if @user.save
       ClearanceMailer.deliver_confirmation @user
       flash[:notice] = "You will receive an email within the next few minutes. " <<
