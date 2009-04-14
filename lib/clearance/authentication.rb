@@ -48,6 +48,8 @@ module Clearance
       def sign_in(user)
         if user
           session[:user_id] = user.id
+          # Proposed fix for Ticket #61 (have not yet made a failing test for it)
+          # @_current_user = user
         end
       end
 
