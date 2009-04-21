@@ -8,7 +8,7 @@ class ClearanceSessionsController < ApplicationController
   end
 
   def create
-    @user = ::User.authenticate(params[:session][:email],
+    @user = User.authenticate(params[:session][:email],
                               params[:session][:password])
     if @user.nil?
       flash.now[:notice] = "Bad email or password."
