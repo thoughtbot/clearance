@@ -23,18 +23,18 @@ In config/environment.rb:
     config.gem "thoughtbot-clearance", 
       :lib     => 'clearance', 
       :source  => 'http://gems.github.com', 
-      :version => '0.5.3'
+      :version => '0.6.0'
 
 In config/environments/test.rb:
 
     config.gem 'thoughtbot-shoulda',
       :lib     => 'shoulda',
       :source  => "http://gems.github.com", 
-      :version => '2.10.0'
+      :version => '2.10.1'
     config.gem 'thoughtbot-factory_girl',
       :lib     => 'factory_girl',
       :source  => "http://gems.github.com", 
-      :version => '1.2.0'
+      :version => '1.2.1'
 
 Then:
 

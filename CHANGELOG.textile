@@ -1,4 +1,4 @@
-h1. 0.5.6 (not yet released)
+h1. 0.6.0 (04/21/2009)
 
 * Converted Clearance to a Rails engine. (Dan Croak & Joe Ferris)
 * Include Clearance::User in User model in app. (Dan Croak & Joe Ferris)
@@ -13,7 +13,15 @@ script/generate clearance_features to test integration of Clearance with your
 Rails app. No longer including modules in your app's test files. (Dan Croak & Joe Ferris)
 * Moved views to engine. (Joe Ferris)
 * Converted generated test/factories/clearance.rb to use inheritence for
-email_confirmed_user.
+email_confirmed_user. (Dan Croak)
+* Corrected some spelling errors with methods (Nick Quaranto)
+* Converted "I should see error messages" to use a regex in the features (Nick
+Quaranto)
+* Loading clearance routes after rails routes via some monkeypatching (Nick
+Quaranto)
+* Made the clearance controllers unloadable to stop constant loading errors in
+development mode (Nick Quaranto)
+
 
 h1. 0.5.5 (3/23/2009)
 
