@@ -31,10 +31,17 @@ module Clearance
       end
     end
 
-    def should_deny_access_on(command, opts = {})
-      context "on #{command}" do
-        setup { eval command }
-        should_deny_access(opts)
+    # Examples:
+    #   should_deny_access_on :get, :index, :flash => /not authorized/i
+    #   should_deny_access_on :get, :show, :id => '1'
+    def should_deny_access_on(http_method, action, opts = {})
+      flash_message = opts.delete(:flash)
+      context "on #{http_method} to #{action}" do
+        setup do
+          send(http_method, action, opts)
+        end
+
+        should_deny_access(:flash => flash_message)
       end
     end
 

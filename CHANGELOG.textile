@@ -1,9 +1,33 @@
+h1. 0.6.0 (04/21/2009)
+
+* Converted Clearance to a Rails engine. (Dan Croak & Joe Ferris)
+* Include Clearance::User in User model in app. (Dan Croak & Joe Ferris)
+* Include Clearance::Authentication in ApplicationController. (Dan Croak & Joe Ferris)
+* Namespace controllers under Clearance. (Dan Croak & Joe Ferris)
+* Routes move to engine, use namespaced controllers but publicly the same. (Dan Croak & Joe Ferris)
+* If you want to override a controller, subclass it like SessionsController <
+Clearance::SessionsController. This gives you access to usual hooks such as
+url_after_create. (Dan Croak & Joe Ferris)
+* Controllers, mailer, model, routes all unit tested inside engine. Use
+script/generate clearance_features to test integration of Clearance with your
+Rails app. No longer including modules in your app's test files. (Dan Croak & Joe Ferris)
+* Moved views to engine. (Joe Ferris)
+* Converted generated test/factories/clearance.rb to use inheritence for
+email_confirmed_user. (Dan Croak)
+* Corrected some spelling errors with methods (Nick Quaranto)
+* Converted "I should see error messages" to use a regex in the features (Nick
+Quaranto)
+* Loading clearance routes after rails routes via some monkeypatching (Nick
+Quaranto)
+* Made the clearance controllers unloadable to stop constant loading errors in
+development mode (Nick Quaranto)
+
 h2. 0.5.6 (4/11/2009)
 
 * [#57] Step definition changed for "User should see error messages" so
 features won't fail for certain validations. (Nick Quaranto)
 
-h2. 0.5.5 (3/23/2009)
+h1. 0.5.5 (3/23/2009)
 
 * Removing duplicate test to get rid of warning. (Nick Quaranto)
 

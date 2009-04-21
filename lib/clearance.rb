@@ -1,15 +1,15 @@
-require 'clearance/lib/extensions/errors'
-require 'clearance/lib/extensions/rescue'
-require 'clearance/app/controllers/application_controller'
-require 'clearance/app/controllers/confirmations_controller'
-require 'clearance/app/controllers/passwords_controller'
-require 'clearance/app/controllers/sessions_controller'
-require 'clearance/app/controllers/users_controller'
-require 'clearance/app/models/clearance_mailer'
-require 'clearance/app/models/user'
-require 'clearance/test/functional/confirmations_controller_test'
-require 'clearance/test/functional/passwords_controller_test'
-require 'clearance/test/functional/sessions_controller_test'
-require 'clearance/test/functional/users_controller_test'
-require 'clearance/test/unit/clearance_mailer_test'
-require 'clearance/test/unit/user_test'
+require 'clearance/extensions/errors'
+require 'clearance/extensions/rescue'
+
+require 'clearance/authentication'
+require 'clearance/user'
+
+class ActionController::Routing::RouteSet
+  def load_routes_with_clearance!
+    clearance_routes = File.join(File.dirname(__FILE__), *%w[.. config clearance_routes.rb])
+    add_configuration_file(clearance_routes) unless configuration_files.include? clearance_routes
+    load_routes_without_clearance!
+  end
+
+  alias_method_chain :load_routes!, :clearance
+end
