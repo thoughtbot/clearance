@@ -11,7 +11,7 @@ class Clearance::ConfirmationsController < ApplicationController
   end
 
   def create
-    @user = User.find_by_id_and_token(params[:user_id], params[:token])
+    @user = ::User.find_by_id_and_token(params[:user_id], params[:token])
     @user.confirm_email!
 
     sign_user_in(@user)
@@ -22,7 +22,7 @@ class Clearance::ConfirmationsController < ApplicationController
   private
 
   def forbid_confirmed_user
-    user = User.find_by_id(params[:user_id])
+    user = ::User.find_by_id(params[:user_id])
     if user && user.email_confirmed?
       raise ActionController::Forbidden, "confirmed user"
     end
@@ -35,7 +35,7 @@ class Clearance::ConfirmationsController < ApplicationController
   end
 
   def forbid_non_existent_user
-    unless User.find_by_id_and_token(params[:user_id], params[:token])
+    unless ::User.find_by_id_and_token(params[:user_id], params[:token])
       raise ActionController::Forbidden, "non-existent user"
     end
   end
