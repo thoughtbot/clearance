@@ -1,4 +1,4 @@
-class Clearance::SessionsController < ApplicationController
+class ClearanceSessionsController < ApplicationController
 
   protect_from_forgery :except => :create
   filter_parameter_logging :password

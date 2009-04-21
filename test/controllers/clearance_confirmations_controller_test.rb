@@ -1,8 +1,6 @@
 require 'test_helper'
 
-class ConfirmationsControllerTest < ActionController::TestCase
-
-  tests Clearance::ConfirmationsController
+class ClearanceConfirmationsControllerTest < ActionController::TestCase
 
   should_filter_params :token
 

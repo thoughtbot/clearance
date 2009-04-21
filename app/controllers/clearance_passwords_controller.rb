@@ -1,4 +1,4 @@
-class Clearance::PasswordsController < ApplicationController
+class ClearancePasswordsController < ApplicationController
 
   before_filter :forbid_missing_token,     :only => [:edit, :update]
   before_filter :forbid_non_existent_user, :only => [:edit, :update]
