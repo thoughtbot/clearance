@@ -1,4 +1,5 @@
 class Clearance::SessionsController < ApplicationController
+  unloadable
 
   protect_from_forgery :except => :create
   filter_parameter_logging :password
