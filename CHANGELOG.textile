@@ -1,3 +1,8 @@
+h1. 0.6.1 (04/21/2009)
+* Scope operators are necessary to keep Rails happy. Reverting the original
+revert so they're back in the library now for constants referenced inside of
+the gem. (Nick Quaranto)
+
 h1. 0.6.0 (04/21/2009)
 
 * Converted Clearance to a Rails engine. (Dan Croak & Joe Ferris)

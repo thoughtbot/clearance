@@ -1,7 +1,7 @@
 --- !ruby/object:Gem::Specification 
 name: clearance
 version: !ruby/object:Gem::Version 
-  version: 0.6.0
+  version: 0.6.1
 platform: ruby
 authors: 
 - thoughtbot, inc.
@@ -68,11 +68,15 @@ files:
 - generators/clearance/lib/insert_commands.rb
 - generators/clearance/lib/rake_commands.rb
 - generators/clearance/templates
+- generators/clearance/templates/app
+- generators/clearance/templates/app/views
+- generators/clearance/templates/db
 - generators/clearance/templates/factories.rb
 - generators/clearance/templates/migrations
 - generators/clearance/templates/migrations/create_users.rb
 - generators/clearance/templates/migrations/update_users.rb
 - generators/clearance/templates/README
+- generators/clearance/templates/test
 - generators/clearance/templates/user.rb
 - generators/clearance/USAGE
 - generators/clearance_features
@@ -90,10 +94,13 @@ files:
 - generators/clearance_features/templates/features/support/paths.rb
 - generators/clearance_features/USAGE
 - lib/clearance
+- lib/clearance/app
 - lib/clearance/authentication.rb
 - lib/clearance/extensions
 - lib/clearance/extensions/errors.rb
 - lib/clearance/extensions/rescue.rb
+- lib/clearance/lib
+- lib/clearance/test
 - lib/clearance/user.rb
 - lib/clearance.rb
 - shoulda_macros/clearance.rb
