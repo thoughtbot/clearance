@@ -4,19 +4,13 @@ Rails authentication with email & password.
 
 "We have clearance, Clarence.":http://www.youtube.com/v/mNRXJEE3Nz8
 
-h2. Engine
-
-Clearance is a Rails engine. It works with versions of Rails greater than 2.3.
-
 h2. Wiki
 
 Most information regarding Clearance is on the "Github Wiki":http://wiki.github.com/thoughtbot/clearance.
 
-h2. Integration with Suspenders
+h2. Engine
 
-Clearance is based on the same conventions and tools as "Suspenders":http://github.com/thoughtbot/suspenders If you use it, you already have some configuration mentioned below.
-
-h2. Gem installation
+Clearance is a Rails engine. It works with versions of Rails greater than 2.3.
 
 In config/environment.rb:
 
@@ -25,25 +19,10 @@ In config/environment.rb:
       :source  => 'http://gems.github.com', 
       :version => '0.6.1'
 
-In config/environments/test.rb:
-
-    config.gem 'thoughtbot-shoulda',
-      :lib     => 'shoulda',
-      :source  => "http://gems.github.com", 
-      :version => '2.10.1'
-    config.gem 'thoughtbot-factory_girl',
-      :lib     => 'factory_girl',
-      :source  => "http://gems.github.com", 
-      :version => '1.2.1'
-
-Then:
+Vendor the gem:
 
     rake gems:install
     rake gems:unpack
-    rake gems:install RAILS_ENV=test
-    rake gems:unpack  RAILS_ENV=test
-
-h2. The generator
 
 Make sure the development database exists and run the generator:
 
@@ -55,11 +34,32 @@ You may already have some of these files. Don't worry. You'll be asked if you wa
 
 h2. Features
 
-If you are using Cucumber on your application Clearance comes with a feature generator:
+As your app evolves, you want to know that authentication still works. Clearance's opinion is that you should test its integration with your app using "Cucumber":http://cukes.info/.
 
+In config/environments/test.rb:
+
+    config.gem 'webrat',
+      :version => '= 0.4.4'
+    config.gem 'nokogiri',
+      :version => '= 1.2.3'
+    config.gem 'cucumber',
+      :version => '= 0.3.0'
+    config.gem 'thoughtbot-factory_girl',
+      :lib     => 'factory_girl',
+      :source  => "http://gems.github.com", 
+      :version => '1.2.1'
+
+Vendor the gems:
+
+    rake gems:install RAILS_ENV=test
+    rake gems:unpack  RAILS_ENV=test
+
+Run the Cucumber generator (if you haven't already) and Clearance's feature generator:
+
+    script/generate cucumber
     script/generate clearance_features
 
-All of the files generated should be new with the exception of the features/support/paths.rb file.  If you have not modified your paths.rb then you will be okay to replace it with this one.  If you need to keep your paths.rb file then you will need to add these locations in your paths.rb manually:
+All of the files generated should be new with the exception of the features/support/paths.rb file. If you have not modified your paths.rb then you will be okay to replace it with this one. If you need to keep your paths.rb file then add these locations in your paths.rb manually:
 
     def path_to(page_name)
       case page_name
@@ -72,6 +72,10 @@ All of the files generated should be new with the exception of the features/supp
        new_password_path
       ...
     end
+
+h2. Integration with Suspenders
+
+Clearance is based on the same conventions and tools as "Suspenders":http://github.com/thoughtbot/suspenders If you use it, you already have some configuration.
 
 h2. Authors
 
