@@ -1,4 +1,4 @@
-class ClearanceConfirmationsController < ApplicationController
+class Clearance::ConfirmationsController < ApplicationController
 
   before_filter :forbid_confirmed_user,    :only => :new
   before_filter :forbid_missing_token,     :only => :new

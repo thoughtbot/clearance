@@ -1,6 +1,8 @@
 require 'test_helper'
 
-class ClearanceSessionsControllerTest < ActionController::TestCase
+class SessionsControllerTest < ActionController::TestCase
+
+  tests Clearance::SessionsController
 
   should_filter_params :password
 

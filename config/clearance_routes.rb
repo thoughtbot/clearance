@@ -1,19 +1,19 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :passwords,
-    :controller => 'clearance_passwords',
+    :controller => 'clearance/passwords',
     :only => [:new, :create]
 
   map.resource  :session,
-    :controller => 'clearance_sessions',
+    :controller => 'clearance/sessions',
     :only => [:new, :create, :destroy]
 
-  map.resources :users, :controller => 'clearance_users' do |users|
+  map.resources :users, :controller => 'clearance/users' do |users|
     users.resource :password,
-      :controller => 'clearance_passwords',
+      :controller => 'clearance/passwords',
       :only => [:create, :edit, :update]
 
     users.resource :confirmation,
-      :controller => 'clearance_confirmations',
+      :controller => 'clearance/confirmations',
       :only => [:new, :create]
   end
 end

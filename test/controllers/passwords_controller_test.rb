@@ -1,9 +1,11 @@
 require 'test_helper'
 
-class ClearancePasswordsControllerTest < ActionController::TestCase
+class PasswordsControllerTest < ActionController::TestCase
+
+  tests Clearance::PasswordsController
 
   should_route :get, '/users/1/password/edit',
-    :controller => 'clearance_passwords', :action  => 'edit', :user_id => '1'
+    :controller => 'clearance/passwords', :action  => 'edit', :user_id => '1'
 
   context "a signed up user" do
     setup do
