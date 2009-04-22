@@ -9,8 +9,13 @@ class ClearanceGenerator < Rails::Generator::Base
       m.insert_into "app/controllers/application_controller.rb",
                     "include Clearance::Authentication"
 
-      m.directory File.join("app", "models")
-      m.file "user.rb", "app/models/user.rb"
+      user_model = "app/models/user.rb"
+      if File.exists?(user_model)
+        m.insert_into user_model, "include Clearance::User"
+      else
+        m.directory File.join("app", "models")
+        m.file "user.rb", user_model
+      end
 
       m.directory File.join("test", "factories")
       m.file "factories.rb", "test/factories/clearance.rb"
