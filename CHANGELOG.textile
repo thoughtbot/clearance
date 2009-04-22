@@ -1,9 +1,14 @@
-h1. 0.6.1 (04/21/2009)
+h2. 0.6.2 (04/22/2009)
+
+* Insert Clearance::User into User model if it exists. (Nick Quaranto)
+* World(NavigationHelpers) Cucumber 3.0 style. (Shay Arnett & Mark Cornick)
+
+h2. 0.6.1 (04/21/2009)
 * Scope operators are necessary to keep Rails happy. Reverting the original
 revert so they're back in the library now for constants referenced inside of
 the gem. (Nick Quaranto)
 
-h1. 0.6.0 (04/21/2009)
+h2. 0.6.0 (04/21/2009)
 
 * Converted Clearance to a Rails engine. (Dan Croak & Joe Ferris)
 * Include Clearance::User in User model in app. (Dan Croak & Joe Ferris)
@@ -32,7 +37,7 @@ h2. 0.5.6 (4/11/2009)
 * [#57] Step definition changed for "User should see error messages" so
 features won't fail for certain validations. (Nick Quaranto)
 
-h1. 0.5.5 (3/23/2009)
+h2. 0.5.5 (3/23/2009)
 
 * Removing duplicate test to get rid of warning. (Nick Quaranto)
 

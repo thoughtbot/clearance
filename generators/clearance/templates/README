@@ -3,13 +3,7 @@
 
 Ok, enough fancy automatic stuff. Time for some old school monkey copy-pasting.
 
-1. If you already had a User model, include the Clearance::User module now:
-
-    class User < ActiveRecord::Base
-      include Clearance::User
-    end
-
-2. Define a HOST constant in your environments files.
+1. Define a HOST constant in your environments files.
 In config/environments/test.rb and config/environments/development.rb it can be:
 
     HOST = "localhost"
@@ -17,11 +11,11 @@ In config/environments/test.rb and config/environments/development.rb it can be:
 In production.rb it must be the actual host your application is deployed to.
 The constant is used by mailers to generate URLs in emails.
 
-3. In config/environment.rb:
+2. In config/environment.rb:
 
     DO_NOT_REPLY = "donotreply@example.com"
 
-4. Define root_url to *something* in your config/routes.rb:
+3. Define root_url to *something* in your config/routes.rb:
 
     map.root :controller => 'home'
 
