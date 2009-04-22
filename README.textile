@@ -32,7 +32,25 @@ A number of files will be created and instructions will be printed.
 
 You may already have some of these files. Don't worry. You'll be asked if you want to overwrite them.
 
-h2. Features
+h2. Environment
+
+Define a HOST constant in your environment files.
+In config/environments/test.rb and config/environments/development.rb it can be:
+
+    HOST = "localhost"
+
+In production.rb it must be the actual host your application is deployed to.
+The constant is used by mailers to generate URLs in emails.
+
+In config/environment.rb:
+
+    DO_NOT_REPLY = "donotreply@example.com"
+
+Define root_url to *something* in your config/routes.rb:
+
+    map.root :controller => 'home'
+
+h2. Cucumber Features
 
 As your app evolves, you want to know that authentication still works. Clearance's opinion is that you should test its integration with your app using "Cucumber":http://cukes.info/.
 
@@ -73,15 +91,11 @@ All of the files generated should be new with the exception of the features/supp
       ...
     end
 
-h2. Integration with Suspenders
-
-Clearance is based on the same conventions and tools as "Suspenders":http://github.com/thoughtbot/suspenders If you use it, you already have some configuration.
-
 h2. Authors
 
 Clearance was extracted out of "Hoptoad":http://hoptoadapp.com. We merged the authentication code from two of thoughtbot's client's Rails apps. The following people have made significant contributions, suggestions, and generally improved the library. Thank you!
 
-Dan Croak, Mike Burns, Jason Morrison, Joe Ferris, Eugene Bolshakov, Josh Nichols, Mike Breen, Marcel Görner, Bence Nagy, Ben Mabey, Eloy Duran, Tim Pope, Mihai Anca, & Mark Cornick.
+Dan Croak, Mike Burns, Jason Morrison, Joe Ferris, Eugene Bolshakov, Nick Quaranto, Josh Nichols, Mike Breen, Marcel Görner, Bence Nagy, Ben Mabey, Eloy Duran, Tim Pope, Mihai Anca, & Mark Cornick.
 
 h2. Questions?
 

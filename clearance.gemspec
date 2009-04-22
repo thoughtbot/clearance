@@ -4,19 +4,19 @@ version: !ruby/object:Gem::Version
   version: 0.6.1
 platform: ruby
 authors: 
-- thoughtbot, inc.
 - Dan Croak
 - Mike Burns
 - Jason Morrison
+- Joe Ferris
 - Eugene Bolshakov
+- Nick Quaranto
 - Josh Nichols
 - Mike Breen
-- Joe Ferris
-- Bence Nagy
 - "Marcel G\xC3\xB6rner"
+- Bence Nagy
 - Ben Mabey
-- Tim Pope
 - Eloy Duran
+- Tim Pope
 - Mihai Anca
 - Mark Cornick
 autorequire: 
@@ -27,7 +27,7 @@ date: 2009-04-21 00:00:00 -04:00
 default_executable: 
 dependencies: []
 
-description: Simple, complete Rails authentication scheme.
+description: Rails authentication with email & password.
 email: support@thoughtbot.com
 executables: []
 
@@ -68,15 +68,11 @@ files:
 - generators/clearance/lib/insert_commands.rb
 - generators/clearance/lib/rake_commands.rb
 - generators/clearance/templates
-- generators/clearance/templates/app
-- generators/clearance/templates/app/views
-- generators/clearance/templates/db
 - generators/clearance/templates/factories.rb
 - generators/clearance/templates/migrations
 - generators/clearance/templates/migrations/create_users.rb
 - generators/clearance/templates/migrations/update_users.rb
 - generators/clearance/templates/README
-- generators/clearance/templates/test
 - generators/clearance/templates/user.rb
 - generators/clearance/USAGE
 - generators/clearance_features
@@ -94,13 +90,10 @@ files:
 - generators/clearance_features/templates/features/support/paths.rb
 - generators/clearance_features/USAGE
 - lib/clearance
-- lib/clearance/app
 - lib/clearance/authentication.rb
 - lib/clearance/extensions
 - lib/clearance/extensions/errors.rb
 - lib/clearance/extensions/rescue.rb
-- lib/clearance/lib
-- lib/clearance/test
 - lib/clearance/user.rb
 - lib/clearance.rb
 - shoulda_macros/clearance.rb
@@ -130,6 +123,6 @@ rubyforge_project:
 rubygems_version: 1.3.1
 signing_key: 
 specification_version: 2
-summary: Rails authentication for developers who write tests.
+summary: Rails authentication with email & password.
 test_files: []
 
