@@ -1,3 +1,7 @@
+h2. 0.6.3 (04/23/2009)
+
+* Scoping ClearanceMailer properly within controllers so it works in production environments. (Nick Quaranto)
+
 h2. 0.6.2 (04/22/2009)
 
 * Insert Clearance::User into User model if it exists. (Nick Quaranto)
