@@ -21,7 +21,7 @@ class Clearance::SessionsController < ApplicationController
         flash[:notice] = "Signed in successfully."
         redirect_back_or url_after_create
       else
-        ClearanceMailer.deliver_confirmation(@user)
+        ::ClearanceMailer.deliver_confirmation(@user)
         deny_access("User has not confirmed email. Confirmation email will be resent.")
       end
     end

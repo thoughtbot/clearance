@@ -1,0 +1,1 @@
+HOST = "http://example.com"
