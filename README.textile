@@ -32,6 +32,10 @@ A number of files will be created and instructions will be printed.
 
 You may already have some of these files. Don't worry. You'll be asked if you want to overwrite them.
 
+Run the migration:
+
+    rake db:migrate
+
 h2. Environment
 
 Define a HOST constant in your environment files.
