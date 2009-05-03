@@ -65,14 +65,14 @@ In config/environments/test.rb:
       :source  => "http://gems.github.com", 
       :version => '1.2.1'
 
-Install nokogiri but don't vendor it (due to its native extensions):
-
-   sudo gem install nokogiri
-
 Vendor the gems:
 
     rake gems:install RAILS_ENV=test
     rake gems:unpack  RAILS_ENV=test
+
+Don't vendor nokogiri (due to its native extensions):
+
+    rm -rf vendor/gems/nokogiri-1.2.3
 
 Run the Cucumber generator (if you haven't already) and Clearance's feature generator:
 
