@@ -105,9 +105,9 @@ Dan Croak, Mike Burns, Jason Morrison, Joe Ferris, Eugene Bolshakov, Nick Quaran
 
 h2. Questions?
 
-* Ask the "mailing list":http://groups.google.com/group/thoughtbot-clearance
+Ask the "mailing list":http://groups.google.com/group/thoughtbot-clearance
 
-h2. Bugs?
+h2. Suggestions, Bugs, Refactoring?
 
-* Open up a "Lighthouse ticket":https://thoughtbot.lighthouseapp.com/projects/18503-clearance
+Fork away and create a "Github Issue":http://github.com/thoughtbot/clearance/issues. Please don't send pull requests.
 
