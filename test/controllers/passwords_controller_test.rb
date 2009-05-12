@@ -58,8 +58,8 @@ class PasswordsControllerTest < ActionController::TestCase
           assert ActionMailer::Base.deliveries.empty?
         end
 
-        should "set a :notice flash" do
-          assert_not_nil flash.now[:notice]
+        should "set the failure flash to Unknown email" do
+          assert_match /unknown email/i, flash.now[:failure]
         end
 
         should_render_template :new
@@ -120,6 +120,7 @@ class PasswordsControllerTest < ActionController::TestCase
       end
 
       should_be_signed_in_as { @user }
+      should_set_the_flash_to(/signed in/i)
       should_redirect_to_url_after_update
     end
 
@@ -147,6 +148,7 @@ class PasswordsControllerTest < ActionController::TestCase
       end
 
       should_not_be_signed_in
+      should_not_set_the_flash
       should_respond_with    :success
       should_render_template :edit
 

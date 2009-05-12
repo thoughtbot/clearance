@@ -51,6 +51,22 @@ module Clearance
         end
       end
 
+      def remember?
+        params[:session] && params[:session][:remember_me] == "1"
+      end
+
+      def remember(user)
+        user.remember_me!
+        cookies[:remember_token] = { :value   => user.token,
+                                     :expires => user.token_expires_at }
+      end
+
+      def forget(user)
+        user.forget_me! if user
+        cookies.delete :remember_token
+        reset_session
+      end
+
       def redirect_back_or(default)
         session[:return_to] ||= params[:return_to]
         if session[:return_to]

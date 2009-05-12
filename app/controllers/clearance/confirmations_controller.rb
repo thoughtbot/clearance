@@ -43,5 +43,4 @@ class Clearance::ConfirmationsController < ApplicationController
   def url_after_create
     root_url
   end
-
 end

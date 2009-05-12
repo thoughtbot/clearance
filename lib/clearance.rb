@@ -16,3 +16,4 @@ class ActionController::Routing::RouteSet
 
   alias_method_chain :load_routes!, :clearance
 end
+

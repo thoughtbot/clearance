@@ -17,7 +17,7 @@ class Clearance::PasswordsController < ApplicationController
                        "It contains instructions for changing your password."
       redirect_to url_after_create
     else
-      flash.now[:notice] = "Unknown email"
+      flash.now[:failure] = "Unknown email"
       render :template => 'passwords/new'
     end
   end
@@ -30,10 +30,11 @@ class Clearance::PasswordsController < ApplicationController
   def update
     @user = ::User.find_by_id_and_token(params[:user_id], params[:token])
 
-    if @user.update_password(params[:user][:password], 
+    if @user.update_password(params[:user][:password],
                              params[:user][:password_confirmation])
       @user.confirm_email! unless @user.email_confirmed?
       sign_user_in(@user)
+      flash[:success] = "Signed in."
       redirect_to url_after_update
     else
       render :template => 'passwords/edit'
@@ -61,5 +62,4 @@ class Clearance::PasswordsController < ApplicationController
   def url_after_update
     root_url
   end
-
 end

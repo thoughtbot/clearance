@@ -30,7 +30,7 @@ Then /^I should be signed in$/ do
   assert controller.signed_in?
 end
 
-Then /^I should not be signed in$/ do
+Then /^I should be signed out$/ do
   assert ! controller.signed_in?
 end
 

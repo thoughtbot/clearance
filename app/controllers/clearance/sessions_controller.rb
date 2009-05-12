@@ -12,13 +12,13 @@ class Clearance::SessionsController < ApplicationController
     @user = ::User.authenticate(params[:session][:email],
                               params[:session][:password])
     if @user.nil?
-      flash.now[:notice] = "Bad email or password."
+      flash.now[:failure] = "Bad email or password."
       render :template => 'sessions/new', :status => :unauthorized
     else
       if @user.email_confirmed?
-        remember(@user) if remember?
         sign_user_in(@user)
-        flash[:notice] = "Signed in successfully."
+        remember(@user) if remember?
+        flash[:success] = "Signed in."
         redirect_back_or url_after_create
       else
         ::ClearanceMailer.deliver_confirmation(@user)
@@ -29,27 +29,11 @@ class Clearance::SessionsController < ApplicationController
 
   def destroy
     forget(current_user)
-    reset_session
-    flash[:notice] = "You have been signed out."
+    flash[:success] = "Signed out."
     redirect_to url_after_destroy
   end
 
   private
-
-  def remember?
-    params[:session] && params[:session][:remember_me] == "1"
-  end
-
-  def remember(user)
-    user.remember_me!
-    cookies[:remember_token] = { :value   => user.token,
-                                 :expires => user.token_expires_at }
-  end
-
-  def forget(user)
-    user.forget_me! if user
-    cookies.delete :remember_token
-  end
 
   def url_after_create
     root_url

@@ -26,5 +26,4 @@ class Clearance::UsersController < ApplicationController
   def url_after_create
     new_session_url
   end
-
 end
