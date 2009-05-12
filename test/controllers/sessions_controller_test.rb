@@ -149,7 +149,7 @@ class SessionsControllerTest < ActionController::TestCase
 
   context "a DELETE to #destroy without a cookie" do
     setup do
-      sign_in_as
+      sign_in
       delete :destroy
     end
 

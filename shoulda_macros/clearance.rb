@@ -211,17 +211,19 @@ end
 module Clearance
   module Shoulda
     module Helpers
-      def sign_in_as(user = nil)
-        unless user
-          user = Factory(:user)
-          user.confirm_email!
-        end
-        @request.session[:user_id] = user.id
+      def sign_in_as(user)
+        @controller.class_eval { attr_accessor :current_user }
+        @controller.current_user = user
         return user
       end
 
+      def sign_in
+        sign_in_as Factory(:email_confirmed_user)
+      end
+
       def sign_out
-        @request.session[:user_id] = nil
+        @controller.class_eval { attr_accessor :current_user }
+        @controller.current_user = nil
       end
 
       def blank_confirmation_options(attribute)
