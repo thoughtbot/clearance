@@ -8,7 +8,7 @@ Feature: Sign in
       When I go to the sign in page
       And I sign in as "email@person.com/password"
       Then I should see "Bad email or password"
-      And I should not be signed in      
+      And I should not be signed in
 
     Scenario: User is not confirmed
       Given I signed up with "email@person.com/password"
@@ -36,6 +36,6 @@ Feature: Sign in
       When I go to the sign in page
       And I sign in with "remember me" as "email@person.com/password"
       Then I should see "Signed in successfully"
-      And I should be signed in    
+      And I should be signed in
       When I return next time
       Then I should be signed in

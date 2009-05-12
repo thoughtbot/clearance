@@ -58,5 +58,4 @@ class Clearance::SessionsController < ApplicationController
   def url_after_destroy
     new_session_url
   end
-
 end

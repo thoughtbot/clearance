@@ -11,15 +11,15 @@ Given /^no user exists with an email of "(.*)"$/ do |email|
 end
 
 Given /^I signed up with "(.*)\/(.*)"$/ do |email, password|
-  user = Factory :user, 
-    :email                 => email, 
+  user = Factory :user,
+    :email                 => email,
     :password              => password,
     :password_confirmation => password
 end 
 
 Given /^I am signed up and confirmed as "(.*)\/(.*)"$/ do |email, password|
   user = Factory :email_confirmed_user,
-    :email                 => email, 
+    :email                 => email,
     :password              => password,
     :password_confirmation => password
 end
@@ -27,15 +27,16 @@ end
 # Session
 
 Then /^I should be signed in$/ do
-  assert_not_nil request.session[:user_id]
+  assert controller.signed_in?
 end
 
 Then /^I should not be signed in$/ do
-  assert_nil request.session[:user_id]
+  assert ! controller.signed_in?
 end
 
 When /^session is cleared$/ do
-  request.session[:user_id] = nil
+  request.reset_session
+  controller.instance_variable_set(:@_current_user, nil)
 end
 
 # Emails
@@ -76,7 +77,6 @@ end
 Then /^I should be forbidden$/ do
   assert_response :forbidden
 end
-
 
 # Actions
 
