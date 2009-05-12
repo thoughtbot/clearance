@@ -12,10 +12,11 @@ module Clearance
         attr_accessor :password, :password_confirmation
 
         validates_presence_of     :email
-        validates_presence_of     :password, :if => :password_required?
-        validates_confirmation_of :password, :if => :password_required?
         validates_uniqueness_of   :email, :case_sensitive => false
         validates_format_of       :email, :with => %r{.+@.+\..+}
+
+        validates_presence_of     :password, :if => :password_required?
+        validates_confirmation_of :password, :if => :password_required?
 
         before_save :initialize_salt, :encrypt_password, :initialize_token
       end
