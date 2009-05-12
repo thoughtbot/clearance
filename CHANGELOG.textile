@@ -1,3 +1,11 @@
+h2. 0.6.4 (05/12/2009)
+
+* Moved issue tracking to Github from Lighthouse. (Dan Croak)
+* [#7] asking higher-level questions of controllers in webrat steps, such as signed_in? instead of what's in the session. same for accessors. (Dan Croak)
+* [#11] replacing sign_in_as & sign_out shoulda macros with a stubbing (requires no dependency) approach. this will avoid dealing with the internals of current_user, such as session & cookies. added sign_in macro which signs in an email confirmed user from clearance's factories. (Dan Croak)
+* [#13] move private methods on sessions controller into Clearance::Authentication module (Dan Croak)
+* [#9] audited flash keys. (Dan Croak)
+
 h2. 0.6.3 (04/23/2009)
 
 * Scoping ClearanceMailer properly within controllers so it works in production environments. (Nick Quaranto)
