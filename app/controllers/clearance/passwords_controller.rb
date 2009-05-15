@@ -13,11 +13,15 @@ class Clearance::PasswordsController < ApplicationController
     if user = ::User.find_by_email(params[:password][:email])
       user.forgot_password!
       ::ClearanceMailer.deliver_change_password user
-      flash[:notice] = "You will receive an email within the next few minutes. " <<
-                       "It contains instructions for changing your password."
+      flash[:notice] = translate(:deliver_change_password,
+        :scope   => [:clearance, :controllers, :passwords],
+        :default => "You will receive an email within the next few minutes. " <<
+                    "It contains instructions for changing your password.")
       redirect_to url_after_create
     else
-      flash.now[:failure] = "Unknown email"
+      flash.now[:failure] = translate(:unknown_email,
+        :scope   => [:clearance, :controllers, :passwords],
+        :default => "Unknown email")
       render :template => 'passwords/new'
     end
   end
@@ -34,7 +38,7 @@ class Clearance::PasswordsController < ApplicationController
                              params[:user][:password_confirmation])
       @user.confirm_email! unless @user.email_confirmed?
       sign_user_in(@user)
-      flash[:success] = "Signed in."
+      flash[:success] = translate(:signed_in, :default =>  "Signed in.")
       redirect_to url_after_update
     else
       render :template => 'passwords/edit'

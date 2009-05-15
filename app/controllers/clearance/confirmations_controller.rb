@@ -15,7 +15,9 @@ class Clearance::ConfirmationsController < ApplicationController
     @user.confirm_email!
 
     sign_user_in(@user)
-    flash[:success] = "Confirmed email and signed in."
+    flash[:success] = translate(:confirmed_email,
+      :scope   => [:clearance, :controllers, :confirmations],
+      :default => "Confirmed email and signed in.")
     redirect_to url_after_create
   end
 

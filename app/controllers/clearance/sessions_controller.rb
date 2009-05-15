@@ -18,18 +18,21 @@ class Clearance::SessionsController < ApplicationController
       if @user.email_confirmed?
         sign_user_in(@user)
         remember(@user) if remember?
-        flash[:success] = "Signed in."
+        flash[:success] = translate(:signed_in, :default =>  "Signed in.")
         redirect_back_or url_after_create
       else
         ::ClearanceMailer.deliver_confirmation(@user)
-        deny_access("User has not confirmed email. Confirmation email will be resent.")
+        deny_access(translate(:unconfirmed_email,
+          :scope   => [:clearance, :controllers, :sessions],
+          :default => "User has not confirmed email. " <<
+                      "Confirmation email will be resent."))
       end
     end
   end
 
   def destroy
     forget(current_user)
-    flash[:success] = "Signed out."
+    flash[:success] = translate(:signed_in, :default =>  "Signed out.")
     redirect_to url_after_destroy
   end
 
