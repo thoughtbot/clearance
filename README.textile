@@ -14,19 +14,23 @@ Clearance is a Rails engine. It works with versions of Rails greater than 2.3.
 
 In config/environment.rb:
 
-    config.gem "thoughtbot-clearance", 
-      :lib     => 'clearance', 
-      :source  => 'http://gems.github.com', 
-      :version => '0.6.4'
+<pre>
+config.gem "thoughtbot-clearance", 
+  :lib     => 'clearance', 
+  :source  => 'http://gems.github.com', 
+  :version => '0.6.4'
+</pre>
 
 Vendor the gem:
 
-    rake gems:install
-    rake gems:unpack
+<pre>
+rake gems:install
+rake gems:unpack
+</pre>
 
 Make sure the development database exists and run the generator:
 
-    script/generate clearance
+@script/generate clearance@
 
 A number of files will be created and instructions will be printed.
 
@@ -34,25 +38,25 @@ You may already have some of these files. Don't worry. You'll be asked if you wa
 
 Run the migration:
 
-    rake db:migrate
+@rake db:migrate@
 
 h2. Environment
 
 Define a HOST constant in your environment files.
 In config/environments/test.rb and config/environments/development.rb it can be:
 
-    HOST = "localhost"
+@HOST = "localhost"@
 
 In production.rb it must be the actual host your application is deployed to.
 The constant is used by mailers to generate URLs in emails.
 
 In config/environment.rb:
 
-    DO_NOT_REPLY = "donotreply@example.com"
+@DO_NOT_REPLY = "donotreply@example.com"@
 
 Define root_url to *something* in your config/routes.rb:
 
-    map.root :controller => 'home'
+@map.root :controller => 'home'@
 
 h2. Cucumber Features
 
@@ -60,42 +64,50 @@ As your app evolves, you want to know that authentication still works. Clearance
 
 In config/environments/test.rb:
 
-    config.gem 'webrat',
-      :version => '= 0.4.4'
-    config.gem 'cucumber',
-      :version => '= 0.3.0'
-    config.gem 'thoughtbot-factory_girl',
-      :lib     => 'factory_girl',
-      :source  => "http://gems.github.com", 
-      :version => '1.2.1'
+<pre>
+config.gem 'webrat',
+  :version => '= 0.4.4'
+config.gem 'cucumber',
+  :version => '= 0.3.0'
+config.gem 'thoughtbot-factory_girl',
+  :lib     => 'factory_girl',
+  :source  => "http://gems.github.com", 
+  :version => '1.2.1'
+</pre>
 
 Vendor the gems:
 
-    rake gems:install RAILS_ENV=test
-    rake gems:unpack  RAILS_ENV=test
+<pre>
+rake gems:install RAILS_ENV=test
+rake gems:unpack  RAILS_ENV=test
+</pre>
 
 Don't vendor nokogiri (due to its native extensions):
 
-    rm -rf vendor/gems/nokogiri-1.2.3
+@rm -rf vendor/gems/nokogiri-1.2.3@
 
 Run the Cucumber generator (if you haven't already) and Clearance's feature generator:
 
-    script/generate cucumber
-    script/generate clearance_features
+<pre>
+script/generate cucumber
+script/generate clearance_features
+</pre>
 
 All of the files generated should be new with the exception of the features/support/paths.rb file. If you have not modified your paths.rb then you will be okay to replace it with this one. If you need to keep your paths.rb file then add these locations in your paths.rb manually:
 
-    def path_to(page_name)
-      case page_name
-       ...
-      when /the sign up page/i
-       new_user_path
-      when /the sign in page/i
-       new_session_path
-      when /the password reset request page/i
-       new_password_path
-      ...
-    end
+<pre>
+def path_to(page_name)
+  case page_name
+   ...
+  when /the sign up page/i
+   new_user_path
+  when /the sign in page/i
+   new_session_path
+  when /the password reset request page/i
+   new_password_path
+  ...
+end
+</pre>
 
 h2. Authors
 
