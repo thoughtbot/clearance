@@ -32,7 +32,7 @@ class Clearance::SessionsController < ApplicationController
 
   def destroy
     forget(current_user)
-    flash[:success] = translate(:signed_in, :default =>  "Signed out.")
+    flash[:success] = translate(:signed_out, :default =>  "Signed out.")
     redirect_to url_after_destroy
   end
 
