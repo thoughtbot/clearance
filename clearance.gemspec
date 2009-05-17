@@ -1,7 +1,7 @@
 --- !ruby/object:Gem::Specification 
 name: clearance
 version: !ruby/object:Gem::Version 
-  version: 0.6.4
+  version: 0.6.5
 platform: ruby
 authors: 
 - Dan Croak
@@ -24,7 +24,7 @@ autorequire:
 bindir: bin
 cert_chain: []
 
-date: 2009-05-12 00:00:00 -04:00
+date: 2009-05-17 00:00:00 -04:00
 default_executable: 
 dependencies: []
 
@@ -99,8 +99,10 @@ files:
 - lib/clearance.rb
 - shoulda_macros/clearance.rb
 - rails/init.rb
-has_rdoc: false
+has_rdoc: true
 homepage: http://github.com/thoughtbot/clearance
+licenses: []
+
 post_install_message: 
 rdoc_options: []
 
@@ -121,9 +123,9 @@ required_rubygems_version: !ruby/object:Gem::Requirement
 requirements: []
 
 rubyforge_project: 
-rubygems_version: 1.3.1
+rubygems_version: 1.3.3
 signing_key: 
-specification_version: 2
+specification_version: 3
 summary: Rails authentication with email & password.
 test_files: []
 

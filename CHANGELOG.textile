@@ -1,3 +1,7 @@
+h2. 0.6.5 (5/17/2009)
+
+* [#6] Make Clearance i18n aware. (Timur Vafin, Marcel Goerner, Eugene Bolshakov, Dan Croak)
+
 h2. 0.6.4 (05/12/2009)
 
 * Moved issue tracking to Github from Lighthouse. (Dan Croak)
