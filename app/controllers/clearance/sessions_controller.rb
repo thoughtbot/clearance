@@ -12,7 +12,9 @@ class Clearance::SessionsController < ApplicationController
     @user = ::User.authenticate(params[:session][:email],
                               params[:session][:password])
     if @user.nil?
-      flash.now[:failure] = "Bad email or password."
+      flash.now[:failure] = translate(:bad_email_or_password,
+        :scope   => [:clearance, :controllers, :sessions],
+        :default => "Bad email or password.")
       render :template => 'sessions/new', :status => :unauthorized
     else
       if @user.email_confirmed?
