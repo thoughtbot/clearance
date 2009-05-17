@@ -21,7 +21,7 @@ class Clearance::PasswordsController < ApplicationController
     else
       flash.now[:failure] = translate(:unknown_email,
         :scope   => [:clearance, :controllers, :passwords],
-        :default => "Unknown email")
+        :default => "Unknown email.")
       render :template => 'passwords/new'
     end
   end
@@ -38,9 +38,7 @@ class Clearance::PasswordsController < ApplicationController
                              params[:user][:password_confirmation])
       @user.confirm_email! unless @user.email_confirmed?
       sign_user_in(@user)
-      flash[:success] = translate(:signed_in,
-        :scope   => [:clearance, :controllers, :passwords],
-        :default => "Signed in.")
+      flash[:success] = translate(:signed_in, :default => "Signed in.")
       redirect_to url_after_update
     else
       render :template => 'passwords/edit'

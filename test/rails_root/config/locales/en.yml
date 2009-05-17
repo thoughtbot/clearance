@@ -1,18 +1,19 @@
 en:
-  clearance: 
+  clearance:
     models:
       clearance_mailer:
-        change_password: Change your password 
-        confirmation: Account confirmation 
+        change_password: Change your password
+        confirmation: Account confirmation
     controllers:
-      confirmations: 
+      confirmations:
         confirmed_email: Confirmed email and signed in.
-      passwords: 
+      passwords:
         deliver_change_password: You will receive an email within the next few minutes. It contains instructions for changing your password.
-        unknown_email: Unknown email
+        unknown_email: Unknown email.
       sessions:
+        bad_email_or_password: Bad email or password.
         unconfirmed_email: User has not confirmed email. Confirmation email will be resent.
       users:
         deliver_confirmation: You will receive an email within the next few minutes. It contains instructions for confirming your account.
-  signed_in: Signed in
-  signed_out: Signed out
+  signed_in: Signed in.
+  signed_out: Signed out.
