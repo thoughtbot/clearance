@@ -95,6 +95,7 @@ files:
 - lib/clearance/extensions
 - lib/clearance/extensions/errors.rb
 - lib/clearance/extensions/rescue.rb
+- lib/clearance/extensions/routes.rb
 - lib/clearance/user.rb
 - lib/clearance.rb
 - shoulda_macros/clearance.rb
