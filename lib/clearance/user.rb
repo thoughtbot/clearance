@@ -4,21 +4,49 @@ module Clearance
   module User
 
     def self.included(model)
-      model.extend ClassMethods
+      model.extend(ClassMethods)
+
       model.send(:include, InstanceMethods)
+      model.send(:include, AttrAccessible)
+      model.send(:include, AttrAccessor)
+      model.send(:include, Validations)
+      model.send(:include, Callbacks)
+    end
 
-      model.class_eval do
-        attr_accessible :email, :password, :password_confirmation
-        attr_accessor :password, :password_confirmation
+    module AttrAccessible
+      def self.included(model)
+        model.class_eval do
+          attr_accessible :email, :password, :password_confirmation
+        end
+      end
+    end
 
-        validates_presence_of     :email
-        validates_uniqueness_of   :email, :case_sensitive => false
-        validates_format_of       :email, :with => %r{.+@.+\..+}
+    module AttrAccessor
+      def self.included(model)
+        model.class_eval do
+          attr_accessor :password, :password_confirmation
+        end
+      end
+    end
 
-        validates_presence_of     :password, :if => :password_required?
-        validates_confirmation_of :password, :if => :password_required?
+    module Validations
+      def self.included(model)
+        model.class_eval do
+          validates_presence_of     :email
+          validates_uniqueness_of   :email, :case_sensitive => false
+          validates_format_of       :email, :with => %r{.+@.+\..+}
 
-        before_save :initialize_salt, :encrypt_password, :initialize_token
+          validates_presence_of     :password, :if => :password_required?
+          validates_confirmation_of :password, :if => :password_required?
+        end
+      end
+    end
+
+    module Callbacks
+      def self.included(model)
+        model.class_eval do
+          before_save :initialize_salt, :encrypt_password, :initialize_token
+        end
       end
     end
 
