@@ -14,7 +14,7 @@ module Clearance
     end
 
     def should_be_signed_in_and_email_confirmed_as(&block)
-      warn "[DEPRECATION] questionable usefulness"
+      warn "[DEPRECATION] should_be_signed_in_and_email_confirmed_as: questionable usefulness"
       should_be_signed_in_as &block
 
       should "have confirmed email" do
@@ -33,7 +33,7 @@ module Clearance
     end
 
     def should_deny_access_on(http_method, action, opts = {})
-      warn "[DEPRECATION] use a setup & should_deny_access(:flash => ?)"
+      warn "[DEPRECATION] should_deny_access_on: use a setup & should_deny_access(:flash => ?)"
       flash_message = opts.delete(:flash)
       context "on #{http_method} to #{action}" do
         setup do
@@ -67,7 +67,7 @@ module Clearance
     # CONTEXTS
 
     def signed_in_user_context(&blk)
-      warn "[DEPRECATION] creates a Mystery Guest, causes Obscure Test"
+      warn "[DEPRECATION] signed_in_user_context: creates a Mystery Guest, causes Obscure Test"
       context "A signed in user" do
         setup do
           @user = Factory(:user)
@@ -79,7 +79,7 @@ module Clearance
     end
 
     def public_context(&blk)
-      warn "[DEPRECATION] common case is no-op. call sign_out otherwise"
+      warn "[DEPRECATION] public_context: common case is no-op. call sign_out otherwise"
       context "The public" do
         setup { sign_out }
         merge_block(&blk)
@@ -89,7 +89,7 @@ module Clearance
     # CREATING USERS
 
     def should_create_user_successfully
-      warn "[DEPRECATION] not meant to be public, no longer used internally"
+      warn "[DEPRECATION] should_create_user_successfully: not meant to be public, no longer used internally"
       should_assign_to :user
       should_change 'User.count', :by => 1
 
@@ -134,7 +134,7 @@ module Clearance
     # VALIDATIONS
 
     def should_validate_confirmation_of(attribute, opts = {})
-      warn "[DEPRECATION] not meant to be public, no longer used internally"
+      warn "[DEPRECATION] should_validate_confirmation_of: not meant to be public, no longer used internally"
       raise ArgumentError if opts[:factory].nil?
 
       context "on save" do
@@ -144,7 +144,7 @@ module Clearance
     end
 
     def should_validate_confirmation_is_not_blank(factory, attribute, opts = {})
-      warn "[DEPRECATION] not meant to be public, no longer used internally"
+      warn "[DEPRECATION] should_validate_confirmation_is_not_blank: not meant to be public, no longer used internally"
       should "validate #{attribute}_confirmation is not blank" do
         model = Factory.build(factory, blank_confirmation_options(attribute))
         model.save
@@ -154,7 +154,7 @@ module Clearance
     end
 
     def should_validate_confirmation_is_not_bad(factory, attribute, opts = {})
-      warn "[DEPRECATION] not meant to be public, no longer used internally"
+      warn "[DEPRECATION] should_validate_confirmation_is_not_bad: not meant to be public, no longer used internally"
       should "validate #{attribute}_confirmation is different than #{attribute}" do
         model = Factory.build(factory, bad_confirmation_options(attribute))
         model.save
@@ -166,7 +166,7 @@ module Clearance
     # FORMS
 
     def should_display_a_password_update_form
-      warn "[DEPRECATION] not meant to be public, no longer used internally"
+      warn "[DEPRECATION] should_display_a_password_update_form: not meant to be public, no longer used internally"
       should "have a form for the user's token, password, and password confirm" do
         update_path = ERB::Util.h(
           user_password_path(@user, :token => @user.token)
@@ -181,7 +181,7 @@ module Clearance
     end
 
     def should_display_a_sign_up_form
-      warn "[DEPRECATION] not meant to be public, no longer used internally"
+      warn "[DEPRECATION] should_display_a_sign_up_form: not meant to be public, no longer used internally"
       should "display a form to sign up" do
         assert_select "form[action=#{users_path}][method=post]",
         true, "There must be a form to sign up" do
@@ -198,7 +198,7 @@ module Clearance
     end
 
     def should_display_a_sign_in_form
-      warn "[DEPRECATION] not meant to be public, no longer used internally"
+      warn "[DEPRECATION] should_display_a_sign_in_form: not meant to be public, no longer used internally"
       should 'display a "sign in" form' do
         assert_select "form[action=#{session_path}][method=post]",
           true, "There must be a form to sign in" do
@@ -235,19 +235,19 @@ module Clearance
       end
 
       def blank_confirmation_options(attribute)
-        warn "[DEPRECATION] not meant to be public, no longer used internally"
+        warn "[DEPRECATION] blank_confirmation_options: not meant to be public, no longer used internally"
         opts = { attribute => attribute.to_s }
         opts.merge("#{attribute}_confirmation".to_sym => "")
       end
 
       def bad_confirmation_options(attribute)
-        warn "[DEPRECATION] not meant to be public, no longer used internally"
+        warn "[DEPRECATION] bad_confirmation_options: not meant to be public, no longer used internally"
         opts = { attribute => attribute.to_s }
         opts.merge("#{attribute}_confirmation".to_sym => "not_#{attribute}")
       end
 
       def assert_confirmation_error(model, attribute, message = "confirmation error")
-        warn "[DEPRECATION] not meant to be public, no longer used internally"
+        warn "[DEPRECATION] assert_confirmation_error: not meant to be public, no longer used internally"
         assert model.errors.on(attribute).include?("doesn't match confirmation"),
           message
       end
