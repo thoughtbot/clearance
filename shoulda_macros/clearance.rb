@@ -8,8 +8,9 @@ module Clearance
         user = block.bind(self).call
         assert_not_nil user,
           "please pass a User. try: should_be_signed_in_as { @user }"
-        assert_equal user.id,   session[:user_id],
-          "session[:user_id] is not set to User's id"
+        assert_equal user, @controller.send(:current_user),
+          "#{user.inspect} is not the current_user, " <<
+          "which is #{@controller.send(:current_user).inspect}"
       end
     end
 
