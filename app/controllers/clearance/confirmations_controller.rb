@@ -15,9 +15,7 @@ class Clearance::ConfirmationsController < ApplicationController
     @user.confirm_email!
 
     sign_user_in(@user)
-    flash[:success] = translate(:confirmed_email,
-      :scope   => [:clearance, :controllers, :confirmations],
-      :default => "Confirmed email and signed in.")
+    flash_success_after_create
     redirect_to url_after_create
   end
 
@@ -40,6 +38,12 @@ class Clearance::ConfirmationsController < ApplicationController
     unless ::User.find_by_id_and_token(params[:user_id], params[:token])
       raise ActionController::Forbidden, "non-existent user"
     end
+  end
+
+  def flash_success_after_create
+    flash[:success] = translate(:confirmed_email,
+      :scope   => [:clearance, :controllers, :confirmations],
+      :default => "Confirmed email and signed in.")
   end
 
   def url_after_create
