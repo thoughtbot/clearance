@@ -64,17 +64,20 @@ module Clearance
 
       def forget(user)
         user.forget_me! if user
-        cookies.delete :remember_token
+        cookies.delete(:remember_token)
         reset_session
       end
 
       def redirect_back_or(default)
-        session[:return_to] ||= params[:return_to]
-        if session[:return_to]
-          redirect_to(session[:return_to])
-        else
-          redirect_to(default)
-        end
+        redirect_to(return_to || default)
+        clear_return_to
+      end
+
+      def return_to
+        session[:return_to] || params[:return_to]
+      end
+
+      def clear_return_to
         session[:return_to] = nil
       end
 
