@@ -36,7 +36,7 @@ class Clearance::PasswordsController < ApplicationController
 
     if @user.update_password(params[:user][:password],
                              params[:user][:password_confirmation])
-      @user.confirm_email! unless @user.email_confirmed?
+      @user.confirm_email!
       sign_user_in(@user)
       flash[:success] = translate(:signed_in, :default => "Signed in.")
       redirect_to url_after_update
