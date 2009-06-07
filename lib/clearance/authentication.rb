@@ -42,6 +42,7 @@ module Clearance
       end
 
       def sign_user_in(user)
+        warn "[DEPRECATION] sign_user_in: unnecessary. use sign_in(user) instead."
         sign_in(user)
       end
 
@@ -78,7 +79,7 @@ module Clearance
       end
 
       def redirect_to_root
-        redirect_to root_url
+        redirect_to(root_url)
       end
 
       def store_location
@@ -88,7 +89,7 @@ module Clearance
       def deny_access(flash_message = nil, opts = {})
         store_location
         flash[:failure] = flash_message if flash_message
-        redirect_to new_session_url
+        redirect_to(new_session_url)
       end
     end
 

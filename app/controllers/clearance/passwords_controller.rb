@@ -32,7 +32,7 @@ class Clearance::PasswordsController < ApplicationController
     if @user.update_password(params[:user][:password],
                              params[:user][:password_confirmation])
       @user.confirm_email!
-      sign_user_in(@user)
+      sign_in(@user)
       flash_success_after_update
       redirect_to(url_after_update)
     else

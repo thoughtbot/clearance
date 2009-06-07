@@ -16,7 +16,7 @@ class Clearance::SessionsController < ApplicationController
       render :template => 'sessions/new', :status => :unauthorized
     else
       if @user.email_confirmed?
-        sign_user_in(@user)
+        sign_in(@user)
         remember(@user) if remember?
         flash_success_after_create
         redirect_back_or(url_after_create)

@@ -14,7 +14,7 @@ class Clearance::ConfirmationsController < ApplicationController
     @user = ::User.find_by_id_and_token(params[:user_id], params[:token])
     @user.confirm_email!
 
-    sign_user_in(@user)
+    sign_in(@user)
     flash_success_after_create
     redirect_to(url_after_create)
   end
