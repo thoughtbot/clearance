@@ -14,7 +14,7 @@ class Clearance::PasswordsController < ApplicationController
       user.forgot_password!
       ::ClearanceMailer.deliver_change_password user
       flash_notice_after_create
-      redirect_to url_after_create
+      redirect_to(url_after_create)
     else
       flash_failure_after_create
       render :template => 'passwords/new'
@@ -34,7 +34,7 @@ class Clearance::PasswordsController < ApplicationController
       @user.confirm_email!
       sign_user_in(@user)
       flash_success_after_update
-      redirect_to url_after_update
+      redirect_to(url_after_update)
     else
       render :template => 'passwords/edit'
     end

@@ -16,7 +16,7 @@ class Clearance::ConfirmationsController < ApplicationController
 
     sign_user_in(@user)
     flash_success_after_create
-    redirect_to url_after_create
+    redirect_to(url_after_create)
   end
 
   private
