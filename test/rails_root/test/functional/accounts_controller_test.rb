@@ -2,7 +2,8 @@ require 'test_helper'
 
 class AccountsControllerTest < ActionController::TestCase
 
-  public_context do
+  context "when signed out" do
+    setup { sign_out }
     should_deny_access_on :get, :edit
     should_deny_access_on :put, :update
   end

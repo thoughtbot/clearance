@@ -6,8 +6,10 @@ class UsersControllerTest < ActionController::TestCase
 
   should_filter_params :password
 
-  public_context do
-    context "When getting new User view" do
+  context "when signed out" do
+    setup { sign_out }
+
+    context "on GET to #new" do
       setup { get :new }
 
       should_respond_with :success
@@ -17,7 +19,7 @@ class UsersControllerTest < ActionController::TestCase
       should_display_a_sign_up_form
     end
 
-    context "Given email parameter when getting new User view" do
+    context "on GET to #new with email" do
       setup do
         @email = "a@example.com"
         get :new, :user => { :email => @email }
@@ -28,7 +30,7 @@ class UsersControllerTest < ActionController::TestCase
       end
     end
 
-    context "Given valid attributes when creating a new user" do
+    context "on POST to #create with valid attributes" do
       setup do
         user_attributes = Factory.attributes_for(:user)
         post :create, :user => user_attributes
