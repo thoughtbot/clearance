@@ -9,7 +9,10 @@ require 'clearance'
 gem 'thoughtbot-factory_girl'
 
 require 'factory_girl'
-require 'redgreen' rescue LoadError
+begin
+  require 'redgreen'
+rescue LoadError
+end
 
 require File.join(File.dirname(__FILE__), '..', 'shoulda_macros', 'clearance')
 
