@@ -1,9 +1,21 @@
-h2. 0.6.6 (5/18/2009)
+h2. 0.6.7 (06/13/2009)
+
+* [#30] Added sign_up, sign_in, sign_out named routes. (Dan Croak)
+* [#22] Minimizing Reek smell: Duplication in redirect_back_or. (Dan Croak)
+* Deprecated sign_user_in. Told developers to use sign_in instead. (Dan
+Croak)
+* [#16] flash_success_after_create, flash_notice_after_create, flash_failure_after_create, flash_sucess_after_update, flash_success_after_destroy, etc. (Dan Croak)
+* [#17] bug. added #create to forbidden before_filters on confirmations controller. (Dan Croak)
+* [#24] should_be_signed_in_as shouldn't look in the session. (Dan Croak)
+* README improvements. (Dan Croak)
+* Move routes loading to separate file. (Joshua Clayton)
+
+h2. 0.6.6 (05/18/2009)
 
 * [#14] replaced class_eval in Clearance::User with modules. This was needed
 in a thoughtbot client app so we could write our own validations. (Dan Croak)
 
-h2. 0.6.5 (5/17/2009)
+h2. 0.6.5 (05/17/2009)
 
 * [#6] Make Clearance i18n aware. (Timur Vafin, Marcel Goerner, Eugene Bolshakov, Dan Croak)
 
