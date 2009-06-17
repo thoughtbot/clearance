@@ -1,5 +1,5 @@
 require File.join(File.dirname(__FILE__), 'boot')
-require 'md5'
+require 'digest/md5'
 
 Rails::Initializer.run do |config|
   config.load_paths += Dir.glob(File.join(RAILS_ROOT, 'vendor', 'gems', '*', 'lib'))
