@@ -1,7 +1,7 @@
 --- !ruby/object:Gem::Specification 
 name: clearance
 version: !ruby/object:Gem::Version 
-  version: 0.6.7
+  version: 0.6.8
 platform: ruby
 authors: 
 - Dan Croak
@@ -24,7 +24,7 @@ autorequire:
 bindir: bin
 cert_chain: []
 
-date: 2009-06-13 00:00:00 -04:00
+date: 2009-06-24 00:00:00 -04:00
 default_executable: 
 dependencies: []
 

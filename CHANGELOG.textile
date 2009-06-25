@@ -1,3 +1,9 @@
+h2. 0.6.8 (06/24/2009)
+
+* Added defined? checks for various Rails constants such as ActionController
+for easier unit testing of Clearance extensions... particularly ActiveRecord
+extensions... particularly strong_password. (Dan Croak)
+
 h2. 0.6.7 (06/13/2009)
 
 * [#30] Added sign_up, sign_in, sign_out named routes. (Dan Croak)
