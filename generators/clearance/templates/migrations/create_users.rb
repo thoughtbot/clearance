@@ -7,14 +7,15 @@ class ClearanceCreateUsers < ActiveRecord::Migration
       t.string   :token,              :limit => 128
       t.datetime :token_expires_at
       t.boolean  :email_confirmed, :default => false, :null => false
+      t.timestamps
     end
 
     add_index :users, [:id, :token]
     add_index :users, :email
-    add_index :users, :token    
+    add_index :users, :token
   end
-  
+
   def self.down
-    drop_table :users  
+    drop_table :users
   end
 end
