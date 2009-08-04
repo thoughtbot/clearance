@@ -45,7 +45,7 @@ class ConfirmationsControllerTest < ActionController::TestCase
     end
   end
 
-  context "a signed in, confirmed user on GET to #new with token" do
+  context "a signed in confirmed user on GET to #new with token" do
     setup do
       @user  = Factory(:user)
       @token = @user.token
@@ -73,6 +73,20 @@ class ConfirmationsControllerTest < ActionController::TestCase
     should_forbid "on GET to #new with token for another user" do
       get :new, :user_id => @user.to_param, :token => @token
     end
+  end
+
+  context "a signed out confirmed user on GET to #new with token" do
+    setup do
+      @user  = Factory(:user)
+      @token = @user.token
+      @user.confirm_email!
+      get :new, :user_id => @user.to_param, :token => @token
+    end
+
+    should_set_the_flash_to /already confirmed/i
+    should_set_the_flash_to /sign in/i
+    should_not_be_signed_in
+    should_redirect_to_url_already_confirmed
   end
 
   context "no users" do

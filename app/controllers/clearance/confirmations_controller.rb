@@ -1,10 +1,10 @@
 class Clearance::ConfirmationsController < ApplicationController
   unloadable
 
-  before_filter :redirect_signed_in_confirmed_user, :only => [:new, :create]
-  before_filter :forbid_signed_out_confirmed_user,  :only => [:new, :create]
-  before_filter :forbid_missing_token,              :only => [:new, :create]
-  before_filter :forbid_non_existent_user,          :only => [:new, :create]
+  before_filter :redirect_signed_in_confirmed_user,  :only => [:new, :create]
+  before_filter :redirect_signed_out_confirmed_user, :only => [:new, :create]
+  before_filter :forbid_missing_token,               :only => [:new, :create]
+  before_filter :forbid_non_existent_user,           :only => [:new, :create]
 
   filter_parameter_logging :token
 
@@ -31,10 +31,11 @@ class Clearance::ConfirmationsController < ApplicationController
     end
   end
 
-  def forbid_signed_out_confirmed_user
+  def redirect_signed_out_confirmed_user
     user = ::User.find_by_id(params[:user_id])
     if user && user.email_confirmed? && signed_out?
-      raise ActionController::Forbidden, "confirmed user"
+      flash_already_confirmed
+      redirect_to(url_already_confirmed)
     end
   end
 
@@ -56,11 +57,17 @@ class Clearance::ConfirmationsController < ApplicationController
       :default => "Confirmed email and signed in.")
   end
 
+  def flash_already_confirmed
+    flash[:success] = translate(:already_confirmed_email,
+      :scope   => [:clearance, :controllers, :confirmations],
+      :default => "Already confirmed email. Please sign in.")
+  end
+
   def url_after_create
     root_url
   end
 
   def url_already_confirmed
-    sign_up_url
+    sign_in_url
   end
 end
