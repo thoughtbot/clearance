@@ -1,0 +1,15 @@
+<h2>Reset your password</h2>
+
+<p>
+  We will email you a link to reset your password.
+</p>
+
+<% semantic_form_for :password, :url => passwords_path do |form| -%>
+  <% form.inputs do -%>
+    <%= form.input :email, :label => "Email address" %>
+  <% end -%>
+  <% form.buttons do -%>
+    <%= form.commit_button "Reset password" %>
+  <% end -%>
+<% end -%>
+

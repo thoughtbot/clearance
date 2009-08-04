@@ -1,0 +1,21 @@
+<h2>Change your password</h2>
+
+<p>
+  Your password has been reset. Choose a new password below.
+</p>
+
+<% semantic_form_for(:user,
+            :url  => user_password_path(@user, :token => @user.token),
+            :html => { :method => :put }) do |form| %>
+  <%= form.error_messages %>
+  <% form.inputs do -%>
+    <%= form.input :password, :as => :password,
+                   :label => "Choose password" %>
+    <%= form.input :password_confirmation, :as => :password,
+                   :label => "Confirm password" %>
+  <% end -%>
+  <% form.buttons do -%>
+    <%= form.commit_button "Save this password" %>
+  <% end -%>
+<% end %>
+

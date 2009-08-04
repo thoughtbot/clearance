@@ -5,8 +5,16 @@ require 'rake/testtask'
 require 'cucumber/rake/task'
 
 namespace :test do
-  Rake::TestTask.new(:all => ["generator:cleanup",
-                              "generator:generate"]) do |task|
+  Rake::TestTask.new(:basic => ["generator:cleanup",
+                                "generator:clearance",
+                                "generator:clearance_features"]) do |task|
+    task.libs << "lib"
+    task.libs << "test"
+    task.pattern = "test/**/*_test.rb"
+    task.verbose = false
+  end
+
+  Rake::TestTask.new(:views => ["generator:clearance_views"]) do |task|
     task.libs << "lib"
     task.libs << "test"
     task.pattern = "test/**/*_test.rb"
@@ -17,9 +25,14 @@ namespace :test do
     t.cucumber_opts   = "--format progress"
     t.feature_pattern = "test/rails_root/features/*.feature"
   end
+
+  Cucumber::Rake::Task.new(:features_for_views) do |t|
+    t.cucumber_opts   = "--format progress"
+    t.feature_pattern = "test/rails_root/features/*.feature"
+  end
 end
 
-generators = %w(clearance clearance_features)
+generators = %w(clearance clearance_features clearance_views)
 
 namespace :generator do
   desc "Cleans up the test app before running the generator"
@@ -34,22 +47,36 @@ namespace :generator do
     FileList["test/rails_root/db/**/*"].each do |each| 
       FileUtils.rm_rf(each)
     end
+
     FileUtils.rm_rf("test/rails_root/vendor/plugins/clearance")
     FileUtils.mkdir_p("test/rails_root/vendor/plugins")
     clearance_root = File.expand_path(File.dirname(__FILE__))
     system("ln -s #{clearance_root} test/rails_root/vendor/plugins/clearance")
+
+    FileUtils.rm_rf("test/rails_root/app/views/passwords")
+    FileUtils.rm_rf("test/rails_root/app/views/sessions")
+    FileUtils.rm_rf("test/rails_root/app/views/users")
   end
 
-  desc "Run the generator on the tests"
-  task :generate do
-    generators.each do |generator|
-      system "cd test/rails_root && ./script/generate #{generator} && rake db:migrate db:test:prepare"
-    end
+  desc "Run the clearance generator"
+  task :clearance do
+    system "cd test/rails_root && ./script/generate clearance && rake db:migrate db:test:prepare"
+  end
+
+  desc "Run the clearance features generator"
+  task :clearance_features do
+    system "cd test/rails_root && ./script/generate clearance_features"
+  end
+
+  desc "Run the clearance views generator"
+  task :clearance_views do
+    system "cd test/rails_root && ./script/generate clearance_views"
   end
 end
 
 desc "Run the test suite"
-task :default => ['test:all', 'test:features']
+task :default => ['test:basic', 'test:features',
+                  'test:views', 'test:features_for_views']
 
 gem_spec = Gem::Specification.new do |gem_spec|
   gem_spec.name        = "clearance"
