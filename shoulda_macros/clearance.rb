@@ -132,6 +132,12 @@ module Clearance
       end
     end
 
+    def should_redirect_to_url_already_confirmed
+      should_redirect_to("the already confirmed url") do
+        @controller.send(:url_already_confirmed)
+      end
+    end
+
     # VALIDATIONS
 
     def should_validate_confirmation_of(attribute, opts = {})

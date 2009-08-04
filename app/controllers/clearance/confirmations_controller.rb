@@ -1,9 +1,10 @@
 class Clearance::ConfirmationsController < ApplicationController
   unloadable
 
-  before_filter :forbid_confirmed_user,    :only => [:new, :create]
-  before_filter :forbid_missing_token,     :only => [:new, :create]
-  before_filter :forbid_non_existent_user, :only => [:new, :create]
+  before_filter :redirect_signed_in_confirmed_user, :only => [:new, :create]
+  before_filter :forbid_confirmed_user,             :only => [:new, :create]
+  before_filter :forbid_missing_token,              :only => [:new, :create]
+  before_filter :forbid_non_existent_user,          :only => [:new, :create]
   filter_parameter_logging :token
 
   def new
@@ -20,6 +21,14 @@ class Clearance::ConfirmationsController < ApplicationController
   end
 
   private
+
+  def redirect_signed_in_confirmed_user
+    user = ::User.find_by_id(params[:user_id])
+    if user && user.email_confirmed? && current_user == user
+      flash_success_after_create
+      redirect_to(url_after_create)
+    end
+  end
 
   def forbid_confirmed_user
     user = ::User.find_by_id(params[:user_id])
@@ -48,5 +57,9 @@ class Clearance::ConfirmationsController < ApplicationController
 
   def url_after_create
     root_url
+  end
+
+  def url_already_confirmed
+    sign_up_url
   end
 end

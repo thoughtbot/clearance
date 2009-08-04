@@ -45,12 +45,18 @@ class ConfirmationsControllerTest < ActionController::TestCase
     end
   end
 
-  context "a user with email confirmed" do
-    setup { @user = Factory(:email_confirmed_user) }
-
-    should_forbid "on GET to #new with correct id" do
-      get :new, :user_id => @user.to_param
+  context "a signed in, confirmed user on GET to #new with token" do
+    setup do
+      @user  = Factory(:user)
+      @token = @user.token
+      @user.confirm_email!
+      sign_in_as @user
+      get :new, :user_id => @user.to_param, :token => @token
     end
+
+    should_set_the_flash_to /confirmed email/i
+    should_be_signed_in_as { @user }
+    should_redirect_to_url_after_create
   end
 
   context "no users" do
