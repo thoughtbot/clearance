@@ -5,10 +5,8 @@ module Clearance
       controller.send(:include, InstanceMethods)
 
       controller.class_eval do
-        helper_method :current_user
-        helper_method :signed_in?
-
-        hide_action :current_user, :signed_in?
+        helper_method :current_user, :signed_in?, :signed_out?
+        hide_action   :current_user, :signed_in?, :signed_out?
       end
     end
 
@@ -19,6 +17,10 @@ module Clearance
 
       def signed_in?
         ! current_user.nil?
+      end
+
+      def signed_out?
+        current_user.nil?
       end
 
       protected

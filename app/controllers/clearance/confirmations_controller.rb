@@ -2,9 +2,10 @@ class Clearance::ConfirmationsController < ApplicationController
   unloadable
 
   before_filter :redirect_signed_in_confirmed_user, :only => [:new, :create]
-  before_filter :forbid_confirmed_user,             :only => [:new, :create]
+  before_filter :forbid_signed_out_confirmed_user,  :only => [:new, :create]
   before_filter :forbid_missing_token,              :only => [:new, :create]
   before_filter :forbid_non_existent_user,          :only => [:new, :create]
+
   filter_parameter_logging :token
 
   def new
@@ -30,9 +31,9 @@ class Clearance::ConfirmationsController < ApplicationController
     end
   end
 
-  def forbid_confirmed_user
+  def forbid_signed_out_confirmed_user
     user = ::User.find_by_id(params[:user_id])
-    if user && user.email_confirmed?
+    if user && user.email_confirmed? && signed_out?
       raise ActionController::Forbidden, "confirmed user"
     end
   end
