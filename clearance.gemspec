@@ -1,7 +1,7 @@
 --- !ruby/object:Gem::Specification 
 name: clearance
 version: !ruby/object:Gem::Version 
-  version: 0.6.9
+  version: 0.7.0
 platform: ruby
 authors: 
 - Dan Croak
@@ -24,7 +24,7 @@ autorequire:
 bindir: bin
 cert_chain: []
 
-date: 2009-07-04 00:00:00 -04:00
+date: 2009-08-04 00:00:00 -04:00
 default_executable: 
 dependencies: []
 
@@ -90,6 +90,19 @@ files:
 - generators/clearance_features/templates/features/support
 - generators/clearance_features/templates/features/support/paths.rb
 - generators/clearance_features/USAGE
+- generators/clearance_views
+- generators/clearance_views/clearance_views_generator.rb
+- generators/clearance_views/templates
+- generators/clearance_views/templates/formtastic
+- generators/clearance_views/templates/formtastic/passwords
+- generators/clearance_views/templates/formtastic/passwords/edit.html.erb
+- generators/clearance_views/templates/formtastic/passwords/new.html.erb
+- generators/clearance_views/templates/formtastic/sessions
+- generators/clearance_views/templates/formtastic/sessions/new.html.erb
+- generators/clearance_views/templates/formtastic/users
+- generators/clearance_views/templates/formtastic/users/_inputs.html.erb
+- generators/clearance_views/templates/formtastic/users/new.html.erb
+- generators/clearance_views/USAGE
 - lib/clearance
 - lib/clearance/authentication.rb
 - lib/clearance/extensions

@@ -4,6 +4,8 @@ h2. 0.7.0 (08/04/2009)
 * Redirect signed out user who clicks confirmation link again. (Dan Croak)
 * Added signed_out? convenience method for controllers, helpers, views. (Dan
 Croak)
+* Added clearance_views generator. By default, creates formtastic views which
+pass all tests and features. (Dan Croak)
 
 h2. 0.6.9 (07/04/2009)
 
