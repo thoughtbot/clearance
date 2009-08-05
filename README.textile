@@ -18,7 +18,7 @@ In config/environment.rb:
 config.gem "thoughtbot-clearance", 
   :lib     => 'clearance', 
   :source  => 'http://gems.github.com', 
-  :version => '0.6.9'
+  :version => '0.7.0'
 </pre>
 
 Vendor the gem:
@@ -64,9 +64,9 @@ In config/environments/test.rb:
 
 <pre>
 config.gem 'webrat',
-  :version => '= 0.4.4'
+  :version => '>= 0.4.4'
 config.gem 'cucumber',
-  :version => '= 0.3.0'
+  :version => '>= 0.3.0'
 config.gem 'thoughtbot-factory_girl',
   :lib     => 'factory_girl',
   :source  => "http://gems.github.com", 
