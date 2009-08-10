@@ -206,6 +206,12 @@ module Clearance
     end
 
     module ClassMethods
+      # Authenticate with email and password.
+      #
+      # @param [String, String] email and password
+      # @return [User, nil] authenticated user or nil
+      # @example
+      #   User.authenticate("email@example.com", "password")
       def authenticate(email, password)
         return nil  unless user = find_by_email(email)
         return user if     user.authenticated?(password)
