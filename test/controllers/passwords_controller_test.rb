@@ -98,7 +98,7 @@ class PasswordsControllerTest < ActionController::TestCase
     context "on PUT to #update with matching password and password confirmation" do
       setup do
         new_password = "new_password"
-        @encrypted_new_password = @user.encrypt(new_password)
+        @encrypted_new_password = @user.send(:encrypt, new_password)
         assert_not_equal @encrypted_new_password, @user.encrypted_password
 
         put(:update,
@@ -127,7 +127,7 @@ class PasswordsControllerTest < ActionController::TestCase
     context "on PUT to #update with password but blank password confirmation" do
       setup do
         new_password = "new_password"
-        @encrypted_new_password = @user.encrypt(new_password)
+        @encrypted_new_password = @user.send(:encrypt, new_password)
 
         put(:update,
             :user_id => @user.to_param,

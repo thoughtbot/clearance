@@ -45,7 +45,7 @@ class UserTest < ActiveSupport::TestCase
         @user.save!
         @password = @user.password
 
-        @user.encrypt(@password)
+        @user.send(:encrypt, @password)
         @expected = Digest::SHA1.hexdigest("--#{@salt}--#{@password}--")
       end
 
