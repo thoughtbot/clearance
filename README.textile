@@ -4,9 +4,9 @@ Rails authentication with email & password.
 
 "We have clearance, Clarence.":http://www.youtube.com/v/mNRXJEE3Nz8
 
-h2. Wiki
+h2. Suspenders
 
-Most information regarding Clearance is on the "Github Wiki":http://wiki.github.com/thoughtbot/clearance.
+Clearance is included in "Suspenders":http://github.com/thoughtbot/suspenders, which thoughtbot uses on all of our apps. We highly recommend you try it. It is the "King Gem" in our ecosystem, representating what we think the current state-of-the-art is in Rails development.
 
 h2. Installation
 
@@ -15,9 +15,9 @@ Clearance is a Rails engine. It works with versions of Rails greater than 2.3.
 In config/environment.rb:
 
 <pre>
-config.gem "thoughtbot-clearance", 
-  :lib     => 'clearance', 
-  :source  => 'http://gems.github.com', 
+config.gem "thoughtbot-clearance",
+  :lib     => 'clearance',
+  :source  => 'http://gems.github.com',
   :version => '0.7.0'
 </pre>
 
@@ -30,7 +30,9 @@ rake gems:unpack
 
 Make sure the development database exists and run the generator:
 
-@script/generate clearance@
+<pre>
+script/generate clearance
+</pre>
 
 A number of files will be created and instructions will be printed.
 
@@ -38,51 +40,37 @@ You may already have some of these files. Don't worry. You'll be asked if you wa
 
 Run the migration:
 
-@rake db:migrate@
+<pre>
+rake db:migrate
+</pre>
+
+h2. If you aren't on Suspenders, you aren't done
 
 Define a HOST constant in your environment files.
 In config/environments/test.rb and config/environments/development.rb it can be:
 
-@HOST = "localhost"@
+<pre>
+HOST = "localhost"
+</pre>
 
 In production.rb it must be the actual host your application is deployed to.
 The constant is used by mailers to generate URLs in emails.
 
 In config/environment.rb:
 
-@DO_NOT_REPLY = "donotreply@example.com"@
+<pre>
+DO_NOT_REPLY = "donotreply@example.com"
+</pre>
 
 Define root_url to *something* in your config/routes.rb:
 
-@map.root :controller => 'home'@
+<pre>
+map.root :controller => 'home'
+</pre>
 
 h2. Cucumber Features
 
-As your app evolves, you want to know that authentication still works. Clearance's opinion is that you should test its integration with your app using "Cucumber":http://cukes.info/.
-
-In config/environments/test.rb:
-
-<pre>
-config.gem 'webrat',
-  :version => '>= 0.4.4'
-config.gem 'cucumber',
-  :version => '>= 0.3.0'
-config.gem 'thoughtbot-factory_girl',
-  :lib     => 'factory_girl',
-  :source  => "http://gems.github.com", 
-  :version => '1.2.1'
-</pre>
-
-Vendor the gems:
-
-<pre>
-rake gems:install RAILS_ENV=test
-rake gems:unpack  RAILS_ENV=test
-</pre>
-
-We don't vendor nokogiri due to its native extensions, so install it normally on your machine:
-
-@sudo gem install nokogiri@
+As your app evolves, you want to know that authentication still works. thoughtbot's opinion is that you should test its integration with your app using "Cucumber":http://cukes.info/.
 
 Run the Cucumber generator (if you haven't already) and Clearance's feature generator:
 
@@ -106,6 +94,18 @@ def path_to(page_name)
   ...
 end
 </pre>
+
+h2. Formtastic views
+
+We have begun standardizing our forms using "Formtastic":http://github.com/justinfrench/formtastic. We highly recommend trying it. It will make your Rails view life more interesting.
+
+Clearance has another generator to generate Formastic views:
+
+<pre>
+script/generate clearance_views
+</pre>
+
+Its implementation is designed so that other view styles can be generated if the community wants it. However, we haven't needed them so you'll have to write the patch and send it back if you want other styles (such as Haml).
 
 h2. Authors
 

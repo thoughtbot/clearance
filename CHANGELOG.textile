@@ -1,3 +1,8 @@
+h2. 0.7.1 (unreleased)
+
+* Documented Clearance::Authentication with YARD. (Dan Croak)
+* Documented Clearance::User with YARD. (Dan Croak)
+
 h2. 0.7.0 (08/04/2009)
 
 * Redirect signed in user who clicks confirmation link again. (Dan Croak)

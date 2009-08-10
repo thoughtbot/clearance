@@ -9,7 +9,7 @@ class ClearanceFeaturesGenerator < Rails::Generator::Base
        "features/step_definitions/factory_girl_steps.rb",
        "features/support/paths.rb",
        "features/sign_in.feature",
-       "features/sign_out.feature",       
+       "features/sign_out.feature",
        "features/sign_up.feature",
        "features/password_reset.feature"].each do |file|
         m.file file, file
