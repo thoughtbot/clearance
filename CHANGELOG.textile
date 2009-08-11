@@ -62,6 +62,7 @@ h2. 0.6.2 (04/22/2009)
 * World(NavigationHelpers) Cucumber 3.0 style. (Shay Arnett & Mark Cornick)
 
 h2. 0.6.1 (04/21/2009)
+
 * Scope operators are necessary to keep Rails happy. Reverting the original
 revert so they're back in the library now for constants referenced inside of
 the gem. (Nick Quaranto)

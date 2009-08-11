@@ -6,7 +6,7 @@ Rails authentication with email & password.
 
 h2. Suspenders
 
-Clearance is included in "Suspenders":http://github.com/thoughtbot/suspenders, which thoughtbot uses on all of our apps. We highly recommend you try it. It is the "King Gem" in our ecosystem, representating what we think the current state-of-the-art is in Rails development.
+Clearance is included in "Suspenders":http://github.com/thoughtbot/suspenders, which thoughtbot uses on all of our apps. We highly recommend you try it. Suspenders is the "King Gem" in our ecosystem, representating what we think the current state-of-the-art is in Rails development.
 
 h2. Installation
 
