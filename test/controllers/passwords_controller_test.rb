@@ -115,6 +115,10 @@ class PasswordsControllerTest < ActionController::TestCase
         assert_equal @encrypted_new_password, @user.encrypted_password
       end
 
+      # token gets replaced
+      # we should split token in two now
+      # confirmation_token
+      # remember_token
       should "clear token" do
         assert_nil @user.token
       end

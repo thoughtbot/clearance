@@ -43,20 +43,6 @@ class SessionsControllerTest < ActionController::TestCase
     should_set_the_flash_to /signed in/i
     should_redirect_to_url_after_create
     should_be_signed_in_as { @user }
-  end
-
-  context "on POST to #create with good credentials and remember me" do
-    setup do
-      @user = Factory(:email_confirmed_user)
-      post :create, :session => {
-                      :email       => @user.email,
-                      :password    => @user.password,
-                      :remember_me => '1' }
-    end
-
-    should_set_the_flash_to /signed in/i
-    should_redirect_to_url_after_create
-    should_be_signed_in_as { @user }
 
     should 'set the cookie' do
       assert ! cookies['remember_token'].empty?
@@ -111,22 +97,8 @@ class SessionsControllerTest < ActionController::TestCase
   context "on POST to #create with bad credentials" do
     setup do
       post :create, :session => {
-                      :email    => 'bad.email@example.com',
-                      :password => "bad value" }
-    end
-
-    should_set_the_flash_to /bad/i
-    should_respond_with    :unauthorized
-    should_render_template :new
-    should_not_be_signed_in
-  end
-
-  context "on POST to #create with bad credentials and remember me" do
-    setup do
-      post :create, :session => {
                       :email       => 'bad.email@example.com',
-                      :password    => "bad value",
-                      :remember_me => '1' }
+                      :password    => "bad value" }
     end
 
     should_set_the_flash_to /bad/i
@@ -148,15 +120,6 @@ class SessionsControllerTest < ActionController::TestCase
     should_redirect_to_url_after_destroy
   end
 
-  context "on DELETE to #destroy without a cookie" do
-    setup do
-      sign_in
-      delete :destroy
-    end
-    should_set_the_flash_to(/signed out/i)
-    should_redirect_to_url_after_destroy
-  end
-
   context "on DELETE to #destroy with a cookie" do
     setup do
       @user = Factory(:email_confirmed_user)
@@ -164,6 +127,9 @@ class SessionsControllerTest < ActionController::TestCase
       sign_in_as @user
       delete :destroy
     end
+
+    should_set_the_flash_to(/signed out/i)
+    should_redirect_to_url_after_destroy
 
     should "delete the cookie token" do
       assert_nil cookies['remember_token']

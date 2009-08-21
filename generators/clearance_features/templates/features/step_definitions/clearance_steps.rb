@@ -35,7 +35,7 @@ Then /^I should be signed out$/ do
 end
 
 When /^session is cleared$/ do
-  request.reset_session
+  controller.sign_out
   controller.instance_variable_set(:@_current_user, nil)
 end
 
@@ -79,14 +79,6 @@ Then /^I should be forbidden$/ do
 end
 
 # Actions
-
-When /^I sign in( with "remember me")? as "(.*)\/(.*)"$/ do |remember, email, password|
-  When %{I go to the sign in page}
-  And %{I fill in "Email" with "#{email}"}
-  And %{I fill in "Password" with "#{password}"}
-  And %{I check "Remember me"} if remember
-  And %{I press "Sign In"}
-end
 
 When /^I sign out$/ do
   visit '/session', :delete

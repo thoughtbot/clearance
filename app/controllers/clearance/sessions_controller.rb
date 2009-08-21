@@ -17,7 +17,6 @@ class Clearance::SessionsController < ApplicationController
     else
       if @user.email_confirmed?
         sign_in(@user)
-        remember(@user) if remember?
         flash_success_after_create
         redirect_back_or(url_after_create)
       else
@@ -29,7 +28,7 @@ class Clearance::SessionsController < ApplicationController
   end
 
   def destroy
-    forget(current_user)
+    sign_out(current_user)
     flash_success_after_destroy
     redirect_to(url_after_destroy)
   end

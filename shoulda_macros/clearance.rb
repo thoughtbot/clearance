@@ -213,8 +213,6 @@ module Clearance
               "session[email]", true, "There must be an email field"
             assert_select "input[type=password][name=?]",
               "session[password]", true, "There must be a password field"
-            assert_select "input[type=checkbox][name=?]",
-              "session[remember_me]", true, "There must be a 'remember me' check box"
             assert_select "input[type=submit]", true,
               "There must be a submit button"
         end

@@ -11,11 +11,11 @@ module Clearance
     end
 
     module InstanceMethods
-      # User in the current session or remember me cookie
+      # User in the current cookie
       #
       # @return [User, nil]
       def current_user
-        @_current_user ||= (user_from_cookie || user_from_session)
+        @_current_user ||= user_from_cookie
       end
 
       # Is the current user signed in?
@@ -40,7 +40,7 @@ module Clearance
         deny_access unless signed_in?
       end
 
-      # Sign user in to session.
+      # Sign user in to cookie.
       #
       # @param [User]
       #
@@ -48,29 +48,19 @@ module Clearance
       #   sign_in(@user)
       def sign_in(user)
         if user
-          session[:user_id] = user.id
+          user.remember_me!
+          cookies[:remember_token] = { :value   => user.token,
+                                       :expires => user.token_expires_at }
         end
       end
 
-      # Remember user with cookie.
+      # Sign user out of cookie.
       #
       # @param [User]
       #
       # @example
-      #   remember(@user)
-      def remember(user)
-        user.remember_me!
-        cookies[:remember_token] = { :value   => user.token,
-                                     :expires => user.token_expires_at }
-      end
-
-      # Forget user. Should only be used if developer overrides sign out.
-      #
-      # @param [User]
-      #
-      # @example
-      #   forget(@user)
-      def forget(user)
+      #   sign_out(@user)
+      def sign_out(user)
         user.forget_me! if user
         cookies.delete(:remember_token)
         reset_session
@@ -89,13 +79,6 @@ module Clearance
 
       protected
 
-      def user_from_session
-        if session[:user_id]
-          return nil  unless user = ::User.find_by_id(session[:user_id])
-          return user if     user.email_confirmed?
-        end
-      end
-
       def user_from_cookie
         if token = cookies[:remember_token]
           return nil  unless user = ::User.find_by_token(token)
@@ -106,10 +89,6 @@ module Clearance
       def sign_user_in(user)
         warn "[DEPRECATION] sign_user_in: unnecessary. use sign_in(user) instead."
         sign_in(user)
-      end
-
-      def remember?
-        params[:session] && params[:session][:remember_me] == "1"
       end
 
       def store_location

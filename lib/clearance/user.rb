@@ -108,14 +108,14 @@ module Clearance
         token_expires_at && Time.now.utc < token_expires_at
       end
 
-      # Remember me for two weeks.
+      # Remember me for a year.
       #
       # @example
       #   user.remember_me!
       #   cookies[:remember_token] = { :value   => user.token,
       #                                :expires => user.token_expires_at }
       def remember_me!
-        remember_me_until! 2.weeks.from_now.utc
+        remember_me_until! 1.year.from_now.utc
       end
 
       # Forget me.
