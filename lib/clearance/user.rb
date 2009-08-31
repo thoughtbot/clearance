@@ -83,7 +83,9 @@ module Clearance
       # salt, token, password encryption are handled before_save.
       def self.included(model)
         model.class_eval do
-          before_save :initialize_salt, :encrypt_password, :initialize_token
+          before_save :initialize_salt,
+                      :encrypt_password,
+                      :initialize_confirmation_token
         end
       end
     end
@@ -105,15 +107,19 @@ module Clearance
       # @example
       #   user.remember?
       def remember?
-        token_expires_at && Time.now.utc < token_expires_at
+        remember_token &&
+        remember_token_expires_at &&
+        Time.now.utc < remember_token_expires_at
       end
 
       # Remember me for a year.
       #
       # @example
       #   user.remember_me!
-      #   cookies[:remember_token] = { :value   => user.token,
-      #                                :expires => user.token_expires_at }
+      #   cookies[:remember_token] = {
+      #     :value   => user.remember_token,
+      #     :expires => user.remember_token_expires_at
+      #   }
       def remember_me!
         remember_me_until! 1.year.from_now.utc
       end
@@ -123,7 +129,8 @@ module Clearance
       # @example
       #   user.forget_me!
       def forget_me!
-        clear_token
+        self.remember_token            = nil
+        self.remember_token_expires_at = nil
         save(false)
       end
 
@@ -132,8 +139,8 @@ module Clearance
       # @example
       #   user.confirm_email!
       def confirm_email!
-        self.email_confirmed = true
-        self.token           = nil
+        self.email_confirmed    = true
+        self.confirmation_token = nil
         save(false)
       end
 
@@ -142,7 +149,7 @@ module Clearance
       # @example
       #   user.forgot_password!
       def forgot_password!
-        generate_token
+        generate_confirmation_token
         save(false)
       end
 
@@ -155,7 +162,9 @@ module Clearance
       def update_password(new_password, new_password_confirmation)
         self.password              = new_password
         self.password_confirmation = new_password_confirmation
-        clear_token if valid?
+        if valid?
+          self.confirmation_token = nil
+        end
         save
       end
 
@@ -167,7 +176,7 @@ module Clearance
 
       def initialize_salt
         if new_record?
-          self.salt = generate_hash("--#{Time.now.utc.to_s}--#{password}--")
+          self.salt = generate_hash("--#{Time.now.utc}--#{password}--")
         end
       end
 
@@ -180,18 +189,12 @@ module Clearance
         generate_hash("--#{salt}--#{string}--")
       end
 
-      def generate_token
-        self.token = encrypt("--#{Time.now.utc.to_s}--#{password}--")
-        self.token_expires_at = nil
+      def generate_confirmation_token
+        self.confirmation_token = encrypt("--#{Time.now.utc}--#{password}--")
       end
 
-      def clear_token
-        self.token            = nil
-        self.token_expires_at = nil
-      end
-
-      def initialize_token
-        generate_token if new_record?
+      def initialize_confirmation_token
+        generate_confirmation_token if new_record?
       end
 
       def password_required?
@@ -199,8 +202,8 @@ module Clearance
       end
 
       def remember_me_until!(time)
-        self.token_expires_at = time
-        self.token = encrypt("--#{token_expires_at}--#{password}--")
+        self.remember_token_expires_at = time
+        self.remember_token = encrypt("--#{time}--#{password}--")
         save(false)
       end
     end

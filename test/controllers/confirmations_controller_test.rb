@@ -10,13 +10,14 @@ class ConfirmationsControllerTest < ActionController::TestCase
     setup { @user = Factory(:user) }
 
     should "have a token" do
-      assert_not_nil @user.token
-      assert_not_equal "", @user.token
+      assert_not_nil @user.confirmation_token
+      assert_not_equal "", @user.confirmation_token
     end
 
     context "on GET to #new with correct id and token" do
       setup do
-        get :new, :user_id => @user.to_param, :token => @user.token
+        get :new, :user_id => @user.to_param,
+                  :token   => @user.confirmation_token
       end
 
       should_set_the_flash_to /confirmed email/i
@@ -28,11 +29,12 @@ class ConfirmationsControllerTest < ActionController::TestCase
     context "with an incorrect token" do
       setup do
         @bad_token = "bad token"
-        assert_not_equal @bad_token, @user.token
+        assert_not_equal @bad_token, @user.confirmation_token
       end
 
       should_forbid "on GET to #new with incorrect token" do
-        get :new, :user_id => @user.to_param, :token => @bad_token
+        get :new, :user_id => @user.to_param,
+                  :token   => @bad_token
       end
     end
 
@@ -48,7 +50,7 @@ class ConfirmationsControllerTest < ActionController::TestCase
   context "a signed in confirmed user on GET to #new with token" do
     setup do
       @user  = Factory(:user)
-      @token = @user.token
+      @token = @user.confirmation_token
       @user.confirm_email!
       sign_in_as @user
 
@@ -63,7 +65,7 @@ class ConfirmationsControllerTest < ActionController::TestCase
   context "a bad user" do
     setup do
       @user  = Factory(:user)
-      @token = @user.token
+      @token = @user.confirmation_token
       @user.confirm_email!
 
       @bad_user = Factory(:email_confirmed_user)
@@ -78,7 +80,7 @@ class ConfirmationsControllerTest < ActionController::TestCase
   context "a signed out confirmed user on GET to #new with token" do
     setup do
       @user  = Factory(:user)
-      @token = @user.token
+      @token = @user.confirmation_token
       @user.confirm_email!
       get :new, :user_id => @user.to_param, :token => @token
     end

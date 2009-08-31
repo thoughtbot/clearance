@@ -49,8 +49,10 @@ module Clearance
       def sign_in(user)
         if user
           user.remember_me!
-          cookies[:remember_token] = { :value   => user.token,
-                                       :expires => user.token_expires_at }
+          cookies[:remember_token] = {
+            :value   => user.remember_token,
+            :expires => user.remember_token_expires_at
+          }
         end
       end
 
@@ -81,7 +83,7 @@ module Clearance
 
       def user_from_cookie
         if token = cookies[:remember_token]
-          return nil  unless user = ::User.find_by_token(token)
+          return nil  unless user = ::User.find_by_remember_token(token)
           return user if     user.remember?
         end
       end

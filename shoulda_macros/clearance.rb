@@ -176,7 +176,7 @@ module Clearance
       warn "[DEPRECATION] should_display_a_password_update_form: not meant to be public, no longer used internally"
       should "have a form for the user's token, password, and password confirm" do
         update_path = ERB::Util.h(
-          user_password_path(@user, :token => @user.token)
+          user_password_path(@user, :token => @user.confirmation_token)
         )
 
         assert_select 'form[action=?]', update_path do

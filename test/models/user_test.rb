@@ -3,8 +3,8 @@ require 'test_helper'
 class UserTest < ActiveSupport::TestCase
 
   should_not_allow_mass_assignment_of :email_confirmed,
-    :salt,  :encrypted_password,
-    :token, :token_expires_at
+    :salt, :encrypted_password,
+    :remember_token, :remember_token_expires_at
 
   # signing up
 
@@ -32,9 +32,8 @@ class UserTest < ActiveSupport::TestCase
       assert_not_nil Factory(:user).salt
     end
 
-    should "initialize token without expiry date" do
-      assert_not_nil Factory(:user).token
-      assert_nil     Factory(:user).token_expires_at
+    should "initialize confirmation token" do
+      assert_not_nil Factory(:user).confirmation_token
     end
 
     context "encrypt password" do
@@ -83,8 +82,8 @@ class UserTest < ActiveSupport::TestCase
         assert @user.email_confirmed?
       end
 
-      should "reset token" do
-        assert_nil @user.token
+      should "reset confirmation token" do
+        assert_nil @user.confirmation_token
       end
     end
   end
@@ -112,31 +111,36 @@ class UserTest < ActiveSupport::TestCase
 
   context "When authenticating with remember_me!" do
     setup do
-      @user = Factory(:email_confirmed_user)
-      @token = @user.token
-      assert_nil @user.token_expires_at
+      @user  = Factory(:email_confirmed_user)
+      assert_nil @user.remember_token
+      assert_nil @user.remember_token_expires_at
       @user.remember_me!
     end
 
     should "set the remember token and expiration date" do
-      assert_not_equal @token, @user.token
-      assert_not_nil   @user.token_expires_at
+      assert_not_nil @user.remember_token
+      assert_not_nil @user.remember_token_expires_at
     end
 
-    should "remember user when token expires in the future" do
-      @user.update_attribute :token_expires_at,
-        2.weeks.from_now.utc
+    should "remember user when remember token expires in the future" do
+      @user.update_attribute :remember_token_expires_at,
+                             2.weeks.from_now.utc
       assert @user.remember?
     end
 
-    should "not remember user when token has already expired" do
-      @user.update_attribute :token_expires_at,
-        2.weeks.ago.utc
+    should "not remember user when remember token has already expired" do
+      @user.update_attribute :remember_token_expires_at,
+                             2.weeks.ago.utc
       assert ! @user.remember?
     end
 
-    should "not remember user when token expiry date is not set" do
-      @user.update_attribute :token_expires_at, nil
+    should "not remember user when remember token is not set" do
+      @user.update_attribute :remember_token, nil
+      assert ! @user.remember?
+    end
+
+    should "not remember user when remember token expiry date is not set" do
+      @user.update_attribute :remember_token_expires_at, nil
       assert ! @user.remember?
     end
 
@@ -146,8 +150,8 @@ class UserTest < ActiveSupport::TestCase
       setup { @user.forget_me! }
 
       should "unset the remember token and expiration date" do
-        assert_nil @user.token
-        assert_nil @user.token_expires_at
+        assert_nil @user.remember_token
+        assert_nil @user.remember_token_expires_at
       end
 
       should "not remember user" do
@@ -187,12 +191,12 @@ class UserTest < ActiveSupport::TestCase
 
     context "who requests password reminder" do
       setup do
-        assert_nil @user.token
+        assert_nil @user.confirmation_token
         @user.forgot_password!
       end
 
-      should "generate token" do
-        assert_not_nil @user.token
+      should "generate confirmation token" do
+        assert_not_nil @user.confirmation_token
       end
 
       context "and then updates password" do
@@ -206,8 +210,8 @@ class UserTest < ActiveSupport::TestCase
                              @old_encrypted_password
           end
 
-          should "clear token" do
-            assert_nil @user.token
+          should "clear confirmation token" do
+            assert_nil @user.confirmation_token
           end
         end
 
@@ -221,8 +225,8 @@ class UserTest < ActiveSupport::TestCase
                          @old_encrypted_password
           end
 
-          should "not clear token" do
-            assert_not_nil @user.token
+          should "not clear confirmation token" do
+            assert_not_nil @user.confirmation_token
           end
         end
       end

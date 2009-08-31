@@ -27,7 +27,7 @@ class PasswordsControllerTest < ActionController::TestCase
         end
 
         should "generate a token for the change your password email" do
-          assert_not_nil @user.reload.token
+          assert_not_nil @user.reload.confirmation_token
         end
 
         should "send the change your password email" do
@@ -45,13 +45,15 @@ class PasswordsControllerTest < ActionController::TestCase
           email = "user1@example.com"
           assert ! ::User.exists?(['email = ?', email])
           ActionMailer::Base.deliveries.clear
-          assert_equal @user.token, @user.reload.token
+          assert_equal @user.confirmation_token,
+                       @user.reload.confirmation_token
 
           post :create, :password => { :email => email }
         end
 
         should "not generate a token for the change your password email" do
-          assert_equal @user.token, @user.reload.token
+          assert_equal @user.confirmation_token,
+                       @user.reload.confirmation_token
         end
 
         should "not send a password reminder email" do
@@ -75,7 +77,8 @@ class PasswordsControllerTest < ActionController::TestCase
 
     context "on GET to #edit with correct id and token" do
       setup do
-        get :edit, :user_id => @user.to_param, :token => @user.token
+        get :edit, :user_id => @user.to_param,
+                   :token   => @user.confirmation_token
       end
 
       should "find the user" do
@@ -103,7 +106,7 @@ class PasswordsControllerTest < ActionController::TestCase
 
         put(:update,
             :user_id  => @user,
-            :token    => @user.token,
+            :token    => @user.confirmation_token,
             :user     => {
               :password              => new_password,
               :password_confirmation => new_password
@@ -112,15 +115,16 @@ class PasswordsControllerTest < ActionController::TestCase
       end
 
       should "update password" do
-        assert_equal @encrypted_new_password, @user.encrypted_password
+        assert_equal @encrypted_new_password,
+                     @user.encrypted_password
       end
 
-      # token gets replaced
-      # we should split token in two now
-      # confirmation_token
-      # remember_token
-      should "clear token" do
-        assert_nil @user.token
+      should "clear confirmation token" do
+        assert_nil @user.confirmation_token
+      end
+
+      should "set remember token" do
+        assert_nil @user.remember_token
       end
 
       should_be_signed_in_as { @user }
@@ -135,7 +139,7 @@ class PasswordsControllerTest < ActionController::TestCase
 
         put(:update,
             :user_id => @user.to_param,
-            :token   => @user.token,
+            :token   => @user.confirmation_token,
             :user    => {
               :password => new_password,
               :password_confirmation => ''
@@ -144,11 +148,12 @@ class PasswordsControllerTest < ActionController::TestCase
       end
 
       should "not update password" do
-        assert_not_equal @encrypted_new_password, @user.encrypted_password
+        assert_not_equal @encrypted_new_password,
+                         @user.encrypted_password
       end
 
       should "not clear token" do
-        assert_not_nil @user.token
+        assert_not_nil @user.confirmation_token
       end
 
       should_not_be_signed_in

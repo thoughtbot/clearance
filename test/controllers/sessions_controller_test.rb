@@ -34,7 +34,7 @@ class SessionsControllerTest < ActionController::TestCase
 
   context "on POST to #create with good credentials" do
     setup do
-      @user = Factory(:email_confirmed_user)
+      @user = Factory(:email_confirmed_user, :email => "tiger@woods.com")
       post :create, :session => {
                       :email    => @user.email,
                       :password => @user.password }
@@ -49,8 +49,8 @@ class SessionsControllerTest < ActionController::TestCase
     end
 
     should 'set the token in users table' do
-      assert_not_nil @user.reload.token
-      assert_not_nil @user.reload.token_expires_at
+      assert_not_nil @user.reload.remember_token
+      assert_not_nil @user.reload.remember_token_expires_at
     end
   end
 
@@ -136,8 +136,8 @@ class SessionsControllerTest < ActionController::TestCase
     end
 
     should "delete the database token" do
-      assert_nil @user.reload.token
-      assert_nil @user.reload.token_expires_at
+      assert_nil @user.reload.remember_token
+      assert_nil @user.reload.remember_token_expires_at
     end
   end
 

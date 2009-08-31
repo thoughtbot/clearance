@@ -22,12 +22,14 @@ class Clearance::PasswordsController < ApplicationController
   end
 
   def edit
-    @user = ::User.find_by_id_and_token(params[:user_id], params[:token])
+    @user = ::User.find_by_id_and_confirmation_token(
+                   params[:user_id], params[:token])
     render :template => 'passwords/edit'
   end
 
   def update
-    @user = ::User.find_by_id_and_token(params[:user_id], params[:token])
+    @user = ::User.find_by_id_and_confirmation_token(
+                   params[:user_id], params[:token])
 
     if @user.update_password(params[:user][:password],
                              params[:user][:password_confirmation])
@@ -49,7 +51,8 @@ class Clearance::PasswordsController < ApplicationController
   end
 
   def forbid_non_existent_user
-    unless ::User.find_by_id_and_token(params[:user_id], params[:token])
+    unless ::User.find_by_id_and_confirmation_token(
+                  params[:user_id], params[:token])
       raise ActionController::Forbidden, "non-existent user"
     end
   end
