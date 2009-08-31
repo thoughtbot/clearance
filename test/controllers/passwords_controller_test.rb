@@ -124,10 +124,9 @@ class PasswordsControllerTest < ActionController::TestCase
       end
 
       should "set remember token" do
-        assert_nil @user.remember_token
+        assert_not_nil @user.remember_token
       end
 
-      should_be_signed_in_as { @user }
       should_set_the_flash_to(/signed in/i)
       should_redirect_to_url_after_update
     end

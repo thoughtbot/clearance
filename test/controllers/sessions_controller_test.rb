@@ -34,7 +34,7 @@ class SessionsControllerTest < ActionController::TestCase
 
   context "on POST to #create with good credentials" do
     setup do
-      @user = Factory(:email_confirmed_user, :email => "tiger@woods.com")
+      @user = Factory(:email_confirmed_user)
       post :create, :session => {
                       :email    => @user.email,
                       :password => @user.password }
@@ -42,7 +42,6 @@ class SessionsControllerTest < ActionController::TestCase
 
     should_set_the_flash_to /signed in/i
     should_redirect_to_url_after_create
-    should_be_signed_in_as { @user }
 
     should 'set the cookie' do
       assert ! cookies['remember_token'].empty?

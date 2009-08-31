@@ -4,6 +4,7 @@ module Clearance
     # STATE OF AUTHENTICATION
 
     def should_be_signed_in_as(&block)
+      warn "[DEPRECATION] should_be_signed_in_as cannot be used in functional tests anymore now that it depends on cookies, which are unavailable until the next request."
       should "be signed in as #{block.bind(self).call}" do
         user = block.bind(self).call
         assert_not_nil user,
@@ -28,6 +29,7 @@ module Clearance
     end
 
     def should_not_be_signed_in
+      warn "[DEPRECATION] should_not_be_signed_in is no longer a valid test since we now store a remember_token in cookies, not user_id in session"
       should "not be signed in" do
         assert_nil session[:user_id]
       end

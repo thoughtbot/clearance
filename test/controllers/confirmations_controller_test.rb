@@ -22,7 +22,6 @@ class ConfirmationsControllerTest < ActionController::TestCase
 
       should_set_the_flash_to /confirmed email/i
       should_set_the_flash_to /signed in/i
-      should_be_signed_in_and_email_confirmed_as { @user }
       should_redirect_to_url_after_create
     end
 
@@ -58,7 +57,6 @@ class ConfirmationsControllerTest < ActionController::TestCase
     end
 
     should_set_the_flash_to /confirmed email/i
-    should_be_signed_in_as { @user }
     should_redirect_to_url_after_create
   end
 
