@@ -30,4 +30,6 @@ Feature: Sign in
       And I sign in as "email@person.com/password"
       Then I should see "Signed in"
       And I should be signed in
+      When I return next time
+      Then I should be signed in
 
