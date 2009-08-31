@@ -1,5 +1,7 @@
-h2. 0.7.1 (unreleased)
+h2. 0.8.0 (08/31/2009)
 
+* Always remember me. Replaced session-and-remember-me authentication with
+always using a cookie with a long timeout. (Dan Croak)
 * Documented Clearance::Authentication with YARD. (Dan Croak)
 * Documented Clearance::User with YARD. (Dan Croak)
 
