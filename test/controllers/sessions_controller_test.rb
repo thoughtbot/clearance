@@ -49,7 +49,6 @@ class SessionsControllerTest < ActionController::TestCase
 
     should 'set the token in users table' do
       assert_not_nil @user.reload.remember_token
-      assert_not_nil @user.reload.remember_token_expires_at
     end
   end
 
@@ -136,7 +135,6 @@ class SessionsControllerTest < ActionController::TestCase
 
     should "delete the database token" do
       assert_nil @user.reload.remember_token
-      assert_nil @user.reload.remember_token_expires_at
     end
   end
 

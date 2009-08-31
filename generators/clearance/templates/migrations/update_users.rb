@@ -8,7 +8,6 @@ class ClearanceUpdateUsers < ActiveRecord::Migration
         [:salt, 't.string :salt, :limit => 128'],
         [:confirmation_token, 't.string :confirmation_token, :limit => 128'],
         [:remember_token, 't.string :remember_token, :limit => 128'],
-        [:remember_token_expires_at, 't.datetime :remember_token_expires_at'],
         [:email_confirmed, 't.boolean :email_confirmed, :default => false, :null => false']
       ].delete_if {|c| existing_columns.include?(c.first.to_s)}
 -%>

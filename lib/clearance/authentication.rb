@@ -51,21 +51,17 @@ module Clearance
           user.remember_me!
           cookies[:remember_token] = {
             :value   => user.remember_token,
-            :expires => user.remember_token_expires_at
+            :expires => 1.year.from_now.utc
           }
         end
       end
 
       # Sign user out of cookie.
       #
-      # @param [User]
-      #
       # @example
-      #   sign_out(@user)
-      def sign_out(user)
-        user.forget_me! if user
+      #   sign_out
+      def sign_out
         cookies.delete(:remember_token)
-        reset_session
       end
 
       # Store the current location.
@@ -83,8 +79,7 @@ module Clearance
 
       def user_from_cookie
         if token = cookies[:remember_token]
-          return nil  unless user = ::User.find_by_remember_token(token)
-          return user if     user.remember?
+          ::User.find_by_remember_token(token)
         end
       end
 
@@ -94,7 +89,9 @@ module Clearance
       end
 
       def store_location
-        session[:return_to] = request.request_uri if request.get?
+        if request.get?
+          session[:return_to] = request.request_uri
+        end
       end
 
       def redirect_back_or(default)

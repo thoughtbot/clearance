@@ -6,7 +6,6 @@ class ClearanceCreateUsers < ActiveRecord::Migration
       t.string   :salt,               :limit => 128
       t.string   :confirmation_token, :limit => 128
       t.string   :remember_token,     :limit => 128
-      t.datetime :remember_token_expires_at
       t.boolean  :email_confirmed, :default => false, :null => false
       t.timestamps
     end

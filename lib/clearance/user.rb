@@ -101,17 +101,6 @@ module Clearance
         encrypted_password == encrypt(password)
       end
 
-      # Am I remembered?
-      #
-      # @return [true, false]
-      # @example
-      #   user.remember?
-      def remember?
-        remember_token &&
-        remember_token_expires_at &&
-        Time.now.utc < remember_token_expires_at
-      end
-
       # Remember me for a year.
       #
       # @example
@@ -121,16 +110,7 @@ module Clearance
       #     :expires => user.remember_token_expires_at
       #   }
       def remember_me!
-        remember_me_until! 1.year.from_now.utc
-      end
-
-      # Forget me.
-      #
-      # @example
-      #   user.forget_me!
-      def forget_me!
-        self.remember_token            = nil
-        self.remember_token_expires_at = nil
+        self.remember_token = encrypt("--#{Time.now.utc}--#{password}--")
         save(false)
       end
 
@@ -199,12 +179,6 @@ module Clearance
 
       def password_required?
         encrypted_password.blank? || !password.blank?
-      end
-
-      def remember_me_until!(time)
-        self.remember_token_expires_at = time
-        self.remember_token = encrypt("--#{time}--#{password}--")
-        save(false)
       end
     end
 

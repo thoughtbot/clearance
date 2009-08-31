@@ -1,3 +1,8 @@
+h2. 0.8.1 (08/31/2009)
+
+* Removed unnecessary remember_token_expires_at column and the
+remember? and forget_me! user instance methods. (Dan Croak)
+
 h2. 0.8.0 (08/31/2009)
 
 * Always remember me. Replaced session-and-remember-me authentication with

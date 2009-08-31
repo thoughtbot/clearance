@@ -3,8 +3,7 @@ require 'test_helper'
 class UserTest < ActiveSupport::TestCase
 
   should_not_allow_mass_assignment_of :email_confirmed,
-    :salt, :encrypted_password,
-    :remember_token, :remember_token_expires_at
+    :salt, :encrypted_password, :remember_token
 
   # signing up
 
@@ -113,50 +112,11 @@ class UserTest < ActiveSupport::TestCase
     setup do
       @user  = Factory(:email_confirmed_user)
       assert_nil @user.remember_token
-      assert_nil @user.remember_token_expires_at
       @user.remember_me!
     end
 
-    should "set the remember token and expiration date" do
+    should "set the remember token" do
       assert_not_nil @user.remember_token
-      assert_not_nil @user.remember_token_expires_at
-    end
-
-    should "remember user when remember token expires in the future" do
-      @user.update_attribute :remember_token_expires_at,
-                             2.weeks.from_now.utc
-      assert @user.remember?
-    end
-
-    should "not remember user when remember token has already expired" do
-      @user.update_attribute :remember_token_expires_at,
-                             2.weeks.ago.utc
-      assert ! @user.remember?
-    end
-
-    should "not remember user when remember token is not set" do
-      @user.update_attribute :remember_token, nil
-      assert ! @user.remember?
-    end
-
-    should "not remember user when remember token expiry date is not set" do
-      @user.update_attribute :remember_token_expires_at, nil
-      assert ! @user.remember?
-    end
-
-    # logging out
-
-    context "forget_me!" do
-      setup { @user.forget_me! }
-
-      should "unset the remember token and expiration date" do
-        assert_nil @user.remember_token
-        assert_nil @user.remember_token_expires_at
-      end
-
-      should "not remember user" do
-        assert ! @user.remember?
-      end
     end
   end
 
