@@ -18,6 +18,13 @@ module Clearance
         @_current_user ||= user_from_cookie
       end
 
+      # Set the current user
+      #
+      # @param [User]
+      def current_user=(user)
+        @_current_user = user
+      end
+
       # Is the current user signed in?
       #
       # @return [true, false]
@@ -53,6 +60,7 @@ module Clearance
             :value   => user.remember_token,
             :expires => 1.year.from_now.utc
           }
+          current_user = user
         end
       end
 
@@ -62,6 +70,7 @@ module Clearance
       #   sign_out
       def sign_out
         cookies.delete(:remember_token)
+        current_user = nil
       end
 
       # Store the current location.

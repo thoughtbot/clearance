@@ -227,7 +227,6 @@ module Clearance
   module Shoulda
     module Helpers
       def sign_in_as(user)
-        @controller.class_eval { attr_accessor :current_user }
         @controller.current_user = user
         return user
       end
@@ -237,7 +236,6 @@ module Clearance
       end
 
       def sign_out
-        @controller.class_eval { attr_accessor :current_user }
         @controller.current_user = nil
       end
 
