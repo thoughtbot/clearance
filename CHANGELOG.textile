@@ -1,3 +1,8 @@
+h2. 0.8.2 (09/01/2009)
+
+* current_user= accessor method. (Joe Ferris, Josh Clayton)
+* set current_user in sign_in. (Jon Yurek)
+
 h2. 0.8.1 (08/31/2009)
 
 * Removed unnecessary remember_token_expires_at column and the
