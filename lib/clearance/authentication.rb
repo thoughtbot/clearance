@@ -6,7 +6,10 @@ module Clearance
 
       controller.class_eval do
         helper_method :current_user, :signed_in?, :signed_out?
-        hide_action   :current_user, :signed_in?, :signed_out?
+        hide_action   :current_user, :current_user=,
+                      :signed_in?,   :signed_out?,
+                      :sign_in,      :sign_out,
+                      :authenticate, :deny_access
       end
     end
 
@@ -73,9 +76,8 @@ module Clearance
         current_user = nil
       end
 
-      # Store the current location.
-      # Display a flash message if included.
-      # Redirect to sign in.
+      # Store the current location and redirect to sign in.
+      # Display a failure flash message if included.
       #
       # @param [String] optional flash message to display to denied user
       def deny_access(flash_message = nil)
