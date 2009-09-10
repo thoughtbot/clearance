@@ -121,3 +121,4 @@ h2. Suggestions, Bugs, Refactoring?
 
 Fork away and create a "Github Issue":http://github.com/thoughtbot/clearance/issues. Please don't send pull requests.
 
+
