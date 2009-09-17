@@ -1,6 +1,7 @@
 class Clearance::ConfirmationsController < ApplicationController
   unloadable
-
+  
+  skip_before_filter :authenticate
   before_filter :redirect_signed_in_confirmed_user,  :only => [:new, :create]
   before_filter :redirect_signed_out_confirmed_user, :only => [:new, :create]
   before_filter :forbid_missing_token,               :only => [:new, :create]
