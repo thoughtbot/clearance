@@ -111,7 +111,7 @@ h2. Authors
 
 Clearance was extracted out of "Hoptoad":http://hoptoadapp.com. We merged the authentication code from two of thoughtbot's clients' Rails apps and have since used it each time we need authentication. The following people have improved the library. Thank you!
 
-Dan Croak, Mike Burns, Jason Morrison, Joe Ferris, Eugene Bolshakov, Nick Quaranto, Josh Nichols, Mike Breen, Marcel Görner, Bence Nagy, Ben Mabey, Eloy Duran, Tim Pope, Mihai Anca, Mark Cornick, Shay Arnett, Joshua Clayton, Mustafa Ekim, & Jon Yurek.
+Dan Croak, Mike Burns, Jason Morrison, Joe Ferris, Eugene Bolshakov, Nick Quaranto, Josh Nichols, Mike Breen, Marcel Görner, Bence Nagy, Ben Mabey, Eloy Duran, Tim Pope, Mihai Anca, Mark Cornick, Shay Arnett, Joshua Clayton, Mustafa Ekim, Jon Yurek, & Anuj Dutta.
 
 h2. Questions?
 
