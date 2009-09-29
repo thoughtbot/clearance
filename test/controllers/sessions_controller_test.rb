@@ -35,6 +35,7 @@ class SessionsControllerTest < ActionController::TestCase
   context "on POST to #create with good credentials" do
     setup do
       @user = Factory(:email_confirmed_user)
+      @user.update_attribute(:remember_token, "old-token")
       post :create, :session => {
                       :email    => @user.email,
                       :password => @user.password }
@@ -47,8 +48,8 @@ class SessionsControllerTest < ActionController::TestCase
       assert ! cookies['remember_token'].empty?
     end
 
-    should 'set the token in users table' do
-      assert_not_nil @user.reload.remember_token
+    should "not change the remember token" do
+      assert_equal "old-token", @user.reload.remember_token
     end
   end
 
@@ -121,6 +122,7 @@ class SessionsControllerTest < ActionController::TestCase
   context "on DELETE to #destroy with a cookie" do
     setup do
       @user = Factory(:email_confirmed_user)
+      @user.update_attribute(:remember_token, "old-token")
       cookies['remember_token'] = CGI::Cookie.new('token', 'value')
       sign_in_as @user
       delete :destroy
@@ -133,8 +135,8 @@ class SessionsControllerTest < ActionController::TestCase
       assert_nil cookies['remember_token']
     end
 
-    should "delete the database token" do
-      assert_nil @user.reload.remember_token
+    should "reset the remember token" do
+      assert_not_equal "old-token", @user.reload.remember_token
     end
   end
 

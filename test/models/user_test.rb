@@ -125,12 +125,12 @@ class UserTest < ActiveSupport::TestCase
   context "When resetting authentication with reset_remember_token!" do
     setup do
       @user  = Factory(:email_confirmed_user)
-      assert_nil @user.remember_token
+      @user.remember_token = "old-token"
       @user.reset_remember_token!
     end
 
-    should "set the remember token" do
-      assert_not_nil @user.remember_token
+    should "change the remember token" do
+      assert_not_equal "old-token", @user.remember_token
     end
   end
 

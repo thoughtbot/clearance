@@ -67,7 +67,8 @@ module Clearance
         model.class_eval do
           before_save :initialize_salt,
                       :encrypt_password
-          before_create :generate_confirmation_token
+          before_create :generate_confirmation_token,
+                        :generate_remember_token
           after_create :send_confirmation_email, :unless => :email_confirmed?
         end
       end
