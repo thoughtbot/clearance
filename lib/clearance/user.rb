@@ -87,14 +87,18 @@ module Clearance
 
       # Set the remember token.
       #
-      # @example
-      #   user.remember_me!
-      #   cookies[:remember_token] = {
-      #     :value   => user.remember_token,
-      #     :expires => 1.year.from_now.utc
-      #   }
+      # @deprecated Use {#reset_remember_token!} instead
       def remember_me!
-        self.remember_token = encrypt("--#{Time.now.utc}--#{password}--#{id}--")
+        warn "[DEPRECATION] remember_me!: use reset_remember_token! instead"
+        reset_remember_token!
+      end
+
+      # Reset the remember token.
+      #
+      # @example
+      #   user.reset_remember_token!
+      def reset_remember_token!
+        generate_remember_token
         save(false)
       end
 
@@ -155,6 +159,10 @@ module Clearance
 
       def generate_confirmation_token
         self.confirmation_token = encrypt("--#{Time.now.utc}--#{password}--")
+      end
+
+      def generate_remember_token
+        self.remember_token = encrypt("--#{Time.now.utc}--#{encrypted_password}--#{id}--")
       end
 
       def initialize_confirmation_token
