@@ -5,7 +5,7 @@ module Clearance
       controller.send(:include, InstanceMethods)
       controller.extend(ClassMethods)
     end
-    
+
     module ClassMethods
       def self.extended(controller)
         controller.helper_method :current_user, :signed_in?, :signed_out?
@@ -13,10 +13,10 @@ module Clearance
                                  :signed_in?,   :signed_out?,
                                  :sign_in,      :sign_out,
                                  :authenticate, :deny_access
-        
+
       end
     end
-    
+
     module InstanceMethods
       # User in the current cookie
       #

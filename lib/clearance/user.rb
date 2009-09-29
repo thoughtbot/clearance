@@ -101,13 +101,13 @@ module Clearance
         encrypted_password == encrypt(password)
       end
 
-      # Remember me for a year.
+      # Set the remember token.
       #
       # @example
       #   user.remember_me!
       #   cookies[:remember_token] = {
       #     :value   => user.remember_token,
-      #     :expires => user.remember_token_expires_at
+      #     :expires => 1.year.from_now.utc
       #   }
       def remember_me!
         self.remember_token = encrypt("--#{Time.now.utc}--#{password}--")
