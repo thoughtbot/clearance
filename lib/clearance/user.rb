@@ -66,9 +66,8 @@ module Clearance
       def self.included(model)
         model.class_eval do
           before_save :initialize_salt,
-                      :encrypt_password,
-                      :initialize_confirmation_token
-
+                      :encrypt_password
+          before_create :generate_confirmation_token
           after_create :send_confirmation_email, :unless => :email_confirmed?
         end
       end
@@ -163,10 +162,6 @@ module Clearance
 
       def generate_remember_token
         self.remember_token = encrypt("--#{Time.now.utc}--#{encrypted_password}--#{id}--")
-      end
-
-      def initialize_confirmation_token
-        generate_confirmation_token if new_record?
       end
 
       def password_required?
