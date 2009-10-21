@@ -1,6 +1,7 @@
-h2. 0.8.3 (unreleased)
+h2. 0.8.3 (09/21/2009)
 
 * [#27] remove class_eval in Clearance::Authentication. (Anuj Dutta)
+* Avoid possible collisions in the remember me token (Joe Ferris)
 
 h2. 0.8.2 (09/01/2009)
 
