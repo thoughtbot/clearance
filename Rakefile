@@ -23,12 +23,12 @@ namespace :test do
 
   Cucumber::Rake::Task.new(:features) do |t|
     t.cucumber_opts   = "--format progress"
-    t.feature_pattern = "test/rails_root/features/*.feature"
+    t.profile = 'features'
   end
 
   Cucumber::Rake::Task.new(:features_for_views) do |t|
     t.cucumber_opts   = "--format progress"
-    t.feature_pattern = "test/rails_root/features/*.feature"
+    t.profile = 'features_for_views'
   end
 end
 

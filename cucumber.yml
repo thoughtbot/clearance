@@ -1,0 +1,2 @@
+features: test/rails_root/features
+features_for_views: test/rails_root/features
