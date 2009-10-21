@@ -140,6 +140,22 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
+  should "not generate the same remember token for users with the same password at the same time" do
+    password    = 'secret'
+    first_user  = Factory(:email_confirmed_user,
+                          :password              => password,
+                          :password_confirmation => password)
+    second_user = Factory(:email_confirmed_user,
+                          :password              => password,
+                          :password_confirmation => password)
+
+    Time.stubs(:now => Time.now)
+    first_user.remember_me!
+    second_user.remember_me!
+
+    assert_not_equal first_user.remember_token, second_user.remember_token
+  end
+
   # recovering forgotten password
 
   context "An email confirmed user" do

@@ -110,7 +110,7 @@ module Clearance
       #     :expires => 1.year.from_now.utc
       #   }
       def remember_me!
-        self.remember_token = encrypt("--#{Time.now.utc}--#{password}--")
+        self.remember_token = encrypt("--#{Time.now.utc}--#{password}--#{id}--")
         save(false)
       end
 
