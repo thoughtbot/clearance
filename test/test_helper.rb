@@ -6,9 +6,6 @@ require 'test_help'
 $: << File.expand_path(File.dirname(__FILE__) + '/..')
 require 'clearance'
 
-gem 'thoughtbot-factory_girl'
-
-require 'factory_girl'
 begin
   require 'redgreen'
 rescue LoadError
