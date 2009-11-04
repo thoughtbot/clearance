@@ -17,8 +17,8 @@ In config/environment.rb:
 <pre>
 config.gem "thoughtbot-clearance",
   :lib     => 'clearance',
-  :source  => 'http://gems.github.com',
-  :version => '0.8.2'
+  :source  => 'http://gemcutter.org',
+  :version => '0.8.3'
 </pre>
 
 Vendor the gem:

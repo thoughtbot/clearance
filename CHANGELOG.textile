@@ -1,3 +1,8 @@
+h2. 0.8.4 (unreleased)
+
+* [#48] remove unnecessary require 'factory_girl' in generator (Dan Croak)
+* reference gemcutter (not github) as the gem source in README (Dan Croak)
+
 h2. 0.8.3 (09/21/2009)
 
 * [#27] remove class_eval in Clearance::Authentication. (Anuj Dutta)
