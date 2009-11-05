@@ -4,6 +4,16 @@ Rails authentication with email & password.
 
 "We have clearance, Clarence.":http://www.youtube.com/v/mNRXJEE3Nz8
 
+h2. Help
+
+* "#thoughtbot":irc://irc.freenode.net/thoughtbot IRC channel on freenode
+* "documentation":http://rdoc.info/projects/thoughtbot/clearance
+* "mailing list":http://groups.google.com/group/thoughtbot-clearance
+
+h2. Bugs, Patches
+
+Fork away and create a "Github Issue":http://github.com/thoughtbot/clearance/issues. Please don't send pull requests.
+
 h2. Suspenders
 
 Clearance is included in "Suspenders":http://github.com/thoughtbot/suspenders, which thoughtbot uses on all of our apps. We highly recommend you try it. Suspenders is the "King Gem" in our ecosystem, representing what we think the current state-of-the-art is in Rails development.
@@ -112,13 +122,4 @@ h2. Authors
 Clearance was extracted out of "Hoptoad":http://hoptoadapp.com. We merged the authentication code from two of thoughtbot's clients' Rails apps and have since used it each time we need authentication. The following people have improved the library. Thank you!
 
 Dan Croak, Mike Burns, Jason Morrison, Joe Ferris, Eugene Bolshakov, Nick Quaranto, Josh Nichols, Mike Breen, Marcel Görner, Bence Nagy, Ben Mabey, Eloy Duran, Tim Pope, Mihai Anca, Mark Cornick, Shay Arnett, Joshua Clayton, Mustafa Ekim, Jon Yurek, & Anuj Dutta.
-
-h2. Questions?
-
-Ask the "mailing list":http://groups.google.com/group/thoughtbot-clearance
-
-h2. Suggestions, Bugs, Refactoring?
-
-Fork away and create a "Github Issue":http://github.com/thoughtbot/clearance/issues. Please don't send pull requests.
-
 
