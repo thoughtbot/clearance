@@ -25,7 +25,7 @@ Clearance is a Rails engine. It works with versions of Rails greater than 2.3.
 In config/environment.rb:
 
 <pre>
-config.gem "thoughtbot-clearance",
+config.gem "clearance",
   :lib     => 'clearance',
   :source  => 'http://gemcutter.org',
   :version => '0.8.3'
