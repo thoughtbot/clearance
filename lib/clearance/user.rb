@@ -86,6 +86,8 @@ module Clearance
           before_save :initialize_salt,
                       :encrypt_password,
                       :initialize_confirmation_token
+
+          after_create :send_confirmation_email, :unless => :email_confirmed?
         end
       end
     end
@@ -179,6 +181,10 @@ module Clearance
 
       def password_required?
         encrypted_password.blank? || !password.blank?
+      end
+
+      def send_confirmation_email
+        ClearanceMailer.deliver_confirmation self
       end
     end
 

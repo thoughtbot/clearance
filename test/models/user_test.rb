@@ -56,6 +56,23 @@ class UserTest < ActiveSupport::TestCase
       user = Factory(:user, :email => "John.Doe@example.com")
       assert_equal "John.Doe@example.com", user.email
     end
+
+    should "send the confirmation email" do
+      assert_sent_email do |email|
+        email.subject =~ /account confirmation/i
+      end
+    end
+  end
+
+  context "When signing up with email already confirmed" do
+    setup do
+      ActionMailer::Base.deliveries.clear
+      Factory(:user, :email_confirmed => true)
+    end
+
+    should "not send the confirmation email" do
+      assert_did_not_send_email
+    end
   end
 
   context "When multiple users have signed up" do
