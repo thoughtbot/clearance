@@ -63,11 +63,13 @@ end
 
 Then /^a password reset message should be sent to "(.*)"$/ do |email|
   user = User.find_by_email(email)
-  sent = ActionMailer::Base.deliveries.first
-  assert_equal [user.email], sent.to
-  assert_match /password/i, sent.subject
+  assert !ActionMailer::Base.deliveries.empty?
+  ActionMailer::Base.deliveries.any? do |email|
+    email.to == user.email && 
+    email.subject =~ /password/i &&
+    email.body =~ /#{user.confirmation_token}/
+  end
   assert !user.confirmation_token.blank?
-  assert_match /#{user.confirmation_token}/, sent.body
 end
 
 When /^I follow the password reset link sent to "(.*)"$/ do |email|
