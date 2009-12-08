@@ -1,8 +1,9 @@
-h2. 0.8.4 (unreleased)
+h2. 0.8.4
 
 * [#48] remove unnecessary require 'factory_girl' in generator (Dan Croak)
 * reference gemcutter (not github) as the gem source in README (Dan Croak)
 * add IRC, rdoc.info links to README (Dan Croak)
+* move user confirmation email trigger into model (Chad Pytel)
 
 h2. 0.8.3 (09/21/2009)
 

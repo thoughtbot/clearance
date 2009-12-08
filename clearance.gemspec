@@ -1,7 +1,7 @@
 --- !ruby/object:Gem::Specification 
 name: clearance
 version: !ruby/object:Gem::Version 
-  version: 0.8.3
+  version: 0.8.4
 platform: ruby
 authors: 
 - Dan Croak
@@ -21,11 +21,12 @@ authors:
 - Mark Cornick
 - Shay Arnett
 - Jon Yurek
+- Chad Pytel
 autorequire: 
 bindir: bin
 cert_chain: []
 
-date: 2009-10-21 00:00:00 -04:00
+date: 2009-12-08 00:00:00 -05:00
 default_executable: 
 dependencies: []
 
@@ -138,7 +139,7 @@ required_rubygems_version: !ruby/object:Gem::Requirement
 requirements: []
 
 rubyforge_project: 
-rubygems_version: 1.3.4
+rubygems_version: 1.3.5
 signing_key: 
 specification_version: 3
 summary: Rails authentication with email & password.
