@@ -23,10 +23,13 @@ config.action_mailer.delivery_method = :test
 
 HOST = "localhost"
 
-config.gem 'thoughtbot-shoulda',
-  :lib     => 'shoulda',
-  :source  => "http://gems.github.com",
+config.gem 'shoulda',
+  :source  => "http://gemcutter.org",
   :version => '>= 2.9.1'
 config.gem 'factory_girl',
-  :source  => "http://gemscutter.org",
+  :source  => "http://gemcutter.org",
   :version => '>= 1.2.3'
+config.gem 'webrat',
+  :version => '>= 0.5.3'
+config.gem 'cucumber',
+  :version => '>= 0.4.4'
