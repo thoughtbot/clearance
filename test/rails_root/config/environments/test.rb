@@ -29,7 +29,10 @@ config.gem 'shoulda',
 config.gem 'factory_girl',
   :source  => "http://gemcutter.org",
   :version => '>= 1.2.3'
+
+config.gem 'cucumber-rails',
+  :lib     => false,
+  :version => '>= 0.2.2'
 config.gem 'webrat',
-  :version => '>= 0.5.3'
-config.gem 'cucumber',
-  :version => '>= 0.4.4'
+  :lib     => false,
+  :version => '>= 0.6.0'
