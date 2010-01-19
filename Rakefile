@@ -78,26 +78,21 @@ desc "Run the test suite"
 task :default => ['test:basic', 'test:features',
                   'test:views', 'test:features_for_views']
 
-gem_spec = Gem::Specification.new do |gem_spec|
-  gem_spec.name        = "clearance"
-  gem_spec.version     = "0.8.4"
-  gem_spec.summary     = "Rails authentication with email & password."
-  gem_spec.email       = "support@thoughtbot.com"
-  gem_spec.homepage    = "http://github.com/thoughtbot/clearance"
-  gem_spec.description = "Rails authentication with email & password."
-  gem_spec.authors     = ["Dan Croak", "Mike Burns", "Jason Morrison",
-                          "Joe Ferris", "Eugene Bolshakov", "Nick Quaranto",
-                          "Josh Nichols", "Mike Breen", "Marcel Görner",
-                          "Bence Nagy", "Ben Mabey", "Eloy Duran",
-                          "Tim Pope", "Mihai Anca", "Mark Cornick",
-                          "Shay Arnett", "Jon Yurek", "Chad Pytel"]
-  gem_spec.files       = FileList["[A-Z]*", "{app,config,generators,lib,shoulda_macros,rails}/**/*"]
+require 'jeweler'
+
+Jeweler::Tasks.new do |gem|
+  gem.name        = "clearance"
+  gem.summary     = "Rails authentication with email & password."
+  gem.description = "Rails authentication with email & password."
+  gem.email       = "support@thoughtbot.com"
+  gem.homepage    = "http://github.com/thoughtbot/clearance"
+  gem.authors     = ["Dan Croak", "Mike Burns", "Jason Morrison",
+                     "Joe Ferris", "Eugene Bolshakov", "Nick Quaranto",
+                     "Josh Nichols", "Mike Breen", "Marcel Görner",
+                     "Bence Nagy", "Ben Mabey", "Eloy Duran",
+                     "Tim Pope", "Mihai Anca", "Mark Cornick",
+                     "Shay Arnett", "Jon Yurek", "Chad Pytel"]
+  gem.files       = FileList["[A-Z]*", "{app,config,generators,lib,shoulda_macros,rails}/**/*"]
 end
 
-desc "Generate a gemspec file"
-task :gemspec do
-  File.open("#{gem_spec.name}.gemspec", 'w') do |f|
-    f.write gem_spec.to_yaml
-  end
-end
-
+Jeweler::GemcutterTasks.new

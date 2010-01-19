@@ -22,20 +22,10 @@ h2. Installation
 
 Clearance is a Rails engine. It works with versions of Rails greater than 2.3.
 
-In config/environment.rb:
+Install it as a gem however you like to install gems. Gem Bundler example:
 
 <pre>
-config.gem "clearance",
-  :lib     => 'clearance',
-  :source  => 'http://gemcutter.org',
-  :version => '0.8.3'
-</pre>
-
-Vendor the gem:
-
-<pre>
-rake gems:install
-rake gems:unpack
+gem "clearance"
 </pre>
 
 Make sure the development database exists and run the generator:

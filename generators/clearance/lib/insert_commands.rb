@@ -10,7 +10,7 @@ Rails::Generator::Commands::Create.class_eval do
   def insert_into(file, line)
     logger.insert "#{line} into #{file}"
     unless options[:pretend] || file_contains?(file, line)
-      gsub_file file, /^(class|module) .+$/ do |match|
+      gsub_file file, /^(class|module|.*Routes).*$/ do |match|
         "#{match}\n  #{line}"
       end
     end
