@@ -1,7 +1,7 @@
 
 *******************************************************************************
 
-Ok, enough fancy automatic stuff. Time for some old school monkey copy-pasting.
+Next:
 
 1. Define a HOST constant in your environments files.
 In config/environments/test.rb and config/environments/development.rb it can be:
@@ -18,5 +18,9 @@ The constant is used by mailers to generate URLs in emails.
 3. Define root_url to *something* in your config/routes.rb:
 
     map.root :controller => 'home'
+
+4. Migrate:
+
+    rake db:migrate
 
 *******************************************************************************

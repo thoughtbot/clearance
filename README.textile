@@ -12,11 +12,7 @@ h2. Help
 
 h2. Bugs, Patches
 
-Fork away and create a "Github Issue":http://github.com/thoughtbot/clearance/issues. Please don't send pull requests.
-
-h2. Suspenders
-
-Clearance is included in "Suspenders":http://github.com/thoughtbot/suspenders, which thoughtbot uses on all of our apps. We highly recommend you try it. Suspenders is the "King Gem" in our ecosystem, representing what we think the current state-of-the-art is in Rails development.
+Fork away and create a "Github Issue":http://github.com/thoughtbot/clearance/issues.
 
 h2. Installation
 
@@ -34,41 +30,15 @@ Make sure the development database exists and run the generator:
 script/generate clearance
 </pre>
 
-A number of files will be created and instructions will be printed.
+This:
 
-You may already have some of these files. Don't worry. You'll be asked if you want to overwrite them.
+* inserts Clearance::User into your User model
+* inserts Clearance::Authentication into your ApplicationController
+* inserts Clearance::Routes.draw(map) into your config.routes.rb
+* created a migration that either creates a users table or adds only missing columns
+* prints further instructions
 
-Run the migration:
-
-<pre>
-rake db:migrate
-</pre>
-
-h2. If you aren't on Suspenders, you aren't done
-
-Define a HOST constant in your environment files.
-In config/environments/test.rb and config/environments/development.rb it can be:
-
-<pre>
-HOST = "localhost"
-</pre>
-
-In production.rb it must be the actual host your application is deployed to.
-The constant is used by mailers to generate URLs in emails.
-
-In config/environment.rb:
-
-<pre>
-DO_NOT_REPLY = "donotreply@example.com"
-</pre>
-
-Define root_url to *something* in your config/routes.rb:
-
-<pre>
-map.root :controller => 'home'
-</pre>
-
-h2. Cucumber Features
+h2. Optional Cucumber features
 
 As your app evolves, you want to know that authentication still works. thoughtbot's opinion is that you should test its integration with your app using "Cucumber":http://cukes.info/.
 
@@ -95,7 +65,7 @@ def path_to(page_name)
 end
 </pre>
 
-h2. Formtastic views
+h2. Optional Formtastic views
 
 We have begun standardizing our forms using "Formtastic":http://github.com/justinfrench/formtastic. We highly recommend trying it. It will make your Rails view life more interesting.
 

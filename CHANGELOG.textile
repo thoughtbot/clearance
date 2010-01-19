@@ -1,4 +1,12 @@
-h2. 0.8.4
+h2. 0.8.5 (01/18/2010)
+
+* replaced routing hack with Clearance::Routes.draw(map) to give 
+more control to the application developer. (Dan Croak)
+* removed attr_accessible from Clearance::User. (Dan Croak)
+* fixed bug in password reset feature. (Dan Croak)
+* use Jeweler for gemming. (Dan Croak)
+
+h2. 0.8.4 (10/08/2009)
 
 * [#48] remove unnecessary require 'factory_girl' in generator (Dan Croak)
 * reference gemcutter (not github) as the gem source in README (Dan Croak)
