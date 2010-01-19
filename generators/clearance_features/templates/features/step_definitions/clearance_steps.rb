@@ -64,7 +64,7 @@ end
 Then /^a password reset message should be sent to "(.*)"$/ do |email|
   user = User.find_by_email(email)
   assert !ActionMailer::Base.deliveries.empty?
-  ActionMailer::Base.deliveries.any? do |email|
+  assert ActionMailer::Base.deliveries.any? do |email|
     email.to == user.email && 
     email.subject =~ /password/i &&
     email.body =~ /#{user.confirmation_token}/
