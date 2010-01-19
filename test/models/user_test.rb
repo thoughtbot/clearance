@@ -2,9 +2,6 @@ require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
 
-  should_not_allow_mass_assignment_of :email_confirmed,
-    :salt, :encrypted_password, :remember_token
-
   # signing up
 
   context "When signing up" do

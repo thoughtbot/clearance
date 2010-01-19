@@ -24,27 +24,9 @@ module Clearance
       model.extend(ClassMethods)
 
       model.send(:include, InstanceMethods)
-      model.send(:include, AttrAccessible)
       model.send(:include, AttrAccessor)
       model.send(:include, Validations)
       model.send(:include, Callbacks)
-    end
-
-    module AttrAccessible
-      # Hook for attr_accessible white list.
-      #
-      # :email, :password, :password_confirmation
-      #
-      # Append other attributes that must be mass-assigned in your model.
-      #
-      # @example
-      #   include Clearance::User
-      #   attr_accessible :location, :gender
-      def self.included(model)
-        model.class_eval do
-          attr_accessible :email, :password, :password_confirmation
-        end
-      end
     end
 
     module AttrAccessor
