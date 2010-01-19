@@ -15,11 +15,7 @@ The constant is used by mailers to generate URLs in emails.
 
     DO_NOT_REPLY = "donotreply@example.com"
 
-3. Define root_url to *something* in your config/routes.rb:
-
-    map.root :controller => 'home'
-
-4. Migrate:
+3. Migrate:
 
     rake db:migrate
 

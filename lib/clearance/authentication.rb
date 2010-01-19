@@ -123,7 +123,7 @@ module Clearance
       end
 
       def redirect_to_root
-        redirect_to(root_url)
+        redirect_to('/')
       end
     end
 

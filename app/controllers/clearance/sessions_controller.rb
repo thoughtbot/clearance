@@ -53,7 +53,7 @@ class Clearance::SessionsController < ApplicationController
   end
 
   def url_after_create
-    root_url
+    '/'
   end
 
   def flash_success_after_destroy
