@@ -1,4 +1,4 @@
-h2. 0.8.5
+h2. 0.8.5 (01/20/2009)
 
 * replaced routing hack with Clearance::Routes.draw(map) to give
 more control to the application developer. (Dan Croak)
@@ -9,7 +9,7 @@ more control to the application developer. (Dan Croak)
 * use Clearance.configure block to set mailer sender instead of
 DO_NOT_REPLY constant. (Dan Croak)
 
-h2. 0.8.4 (10/08/2009)
+h2. 0.8.4 (12/08/2009)
 
 * [#48] remove unnecessary require 'factory_girl' in generator (Dan Croak)
 * reference gemcutter (not github) as the gem source in README (Dan Croak)
