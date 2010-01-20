@@ -3,21 +3,15 @@
 
 Next:
 
-1. Define a HOST constant in your environments files.
-In config/environments/test.rb and config/environments/development.rb it can be:
+1. Configure default url options for the mailer to generate URLs in emails.
+   In production.rb it must be the actual host your application is deployed to.
+   In config/environments/test.rb and config/environments/development.rb:
 
-    HOST = "localhost"
+     config.action_mailer.default_url_options = { :host => 'localhost:3000' }
 
-In production.rb it must be the actual host your application is deployed to.
-The constant is used by mailers to generate URLs in emails.
+2. Migrate:
 
-2. In config/environment.rb:
-
-    DO_NOT_REPLY = "donotreply@example.com"
-
-3. Migrate:
-
-    rake db:migrate
+     rake db:migrate
 
 4. Make sure you're displaying flashes somewhere. For instance, in a layout:
 

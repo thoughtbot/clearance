@@ -8,9 +8,10 @@ Rails::Initializer.run do |config|
     :session_key => "_clearance_session",
     :secret      => ['clearance', 'random', 'words', 'here'].map {|k| Digest::MD5.hexdigest(k) }.join
   }
+
   config.gem "justinfrench-formtastic", 
     :lib     => 'formtastic', 
     :source  => 'http://gems.github.com'
-end
 
-DO_NOT_REPLY = "donotreply@example.com"
+  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+end

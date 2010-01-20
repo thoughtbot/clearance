@@ -37,14 +37,7 @@ generators = %w(clearance clearance_features clearance_views)
 namespace :generator do
   desc "Cleans up the test app before running the generator"
   task :cleanup do
-    generators.each do |generator|
-      FileList["generators/#{generator}/templates/**/*.*"].each do |each|
-        file = "test/rails_root/#{each.gsub("generators/#{generator}/templates/",'')}"
-        File.delete(file) if File.exists?(file)
-      end
-    end
-
-    FileList["test/rails_root/db/**/*"].each do |each| 
+    FileList["test/rails_root/db/**/*"].each do |each|
       FileUtils.rm_rf(each)
     end
 
@@ -52,25 +45,21 @@ namespace :generator do
     FileUtils.mkdir_p("test/rails_root/vendor/plugins")
     clearance_root = File.expand_path(File.dirname(__FILE__))
     system("ln -s #{clearance_root} test/rails_root/vendor/plugins/clearance")
-
-    FileUtils.rm_rf("test/rails_root/app/views/passwords")
-    FileUtils.rm_rf("test/rails_root/app/views/sessions")
-    FileUtils.rm_rf("test/rails_root/app/views/users")
   end
 
   desc "Run the clearance generator"
   task :clearance do
-    system "cd test/rails_root && ./script/generate clearance && rake db:migrate db:test:prepare"
+    system "cd test/rails_root && ./script/generate clearance -f && rake db:migrate db:test:prepare"
   end
 
   desc "Run the clearance features generator"
   task :clearance_features do
-    system "cd test/rails_root && ./script/generate clearance_features"
+    system "cd test/rails_root && ./script/generate clearance_features -f"
   end
 
   desc "Run the clearance views generator"
   task :clearance_views do
-    system "cd test/rails_root && ./script/generate clearance_views"
+    system "cd test/rails_root && ./script/generate clearance_views -f"
   end
 end
 

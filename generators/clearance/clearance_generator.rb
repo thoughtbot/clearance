@@ -5,6 +5,9 @@ class ClearanceGenerator < Rails::Generator::Base
 
   def manifest
     record do |m|
+      m.directory File.join("config", "initializers")
+      m.file "clearance.rb", "config/initializers/clearance.rb"
+
       m.insert_into "app/controllers/application_controller.rb",
                     "include Clearance::Authentication"
 

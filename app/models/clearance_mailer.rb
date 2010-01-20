@@ -1,9 +1,7 @@
 class ClearanceMailer < ActionMailer::Base
 
-  default_url_options[:host] = HOST
-
   def change_password(user)
-    from       DO_NOT_REPLY
+    from       Clearance.configuration.mailer_sender
     recipients user.email
     subject    I18n.t(:change_password,
                       :scope   => [:clearance, :models, :clearance_mailer],
@@ -12,7 +10,7 @@ class ClearanceMailer < ActionMailer::Base
   end
 
   def confirmation(user)
-    from       DO_NOT_REPLY
+    from       Clearance.configuration.mailer_sender
     recipients user.email
     subject    I18n.t(:confirmation,
                       :scope   => [:clearance, :models, :clearance_mailer],
