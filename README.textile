@@ -38,6 +38,29 @@ This:
 * created a migration that either creates a users table or adds only missing columns
 * prints further instructions
 
+h2. Usage
+
+If you want to authenticate users for a controller action, use the authenticate method in a before_filter.
+
+    class WidgetsController < ApplicationController
+      before_filter :authenticate
+
+      def index
+        @widgets = Widget.all
+      end
+    end
+
+Subclass and override any Clearance-provided controller as needed:
+
+    class SessionsController < Clearance::SessionsController
+      def url_after_create
+        new_blog_post_path
+      end
+    end
+
+Actions that redirect (create, update, and destroy) in Clearance controllers
+can be overriden by re-defining url_after_(action) methods as seen above.
+
 h2. Optional Cucumber features
 
 As your app evolves, you want to know that authentication still works. thoughtbot's opinion is that you should test its integration with your app using "Cucumber":http://cukes.info/.
