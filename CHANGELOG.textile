@@ -1,11 +1,13 @@
-h2. 0.8.5 (01/18/2010)
+h2. 0.8.5
 
-* replaced routing hack with Clearance::Routes.draw(map) to give 
+* replaced routing hack with Clearance::Routes.draw(map) to give
 more control to the application developer. (Dan Croak)
 * removed attr_accessible from Clearance::User. (Dan Croak)
 * fixed bug in password reset feature. (Dan Croak)
 * use Jeweler for gemming. (Dan Croak)
 * remove dependency on root_path, use '/' instead. (Dan Croak)
+* use Clearance.configure block to set mailer sender instead of
+DO_NOT_REPLY constant. (Dan Croak)
 
 h2. 0.8.4 (10/08/2009)
 

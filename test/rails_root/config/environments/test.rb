@@ -21,8 +21,6 @@ config.action_controller.allow_forgery_protection    = false
 # ActionMailer::Base.deliveries array.
 config.action_mailer.delivery_method = :test
 
-HOST = "localhost"
-
 config.gem 'shoulda',
   :source  => "http://gemcutter.org",
   :version => '>= 2.9.1'
