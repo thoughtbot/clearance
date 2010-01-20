@@ -19,4 +19,12 @@ The constant is used by mailers to generate URLs in emails.
 
     rake db:migrate
 
+4. Make sure you're displaying flashes somewhere. For instance, in a layout:
+
+    <div id="flash">
+      <% flash.each do |key, value| -%>
+        <div id="flash_<%= key %>"><%=h value %></div>
+      <% end -%>
+    </div>
+
 *******************************************************************************
