@@ -101,7 +101,7 @@ When /^I sign in as "(.*)\/(.*)"$/ do |email, password|
 end
 
 When /^I sign out$/ do
-  visit '/session', :delete
+  visit '/sign_out'
 end
 
 When /^I request password reset link to be sent to "(.*)"$/ do |email|

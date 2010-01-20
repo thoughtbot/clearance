@@ -22,7 +22,7 @@ class Clearance::SessionsController < ApplicationController
       else
         ::ClearanceMailer.deliver_confirmation(@user)
         flash_notice_after_create
-        redirect_to(new_session_url)
+        redirect_to(sign_in_url)
       end
     end
   end
@@ -61,6 +61,6 @@ class Clearance::SessionsController < ApplicationController
   end
 
   def url_after_destroy
-    new_session_url
+    sign_in_url
   end
 end

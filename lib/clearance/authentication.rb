@@ -87,7 +87,7 @@ module Clearance
       def deny_access(flash_message = nil)
         store_location
         flash[:failure] = flash_message if flash_message
-        redirect_to(new_session_url)
+        redirect_to(sign_in_url)
       end
 
       protected

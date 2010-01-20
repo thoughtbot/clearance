@@ -54,7 +54,7 @@ module Clearance
         should_not_set_the_flash
       end
 
-      should_redirect_to('new_session_url') { new_session_url }
+      should_redirect_to('sign in page') { sign_in_url }
     end
 
     # HTTP FLUENCY

@@ -29,6 +29,6 @@ class Clearance::UsersController < ApplicationController
   end
 
   def url_after_create
-    new_session_url
+    sign_in_url
   end
 end
