@@ -1,6 +1,8 @@
 h2. 0.8.6 (unreleased)
 
 * Clearance features capitalization should match view text (Bobby Wilson)
+* skip :authenticate before_filter in controllers so apps can easily
+authenticate a whole site without subclassing (Matthew Ford)
 
 h2. 0.8.5 (01/20/2009)
 

@@ -1,7 +1,7 @@
 class Clearance::SessionsController < ApplicationController
   unloadable
 
-  skip_before_filter :authenticate
+  skip_before_filter :authenticate, :only => [:new, :create, :destroy]
   protect_from_forgery :except => :create
   filter_parameter_logging :password
 
