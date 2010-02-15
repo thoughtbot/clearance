@@ -1,9 +1,13 @@
+h2. 0.8.6 (unreleased)
+
+* Clearance features capitalization should match view text (Bobby Wilson)
+
 h2. 0.8.5 (01/20/2009)
 
 * replaced routing hack with Clearance::Routes.draw(map) to give
 more control to the application developer. (Dan Croak)
 * removed attr_accessible from Clearance::User. (Dan Croak)
-* fixed bug in password reset feature. (Dan Croak)
+* fixed bug in password reset feature. (Ben Orenstein, Dan Croak)
 * use Jeweler for gemming. (Dan Croak)
 * remove dependency on root_path, use '/' instead. (Dan Croak)
 * use Clearance.configure block to set mailer sender instead of
