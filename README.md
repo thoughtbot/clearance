@@ -8,8 +8,8 @@ Rails authentication with email & password.
 Help
 ----
 
-* [#thoughtbot](irc://irc.freenode.net/thoughtbot) IRC channel on freenode
 * [documentation](http://rdoc.info/projects/thoughtbot/clearance)
+* [#thoughtbot](irc://irc.freenode.net/thoughtbot) IRC channel on freenode
 * [mailing list](http://groups.google.com/group/thoughtbot-clearance)
 
 Bugs, Patches
@@ -51,13 +51,25 @@ method in a before_filter.
       end
     end
 
-Subclass and override any Clearance-provided controller as needed:
+Customizing
+-----------
+
+To change any of provided actions, subclass a Clearance controller...
 
     class SessionsController < Clearance::SessionsController
+      def new
+        # my special new action
+      end
       def url_after_create
-        new_blog_post_path
+        my_special_path
       end
     end
+
+and add your route above (before) Clearance routes in config/routes.rb:
+
+    map.resource :session, :controller => 'clearance/sessions'
+
+See lib/clearance/routes.rb for all the routes Clearance provides.
 
 Actions that redirect (create, update, and destroy) in Clearance controllers
 can be overriden by re-defining url_after_(action) methods as seen above.
