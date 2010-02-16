@@ -144,7 +144,7 @@ module Clearance
 
       def initialize_salt
         if new_record?
-          self.salt = generate_hash("--#{Time.now.utc}--#{password}--")
+          self.salt = generate_hash("--#{Time.now.utc}--#{password}--#{rand}--")
         end
       end
 
@@ -158,11 +158,11 @@ module Clearance
       end
 
       def generate_confirmation_token
-        self.confirmation_token = encrypt("--#{Time.now.utc}--#{password}--")
+        self.confirmation_token = encrypt("--#{Time.now.utc}--#{password}--#{rand}--")
       end
 
       def generate_remember_token
-        self.remember_token = encrypt("--#{Time.now.utc}--#{encrypted_password}--#{id}--")
+        self.remember_token = encrypt("--#{Time.now.utc}--#{encrypted_password}--#{id}--#{rand}--")
       end
 
       def password_required?
