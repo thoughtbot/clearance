@@ -49,12 +49,12 @@ module Clearance
       # :password must be present, confirmed
       def self.included(model)
         model.class_eval do
-          validates_presence_of     :email
-          validates_uniqueness_of   :email, :case_sensitive => false
-          validates_format_of       :email, :with => %r{.+@.+\..+}
+          validates_presence_of     :email, :unless => :email_optional?
+          validates_uniqueness_of   :email, :case_sensitive => false, :allow_blank => true
+          validates_format_of       :email, :with => %r{.+@.+\..+}, :allow_blank => true
 
-          validates_presence_of     :password, :if => :password_required?
-          validates_confirmation_of :password, :if => :password_required?
+          validates_presence_of     :password, :unless => :password_optional?
+          validates_confirmation_of :password, :unless => :password_optional?
         end
       end
     end
@@ -165,8 +165,24 @@ module Clearance
         self.remember_token = encrypt("--#{Time.now.utc}--#{encrypted_password}--#{id}--#{rand}--")
       end
 
+      # Always false. Override to allow other forms of authentication
+      # (username, facebook, etc).
+      # @return [Boolean] true if the email field be left blank for this user
+      def email_optional?
+        false
+      end
+
+      # True if the password has been set and the password is not being
+      # updated. Override to allow other forms of # authentication (username,
+      # facebook, etc).
+      # @return [Boolean] true if the password field can be left blank for this user
+      def password_optional?
+        encrypted_password.present? && password.blank?
+      end
+
       def password_required?
-        encrypted_password.blank? || !password.blank?
+        # warn "[DEPRECATION] password_required?: use !password_optional? instead"
+        !password_optional?
       end
 
       def send_confirmation_email

@@ -73,7 +73,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   context "When multiple users have signed up" do
-    setup { @user = Factory(:user) }
+    setup { Factory(:user) }
     should_validate_uniqueness_of :email
   end
 
@@ -219,6 +219,37 @@ class UserTest < ActiveSupport::TestCase
       end
     end
 
+  end
+
+  # optional email/password fields
+  context "a user with an optional email" do
+    setup do
+      @user = User.new
+      class << @user
+        def email_optional?
+          true
+        end
+      end
+    end
+
+    subject { @user }
+
+    should_allow_values_for :email, nil, ""
+  end
+
+  context "a user with an optional password" do
+    setup do
+      @user = User.new
+      class << @user
+        def password_optional?
+          true
+        end
+      end
+    end
+
+    subject { @user }
+
+    should_allow_values_for :password, nil, ""
   end
 
 end
