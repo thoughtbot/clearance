@@ -126,4 +126,4 @@ Dan Croak, Mike Burns, Jason Morrison, Joe Ferris, Eugene Bolshakov,
 Nick Quaranto, Josh Nichols, Mike Breen, Marcel Görner, Bence Nagy, Ben Mabey,
 Eloy Duran, Tim Pope, Mihai Anca, Mark Cornick, Shay Arnett, Joshua Clayton,
 Mustafa Ekim, Jon Yurek, Anuj Dutta, Chad Pytel, Ben Orenstein, Bobby Wilson,
-Matthew Ford, and Ryan McGreary.
+Matthew Ford, and Ryan McGeary.

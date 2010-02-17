@@ -4,11 +4,11 @@
 * Clearance features capitalization should match view text (Bobby Wilson)
 * [#39] skip :authenticate before_filter in controllers so apps can easily
 authenticate a whole site without subclassing (Matthew Ford)
-* [#45] Added randomness to token and salt generation (Ryan McGreary)
+* [#45] Added randomness to token and salt generation (Ryan McGeary)
 * [#43] Reset the remember_token on sign out instead of sign in. Allows for the same
-user to sign in from two locations at once. (Ryan McGreary)
+user to sign in from two locations at once. (Ryan McGeary)
 * [#62] Append the version number to generated update migrations (Joe Ferris)
- * Allow overridden user models to skip email/password validations 
+ * Allow overridden user models to skip email/password validations
 conditionally. This makes username/facebook integration easier. (Joe Ferris)
 
 0.8.5 (01/20/2010)
