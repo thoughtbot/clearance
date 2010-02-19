@@ -123,8 +123,7 @@ class SessionsControllerTest < ActionController::TestCase
     setup do
       @user = Factory(:email_confirmed_user)
       @user.update_attribute(:remember_token, "old-token")
-      cookies['remember_token'] = CGI::Cookie.new('token', 'value')
-      sign_in_as @user
+      @request.cookies["remember_token"] = "old-token"
       delete :destroy
     end
 

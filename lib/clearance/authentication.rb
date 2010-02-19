@@ -75,8 +75,8 @@ module Clearance
       # @example
       #   sign_out
       def sign_out
-        cookies.delete(:remember_token)
         current_user.reset_remember_token! if current_user
+        cookies.delete(:remember_token)
         current_user = nil
       end
 
