@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{clearance}
-  s.version = "0.8.6"
+  s.version = "0.8.7"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Dan Croak", "Mike Burns", "Jason Morrison", "Joe Ferris", "Eugene Bolshakov", "Nick Quaranto", "Josh Nichols", "Mike Breen", "Marcel G\303\266rner", "Bence Nagy", "Ben Mabey", "Eloy Duran", "Tim Pope", "Mihai Anca", "Mark Cornick", "Shay Arnett", "Jon Yurek", "Chad Pytel"]
-  s.date = %q{2010-02-17}
+  s.date = %q{2010-02-21}
   s.description = %q{Rails authentication with email & password.}
   s.email = %q{support@thoughtbot.com}
   s.extra_rdoc_files = [
@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
      "README.md"
   ]
   s.files = [
-    "CHANGELOG.textile",
+    "CHANGELOG.md",
      "LICENSE",
      "README.md",
      "Rakefile",
@@ -93,12 +93,13 @@ Gem::Specification.new do |s|
      "test/rails_root/config/environments/production.rb",
      "test/rails_root/config/environments/test.rb",
      "test/rails_root/config/initializers/clearance.rb",
+     "test/rails_root/config/initializers/clearance_loader.rb",
      "test/rails_root/config/initializers/inflections.rb",
      "test/rails_root/config/initializers/mime_types.rb",
      "test/rails_root/config/initializers/requires.rb",
      "test/rails_root/config/initializers/time_formats.rb",
      "test/rails_root/config/routes.rb",
-     "test/rails_root/db/migrate/20100217171349_clearance_create_users.rb",
+     "test/rails_root/db/migrate/20100221200020_clearance_create_users.rb",
      "test/rails_root/features/step_definitions/clearance_steps.rb",
      "test/rails_root/features/step_definitions/factory_girl_steps.rb",
      "test/rails_root/features/step_definitions/web_steps.rb",
