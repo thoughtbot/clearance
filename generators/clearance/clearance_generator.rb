@@ -33,6 +33,12 @@ class ClearanceGenerator < Rails::Generator::Base
     end
   end
 
+  def schema_version_constant
+    if upgrading_clearance_again?
+      "To#{schema_version.gsub('_', '')}"
+    end
+  end
+
   private
 
   def migration_source_name
@@ -44,7 +50,7 @@ class ClearanceGenerator < Rails::Generator::Base
   end
 
   def migration_target_name
-    if ActiveRecord::Base.connection.table_exists?(:users)
+    if upgrading_clearance_again?
       "update_users_to_#{schema_version}"
     else
       'create_users'
@@ -53,6 +59,10 @@ class ClearanceGenerator < Rails::Generator::Base
 
   def schema_version
     IO.read(File.join(File.dirname(__FILE__), '..', '..', 'VERSION')).strip.gsub(/[^\d]/, '_')
+  end
+
+  def upgrading_clearance_again?
+    ActiveRecord::Base.connection.table_exists?(:users)
   end
 
 end
