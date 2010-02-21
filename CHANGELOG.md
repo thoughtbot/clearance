@@ -1,4 +1,4 @@
-0.8.7 (unreleased)
+0.8.7 (02/21/2010)
 ------------------
 
 * [#43] Fixed global sign out bug. (Ryan McGreary)
