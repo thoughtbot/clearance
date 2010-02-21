@@ -67,7 +67,7 @@ To change any of provided actions, subclass a Clearance controller...
 
 and add your route above (before) Clearance routes in config/routes.rb:
 
-    map.resource :session, :controller => 'clearance/sessions'
+    map.resource :session, :controller => 'sessions'
 
 See lib/clearance/routes.rb for all the routes Clearance provides.
 
