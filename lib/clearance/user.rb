@@ -143,7 +143,7 @@ module Clearance
       end
 
       def initialize_salt
-        if salt.blank?
+        if new_record?
           self.salt = generate_hash("--#{Time.now.utc}--#{password}--#{rand}--")
         end
       end

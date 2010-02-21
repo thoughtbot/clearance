@@ -28,16 +28,6 @@ class UserTest < ActiveSupport::TestCase
       assert_not_nil Factory(:user).salt
     end
 
-    should "initialize salt for old user records without salt" do
-      user = Factory(:user)
-      sql  = "update users set salt = NULL where id = #{user.id}"
-      ActiveRecord::Base.connection.update(sql)
-      assert_nil user.reload.salt
-
-      user.save
-      assert_not_nil user.salt
-    end
-
     should "initialize confirmation token" do
       assert_not_nil Factory(:user).confirmation_token
     end
