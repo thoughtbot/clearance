@@ -5,6 +5,8 @@
 * [#69] Allow Rails apps to before_filter :authenticate the entire app
 in ApplicationController and still have password recovery work without
 overriding any controllers. (Claudio Poli, Dan Croak)
+* [#72] #[21] Rails3 fix for ActionController/ActionDispatch change.
+(Joseph Holsten, Peter Haza, Dan Croak)
 
 0.8.6 (02/17/2010)
 ------------------
