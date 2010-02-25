@@ -137,6 +137,10 @@ class SessionsControllerTest < ActionController::TestCase
     should "reset the remember token" do
       assert_not_equal "old-token", @user.reload.remember_token
     end
+
+    should "unset the current user" do
+      assert_nil @controller.current_user
+    end
   end
 
 end

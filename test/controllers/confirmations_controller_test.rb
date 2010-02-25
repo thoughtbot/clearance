@@ -23,6 +23,10 @@ class ConfirmationsControllerTest < ActionController::TestCase
       should_set_the_flash_to /confirmed email/i
       should_set_the_flash_to /signed in/i
       should_redirect_to_url_after_create
+
+      should "set the current user" do
+        assert_equal @user, @controller.current_user
+      end
     end
 
     context "with an incorrect token" do

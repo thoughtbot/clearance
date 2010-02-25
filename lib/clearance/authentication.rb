@@ -66,7 +66,7 @@ module Clearance
             :value   => user.remember_token,
             :expires => 1.year.from_now.utc
           }
-          current_user = user
+          self.current_user = user
         end
       end
 
@@ -77,7 +77,7 @@ module Clearance
       def sign_out
         current_user.reset_remember_token! if current_user
         cookies.delete(:remember_token)
-        current_user = nil
+        self.current_user = nil
       end
 
       # Store the current location and redirect to sign in.
