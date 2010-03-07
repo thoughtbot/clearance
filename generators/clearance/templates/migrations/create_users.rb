@@ -10,7 +10,6 @@ class ClearanceCreateUsers < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :users, [:id, :confirmation_token]
     add_index :users, :email
     add_index :users, :remember_token
   end

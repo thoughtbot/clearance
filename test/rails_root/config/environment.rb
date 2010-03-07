@@ -1,6 +1,8 @@
 require File.join(File.dirname(__FILE__), 'boot')
 require 'digest/md5'
 
+RAILS_GEM_VERSION = "2.3.5"
+
 Rails::Initializer.run do |config|
   config.load_paths += Dir.glob(File.join(RAILS_ROOT, 'vendor', 'gems', '*', 'lib'))
   config.time_zone = 'Eastern Time (US & Canada)'

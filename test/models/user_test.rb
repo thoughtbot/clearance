@@ -2,6 +2,11 @@ require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
 
+  # db
+
+  should_have_db_index(:email)
+  should_have_db_index(:remember_token)
+
   # signing up
 
   context "When signing up" do

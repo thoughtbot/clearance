@@ -1,5 +1,11 @@
+0.8.9 (unreleased)
+------------------
+
+* Removed unnecessary db index. (Rich Thorne, doctorzaius)
+
 0.8.8 (02/25/2010)
 ------------------
+
 * Fixed sign_in and sign_out not setting current_user (Joe Ferris)
 
 0.8.7 (02/21/2010)

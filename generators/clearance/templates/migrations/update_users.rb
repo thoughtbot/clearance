@@ -21,7 +21,6 @@ class ClearanceUpdateUsers<%= schema_version_constant %> < ActiveRecord::Migrati
     existing_indexes = ActiveRecord::Base.connection.indexes(:users)
     index_names = existing_indexes.collect { |each| each.name }
     new_indexes = [
-      [:index_users_on_id_and_confirmation_token, 'add_index :users, [:id, :confirmation_token]'],
       [:index_users_on_email,                     'add_index :users, :email'],
       [:index_users_on_remember_token,            'add_index :users, :remember_token']
     ].delete_if { |each| index_names.include?(each.first.to_s) }
