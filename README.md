@@ -22,11 +22,13 @@ Installation
 
 Clearance is a Rails engine. It works with versions of Rails greater than 2.3.
 
-Install it as a gem however you like to install gems. Gem Bundler example:
+Install it as a gem however you like to install gems. Also, uninstall old versions:
 
-    gem "clearance"
+    sudo gem uninstall thoughtbot-clearance
+    sudo gem uninstall clearance
+    sudo gem install clearance
 
-Make sure the development database exists and run the generator:
+Make sure the development database exists, then run the generator:
 
     script/generate clearance
 
