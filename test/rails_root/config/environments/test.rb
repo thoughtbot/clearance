@@ -22,12 +22,9 @@ config.action_controller.allow_forgery_protection    = false
 config.action_mailer.delivery_method = :test
 
 config.gem 'shoulda',
-  :source  => "http://gemcutter.org",
   :version => '>= 2.9.1'
 config.gem 'factory_girl',
-  :source  => "http://gemcutter.org",
   :version => '>= 1.2.3'
-
 config.gem 'cucumber-rails',
   :lib     => false,
   :version => '>= 0.2.2'
