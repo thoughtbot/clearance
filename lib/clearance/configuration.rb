@@ -1,9 +1,10 @@
 module Clearance
   class Configuration
-    attr_accessor :mailer_sender
+    attr_accessor :mailer_sender, :remember_token_expires_at
 
     def initialize
-      @mailer_sender = 'donotreply@example.com'
+      @mailer_sender             = 'donotreply@example.com'
+      @remember_token_expires_at = 1.year.from_now.utc
     end
   end
 
@@ -16,7 +17,8 @@ module Clearance
   #
   # @example
   #   Clearance.configure do |config|
-  #     config.mailer_sender = 'donotreply@example.com'
+  #     config.mailer_sender             = 'donotreply@example.com'
+  #     config.remember_token_expires_at = 1.year.from_now.utc
   #   end
   def self.configure
     self.configuration ||= Configuration.new
