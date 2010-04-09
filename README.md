@@ -93,16 +93,23 @@ features/support/paths.rb file. If you have not modified your paths.rb then you
 will be okay to replace it with this one. If you need to keep your paths.rb
 file then add these locations in your paths.rb manually:
 
-  def path_to(page_name)
-    case page_name
-    when /the sign up page/i
-     new_user_path
-    when /the sign in page/i
-     new_session_path
-    when /the password reset request page/i
-     new_password_path
+    def path_to(page_name)
+      case page_name
+      when /the sign up page/i
+       new_user_path
+      when /the sign in page/i
+       new_session_path
+      when /the password reset request page/i
+       new_password_path
+      end
     end
-  end
+
+Edit config/environments/cucumber.rb to include these lines:
+
+    config.gem 'factory_girl'
+    config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+
+Then run rake!
 
 Optional Formtastic views
 -------------------------
