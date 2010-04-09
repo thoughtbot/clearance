@@ -6,27 +6,34 @@ require 'cucumber/rake/task'
 
 namespace :test do
   Rake::TestTask.new(:basic => ["generator:cleanup",
+                                "generator:clearance"]) do |task|
+    task.libs << "lib"
+    task.libs << "test"
+    task.pattern = "test/**/*_test.rb"
+    task.verbose = false
+  end
+
+  Rake::TestTask.new(:views => ["generator:cleanup",
                                 "generator:clearance",
-                                "generator:clearance_features"]) do |task|
+                                "generator:clearance_views"]) do |task|
     task.libs << "lib"
     task.libs << "test"
     task.pattern = "test/**/*_test.rb"
     task.verbose = false
   end
 
-  Rake::TestTask.new(:views => ["generator:clearance_views"]) do |task|
-    task.libs << "lib"
-    task.libs << "test"
-    task.pattern = "test/**/*_test.rb"
-    task.verbose = false
-  end
 
-  Cucumber::Rake::Task.new(:features) do |t|
+  Cucumber::Rake::Task.new(:features => ["generator:cleanup",
+                                         "generator:clearance",
+                                         "generator:clearance_features"]) do |t|
     t.cucumber_opts   = "--format progress"
     t.profile = 'features'
   end
 
-  Cucumber::Rake::Task.new(:features_for_views) do |t|
+  Cucumber::Rake::Task.new(:features_for_views => ["generator:cleanup",
+                                                   "generator:clearance",
+                                                   "generator:clearance_features",
+                                                   "generator:clearance_views"]) do |t|
     t.cucumber_opts   = "--format progress"
     t.profile = 'features_for_views'
   end
@@ -42,6 +49,9 @@ namespace :generator do
     end
 
     FileUtils.rm_rf("test/rails_root/vendor/plugins/clearance")
+    FileUtils.rm_rf("test/rails_root/app/views/passwords")
+    FileUtils.rm_rf("test/rails_root/app/views/sessions")
+    FileUtils.rm_rf("test/rails_root/app/views/users")
     FileUtils.mkdir_p("test/rails_root/vendor/plugins")
     clearance_root = File.expand_path(File.dirname(__FILE__))
     system("ln -s #{clearance_root} test/rails_root/vendor/plugins/clearance")
