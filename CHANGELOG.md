@@ -2,7 +2,7 @@
 ------------------
 
 * Removed unnecessary db index. (Rich Thornett, doctorzaius)
-* [#79] Allow customization of session expiration time. (Ron Newman, Dan Croak)
+* [#79] Allow customization of cookie duration. (Ron Newman, Dan Croak)
 
 0.8.8 (02/25/2010)
 ------------------

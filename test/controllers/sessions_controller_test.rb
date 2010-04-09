@@ -44,7 +44,7 @@ class SessionsControllerTest < ActionController::TestCase
     should_set_the_flash_to /signed in/i
     should_redirect_to_url_after_create
 
-    should_set_cookie("remember_token", "old-token", Clearance.configuration.remember_token_expires_at)
+    should_set_cookie("remember_token", "old-token", Clearance.configuration.cookie_duration.from_now.utc)
 
     should "not change the remember token" do
       assert_equal "old-token", @user.reload.remember_token
