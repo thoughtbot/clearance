@@ -54,7 +54,7 @@ module Clearance
           validates_format_of       :email, :with => %r{.+@.+\..+}, :allow_blank => true
 
           validates_presence_of     :password, :unless => :password_optional?
-          validates_confirmation_of :password, :unless => :password_optional?
+          validates_confirmation_of :password
         end
       end
     end
