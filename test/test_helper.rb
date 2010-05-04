@@ -39,7 +39,7 @@ class ActiveSupport::TestCase
         assert_contains cookie, regex, "cookie does not contain an 'expires=' attribute"
         cookie =~ regex
         expires_at = Time.parse($1)
-        assert_in_delta should_expire_at, expires_at, 100 # seconds -- arbitrary delta
+        assert_in_delta should_expire_at, expires_at, 100 # number of seconds we don't expect the test suite to exceed
       else
         assert_does_not_contain cookie, regex, "cookie contains an 'expires=' attribute but it shouldn't"
       end

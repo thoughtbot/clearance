@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class SessionsControllerTest < ActionController::TestCase
-
   tests Clearance::SessionsController
 
   should_filter_params :password
@@ -46,8 +45,52 @@ class SessionsControllerTest < ActionController::TestCase
 
     should_set_cookie("remember_token", "old-token", Clearance.configuration.cookie_expiration.call)
 
+    should "have a default of 1 year from now" do
+      assert_in_delta Clearance.configuration.cookie_expiration.call, 1.year.from_now, 100
+    end
+
     should "not change the remember token" do
       assert_equal "old-token", @user.reload.remember_token
+    end
+  end
+
+  context "on POST to #create with good credentials - cookie duration set to 2 weeks" do
+    custom_duration = 2.weeks.from_now.utc
+
+    setup do
+      Clearance.configuration.cookie_expiration = lambda { custom_duration }
+      @user = Factory(:email_confirmed_user)
+      @user.update_attribute(:remember_token, "old-token2")
+      post :create, :session => {
+                      :email    => @user.email,
+                      :password => @user.password }
+    end
+
+    should_set_cookie("remember_token", "old-token2", custom_duration)
+
+    teardown do
+      # restore default Clearance configuration
+      Clearance.configuration = nil
+      Clearance.configure {}
+    end
+  end
+
+  context "on POST to #create with good credentials - cookie expiration set to nil (session cookie)" do
+    setup do
+      Clearance.configuration.cookie_expiration = lambda { nil }
+      @user = Factory(:email_confirmed_user)
+      @user.update_attribute(:remember_token, "old-token3")
+      post :create, :session => {
+                      :email    => @user.email,
+                      :password => @user.password }
+    end
+
+    should_set_cookie("remember_token", "old-token3", nil)
+
+    teardown do
+      # restore default Clearance configuration
+      Clearance.configuration = nil
+      Clearance.configure {}
     end
   end
 
