@@ -16,7 +16,6 @@ module Clearance
     #
     # @see ClassMethods
     # @see InstanceMethods
-    # @see AttrAccessible
     # @see AttrAccessor
     # @see Validations
     # @see Callbacks
