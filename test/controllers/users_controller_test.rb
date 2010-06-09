@@ -33,11 +33,15 @@ class UsersControllerTest < ActionController::TestCase
     context "on POST to #create with valid attributes" do
       setup do
         user_attributes = Factory.attributes_for(:user)
+        @old_user_count = User.count
         post :create, :user => user_attributes
       end
 
       should_assign_to :user
-      should_change 'User.count', :by => 1
+
+      should "create a new user" do
+        assert_equal @old_user_count + 1, User.count
+      end
 
       should "send the confirmation email" do
         assert_sent_email do |email|
