@@ -1,5 +1,7 @@
 pkg
 test/rails_root/log/*.log
+test/rails_root/db/schema.rb
+test/rails_root/db/migrate/*
 *.DS_Store
 *.swp
 .rake_tasks
