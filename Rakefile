@@ -9,7 +9,7 @@ namespace :test do
                                 "generator:clearance"]) do |task|
     task.libs << "lib"
     task.libs << "test"
-    task.pattern = "test/**/*_test.rb"
+    task.pattern = "test/**/user_test.rb"
     task.verbose = false
   end
 
@@ -44,32 +44,34 @@ generators = %w(clearance clearance_features clearance_views)
 namespace :generator do
   desc "Cleans up the test app before running the generator"
   task :cleanup do
-    FileList["test/rails_root/db/**/*"].each do |each|
+    FileList["test/rails3_root/db/**/*"].each do |each|
       FileUtils.rm_rf(each)
     end
 
-    FileUtils.rm_rf("test/rails_root/vendor/plugins/clearance")
-    FileUtils.rm_rf("test/rails_root/app/views/passwords")
-    FileUtils.rm_rf("test/rails_root/app/views/sessions")
-    FileUtils.rm_rf("test/rails_root/app/views/users")
-    FileUtils.mkdir_p("test/rails_root/vendor/plugins")
+    FileUtils.rm_rf("test/rails3_root/vendor/plugins/clearance")
+    FileUtils.rm_rf("test/rails3_root/app/views/passwords")
+    FileUtils.rm_rf("test/rails3_root/app/views/sessions")
+    FileUtils.rm_rf("test/rails3_root/app/views/users")
+    FileUtils.mkdir_p("test/rails3_root/vendor/plugins")
     clearance_root = File.expand_path(File.dirname(__FILE__))
-    system("ln -s #{clearance_root} test/rails_root/vendor/plugins/clearance")
+    system("ln -s #{clearance_root} test/rails3_root/vendor/plugins/clearance")
   end
 
   desc "Run the clearance generator"
   task :clearance do
-    system "cd test/rails_root && ./script/generate clearance -f && rake db:migrate db:test:prepare"
+    clearance_command = "cd test/rails3_root && ./script/rails generate clearance && rake db:migrate db:test:prepare"
+    p clearance_command
+    system clearance_command
   end
 
   desc "Run the clearance features generator"
   task :clearance_features do
-    system "cd test/rails_root && ./script/generate clearance_features -f"
+    system "cd test/rails3_root && ./script/rails generate clearance_features"
   end
 
   desc "Run the clearance views generator"
   task :clearance_views do
-    system "cd test/rails_root && ./script/generate clearance_views -f"
+    system "cd test/rails3_root && ./script/rails generate clearance_views"
   end
 end
 
