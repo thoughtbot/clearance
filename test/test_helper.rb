@@ -1,8 +1,8 @@
-ENV['BUNDLE_GEMFILE'] = File.dirname(__FILE__) + '/rails3_root/Gemfile'
+ENV['BUNDLE_GEMFILE'] = File.dirname(__FILE__) + '/rails_root/Gemfile'
 
 ENV["RAILS_ENV"] = "test"
 require File.expand_path(File.dirname(__FILE__) +
-                         "/rails3_root/config/environment")
+                         "/rails_root/config/environment")
 require 'rails/test_help'
 
 $: << File.expand_path(File.dirname(__FILE__) + '/..')
@@ -14,7 +14,7 @@ rescue LoadError
 end
 
 require File.join(File.dirname(__FILE__), '..', 'shoulda_macros', 'clearance')
-require File.join(File.dirname(__FILE__), "/rails3_root/test/factories/clearance")
+require File.join(File.dirname(__FILE__), "/rails_root/test/factories/clearance")
 
 class ActiveSupport::TestCase
   self.use_transactional_fixtures = true

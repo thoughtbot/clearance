@@ -4,6 +4,6 @@ test/rails_root/log/*.log
 *.swp
 .rake_tasks
 test/rails_root/*
-test/rails3_root
+test/rails3_root/*
 !test/rails_root/vendor/gems/justinfrench-formtastic-0.2.1
 *.gem

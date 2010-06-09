@@ -1,1 +1,0 @@
-HOST = "http://example.com"
