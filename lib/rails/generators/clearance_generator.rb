@@ -25,8 +25,6 @@ class ClearanceGenerator < ActiveRecord::Generators::Base
       template "user.rb", user_model
     end
 
-    route "Clearance::Routes.draw(map)"
-
     template "factories.rb", "test/factories/clearance.rb"
 
     migration_template "migrations/#{migration_source_name}.rb",

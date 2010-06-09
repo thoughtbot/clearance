@@ -9,7 +9,7 @@ namespace :test do
                                 "generator:clearance"]) do |task|
     task.libs << "lib"
     task.libs << "test"
-    task.pattern = "test/**/user_test.rb"
+    task.pattern = "test/**/*_test.rb"
     task.verbose = false
   end
 
@@ -55,13 +55,12 @@ namespace :generator do
     FileUtils.mkdir_p("test/rails3_root/vendor/plugins")
     clearance_root = File.expand_path(File.dirname(__FILE__))
     system("ln -s #{clearance_root} test/rails3_root/vendor/plugins/clearance")
+    FileUtils.rm_rf("test/rails3_root/features")
   end
 
   desc "Run the clearance generator"
   task :clearance do
-    clearance_command = "cd test/rails3_root && ./script/rails generate clearance && rake db:migrate db:test:prepare"
-    p clearance_command
-    system clearance_command
+    system "cd test/rails3_root && ./script/rails generate clearance && rake db:migrate db:test:prepare"
   end
 
   desc "Run the clearance features generator"
