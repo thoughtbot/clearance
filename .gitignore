@@ -1,11 +1,11 @@
 pkg
 test/rails_root/log/*.log
-test/rails_root/db/schema.rb
-test/rails_root/db/migrate/*
+test/rails_root/db/*
 *.DS_Store
 *.swp
 .rake_tasks
 !test/rails_root/vendor/gems/justinfrench-formtastic-0.2.1
+!.keep
 *.gem
 test/rails_root/app/views/passwords
 test/rails_root/app/views/sessions

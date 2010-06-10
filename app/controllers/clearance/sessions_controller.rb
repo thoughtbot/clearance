@@ -21,7 +21,7 @@ class Clearance::SessionsController < ApplicationController
         flash_success_after_create
         redirect_back_or(url_after_create)
       else
-        ::ClearanceMailer.deliver_confirmation(@user)
+        ::ClearanceMailer.confirmation(@user).deliver
         flash_notice_after_create
         redirect_to(sign_in_url)
       end
