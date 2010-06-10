@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.0.beta3'
+gem 'rails', '3.0.0.beta4'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -12,10 +12,14 @@ gem 'mocha'
 gem 'formtastic', "1.0.0.beta", :git => "git://github.com/justinfrench/formtastic.git", :branch => "rails3"
 
 gem 'shoulda', '>= 2.10.3', :git => "git://github.com/thoughtbot/shoulda.git", :branch => "master"
-gem 'factory_girl', '>= 1.2.3', :git => "git://github.com/thoughtbot/factory_girl.git", :branch => "fixes_for_rails3"
+gem 'factory_girl', :git => "git://github.com/thoughtbot/factory_girl.git"
+gem 'factory_girl_rails', :git => "git://github.com/thoughtbot/factory_girl_rails.git"
 gem 'nokogiri', '1.4.1'
-gem 'cucumber-rails', '0.3.0'
-gem 'webrat', '0.7.0'
+
+gem 'capybara'
+gem 'database_cleaner'
+gem 'cucumber-rails', '0.3.2'
+gem 'cucumber', '0.8.0'
 
 # Use unicorn as the web server
 # gem 'unicorn'

@@ -14,7 +14,6 @@ rescue LoadError
 end
 
 require File.join(File.dirname(__FILE__), '..', 'shoulda_macros', 'clearance')
-require File.join(File.dirname(__FILE__), "/rails_root/test/factories/clearance")
 
 class ActiveSupport::TestCase
   self.use_transactional_fixtures = true
