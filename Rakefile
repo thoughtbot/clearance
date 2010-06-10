@@ -1,5 +1,7 @@
 # encoding: utf-8
 
+ENV['BUNDLE_GEMFILE'] = File.dirname(__FILE__) + '/test/rails_root/Gemfile'
+
 require 'rake'
 require 'rake/testtask'
 require 'cucumber/rake/task'
@@ -55,7 +57,9 @@ namespace :generator do
     FileUtils.mkdir_p("test/rails_root/vendor/plugins")
     clearance_root = File.expand_path(File.dirname(__FILE__))
     system("ln -s #{clearance_root} test/rails_root/vendor/plugins/clearance")
-    FileUtils.rm_rf("test/rails_root/features")
+    FileList["test/rails_root/features/*.feature"].each do |each|
+      FileUtils.rm_rf(each)
+    end
   end
 
   desc "Run the clearance generator"
