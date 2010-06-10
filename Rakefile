@@ -11,7 +11,7 @@ namespace :test do
                                 "generator:clearance"]) do |task|
     task.libs << "lib"
     task.libs << "test"
-    task.pattern = "test/**/*_test.rb"
+    task.pattern = "test/*/*_test.rb"
     task.verbose = false
   end
 
@@ -20,7 +20,7 @@ namespace :test do
                                 "generator:clearance_views"]) do |task|
     task.libs << "lib"
     task.libs << "test"
-    task.pattern = "test/**/*_test.rb"
+    task.pattern = "test/*/*_test.rb"
     task.verbose = false
   end
 

@@ -1,7 +1,11 @@
 # General
 
 Then /^I should see error messages$/ do
-  assert_match /error(s)? prohibited/m, response.body
+  Then %{I should see "errors prohibited"}
+end
+
+Then /^I should see an error message$/ do
+  Then %{I should see "error prohibited"}
 end
 
 # Database
@@ -27,16 +31,20 @@ end
 # Session
 
 Then /^I should be signed in$/ do
-  assert controller.signed_in?
+  Given %{I am on the homepage} 
+  Then %{I should see "Sign out"} 
 end
 
 Then /^I should be signed out$/ do
-  assert ! controller.signed_in?
+  Given %{I am on the homepage} 
+  Then %{I should see "Sign in"} 
 end
 
 When /^session is cleared$/ do
-  request.reset_session
-  controller.instance_variable_set(:@_current_user, nil)
+  # TODO: This doesn't work with Capybara
+  # TODO: I tried Capybara.reset_sessions! but that didn't work
+  #request.reset_session
+  #controller.instance_variable_set(:@_current_user, nil)
 end
 
 Given /^I have signed in with "(.*)\/(.*)"$/ do |email, password|

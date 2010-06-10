@@ -7,3 +7,6 @@ test/rails_root/db/migrate/*
 .rake_tasks
 !test/rails_root/vendor/gems/justinfrench-formtastic-0.2.1
 *.gem
+test/rails_root/app/views/passwords
+test/rails_root/app/views/sessions
+test/rails_root/app/views/users

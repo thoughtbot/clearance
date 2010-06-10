@@ -20,6 +20,7 @@ gem 'capybara'
 gem 'database_cleaner'
 gem 'cucumber-rails', '0.3.2'
 gem 'cucumber', '0.8.0'
+gem 'launchy'
 
 # Use unicorn as the web server
 # gem 'unicorn'
