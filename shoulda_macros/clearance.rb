@@ -253,7 +253,7 @@ module Clearance
 
       def assert_confirmation_error(model, attribute, message = "confirmation error")
         warn "[DEPRECATION] assert_confirmation_error: not meant to be public, no longer used internally"
-        assert model.errors.on(attribute).include?("doesn't match confirmation"),
+        assert model.errors[attribute].include?("doesn't match confirmation"),
           message
       end
     end

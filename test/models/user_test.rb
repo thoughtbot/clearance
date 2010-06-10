@@ -19,14 +19,14 @@ class UserTest < ActiveSupport::TestCase
       user = Factory.build(:user, :password              => 'blah',
                                   :password_confirmation => 'boogidy')
       assert ! user.save
-      assert user.errors.on(:password)
+      assert user.errors[:password].any?
     end
 
     should "require non blank password confirmation on create" do
       user = Factory.build(:user, :password              => 'blah',
                                   :password_confirmation => '')
       assert ! user.save
-      assert user.errors.on(:password)
+      assert user.errors[:password].any?
     end
 
     should "initialize salt" do
