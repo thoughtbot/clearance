@@ -1,11 +1,11 @@
 <h2>Sign in</h2>
 
-<% semantic_form_for :session, :url => session_path do |form| %>
-  <% form.inputs do %>
+<%= semantic_form_for :session, :url => session_path do |form| %>
+  <%= form.inputs do %>
     <%= form.input :email %>
     <%= form.input :password, :as => :password %>
   <% end %>
-  <% form.buttons do %>
+  <%= form.buttons do %>
     <%= form.commit_button "Sign in" %>
   <% end %>
 <% end %>
