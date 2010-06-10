@@ -5,7 +5,7 @@ class ClearanceMailerTest < ActiveSupport::TestCase
   context "A change password email" do
     setup do
       @user  = Factory(:user)
-      @email = ClearanceMailer.create_change_password @user
+      @email = ClearanceMailer.change_password @user
     end
 
     should "be from DO_NOT_REPLY" do
@@ -30,7 +30,7 @@ class ClearanceMailerTest < ActiveSupport::TestCase
   context "A confirmation email" do
     setup do
       @user  = Factory(:user)
-      @email = ClearanceMailer.create_confirmation @user
+      @email = ClearanceMailer.confirmation @user
     end
 
     should "be from DO_NOT_REPLY" do
