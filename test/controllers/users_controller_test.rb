@@ -4,7 +4,7 @@ class UsersControllerTest < ActionController::TestCase
 
   tests Clearance::UsersController
 
-  should_filter_params :password
+  should filter_param(:password)
 
   context "when signed out" do
     setup { sign_out }

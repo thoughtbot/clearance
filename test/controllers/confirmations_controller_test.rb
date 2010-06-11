@@ -4,7 +4,7 @@ class ConfirmationsControllerTest < ActionController::TestCase
 
   tests Clearance::ConfirmationsController
 
-  should_filter_params :token
+  should filter_param(:token)
 
   context "a user whose email has not been confirmed" do
     setup { @user = Factory(:user) }
