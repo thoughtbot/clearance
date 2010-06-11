@@ -11,7 +11,7 @@ gem 'mocha'
 
 gem 'formtastic', "1.0.0.beta", :git => "git://github.com/justinfrench/formtastic.git", :branch => "rails3"
 
-gem 'shoulda', '>= 2.10.3', :git => "git://github.com/thoughtbot/shoulda.git", :branch => "master"
+gem 'shoulda', '>= 2.11', :git => "git://github.com/thoughtbot/shoulda.git"
 gem 'factory_girl_rails'
 gem 'nokogiri', '1.4.1'
 
