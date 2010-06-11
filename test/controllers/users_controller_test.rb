@@ -15,8 +15,6 @@ class UsersControllerTest < ActionController::TestCase
       should respond_with(:success)
       should render_template(:new)
       should_not set_the_flash
-
-      should_display_a_sign_up_form
     end
 
     context "on GET to #new with email" do
@@ -50,7 +48,12 @@ class UsersControllerTest < ActionController::TestCase
     end
   end
 
-  signed_in_user_context do
+  context "A signed-in user" do
+    setup do
+      @user = Factory(:email_confirmed_user)
+      sign_in_as @user
+    end
+
     context "GET to new" do
       setup { get :new }
       should redirect_to("the home page") { root_url }

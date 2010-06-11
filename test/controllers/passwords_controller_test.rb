@@ -83,7 +83,6 @@ class PasswordsControllerTest < ActionController::TestCase
 
       should respond_with(:success)
       should render_template(:edit)
-      should_display_a_password_update_form
     end
 
     should_forbid "on GET to #edit with correct id but blank token" do
@@ -151,12 +150,13 @@ class PasswordsControllerTest < ActionController::TestCase
         assert_not_nil @user.confirmation_token
       end
 
-      should_not_be_signed_in
+      should "not be signed in" do
+        assert_nil cookies[:remember_token]
+      end
+
       should_not set_the_flash
       should respond_with(:success)
       should render_template(:edit)
-
-      should_display_a_password_update_form
     end
 
     should_forbid "on PUT to #update with id but no token" do
