@@ -49,9 +49,9 @@ module Clearance
 
     def should_deny_access(opts = {})
       if opts[:flash]
-        should_set_the_flash_to opts[:flash]
+        should set_the_flash.to(opts[:flash])
       else
-        should_not_set_the_flash
+        should_not set_the_flash
       end
 
       should redirect_to('sign in page') { sign_in_url }
@@ -102,7 +102,7 @@ module Clearance
         end
       end
 
-      should_set_the_flash_to /confirm/i
+      should set_the_flash.to(/confirm/i)
       should_redirect_to_url_after_create
     end
 

@@ -10,7 +10,7 @@ class SessionsControllerTest < ActionController::TestCase
 
     should_respond_with    :success
     should render_template(:new)
-    should_not_set_the_flash
+    should_not set_the_flash
     should_display_a_sign_in_form
   end
 
@@ -40,7 +40,7 @@ class SessionsControllerTest < ActionController::TestCase
                       :password => @user.password }
     end
 
-    should_set_the_flash_to /signed in/i
+    should set_the_flash.to(/signed in/i)
     should_redirect_to_url_after_create
 
     should_set_cookie("remember_token", "old-token", Clearance.configuration.cookie_expiration.call)
@@ -141,7 +141,7 @@ class SessionsControllerTest < ActionController::TestCase
                       :password    => "bad value" }
     end
 
-    should_set_the_flash_to /bad/i
+    should set_the_flash.to(/bad/i)
     should_respond_with    :unauthorized
     should render_template(:new)
     should_not_be_signed_in
@@ -156,7 +156,7 @@ class SessionsControllerTest < ActionController::TestCase
       sign_out
       delete :destroy
     end
-    should_set_the_flash_to(/signed out/i)
+    should set_the_flash.to(/signed out/i)
     should_redirect_to_url_after_destroy
   end
 
@@ -168,7 +168,7 @@ class SessionsControllerTest < ActionController::TestCase
       delete :destroy
     end
 
-    should_set_the_flash_to(/signed out/i)
+    should set_the_flash.to(/signed out/i)
     should_redirect_to_url_after_destroy
 
     should "delete the cookie token" do

@@ -36,7 +36,7 @@ class PasswordsControllerTest < ActionController::TestCase
           end
         end
 
-        should_set_the_flash_to /password/i
+        should set_the_flash.to(/password/i)
         should_redirect_to_url_after_create
       end
 
@@ -127,7 +127,7 @@ class PasswordsControllerTest < ActionController::TestCase
         assert_not_nil @user.remember_token
       end
 
-      should_set_the_flash_to(/signed in/i)
+      should set_the_flash.to(/signed in/i)
       should_redirect_to_url_after_update
     end
 
@@ -156,7 +156,7 @@ class PasswordsControllerTest < ActionController::TestCase
       end
 
       should_not_be_signed_in
-      should_not_set_the_flash
+      should_not set_the_flash
       should_respond_with    :success
       should render_template(:edit)
 

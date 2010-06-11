@@ -14,7 +14,7 @@ class UsersControllerTest < ActionController::TestCase
 
       should_respond_with :success
       should render_template(:new)
-      should_not_set_the_flash
+      should_not set_the_flash
 
       should_display_a_sign_up_form
     end
@@ -49,7 +49,7 @@ class UsersControllerTest < ActionController::TestCase
         end
       end
 
-      should_set_the_flash_to /confirm/i
+      should set_the_flash.to(/confirm/i)
       should_redirect_to_url_after_create
     end
   end

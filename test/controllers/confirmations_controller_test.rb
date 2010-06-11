@@ -20,8 +20,8 @@ class ConfirmationsControllerTest < ActionController::TestCase
                   :token   => @user.confirmation_token
       end
 
-      should_set_the_flash_to /confirmed email/i
-      should_set_the_flash_to /signed in/i
+      should set_the_flash.to(/confirmed email/i)
+      should set_the_flash.to(/signed in/i)
       should_redirect_to_url_after_create
 
       should "set the current user" do
@@ -60,7 +60,7 @@ class ConfirmationsControllerTest < ActionController::TestCase
       get :new, :user_id => @user.to_param, :token => @token
     end
 
-    should_set_the_flash_to /confirmed email/i
+    should set_the_flash.to(/confirmed email/i)
     should_redirect_to_url_after_create
   end
 
@@ -87,8 +87,8 @@ class ConfirmationsControllerTest < ActionController::TestCase
       get :new, :user_id => @user.to_param, :token => @token
     end
 
-    should_set_the_flash_to /already confirmed/i
-    should_set_the_flash_to /sign in/i
+    should set_the_flash.to(/already confirmed/i)
+    should set_the_flash.to(/sign in/i)
     should_not_be_signed_in
     should_redirect_to_url_already_confirmed
   end
