@@ -64,7 +64,7 @@ namespace :generator do
 
   desc "Run the clearance generator"
   task :clearance do
-    system "cd test/rails_root && ./script/rails generate clearance && rake db:migrate db:test:prepare"
+    system "cd test/rails_root && bundle install && ./script/rails generate clearance && rake db:migrate db:test:prepare"
   end
 
   desc "Run the clearance features generator"
