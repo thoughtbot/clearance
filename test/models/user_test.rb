@@ -4,8 +4,8 @@ class UserTest < ActiveSupport::TestCase
 
   # db
 
-  should_have_db_index(:email)
-  should_have_db_index(:remember_token)
+  should have_db_index(:email)
+  should have_db_index(:remember_token)
 
   # signing up
 
