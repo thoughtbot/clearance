@@ -10,3 +10,4 @@ test/rails_root/db/*
 test/rails_root/app/views/passwords
 test/rails_root/app/views/sessions
 test/rails_root/app/views/users
+test/rails_root/vendor/plugins/clearance
