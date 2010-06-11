@@ -8,7 +8,7 @@ class SessionsControllerTest < ActionController::TestCase
   context "on GET to /sessions/new" do
     setup { get :new }
 
-    should_respond_with    :success
+    should respond_with(:success)
     should render_template(:new)
     should_not set_the_flash
     should_display_a_sign_in_form
@@ -142,7 +142,7 @@ class SessionsControllerTest < ActionController::TestCase
     end
 
     should set_the_flash.to(/bad/i)
-    should_respond_with    :unauthorized
+    should respond_with(:unauthorized)
     should render_template(:new)
     should_not_be_signed_in
 

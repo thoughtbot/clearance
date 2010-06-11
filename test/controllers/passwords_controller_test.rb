@@ -15,7 +15,7 @@ class PasswordsControllerTest < ActionController::TestCase
     context "on GET to #new" do
       setup { get :new, :user_id => @user.to_param }
 
-      should_respond_with :success
+      should respond_with(:success)
       should render_template(:new)
     end
 
@@ -85,7 +85,7 @@ class PasswordsControllerTest < ActionController::TestCase
         assert_equal @user, assigns(:user)
       end
 
-      should_respond_with :success
+      should respond_with(:success)
       should render_template(:edit)
       should_display_a_password_update_form
     end
@@ -157,7 +157,7 @@ class PasswordsControllerTest < ActionController::TestCase
 
       should_not_be_signed_in
       should_not set_the_flash
-      should_respond_with    :success
+      should respond_with(:success)
       should render_template(:edit)
 
       should_display_a_password_update_form
