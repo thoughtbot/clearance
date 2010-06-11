@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{clearance}
-  s.version = "0.8.8"
+  s.version = "0.9.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Dan Croak", "Mike Burns", "Jason Morrison", "Joe Ferris", "Eugene Bolshakov", "Nick Quaranto", "Josh Nichols", "Mike Breen", "Marcel G\303\266rner", "Bence Nagy", "Ben Mabey", "Eloy Duran", "Tim Pope", "Mihai Anca", "Mark Cornick", "Shay Arnett", "Jon Yurek", "Chad Pytel"]
-  s.date = %q{2010-02-25}
+  s.date = %q{2010-06-11}
   s.description = %q{Rails authentication with email & password.}
   s.email = %q{support@thoughtbot.com}
   s.extra_rdoc_files = [
@@ -34,45 +34,40 @@ Gem::Specification.new do |s|
      "app/views/sessions/new.html.erb",
      "app/views/users/_form.html.erb",
      "app/views/users/new.html.erb",
-     "generators/clearance/USAGE",
-     "generators/clearance/clearance_generator.rb",
-     "generators/clearance/lib/insert_commands.rb",
-     "generators/clearance/lib/rake_commands.rb",
-     "generators/clearance/templates/README",
-     "generators/clearance/templates/clearance.rb",
-     "generators/clearance/templates/factories.rb",
-     "generators/clearance/templates/migrations/create_users.rb",
-     "generators/clearance/templates/migrations/update_users.rb",
-     "generators/clearance/templates/user.rb",
-     "generators/clearance_features/USAGE",
-     "generators/clearance_features/clearance_features_generator.rb",
-     "generators/clearance_features/templates/features/password_reset.feature",
-     "generators/clearance_features/templates/features/sign_in.feature",
-     "generators/clearance_features/templates/features/sign_out.feature",
-     "generators/clearance_features/templates/features/sign_up.feature",
-     "generators/clearance_features/templates/features/step_definitions/clearance_steps.rb",
-     "generators/clearance_features/templates/features/support/paths.rb",
-     "generators/clearance_views/USAGE",
-     "generators/clearance_views/clearance_views_generator.rb",
-     "generators/clearance_views/templates/formtastic/passwords/edit.html.erb",
-     "generators/clearance_views/templates/formtastic/passwords/new.html.erb",
-     "generators/clearance_views/templates/formtastic/sessions/new.html.erb",
-     "generators/clearance_views/templates/formtastic/users/_inputs.html.erb",
-     "generators/clearance_views/templates/formtastic/users/new.html.erb",
+     "config/routes.rb",
      "lib/clearance.rb",
      "lib/clearance/authentication.rb",
      "lib/clearance/configuration.rb",
+     "lib/clearance/engine.rb",
      "lib/clearance/extensions/errors.rb",
      "lib/clearance/extensions/rescue.rb",
-     "lib/clearance/routes.rb",
      "lib/clearance/user.rb",
+     "lib/rails/generators/clearance_features_generator.rb",
+     "lib/rails/generators/clearance_features_templates/features/password_reset.feature",
+     "lib/rails/generators/clearance_features_templates/features/sign_in.feature",
+     "lib/rails/generators/clearance_features_templates/features/sign_out.feature",
+     "lib/rails/generators/clearance_features_templates/features/sign_up.feature",
+     "lib/rails/generators/clearance_features_templates/features/step_definitions/clearance_steps.rb",
+     "lib/rails/generators/clearance_generator.rb",
+     "lib/rails/generators/clearance_templates/README",
+     "lib/rails/generators/clearance_templates/clearance.rb",
+     "lib/rails/generators/clearance_templates/factories.rb",
+     "lib/rails/generators/clearance_templates/migrations/create_users.rb",
+     "lib/rails/generators/clearance_templates/migrations/update_users.rb",
+     "lib/rails/generators/clearance_templates/user.rb",
+     "lib/rails/generators/clearance_views_generator.rb",
+     "lib/rails/generators/clearance_views_templates/formtastic/erb/passwords/edit.html.erb",
+     "lib/rails/generators/clearance_views_templates/formtastic/erb/passwords/new.html.erb",
+     "lib/rails/generators/clearance_views_templates/formtastic/erb/sessions/new.html.erb",
+     "lib/rails/generators/clearance_views_templates/formtastic/erb/users/_inputs.html.erb",
+     "lib/rails/generators/clearance_views_templates/formtastic/erb/users/new.html.erb",
      "rails/init.rb",
      "shoulda_macros/clearance.rb"
   ]
   s.homepage = %q{http://github.com/thoughtbot/clearance}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.5}
+  s.rubygems_version = %q{1.3.7}
   s.summary = %q{Rails authentication with email & password.}
   s.test_files = [
     "test/controllers/confirmations_controller_test.rb",
@@ -84,36 +79,34 @@ Gem::Specification.new do |s|
      "test/rails_root/app/controllers/accounts_controller.rb",
      "test/rails_root/app/controllers/application_controller.rb",
      "test/rails_root/app/helpers/application_helper.rb",
-     "test/rails_root/app/helpers/confirmations_helper.rb",
-     "test/rails_root/app/helpers/passwords_helper.rb",
      "test/rails_root/app/models/user.rb",
+     "test/rails_root/config/application.rb",
      "test/rails_root/config/boot.rb",
      "test/rails_root/config/environment.rb",
      "test/rails_root/config/environments/development.rb",
      "test/rails_root/config/environments/production.rb",
      "test/rails_root/config/environments/test.rb",
+     "test/rails_root/config/initializers/backtrace_silencers.rb",
      "test/rails_root/config/initializers/clearance.rb",
      "test/rails_root/config/initializers/inflections.rb",
      "test/rails_root/config/initializers/mime_types.rb",
-     "test/rails_root/config/initializers/requires.rb",
-     "test/rails_root/config/initializers/time_formats.rb",
+     "test/rails_root/config/initializers/secret_token.rb",
+     "test/rails_root/config/initializers/session_store.rb",
      "test/rails_root/config/routes.rb",
-     "test/rails_root/db/migrate/20100225210436_clearance_create_users.rb",
+     "test/rails_root/db/migrate/20100611162109_clearance_create_users.rb",
      "test/rails_root/features/step_definitions/clearance_steps.rb",
-     "test/rails_root/features/step_definitions/factory_girl_steps.rb",
      "test/rails_root/features/step_definitions/web_steps.rb",
      "test/rails_root/features/support/env.rb",
      "test/rails_root/features/support/paths.rb",
-     "test/rails_root/public/dispatch.rb",
-     "test/rails_root/script/create_project.rb",
      "test/rails_root/test/factories/clearance.rb",
      "test/rails_root/test/functional/accounts_controller_test.rb",
-     "test/rails_root/vendor/gems/justinfrench-formtastic-0.2.1/generators/formtastic_stylesheets/formtastic_stylesheets_generator.rb",
-     "test/rails_root/vendor/gems/justinfrench-formtastic-0.2.1/lib/formtastic.rb",
-     "test/rails_root/vendor/gems/justinfrench-formtastic-0.2.1/lib/justin_french/formtastic.rb",
-     "test/rails_root/vendor/gems/justinfrench-formtastic-0.2.1/rails/init.rb",
-     "test/rails_root/vendor/gems/justinfrench-formtastic-0.2.1/spec/formtastic_spec.rb",
-     "test/rails_root/vendor/gems/justinfrench-formtastic-0.2.1/spec/test_helper.rb",
+     "test/rails_root/test/performance/browsing_test.rb",
+     "test/rails_root/test/test_helper.rb",
+     "test/rails_root/vendor/plugins/dynamic_form/init.rb",
+     "test/rails_root/vendor/plugins/dynamic_form/lib/action_view/helpers/dynamic_form.rb",
+     "test/rails_root/vendor/plugins/dynamic_form/test/dynamic_form_i18n_test.rb",
+     "test/rails_root/vendor/plugins/dynamic_form/test/dynamic_form_test.rb",
+     "test/rails_root/vendor/plugins/dynamic_form/test/test_helper.rb",
      "test/test_helper.rb"
   ]
 
@@ -121,7 +114,7 @@ Gem::Specification.new do |s|
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
     s.specification_version = 3
 
-    if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
+    if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
     else
     end
   else
