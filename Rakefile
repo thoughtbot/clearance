@@ -41,8 +41,6 @@ namespace :test do
   end
 end
 
-generators = %w(clearance clearance_features clearance_views)
-
 namespace :generator do
   desc "Cleans up the test app before running the generator"
   task :cleanup do
