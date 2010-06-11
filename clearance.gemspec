@@ -110,6 +110,8 @@ Gem::Specification.new do |s|
      "test/test_helper.rb"
   ]
 
+  s.add_dependency('rails', '~>3.0.0.beta4')
+
   if s.respond_to? :specification_version then
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
     s.specification_version = 3
