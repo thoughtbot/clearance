@@ -13,7 +13,7 @@ class UsersControllerTest < ActionController::TestCase
       setup { get :new }
 
       should_respond_with :success
-      should_render_template :new
+      should render_template(:new)
       should_not_set_the_flash
 
       should_display_a_sign_up_form

@@ -9,7 +9,7 @@ class SessionsControllerTest < ActionController::TestCase
     setup { get :new }
 
     should_respond_with    :success
-    should_render_template :new
+    should render_template(:new)
     should_not_set_the_flash
     should_display_a_sign_in_form
   end
@@ -143,7 +143,7 @@ class SessionsControllerTest < ActionController::TestCase
 
     should_set_the_flash_to /bad/i
     should_respond_with    :unauthorized
-    should_render_template :new
+    should render_template(:new)
     should_not_be_signed_in
 
     should 'not create the cookie' do

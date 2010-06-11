@@ -16,7 +16,7 @@ class PasswordsControllerTest < ActionController::TestCase
       setup { get :new, :user_id => @user.to_param }
 
       should_respond_with :success
-      should_render_template "new"
+      should render_template(:new)
     end
 
     context "on POST to #create" do
@@ -64,7 +64,7 @@ class PasswordsControllerTest < ActionController::TestCase
           assert_match /unknown email/i, flash.now[:failure]
         end
 
-        should_render_template :new
+        should render_template(:new)
       end
     end
   end
@@ -86,7 +86,7 @@ class PasswordsControllerTest < ActionController::TestCase
       end
 
       should_respond_with :success
-      should_render_template "edit"
+      should render_template(:edit)
       should_display_a_password_update_form
     end
 
@@ -158,7 +158,7 @@ class PasswordsControllerTest < ActionController::TestCase
       should_not_be_signed_in
       should_not_set_the_flash
       should_respond_with    :success
-      should_render_template :edit
+      should render_template(:edit)
 
       should_display_a_password_update_form
     end
