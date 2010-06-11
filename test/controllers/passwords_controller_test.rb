@@ -4,8 +4,8 @@ class PasswordsControllerTest < ActionController::TestCase
 
   tests Clearance::PasswordsController
 
-  should_route :get, '/users/1/password/edit',
-    :controller => 'clearance/passwords', :action  => 'edit', :user_id => '1'
+  should route(:get, '/users/1/password/edit').
+           to(:controller => 'clearance/passwords', :action  => 'edit', :user_id => '1')
 
   context "a signed up user" do
     setup do
