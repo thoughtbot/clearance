@@ -96,7 +96,7 @@ Jeweler::Tasks.new do |gem|
                      "Bence Nagy", "Ben Mabey", "Eloy Duran",
                      "Tim Pope", "Mihai Anca", "Mark Cornick",
                      "Shay Arnett", "Jon Yurek", "Chad Pytel"]
-  gem.files       = FileList["[A-Z]*", "{app,config,generators,lib,shoulda_macros,rails}/**/*"]
+  gem.files       = FileList["[A-Z]*", "{app,config,lib,shoulda_macros,rails}/**/*"]
 end
 
 Jeweler::GemcutterTasks.new
