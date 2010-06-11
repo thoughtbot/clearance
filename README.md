@@ -30,15 +30,13 @@ Install it as a gem however you like to install gems. Also, uninstall old versio
 
 Make sure the development database exists, then run the generator:
 
-    script/generate clearance
+    script/rails generate clearance
 
 This:
 
 * inserts Clearance::User into your User model
 * inserts Clearance::Authentication into your ApplicationController
-* inserts Clearance::Routes.draw(map) into your config.routes.rb
 * created a migration that either creates a users table or adds only missing columns
-* prints further instructions
 
 Usage
 -----
@@ -67,9 +65,9 @@ To change any of provided actions, subclass a Clearance controller...
       end
     end
 
-and add your route above (before) Clearance routes in config/routes.rb:
+and add your route in config/routes.rb:
 
-    map.resource :session, :controller => 'sessions'
+    resource :session, :controller => 'sessions'
 
 See config/routes.rb for all the routes Clearance provides.
 
@@ -90,7 +88,7 @@ Run the Cucumber generator and Clearance feature generator:
 
 Edit your Gemfile to include:
 
-    config.gem 'factory_girl'
+    gem 'factory_girl'
 
 Edit your config/enviroments/cucumber.rb to include the following:
 
