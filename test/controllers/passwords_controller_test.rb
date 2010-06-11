@@ -30,11 +30,7 @@ class PasswordsControllerTest < ActionController::TestCase
           assert_not_nil @user.reload.confirmation_token
         end
 
-        should "send the change your password email" do
-          assert_sent_email do |email|
-            email.subject =~ /change your password/i
-          end
-        end
+        should have_sent_email.with_subject(/change your password/i)
 
         should set_the_flash.to(/password/i)
         should_redirect_to_url_after_create

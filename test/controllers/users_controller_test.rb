@@ -43,11 +43,7 @@ class UsersControllerTest < ActionController::TestCase
         assert_equal @old_user_count + 1, User.count
       end
 
-      should "send the confirmation email" do
-        assert_sent_email do |email|
-          email.subject =~ /account confirmation/i
-        end
-      end
+      should have_sent_email.with_subject(/account confirmation/i)
 
       should set_the_flash.to(/confirm/i)
       should_redirect_to_url_after_create
