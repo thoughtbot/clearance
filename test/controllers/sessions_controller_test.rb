@@ -104,7 +104,7 @@ class SessionsControllerTest < ActionController::TestCase
                       :password => @user.password }
     end
 
-    should_redirect_to("the return URL") { @return_url }
+    should redirect_to("the return URL") { @return_url }
   end
 
   context "on POST to #create with good credentials and a request return url" do
@@ -117,7 +117,7 @@ class SessionsControllerTest < ActionController::TestCase
                       :return_to => @return_url
     end
 
-    should_redirect_to("the return URL") { @return_url }
+    should redirect_to("the return URL") { @return_url }
   end
 
   context "on POST to #create with good credentials and a session return url and request return url" do
@@ -131,7 +131,7 @@ class SessionsControllerTest < ActionController::TestCase
                       :return_to => '/url_in_the_request'
     end
 
-    should_redirect_to("the return URL") { @return_url }
+    should redirect_to("the return URL") { @return_url }
   end
 
   context "on POST to #create with bad credentials" do

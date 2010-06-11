@@ -57,12 +57,12 @@ class UsersControllerTest < ActionController::TestCase
   signed_in_user_context do
     context "GET to new" do
       setup { get :new }
-      should_redirect_to("the home page") { root_url }
+      should redirect_to("the home page") { root_url }
     end
 
     context "POST to create" do
       setup { post :create, :user => {} }
-      should_redirect_to("the home page") { root_url }
+      should redirect_to("the home page") { root_url }
     end
   end
 

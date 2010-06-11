@@ -54,7 +54,7 @@ module Clearance
         should_not_set_the_flash
       end
 
-      should_redirect_to('sign in page') { sign_in_url }
+      should redirect_to('sign in page') { sign_in_url }
     end
 
     # HTTP FLUENCY
@@ -117,27 +117,19 @@ module Clearance
     # REDIRECTS
 
     def should_redirect_to_url_after_create
-      should_redirect_to("the post-create url") do
-        @controller.send(:url_after_create)
-      end
+      should redirect_to("the post-create url") { @controller.send(:url_after_create) }
     end
 
     def should_redirect_to_url_after_update
-      should_redirect_to("the post-update url") do
-        @controller.send(:url_after_update)
-      end
+      should redirect_to("the post-update url") { @controller.send(:url_after_update) }
     end
 
     def should_redirect_to_url_after_destroy
-      should_redirect_to("the post-destroy url") do
-        @controller.send(:url_after_destroy)
-      end
+      should redirect_to("the post-destroy url") { @controller.send(:url_after_destroy) }
     end
 
     def should_redirect_to_url_already_confirmed
-      should_redirect_to("the already confirmed url") do
-        @controller.send(:url_already_confirmed)
-      end
+      should redirect_to("the already confirmed url") { @controller.send(:url_already_confirmed) }
     end
 
     # VALIDATIONS
