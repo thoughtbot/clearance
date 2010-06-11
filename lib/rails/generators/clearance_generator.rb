@@ -6,7 +6,7 @@ class ClearanceGenerator < ActiveRecord::Generators::Base
   argument :name, :type => :string, :default => "migration_source_name"
 
   def self.source_root
-    @_clearance_source_root ||= File.expand_path("../../../../../../../../../generators/clearance/templates", __FILE__)
+    @_clearance_source_root ||= File.join(File.dirname(__FILE__), "clearance_templates")
   end
 
   def install

@@ -2,7 +2,7 @@ class ClearanceViewsGenerator < Rails::Generators::Base
   desc "Put the clearance views in place"
 
   def self.source_root
-    @_clearance_source_root ||= File.expand_path("../../../../../../../../../generators/clearance_views/templates", __FILE__)
+    @_clearance_source_root ||= File.join(File.dirname(__FILE__), "clearance_views_templates")
   end
 
   def install
