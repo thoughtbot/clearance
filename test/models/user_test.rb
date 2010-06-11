@@ -11,9 +11,9 @@ class UserTest < ActiveSupport::TestCase
 
   context "When signing up" do
     should_validate_presence_of :email, :password
-    should_allow_values_for     :email, "foo@example.com"
-    should_not_allow_values_for :email, "foo"
-    should_not_allow_values_for :email, "example.com"
+    should allow_value("foo@example.com").for(:email)
+    should_not allow_value("foo").for(:email)
+    should_not allow_value("example.com").for(:email)
 
     should "require password confirmation on create" do
       user = Factory.build(:user, :password              => 'blah',
@@ -239,7 +239,8 @@ class UserTest < ActiveSupport::TestCase
 
     subject { @user }
 
-    should_allow_values_for :email, nil, ""
+    should allow_value(nil).for(:email)
+    should allow_value("").for(:email)
   end
 
   context "a user with an optional password" do
@@ -254,7 +255,8 @@ class UserTest < ActiveSupport::TestCase
 
     subject { @user }
 
-    should_allow_values_for :password, nil, ""
+    should allow_value(nil).for(:password)
+    should allow_value("").for(:password)
   end
 
 end
