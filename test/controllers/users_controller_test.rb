@@ -37,7 +37,7 @@ class UsersControllerTest < ActionController::TestCase
         post :create, :user => user_attributes
       end
 
-      should_assign_to :user
+      should assign_to(:user)
 
       should "create a new user" do
         assert_equal @old_user_count + 1, User.count
