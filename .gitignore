@@ -11,3 +11,9 @@ test/rails_root/app/views/passwords
 test/rails_root/app/views/sessions
 test/rails_root/app/views/users
 test/rails_root/vendor/plugins/clearance
+test/rails_root/features/*.feature
+test/rails_root/features/password_reset.feature
+test/rails_root/features/sign_in.feature
+test/rails_root/features/sign_out.feature
+test/rails_root/features/sign_up.feature
+test/rails_root/features/step_definitions/clearance_steps.rb
