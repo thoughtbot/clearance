@@ -105,7 +105,7 @@ module Clearance
 
       def store_location
         if request.get?
-          session[:return_to] = request.request_uri
+          session[:return_to] = request.fullpath
         end
       end
 
