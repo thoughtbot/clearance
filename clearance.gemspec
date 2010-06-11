@@ -21,7 +21,6 @@ Gem::Specification.new do |s|
      "LICENSE",
      "README.md",
      "Rakefile",
-     "VERSION",
      "app/controllers/clearance/confirmations_controller.rb",
      "app/controllers/clearance/passwords_controller.rb",
      "app/controllers/clearance/sessions_controller.rb",
