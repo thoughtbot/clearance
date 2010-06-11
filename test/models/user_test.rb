@@ -10,7 +10,8 @@ class UserTest < ActiveSupport::TestCase
   # signing up
 
   context "When signing up" do
-    should_validate_presence_of :email, :password
+    should validate_presence_of(:email)
+    should validate_presence_of(:password)
     should allow_value("foo@example.com").for(:email)
     should_not allow_value("foo").for(:email)
     should_not allow_value("example.com").for(:email)
@@ -73,7 +74,7 @@ class UserTest < ActiveSupport::TestCase
 
   context "When multiple users have signed up" do
     setup { Factory(:user) }
-    should_validate_uniqueness_of :email
+    should validate_uniqueness_of(:email)
   end
 
   # confirming email
