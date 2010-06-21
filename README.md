@@ -20,7 +20,7 @@ Fork away and create a [Github Issue](http://github.com/thoughtbot/clearance/iss
 Installation
 ------------
 
-Clearance is a Rails engine. The latest stable version works with versions of Rails greater than 3.  If you need to run on Rails 2.x, install Clearance Version 0.8.8.
+Clearance is a Rails engine. The latest stable version (0.8.8) works with versions of Rails 2.x.
 
 Install it as a gem however you like to install gems. Also, uninstall old versions:
 
@@ -37,6 +37,10 @@ This:
 * inserts Clearance::User into your User model
 * inserts Clearance::Authentication into your ApplicationController
 * created a migration that either creates a users table or adds only missing columns
+
+There is a release candidate which features Rails 3 support. To install this version:
+
+    gem install clearance --prerelease
 
 Usage
 -----
