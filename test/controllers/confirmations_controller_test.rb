@@ -89,8 +89,11 @@ class ConfirmationsControllerTest < ActionController::TestCase
 
     should set_the_flash.to(/already confirmed/i)
     should set_the_flash.to(/sign in/i)
-    should_not_be_signed_in
     should_redirect_to_url_already_confirmed
+
+    should "not be signed in" do
+      assert_nil cookies[:remember_token]
+    end
   end
 
   context "no users" do

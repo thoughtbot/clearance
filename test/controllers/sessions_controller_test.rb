@@ -11,7 +11,6 @@ class SessionsControllerTest < ActionController::TestCase
     should respond_with(:success)
     should render_template(:new)
     should_not set_the_flash
-    should_display_a_sign_in_form
   end
 
   context "on POST to #create with unconfirmed credentials" do
@@ -144,10 +143,9 @@ class SessionsControllerTest < ActionController::TestCase
     should set_the_flash.to(/bad/i)
     should respond_with(:unauthorized)
     should render_template(:new)
-    should_not_be_signed_in
 
-    should 'not create the cookie' do
-      assert_nil cookies['remember_token']
+    should "not be signed in" do
+      assert_nil cookies[:remember_token]
     end
   end
 

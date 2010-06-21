@@ -93,14 +93,10 @@ module Clearance
 
     def should_create_user_successfully
       warn "[DEPRECATION] should_create_user_successfully: not meant to be public, no longer used internally"
-      should_assign_to :user
+      should assign_to(:user)
       should_change 'User.count', :by => 1
 
-      should "send the confirmation email" do
-        assert_sent_email do |email|
-          email.subject =~ /account confirmation/i
-        end
-      end
+      should have_sent_email.with_subject(/account confirmation/i)
 
       should set_the_flash.to(/confirm/i)
       should_redirect_to_url_after_create

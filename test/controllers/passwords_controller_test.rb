@@ -4,8 +4,8 @@ class PasswordsControllerTest < ActionController::TestCase
 
   tests Clearance::PasswordsController
 
-  should_route :get, '/users/1/password/edit',
-    :controller => 'clearance/passwords', :action  => 'edit', :user_id => '1'
+  should route(:get, '/users/1/password/edit').
+           to(:controller => 'clearance/passwords', :action  => 'edit', :user_id => '1')
 
   context "a signed up user" do
     setup do
@@ -30,11 +30,7 @@ class PasswordsControllerTest < ActionController::TestCase
           assert_not_nil @user.reload.confirmation_token
         end
 
-        should "send the change your password email" do
-          assert_sent_email do |email|
-            email.subject =~ /change your password/i
-          end
-        end
+        should have_sent_email.with_subject(/change your password/i)
 
         should set_the_flash.to(/password/i)
         should_redirect_to_url_after_create
@@ -87,7 +83,6 @@ class PasswordsControllerTest < ActionController::TestCase
 
       should respond_with(:success)
       should render_template(:edit)
-      should_display_a_password_update_form
     end
 
     should_forbid "on GET to #edit with correct id but blank token" do
@@ -155,12 +150,13 @@ class PasswordsControllerTest < ActionController::TestCase
         assert_not_nil @user.confirmation_token
       end
 
-      should_not_be_signed_in
+      should "not be signed in" do
+        assert_nil cookies[:remember_token]
+      end
+
       should_not set_the_flash
       should respond_with(:success)
       should render_template(:edit)
-
-      should_display_a_password_update_form
     end
 
     should_forbid "on PUT to #update with id but no token" do

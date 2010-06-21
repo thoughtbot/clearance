@@ -15,8 +15,6 @@ class UsersControllerTest < ActionController::TestCase
       should respond_with(:success)
       should render_template(:new)
       should_not set_the_flash
-
-      should_display_a_sign_up_form
     end
 
     context "on GET to #new with email" do
@@ -37,24 +35,25 @@ class UsersControllerTest < ActionController::TestCase
         post :create, :user => user_attributes
       end
 
-      should_assign_to :user
+      should assign_to(:user)
 
       should "create a new user" do
         assert_equal @old_user_count + 1, User.count
       end
 
-      should "send the confirmation email" do
-        assert_sent_email do |email|
-          email.subject =~ /account confirmation/i
-        end
-      end
+      should have_sent_email.with_subject(/account confirmation/i)
 
       should set_the_flash.to(/confirm/i)
       should_redirect_to_url_after_create
     end
   end
 
-  signed_in_user_context do
+  context "A signed-in user" do
+    setup do
+      @user = Factory(:email_confirmed_user)
+      sign_in_as @user
+    end
+
     context "GET to new" do
       setup { get :new }
       should redirect_to("the home page") { root_url }

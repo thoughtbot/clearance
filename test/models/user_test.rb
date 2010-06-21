@@ -10,7 +10,8 @@ class UserTest < ActiveSupport::TestCase
   # signing up
 
   context "When signing up" do
-    should_validate_presence_of :email, :password
+    should validate_presence_of(:email)
+    should validate_presence_of(:password)
     should allow_value("foo@example.com").for(:email)
     should_not allow_value("foo").for(:email)
     should_not allow_value("example.com").for(:email)
@@ -59,11 +60,7 @@ class UserTest < ActiveSupport::TestCase
       assert_equal "John.Doe@example.com", user.email
     end
 
-    should "send the confirmation email" do
-      assert_sent_email do |email|
-        email.subject =~ /account confirmation/i
-      end
-    end
+    should have_sent_email.with_subject(/account confirmation/i)
   end
 
   context "When signing up with email already confirmed" do
@@ -72,14 +69,12 @@ class UserTest < ActiveSupport::TestCase
       Factory(:user, :email_confirmed => true)
     end
 
-    should "not send the confirmation email" do
-      assert_did_not_send_email
-    end
+    should_not have_sent_email
   end
 
   context "When multiple users have signed up" do
     setup { Factory(:user) }
-    should_validate_uniqueness_of :email
+    should validate_uniqueness_of(:email)
   end
 
   # confirming email
