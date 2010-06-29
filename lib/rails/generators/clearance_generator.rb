@@ -25,7 +25,11 @@ class ClearanceGenerator < ActiveRecord::Generators::Base
       template "user.rb", user_model
     end
 
-    template "factories.rb", "test/factories/clearance.rb"
+    if File.exists?("spec")
+      template "factories.rb", "spec/factories/clearance.rb"
+    else
+      template "factories.rb", "test/factories/clearance.rb"
+    end
 
     migration_template "migrations/#{migration_source_name}.rb",
                        "db/migrate/clearance_#{migration_target_name}"
