@@ -3,7 +3,6 @@ class Clearance::SessionsController < ApplicationController
 
   skip_before_filter :authenticate, :only => [:new, :create, :destroy]
   protect_from_forgery :except => :create
-  filter_parameter_logging :password
 
   def new
     render :template => 'sessions/new'

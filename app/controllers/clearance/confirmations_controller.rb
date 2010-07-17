@@ -7,8 +7,6 @@ class Clearance::ConfirmationsController < ApplicationController
   before_filter :forbid_missing_token,               :only => [:new, :create]
   before_filter :forbid_non_existent_user,           :only => [:new, :create]
 
-  filter_parameter_logging :token
-
   def new
     create
   end
