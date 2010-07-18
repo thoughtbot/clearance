@@ -100,13 +100,11 @@ namespace :generator do
       FileUtils.rm_rf(each)
     end
 
-    FileUtils.rm_rf("test/rails_root/vendor/plugins/clearance")
     FileUtils.rm_rf("test/rails_root/app/views/passwords")
     FileUtils.rm_rf("test/rails_root/app/views/sessions")
     FileUtils.rm_rf("test/rails_root/app/views/users")
     FileUtils.mkdir_p("test/rails_root/vendor/plugins")
     clearance_root = File.expand_path(File.dirname(__FILE__))
-    system("ln -s #{clearance_root} test/rails_root/vendor/plugins/clearance")
     FileList["test/rails_root/features/*.feature"].each do |each|
       FileUtils.rm_rf(each)
     end
