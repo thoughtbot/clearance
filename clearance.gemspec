@@ -39,6 +39,7 @@ Gem::Specification.new do |s|
     "lib/clearance/engine.rb",
     "lib/clearance/extensions/errors.rb",
     "lib/clearance/extensions/rescue.rb",
+    "lib/clearance/shoulda_macros.rb",
     "lib/clearance/user.rb",
     "lib/rails/generators/clearance_features_generator.rb",
     "lib/rails/generators/clearance_features_templates/features/password_reset.feature",
@@ -60,7 +61,6 @@ Gem::Specification.new do |s|
     "lib/rails/generators/clearance_views_templates/formtastic/erb/users/_inputs.html.erb",
     "lib/rails/generators/clearance_views_templates/formtastic/erb/users/new.html.erb",
     "rails/init.rb",
-    "shoulda_macros/clearance.rb"
   ]
 
   s.homepage = %q{http://github.com/thoughtbot/clearance}
