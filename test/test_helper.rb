@@ -11,7 +11,7 @@ begin
 rescue LoadError
 end
 
-require File.join(File.dirname(__FILE__), '..', 'shoulda_macros', 'clearance')
+require 'clearance/shoulda_macros'
 
 class ActiveSupport::TestCase
   self.use_transactional_fixtures = true
