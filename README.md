@@ -76,7 +76,7 @@ and add your route in config/routes.rb:
 See config/routes.rb for all the routes Clearance provides.
 
 Actions that redirect (create, update, and destroy) in Clearance controllers
-can be overriden by re-defining url_after_(action) methods as seen above.
+can be overridden by re-defining url_after_(action) methods as seen above.
 
 Optional Cucumber features
 --------------------------
@@ -92,11 +92,11 @@ Run the Cucumber generator and Clearance feature generator:
 
 Edit your Gemfile to include:
 
-    gem 'factory_girl'
+    gem 'factory_girl_rails'
 
 Edit your config/enviroments/cucumber.rb to include the following:
 
-    ActionMailer::Base.default_url_options = { :host => 'localhost:3000' }
+    config.action_mailer.default_url_options = { :host => 'localhost:3000' }
 
 Then run rake!
 
@@ -115,8 +115,8 @@ Authors
 -------
 
 Clearance was extracted out of [Hoptoad](http://hoptoadapp.com). We merged the
-authentication code from two of thoughtbot client Rails apps and have since
-used it each time we need authentication.
+authentication code from two of thoughtbot's client Rails apps and have since
+used it each time we needed authentication.
 
 The following people have improved the library. Thank you!
 
