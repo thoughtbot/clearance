@@ -1,30 +1,23 @@
-Rails.application.routes.draw do |map|
-  map.resources :passwords,
+Rails.application.routes.draw do
+  resources :passwords,
     :controller => 'clearance/passwords',
     :only       => [:new, :create]
 
-  map.resource  :session,
+  resource  :session,
     :controller => 'clearance/sessions',
     :only       => [:new, :create, :destroy]
 
-  map.resources :users, :controller => 'clearance/users' do |users|
-    users.resource :password,
+  resources :users, :controller => 'clearance/users' do
+    resource :password,
       :controller => 'clearance/passwords',
       :only       => [:create, :edit, :update]
 
-    users.resource :confirmation,
+    resource :confirmation,
       :controller => 'clearance/confirmations',
       :only       => [:new, :create]
   end
 
-  map.sign_up  'sign_up',
-    :controller => 'clearance/users',
-    :action     => 'new'
-  map.sign_in  'sign_in',
-    :controller => 'clearance/sessions',
-    :action     => 'new'
-  map.sign_out 'sign_out',
-    :controller => 'clearance/sessions',
-    :action     => 'destroy',
-    :method     => :delete
+  match 'sign_up'  => 'clearance/users#new', :as => 'sign_up'
+  match 'sign_in'  => 'clearance/sessions#new', :as => 'sign_in'
+  match 'sign_out' => 'clearance/sessions#destroy', :via => :delete, :as => 'sign_out'
 end
