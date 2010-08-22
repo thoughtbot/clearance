@@ -108,8 +108,11 @@ When /^I sign in as "(.*)\/(.*)"$/ do |email, password|
   And %{I press "Sign in"}
 end
 
-When /^I sign out$/ do
-  visit '/sign_out'
+When "I sign out" do
+  steps %{
+    When I go to the homepage
+    And I follow "Sign out"
+  }
 end
 
 When /^I request password reset link to be sent to "(.*)"$/ do |email|
