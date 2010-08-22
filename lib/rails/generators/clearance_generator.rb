@@ -62,7 +62,7 @@ class ClearanceGenerator < ActiveRecord::Generators::Base
   end
 
   def schema_version
-    IO.read(File.join(File.dirname(__FILE__), '..', '..', 'VERSION')).strip.gsub(/[^\d]/, '_')
+    IO.read(File.join(File.dirname(__FILE__), '..', '..', '..', 'VERSION')).strip.gsub(/[^\d]/, '_')
   end
 
   def upgrading_clearance_again?
