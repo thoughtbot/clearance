@@ -60,7 +60,7 @@ Gem::Specification.new do |s|
     "lib/rails/generators/clearance_views_templates/formtastic/erb/sessions/new.html.erb",
     "lib/rails/generators/clearance_views_templates/formtastic/erb/users/_inputs.html.erb",
     "lib/rails/generators/clearance_views_templates/formtastic/erb/users/new.html.erb",
-    "rails/init.rb",
+    "init.rb",
   ]
 
   s.homepage = %q{http://github.com/thoughtbot/clearance}
