@@ -1,6 +1,6 @@
-Rails3Root::Application.routes.draw do |map|
-  map.resource :account
-  map.root :controller => 'accounts', :action => 'edit'
+Rails3Root::Application.routes.draw do
+  resource :account
+  root :to => 'accounts#edit'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

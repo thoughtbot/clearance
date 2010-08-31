@@ -1,40 +1,15 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.0.beta4'
+gem 'rails', '3.0.0'
 
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
+gem 'sqlite3-ruby', '1.3.1', :require => 'sqlite3'
 
-gem 'sqlite3-ruby', :require => 'sqlite3'
-
-gem 'mocha'
-
-gem 'formtastic', :git => "git://github.com/justinfrench/formtastic.git", :branch => "rails3"
-
-gem 'shoulda', '>= 2.11', :git => "git://github.com/thoughtbot/shoulda.git"
-gem 'factory_girl_rails'
-gem 'nokogiri', '1.4.1'
-
-gem 'capybara'
-gem 'database_cleaner'
-gem 'cucumber-rails', '0.3.2'
-gem 'cucumber', '0.8.0'
-gem 'launchy'
-
-# Use unicorn as the web server
-# gem 'unicorn'
-
-# Deploy with Capistrano
-# gem 'capistrano'
-
-# Bundle the extra gems:
-# gem 'bj'
-# gem 'nokogiri', '1.4.1'
-# gem 'sqlite3-ruby', :require => 'sqlite3'
-# gem 'aws-s3', :require => 'aws/s3'
-
-# Bundle gems for certain environments:
-# gem 'rspec', :group => :test
-# group :test do
-#   gem 'webrat'
-# end
+gem 'capybara',           '0.3.9'
+gem 'cucumber',           '0.8.5'
+gem 'cucumber-rails',     '0.3.2'
+gem 'factory_girl_rails', '1.0'
+gem 'formtastic',         '1.1.0.beta'
+gem 'launchy',            '0.3.7'
+gem 'mocha',              '0.9.8'
+gem 'nokogiri',           '1.4.1'
+gem 'shoulda',            '2.11.3'
