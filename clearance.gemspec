@@ -196,7 +196,7 @@ Gem::Specification.new do |s|
     "test/test_helper.rb"
   ]
 
-  s.add_dependency('rails', '~>3.0.0.beta4')
+  s.add_dependency('rails', '~>3.0.0')
   s.add_development_dependency('rspec', [">= 1.3.0"])
 
   if s.respond_to? :specification_version then
