@@ -30,7 +30,7 @@ Install it as a gem however you like to install gems. Also, uninstall old versio
 
 Make sure the development database exists, then run the generator:
 
-    script/rails generate clearance
+    script/generate clearance
 
 This:
 
@@ -87,8 +87,8 @@ opinion is that you should test its integration with your app using
 
 Run the Cucumber generator and Clearance feature generator:
 
-    script/rails generate cucumber
-    script/rails generate clearance_features
+    script/generate cucumber
+    script/generate clearance_features
 
 Edit your Gemfile to include:
 
@@ -107,7 +107,7 @@ We use & recommend [Formtastic](http://github.com/justinfrench/formtastic).
 
 Clearance has another generator to generate Formastic views:
 
-    script/rails generate clearance_views
+    script/generate clearance_views
 
 Its implementation is designed so other view styles (Haml?) can be generated.
 
