@@ -52,6 +52,10 @@ Given /^I have signed in with "(.*)\/(.*)"$/ do |email, password|
   And %{I sign in as "#{email}/#{password}"}
 end
 
+Given /^I sign in$/ do
+  Given %{I have signed in with "person@example.com/password"}
+end
+
 # Emails
 
 Then /^a confirmation message should be sent to "(.*)"$/ do |email|
