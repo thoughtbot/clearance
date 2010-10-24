@@ -19,7 +19,7 @@ Given /^I signed up with "(.*)\/(.*)"$/ do |email, password|
     :email                 => email,
     :password              => password,
     :password_confirmation => password
-end 
+end
 
 Given /^I am signed up and confirmed as "(.*)\/(.*)"$/ do |email, password|
   user = Factory :email_confirmed_user,
@@ -31,13 +31,13 @@ end
 # Session
 
 Then /^I should be signed in$/ do
-  Given %{I am on the homepage} 
-  Then %{I should see "Sign out"} 
+  Given %{I am on the homepage}
+  Then %{I should see "Sign out"}
 end
 
 Then /^I should be signed out$/ do
-  Given %{I am on the homepage} 
-  Then %{I should see "Sign in"} 
+  Given %{I am on the homepage}
+  Then %{I should see "Sign in"}
 end
 
 When /^session is cleared$/ do
