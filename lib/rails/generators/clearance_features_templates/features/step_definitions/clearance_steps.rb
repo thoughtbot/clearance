@@ -54,7 +54,7 @@ end
 
 Given /^I sign in$/ do
   email = Factory.next(:email)
-  Given %{I sign in as "#{email}/password"}
+  Given %{I have signed in with "#{email}/password"}
 end
 
 # Emails
