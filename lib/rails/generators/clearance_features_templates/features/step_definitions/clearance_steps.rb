@@ -53,7 +53,8 @@ Given /^I have signed in with "(.*)\/(.*)"$/ do |email, password|
 end
 
 Given /^I sign in$/ do
-  Given %{I have signed in with "person@example.com/password"}
+  email = Factory.next(:email)
+  Given %{I sign in as "#{email}/password"}
 end
 
 # Emails
