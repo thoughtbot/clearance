@@ -12,7 +12,11 @@ class UserTest < ActiveSupport::TestCase
   context "When signing up" do
     should validate_presence_of(:email)
     should validate_presence_of(:password)
+    should allow_value("foo@example.co.uk").for(:email)
     should allow_value("foo@example.com").for(:email)
+    should_not allow_value("foo@").for(:email)
+    should_not allow_value("foo@example..com").for(:email)
+    should_not allow_value("foo@.example.com").for(:email)
     should_not allow_value("foo").for(:email)
     should_not allow_value("example.com").for(:email)
 
