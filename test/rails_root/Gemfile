@@ -4,8 +4,8 @@ gem 'rails', '3.0.0'
 
 gem 'sqlite3-ruby', :require => 'sqlite3'
 
-gem 'capybara',           '0.3.9'
-gem 'cucumber',           '0.8.5'
+gem 'capybara',           '0.4.0'
+gem 'cucumber',           '0.10.0'
 gem 'cucumber-rails',     '0.3.2'
 gem 'factory_girl_rails', '1.0'
 gem 'formtastic',         '1.1.0.beta'
