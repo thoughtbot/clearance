@@ -197,7 +197,8 @@ Gem::Specification.new do |s|
   ]
 
   s.add_dependency('rails', '~>3.0.0')
-  s.add_development_dependency('rspec', [">= 1.3.0"])
+  s.add_development_dependency('rspec', '~> 1.3.0')
+  s.add_development_dependency('cucumber', '0.10.0')
 
   if s.respond_to? :specification_version then
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
