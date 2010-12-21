@@ -13,26 +13,9 @@ class SessionsControllerTest < ActionController::TestCase
     should_not set_the_flash
   end
 
-  context "on POST to #create with unconfirmed credentials" do
-    setup do
-      @user = Factory(:user)
-      ActionMailer::Base.deliveries.clear
-      post :create, :session => {
-                      :email    => @user.email,
-                      :password => @user.password }
-    end
-
-    should_deny_access(:flash => /User has not confirmed email. Confirmation email will be resent./i)
-
-    should "send the confirmation email" do
-      assert_not_nil email = ActionMailer::Base.deliveries[0]
-      assert_match /account confirmation/i, email.subject
-    end
-  end
-
   context "on POST to #create with good credentials" do
     setup do
-      @user = Factory(:email_confirmed_user)
+      @user = Factory(:user)
       @user.update_attribute(:remember_token, "old-token")
       post :create, :session => {
                       :email    => @user.email,
@@ -58,7 +41,7 @@ class SessionsControllerTest < ActionController::TestCase
 
     setup do
       Clearance.configuration.cookie_expiration = lambda { custom_duration }
-      @user = Factory(:email_confirmed_user)
+      @user = Factory(:user)
       @user.update_attribute(:remember_token, "old-token2")
       post :create, :session => {
                       :email    => @user.email,
@@ -77,7 +60,7 @@ class SessionsControllerTest < ActionController::TestCase
   context "on POST to #create with good credentials - cookie expiration set to nil (session cookie)" do
     setup do
       Clearance.configuration.cookie_expiration = lambda { nil }
-      @user = Factory(:email_confirmed_user)
+      @user = Factory(:user)
       @user.update_attribute(:remember_token, "old-token3")
       post :create, :session => {
                       :email    => @user.email,
@@ -95,7 +78,7 @@ class SessionsControllerTest < ActionController::TestCase
 
   context "on POST to #create with good credentials and a session return url" do
     setup do
-      @user = Factory(:email_confirmed_user)
+      @user = Factory(:user)
       @return_url = '/url_in_the_session'
       @request.session[:return_to] = @return_url
       post :create, :session => {
@@ -108,7 +91,7 @@ class SessionsControllerTest < ActionController::TestCase
 
   context "on POST to #create with good credentials and a request return url" do
     setup do
-      @user = Factory(:email_confirmed_user)
+      @user = Factory(:user)
       @return_url = '/url_in_the_request'
       post :create, :session => {
                       :email     => @user.email,
@@ -121,7 +104,7 @@ class SessionsControllerTest < ActionController::TestCase
 
   context "on POST to #create with good credentials and a session return url and request return url" do
     setup do
-      @user = Factory(:email_confirmed_user)
+      @user = Factory(:user)
       @return_url = '/url_in_the_session'
       @request.session[:return_to] = @return_url
       post :create, :session => {
@@ -131,22 +114,6 @@ class SessionsControllerTest < ActionController::TestCase
     end
 
     should redirect_to("the return URL") { @return_url }
-  end
-
-  context "on POST to #create with bad credentials" do
-    setup do
-      post :create, :session => {
-                      :email       => 'bad.email@example.com',
-                      :password    => "bad value" }
-    end
-
-    should set_the_flash.to(/bad/i)
-    should respond_with(:unauthorized)
-    should render_template(:new)
-
-    should "not be signed in" do
-      assert_nil cookies[:remember_token]
-    end
   end
 
   context "on DELETE to #destroy given a signed out user" do
@@ -160,7 +127,7 @@ class SessionsControllerTest < ActionController::TestCase
 
   context "on DELETE to #destroy with a cookie" do
     setup do
-      @user = Factory(:email_confirmed_user)
+      @user = Factory(:user)
       @user.update_attribute(:remember_token, "old-token")
       @request.cookies["remember_token"] = "old-token"
       delete :destroy

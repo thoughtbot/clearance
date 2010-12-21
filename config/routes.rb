@@ -11,10 +11,6 @@ Rails.application.routes.draw do
     resource :password,
       :controller => 'clearance/passwords',
       :only       => [:create, :edit, :update]
-
-    resource :confirmation,
-      :controller => 'clearance/confirmations',
-      :only       => [:new, :create]
   end
 
   match 'sign_up'  => 'clearance/users#new', :as => 'sign_up'

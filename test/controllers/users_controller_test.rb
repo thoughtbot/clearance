@@ -41,16 +41,14 @@ class UsersControllerTest < ActionController::TestCase
         assert_equal @old_user_count + 1, User.count
       end
 
-      should have_sent_email.with_subject(/account confirmation/i)
-
-      should set_the_flash.to(/confirm/i)
+      should set_the_flash.to(/signed up/i)
       should_redirect_to_url_after_create
     end
   end
 
   context "A signed-in user" do
     setup do
-      @user = Factory(:email_confirmed_user)
+      @user = Factory(:user)
       sign_in_as @user
     end
 

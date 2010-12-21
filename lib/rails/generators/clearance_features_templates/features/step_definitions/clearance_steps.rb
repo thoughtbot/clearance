@@ -15,17 +15,14 @@ Given /^no user exists with an email of "(.*)"$/ do |email|
 end
 
 Given /^I signed up with "(.*)\/(.*)"$/ do |email, password|
-  user = Factory :user,
-    :email                 => email,
-    :password              => password,
-    :password_confirmation => password
+  Factory(:user,
+          :email                 => email,
+          :password              => password,
+          :password_confirmation => password)
 end
 
-Given /^I am signed up and confirmed as "(.*)\/(.*)"$/ do |email, password|
-  user = Factory :email_confirmed_user,
-    :email                 => email,
-    :password              => password,
-    :password_confirmation => password
+Given /^I am signed up as "([^"]+)"$/ do |email_password|
+  Given %{I signed up with "#{email_password}"}
 end
 
 # Session
@@ -58,24 +55,6 @@ Given /^I sign in$/ do
 end
 
 # Emails
-
-Then /^a confirmation message should be sent to "(.*)"$/ do |email|
-  user = User.find_by_email(email)
-  assert !user.confirmation_token.blank?
-  assert !ActionMailer::Base.deliveries.empty?
-  result = ActionMailer::Base.deliveries.any? do |email|
-    email.to == [user.email] &&
-    email.subject =~ /confirm/i &&
-    email.body =~ /#{user.confirmation_token}/
-  end
-  assert result
-end
-
-When /^I follow the confirmation link sent to "(.*)"$/ do |email|
-  user = User.find_by_email(email)
-  visit new_user_confirmation_path(:user_id => user,
-                                   :token   => user.confirmation_token)
-end
 
 Then /^a password reset message should be sent to "(.*)"$/ do |email|
   user = User.find_by_email(email)

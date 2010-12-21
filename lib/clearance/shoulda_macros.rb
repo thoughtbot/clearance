@@ -16,16 +16,8 @@ module Clearance
     end
 
     def should_be_signed_in_and_email_confirmed_as(&block)
-      warn "[DEPRECATION] should_be_signed_in_and_email_confirmed_as: questionable usefulness"
+      warn "[DEPRECATION] should_be_signed_in_and_email_confirmed_as: email confirmation is gone"
       should_be_signed_in_as &block
-
-      should "have confirmed email" do
-        user = block.bind(self).call
-
-        assert_not_nil user
-        assert_equal user, assigns(:user)
-        assert assigns(:user).email_confirmed?
-      end
     end
 
     def should_not_be_signed_in

@@ -10,26 +10,18 @@ Feature: Sign in
       Then I should see "Bad email or password"
       And I should be signed out
 
-    Scenario: User is not confirmed
-      Given I signed up with "email@person.com/password"
-      When I go to the sign in page
-      And I sign in as "email@person.com/password"
-      Then I should see "User has not confirmed email"
-      And I should be signed out
-
    Scenario: User enters wrong password
-      Given I am signed up and confirmed as "email@person.com/password"
+      Given I am signed up as "email@person.com/password"
       When I go to the sign in page
       And I sign in as "email@person.com/wrongpassword"
       Then I should see "Bad email or password"
       And I should be signed out
 
    Scenario: User signs in successfully
-      Given I am signed up and confirmed as "email@person.com/password"
+      Given I am signed up as "email@person.com/password"
       When I go to the sign in page
       And I sign in as "email@person.com/password"
       Then I should see "Signed in"
       And I should be signed in
       When I return next time
       Then I should be signed in
-

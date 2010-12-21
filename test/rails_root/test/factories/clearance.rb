@@ -9,5 +9,5 @@ Factory.define :user do |user|
 end
 
 Factory.define :email_confirmed_user, :parent => :user do |user|
-  user.email_confirmed { true }
+  user.after_build { warn "[DEPRECATION] The :email_confirmed_user factory is deprecated, please use the :user factory instead." }
 end

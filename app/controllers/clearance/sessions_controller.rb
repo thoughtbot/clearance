@@ -15,15 +15,9 @@ class Clearance::SessionsController < ApplicationController
       flash_failure_after_create
       render :template => 'sessions/new', :status => :unauthorized
     else
-      if @user.email_confirmed?
-        sign_in(@user)
-        flash_success_after_create
-        redirect_back_or(url_after_create)
-      else
-        ::ClearanceMailer.confirmation(@user).deliver
-        flash_notice_after_create
-        redirect_to(sign_in_url)
-      end
+      sign_in(@user)
+      flash_success_after_create
+      redirect_back_or(url_after_create)
     end
   end
 
@@ -43,13 +37,6 @@ class Clearance::SessionsController < ApplicationController
 
   def flash_success_after_create
     flash[:success] = translate(:signed_in, :default =>  "Signed in.")
-  end
-
-  def flash_notice_after_create
-    flash[:notice] = translate(:unconfirmed_email,
-      :scope   => [:clearance, :controllers, :sessions],
-      :default => "User has not confirmed email. " <<
-                  "Confirmation email will be resent.")
   end
 
   def url_after_create

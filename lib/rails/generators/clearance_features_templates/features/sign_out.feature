@@ -4,7 +4,7 @@ Feature: Sign out
   Should be able to sign out
 
     Scenario: User signs out
-      Given I am signed up and confirmed as "email@person.com/password"
+      Given I am signed up as "email@person.com/password"
       When I sign in as "email@person.com/password"
       Then I should be signed in
       And I sign out
