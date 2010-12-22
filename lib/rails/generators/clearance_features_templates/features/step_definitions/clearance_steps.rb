@@ -45,7 +45,7 @@ When /^session is cleared$/ do
 end
 
 Given /^I have signed in with "(.*)\/(.*)"$/ do |email, password|
-  Given %{I am signed up and confirmed as "#{email}/#{password}"}
+  Given %{I am signed up as "#{email}/#{password}"}
   And %{I sign in as "#{email}/#{password}"}
 end
 
