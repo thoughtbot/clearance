@@ -25,3 +25,9 @@ pkg
 */rails_root/log/test.log
 */rails_root/vendor/plugins/clearance
 */rails_root/Gemfile.lock
+*/rails_root/features/password_reset.feature
+*/rails_root/features/sign_in.feature
+*/rails_root/features/sign_out.feature
+*/rails_root/features/sign_up.feature
+*/rails_root/features/step_definitions/clearance_steps.rb
+*/rails_root/test/factories/clearance.rb
