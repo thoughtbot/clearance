@@ -20,13 +20,11 @@ Fork away and create a [Github Issue](http://github.com/thoughtbot/clearance/iss
 Installation
 ------------
 
-Clearance is a Rails engine. The latest stable version (0.8.8) works with versions of Rails 2.x.
+Clearance is a Rails engine. The 0.9.x series works with Rails 2 and Rails 3.
 
-Install it as a gem however you like to install gems. Also, uninstall old versions:
+Include the gem in your Gemfile:
 
-    sudo gem uninstall thoughtbot-clearance
-    sudo gem uninstall clearance
-    sudo gem install clearance
+    clearance, "~> 0.9"
 
 Make sure the development database exists, then run the generator:
 
@@ -37,10 +35,6 @@ This:
 * inserts Clearance::User into your User model
 * inserts Clearance::Authentication into your ApplicationController
 * created a migration that either creates a users table or adds only missing columns
-
-There is a release candidate which features Rails 3 support. To install this version:
-
-    gem install clearance --prerelease
 
 Usage
 -----
@@ -111,6 +105,16 @@ Clearance has another generator to generate Formastic views:
 
 Its implementation is designed so other view styles (Haml?) can be generated.
 
+Extensions
+----------
+
+Clearance is intended to be small, simple, well-tested, and easy to extend.
+Check out some of the ways people have extended Clearance:
+
+* [Clearance HTTP Auth](https://github.com/karmi/clearance_http_auth)
+* [Clearance Twitter](https://github.com/thoughtbot/clearance-twitter)
+* [Clearance Admin](https://github.com/xenda/clearance-admin)
+
 Authors
 -------
 
@@ -118,11 +122,4 @@ Clearance was extracted out of [Hoptoad](http://hoptoadapp.com). We merged the
 authentication code from two of thoughtbot's client Rails apps and have since
 used it each time we needed authentication.
 
-The following people have improved the library. Thank you!
-
-Dan Croak, Mike Burns, Jason Morrison, Joe Ferris, Eugene Bolshakov,
-Nick Quaranto, Josh Nichols, Mike Breen, Marcel Görner, Bence Nagy, Ben Mabey,
-Eloy Duran, Tim Pope, Mihai Anca, Mark Cornick, Shay Arnett, Joshua Clayton,
-Mustafa Ekim, Jon Yurek, Anuj Dutta, Chad Pytel, Ben Orenstein, Bobby Wilson,
-Matthew Ford, Ryan McGeary, Claudio Poli, Joseph Holsten, Peter Haza,
-Ron Newman, and Rich Thornett.
+Thank you to all [the contributors](https://github.com/thoughtbot/clearance/contributors)!
