@@ -24,7 +24,7 @@ Clearance is a Rails engine. The 0.9.x series works with Rails 2 and Rails 3.
 
 Include the gem in your Gemfile:
 
-    clearance, "~> 0.9"
+    gem "clearance", "~> 0.9"
 
 Make sure the development database exists, then run the generator:
 
