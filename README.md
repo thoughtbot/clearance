@@ -8,7 +8,7 @@ Rails authentication with email & password.
 Help
 ----
 
-* [documentation](http://rdoc.info/projects/thoughtbot/clearance)
+* [documentation](http://rdoc.info/gems/clearance)
 * [#thoughtbot](irc://irc.freenode.net/thoughtbot) IRC channel on freenode
 * [mailing list](http://groups.google.com/group/thoughtbot-clearance)
 
