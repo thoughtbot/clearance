@@ -44,7 +44,7 @@ This:
 
 * inserts Clearance::User into your User model
 * inserts Clearance::Authentication into your ApplicationController
-* created a migration that either creates a users table or adds only missing columns
+* creates a migration that either creates a users table or adds only missing columns
 
 Usage
 -----
