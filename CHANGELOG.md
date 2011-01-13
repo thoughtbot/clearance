@@ -1,4 +1,23 @@
-0.8.9 (unreleased)
+0.10.0
+------------------
+
+* Lots of README cleanup
+* Better email validation regex
+* Removed email confirmation step, was mostly a hassle and can always be added back in
+  at the application level (instead of engine level) if necessary
+* Removed disable_with on forms since it does not allow IE users to submit forms. See more:
+
+  https://github.com/rails/jquery-ujs/issues#issue/30
+  http://bugs.jquery.com/ticket/7061
+
+0.9.x
+------------------
+
+Forgot to update the changelog in a while, this is going to be brief:
+
+* This release supports Rails 3, capybara, and shoulda 2.10+.
+
+0.8.9
 ------------------
 
 * Removed unnecessary db index. (Rich Thornett, doctorzaius)
