@@ -20,9 +20,10 @@ Fork away and create a [Github Issue](http://github.com/thoughtbot/clearance/iss
 Installation
 ------------
 
-Clearance is a Rails engine for Rails 2.3+ and 3.
+Clearance is a Rails engine for Rails 3.
 
-For Rails 3:
+Use the [0.8.x](https://github.com/thoughtbot/clearance/tree/v0.8.8)
+series of Clearance if you have a Rails 2 app.
 
 Include the gem in your Gemfile:
 
@@ -30,15 +31,7 @@ Include the gem in your Gemfile:
 
 Make sure the development database exists, then run the generator:
 
-    script/rails generate clearance
-
-For Rails 2:
-
-    config.gem "clearance"
-
-Make sure the development database exists, then run the generator:
-
-    script/generate clearance
+    rails generate clearance
 
 This:
 
