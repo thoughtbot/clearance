@@ -1,17 +1,27 @@
-ENV["RAILS_ENV"] = "test"
-require File.expand_path(File.dirname(__FILE__) +
-                         "/rails_root/config/environment")
+ENV["RAILS_ENV"] ||= "test"
+
+PROJECT_ROOT = File.expand_path("../..", __FILE__)
+$LOAD_PATH << File.join(PROJECT_ROOT, "lib")
+
+require 'rails/all'
+Bundler.require
+
+require 'diesel/testing'
 require 'rails/test_help'
 
-$: << File.expand_path(File.dirname(__FILE__) + '/..')
 require 'clearance'
+require 'clearance/shoulda_macros'
 
-begin
-  require 'redgreen'
-rescue LoadError
+Clearance.configure do |config|
 end
 
-require 'clearance/shoulda_macros'
+class ApplicationController < ActionController::Base
+  include Clearance::Authentication
+end
+
+class User < ActiveRecord::Base
+  include Clearance::User
+end
 
 class ActiveSupport::TestCase
   self.use_transactional_fixtures = true
