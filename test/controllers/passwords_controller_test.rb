@@ -85,12 +85,31 @@ class PasswordsControllerTest < ActionController::TestCase
       should render_template(:edit)
     end
 
+    # here to see deprecation warning
     should_forbid "on GET to #edit with correct id but blank token" do
       get :edit, :user_id => @user.to_param, :token => ""
     end
 
+    context "on GET to #edit with correct id but blank token" do
+      setup do
+        get :edit, :user_id => @user.to_param, :token => ""
+      end
+
+      should set_the_flash.to(/double check the URL/i)
+      should render_template(:new)
+    end
+
     should_forbid "on GET to #edit with correct id but no token" do
       get :edit, :user_id => @user.to_param
+    end
+
+    context "on GET to #edit with correct id but no token" do
+      setup do
+        get :edit, :user_id => @user.to_param
+      end
+
+      should set_the_flash.to(/double check the URL/i)
+      should render_template(:new)
     end
 
     context "on PUT to #update with matching password and password confirmation" do

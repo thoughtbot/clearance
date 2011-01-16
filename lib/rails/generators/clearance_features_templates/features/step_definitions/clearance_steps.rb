@@ -79,10 +79,6 @@ When /^I try to change the password of "(.*)" without token$/ do |email|
   visit edit_user_password_path(:user_id => user)
 end
 
-Then /^I should be forbidden$/ do
-  assert_response :forbidden
-end
-
 # Actions
 
 When /^I sign in as "(.*)\/(.*)"$/ do |email, password|

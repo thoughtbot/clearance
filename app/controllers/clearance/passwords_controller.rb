@@ -45,15 +45,23 @@ class Clearance::PasswordsController < ApplicationController
 
   def forbid_missing_token
     if params[:token].blank?
-      raise ActionController::Forbidden, "missing token"
+      flash_failure_when_forbidden
+      render :template => 'passwords/new'
     end
   end
 
   def forbid_non_existent_user
     unless ::User.find_by_id_and_confirmation_token(
                   params[:user_id], params[:token])
-      raise ActionController::Forbidden, "non-existent user"
+      flash_failure_when_forbidden
+      render :template => 'passwords/new'
     end
+  end
+
+  def flash_failure_when_forbidden
+    flash.now[:failure] = translate(:forbidden,
+      :scope   => [:clearance, :controllers, :passwords],
+      :default => "Please double check the URL or try submitting the form again.")
   end
 
   def flash_notice_after_create
@@ -69,12 +77,12 @@ class Clearance::PasswordsController < ApplicationController
       :default => "Unknown email.")
   end
 
-  def url_after_create
-    sign_in_url
-  end
-
   def flash_success_after_update
     flash[:success] = translate(:signed_in, :default => "Signed in.")
+  end
+
+  def url_after_create
+    sign_in_url
   end
 
   def url_after_update

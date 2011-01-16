@@ -15,11 +15,7 @@ module Clearance
     # HTTP FLUENCY
 
     def should_forbid(description, &block)
-      should "forbid #{description}" do
-        assert_raises ActionController::Forbidden do
-          instance_eval(&block)
-        end
-      end
+      warn "[DEPRECATION] should_forbid and Clearance's ActionController::Forbidden have been removed. Setting the 403 status code turned out to be an awful user experience in some browsers such as Chrome on Windows machines."
     end
 
     # RENDERING
