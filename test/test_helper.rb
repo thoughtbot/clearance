@@ -31,6 +31,7 @@ class ActiveSupport::TestCase
       # cookies and @response[cookies] don't give us the expire time, so we need to fish it out 'manually'
       set_cookie_headers = @response.headers['Set-Cookie']
       assert_not_nil set_cookie_headers, "@response.headers['Set-Cookie'] must not be nil"
+      set_cookie_headers = [set_cookie_headers] if set_cookie_headers.respond_to?(:to_str)
       regex = /^#{name}=#{value}(;|$)/
       assert_contains set_cookie_headers, regex
       cookie = set_cookie_headers.find {|h| h =~ regex}

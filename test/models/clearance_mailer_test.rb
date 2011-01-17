@@ -19,7 +19,7 @@ class ClearanceMailerTest < ActiveSupport::TestCase
     should "contain a link to edit the user's password" do
       host = ActionMailer::Base.default_url_options[:host]
       regexp = %r{http://#{host}/users/#{@user.id}/password/edit\?token=#{@user.confirmation_token}}
-      assert_match regexp, @email.body
+      assert_match regexp, @email.body.to_s
     end
 
     should "set its subject" do
