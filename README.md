@@ -5,6 +5,10 @@ Rails authentication with email & password.
 
 [We have clearance, Clarence.](http://www.youtube.com/watch?v=fVq4_HhBK8Y)
 
+Clearance was extracted out of [Hoptoad](http://hoptoadapp.com). We merged the
+authentication code from two of thoughtbot's client Rails apps and have since
+used it each time we needed authentication.
+
 Help
 ----
 
@@ -118,11 +122,18 @@ Check out some of the ways people have extended Clearance:
 * [Clearance Twitter](https://github.com/thoughtbot/clearance-twitter)
 * [Clearance Admin](https://github.com/xenda/clearance-admin)
 
-Authors
+Credits
 -------
 
-Clearance was extracted out of [Hoptoad](http://hoptoadapp.com). We merged the
-authentication code from two of thoughtbot's client Rails apps and have since
-used it each time we needed authentication.
+![thoughtbot](http://thoughtbot.com/images/tm/logo.png)
+
+Suspenders is maintained and funded by [thoughtbot, inc](http://thoughtbot.com/community)
 
 Thank you to all [the contributors](https://github.com/thoughtbot/clearance/contributors)!
+
+The names and logos for thoughtbot are trademarks of thoughtbot, inc.
+
+License
+-------
+
+Suspenders is Copyright © 2008-2011 thoughtbot. It is free software, and may be redistributed under the terms specified in the LICENSE file.
