@@ -127,7 +127,7 @@ Credits
 
 ![thoughtbot](http://thoughtbot.com/images/tm/logo.png)
 
-Suspenders is maintained and funded by [thoughtbot, inc](http://thoughtbot.com/community)
+Clearance is maintained and funded by [thoughtbot, inc](http://thoughtbot.com/community)
 
 Thank you to all [the contributors](https://github.com/thoughtbot/clearance/contributors)!
 
@@ -136,4 +136,4 @@ The names and logos for thoughtbot are trademarks of thoughtbot, inc.
 License
 -------
 
-Suspenders is Copyright © 2008-2011 thoughtbot. It is free software, and may be redistributed under the terms specified in the LICENSE file.
+Clearance is Copyright © 2008-2011 thoughtbot. It is free software, and may be redistributed under the terms specified in the LICENSE file.
