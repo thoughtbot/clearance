@@ -1,7 +1,8 @@
 Feature: Password reset
-  In order to sign in even if user forgot their password
-  A user
-  Should be able to reset it
+
+  In order to sign in even if I forgot my password
+  As a user
+  I want to reset my password
 
     Scenario: User is not signed up
       Given no user exists with an email of "email@person.com"

@@ -1,7 +1,8 @@
 Feature: Sign out
-  To protect my account from unauthorized access
-  A signed in user
-  Should be able to sign out
+
+  In order to protect my account from unauthorized access
+  As a signed in user
+  I want to sign out
 
     Scenario: User signs out
       Given I am signed up as "email@person.com/password"

@@ -1,7 +1,8 @@
 Feature: Sign up
+
   In order to get access to protected sections of the site
-  A user
-  Should be able to sign up
+  As a user
+  I want to sign up
 
     Scenario: User signs up with invalid data
       When I go to the sign up page
