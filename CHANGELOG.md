@@ -1,3 +1,9 @@
+0.10.1
+------------------
+
+* replaced ActionController::Forbidden with a user-friendly flash message.
+* improved language of Cucumber steps by allowing a little more flexibility.
+
 0.10.0
 ------------------
 
