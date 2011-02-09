@@ -14,15 +14,11 @@ Given /^no user exists with an email of "(.*)"$/ do |email|
   assert_nil User.find_by_email(email)
 end
 
-Given /^I signed up with "(.*)\/(.*)"$/ do |email, password|
+Given /^(?:I am|I have|I) signed up (?:as|with) "(.*)\/(.*)"$/ do |email, password|
   Factory(:user,
           :email                 => email,
           :password              => password,
           :password_confirmation => password)
-end
-
-Given /^I am signed up as "([^"]+)"$/ do |email_password|
-  Given %{I signed up with "#{email_password}"}
 end
 
 # Session
@@ -44,7 +40,7 @@ When /^session is cleared$/ do
   #controller.instance_variable_set(:@_current_user, nil)
 end
 
-Given /^I have signed in with "(.*)\/(.*)"$/ do |email, password|
+Given /^(?:I am|I have|I) signed in (?:with|as) "(.*)\/(.*)"$/ do |email, password|
   Given %{I am signed up as "#{email}/#{password}"}
   And %{I sign in as "#{email}/#{password}"}
 end
