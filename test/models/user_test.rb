@@ -218,4 +218,10 @@ class UserTest < ActiveSupport::TestCase
     should allow_value("").for(:password)
   end
 
+  context "user factory" do
+    should "create a valid user with just an overridden password" do
+      assert Factory.build(:user, :password => "test").valid?
+    end
+  end
+
 end
