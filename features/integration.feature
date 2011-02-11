@@ -1,7 +1,7 @@
 @disable-bundler
 Feature: integrate with application
 
-  Scenario: generate a Rails app, run the generators, and run the tests
+  Background:
     When I successfully run "rails new testapp"
     And I cd to "testapp"
     And I remove the file "public/index.html"
@@ -19,8 +19,32 @@ Feature: integrate with application
     And I run "bundle install --local"
     And I successfully run "rails generate cucumber:install"
     And I disable Capybara Javascript emulation
-    And I successfully run "rails generate clearance:install"
     And I successfully run "rails generate clearance:features"
+
+  Scenario: generate a Rails app, run the generators, and run the tests
+    When I successfully run "rails generate clearance:install"
+    And I successfully run "rake db:migrate --trace"
+    And I successfully run "rake --trace"
+    Then the output should contain "passed"
+    And the output should not contain "failed"
+    And the output should not contain "Could not find generator"
+
+  Scenario: Developer already has a users table in their database
+    When I write to "db/migrate/001_create_users.rb" with:
+    """
+    class CreateUsers < ActiveRecord::Migration
+      def self.up
+        create_table(:users) do |t|
+          t.string :email
+          t.string :name
+        end
+      end
+      def self.down
+      end
+    end
+    """
+    And I successfully run "rake db:migrate --trace"
+    And I successfully run "rails generate clearance:install"
     And I successfully run "rake db:migrate --trace"
     And I successfully run "rake --trace"
     Then the output should contain "passed"
