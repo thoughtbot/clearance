@@ -77,7 +77,7 @@ end
 
 # Actions
 
-When /^I sign in as "(.*)\/(.*)"$/ do |email, password|
+When /^I sign in (?:with|as) "(.*)\/(.*)"$/ do |email, password|
   When %{I go to the sign in page}
   And %{I fill in "Email" with "#{email}"}
   And %{I fill in "Password" with "#{password}"}
