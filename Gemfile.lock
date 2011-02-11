@@ -121,6 +121,11 @@ GEM
     rspec-expectations (2.3.0)
       diff-lcs (~> 1.1.2)
     rspec-mocks (2.3.0)
+    rspec-rails (2.3.1)
+      actionpack (~> 3.0)
+      activesupport (~> 3.0)
+      railties (~> 3.0)
+      rspec (~> 2.3.0)
     rubyzip (0.9.4)
     selenium-webdriver (0.1.2)
       childprocess (~> 0.1.5)
@@ -160,6 +165,7 @@ DEPENDENCIES
   rails (>= 3.0.3)
   rake
   redgreen
+  rspec-rails
   shoulda
   sqlite3-ruby
   thin
