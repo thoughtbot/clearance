@@ -5,29 +5,20 @@ Rails authentication with email & password.
 
 [We have clearance, Clarence.](http://www.youtube.com/watch?v=fVq4_HhBK8Y)
 
-Clearance was extracted out of [Hoptoad](http://hoptoadapp.com). We merged the
-authentication code from two of thoughtbot's client Rails apps and have since
-used it each time we needed authentication.
+Clearance was extracted out of [Hoptoad](http://hoptoadapp.com).
 
 Help
 ----
 
-* [documentation](http://rdoc.info/gems/clearance)
-* [#thoughtbot](irc://irc.freenode.net/thoughtbot) IRC channel on freenode
-* [mailing list](http://groups.google.com/group/thoughtbot-clearance)
-
-Bugs, Patches
--------------
-
-Fork away and create a [Github Issue](http://github.com/thoughtbot/clearance/issues).
+* [Documentation](http://rdoc.info/gems/clearance) at RDoc.info.
+* [Patches welcome](http://github.com/thoughtbot/clearance/issues) via Github Issues.
+* [#thoughtbot](irc://irc.freenode.net/thoughtbot) IRC channel on freenode.
+* [Mailing list](http://groups.google.com/group/thoughtbot-clearance) on Google Groups.
 
 Installation
 ------------
 
 Clearance is a Rails engine for Rails 3.
-
-Use the [0.8.x](https://github.com/thoughtbot/clearance/tree/v0.8.8)
-series of Clearance if you have a Rails 2 app.
 
 Include the gem in your Gemfile:
 
@@ -42,6 +33,9 @@ This:
 * inserts Clearance::User into your User model
 * inserts Clearance::Authentication into your ApplicationController
 * creates a migration that either creates a users table or adds only missing columns
+
+Use the [0.8.x](https://github.com/thoughtbot/clearance/tree/v0.8.8)
+series of Clearance if you have a Rails 2 app.
 
 Usage
 -----
@@ -82,35 +76,29 @@ can be overridden by re-defining url_after_(action) methods as seen above.
 Optional Cucumber features
 --------------------------
 
-As your app evolves, you want to know that authentication still works. Our
-opinion is that you should test its integration with your app using
-[Cucumber](http://cukes.info).
+As your app evolves, you want to know that authentication still works. If you
+use [Cucumber](http://cukes.info), run the Clearance features generator:
 
-Run the Cucumber generator and Clearance feature generator:
-
-    script/rails generate cucumber
-    script/rails generate clearance_features
+    rails generate clearance_features
 
 Edit your Gemfile to include:
 
     gem 'factory_girl_rails'
 
-Edit your config/enviroments/cucumber.rb to include the following:
+Edit config/enviroments/test.rb to include the following:
 
     config.action_mailer.default_url_options = { :host => 'localhost:3000' }
 
-Then run rake!
+Then run your tests!
+
+    rake
 
 Optional Formtastic views
 -------------------------
 
-We use & recommend [Formtastic](http://github.com/justinfrench/formtastic).
+Clearance can also generate [Formtastic](http://github.com/justinfrench/formtastic) views:
 
-Clearance has another generator to generate Formastic views:
-
-    script/rails generate clearance_views
-
-Its implementation is designed so other view styles (Haml?) can be generated.
+    rails generate clearance_views
 
 Extensions
 ----------
