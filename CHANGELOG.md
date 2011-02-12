@@ -1,3 +1,8 @@
+Unreleased
+------------------
+
+* Replaced test/rails_root & general testing strategy with Diesel. (Joe Ferris)
+
 0.10.1
 ------------------
 
