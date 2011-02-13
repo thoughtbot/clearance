@@ -26,7 +26,7 @@ Include the gem in your Gemfile:
 
 Make sure the development database exists, then run the generator:
 
-    rails generate clearance
+    rails generate clearance:install
 
 This:
 
