@@ -23,7 +23,8 @@ Feature: integrate with application
 
   Scenario: generate a Rails app, run the generators, and run the tests
     When I successfully run "rails generate clearance:install"
-    And I successfully run "rake db:migrate --trace"
+    Then the output should contain "Next steps"
+    When I successfully run "rake db:migrate --trace"
     And I successfully run "rake --trace"
     Then the output should contain "passed"
     And the output should not contain "failed"

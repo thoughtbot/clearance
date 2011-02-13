@@ -24,6 +24,8 @@ module Clearance
         else
           template "test/factories.rb", "test/factories/clearance.rb"
         end
+
+        readme "README"
       end
 
       private

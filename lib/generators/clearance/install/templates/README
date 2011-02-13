@@ -1,24 +1,22 @@
 
 *******************************************************************************
 
-Next:
+Next steps:
 
-1. Configure default url options for the mailer to generate URLs in emails.
-   In production.rb it must be the actual host your application is deployed to.
-   In config/environments/test.rb and config/environments/development.rb:
+1. Configure the mailer to create full URLs in emails:
 
      config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+
+   In production it should be your app's domain name.
 
 2. Migrate:
 
      rake db:migrate
 
-3. Make sure you're displaying flashes somewhere. For instance, in a layout:
+3. Display flashes. For example, in your application layout:
 
-    <div id="flash">
-      <% flash.each do |key, value| -%>
-        <div id="flash_<%= key %>"><%=h value %></div>
-      <% end -%>
-    </div>
+    <% flash.each do |key, value| -%>
+      <div class="flash <%= key %>"><%=h value %></div>
+    <% end -%>
 
 *******************************************************************************
