@@ -21,6 +21,12 @@ Given /^(?:I am|I have|I) signed up (?:as|with) "(.*)\/(.*)"$/ do |email, passwo
           :password_confirmation => password)
 end
 
+Given /^a user "([^"]*)" exists without a salt, remember token, or password$/ do |email|
+  user = Factory(:user, :email => email)
+  sql  = "update users set salt = NULL, encrypted_password = NULL, remember_token = NULL where id = #{user.id}"
+  ActiveRecord::Base.connection.update(sql)
+end
+
 # Session
 
 Then /^I should be signed in$/ do

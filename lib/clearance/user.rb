@@ -119,6 +119,7 @@ module Clearance
         self.password_confirmation = new_password_confirmation
         if valid?
           self.confirmation_token = nil
+          generate_remember_token
         end
         save
       end
@@ -129,27 +130,28 @@ module Clearance
         Digest::SHA1.hexdigest(string)
       end
 
+      def encrypt(string)
+        generate_hash("--#{salt}--#{string}--")
+      end
+
       def initialize_salt
-        if new_record?
+        if salt.blank?
           self.salt = generate_hash("--#{Time.now.utc}--#{password}--#{rand}--")
         end
       end
 
       def encrypt_password
-        return if password.blank?
-        self.encrypted_password = encrypt(password)
-      end
-
-      def encrypt(string)
-        generate_hash("--#{salt}--#{string}--")
-      end
-
-      def generate_confirmation_token
-        self.confirmation_token = encrypt("--#{Time.now.utc}--#{password}--#{rand}--")
+        if password.present?
+          self.encrypted_password = encrypt(password)
+        end
       end
 
       def generate_remember_token
         self.remember_token = encrypt("--#{Time.now.utc}--#{encrypted_password}--#{id}--#{rand}--")
+      end
+
+      def generate_confirmation_token
+        self.confirmation_token = encrypt("--#{Time.now.utc}--#{password}--#{rand}--")
       end
 
       # Always false. Override to allow other forms of authentication

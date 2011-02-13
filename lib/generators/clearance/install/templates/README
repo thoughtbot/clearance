@@ -13,7 +13,7 @@ Next:
 
      rake db:migrate
 
-4. Make sure you're displaying flashes somewhere. For instance, in a layout:
+3. Make sure you're displaying flashes somewhere. For instance, in a layout:
 
     <div id="flash">
       <% flash.each do |key, value| -%>

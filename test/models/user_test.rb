@@ -224,4 +224,21 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
+  context "when user exists before Clearance was installed" do
+    setup do
+      @user = Factory(:user)
+      sql  = "update users set salt = NULL, encrypted_password = NULL, remember_token = NULL where id = #{@user.id}"
+      ActiveRecord::Base.connection.update(sql)
+      assert_nil @user.reload.salt
+      assert_nil @user.reload.encrypted_password
+      assert_nil @user.reload.remember_token
+    end
+
+    should "initialize salt, generate remember token, and save encrypted password on update_password" do
+      @user.update_password('password', 'password')
+      assert_not_nil @user.salt
+      assert_not_nil @user.encrypted_password
+      assert_not_nil @user.remember_token
+    end
+  end
 end
