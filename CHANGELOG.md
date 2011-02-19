@@ -1,7 +1,11 @@
-Unreleased
+0.10.2
 ------------------
 
 * Replaced test/rails_root & general testing strategy with Diesel. (Joe Ferris)
+* Conveniences in factories for password/confirmation.
+* New generator command: rails generate clearance:install.
+* Step definitions are now prefixed with visitor_ to use thoughtbot convention.
+* When Clearance installed in an app that already has users, allow old users to sign in by resetting their password.
 
 0.10.1
 ------------------
