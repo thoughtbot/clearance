@@ -1,3 +1,8 @@
+0.10.3.1
+------------------
+
+* Ensure everything within features inside any engine directory is included in the gemspec
+
 0.10.3
 ------------------
 
