@@ -1,3 +1,8 @@
+0.10.3
+------------------
+
+* Include features/engines in gemspec file list so generator works as expected
+
 0.10.2
 ------------------
 
