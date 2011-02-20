@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
     "LICENSE",
     "README.md"
   ]
-  s.files      = Dir['[A-Z]*', 'app/**/*', 'config/**/*', 'lib/**/*']
+  s.files      = Dir['[A-Z]*', 'app/**/*', 'config/**/*', 'lib/**/*', 'features/engine/**/*']
   s.test_files = Dir['spec/**/*', 'test/**/*']
 
   s.rdoc_options     = ["--charset=UTF-8"]
