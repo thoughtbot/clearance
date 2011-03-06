@@ -1,3 +1,8 @@
+0.10.3.2
+------------------
+
+* Fix gemspec to include all necessary files.
+
 0.10.3.1
 ------------------
 
