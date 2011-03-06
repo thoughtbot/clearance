@@ -15,8 +15,8 @@ Gem::Specification.new do |s|
     "LICENSE",
     "README.md"
   ]
-  s.files      = Dir['[A-Z]*', 'app/**/*', 'config/**/*', 'lib/**/*', 'features/**/engine/**/*']
-  s.test_files = Dir['spec/**/*', 'test/**/*']
+  s.files         = `git ls-files`.split("\n")
+  s.test_files    = `git ls-files -- {test,features}/*`.split("\n")
 
   s.rdoc_options     = ["--charset=UTF-8"]
   s.require_paths    = ["lib"]
