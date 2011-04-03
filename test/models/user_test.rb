@@ -180,6 +180,21 @@ class UserTest < ActiveSupport::TestCase
             assert_not_nil @user.confirmation_token
           end
         end
+
+        context 'try to update with blank password and confirmation' do
+          setup do
+            @user.update_password("", "")
+          end
+
+          should "not change encrypted password" do
+            assert_equal @user.encrypted_password,
+                         @old_encrypted_password
+          end
+
+          should "not clear confirmation token" do
+            assert_not_nil @user.confirmation_token
+          end
+        end
       end
     end
 
