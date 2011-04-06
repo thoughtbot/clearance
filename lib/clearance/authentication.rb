@@ -92,6 +92,13 @@ module Clearance
 
       protected
 
+      # Rails <= 3.0.3 raises ActionController::InvalidAuthenticityToken in super
+      # Rails >= 3.0.4 simply resets the session, so we need an extra step
+      def handle_unverified_request
+        super
+        sign_out
+      end
+
       def user_from_cookie
         if token = cookies[:remember_token]
           ::User.find_by_remember_token(token)
