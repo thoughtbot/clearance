@@ -79,7 +79,7 @@ Optional Cucumber features
 As your app evolves, you want to know that authentication still works. If you
 use [Cucumber](http://cukes.info), run the Clearance features generator:
 
-    rails generate clearance_features
+    rails generate clearance:features
 
 Edit your Gemfile to include:
 
@@ -98,7 +98,7 @@ Optional Formtastic views
 
 Clearance can also generate [Formtastic](http://github.com/justinfrench/formtastic) views:
 
-    rails generate clearance_views
+    rails generate clearance:views
 
 Extensions
 ----------
