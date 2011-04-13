@@ -20,9 +20,9 @@ module Clearance
         end
 
         if File.exists?("spec")
-          template "test/factories.rb", "spec/factories/clearance.rb"
+          template "spec/factories.rb", "spec/factories/clearance.rb"
         else
-          template "test/factories.rb", "test/factories/clearance.rb"
+          template "spec/factories.rb", "test/factories/clearance.rb"
         end
 
         readme "README"

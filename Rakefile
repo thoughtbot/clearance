@@ -6,12 +6,10 @@ require 'rake'
 require 'rake/gempackagetask'
 require 'cucumber/rake/task'
 require 'diesel/tasks'
+require 'rspec/core/rake_task'
 
-Rake::TestTask.new do |task|
-  task.libs << "lib"
-  task.libs << "test"
-  task.pattern = "test/*/*_test.rb"
-  task.verbose = false
+RSpec::Core::RakeTask.new do |t|
+  t.pattern = 'spec/**/*_spec.rb'
 end
 
 Cucumber::Rake::Task.new(:cucumber) do |t|
@@ -19,6 +17,6 @@ Cucumber::Rake::Task.new(:cucumber) do |t|
   t.cucumber_opts = ['--format', (ENV['CUCUMBER_FORMAT'] || 'progress')]
 end
 
-desc "Default: run the unit tests and cucumber features"
-task :default => [:test, :cucumber]
+desc "Default: run the specs and cucumber features"
+task :default => [:spec, :cucumber]
 
