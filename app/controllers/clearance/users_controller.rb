@@ -10,7 +10,7 @@ class Clearance::UsersController < ApplicationController
   end
 
   def create
-    @user = ::User.new params[:user]
+    @user = ::User.new(params[:user])
     if @user.save
       flash_notice_after_create
       sign_in(@user)

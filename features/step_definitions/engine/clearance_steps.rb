@@ -24,9 +24,8 @@ end
 
 Given /^(?:I am|I have|I) signed up (?:as|with) "(.*)\/(.*)"$/ do |email, password|
   Factory(:user,
-          :email                 => email,
-          :password              => password,
-          :password_confirmation => password)
+          :email    => email,
+          :password => password)
 end
 
 Given /^a user "([^"]*)" exists without a salt, remember token, or password$/ do |email|
@@ -71,9 +70,9 @@ Then /^a password reset message should be sent to "(.*)"$/ do |email|
   assert !user.confirmation_token.blank?
   assert !ActionMailer::Base.deliveries.empty?
   result = ActionMailer::Base.deliveries.any? do |email|
-    email.to == [user.email] &&
+    email.to      == [user.email] &&
     email.subject =~ /password/i &&
-    email.body =~ /#{user.confirmation_token}/
+    email.body    =~ /#{user.confirmation_token}/
   end
   assert result
 end
@@ -111,9 +110,8 @@ When /^I request password reset link to be sent to "(.*)"$/ do |email|
   And %{I press "Reset password"}
 end
 
-When /^I update my password with "(.*)\/(.*)"$/ do |password, confirmation|
+When /^I update my password with "(.*)"$/ do |password|
   And %{I fill in "Choose password" with "#{password}"}
-  And %{I fill in "Confirm password" with "#{confirmation}"}
   And %{I press "Save this password"}
 end
 

@@ -101,18 +101,17 @@ describe Clearance::PasswordsController do
       it { should render_template(:new) }
     end
 
-    describe "on PUT to #update with matching password and password confirmation" do
+    describe "on PUT to #update with password" do
       before do
         new_password = "new_password"
         @encrypted_new_password = @user.send(:encrypt, new_password)
         @user.encrypted_password.should_not == @encrypted_new_password
 
         put(:update,
-            :user_id  => @user,
-            :token    => @user.confirmation_token,
-            :user     => {
-              :password              => new_password,
-              :password_confirmation => new_password
+            :user_id => @user,
+            :token   => @user.confirmation_token,
+            :user    => {
+              :password => new_password
             })
         @user.reload
       end
@@ -133,17 +132,13 @@ describe Clearance::PasswordsController do
       it { should redirect_to_url_after_update }
     end
 
-    describe "on PUT to #update with password but blank password confirmation" do
+    describe "on PUT to #update with blank password" do
       before do
-        new_password = "new_password"
-        @encrypted_new_password = @user.send(:encrypt, new_password)
-
         put(:update,
             :user_id => @user.to_param,
             :token   => @user.confirmation_token,
             :user    => {
-              :password => new_password,
-              :password_confirmation => ''
+              :password => ''
             })
         @user.reload
       end
@@ -173,5 +168,4 @@ describe Clearance::PasswordsController do
       sign_in_as @user_one
     end
   end
-
 end
