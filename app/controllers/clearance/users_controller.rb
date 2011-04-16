@@ -10,7 +10,7 @@ class Clearance::UsersController < ApplicationController
   end
 
   def create
-    @user = ::User.new params[:user]
+    @user = ::User.new(params[:user])
     if @user.save
       flash_notice_after_create
       sign_in(@user)
@@ -23,7 +23,7 @@ class Clearance::UsersController < ApplicationController
   private
 
   def flash_notice_after_create
-    flash[:notice] = translate(:deliver_confirmation,
+    flash[:notice] = translate(:signed_up,
       :scope   => [:clearance, :controllers, :users],
       :default => "You are now signed up.")
   end

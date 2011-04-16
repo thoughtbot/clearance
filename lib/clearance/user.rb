@@ -31,10 +31,10 @@ module Clearance
     module AttrAccessor
       # Hook for attr_accessor virtual attributes.
       #
-      # :password, :password_confirmation
+      # :password
       def self.included(model)
         model.class_eval do
-          attr_accessor :password, :password_confirmation
+          attr_accessor :password
           private
           attr_accessor :password_changing
         end
@@ -50,12 +50,11 @@ module Clearance
       # :password must be present, confirmed
       def self.included(model)
         model.class_eval do
-          validates_presence_of     :email, :unless => :email_optional?
-          validates_uniqueness_of   :email, :case_sensitive => false, :allow_blank => true
-          validates_format_of       :email, :with => %r{^[a-z0-9!#\$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#\$%&'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$}i, :allow_blank => true
+          validates_presence_of   :email, :unless => :email_optional?
+          validates_uniqueness_of :email, :allow_blank => true
+          validates_format_of     :email, :with => %r{^[a-z0-9!#\$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#\$%&'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$}i, :allow_blank => true
 
-          validates_presence_of     :password, :unless => :password_optional?
-          validates_confirmation_of :password
+          validates_presence_of   :password, :unless => :password_optional?
         end
       end
     end
@@ -67,9 +66,9 @@ module Clearance
       def self.included(model)
         model.class_eval do
           before_validation :downcase_email
-          before_save   :initialize_salt,
-                        :encrypt_password
-          before_create :generate_remember_token
+          before_save       :initialize_salt,
+                            :encrypt_password
+          before_create     :generate_remember_token
         end
       end
     end
@@ -77,7 +76,6 @@ module Clearance
     module InstanceMethods
       # Am I authenticated with given password?
       #
-      # @param [String] plain-text password
       # @return [true, false]
       # @example
       #   user.authenticated?('password')
@@ -113,14 +111,12 @@ module Clearance
 
       # Update my password.
       #
-      # @param [String, String] password and password confirmation
       # @return [true, false] password was updated or not
       # @example
-      #   user.update_password('new-password', 'new-password')
-      def update_password(new_password, new_password_confirmation)
-        self.password_changing     = true
-        self.password              = new_password
-        self.password_confirmation = new_password_confirmation
+      #   user.update_password('new-password')
+      def update_password(new_password)
+        self.password_changing = true
+        self.password          = new_password
         if valid?
           self.confirmation_token = nil
           generate_remember_token

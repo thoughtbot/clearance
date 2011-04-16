@@ -1,3 +1,8 @@
+0.11.0 (unreleased)
+-------------------
+
+* Removing password confirmation
+
 0.10.5
 -------------------
 
