@@ -35,6 +35,8 @@ module Clearance
       def self.included(model)
         model.class_eval do
           attr_accessor :password, :password_confirmation
+          private
+          attr_accessor :password_changing
         end
       end
     end
@@ -115,6 +117,7 @@ module Clearance
       # @example
       #   user.update_password('new-password', 'new-password')
       def update_password(new_password, new_password_confirmation)
+        self.password_changing     = true
         self.password              = new_password
         self.password_confirmation = new_password_confirmation
         if valid?
@@ -162,11 +165,11 @@ module Clearance
       end
 
       # True if the password has been set and the password is not being
-      # updated. Override to allow other forms of # authentication (username,
-      # facebook, etc).
+      # updated and we are not updating the password. Override to allow
+      # other forms of authentication (username, facebook, etc).
       # @return [Boolean] true if the password field can be left blank for this user
       def password_optional?
-        encrypted_password.present? && password.blank?
+        encrypted_password.present? && password.blank? && password_changing.blank?
       end
 
       def password_required?

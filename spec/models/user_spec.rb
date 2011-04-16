@@ -177,6 +177,20 @@ describe User do
             @user.confirmation_token.should_not be_nil
           end
         end
+
+        describe 'with blank password and confirmation' do
+          before do
+            @user.update_password("", "")
+          end
+
+          it "does not change encrypted password" do
+            @user.encrypted_password.should == @old_encrypted_password
+          end
+
+          it "does not clear confirmation token" do
+            @user.confirmation_token.should_not be_nil
+          end
+        end
       end
     end
 

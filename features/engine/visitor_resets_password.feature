@@ -15,6 +15,16 @@ Feature: Password reset
     Then I should see "instructions for changing your password"
     And a password reset message should be sent to "email@example.com"
 
+  Scenario: User is signed up updated his password and tries blank password and confirmation
+    Given I signed up with "email@example.com/password"
+    And I go to the password reset request page
+    And I fill in "Email address" with "email@example.com"
+    And I press "Reset password"
+    When I follow the password reset link sent to "email@example.com"
+    And I update my password with "/"
+    Then I should see an error message
+    And I should be signed out
+
   Scenario: User is signed up updated his password and types wrong confirmation
     Given I signed up with "email@example.com/password"
     And I go to the password reset request page
