@@ -11,7 +11,6 @@ Feature: integrate with application
     And I add the "cucumber-rails" gem
     And I add the "capybara" gem
     And I add the "rspec-rails" gem
-    And I add the "formtastic" gem
     And I add the "factory_girl_rails" gem
     And I add the "dynamic_form" gem
     And I add the "database_cleaner" gem

@@ -73,6 +73,10 @@ See config/routes.rb for all the routes Clearance provides.
 Actions that redirect (create, update, and destroy) in Clearance controllers
 can be overridden by re-defining url_after_(action) methods as seen above.
 
+Clearance is an engine, so it provides views for you. If you want to customize those views, there is a handy shortcut to copy the views into your app:
+
+    rails generate clearance:views
+
 Optional Cucumber features
 --------------------------
 
@@ -92,13 +96,6 @@ Edit config/enviroments/test.rb to include the following:
 Then run your tests!
 
     rake
-
-Optional Formtastic views
--------------------------
-
-Clearance can also generate [Formtastic](http://github.com/justinfrench/formtastic) views:
-
-    rails generate clearance:views
 
 Extensions
 ----------
