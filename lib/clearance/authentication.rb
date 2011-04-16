@@ -92,9 +92,9 @@ module Clearance
 
       protected
 
-      # Rails <= 3.0.3 raises ActionController::InvalidAuthenticityToken in super
-      # Rails >= 3.0.4 simply resets the session, so we need an extra step
-      def handle_unverified_request
+      # CSRF protection in Rails >= 3.0.4
+      # http://weblog.rubyonrails.org/2011/2/8/csrf-protection-bypass-in-ruby-on-rails
+      def reset_session
         super
         sign_out
       end

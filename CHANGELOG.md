@@ -1,3 +1,8 @@
+0.10.5 (unreleased)
+-------------------
+
+* CSRF protection on Rails >= 3.0.4 apps (Mack Earnhardt)
+
 0.10.4
 ------------------
 
