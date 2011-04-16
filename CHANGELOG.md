@@ -1,3 +1,11 @@
+Upcoming
+------------------
+
+* Formtastic views generator removed.
+* Emails forced to be downcased (particularly for iPhone user case). (Adam Conrad)
+* Suite converted from test/unit to RSpec. (Joe Ferris)
+* Password reset requires a password. (Joel Meador)
+
 0.10.3.2
 ------------------
 
