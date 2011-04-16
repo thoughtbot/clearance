@@ -74,14 +74,19 @@ describe User do
       @password = @user.password
     end
 
-    it "should authenticate with good credentials" do
+    it "is authenticated with correct email and password" do
       (::User.authenticate(@user.email, @password)).should be
-      (@user.authenticated?(@password)).should be
+      @user.should be_authenticated(@password)
     end
 
-    it "should not authenticate with bad credentials" do
+    it "is authenticated with correct uppercased email and correct password" do
+      (::User.authenticate(@user.email.upcase, @password)).should be
+      @user.should be_authenticated(@password)
+    end
+
+    it "is authenticated with incorrect credentials" do
       (::User.authenticate(@user.email, 'bad_password')).should_not be
-      (@user.authenticated?('bad_password')).should_not be
+      @user.should_not be_authenticated('bad password')
     end
   end
 
