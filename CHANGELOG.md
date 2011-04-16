@@ -5,6 +5,7 @@ Upcoming
 * Emails forced to be downcased (particularly for iPhone user case). (Adam Conrad)
 * Suite converted from test/unit to RSpec. (Joe Ferris)
 * Password reset requires a password. (Joel Meador)
+* Use HTML5 email fields.
 
 0.10.3.2
 ------------------

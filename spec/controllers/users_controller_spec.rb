@@ -61,5 +61,4 @@ describe Clearance::UsersController do
       end
     end
   end
-
 end

@@ -21,6 +21,7 @@ Feature: Sign in
  Scenario: Visitor signs in successfully
     Given I am signed up as "email@person.com/password"
     When I go to the sign in page
+    Then I should see an email field
     And I sign in as "email@person.com/password"
     Then I should see "Signed in"
     And I should be signed in

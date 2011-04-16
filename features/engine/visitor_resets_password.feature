@@ -18,6 +18,7 @@ Feature: Password reset
   Scenario: User is signed up updated his password and tries blank password and confirmation
     Given I signed up with "email@example.com/password"
     And I go to the password reset request page
+    Then I should see an email field
     And I fill in "Email address" with "email@example.com"
     And I press "Reset password"
     When I follow the password reset link sent to "email@example.com"
