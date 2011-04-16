@@ -65,7 +65,9 @@ module Clearance
   end
 end
 
-class Test::Unit::TestCase
-  include Clearance::Shoulda::Helpers
+if defined?(Test::Unit::TestCase)
+  class Test::Unit::TestCase
+    include Clearance::Shoulda::Helpers
+  end
+  Test::Unit::TestCase.extend(Clearance::Shoulda)
 end
-Test::Unit::TestCase.extend(Clearance::Shoulda)

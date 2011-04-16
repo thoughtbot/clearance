@@ -14,6 +14,7 @@ Feature: integrate with application
     And I add the "formtastic" gem
     And I add the "factory_girl_rails" gem
     And I add the "dynamic_form" gem
+    And I add the "database_cleaner" gem
     And I add the "clearance" gem from this project
     And I add the "diesel" gem
     And I run "bundle install --local"

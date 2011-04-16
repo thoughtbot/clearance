@@ -57,7 +57,6 @@ GEM
       cucumber (>= 0.8.0)
     culerity (0.2.14)
     daemons (1.1.0)
-    database_cleaner (0.6.0)
     diesel (0.1.4)
       railties (~> 3.0.3)
     diff-lcs (1.1.2)
@@ -71,10 +70,6 @@ GEM
       railties (>= 3.0.0)
     ffi (0.6.3)
       rake (>= 0.8.7)
-    formtastic (1.2.3)
-      actionpack (>= 2.3.7)
-      activesupport (>= 2.3.7)
-      i18n (~> 0.4)
     gherkin (2.3.3)
       json (~> 1.4.6)
     i18n (0.5.0)
@@ -112,7 +107,6 @@ GEM
       rake (>= 0.8.7)
       thor (~> 0.14.4)
     rake (0.8.7)
-    redgreen (1.2.2)
     rspec (2.3.0)
       rspec-core (~> 2.3.0)
       rspec-expectations (~> 2.3.0)
@@ -154,17 +148,14 @@ DEPENDENCIES
   capybara
   cucumber
   cucumber-rails
-  database_cleaner
   diesel
   dynamic_form
   factory_girl
   factory_girl_rails
-  formtastic
   launchy
   mocha
   rails (>= 3.0.3)
   rake
-  redgreen
   rspec-rails
   shoulda
   sqlite3-ruby
