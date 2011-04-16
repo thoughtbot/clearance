@@ -1,4 +1,4 @@
-Upcoming
+0.10.4
 ------------------
 
 * Formtastic views generator removed.
