@@ -55,9 +55,9 @@ describe User do
       end
     end
 
-    it "should store email in exact case" do
+    it "should store email in down case" do
       user = Factory(:user, :email => "John.Doe@example.com")
-      user.email.should == "John.Doe@example.com"
+      user.email.should == "john.doe@example.com"
     end
   end
 

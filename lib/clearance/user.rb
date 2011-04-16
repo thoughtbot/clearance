@@ -66,6 +66,7 @@ module Clearance
       # salt, token, password encryption are handled before_save.
       def self.included(model)
         model.class_eval do
+          before_validation :downcase_email
           before_save   :initialize_salt,
                         :encrypt_password
           before_create :generate_remember_token
@@ -175,6 +176,10 @@ module Clearance
       def password_required?
         # warn "[DEPRECATION] password_required?: use !password_optional? instead"
         !password_optional?
+      end
+
+      def downcase_email
+        self.email = email.to_s.downcase
       end
     end
 
