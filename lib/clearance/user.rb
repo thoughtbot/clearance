@@ -49,7 +49,6 @@ module Clearance
         validates_format_of       :email, :with => %r{^[a-z0-9!#\$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#\$%&'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$}i, :allow_blank => true
 
         validates_presence_of     :password, :unless => :password_optional?
-        validates_confirmation_of :password
       end
     end
 
@@ -105,14 +104,12 @@ module Clearance
 
     # Update my password.
     #
-    # @param [String, String] password and password confirmation
     # @return [true, false] password was updated or not
     # @example
-    #   user.update_password('new-password', 'new-password')
-    def update_password(new_password, new_password_confirmation)
-      self.password_changing     = true
-      self.password              = new_password
-      self.password_confirmation = new_password_confirmation
+    #   user.update_password('new-password')
+    def update_password(new_password)
+      self.password_changing = true
+      self.password          = new_password
       if valid?
         self.confirmation_token = nil
         generate_remember_token
@@ -132,7 +129,7 @@ module Clearance
 
     def initialize_salt
       if salt.blank?
-        self.salt = generate_hash("--#{Time.now.utc}--#{password}--#{rand}--")
+        self.salt = ActiveSupport::SecureRandom.hex(20)
       end
     end
 
@@ -143,11 +140,11 @@ module Clearance
     end
 
     def generate_remember_token
-      self.remember_token = encrypt("--#{Time.now.utc}--#{encrypted_password}--#{id}--#{rand}--")
+      self.remember_token = ActiveSupport::SecureRandom.hex(20)
     end
 
     def generate_confirmation_token
-      self.confirmation_token = encrypt("--#{Time.now.utc}--#{password}--#{rand}--")
+      self.confirmation_token = ActiveSupport::SecureRandom.hex(20)
     end
 
     # Always false. Override to allow other forms of authentication

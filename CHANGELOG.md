@@ -1,7 +1,8 @@
 0.11.0 (unreleased)
 -------------------
 
-* Removing password confirmation
+* Removing password confirmation.
+* Use ActiveSupport::Concern and ActiveSupport::SecureRandom to clean up code.
 
 0.10.5
 -------------------
