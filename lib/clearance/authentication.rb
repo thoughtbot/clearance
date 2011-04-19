@@ -94,7 +94,7 @@ module Clearance
 
       # CSRF protection in Rails >= 3.0.4
       # http://weblog.rubyonrails.org/2011/2/8/csrf-protection-bypass-in-ruby-on-rails
-      def reset_session
+      def handle_unverified_request
         super
         sign_out
       end
