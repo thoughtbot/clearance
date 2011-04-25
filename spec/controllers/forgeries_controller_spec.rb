@@ -3,7 +3,7 @@ require 'spec_helper'
 class ForgeriesController < ActionController::Base
   include Clearance::Authentication
   protect_from_forgery
-  before_filter :authenticate
+  before_filter :authorize
 
   # This is off in test by default, but we need it for this test
   self.allow_forgery_protection = true

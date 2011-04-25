@@ -1,7 +1,7 @@
 class Clearance::SessionsController < ApplicationController
   unloadable
 
-  skip_before_filter :authenticate, :only => [:new, :create, :destroy]
+  skip_before_filter :authorize, :only => [:new, :create, :destroy]
   protect_from_forgery :except => :create
 
   def new
@@ -9,8 +9,7 @@ class Clearance::SessionsController < ApplicationController
   end
 
   def create
-    @user = ::User.authenticate(params[:session][:email],
-                                params[:session][:password])
+    @user = authenticate(params)
     if @user.nil?
       flash_failure_after_create
       render :template => 'sessions/new', :status => :unauthorized

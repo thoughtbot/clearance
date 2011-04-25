@@ -1,7 +1,7 @@
 Clearance
 =========
 
-Rails authentication with email & password.
+Rails authentication & authorization with email & password.
 
 [We have clearance, Clarence.](http://www.youtube.com/watch?v=fVq4_HhBK8Y)
 
@@ -11,9 +11,8 @@ Help
 ----
 
 * [Documentation](http://rdoc.info/gems/clearance) at RDoc.info.
-* [Patches welcome](http://github.com/thoughtbot/clearance/issues) via Github Issues.
-* [#thoughtbot](irc://irc.freenode.net/thoughtbot) IRC channel on freenode.
-* [Mailing list](http://groups.google.com/group/thoughtbot-clearance) on Google Groups.
+* [Patches and bugs](http://github.com/thoughtbot/clearance/issues) at Github Issues.
+* [Mailing list](http://groups.google.com/group/thoughtbot-clearance) at Google Groups.
 
 Installation
 ------------
@@ -40,11 +39,11 @@ series of Clearance if you have a Rails 2 app.
 Usage
 -----
 
-If you want to authenticate users for a controller action, use the authenticate
+If you want to authorize users for a controller action, use the authorize
 method in a before_filter.
 
     class WidgetsController < ApplicationController
-      before_filter :authenticate
+      before_filter :authorize
       def index
         @widgets = Widget.all
       end

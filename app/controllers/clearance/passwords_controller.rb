@@ -1,7 +1,7 @@
 class Clearance::PasswordsController < ApplicationController
   unloadable
 
-  skip_before_filter :authenticate,        :only => [:new, :create, :edit, :update]
+  skip_before_filter :authorize,           :only => [:new, :create, :edit, :update]
   before_filter :forbid_missing_token,     :only => [:edit, :update]
   before_filter :forbid_non_existent_user, :only => [:edit, :update]
 

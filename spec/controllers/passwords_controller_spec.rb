@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Clearance::PasswordsController do
-
   include Shoulda::ActionMailer::Matchers
 
   it { should route(:get, '/users/1/password/edit').

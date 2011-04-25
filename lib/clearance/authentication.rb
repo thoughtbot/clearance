@@ -7,7 +7,7 @@ module Clearance
       hide_action   :current_user, :current_user=,
                     :signed_in?,   :signed_out?,
                     :sign_in,      :sign_out,
-                    :authenticate, :deny_access
+                    :authorize, :deny_access
     end
 
     # User in the current cookie
@@ -38,14 +38,6 @@ module Clearance
       current_user.nil?
     end
 
-    # Deny the user access if they are signed out.
-    #
-    # @example
-    #   before_filter :authenticate
-    def authenticate
-      deny_access unless signed_in?
-    end
-
     # Sign user in to cookie.
     #
     # @param [User]
@@ -72,6 +64,26 @@ module Clearance
       self.current_user = nil
     end
 
+    # Find the user by the given params or return nil.
+    # By default, uses email and password.
+    # Redefine this method and User.authenticate for other mechanisms
+    # such as username and password.
+    #
+    # @example
+    #   @user = authenticate(params)
+    def authenticate(params)
+      ::User.authenticate(params[:session][:email],
+                          params[:session][:password])
+    end
+
+    # Deny the user access if they are signed out.
+    #
+    # @example
+    #   before_filter :authorize
+    def authorize
+      deny_access unless signed_in?
+    end
+
     # Store the current location and redirect to sign in.
     # Display a failure flash message if included.
     #
@@ -95,11 +107,6 @@ module Clearance
       if token = cookies[:remember_token]
         ::User.find_by_remember_token(token)
       end
-    end
-
-    def sign_user_in(user)
-      warn "[DEPRECATION] sign_user_in: unnecessary. use sign_in(user) instead."
-      sign_in(user)
     end
 
     def store_location

@@ -9,8 +9,8 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Dan Croak", "Mike Burns", "Jason Morrison", "Joe Ferris", "Eugene Bolshakov", "Nick Quaranto", "Josh Nichols", "Mike Breen", "Marcel G\303\266rner", "Bence Nagy", "Ben Mabey", "Eloy Duran", "Tim Pope", "Mihai Anca", "Mark Cornick", "Shay Arnett", "Jon Yurek", "Chad Pytel"]
   s.date        = Date.today.to_s
-  s.summary     = %q{Rails authentication with email & password.}
-  s.description = %q{Rails authentication with email & password.}
+  s.summary     = %q{Rails authentication & authorization with email & password.}
+  s.description = %q{Rails authentication & authorization with email & password.}
   s.extra_rdoc_files = [
     "LICENSE",
     "README.md"

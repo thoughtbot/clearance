@@ -156,5 +156,4 @@ describe Clearance::SessionsController do
       @controller.current_user.should be_nil
     end
   end
-
 end
