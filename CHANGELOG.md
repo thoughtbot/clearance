@@ -1,8 +1,10 @@
-0.11.0 (unreleased)
+0.11.0
 -------------------
 
 * Removing password confirmation.
 * Use ActiveSupport::Concern and ActiveSupport::SecureRandom to clean up code.
+* New controller#authenticate(params) method. Redefine username & password or other styles of authentication.
+* before_filter :authenticate API replaced with more aptly-named before_filter :authorize.
 
 0.10.5
 -------------------
