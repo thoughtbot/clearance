@@ -29,6 +29,6 @@ class Clearance::UsersController < ApplicationController
   end
 
   def url_after_create
-    sign_in_url
+    '/'
   end
 end

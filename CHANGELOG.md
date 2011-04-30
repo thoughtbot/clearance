@@ -1,3 +1,8 @@
+0.11.1 (unreleased)
+-------------------
+
+* Redirect to home page after sign up.
+
 0.11.0
 -------------------
 
