@@ -36,6 +36,7 @@ class Clearance::PasswordsController < ApplicationController
       flash_success_after_update
       redirect_to(url_after_update)
     else
+      flash_failure_after_update
       render :template => 'passwords/edit'
     end
   end
@@ -78,6 +79,12 @@ class Clearance::PasswordsController < ApplicationController
 
   def flash_success_after_update
     flash[:success] = translate(:signed_in, :default => "Signed in.")
+  end
+
+  def flash_failure_after_update
+    flash.now[:failure] = translate(:blank_password,
+      :scope   => [:clearance, :controllers, :passwords],
+      :default => "Password can't be blank.")
   end
 
   def url_after_create

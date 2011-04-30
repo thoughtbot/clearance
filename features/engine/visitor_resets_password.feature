@@ -23,7 +23,7 @@ Feature: Password reset
     And I press "Reset password"
     When I follow the password reset link sent to "email@example.com"
     And I update my password with ""
-    Then I should see an error message
+    Then I should see "Password can't be blank."
     And I should be signed out
 
   Scenario: User is signed up and updates his password

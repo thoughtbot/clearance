@@ -60,7 +60,6 @@ GEM
     diesel (0.1.4)
       railties (~> 3.0.3)
     diff-lcs (1.1.2)
-    dynamic_form (1.1.4)
     erubis (2.6.6)
       abstract (>= 1.0.0)
     eventmachine (0.12.10)
@@ -147,7 +146,6 @@ DEPENDENCIES
   capybara
   cucumber-rails (= 0.3.2)
   diesel
-  dynamic_form
   factory_girl
   factory_girl_rails
   launchy

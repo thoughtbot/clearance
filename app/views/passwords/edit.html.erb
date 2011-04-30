@@ -7,7 +7,6 @@
 <%= form_for(:user,
              :url  => user_password_path(@user, :token => @user.confirmation_token),
              :html => { :method => :put }) do |form| %>
-  <%= form.error_messages %>
   <div class="password_field">
     <%= form.label :password, "Choose password" %>
     <%= form.password_field :password %>

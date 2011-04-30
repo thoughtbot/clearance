@@ -154,7 +154,7 @@ describe Clearance::PasswordsController do
         cookies[:remember_token].should be_nil
       end
 
-      it { should_not set_the_flash }
+      it { should set_the_flash.to(/password can't be blank/i) }
       it { should respond_with(:success) }
       it { should render_template(:edit) }
     end

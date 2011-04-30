@@ -1,15 +1,16 @@
 0.11.1 (unreleased)
 -------------------
 
-* Redirect to home page after sign up.
+* Redirect to home page after sign up. #146 (Dan Croak)
+* Remove dependency on dynamic_form. Replaced with flashes due to limited number of failure cases. #145 (Dan Croak)
 
 0.11.0
 -------------------
 
-* Removing password confirmation.
-* Use ActiveSupport::Concern and ActiveSupport::SecureRandom to clean up code.
-* New controller#authenticate(params) method. Redefine username & password or other styles of authentication.
-* before_filter :authenticate API replaced with more aptly-named before_filter :authorize.
+* Removing password confirmation. (Dan Croak)
+* Use ActiveSupport::Concern and ActiveSupport::SecureRandom to clean up code. (Dan Croak)
+* New controller#authenticate(params) method. Redefine username & password or other styles of authentication. (Dan Croak)
+* before_filter :authenticate API replaced with more aptly-named before_filter :authorize. (Dan Croak)
 
 0.10.5
 -------------------
@@ -19,11 +20,11 @@
 0.10.4
 ------------------
 
-* Formtastic views generator removed.
+* Formtastic views generator removed. (Dan Croak)
 * Emails forced to be downcased (particularly for iPhone user case). (Adam Conrad)
 * Suite converted from test/unit to RSpec. (Joe Ferris)
 * Password reset requires a password. (Joel Meador)
-* Use HTML5 email fields.
+* Use HTML5 email fields. (Dan Croak)
 
 0.10.3.2
 ------------------
@@ -46,14 +47,14 @@
 * Replaced test/rails_root & general testing strategy with Diesel. (Joe Ferris)
 * Conveniences in factories for password/confirmation.
 * New generator command: rails generate clearance:install.
-* Step definitions are now prefixed with visitor_ to use thoughtbot convention.
+* Step definitions are now prefixed with visitor_ to use thoughtbot convention. (Dan Croak)
 * When Clearance installed in an app that already has users, allow old users to sign in by resetting their password.
 
 0.10.1
 ------------------
 
-* replaced ActionController::Forbidden with a user-friendly flash message.
-* improved language of Cucumber steps by allowing a little more flexibility.
+* replaced ActionController::Forbidden with a user-friendly flash message. (Dan Croak)
+* improved language of Cucumber steps by allowing a little more flexibility. (Dan Croak)
 
 0.10.0
 ------------------
@@ -67,7 +68,7 @@
   https://github.com/rails/jquery-ujs/issues#issue/30
   http://bugs.jquery.com/ticket/7061
 
-0.9.x
+0.9.1
 ------------------
 
 Forgot to update the changelog in a while, this is going to be brief:
