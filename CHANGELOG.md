@@ -3,6 +3,7 @@
 
 * Redirect to home page after sign up. #146 (Dan Croak)
 * Remove dependency on dynamic_form. Replaced with flashes due to limited number of failure cases. #145 (Dan Croak)
+* Moving ClearanceMailer to app/mailers. Moving spec to spec/mailers.
 
 0.11.0
 -------------------

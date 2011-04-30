@@ -1,13 +1,8 @@
 require 'spec_helper'
 
 describe User do
-
-  # db
-
   it { should have_db_index(:email) }
   it { should have_db_index(:remember_token) }
-
-  # signing up
 
   describe "When signing up" do
     it { should validate_presence_of(:email) }
@@ -52,8 +47,6 @@ describe User do
     it { should validate_uniqueness_of(:email) }
   end
 
-  # authenticating
-
   describe "A user" do
     before do
       @user     = Factory(:user)
@@ -76,8 +69,6 @@ describe User do
     end
   end
 
-  # resetting remember token
-
   describe "When resetting authentication with reset_remember_token!" do
     before do
       @user  = Factory(:user)
@@ -89,8 +80,6 @@ describe User do
       @user.remember_token.should_not == "old-token"
     end
   end
-
-  # updating password
 
   describe "An email confirmed user" do
     before do
@@ -117,8 +106,6 @@ describe User do
 
     second_user.remember_token.should_not == first_user.remember_token
   end
-
-  # recovering forgotten password
 
   describe "An user" do
     before do
@@ -166,10 +153,8 @@ describe User do
         end
       end
     end
-
   end
 
-  # optional email/password fields
   describe "a user with an optional email" do
     before do
       @user = User.new
