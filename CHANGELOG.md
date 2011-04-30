@@ -1,15 +1,17 @@
-0.11.1 (unreleased)
+0.11.1
 -------------------
 
-* Redirect to home page after sign up. #146 (Dan Croak)
-* Remove dependency on dynamic_form. Replaced with flashes due to limited number of failure cases. #145 (Dan Croak)
-* Moving ClearanceMailer to app/mailers. Moving spec to spec/mailers.
+* [#146] Redirect to home page after sign up. (Dan Croak)
+* [#145] Remove dependency on dynamic_form. Replaced with flashes due to limited number of failure cases. (Dan Croak)
+* Moving ClearanceMailer to app/mailers. Moving spec to spec/mailers. (Dan Croak)
+* [#148] Removing :case_sensitive option from validates_uniqueness_of. It was unnecessary and causes a small performance problem on some apps. (Dan Croak)
+* Only development dependency in gemspec should be bundler. All others are derived by bundling. (Dan Croak)
 
 0.11.0
 -------------------
 
-* Removing password confirmation. (Dan Croak)
-* Use ActiveSupport::Concern and ActiveSupport::SecureRandom to clean up code. (Dan Croak)
+* [#141] Removing password confirmation. (Dan Croak)
+* [#143] Use ActiveSupport::Concern and ActiveSupport::SecureRandom to clean up code. (Dan Croak)
 * New controller#authenticate(params) method. Redefine username & password or other styles of authentication. (Dan Croak)
 * before_filter :authenticate API replaced with more aptly-named before_filter :authorize. (Dan Croak)
 
@@ -24,8 +26,8 @@
 * Formtastic views generator removed. (Dan Croak)
 * Emails forced to be downcased (particularly for iPhone user case). (Adam Conrad)
 * Suite converted from test/unit to RSpec. (Joe Ferris)
-* Password reset requires a password. (Joel Meador)
-* Use HTML5 email fields. (Dan Croak)
+* [#135] Password reset requires a password. (Joel Meador)
+* [#138] Use HTML5 email fields. (Dan Croak)
 
 0.10.3.2
 ------------------
