@@ -26,3 +26,8 @@ Cucumber::Rake::Task.new(:cucumber) do |t|
   t.cucumber_opts = ['--format', (ENV['CUCUMBER_FORMAT'] || 'progress')]
 end
 
+<<<<<<< HEAD
+=======
+desc "Default: run the specs and cucumber features"
+task :default => [:spec, :cucumber]
+>>>>>>> upgrading test dependencies, converting shoulda_macros to
