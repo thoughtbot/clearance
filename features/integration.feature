@@ -13,7 +13,7 @@ Feature: integrate with application
     And I add the "factory_girl_rails" gem
     And I add the "database_cleaner" gem
     And I add the "clearance" gem from this project
-    And I add the "diesel" gem from git "git://github.com/thoughtbot/diesel.git" on branch "rails-3-1"
+    And I add the "diesel" gem from git "git://github.com/thoughtbot/diesel.git"
     And I reset Bundler environment variable
     And I run `bundle install --local`
     And I successfully run `bundle exec rails generate cucumber:install`

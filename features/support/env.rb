@@ -15,8 +15,12 @@ Bundler.require
 
 require 'diesel/testing'
 require 'diesel/testing/integration'
-
-require 'cucumber/rails'
+require 'cucumber/rails3/application'
+require 'cucumber/rails3/action_controller'
+require 'rails/test_help'
+require 'cucumber/rails/world'
+require 'cucumber/rails/hooks'
+require 'cucumber/rails/capybara'
 
 # Capybara defaults to XPath selectors rather than Webrat's default of CSS3. In
 # order to ease the transition to Capybara we set the default here. If you'd
