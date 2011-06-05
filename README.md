@@ -33,6 +33,8 @@ This:
 * inserts Clearance::Authentication into your ApplicationController
 * creates a migration that either creates a users table or adds only missing columns
 
+Follow the instructions that are output from the generator.
+
 Use the [0.8.x](https://github.com/thoughtbot/clearance/tree/v0.8.8)
 series of Clearance if you have a Rails 2 app.
 
@@ -44,20 +46,30 @@ method in a before_filter.
 
     class WidgetsController < ApplicationController
       before_filter :authorize
+
       def index
         @widgets = Widget.all
       end
     end
 
+If you want to reference the current user in a controller, view, or helper, use
+the current_user method.
+
+    def index
+      current_user.articles
+    end
+
 Customizing
 -----------
 
-To change any of provided actions, subclass a Clearance controller...
+If you ever need to change the logic in any of the four provided controllers,
+subclass the Clearance controller. You don't need to do this by default.
 
     class SessionsController < Clearance::SessionsController
       def new
         # my special new action
       end
+
       def url_after_create
         my_special_path
       end
