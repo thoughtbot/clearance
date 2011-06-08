@@ -16,7 +16,7 @@ When /^I configure a root route$/ do
     contents.sub!(/(\.routes\.draw do)/, "\\1\n#{route}\n")
     File.open(path, "w") { |file| file.write(contents) }
   end
-  create_file("app/controllers/home_controller.rb", <<-CONTROLLER)
+  write_file("app/controllers/home_controller.rb", <<-CONTROLLER)
   class HomeController < ApplicationController
     def show
       render :text => "", :layout => "application"
