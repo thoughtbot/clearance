@@ -22,7 +22,7 @@ Gem::Specification.new do |s|
   s.require_paths    = ["lib"]
   s.rubygems_version = %q{1.3.7}
 
-  s.add_dependency('rails',  '~> 3.0')
+  s.add_dependency('rails',  '>= 3.0')
   s.add_dependency('diesel', '~> 0.1.4')
 
   s.add_development_dependency('bundler', '~> 1.0.0')
