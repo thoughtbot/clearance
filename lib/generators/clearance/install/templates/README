@@ -10,14 +10,14 @@ Next steps:
 
    In production it should be your app's domain name.
 
-2. Migrate:
-
-     rake db:migrate
-
-3. Display flashes. For example, in your application layout:
+2. Display flashes. For example, in your application layout:
 
     <% flash.each do |key, value| -%>
-      <div class="flash <%= key %>"><%=h value %></div>
+      <div class="flash <%= key %>"><%= value %></div>
     <% end -%>
+
+3. Migrate:
+
+     rake db:migrate
 
 *******************************************************************************
