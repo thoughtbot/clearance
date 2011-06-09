@@ -129,7 +129,7 @@ module Clearance
 
     def initialize_salt
       if salt.blank?
-        self.salt = ActiveSupport::SecureRandom.hex(20)
+        self.salt = SecureRandom.hex(20)
       end
     end
 
@@ -140,11 +140,11 @@ module Clearance
     end
 
     def generate_remember_token
-      self.remember_token = ActiveSupport::SecureRandom.hex(20)
+      self.remember_token = SecureRandom.hex(20)
     end
 
     def generate_confirmation_token
-      self.confirmation_token = ActiveSupport::SecureRandom.hex(20)
+      self.confirmation_token = SecureRandom.hex(20)
     end
 
     # Always false. Override to allow other forms of authentication
