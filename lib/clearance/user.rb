@@ -120,7 +120,19 @@ module Clearance
     protected
 
     def generate_hash(string)
-      Digest::SHA1.hexdigest(string)
+      if RUBY_VERSION >= '1.9'
+        Digest::SHA1.hexdigest(string).encode('UTF-8')
+      else
+        Digest::SHA1.hexdigest(string)
+      end
+    end
+
+    def generate_random_code(length = 20)
+      if RUBY_VERSION >= '1.9'
+        SecureRandom.hex(length).encode('UTF-8')
+      else
+        SecureRandom.hex(length)
+      end
     end
 
     def encrypt(string)
@@ -129,7 +141,7 @@ module Clearance
 
     def initialize_salt
       if salt.blank?
-        self.salt = SecureRandom.hex(20)
+        self.salt = generate_random_code
       end
     end
 
@@ -140,11 +152,11 @@ module Clearance
     end
 
     def generate_remember_token
-      self.remember_token = SecureRandom.hex(20)
+      self.remember_token = generate_random_code
     end
 
     def generate_confirmation_token
-      self.confirmation_token = SecureRandom.hex(20)
+      self.confirmation_token = generate_random_code
     end
 
     # Always false. Override to allow other forms of authentication
