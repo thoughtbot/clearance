@@ -29,15 +29,13 @@ end
 
 require 'cucumber/formatter/unicode'
 require 'cucumber/rails/world'
-require 'cucumber/rails/active_record'
+require 'cucumber/rails/hooks'
+require 'cucumber/rails/capybara'
 require 'cucumber/web/tableish'
-require 'capybara/rails'
-require 'capybara/cucumber'
-require 'capybara/session'
 
 Capybara.default_selector = :css
 Capybara.save_and_open_page_path = 'tmp'
-Cucumber::Rails::World.use_transactional_fixtures = true
+DatabaseCleaner.strategy = :transaction
 
 Before do
   @aruba_timeout_seconds = 60
