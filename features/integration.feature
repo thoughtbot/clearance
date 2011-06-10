@@ -1,10 +1,8 @@
-@disable-bundler
 Feature: integrate with application
 
   Background:
     When I successfully run `bundle exec rails new testapp`
     And I cd to "testapp"
-    And I copy the locked Gemfile from this project
     And I remove the file "public/index.html"
     And I remove the file "app/views/layouts/application.html.erb"
     And I configure ActionMailer to use "localhost" as a host
@@ -16,7 +14,8 @@ Feature: integrate with application
     And I add the "dynamic_form" gem
     And I add the "database_cleaner" gem
     And I add the "clearance" gem from this project
-    And I add the "diesel" gem
+    And I add the "diesel" gem from git "git://github.com/thoughtbot/diesel.git" on branch "rails-3-1"
+    And I reset Bundler environment variable
     And I run `bundle install --local`
     And I successfully run `bundle exec rails generate cucumber:install`
     And I disable Capybara Javascript emulation
