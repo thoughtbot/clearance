@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Clearance::PasswordsController do
-  include Shoulda::ActionMailer::Matchers
+  include Shoulda::Matchers::ActionMailer
 
   it { should route(:get, '/users/1/password/edit').
                 to(:controller => 'clearance/passwords', :action  => 'edit', :user_id => '1') }
