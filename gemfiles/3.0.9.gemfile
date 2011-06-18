@@ -4,7 +4,7 @@ source "http://rubygems.org"
 
 gem "aruba", "~> 0.3.6"
 gem "rake"
-gem "rails", "3.0.9.rc3"
+gem "rails", "3.0.9"
 gem "thin"
 gem "shoulda-matchers", :git=>"git://github.com/thoughtbot/shoulda-matchers.git"
 gem "sqlite3"
