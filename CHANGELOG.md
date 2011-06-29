@@ -1,3 +1,10 @@
+0.11.2 (unreleased)
+-------------------
+
+* Rails 3.1.rc compatible. (Prem Sichanugrist and Dan Croak)
+* Cucumber features no longer require password. (Dan Croak)
+* No more Clearance shoulda_macros. Instead providing RSpec- and Test::Unit-compliant test matchers (sign_in, sign_in_as, should deny_access, etc). (Dan Croak)
+
 0.11.1
 -------------------
 

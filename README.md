@@ -17,7 +17,7 @@ Help
 Installation
 ------------
 
-Clearance is a Rails engine for Rails 3.
+Clearance is a Rails engine for Rails 3. It is currently tested against Rails 3.0.9 and Rails 3.1.0.rc4.
 
 Include the gem in your Gemfile:
 
@@ -107,6 +107,15 @@ Edit config/enviroments/test.rb to include the following:
 Then run your tests!
 
     rake
+
+Optional test matchers
+----------------------
+
+Clearance comes with test matchers that are compatible with RSpec and Test::Unit.
+
+To use them, require the test matchers. For example, in spec/support/clearance.rb:
+
+    require 'clearance/shoulda_matchers'
 
 Extensions
 ----------

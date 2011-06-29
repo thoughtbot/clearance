@@ -1,4 +1,13 @@
 GIT
+  remote: git://github.com/thoughtbot/appraisal.git
+  revision: f8029181543b4bc4bdea03735a3b1e558fd66501
+  specs:
+    appraisal (0.3.5)
+      aruba (~> 0.4.2)
+      bundler
+      rake
+
+GIT
   remote: git://github.com/thoughtbot/diesel.git
   revision: 9a7955eadd3e2f445ecf3d2d58edfc2a5e80a20b
   specs:
@@ -41,15 +50,15 @@ GEM
       activemodel (= 3.0.9)
       activesupport (= 3.0.9)
     activesupport (3.0.9)
-    appraisal (0.3.5)
-      aruba (~> 0.3.6)
-      bundler
-      rake
     arel (2.0.10)
-    aruba (0.3.7)
+    aruba (0.4.3)
+      bcat (>= 0.6.1)
       childprocess (>= 0.1.9)
-      cucumber (>= 0.10.5)
+      cucumber (>= 0.10.7)
+      rdiscount (>= 1.6.8)
       rspec (>= 2.6.0)
+    bcat (0.6.1)
+      rack (~> 1.0)
     builder (2.1.2)
     capybara (1.0.0)
       mime-types (>= 1.16)
@@ -118,6 +127,7 @@ GEM
       rdoc (~> 3.4)
       thor (~> 0.14.4)
     rake (0.9.2)
+    rdiscount (1.6.8)
     rdoc (3.6.1)
     rspec (2.6.0)
       rspec-core (~> 2.6.0)
@@ -151,8 +161,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  appraisal (~> 0.3.5)
-  aruba (~> 0.3.6)
+  appraisal!
+  aruba (~> 0.4.2)
   capybara (= 1.0.0)
   cucumber-rails (= 1.0.0)
   database_cleaner
@@ -161,6 +171,6 @@ DEPENDENCIES
   launchy
   mocha
   rails (= 3.0.9)
-  rspec-rails
+  rspec-rails (~> 2.6.0)
   shoulda-matchers!
   sqlite3
