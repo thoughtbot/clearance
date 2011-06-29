@@ -1,4 +1,4 @@
-0.11.2 (unreleased)
+0.11.2
 -------------------
 
 * Rails 3.1.rc compatible. (Prem Sichanugrist and Dan Croak)
