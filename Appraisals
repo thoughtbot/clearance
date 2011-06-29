@@ -8,4 +8,5 @@ appraise "3.1.0.rc4" do
   gem 'coffee-script'
   gem 'uglifier'
   gem 'jquery-rails'
+  gem 'turn'
 end
