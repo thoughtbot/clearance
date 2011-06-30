@@ -1,4 +1,4 @@
-0.12.0 (unreleased)
+0.12.0
 -------------------
 
 * [#129] Denying access redirects to root_url when signed in, sign_in_url when signed out. (Dan Croak)
