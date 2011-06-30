@@ -54,7 +54,7 @@ module Clearance
             @context.send(:assert_redirected_to, @url)
             @negative_failure_message << "Didn't expect to redirect to #{@url}."
             true
-          rescue Clearance::Test::AssertionError
+          rescue Clearance::Testing::AssertionError
             @failure_message << "Expected to redirect to #{@url} but did not."
             false
           end
