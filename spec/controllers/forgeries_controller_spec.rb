@@ -36,14 +36,14 @@ describe ForgeriesController do
       subject.should redirect_to(:action => 'index')
     end
 
-    it "redirects to sign_in with invalid token" do
+    it "fails with invalid token" do
       post :create, :authenticity_token => "hax0r"
-      subject.should redirect_to(sign_in_url)
+      subject.should deny_access
     end
 
-    it "redirects to sign_in with no token" do
+    it "fails with no token" do
       post :create
-      subject.should redirect_to(sign_in_url)
+      subject.should deny_access
     end
   end
 end

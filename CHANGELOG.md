@@ -1,3 +1,9 @@
+0.11.3 (unreleased)
+-------------------
+
+* [#129] Denying access redirects to root_url when signed in, sign_in_url when signed out. (Dan Croak)
+* New configuration setting: denied_access_url. (Dan Croak)
+
 0.11.2
 -------------------
 

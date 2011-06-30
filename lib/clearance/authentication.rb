@@ -7,7 +7,7 @@ module Clearance
       hide_action   :current_user, :current_user=,
                     :signed_in?,   :signed_out?,
                     :sign_in,      :sign_out,
-                    :authorize, :deny_access
+                    :authorize,    :deny_access
     end
 
     # User in the current cookie
@@ -91,7 +91,11 @@ module Clearance
     def deny_access(flash_message = nil)
       store_location
       flash[:failure] = flash_message if flash_message
-      redirect_to(sign_in_url)
+      if signed_in?
+        redirect_to(url_after_denied_access_when_signed_in)
+      else
+        redirect_to(url_after_denied_access_when_signed_out)
+      end
     end
 
     # CSRF protection in Rails >= 3.0.4
@@ -130,6 +134,14 @@ module Clearance
 
     def redirect_to_root
       redirect_to('/')
+    end
+
+    def url_after_denied_access_when_signed_in
+      '/'
+    end
+
+    def url_after_denied_access_when_signed_out
+      sign_in_url
     end
   end
 end

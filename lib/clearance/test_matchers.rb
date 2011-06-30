@@ -8,7 +8,7 @@ module Clearance
           should_not set_the_flash
         end
 
-        redirect_to(sign_in_url)
+        redirect_to(Clearance.configuration.denied_access_url.call)
       end
     end
 
