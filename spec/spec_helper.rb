@@ -11,7 +11,7 @@ Bundler.require
 require 'diesel/testing'
 require 'rspec/rails'
 
-require 'clearance/test_matchers'
+require 'clearance/testing'
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 

@@ -62,6 +62,8 @@ the current_user method.
 Customizing
 -----------
 
+Clearance is intended to be small, simple, well-tested, and easy to extend.
+
 If you ever need to change the logic in any of the four provided controllers,
 subclass the Clearance controller. You don't need to do this by default.
 
@@ -115,7 +117,7 @@ Clearance comes with test matchers that are compatible with RSpec and Test::Unit
 
 To use them, require the test matchers. For example, in spec/support/clearance.rb:
 
-    require 'clearance/shoulda_matchers'
+    require 'clearance/testing'
 
 You'll then have access to methods like:
 
@@ -142,16 +144,6 @@ Example:
 
       it { should respond_with(:success) }
     end
-
-Extensions
-----------
-
-Clearance is intended to be small, simple, well-tested, and easy to extend.
-Check out some of the ways people have extended Clearance:
-
-* [Clearance HTTP Auth](https://github.com/karmi/clearance_http_auth)
-* [Clearance Twitter](https://github.com/thoughtbot/clearance-twitter)
-* [Clearance Admin](https://github.com/xenda/clearance-admin)
 
 Credits
 -------

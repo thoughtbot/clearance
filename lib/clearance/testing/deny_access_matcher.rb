@@ -1,5 +1,5 @@
 module Clearance
-  module Test
+  module Testing
     module Matchers
       # Ensures a controller denied access.
       #
@@ -52,9 +52,9 @@ module Clearance
           @url ||= denied_access_url
           begin
             @context.send(:assert_redirected_to, @url)
-              @negative_failure_message << "Didn't expect to redirect to #{@url}."
-              true
-          rescue
+            @negative_failure_message << "Didn't expect to redirect to #{@url}."
+            true
+          rescue Clearance::Test::AssertionError
             @failure_message << "Expected to redirect to #{@url} but did not."
             false
           end
@@ -69,34 +69,5 @@ module Clearance
         end
       end
     end
-
-    module Helpers
-      def sign_in_as(user)
-        @controller.current_user = user
-        return user
-      end
-
-      def sign_in
-        sign_in_as Factory(:user)
-      end
-
-      def sign_out
-        @controller.current_user = nil
-      end
-    end
-  end
-end
-
-if defined?(Test::Unit::TestCase)
-  Test::Unit::TestCase.extend  Clearance::Test::Matchers
-  class Test::Unit::TestCase
-    include Clearance::Test::Helpers
-  end
-end
-
-if defined?(RSpec) && RSpec.respond_to?(:configure)
-  RSpec.configure do |config|
-    config.include Clearance::Test::Matchers
-    config.include Clearance::Test::Helpers
   end
 end
