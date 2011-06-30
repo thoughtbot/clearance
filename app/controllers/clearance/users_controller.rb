@@ -14,7 +14,7 @@ class Clearance::UsersController < ApplicationController
     if @user.save
       sign_in(@user)
       flash_success_after_create
-      redirect_to(url_after_create)
+      redirect_back_or(url_after_create)
     else
       flash_failure_after_create
       render :template => 'users/new'
