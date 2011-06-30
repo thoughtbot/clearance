@@ -15,14 +15,12 @@ class Clearance::SessionsController < ApplicationController
       render :template => 'sessions/new', :status => :unauthorized
     else
       sign_in(@user)
-      flash_success_after_create
       redirect_back_or(url_after_create)
     end
   end
 
   def destroy
     sign_out
-    flash_success_after_destroy
     redirect_to(url_after_destroy)
   end
 
@@ -34,16 +32,8 @@ class Clearance::SessionsController < ApplicationController
       :default => "Bad email or password.")
   end
 
-  def flash_success_after_create
-    flash[:notice] = translate(:signed_in, :default =>  "Signed in.")
-  end
-
   def url_after_create
     '/'
-  end
-
-  def flash_success_after_destroy
-    flash[:notice] = translate(:signed_out, :default =>  "Signed out.")
   end
 
   def url_after_destroy

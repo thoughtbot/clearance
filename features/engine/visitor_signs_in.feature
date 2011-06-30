@@ -25,12 +25,10 @@ Feature: Sign in
     When I go to the sign in page
     Then I should see an email field
     And I sign in as "email@example.com"
-    Then I should see "Signed in"
-    And I should be signed in
+    Then I should be signed in
 
  Scenario: Visitor signs in successfully with uppercase email
     Given I am signed up as "email@example.com"
     When I go to the sign in page
     And I sign in as "Email@example.com"
-    Then I should see "Signed in"
-    And I should be signed in
+    Then I should be signed in

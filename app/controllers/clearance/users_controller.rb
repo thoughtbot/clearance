@@ -13,7 +13,6 @@ class Clearance::UsersController < ApplicationController
     @user = ::User.new(params[:user])
     if @user.save
       sign_in(@user)
-      flash_success_after_create
       redirect_back_or(url_after_create)
     else
       flash_failure_after_create
@@ -22,12 +21,6 @@ class Clearance::UsersController < ApplicationController
   end
 
   private
-
-  def flash_success_after_create
-    flash[:notice] = translate(:signed_up,
-      :scope   => [:clearance, :controllers, :users],
-      :default => "You are now signed up.")
-  end
 
   def flash_failure_after_create
     flash.now[:notice] = translate(:bad_email_or_password,

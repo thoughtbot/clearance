@@ -24,5 +24,4 @@ Feature: Sign up
     When I fill in "Email" with "email@example.com"
     And I fill in "Password" with "password"
     And I press "Sign up"
-    Then I should see "signed up"
-    And I should be on the home page
+    Then I should be on the home page

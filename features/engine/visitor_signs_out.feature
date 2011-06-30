@@ -9,5 +9,4 @@ Feature: Sign out
     When I sign in as "email@example.com"
     Then I should be signed in
     And I sign out
-    Then I should see "Signed out"
-    And I should be signed out
+    Then I should be signed out

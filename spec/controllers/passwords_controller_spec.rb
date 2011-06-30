@@ -123,7 +123,6 @@ describe Clearance::PasswordsController do
         @user.remember_token.should_not be_nil
       end
 
-      it { should set_the_flash.to(/signed in/i) }
       it { should redirect_to_url_after_update }
     end
 

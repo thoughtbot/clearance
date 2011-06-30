@@ -18,7 +18,6 @@ describe Clearance::SessionsController do
                       :password => @user.password }
     end
 
-    it { should set_the_flash.to(/signed in/i) }
     it { should redirect_to_url_after_create }
 
     it "sets a remember token cookie" do
@@ -129,7 +128,6 @@ describe Clearance::SessionsController do
       sign_out
       delete :destroy
     end
-    it { should set_the_flash.to(/signed out/i) }
     it { should redirect_to_url_after_destroy }
   end
 
@@ -141,7 +139,6 @@ describe Clearance::SessionsController do
       delete :destroy
     end
 
-    it { should set_the_flash.to(/signed out/i) }
     it { should redirect_to_url_after_destroy }
 
     it "should delete the cookie token" do

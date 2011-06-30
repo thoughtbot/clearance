@@ -36,7 +36,6 @@ describe Clearance::UsersController do
         User.count.should == @old_user_count + 1
       end
 
-      it { should set_the_flash.to(/signed up/i) }
       it { should redirect_to_url_after_create }
     end
 
@@ -55,7 +54,6 @@ describe Clearance::UsersController do
         User.count.should == @old_user_count + 1
       end
 
-      it { should set_the_flash.to(/signed up/i) }
       it { should redirect_to(@return_url) }
     end
   end
