@@ -31,8 +31,7 @@ describe Clearance::PasswordsController do
 
         it { should have_sent_email.with_subject(/change your password/i) }
 
-        it { should set_the_flash.to(/password/i) }
-        it { should redirect_to_url_after_create }
+        it { should respond_with(:success) }
       end
 
       describe "with incorrect email address" do

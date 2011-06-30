@@ -5,6 +5,7 @@
 * New configuration setting: denied_access_url. (Dan Croak)
 * Using flash :notice key everywhere now instead of :success and :failure. More in line with Rails conventions. (Dan Croak)
 * [#149] redirect_back_or on sign up. (Dan Croak)
+* [#147] Resetting password no longer redirects to sign in page. It displays a message telling them to look for an email. (Dan Croak)
 
 0.11.2
 -------------------

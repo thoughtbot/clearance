@@ -13,8 +13,7 @@ class Clearance::PasswordsController < ApplicationController
     if user = ::User.find_by_email(params[:password][:email])
       user.forgot_password!
       ::ClearanceMailer.change_password(user).deliver
-      flash_notice_after_create
-      redirect_to(url_after_create)
+      render :template => 'passwords/create'
     else
       flash_failure_after_create
       render :template => 'passwords/new'
@@ -62,13 +61,6 @@ class Clearance::PasswordsController < ApplicationController
     flash.now[:notice] = translate(:forbidden,
       :scope   => [:clearance, :controllers, :passwords],
       :default => "Please double check the URL or try submitting the form again.")
-  end
-
-  def flash_notice_after_create
-    flash[:notice] = translate(:deliver_change_password,
-      :scope   => [:clearance, :controllers, :passwords],
-      :default => "You will receive an email within the next few minutes. " <<
-                  "It contains instructions for changing your password.")
   end
 
   def flash_failure_after_create
