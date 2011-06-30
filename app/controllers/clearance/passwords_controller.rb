@@ -59,7 +59,7 @@ class Clearance::PasswordsController < ApplicationController
   end
 
   def flash_failure_when_forbidden
-    flash.now[:failure] = translate(:forbidden,
+    flash.now[:notice] = translate(:forbidden,
       :scope   => [:clearance, :controllers, :passwords],
       :default => "Please double check the URL or try submitting the form again.")
   end
@@ -72,17 +72,17 @@ class Clearance::PasswordsController < ApplicationController
   end
 
   def flash_failure_after_create
-    flash.now[:failure] = translate(:unknown_email,
+    flash.now[:notice] = translate(:unknown_email,
       :scope   => [:clearance, :controllers, :passwords],
       :default => "Unknown email.")
   end
 
   def flash_success_after_update
-    flash[:success] = translate(:signed_in, :default => "Signed in.")
+    flash[:notice] = translate(:signed_in, :default => "Signed in.")
   end
 
   def flash_failure_after_update
-    flash.now[:failure] = translate(:blank_password,
+    flash.now[:notice] = translate(:blank_password,
       :scope   => [:clearance, :controllers, :passwords],
       :default => "Password can't be blank.")
   end

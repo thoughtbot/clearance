@@ -53,10 +53,7 @@ describe Clearance::PasswordsController do
           ActionMailer::Base.deliveries.should be_empty
         end
 
-        it "should set the failure flash to Unknown email" do
-          flash.now[:failure].should =~ /unknown email/i
-        end
-
+        it { should set_the_flash.to(/unknown email/i).now }
         it { should render_template(:new) }
       end
     end
