@@ -117,6 +117,32 @@ To use them, require the test matchers. For example, in spec/support/clearance.r
 
     require 'clearance/shoulda_matchers'
 
+You'll then have access to methods like:
+
+    sign_in
+    sign_in_as(user)
+    sign_out
+
+And matchers like:
+
+    deny_access
+
+Example:
+
+    context "a visitor" do
+      before { get :show }
+      it     { should deny_access }
+    end
+
+    context "a user" do
+      before do
+        sign_in
+        get :show
+      end
+
+      it { should respond_with(:success) }
+    end
+
 Extensions
 ----------
 

@@ -90,7 +90,7 @@ module Clearance
     # @param [String] optional flash message to display to denied user
     def deny_access(flash_message = nil)
       store_location
-      flash[:failure] = flash_message if flash_message
+      flash[:notice] = flash_message if flash_message
       if signed_in?
         redirect_to(url_after_denied_access_when_signed_in)
       else
