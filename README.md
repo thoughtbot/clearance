@@ -93,8 +93,12 @@ Clearance is an engine, so it provides views for you. If you want to customize t
 Optional Cucumber features
 --------------------------
 
-As your app evolves, you want to know that authentication still works. If you
-use [Cucumber](http://cukes.info), run the Clearance features generator:
+As your app evolves, you want to know that authentication still works. If you've
+installed [Cucumber](http://cukes.info) into your app:
+
+    rails generate cucumber:install
+
+Then, you can use the Clearance features generator:
 
     rails generate clearance:features
 
