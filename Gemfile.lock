@@ -1,24 +1,24 @@
 GIT
   remote: git://github.com/thoughtbot/appraisal.git
-  revision: f8029181543b4bc4bdea03735a3b1e558fd66501
+  revision: 549f3fac473572741708bd058cd78c9212b2391b
   specs:
-    appraisal (0.3.5)
+    appraisal (0.3.6)
       aruba (~> 0.4.2)
       bundler
       rake
-
-GIT
-  remote: git://github.com/thoughtbot/diesel.git
-  revision: f68a990573e2684bb4645a90876603de0a772b69
-  specs:
-    diesel (0.1.4)
-      railties
 
 GIT
   remote: git://github.com/thoughtbot/shoulda-matchers.git
   revision: a922b8ec38b65ae3274f194e90eaff6ac642d0b1
   specs:
     shoulda-matchers (1.0.0.beta3)
+
+PATH
+  remote: .
+  specs:
+    clearance (0.12.0)
+      diesel (~> 0.1.5)
+      rails (>= 3.0)
 
 GEM
   remote: http://rubygems.org/
@@ -82,6 +82,8 @@ GEM
       nokogiri (>= 1.4.4)
       rack-test (>= 0.5.7)
     database_cleaner (0.6.7)
+    diesel (0.1.5)
+      railties
     diff-lcs (1.1.2)
     erubis (2.6.6)
       abstract (>= 1.0.0)
@@ -163,10 +165,11 @@ PLATFORMS
 DEPENDENCIES
   appraisal!
   aruba (~> 0.4.2)
+  bundler (~> 1.0.0)
   capybara (= 1.0.0)
+  clearance!
   cucumber-rails (= 1.0.0)
   database_cleaner
-  diesel!
   factory_girl_rails
   launchy
   mocha

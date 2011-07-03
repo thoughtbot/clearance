@@ -14,7 +14,6 @@ Feature: integrate with application
     And I add the "database_cleaner" gem
     And I add the "clearance" gem from this project
     And I add the "diesel" gem from git "git://github.com/thoughtbot/diesel.git"
-    And I reset Bundler environment variable
     And I run `bundle install --local`
     And I successfully run `bundle exec rails generate cucumber:install`
     And I disable Capybara Javascript emulation
