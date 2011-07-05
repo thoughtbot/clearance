@@ -59,10 +59,30 @@ the current_user method.
       current_user.articles
     end
 
-Customizing
------------
+If you want to know whether the current user is signed in or out, you can use
+these methods in controllers, views, or helpers:
 
-Clearance is intended to be small, simple, well-tested, and easy to extend.
+    signed_in?
+    signed_out?
+
+Typically, you want to have something like this in your app, maybe in a layout:
+
+    <% if signed_in? %>
+      <%= current_user.email %>
+      <%= link_to "Sign out", sign_out_path, :method => :delete %>
+    <% else %>
+      <%= link_to "Sign in", sign_in_path %>
+    <% end %>
+
+If you ever want to authenticate the user some place other than sessions/new,
+maybe in an API:
+
+    User.authenticate("email@example.com", "password")
+
+Overriding defaults
+-------------------
+
+Clearance is intended to be small, simple, well-tested, and easy to override defaults.
 
 If you ever need to change the logic in any of the four provided controllers,
 subclass the Clearance controller. You don't need to do this by default.
