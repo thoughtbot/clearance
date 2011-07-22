@@ -169,6 +169,11 @@ Example:
       it { should respond_with(:success) }
     end
 
+Contributing
+------------
+
+Please see CONTRIBUTING.md for details.
+
 Credits
 -------
 
