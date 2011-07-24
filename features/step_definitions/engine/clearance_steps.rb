@@ -105,8 +105,3 @@ When /^I update my password with "(.*)"$/ do |password|
   And %{I fill in "Choose password" with "#{password}"}
   And %{I press "Save this password"}
 end
-
-When /^I return next time$/ do
-  When %{session is cleared}
-  And %{I go to the homepage}
-end
