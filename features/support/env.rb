@@ -15,8 +15,8 @@ Bundler.require
 
 require 'diesel/testing'
 require 'diesel/testing/integration'
-require 'cucumber/rails3/application'
-require 'cucumber/rails3/action_controller'
+require 'cucumber/rails/application'
+require 'cucumber/rails/action_controller'
 require 'rails/test_help'
 require 'cucumber/rails/world'
 require 'cucumber/rails/hooks'

@@ -76,11 +76,10 @@ GEM
       gherkin (~> 2.4.1)
       json (>= 1.4.6)
       term-ansicolor (>= 1.0.5)
-    cucumber-rails (1.0.0)
+    cucumber-rails (1.0.2)
       capybara (>= 1.0.0)
       cucumber (~> 1.0.0)
-      nokogiri (>= 1.4.4)
-      rack-test (>= 0.5.7)
+      nokogiri (>= 1.4.6)
     database_cleaner (0.6.7)
     diesel (0.1.5)
       railties
@@ -107,7 +106,7 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.16)
     mocha (0.9.12)
-    nokogiri (1.4.6)
+    nokogiri (1.5.0)
     polyglot (0.3.1)
     rack (1.2.3)
     rack-mount (0.6.14)
@@ -166,14 +165,13 @@ DEPENDENCIES
   appraisal!
   aruba (~> 0.4.2)
   bundler (~> 1.0.0)
-  capybara (= 1.0.0)
+  capybara (~> 1.0.0)
   clearance!
-  cucumber-rails (= 1.0.0)
+  cucumber-rails (~> 1.0.2)
   database_cleaner
   factory_girl_rails
   launchy
   mocha
-  rails (= 3.0.9)
   rspec-rails (~> 2.6.0)
   shoulda-matchers!
   sqlite3

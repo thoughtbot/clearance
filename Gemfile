@@ -1,11 +1,10 @@
 source "http://rubygems.org"
 gemspec
 
-gem "rails", "3.0.9"
 gem "sqlite3"
 
-gem "cucumber-rails", '1.0.0'
-gem "capybara", "1.0.0"
+gem "cucumber-rails", '~> 1.0.2'
+gem "capybara", "~> 1.0.0"
 gem "factory_girl_rails"
 gem "shoulda-matchers", :git => "git://github.com/thoughtbot/shoulda-matchers.git"
 gem "database_cleaner"
