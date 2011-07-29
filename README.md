@@ -104,7 +104,7 @@ and add your route in config/routes.rb:
 See config/routes.rb for all the routes Clearance provides.
 
 Actions that redirect (create, update, and destroy) in Clearance controllers
-can be overridden by re-defining url_after_(action) methods as seen above.
+can be overridden by re-defining url\_after\_(action) methods as seen above.
 
 Clearance is an engine, so it provides views for you. If you want to customize those views, there is a handy shortcut to copy the views into your app:
 
