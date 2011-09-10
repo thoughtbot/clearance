@@ -15,8 +15,10 @@ module Clearance
     # @see Validations
     # @see Callbacks
     included do
-      attr_accessor :password, :password_changing
+      attr_accessor :password_changing
+      attr_reader :password
 
+      include Clearance::PasswordStrategies::SHA1
       include Validations
       include Callbacks
     end
@@ -60,20 +62,8 @@ module Clearance
       # salt, token, password encryption are handled before_save.
       included do
         before_validation :downcase_email
-        before_save   :initialize_salt,
-                      :encrypt_password
         before_create :generate_remember_token
       end
-    end
-
-    # Am I authenticated with given password?
-    #
-    # @param [String] plain-text password
-    # @return [true, false]
-    # @example
-    #   user.authenticated?('password')
-    def authenticated?(password)
-      encrypted_password == encrypt(password)
     end
 
     # Set the remember token.
@@ -117,37 +107,18 @@ module Clearance
       save
     end
 
-    protected
-
-    def generate_hash(string)
-      if RUBY_VERSION >= '1.9'
-        Digest::SHA1.hexdigest(string).encode('UTF-8')
-      else
-        Digest::SHA1.hexdigest(string)
-      end
+    def password=(unencrypted_password)
+      @password = unencrypted_password
+      encrypt_password
     end
+
+    protected
 
     def generate_random_code(length = 20)
       if RUBY_VERSION >= '1.9'
         SecureRandom.hex(length).encode('UTF-8')
       else
         SecureRandom.hex(length)
-      end
-    end
-
-    def encrypt(string)
-      generate_hash("--#{salt}--#{string}--")
-    end
-
-    def initialize_salt
-      if salt.blank?
-        self.salt = generate_random_code
-      end
-    end
-
-    def encrypt_password
-      if password.present?
-        self.encrypted_password = encrypt(password)
       end
     end
 

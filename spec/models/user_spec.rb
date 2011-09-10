@@ -15,27 +15,6 @@ describe User do
     it { should_not allow_value("foo").for(:email) }
     it { should_not allow_value("example.com").for(:email) }
 
-    it "should initialize salt" do
-      Factory(:user).salt.should_not be_nil
-    end
-
-    describe "encrypt password" do
-      before do
-        @salt = "salt"
-        @user = Factory.build(:user, :salt => @salt)
-        def @user.initialize_salt; end
-        @user.save!
-        @password = @user.password
-
-        @user.send(:encrypt, @password)
-        @expected = Digest::SHA1.hexdigest("--#{@salt}--#{@password}--")
-      end
-
-      it "should create an encrypted password using SHA1 encryption" do
-        @user.encrypted_password.should == @expected
-      end
-    end
-
     it "should store email in down case" do
       user = Factory(:user, :email => "John.Doe@example.com")
       user.email.should == "john.doe@example.com"
@@ -208,6 +187,19 @@ describe User do
       @user.salt.should_not be_nil
       @user.encrypted_password.should_not be_nil
       @user.remember_token.should_not be_nil
+    end
+  end
+
+  describe "The password setter on a User" do
+    let(:password) { "a-password" }
+    before { subject.send(:password=, password) }
+
+    it "sets password to the plain-text password" do
+      subject.password.should == password
+    end
+
+    it "also sets encrypted_password" do
+      subject.encrypted_password.should_not be_nil
     end
   end
 end
