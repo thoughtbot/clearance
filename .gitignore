@@ -8,3 +8,5 @@ pkg
 db/*.sqlite3
 log/*.log
 tmp/
+Gemfile.lock
+gemfiles/*.lock
