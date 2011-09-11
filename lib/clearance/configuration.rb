@@ -1,6 +1,6 @@
 module Clearance
   class Configuration
-    attr_accessor :mailer_sender, :cookie_expiration
+    attr_accessor :mailer_sender, :cookie_expiration, :password_strategy
 
     def initialize
       @mailer_sender     = 'donotreply@example.com'
