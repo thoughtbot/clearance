@@ -18,9 +18,10 @@ module Clearance
       attr_accessor :password_changing
       attr_reader :password
 
-      include Clearance::PasswordStrategies::SHA1
       include Validations
       include Callbacks
+
+      include (Clearance.configuration.password_strategy || Clearance::PasswordStrategies::SHA1)
     end
 
     module ClassMethods
