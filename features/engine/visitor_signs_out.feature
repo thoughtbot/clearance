@@ -8,5 +8,5 @@ Feature: Sign out
     Given I am signed up as "email@example.com"
     When I sign in as "email@example.com"
     Then I should be signed in
-    And I sign out
+    When I sign out
     Then I should be signed out

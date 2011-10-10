@@ -1,26 +1,4 @@
-# General
-
-Then /^I should see error messages$/ do
-  Then %{I should see "errors prohibited"}
-end
-
-Then /^I should see an error message$/ do
-  Then %{I should see "error prohibited"}
-end
-
-Then /^I should see an email field$/ do
-  if page.respond_to?(:should)
-    page.should have_css("input[type='email']")
-  else
-    assert page.has_css("input[type='email']")
-  end
-end
-
-# Database
-
-Given /^no user exists with an email of "(.*)"$/ do |email|
-  assert_nil User.find_by_email(email)
-end
+# Existing users
 
 Given /^(?:I am|I have|I) signed up (?:as|with) "(.*)"$/ do |email|
   Factory(:user, :email => email)
@@ -32,32 +10,61 @@ Given /^a user "([^"]*)" exists without a salt, remember token, or password$/ do
   ActiveRecord::Base.connection.update(sql)
 end
 
-# Session
+# Sign up
 
-Then /^I should be signed in$/ do
-  Given %{I am on the homepage}
-  Then %{I should see "Sign out"}
+When /^I sign up (?:with|as) "(.*)" and "(.*)"$/ do |email, password|
+  visit sign_up_path
+  page.should have_css("input[type='email']")
+
+  fill_in "Email", :with => email
+  fill_in "Password", :with => password
+  click_button "Sign up"
 end
 
-Then /^I should be signed out$/ do
-  Given %{I am on the homepage}
-  Then %{I should see "Sign in"}
-end
-
-Given /^(?:I am|I have|I) signed in (?:with|as) "(.*)"$/ do |email|
-  Given %{I am signed up as "#{email}"}
-  And %{I sign in as "#{email}"}
-end
+# Sign in
 
 Given /^I sign in$/ do
   email = Factory.next(:email)
-  Given %{I have signed in with "#{email}"}
+  steps %{
+    I have signed up with "#{email}"
+    I sign in with "#{email}"
+  }
 end
 
-# Emails
+When /^I sign in (?:with|as) "([^"]*)"$/ do |email|
+  When %{I sign in with "#{email}" and "password"}
+end
 
-Then /^a password reset message should be sent to "(.*)"$/ do |email|
-  user = User.find_by_email(email)
+When /^I sign in (?:with|as) "([^"]*)" and "([^"]*)"$/ do |email, password|
+  visit sign_in_path
+  page.should have_css("input[type='email']")
+
+  fill_in "Email", :with => email
+  fill_in "Password", :with => password
+  click_button "Sign in"
+end
+
+# Sign out
+
+When "I sign out" do
+  visit "/"
+  click_link "Sign out"
+end
+
+# Reset password
+
+When /^I reset the password for "(.*)"$/ do |email|
+  visit new_password_path
+  page.should have_css("input[type='email']")
+
+  fill_in "Email address", :with => email
+  click_button "Reset password"
+end
+
+Then /^instructions for changing my password are emailed to "(.*)"$/ do |email|
+  page.should have_content("instructions for changing your password")
+
+  user = User.find_by_email!(email)
   assert !user.confirmation_token.blank?
   assert !ActionMailer::Base.deliveries.empty?
   result = ActionMailer::Base.deliveries.any? do |email|
@@ -69,39 +76,47 @@ Then /^a password reset message should be sent to "(.*)"$/ do |email|
 end
 
 When /^I follow the password reset link sent to "(.*)"$/ do |email|
-  user = User.find_by_email(email)
+  user = User.find_by_email!(email)
   visit edit_user_password_path(:user_id => user,
                                 :token   => user.confirmation_token)
 end
 
-When /^I try to change the password of "(.*)" without token$/ do |email|
-  user = User.find_by_email(email)
+When /^I change the password of "(.*)" without token$/ do |email|
+  user = User.find_by_email!(email)
   visit edit_user_password_path(:user_id => user)
 end
 
-# Actions
-
-When /^I sign in (?:with|as) "(.*)"$/ do |email|
-  When %{I go to the sign in page}
-  And %{I fill in "Email" with "#{email}"}
-  And %{I fill in "Password" with "password"}
-  And %{I press "Sign in"}
-end
-
-When "I sign out" do
-  steps %{
-    When I go to the homepage
-    And I follow "Sign out"
-  }
-end
-
-When /^I request password reset link to be sent to "(.*)"$/ do |email|
-  When %{I go to the password reset request page}
-  And %{I fill in "Email address" with "#{email}"}
-  And %{I press "Reset password"}
-end
-
 When /^I update my password with "(.*)"$/ do |password|
-  And %{I fill in "Choose password" with "#{password}"}
-  And %{I press "Save this password"}
+  fill_in "Choose password", :with => password
+  click_button "Save this password"
+end
+
+# Flashes
+
+Then /^I am told email or password is bad$/ do
+  page.should have_content("Bad email or password")
+end
+
+Then /^I am told email is unknown$/ do
+  page.should have_content("Unknown email")
+end
+
+Then /^I am told to enter a valid email address$/ do
+  page.should have_content("Must be a valid email address")
+end
+
+Then /^I am told to enter a password$/ do
+  page.should have_content("Password can't be blank")
+end
+
+# Verification
+
+Then /^I should be signed in$/ do
+  visit "/"
+  page.should have_content "Sign out"
+end
+
+Then /^I should be signed out$/ do
+  visit "/"
+  page.should have_content "Sign in"
 end

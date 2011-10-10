@@ -4,24 +4,14 @@ Feature: Sign up
   As a visitor
   I want to sign up
 
-  Background:
-    When I go to the sign up page
-    Then I should see an email field
-
   Scenario: Visitor signs up with invalid email
-    When I fill in "Email" with "invalidemail"
-    And I fill in "Password" with "password"
-    And I press "Sign up"
-    Then I should see "Must be a valid email address"
+    When I sign up with "invalidemail" and "password"
+    Then I am told to enter a valid email address
 
   Scenario: Visitor signs up with blank password
-    When I fill in "Email" with "email@example.com"
-    And I fill in "Password" with ""
-    And I press "Sign up"
-    Then I should see "Password can't be blank"
+    When I sign up with "email@example.com" and ""
+    Then I am told to enter a password
 
   Scenario: Visitor signs up with valid data
-    When I fill in "Email" with "email@example.com"
-    And I fill in "Password" with "password"
-    And I press "Sign up"
-    Then I should be on the home page
+    When I sign up with "email@example.com" and "password"
+    Then I should be signed in
