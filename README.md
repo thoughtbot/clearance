@@ -79,13 +79,33 @@ maybe in an API:
 
     User.authenticate("email@example.com", "password")
 
+Clearance will deliver one email on your app's behalf: when a user resets their password. Therefore, you should change the default email address that email comes from:
+
+    # config/initializers/clearance.rb
+    Clearance.configure do |config|
+      config.mailer_sender = "me@example.com"
+    end
+
 Overriding defaults
 -------------------
 
 Clearance is intended to be small, simple, well-tested, and easy to override defaults.
 
-If you ever need to change the logic in any of the four provided controllers,
-subclass the Clearance controller. You don't need to do this by default.
+Overriding routes
+-----------------
+
+See [config/routes.rb](https://github.com/thoughtbot/clearance/blob/master/config/routes.rb) for the default behavior.
+
+To override a Clearance route, redefine it:
+
+    resource :session, :controller => 'sessions'
+
+Overriding controllers
+----------------------
+
+See [app/controllers/clearance](https://github.com/thoughtbot/clearance/tree/master/app/controllers/clearance) for the default behavior.
+
+To override a Clearance controller, subclass it:
 
     class SessionsController < Clearance::SessionsController
       def new
@@ -97,18 +117,71 @@ subclass the Clearance controller. You don't need to do this by default.
       end
     end
 
-and add your route in config/routes.rb:
+You may want to override entire actions:
 
-    resource :session, :controller => 'sessions'
+    def new
+    end
 
-See config/routes.rb for all the routes Clearance provides.
+Or, you may want to override private methods that actions use:
 
-Actions that redirect (create, update, and destroy) in Clearance controllers
-can be overridden by re-defining url\_after\_(action) methods as seen above.
+    url_after_create
+    url_after_update
+    url_after_destroy
+    flash_failure_after_create
+    flash_failure_after_update
+    flash_failure_when_forbidden
+    forbid_missing_token
+    forbid_non_existent_user
 
-Clearance is an engine, so it provides views for you. If you want to customize those views, there is a handy shortcut to copy the views into your app:
+Overriding translations
+-----------------------
+
+All flash messages and email subject lines are stored in [i18n translations](http://guides.rubyonrails.org/i18n.html). Override them like any other translation.
+
+Overriding views
+----------------
+
+See [app/views](https://github.com/thoughtbot/clearance/tree/master/app/views) for the default behavior.
+
+To override those **views**, create them in your own `app/views` directory.
+
+There is a shortcut to copy all Clearance views into your app:
 
     rails generate clearance:views
+
+Overriding the model
+--------------------
+
+If you want to override the **model** behavior, you can include sub-modules of `Clearance::User`:
+
+    extend  Clearance::User::ClassMethods
+    include Clearance::User::Validations
+    include Clearance::User::Callbacks
+
+`ClassMethods` contains the `User.authenticate(email, password)` method.
+
+`Validations` contains validations for email and password.
+
+`Callbacks` contains `ActiveRecord` callbacks downcasing the email and generating a remember token.
+
+Overriding the password strategy
+--------------------------------
+
+By default, Clearance uses SHA1 encryption of the user's password. You can provide your own password strategy by creating a module that conforms to an API of two instance methods:
+
+    def authenticated?
+    end
+
+    def encrypt_password
+    end
+
+See [lib/clearance/password_strategies/sha1.rb](https://github.com/thoughtbot/clearance/blob/master/lib/clearance/password_strategies/sha1.rb) for the default behavior.
+
+Once you have an API-compliant module, load it with:
+
+    Clearance.configure do |config|
+      config.password_strategy = MyPasswordStrategy
+    end
 
 Optional Cucumber features
 --------------------------

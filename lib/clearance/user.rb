@@ -10,7 +10,7 @@ module Clearance
     # extend and include à la carte.
     #
     # @example
-    #   include Callbacks
+    #   include Clearance::User::Callbacks
     #
     # @see Validations
     # @see Callbacks
