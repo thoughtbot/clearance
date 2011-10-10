@@ -3,7 +3,7 @@
 require 'rubygems'
 require 'bundler/setup'
 require 'rake'
-require 'rake/gempackagetask'
+require 'rubygems/package_task'
 require 'cucumber/rake/task'
 require 'diesel/tasks'
 require 'rspec/core/rake_task'
