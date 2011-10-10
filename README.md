@@ -113,7 +113,7 @@ Clearance is an engine, so it provides views for you. If you want to customize t
 Optional Cucumber features
 --------------------------
 
-Clearance's Cucumber features are dependant on:
+Clearance's Cucumber features are dependent on:
 
 * Cucumber
 * Capybara
