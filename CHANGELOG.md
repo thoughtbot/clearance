@@ -1,3 +1,12 @@
+0.13.0 (unreleased)
+-------------------
+
+* [#170] In Clearance's optional generated features, use pure Capybara instead of depending on Cucumber's removed web_steps, paths, and selectors. (Dan Croak)
+* [#167] Extract SHA-1-specific code out of `User` into `PasswordStrategies` module. (Vladimir Andrijevik)
+* [#164] Extract sign in form so that other methods can be added easily. (Subhash Chandra)
+* [#165] Test against Rails 3.1. (Dan Croak) Required upgrades to Diesel and Appraisal. (Dan Croak, Mike Burns, Chad Pytel)
+* [#160] Improved README documentation for overrides. (Dan Croak)
+
 0.12.0
 -------------------
 
