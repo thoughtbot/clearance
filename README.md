@@ -113,6 +113,13 @@ Clearance is an engine, so it provides views for you. If you want to customize t
 Optional Cucumber features
 --------------------------
 
+Clearance's Cucumber features are dependant on:
+
+* Cucumber
+* Capybara
+* RSpec
+* Factory Girl
+
 As your app evolves, you want to know that authentication still works. If you've
 installed [Cucumber](http://cukes.info) into your app:
 
