@@ -1,4 +1,4 @@
-0.13.0 (unreleased)
+0.13.0
 -------------------
 
 * [#170] In Clearance's optional generated features, use pure Capybara instead of depending on Cucumber's removed web_steps, paths, and selectors. (Dan Croak)
