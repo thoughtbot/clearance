@@ -5,7 +5,7 @@ Rails authentication & authorization with email & password.
 
 [We have clearance, Clarence.](http://www.youtube.com/watch?v=fVq4_HhBK8Y)
 
-Clearance was extracted out of [Hoptoad](http://hoptoadapp.com).
+Clearance was extracted out of [Airbrake](http://airbrakeapp.com/).
 
 Help
 ----
