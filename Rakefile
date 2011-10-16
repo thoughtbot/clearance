@@ -25,3 +25,5 @@ Cucumber::Rake::Task.new(:cucumber) do |t|
   t.fork = true
   t.cucumber_opts = ['--format', (ENV['CUCUMBER_FORMAT'] || 'progress')]
 end
+
+Bundler::GemHelper.install_tasks
