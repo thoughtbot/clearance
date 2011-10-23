@@ -108,8 +108,8 @@ module Clearance
       save
     end
 
-    def password=(unencrypted_password)
-      @password = unencrypted_password
+    def password=(new_password)
+      @password = new_password
       encrypt_password
     end
 
