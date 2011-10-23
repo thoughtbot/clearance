@@ -6,9 +6,9 @@ Given /^(?:I am|I have|I) signed up (?:as|with) "(.*)"$/ do |email|
   FactoryGirl.create(:user, :email => email)
 end
 
-Given /^a user "([^"]*)" exists without a salt, remember token, or password$/ do |email|
+Given /^a user "([^"]*)" exists without a remember token or password$/ do |email|
   user = FactoryGirl.create(:user, :email => email)
-  sql  = "update users set salt = NULL, encrypted_password = NULL, remember_token = NULL where id = #{user.id}"
+  sql  = "update users set encrypted_password = NULL, remember_token = NULL where id = #{user.id}"
   ActiveRecord::Base.connection.update(sql)
 end
 

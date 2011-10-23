@@ -1,7 +1,7 @@
 module Clearance
   module PasswordStrategies
-    module SHA1
-      require 'digest/sha1'
+    module BCrypt
+      require 'bcrypt'
 
       extend ActiveSupport::Concern
 
@@ -12,12 +12,11 @@ module Clearance
       # @example
       #   user.authenticated?('password')
       def authenticated?(password)
-        encrypted_password == encrypt(password)
+        ::BCrypt::Password.new(encrypted_password) == password
       end
 
       def password=(new_password)
         @password = new_password
-        initialize_salt_if_necessary
         if new_password.present?
           self.encrypted_password = encrypt(new_password)
         end
@@ -25,22 +24,8 @@ module Clearance
 
       private
 
-      def generate_hash(string)
-        if RUBY_VERSION >= '1.9'
-          Digest::SHA1.hexdigest(string).encode('UTF-8')
-        else
-          Digest::SHA1.hexdigest(string)
-        end
-      end
-
-      def encrypt(string)
-        generate_hash("--#{salt}--#{string}--")
-      end
-
-      def initialize_salt_if_necessary
-        if salt.blank?
-          self.salt = generate_random_code
-        end
+      def encrypt(password)
+        ::BCrypt::Password.create(password)
       end
     end
   end
