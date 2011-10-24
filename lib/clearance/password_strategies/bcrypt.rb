@@ -12,19 +12,14 @@ module Clearance
       # @example
       #   user.authenticated?('password')
       def authenticated?(password)
-        decrypted_password == password
+        ::BCrypt::Password.new(encrypted_password) == password
       end
 
-      protected
-
-      def encrypt_password
-        if password.present?
-          self.encrypted_password = ::BCrypt::Password.create(password)
+      def password=(new_password)
+        @password = new_password
+        if new_password.present?
+          self.encrypted_password = ::BCrypt::Password.create(new_password)
         end
-      end
-
-      def decrypted_password
-        ::BCrypt::Password.new(encrypted_password)
       end
     end
   end

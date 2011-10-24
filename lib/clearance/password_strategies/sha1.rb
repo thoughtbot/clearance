@@ -1,8 +1,10 @@
-require 'digest/sha1'
-
 module Clearance
   module PasswordStrategies
     module SHA1
+      require 'digest/sha1'
+
+      extend ActiveSupport::Concern
+
       # Am I authenticated with given password?
       #
       # @param [String] plain-text password
@@ -13,14 +15,15 @@ module Clearance
         encrypted_password == encrypt(password)
       end
 
-      protected
-
-      def encrypt_password
+      def password=(new_password)
+        @password = new_password
         initialize_salt_if_necessary
-        if password.present?
-          self.encrypted_password = encrypt(password)
+        if new_password.present?
+          self.encrypted_password = encrypt(new_password)
         end
       end
+
+      private
 
       def generate_hash(string)
         if RUBY_VERSION >= '1.9'

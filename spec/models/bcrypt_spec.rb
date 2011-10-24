@@ -3,12 +3,12 @@ require 'spec_helper'
 describe Clearance::PasswordStrategies::BCrypt do
   subject do
     Class.new do
-      attr_accessor :password, :encrypted_password
+      attr_accessor :encrypted_password
       include Clearance::PasswordStrategies::BCrypt
     end.new
   end
 
-  describe "#encrypt_password" do
+  describe "#password=" do
     let(:password)           { "password" }
     let(:encrypted_password) { stub("encrypted password") }
 
@@ -16,7 +16,6 @@ describe Clearance::PasswordStrategies::BCrypt do
       BCrypt::Password.stubs(:create => encrypted_password)
 
       subject.password = password
-      subject.send(:encrypt_password)
     end
 
     it "encrypts the password into encrypted_password" do
@@ -33,7 +32,6 @@ describe Clearance::PasswordStrategies::BCrypt do
 
     before do
       subject.password = password
-      subject.send(:encrypt_password)
     end
 
     it "is authenticated with BCrypt" do
