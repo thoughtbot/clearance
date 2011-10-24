@@ -187,15 +187,15 @@ If you want to override the **model** behavior, you can include sub-modules of `
 Overriding the password strategy
 --------------------------------
 
-By default, Clearance uses SHA1 encryption of the user's password. You can provide your own password strategy by creating a module that conforms to an API of two instance methods:
+By default, Clearance uses BCrypt encryption of the user's password. You can provide your own password strategy by creating a module that conforms to an API of two instance methods:
 
     def authenticated?
     end
 
-    def encrypt_password
+    def password=(new_password)
     end
 
-See [lib/clearance/password_strategies/sha1.rb](https://github.com/thoughtbot/clearance/blob/master/lib/clearance/password_strategies/sha1.rb) for the default behavior. Also see [lib/clearance/password_strategies/blowfish.rb](https://github.com/thoughtbot/clearance/blob/master/lib/clearance/password_strategies/blowfish.rb) for another password strategy. Switching password strategies will cause your existing users' passwords to not work.
+See [lib/clearance/password_strategies/bcrypt.rb](https://github.com/thoughtbot/clearance/blob/master/lib/clearance/password_strategies/bcrypt.rb) for the default behavior. Also see [lib/clearance/password_strategies/blowfish.rb](https://github.com/thoughtbot/clearance/blob/master/lib/clearance/password_strategies/blowfish.rb) for another password strategy. Switching password strategies will cause your existing users' passwords to not work.
 
 Once you have an API-compliant module, load it with:
 

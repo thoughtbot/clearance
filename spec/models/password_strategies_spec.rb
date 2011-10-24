@@ -26,8 +26,8 @@ describe Clearance::User do
   describe "when Clearance.configuration.password_strategy is not set" do
     before { Clearance.configuration.password_strategy = nil }
 
-    it "includes Clearance::PasswordStrategies::SHA1" do
-      subject.should be_kind_of(Clearance::PasswordStrategies::SHA1)
+    it "includes Clearance::PasswordStrategies::BCrypt" do
+      subject.should be_kind_of(Clearance::PasswordStrategies::BCrypt)
     end
   end
 end
