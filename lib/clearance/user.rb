@@ -67,92 +67,94 @@ module Clearance
       end
     end
 
-    # Set the remember token.
-    #
-    # @deprecated Use {#reset_remember_token!} instead
-    def remember_me!
-      warn "[DEPRECATION] remember_me!: use reset_remember_token! instead"
-      reset_remember_token!
-    end
+    module InstanceMethods
+      # Set the remember token.
+      #
+      # @deprecated Use {#reset_remember_token!} instead
+      def remember_me!
+        warn "[DEPRECATION] remember_me!: use reset_remember_token! instead"
+        reset_remember_token!
+      end
 
-    # Reset the remember token.
-    #
-    # @example
-    #   user.reset_remember_token!
-    def reset_remember_token!
-      generate_remember_token
-      save(:validate => false)
-    end
-
-    # Mark my account as forgotten password.
-    #
-    # @example
-    #   user.forgot_password!
-    def forgot_password!
-      generate_confirmation_token
-      save(:validate => false)
-    end
-
-    # Update my password.
-    #
-    # @return [true, false] password was updated or not
-    # @example
-    #   user.update_password('new-password')
-    def update_password(new_password)
-      self.password_changing = true
-      self.password          = new_password
-      if valid?
-        self.confirmation_token = nil
+      # Reset the remember token.
+      #
+      # @example
+      #   user.reset_remember_token!
+      def reset_remember_token!
         generate_remember_token
+        save(:validate => false)
       end
-      save
-    end
 
-    def password=(unencrypted_password)
-      @password = unencrypted_password
-      encrypt_password
-    end
-
-    protected
-
-    def generate_random_code(length = 20)
-      if RUBY_VERSION >= '1.9'
-        SecureRandom.hex(length).encode('UTF-8')
-      else
-        SecureRandom.hex(length)
+      # Mark my account as forgotten password.
+      #
+      # @example
+      #   user.forgot_password!
+      def forgot_password!
+        generate_confirmation_token
+        save(:validate => false)
       end
-    end
 
-    def generate_remember_token
-      self.remember_token = generate_random_code
-    end
+      # Update my password.
+      #
+      # @return [true, false] password was updated or not
+      # @example
+      #   user.update_password('new-password')
+      def update_password(new_password)
+        self.password_changing = true
+        self.password          = new_password
+        if valid?
+          self.confirmation_token = nil
+          generate_remember_token
+        end
+        save
+      end
 
-    def generate_confirmation_token
-      self.confirmation_token = generate_random_code
-    end
+      def password=(unencrypted_password)
+        @password = unencrypted_password
+        encrypt_password
+      end
 
-    # Always false. Override to allow other forms of authentication
-    # (username, facebook, etc).
-    # @return [Boolean] true if the email field be left blank for this user
-    def email_optional?
-      false
-    end
+      protected
 
-    # True if the password has been set and the password is not being
-    # updated and we are not updating the password. Override to allow
-    # other forms of authentication (username, facebook, etc).
-    # @return [Boolean] true if the password field can be left blank for this user
-    def password_optional?
-      encrypted_password.present? && password.blank? && password_changing.blank?
-    end
+      def generate_random_code(length = 20)
+        if RUBY_VERSION >= '1.9'
+          SecureRandom.hex(length).encode('UTF-8')
+        else
+          SecureRandom.hex(length)
+        end
+      end
 
-    def password_required?
-      # warn "[DEPRECATION] password_required?: use !password_optional? instead"
-      !password_optional?
-    end
+      def generate_remember_token
+        self.remember_token = generate_random_code
+      end
 
-    def downcase_email
-      self.email = email.to_s.downcase
+      def generate_confirmation_token
+        self.confirmation_token = generate_random_code
+      end
+
+      # Always false. Override to allow other forms of authentication
+      # (username, facebook, etc).
+      # @return [Boolean] true if the email field be left blank for this user
+      def email_optional?
+        false
+      end
+
+      # True if the password has been set and the password is not being
+      # updated and we are not updating the password. Override to allow
+      # other forms of authentication (username, facebook, etc).
+      # @return [Boolean] true if the password field can be left blank for this user
+      def password_optional?
+        encrypted_password.present? && password.blank? && password_changing.blank?
+      end
+
+      def password_required?
+        # warn "[DEPRECATION] password_required?: use !password_optional? instead"
+        !password_optional?
+      end
+
+      def downcase_email
+        self.email = email.to_s.downcase
+      end
     end
   end
 end
