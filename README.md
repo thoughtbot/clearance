@@ -17,7 +17,7 @@ Help
 Installation
 ------------
 
-Clearance is a Rails engine for Rails 3. It is currently tested against Rails 3.0.9 and Rails 3.1.0.rc4.
+Clearance is a Rails engine for Rails 3. It is currently tested against Rails 3.0.9 and Rails 3.1.0.
 
 Include the gem in your Gemfile:
 
