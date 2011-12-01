@@ -86,6 +86,26 @@ Clearance will deliver one email on your app's behalf: when a user resets their 
       config.mailer_sender = "me@example.com"
     end
 
+Rack
+----
+
+Clearance adds its session to the Rack environment hash so middleware and other
+Rack applications can interact with it:
+
+    class Bubblegum::Middleware
+      def initialize(app)
+        @app = app
+      end
+
+      def call(env)
+        if env[:clearance].signed_in?
+          env[:clearance].current_user.bubble_gum
+        end
+        @app.call(env)
+      end
+    end
+
+
 Overriding defaults
 -------------------
 
@@ -214,16 +234,18 @@ Then run your tests!
 
     rake
 
-Optional test matchers
-----------------------
+Testing
+-------
 
-Clearance comes with test matchers that are compatible with RSpec and Test::Unit.
+If you want to write Rails functional tests or controller specs with Clearance,
+you'll need to require the  included test helpers and matchers.
 
-To use them, require the test matchers. For example, in spec/support/clearance.rb:
+For example, in spec/support/clearance.rb or test/test_helper.rb:
 
     require 'clearance/testing'
 
-You'll then have access to methods like:
+This will make Clearance::Authentication methods work in your controllers
+during functional tests and provide access to helper methods like:
 
     sign_in
     sign_in_as(user)

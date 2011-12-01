@@ -10,6 +10,8 @@ Bundler.require
 
 require 'diesel/testing'
 require 'rspec/rails'
+require 'bourne'
+require 'timecop'
 
 require 'clearance/testing'
 
