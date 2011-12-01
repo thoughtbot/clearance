@@ -14,16 +14,15 @@ describe Clearance::Configuration do
 
   describe "when a custom user_model_name is specified" do
     before do
-      Clearance.configure do |config|
-        config.user_model_name = 'MyUser'
-      end
-
       MyUser = Class.new
+      Clearance.configure do |config|
+        config.user_model = MyUser
+      end
     end
 
     after do
       Clearance.configure do |config|
-        config.user_model_name = '::User'
+        config.user_model = ::User
       end
     end
 
