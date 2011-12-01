@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Clearance::Authenticator do
+describe Clearance::RackSession do
   it "injects a clearance session into the environment" do
     expected_session = "the session"
     expected_session.stubs(:add_cookie_to_headers)
@@ -8,7 +8,7 @@ describe Clearance::Authenticator do
     headers = { "X-Roaring-Lobster" => "Red" }
 
     app = Rack::Builder.new do
-      use Clearance::Authenticator
+      use Clearance::RackSession
       run lambda { |env| Rack::Response.new(env[:clearance], 200, headers).finish }
     end
 

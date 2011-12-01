@@ -1,5 +1,5 @@
 module Clearance
-  class Authenticator
+  class RackSession
     def initialize(app)
       @app = app
     end

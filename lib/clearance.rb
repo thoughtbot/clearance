@@ -1,6 +1,6 @@
 require 'clearance/configuration'
 require 'clearance/session'
-require 'clearance/authenticator'
+require 'clearance/rack_session'
 require 'clearance/authentication'
 require 'clearance/user'
 require 'clearance/engine'
