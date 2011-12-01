@@ -12,7 +12,7 @@ module Clearance
 
     def current_user
       @current_user ||= with_remember_token do |token|
-        ::User.find_by_remember_token(token)
+        Clearance.configuration.user_model.find_by_remember_token(token)
       end
     end
 
