@@ -30,7 +30,8 @@ Gem::Specification.new do |s|
   s.add_development_dependency('cucumber-rails', '~> 1.0.2')
   s.add_development_dependency('rspec-rails',    '~> 2.6.0')
   s.add_development_dependency('sqlite3')
-  s.add_development_dependency('mocha')
+  s.add_development_dependency('bourne')
+  s.add_development_dependency('timecop')
 
   if s.respond_to? :specification_version then
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION

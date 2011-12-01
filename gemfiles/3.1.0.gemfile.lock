@@ -5,9 +5,9 @@ GIT
     shoulda-matchers (1.0.0.beta3)
 
 PATH
-  remote: /Users/croaky/dev/clearance
+  remote: /Users/jferris/Source/clearance
   specs:
-    clearance (0.12.0)
+    clearance (0.13.0)
       diesel (~> 0.1.5)
       rails (>= 3.0)
 
@@ -154,7 +154,7 @@ GEM
     sprockets (2.0.0)
       hike (~> 1.2)
       rack (~> 1.0)
-      tilt (!= 1.3.0, ~> 1.1)
+      tilt (~> 1.1, != 1.3.0)
     spruz (0.2.13)
     sqlite3 (1.3.4)
     term-ansicolor (1.0.6)

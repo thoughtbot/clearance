@@ -13,6 +13,11 @@ module Clearance
       def sign_out
         @controller.current_user = nil
       end
+
+      def setup_controller_request_and_response
+        super
+        @request.env[:clearance] = Clearance::Session.new(@request.env)
+      end
     end
   end
 end
