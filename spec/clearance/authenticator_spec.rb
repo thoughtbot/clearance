@@ -5,7 +5,7 @@ describe Clearance::Authenticator do
     expected_session = "the session"
     expected_session.stubs(:add_cookie_to_headers)
     Clearance::Session.stubs(:new => expected_session)
-    headers = { "X-Magic-Pony" => "Pink" }
+    headers = { "X-Roaring-Lobster" => "Red" }
 
     app = Rack::Builder.new do
       use Clearance::Authenticator
