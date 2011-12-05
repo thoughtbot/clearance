@@ -21,6 +21,7 @@ require 'rails/test_help'
 require 'cucumber/rails/world'
 require 'cucumber/rails/hooks'
 require 'cucumber/rails/capybara'
+require 'cucumber/rails/database'
 
 # Capybara defaults to XPath selectors rather than Webrat's default of CSS3. In
 # order to ease the transition to Capybara we set the default here. If you'd
