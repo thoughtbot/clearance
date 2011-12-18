@@ -10,32 +10,32 @@ module Clearance
                     :authorize,    :deny_access
     end
 
-    # User in the current cookie
+    # Finds the user from the rack clearance session
     #
     # @return [User, nil]
     def current_user
-      @_current_user ||= user_from_cookie
+      clearance_session.current_user
     end
 
     # Set the current user
     #
     # @param [User]
     def current_user=(user)
-      @_current_user = user
+      clearance_session.sign_in user
     end
 
     # Is the current user signed in?
     #
     # @return [true, false]
     def signed_in?
-      ! current_user.nil?
+      clearance_session.signed_in?
     end
 
     # Is the current user signed out?
     #
     # @return [true, false]
     def signed_out?
-      current_user.nil?
+      !signed_in?
     end
 
     # Sign user in to cookie.
@@ -45,13 +45,7 @@ module Clearance
     # @example
     #   sign_in(@user)
     def sign_in(user)
-      if user
-        cookies[:remember_token] = {
-          :value   => user.remember_token,
-          :expires => Clearance.configuration.cookie_expiration.call
-        }
-        self.current_user = user
-      end
+      clearance_session.sign_in user
     end
 
     # Sign user out of cookie.
@@ -59,9 +53,7 @@ module Clearance
     # @example
     #   sign_out
     def sign_out
-      current_user.reset_remember_token! if current_user
-      cookies.delete(:remember_token)
-      self.current_user = nil
+      clearance_session.sign_out
     end
 
     # Find the user by the given params or return nil.
@@ -107,10 +99,8 @@ module Clearance
 
     protected
 
-    def user_from_cookie
-      if token = cookies[:remember_token]
-        ::User.find_by_remember_token(token)
-      end
+    def clearance_session
+      request.env[:clearance]
     end
 
     def store_location

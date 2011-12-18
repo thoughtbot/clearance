@@ -20,60 +20,12 @@ describe Clearance::SessionsController do
 
     it { should redirect_to_url_after_create }
 
-    it "sets a remember token cookie" do
-      should set_cookie("remember_token", "old-token", Clearance.configuration.cookie_expiration.call)
-    end
-
-    it "should have a default of 1 year from now" do
-      Clearance.configuration.cookie_expiration.call.should be_within(100).of(1.year.from_now)
+    it "sets the user in the clearance session" do
+      controller.current_user.should == @user
     end
 
     it "should not change the remember token" do
       @user.reload.remember_token.should == "old-token"
-    end
-  end
-
-  describe "on POST to #create with good credentials - cookie duration set to 2 weeks" do
-    custom_duration = 2.weeks.from_now.utc
-
-    before do
-      Clearance.configuration.cookie_expiration = lambda { custom_duration }
-      @user = Factory(:user)
-      @user.update_attribute(:remember_token, "old-token2")
-      post :create, :session => {
-                      :email    => @user.email,
-                      :password => @user.password }
-    end
-
-    it "sets a remember token cookie" do
-      should set_cookie("remember_token", "old-token2", custom_duration)
-    end
-
-    after do
-      # restore default Clearance configuration
-      Clearance.configuration = nil
-      Clearance.configure {}
-    end
-  end
-
-  describe "on POST to #create with good credentials - cookie expiration set to nil (session cookie)" do
-    before do
-      Clearance.configuration.cookie_expiration = lambda { nil }
-      @user = Factory(:user)
-      @user.update_attribute(:remember_token, "old-token3")
-      post :create, :session => {
-                      :email    => @user.email,
-                      :password => @user.password }
-    end
-
-    it "unsets a remember token cookie" do
-      should set_cookie("remember_token", "old-token3", nil)
-    end
-
-    after do
-      # restore default Clearance configuration
-      Clearance.configuration = nil
-      Clearance.configure {}
     end
   end
 
@@ -140,10 +92,6 @@ describe Clearance::SessionsController do
     end
 
     it { should redirect_to_url_after_destroy }
-
-    it "should delete the cookie token" do
-      cookies['remember_token'].should be_nil
-    end
 
     it "should reset the remember token" do
       @user.reload.remember_token.should_not == "old-token"
