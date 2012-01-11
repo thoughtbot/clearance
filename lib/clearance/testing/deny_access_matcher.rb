@@ -38,14 +38,26 @@ module Clearance
           if @flash.blank?
             true
           else
-            if @controller.flash[:notice].try(:values).try(:first) == @flash
+            if flash_notice_value == @flash
               @negative_failure_message << "Didn't expect to set the flash to #{@flash}"
               true
             else
-              @failure_message << "Expected the flash to be set to #{@flash} but was #{@controller.flash[:notice].try(:values).try(:first)}"
+              @failure_message << "Expected the flash to be set to #{@flash} but was #{flash_notice_value}"
               false
             end
           end
+        end
+
+        def flash_notice_value
+          if flash_notice.respond_to?(:values)
+            flash_notice.values.first
+          else
+            flash_notice
+          end
+        end
+
+        def flash_notice
+          @controller.flash[:notice]
         end
 
         def redirects_to_url?
