@@ -15,7 +15,7 @@ class DeniesController < ActionController::Base
   protected
 
   def authorize
-    deny_access(:flash => "Access denied.")
+    deny_access("Access denied.")
   end
 end
 
