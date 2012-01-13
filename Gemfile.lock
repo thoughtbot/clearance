@@ -7,7 +7,7 @@ GIT
 PATH
   remote: .
   specs:
-    clearance (0.13.0)
+    clearance (0.13.1)
       diesel (~> 0.1.5)
       rails (>= 3.0)
 
@@ -104,7 +104,7 @@ GEM
     mocha (0.9.8)
       rake
     nokogiri (1.5.0)
-    polyglot (0.3.2)
+    polyglot (0.3.3)
     rack (1.2.3)
     rack-mount (0.6.14)
       rack (>= 1.0.0)
