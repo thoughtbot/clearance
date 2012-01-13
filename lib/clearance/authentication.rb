@@ -64,8 +64,8 @@ module Clearance
     # @example
     #   @user = authenticate(params)
     def authenticate(params)
-      ::User.authenticate(params[:session][:email],
-                          params[:session][:password])
+      Clearance.configuration.user_model.authenticate(params[:session][:email],
+                                                      params[:session][:password])
     end
 
     # Deny the user access if they are signed out.
