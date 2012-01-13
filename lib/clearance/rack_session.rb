@@ -6,8 +6,8 @@ module Clearance
 
     def call(env)
       session = Clearance::Session.new(env)
-      env_with_clearance = env.merge(:clearance => session)
-      response = @app.call(env_with_clearance)
+      env[:clearance] = session
+      response = @app.call(env)
       session.add_cookie_to_headers response[1]
       response
     end
