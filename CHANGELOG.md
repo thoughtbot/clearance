@@ -1,3 +1,13 @@
+0.14.0
+-------------------
+
+* Support clearance session management from the Rack environment (Joe Ferris)
+
+0.13.2
+-------------------
+
+* Fixed the denies_access matcher (Chad Pytel, Joe Ferris)
+
 0.13.0
 -------------------
 
