@@ -1,0 +1,26 @@
+2012-02-03  Mike Burns  <mburns@thoughtbot.com>
+
+	* Gemfile, clearance.gemspec, 3.1.0.gemfile, 3.0.9.gemfile:
+	Upgrade cucumber-rails, which requires use of the #steps method.
+	* VERSION:
+	Bump to 0.15.0
+
+2012-02-02  Gabe Berke-Williams  <gabe@thoughtbot.com>
+
+	* user.rb:
+	Remove InstanceMethods module. It's deprecated in 3.2 and unnecessary in all
+	versions. 
+
+2012-01-16  Matthew Daubert  <mdaubert@gmail.com>
+
+	* clearance_steps.rb:
+	`When` is deprecated in step definitions, changed to `step`.
+
+2011-12-01  Dan Hodge  <dan@swipely.com>
+
+	* Rakefile, passwords_controller.rb, users_controller.rb, authentication.rb,
+	configuration.rb, configuration_spec.rb, passwords_controller_spec.rb,
+	session.rb:
+	Optional config param 'user_model_name' added
+	Defer user_model load so it can be a constant
+	Find user via the configured user model class

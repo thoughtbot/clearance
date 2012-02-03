@@ -1,0 +1,5 @@
+New for 0.15.0:
+
+* The User model can be swapped out using the Clearance.configure method.
+* Remove User::InstanceMethods to silence a Rails 3.2 deprecation warning.
+* Bump development dependency of cucumber-rails to 1.1.1.
