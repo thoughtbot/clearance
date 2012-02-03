@@ -32,7 +32,7 @@ Given /^I sign in$/ do
 end
 
 When /^I sign in (?:with|as) "([^"]*)"$/ do |email|
-  When %{I sign in with "#{email}" and "password"}
+  step %{I sign in with "#{email}" and "password"}
 end
 
 When /^I sign in (?:with|as) "([^"]*)" and "([^"]*)"$/ do |email, password|
