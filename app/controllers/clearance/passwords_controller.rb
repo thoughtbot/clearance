@@ -10,7 +10,8 @@ class Clearance::PasswordsController < ApplicationController
   end
 
   def create
-    if user = ::User.find_by_email(params[:password][:email])
+    if user = Clearance.configuration.user_model.find_by_email(
+                   params[:password][:email])
       user.forgot_password!
       ::ClearanceMailer.change_password(user).deliver
       render :template => 'passwords/create'
@@ -21,13 +22,13 @@ class Clearance::PasswordsController < ApplicationController
   end
 
   def edit
-    @user = ::User.find_by_id_and_confirmation_token(
+    @user = Clearance.configuration.user_model.find_by_id_and_confirmation_token(
                    params[:user_id], params[:token])
     render :template => 'passwords/edit'
   end
 
   def update
-    @user = ::User.find_by_id_and_confirmation_token(
+    @user = Clearance.configuration.user_model.find_by_id_and_confirmation_token(
                    params[:user_id], params[:token])
 
     if @user.update_password(params[:user][:password])
@@ -49,7 +50,7 @@ class Clearance::PasswordsController < ApplicationController
   end
 
   def forbid_non_existent_user
-    unless ::User.find_by_id_and_confirmation_token(
+    unless Clearance.configuration.user_model.find_by_id_and_confirmation_token(
                   params[:user_id], params[:token])
       flash_failure_when_forbidden
       render :template => 'passwords/new'

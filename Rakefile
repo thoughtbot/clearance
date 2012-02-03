@@ -17,9 +17,7 @@ task :all => ["appraisal:install"] do |t|
   exec('rake appraisal spec cucumber')
 end
 
-RSpec::Core::RakeTask.new do |t|
-  t.pattern = 'spec/**/*_spec.rb'
-end
+RSpec::Core::RakeTask.new(:spec)
 
 Cucumber::Rake::Task.new(:cucumber) do |t|
   t.fork = true
