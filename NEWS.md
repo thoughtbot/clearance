@@ -1,15 +1,18 @@
-0.14.0
--------------------
+New for 0.15.0:
+
+* The User model can be swapped out using the Clearance.configure method.
+* Remove User::InstanceMethods to silence a Rails 3.2 deprecation warning.
+* Bump development dependency of cucumber-rails to 1.1.1.
+
+New for 0.14.0:
 
 * Support clearance session management from the Rack environment (Joe Ferris)
 
-0.13.2
--------------------
+New for 0.13.2:
 
 * Fixed the denies_access matcher (Chad Pytel, Joe Ferris)
 
-0.13.0
--------------------
+New for 0.13.0:
 
 * [#170] In Clearance's optional generated features, use pure Capybara instead of depending on Cucumber's removed web_steps, paths, and selectors. (Dan Croak)
 * [#167] Extract SHA-1-specific code out of `User` into `PasswordStrategies` module. (Vladimir Andrijevik)
@@ -17,8 +20,7 @@
 * [#165] Test against Rails 3.1. (Dan Croak) Required upgrades to Diesel and Appraisal. (Dan Croak, Mike Burns, Chad Pytel)
 * [#160] Improved README documentation for overrides. (Dan Croak)
 
-0.12.0
--------------------
+New for 0.12.0:
 
 * [#129] Denying access redirects to root_url when signed in, sign_in_url when signed out. (Dan Croak)
 * Using flash :notice key everywhere now instead of :success and :failure. More in line with Rails conventions. (Dan Croak)
@@ -26,15 +28,13 @@
 * [#147] Resetting password no longer redirects to sign in page. It displays a message telling them to look for an email. (Dan Croak)
 * Removed redundant flash messages. ("Signed in.", "Signed out.", and "You are now signed up.") (Dan Croak)
 
-0.11.2
--------------------
+New for 0.11.2:
 
 * Rails 3.1.rc compatible. (Prem Sichanugrist and Dan Croak)
 * Cucumber features no longer require password. (Dan Croak)
 * No more Clearance shoulda_macros. Instead providing RSpec- and Test::Unit-compliant test matchers (sign_in, sign_in_as, should deny_access, etc). (Dan Croak)
 
-0.11.1
--------------------
+New for 0.11.1:
 
 * [#146] Redirect to home page after sign up. (Dan Croak)
 * [#145] Remove dependency on dynamic_form. Replaced with flashes due to limited number of failure cases. (Dan Croak)
@@ -42,21 +42,18 @@
 * [#148] Removing :case_sensitive option from validates_uniqueness_of. It was unnecessary and causes a small performance problem on some apps. (Dan Croak)
 * Only development dependency in gemspec should be bundler. All others are derived by bundling. (Dan Croak)
 
-0.11.0
--------------------
+New for 0.11.0:
 
 * [#141] Removing password confirmation. (Dan Croak)
 * [#143] Use ActiveSupport::Concern and ActiveSupport::SecureRandom to clean up code. (Dan Croak)
 * New controller#authenticate(params) method. Redefine username & password or other styles of authentication. (Dan Croak)
 * before_filter :authenticate API replaced with more aptly-named before_filter :authorize. (Dan Croak)
 
-0.10.5
--------------------
+New for 0.10.5:
 
 * Closing CSRF hole for Rails >= 3.0.4 apps (Mack Earnhardt)
 
-0.10.4
-------------------
+New for 0.10.4:
 
 * Formtastic views generator removed. (Dan Croak)
 * Emails forced to be downcased (particularly for iPhone user case). (Adam Conrad)
@@ -64,23 +61,19 @@
 * [#135] Password reset requires a password. (Joel Meador)
 * [#138] Use HTML5 email fields. (Dan Croak)
 
-0.10.3.2
-------------------
+New for 0.10.3.2:
 
 * Fix gemspec to include all necessary files.
 
-0.10.3.1
-------------------
+New for 0.10.3.1:
 
 * Ensure everything within features inside any engine directory is included in the gemspec
 
-0.10.3
-------------------
+New for 0.10.3:
 
 * Include features/engines in gemspec file list so generator works as expected
 
-0.10.2
-------------------
+New for 0.10.2:
 
 * Replaced test/rails_root & general testing strategy with Diesel. (Joe Ferris)
 * Conveniences in factories for password/confirmation.
@@ -88,14 +81,12 @@
 * Step definitions are now prefixed with visitor_ to use thoughtbot convention. (Dan Croak)
 * When Clearance installed in an app that already has users, allow old users to sign in by resetting their password.
 
-0.10.1
-------------------
+New for 0.10.1:
 
 * replaced ActionController::Forbidden with a user-friendly flash message. (Dan Croak)
 * improved language of Cucumber steps by allowing a little more flexibility. (Dan Croak)
 
-0.10.0
-------------------
+New for 0.10.0:
 
 * Lots of README cleanup
 * Better email validation regex
@@ -106,27 +97,23 @@
   https://github.com/rails/jquery-ujs/issues#issue/30
   http://bugs.jquery.com/ticket/7061
 
-0.9.1
-------------------
+New for 0.9.1:
 
 Forgot to update the changelog in a while, this is going to be brief:
 
 * This release supports Rails 3, capybara, and shoulda 2.10+.
 
-0.8.9
-------------------
+New for 0.8.9:
 
 * Removed unnecessary db index. (Rich Thornett, doctorzaius)
 * [#79] Allow customization of cookie duration. (Ron Newman, Dan Croak)
 * [#77] rake generator:cleanup needed to be... cleaned up. (Ron Newman)
 
-0.8.8 (02/25/2010)
-------------------
+New for 0.8.8 (02/25/2010):
 
 * Fixed sign_in and sign_out not setting current_user (Joe Ferris)
 
-0.8.7 (02/21/2010)
-------------------
+New for 0.8.7 (02/21/2010):
 
 * [#43] Fixed global sign out bug. (Ryan McGreary)
 * [#69] Allow Rails apps to before_filter :authenticate the entire app
@@ -135,8 +122,7 @@ overriding any controllers. (Claudio Poli, Dan Croak)
 * [#72] #[21] Rails3 fix for ActionController/ActionDispatch change.
 (Joseph Holsten, Peter Haza, Dan Croak)
 
-0.8.6 (02/17/2010)
-------------------
+New for 0.8.6 (02/17/2010):
 
 * Clearance features capitalization should match view text (Bobby Wilson)
 * [#39] skip :authenticate before_filter in controllers so apps can easily
@@ -148,8 +134,7 @@ user to sign in from two locations at once. (Ryan McGeary)
  * Allow overridden user models to skip email/password validations
 conditionally. This makes username/facebook integration easier. (Joe Ferris)
 
-0.8.5 (01/20/2010)
-------------------
+New for 0.8.5 (01/20/2010):
 
 * replaced routing hack with Clearance::Routes.draw(map) to give
 more control to the application developer. (Dan Croak)
@@ -160,42 +145,36 @@ more control to the application developer. (Dan Croak)
 * use Clearance.configure block to set mailer sender instead of
 DO_NOT_REPLY constant. (Dan Croak)
 
-0.8.4 (12/08/2009)
-------------------
+New for 0.8.4 (12/08/2009):
 
 * [#48] remove unnecessary require 'factory_girl' in generator (Dan Croak)
 * reference gemcutter (not github) as the gem source in README (Dan Croak)
 * add IRC, rdoc.info links to README (Dan Croak)
 * move user confirmation email trigger into model (Chad Pytel)
 
-0.8.3 (09/21/2009)
-------------------
+New for 0.8.3 (09/21/2009):
 
 * [#27] remove class_eval in Clearance::Authentication. (Anuj Dutta)
 * Avoid possible collisions in the remember me token (Joe Ferris)
 
-0.8.2 (09/01/2009)
-------------------
+New for 0.8.2 (09/01/2009):
 
 * current_user= accessor method. (Joe Ferris, Josh Clayton)
 * set current_user in sign_in. (Jon Yurek)
 
-0.8.1 (08/31/2009)
-------------------
+New for 0.8.1 (08/31/2009):
 
 * Removed unnecessary remember_token_expires_at column and the
 remember? and forget_me! user instance methods. (Dan Croak)
 
-0.8.0 (08/31/2009)
-------------------
+New for 0.8.0 (08/31/2009):
 
 * Always remember me. Replaced session-and-remember-me authentication with
 always using a cookie with a long timeout. (Dan Croak)
 * Documented Clearance::Authentication with YARD. (Dan Croak)
 * Documented Clearance::User with YARD. (Dan Croak)
 
-0.7.0 (08/04/2009)
-------------------
+New for 0.7.0 (08/04/2009):
 
 * Redirect signed in user who clicks confirmation link again. (Dan Croak)
 * Redirect signed out user who clicks confirmation link again. (Dan Croak)
@@ -204,21 +183,18 @@ Croak)
 * Added clearance_views generator. By default, creates formtastic views which
 pass all tests and features. (Dan Croak)
 
-0.6.9 (07/04/2009)
-------------------
+New for 0.6.9 (07/04/2009):
 
 * Added timestamps to create users migration. (Dan Croak)
 * Ready for Ruby 1.9. (Jason Morrison, Nick Quaranto)
 
-0.6.8 (06/24/2009)
-------------------
+New for 0.6.8 (06/24/2009):
 
 * Added defined? checks for various Rails constants such as ActionController
 for easier unit testing of Clearance extensions... particularly ActiveRecord
 extensions... particularly strong_password. (Dan Croak)
 
-0.6.7 (06/13/2009)
-------------------
+New for 0.6.7 (06/13/2009):
 
 * [#30] Added sign_up, sign_in, sign_out named routes. (Dan Croak)
 * [#22] Minimizing Reek smell: Duplication in redirect_back_or. (Dan Croak)
@@ -230,19 +206,16 @@ Croak)
 * README improvements. (Dan Croak)
 * Move routes loading to separate file. (Joshua Clayton)
 
-0.6.6 (05/18/2009)
-------------------
+New for 0.6.6 (05/18/2009):
 
 * [#14] replaced class_eval in Clearance::User with modules. This was needed
 in a thoughtbot client app so we could write our own validations. (Dan Croak)
 
-0.6.5 (05/17/2009)
-------------------
+New for 0.6.5 (05/17/2009):
 
 * [#6] Make Clearance i18n aware. (Timur Vafin, Marcel Goerner, Eugene Bolshakov, Dan Croak)
 
-0.6.4 (05/12/2009)
-------------------
+New for 0.6.4 (05/12/2009):
 
 * Moved issue tracking to Github from Lighthouse. (Dan Croak)
 * [#7] asking higher-level questions of controllers in webrat steps, such as signed_in? instead of what's in the session. same for accessors. (Dan Croak)
@@ -250,26 +223,22 @@ in a thoughtbot client app so we could write our own validations. (Dan Croak)
 * [#13] move private methods on sessions controller into Clearance::Authentication module (Dan Croak)
 * [#9] audited flash keys. (Dan Croak)
 
-0.6.3 (04/23/2009)
-------------------
+New for 0.6.3 (04/23/2009):
 
 * Scoping ClearanceMailer properly within controllers so it works in production environments. (Nick Quaranto)
 
-0.6.2 (04/22/2009)
-------------------
+New for 0.6.2 (04/22/2009):
 
 * Insert Clearance::User into User model if it exists. (Nick Quaranto)
 * World(NavigationHelpers) Cucumber 3.0 style. (Shay Arnett & Mark Cornick)
 
-0.6.1 (04/21/2009)
-------------------
+New for 0.6.1 (04/21/2009):
 
 * Scope operators are necessary to keep Rails happy. Reverting the original
 revert so they're back in the library now for constants referenced inside of
 the gem. (Nick Quaranto)
 
-0.6.0 (04/21/2009)
-------------------
+New for 0.6.0 (04/21/2009):
 
 * Converted Clearance to a Rails engine. (Dan Croak & Joe Ferris)
 * Include Clearance::User in User model in app. (Dan Croak & Joe Ferris)
@@ -293,39 +262,33 @@ Quaranto)
 * Made the clearance controllers unloadable to stop constant loading errors in
 development mode (Nick Quaranto)
 
-0.5.6 (4/11/2009)
------------------
+New for 0.5.6 (4/11/2009):
 
 * [#57] Step definition changed for "User should see error messages" so
 features won't fail for certain validations. (Nick Quaranto)
 
-0.5.5 (3/23/2009)
------------------
+New for 0.5.5 (3/23/2009):
 
 * Removing duplicate test to get rid of warning. (Nick Quaranto)
 
-0.5.4 (3/21/2009)
------------------
+New for 0.5.4 (3/21/2009):
 
 * When users fail logging in, redirect them instead of rendering. (Matt
 Jankowski)
 
-0.5.3 (3/5/2009)
-----------------
+New for 0.5.3 (3/5/2009):
 
 * Clearance now works with (and requires) Shoulda 2.10.0. (Mark Cornick, Joe
 Ferris, Dan Croak)
 * Prefer flat over nested contexts in sessions_controller_test. (Joe Ferris,
 Dan Croak)
 
-0.5.2 (3/2/2009)
-----------------
+New for 0.5.2 (3/2/2009):
 
 * Fixed last remaining errors in Rails 2.3 tests. Now fully compatible. (Joe
 Ferris, Dan Croak)
 
-0.5.1 (2/27/2009)
------------------
+New for 0.5.1 (2/27/2009):
 
 * [#46] A user with unconfirmed email who resets password now confirms email.
 (Marcel Görner)
@@ -337,8 +300,7 @@ application.rb in Rails 2.3 apps. (Dan Croak)
 * [#42] Bug fix. Rack-based session change altered how to test remember me
 cookie. (Mihai Anca)
 
-0.5.0 (2/27/2009)
------------------
+New for 0.5.0 (2/27/2009):
 
 * Fixed problem with Cucumber features. (Dan Croak)
 * Fixed mising HTTP fluency use case. (Dan Croak)
@@ -346,8 +308,7 @@ cookie. (Mihai Anca)
 Croak)
 * Refactored User unit tests to be more readable. (Dan Croak)
 
-0.4.9 (2/20/2009)
------------------
+New for 0.4.9 (2/20/2009):
 
 * Protect passwords & confirmations actions with forbidden filters. (Dan Croak)
 * Return 403 Forbidden status code in those cases. (Tim Pope)
@@ -357,8 +318,7 @@ Croak)
 * [#45] Fixed bug that allowed anyone to edit another user's password (Marcel Görner)
 * Required Factory Girl >= 1.2.0. (Dan Croak)
 
-0.4.8 (2/16/2009)
------------------
+New for 0.4.8 (2/16/2009):
 
 * Added support paths for Cucumber. (Ben Mabey)
 * Added documentation for the flash. (Ben Mabey)
@@ -366,20 +326,17 @@ Croak)
 * Removed interpolated email address from flash message to make i18n easier. (Bence Nagy)
 * Standardized flash messages that refer to email delivery. (Dan Croak)
 
-0.4.7 (2/12/2009)
------------------
+New for 0.4.7 (2/12/2009):
 
 * Removed Clearance::Test::TestHelper so there is one less setup step. (Dan Croak)
 * All test helpers now in shoulda_macros. (Dan Croak)
 
-0.4.6 (2/11/2009)
------------------
+New for 0.4.6 (2/11/2009):
 
 * Made the modules behave like mixins again. (hat-tip Eloy Duran)
 * Created Actions and PrivateMethods modules on controllers for future RDoc reasons. (Dan Croak, Joe Ferris)
 
-0.4.5 (2/9/2009)
-----------------
+New for 0.4.5 (2/9/2009):
 
 * [#43] Removed email downcasing because local-part is case sensitive per RFC5321. (Dan Croak)
 * [#42] Removed dependency on Mocha. (Dan Croak)
@@ -390,8 +347,7 @@ Croak)
 * Audited "sign up" naming convention. "Register" had slipped in a few places. (Dan Croak)
 * Switched to SHA1 encryption. Cypher doesn't matter much for email confirmation, password reset. Better to have shorter hashes in the emails for clients who line break on 72 chars. (Dan Croak)
 
-0.4.4 (2/2/2009)
-----------------
+New for 0.4.4 (2/2/2009):
 
 * Added a generator for Cucumber features. (Joe Ferris, Dan Croak)
 * Standarized naming for "Sign up," "Sign in," and "Sign out". (Dan Croak) 
