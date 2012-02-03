@@ -6,7 +6,7 @@ gem "rails", "3.0.9"
 gem "shoulda-matchers", :git=>"git://github.com/thoughtbot/shoulda-matchers.git"
 gem "database_cleaner"
 gem "aruba", "~> 0.4.2"
-gem "capybara", "~> 1.0.0"
+gem "capybara", "~> 1.1.1"
 gem "factory_girl_rails"
 gem "launchy"
 
