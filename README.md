@@ -1,4 +1,4 @@
-Clearance
+Clearance [![Build Status](https://secure.travis-ci.org/thoughtbot/clearance.png)](http://travis-ci.org/thoughtbot/clearance?branch=master)
 =========
 
 Rails authentication & authorization with email & password.

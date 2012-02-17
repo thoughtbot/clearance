@@ -5,7 +5,7 @@ GIT
     shoulda-matchers (1.0.0)
 
 PATH
-  remote: /home/mike/lib/clearance
+  remote: /Users/croaky/dev/clearance
   specs:
     clearance (0.15.0)
       diesel (~> 0.1.5)
