@@ -9,12 +9,12 @@ require 'diesel/tasks'
 require 'rspec/core/rake_task'
 require 'appraisal'
 
-desc "Default: run the specs and cucumber features"
+desc 'Default: run the specs and cucumber features'
 task :default => [:all]
 
 desc 'Test the plugin under all supported Rails versions.'
-task :all => ["appraisal:install"] do |t|
-  exec('rake appraisal spec cucumber')
+task :all => ['appraisal:install'] do |t|
+  exec 'rake appraisal spec cucumber'
 end
 
 RSpec::Core::RakeTask.new(:spec)

@@ -1,4 +1,3 @@
-pkg
 *.DS_Store
 *.swp
 *.swo
@@ -7,4 +6,5 @@ pkg
 .bundle
 db/*.sqlite3
 log/*.log
+pkg
 tmp/
