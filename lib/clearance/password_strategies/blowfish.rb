@@ -25,7 +25,6 @@ module Clearance
       end
 
       def generate_hash(string)
-        # TODO: 1.9 vs 1.8 testing
         cipher = OpenSSL::Cipher::Cipher.new('bf-cbc').encrypt
         cipher.key = Digest::SHA256.digest(salt)
         cipher.update(string) << cipher.final
