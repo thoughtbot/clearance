@@ -1,3 +1,7 @@
+New for 0.16.0:
+
+* Blowfish password encryption strategy (Chris Dillon)
+
 New for 0.15.0:
 
 * The User model can be swapped out using the Clearance.configure method.

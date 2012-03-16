@@ -7,7 +7,7 @@ GIT
 PATH
   remote: .
   specs:
-    clearance (0.15.0)
+    clearance (0.16.0)
       diesel (~> 0.1.5)
       rails (>= 3.0)
 
@@ -45,7 +45,7 @@ GEM
     appraisal (0.3.8)
       bundler
       rake
-    arel (3.0.0)
+    arel (3.0.2)
     aruba (0.4.6)
       bcat (>= 0.6.1)
       childprocess (>= 0.2.0)
@@ -162,7 +162,7 @@ GEM
     treetop (1.4.10)
       polyglot
       polyglot (>= 0.3.1)
-    tzinfo (0.3.31)
+    tzinfo (0.3.32)
     xpath (0.1.4)
       nokogiri (~> 1.3)
 

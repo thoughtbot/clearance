@@ -195,7 +195,7 @@ By default, Clearance uses SHA1 encryption of the user's password. You can provi
     def encrypt_password
     end
 
-See [lib/clearance/password_strategies/sha1.rb](https://github.com/thoughtbot/clearance/blob/master/lib/clearance/password_strategies/sha1.rb) for the default behavior.  Also see [lib/clearance/password_strategies/blowfish.rb](https://github.com/thoughtbot/clearance/blob/master/lib/clearance/password_strategies/blowfish.rb) for another password strategy.  Switching password strategies will cause your existing users' passwords to not work.
+See [lib/clearance/password_strategies/sha1.rb](https://github.com/thoughtbot/clearance/blob/master/lib/clearance/password_strategies/sha1.rb) for the default behavior. Also see [lib/clearance/password_strategies/blowfish.rb](https://github.com/thoughtbot/clearance/blob/master/lib/clearance/password_strategies/blowfish.rb) for another password strategy. Switching password strategies will cause your existing users' passwords to not work.
 
 Once you have an API-compliant module, load it with:
 
@@ -207,7 +207,7 @@ For example:
 
     # default
     config.password_strategy = Clearance::PasswordStrategies::SHA1
-    # ... or another example
+    # Blowfish
     config.password_strategy = Clearance::PasswordStrategies::Blowfish
     
 
