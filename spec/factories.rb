@@ -1,12 +1,12 @@
-Factory.sequence :email do |n|
-  "user#{n}@example.com"
-end
+FactoryGirl.define do
 
-Factory.define :user do |factory|
-  factory.email    { Factory.next :email }
-  factory.password { "password" }
-end
+  sequence :email do |n|
+    "user#{n}@example.com"
+  end
 
-Factory.define :email_confirmed_user, :parent => :user do |factory|
-  factory.after_build { warn "[DEPRECATION] The :email_confirmed_user factory is deprecated, please use the :user factory instead." }
+  factory :user do
+    email
+    password "password"
+  end
+
 end
