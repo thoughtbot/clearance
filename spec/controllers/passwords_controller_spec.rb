@@ -8,7 +8,7 @@ describe Clearance::PasswordsController do
 
   describe "a signed up user" do
     before do
-      @user = Factory(:user)
+      @user = create(:user)
     end
 
     describe "on GET to #new" do
@@ -60,7 +60,7 @@ describe Clearance::PasswordsController do
 
   describe "a signed up user and forgotten password" do
     before do
-      @user = Factory(:user)
+      @user = create(:user)
       @user.forgot_password!
     end
 
@@ -157,8 +157,8 @@ describe Clearance::PasswordsController do
 
   describe "given two users and user one signs in" do
     before do
-      @user_one = Factory(:user)
-      @user_two = Factory(:user)
+      @user_one = create(:user)
+      @user_two = create(:user)
       sign_in_as @user_one
     end
   end

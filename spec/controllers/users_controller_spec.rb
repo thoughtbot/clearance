@@ -25,7 +25,7 @@ describe Clearance::UsersController do
 
     describe "on POST to #create with valid attributes" do
       before do
-        user_attributes = Factory.attributes_for(:user)
+        user_attributes = FactoryGirl.attributes_for(:user)
         @old_user_count = User.count
         post :create, :user => user_attributes
       end
@@ -41,7 +41,7 @@ describe Clearance::UsersController do
 
     describe "on POST to #create with valid attributes and a session return url" do
       before do
-        user_attributes = Factory.attributes_for(:user)
+        user_attributes = FactoryGirl.attributes_for(:user)
         @old_user_count = User.count
         @return_url = '/url_in_the_session'
         @request.session[:return_to] = @return_url
@@ -60,7 +60,7 @@ describe Clearance::UsersController do
 
   describe "A signed-in user" do
     before do
-      @user = Factory(:user)
+      @user = create(:user)
       sign_in_as @user
     end
 

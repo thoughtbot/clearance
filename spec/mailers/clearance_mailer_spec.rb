@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe ClearanceMailer do
   before do
-    @user  = Factory(:user)
+    @user  = create(:user)
     @user.forgot_password!
     @email = ClearanceMailer.change_password(@user)
   end

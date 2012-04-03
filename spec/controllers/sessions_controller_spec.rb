@@ -11,7 +11,7 @@ describe Clearance::SessionsController do
 
   describe "on POST to #create with good credentials" do
     before do
-      @user = Factory(:user)
+      @user = create(:user)
       @user.update_attribute(:remember_token, "old-token")
       post :create, :session => {
                       :email    => @user.email,
@@ -31,7 +31,7 @@ describe Clearance::SessionsController do
 
   describe "on POST to #create with good credentials and a session return url" do
     before do
-      @user = Factory(:user)
+      @user = create(:user)
       @return_url = '/url_in_the_session'
       @request.session[:return_to] = @return_url
       post :create, :session => {
@@ -46,7 +46,7 @@ describe Clearance::SessionsController do
 
   describe "on POST to #create with good credentials and a request return url" do
     before do
-      @user = Factory(:user)
+      @user = create(:user)
       @return_url = '/url_in_the_request'
       post :create, :session => {
                       :email     => @user.email,
@@ -61,7 +61,7 @@ describe Clearance::SessionsController do
 
   describe "on POST to #create with good credentials and a session return url and request return url" do
     before do
-      @user = Factory(:user)
+      @user = create(:user)
       @return_url = '/url_in_the_session'
       @request.session[:return_to] = @return_url
       post :create, :session => {
@@ -85,7 +85,7 @@ describe Clearance::SessionsController do
 
   describe "on DELETE to #destroy with a cookie" do
     before do
-      @user = Factory(:user)
+      @user = create(:user)
       @user.update_attribute(:remember_token, "old-token")
       @request.cookies["remember_token"] = "old-token"
       delete :destroy

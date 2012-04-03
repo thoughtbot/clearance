@@ -16,19 +16,19 @@ describe User do
     it { should_not allow_value("example.com").for(:email) }
 
     it "should store email in down case" do
-      user = Factory(:user, :email => "John.Doe@example.com")
+      user = create(:user, :email => "John.Doe@example.com")
       user.email.should == "john.doe@example.com"
     end
   end
 
   describe "When multiple users have signed up" do
-    before { Factory(:user) }
+    before { create(:user) }
     it { should validate_uniqueness_of(:email) }
   end
 
   describe "A user" do
     before do
-      @user     = Factory(:user)
+      @user     = create(:user)
       @password = @user.password
     end
 
@@ -50,7 +50,7 @@ describe User do
 
   describe "When resetting authentication with reset_remember_token!" do
     before do
-      @user  = Factory(:user)
+      @user  = create(:user)
       @user.remember_token = "old-token"
       @user.reset_remember_token!
     end
@@ -62,7 +62,7 @@ describe User do
 
   describe "An email confirmed user" do
     before do
-      @user = Factory(:user)
+      @user = create(:user)
       @old_encrypted_password = @user.encrypted_password
     end
 
@@ -80,15 +80,15 @@ describe User do
   it "should not generate the same remember token for users with the same password at the same time" do
     Time.stubs(:now => Time.now)
     password    = 'secret'
-    first_user  = Factory(:user, :password => password)
-    second_user = Factory(:user, :password => password)
+    first_user  = create(:user, :password => password)
+    second_user = create(:user, :password => password)
 
     second_user.remember_token.should_not == first_user.remember_token
   end
 
   describe "An user" do
     before do
-      @user = Factory(:user)
+      @user = create(:user)
       @old_encrypted_password = @user.encrypted_password
     end
 
@@ -168,13 +168,13 @@ describe User do
 
   describe "user factory" do
     it "should create a valid user with just an overridden password" do
-      Factory.build(:user, :password => "test").should be_valid
+      build(:user, :password => "test").should be_valid
     end
   end
 
   describe "when user exists before Clearance was installed" do
     before do
-      @user = Factory(:user)
+      @user = create(:user)
       sql  = "update users set salt = NULL, encrypted_password = NULL, remember_token = NULL where id = #{@user.id}"
       ActiveRecord::Base.connection.update(sql)
       @user.reload.salt.should be_nil

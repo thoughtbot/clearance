@@ -5,7 +5,7 @@ describe Clearance::Session do
   after { Timecop.return }
 
   it "finds a user from a cookie" do
-    user = Factory(:user)
+    user = create(:user)
     env = env_with_remember_token(user.remember_token)
 
     session = Clearance::Session.new(env)
@@ -14,7 +14,7 @@ describe Clearance::Session do
   end
 
   it "returns nil for an unknown user" do
-    user = Factory(:user)
+    user = create(:user)
     env = env_with_remember_token("bogus")
 
     session = Clearance::Session.new(env)
@@ -30,14 +30,14 @@ describe Clearance::Session do
   end
 
   it "signs in a given user" do
-    user = Factory(:user)
+    user = create(:user)
     session = Clearance::Session.new(env_without_remember_token)
     session.sign_in user
     session.current_user.should == user
   end
 
   it "sets a remember token cookie with a default expiration of 1 year from now" do
-    user = Factory(:user)
+    user = create(:user)
     headers = {}
     session = Clearance::Session.new(env_without_remember_token)
     session.sign_in user
@@ -48,7 +48,7 @@ describe Clearance::Session do
   it "sets a remember token cookie with a custom expiration" do
     custom_expiration = 1.day.from_now
     with_custom_expiration 1.day.from_now do
-      user = Factory(:user)
+      user = create(:user)
       headers = {}
       session = Clearance::Session.new(env_without_remember_token)
       session.sign_in user
@@ -66,7 +66,7 @@ describe Clearance::Session do
   end
 
   it "signs out a user" do
-    user = Factory(:user)
+    user = create(:user)
     old_remember_token = user.remember_token
     env = env_with_remember_token(old_remember_token)
 

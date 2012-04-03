@@ -21,7 +21,7 @@ describe ForgeriesController do
         match 'sign_in'  => 'clearance/sessions#new', :as => 'sign_in'
       end
 
-      @user = Factory(:user)
+      @user = create(:user)
       @user.update_attribute(:remember_token, "old-token")
       @request.cookies["remember_token"] = "old-token"
       @request.session[:_csrf_token] = "golden-ticket"

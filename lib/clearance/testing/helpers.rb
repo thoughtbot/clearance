@@ -7,7 +7,7 @@ module Clearance
       end
 
       def sign_in
-        sign_in_as Factory(:user)
+        sign_in_as FactoryGirl.create(:user)
       end
 
       def sign_out
