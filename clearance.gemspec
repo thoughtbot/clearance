@@ -28,7 +28,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency('bundler',        '~> 1.1.0')
   s.add_development_dependency('appraisal',      '~> 0.3.8')
   s.add_development_dependency('cucumber-rails', '~> 1.1.1')
-  s.add_development_dependency('rspec-rails',    '~> 2.6.0')
+  s.add_development_dependency('rspec-rails',    '~> 2.9.0')
   s.add_development_dependency('sqlite3')
   s.add_development_dependency('bourne')
   s.add_development_dependency('timecop')
@@ -38,4 +38,3 @@ Gem::Specification.new do |s|
     s.specification_version = 3
   end
 end
-

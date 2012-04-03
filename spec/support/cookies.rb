@@ -58,7 +58,7 @@ RSpec::Matchers.define :set_cookie do |name, expected_value, expected_expires_at
     @path.should == "/"
   end
 
-  failure_message do
+  failure_message_for_should do
     "Expected #{expectation} got #{result}"
   end
 
