@@ -49,7 +49,7 @@ module Clearance
     end
 
     def cookies
-      @cookies ||= Rack::Request.new(@env).cookies
+      @cookies ||= @env['action_dispatch.cookies'] || Rack::Request.new(@env).cookies
     end
   end
 end
