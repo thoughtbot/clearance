@@ -6,6 +6,8 @@ rvm:
   - 1.9.3
 before_install:
   - gem update --system
+before_script:
+  - "bundle exec rake db:migrate"
 script: 'bundle exec rake appraisal spec cucumber'
 gemfile:
   - gemfiles/3.0.12.gemfile
