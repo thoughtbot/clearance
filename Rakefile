@@ -9,11 +9,15 @@ require 'diesel/tasks'
 require 'rspec/core/rake_task'
 require 'appraisal'
 
-desc 'Default: run the specs and cucumber features'
-task :default => [:all]
+task :default do |t|
+  if ENV['BUNDLE_GEMFILE'] =~ /gemfiles/
+    exec 'rake spec cucumber'
+  else
+    Rake::Task['appraise'].execute
+  end
+end
 
-desc 'Test the plugin under all supported Rails versions.'
-task :all => ['appraisal:install'] do |t|
+task :appraise => ['appraisal:install'] do |t|
   exec 'rake appraisal spec cucumber'
 end
 
