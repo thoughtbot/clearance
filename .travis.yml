@@ -11,6 +11,7 @@ before_script:
 gemfile:
   - gemfiles/3.0.12.gemfile
   - gemfiles/3.1.4.gemfile
+  - gemfiles/3.2.3.gemfile
 branches:
   only:
     - master
