@@ -1,8 +1,10 @@
+$:.push File.expand_path('../lib', __FILE__)
+require 'clearance/version'
 require 'date'
 
 Gem::Specification.new do |s|
   s.name     = %q{clearance}
-  s.version  = IO.read(File.join(File.dirname(__FILE__), 'VERSION'))
+  s.version  = Clearance::VERSION
   s.email    = %q{support@thoughtbot.com}
   s.homepage = %q{http://github.com/thoughtbot/clearance}
 
