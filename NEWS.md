@@ -1,3 +1,8 @@
+New for 0.16.1:
+
+* Behave correctly when Rails whitelist attributes mass assignment protection is turned on
+* Fix for Rails 3.2.x modifying the HTTP cookie headers in rack requests
+
 New for 0.16.0:
 
 * Blowfish password encryption strategy (Chris Dillon)
