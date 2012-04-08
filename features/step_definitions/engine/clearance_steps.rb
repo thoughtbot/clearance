@@ -1,5 +1,7 @@
 # Existing users
 
+require 'factory_girl_rails'
+
 Given /^(?:I am|I have|I) signed up (?:as|with) "(.*)"$/ do |email|
   FactoryGirl.create(:user, :email => email)
 end
@@ -24,7 +26,7 @@ end
 # Sign in
 
 Given /^I sign in$/ do
-  email = Factory.next(:email)
+  email = FactoryGirl.generate(:email)
   steps %{
     I have signed up with "#{email}"
     I sign in with "#{email}"
