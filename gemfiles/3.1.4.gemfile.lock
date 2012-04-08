@@ -1,11 +1,5 @@
-GIT
-  remote: git://github.com/thoughtbot/shoulda-matchers.git
-  revision: d85503f86ef224bca2b54fc6b9ad96866fe12f2d
-  specs:
-    shoulda-matchers (1.0.0)
-
 PATH
-  remote: /Users/mjankowski/Development/opensource/clearance
+  remote: /Users/gabe/thoughtbot/clearance
   specs:
     clearance (0.16.1)
       diesel (~> 0.1.5)
@@ -149,6 +143,7 @@ GEM
       ffi (~> 1.0)
       multi_json (~> 1.0)
       rubyzip
+    shoulda-matchers (1.0.0)
     sprockets (2.0.3)
       hike (~> 1.2)
       rack (~> 1.0)
@@ -181,6 +176,6 @@ DEPENDENCIES
   launchy
   rails (= 3.1.4)
   rspec-rails (~> 2.9.0)
-  shoulda-matchers!
+  shoulda-matchers (~> 1.0.0)
   sqlite3
   timecop
