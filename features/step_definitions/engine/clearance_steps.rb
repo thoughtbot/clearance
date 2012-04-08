@@ -24,7 +24,7 @@ end
 # Sign in
 
 Given /^I sign in$/ do
-  email = Factory.next(:email)
+  email = FactoryGirl.generate(:email)
   steps %{
     I have signed up with "#{email}"
     I sign in with "#{email}"
