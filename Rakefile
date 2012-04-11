@@ -2,14 +2,15 @@
 
 require 'rubygems'
 require 'bundler/setup'
+require 'bundler/gem_tasks'
+
 require 'rake'
-require 'rubygems/package_task'
-require 'cucumber/rake/task'
 require 'diesel/tasks'
+require 'cucumber/rake/task'
 require 'rspec/core/rake_task'
 require 'appraisal'
 
-task :default do |t|
+task :default do
   if ENV['BUNDLE_GEMFILE'] =~ /gemfiles/
     exec 'rake spec cucumber'
   else
@@ -17,7 +18,7 @@ task :default do |t|
   end
 end
 
-task :appraise => ['appraisal:install'] do |t|
+task :appraise => ['appraisal:install'] do
   exec 'rake appraisal spec cucumber'
 end
 
@@ -27,5 +28,3 @@ Cucumber::Rake::Task.new(:cucumber) do |t|
   t.fork = true
   t.cucumber_opts = ['--format', (ENV['CUCUMBER_FORMAT'] || 'progress')]
 end
-
-Bundler::GemHelper.install_tasks
