@@ -1,5 +1,7 @@
 # Existing users
 
+require 'factory_girl_rails'
+
 Given /^(?:I am|I have|I) signed up (?:as|with) "(.*)"$/ do |email|
   FactoryGirl.create(:user, :email => email)
 end
