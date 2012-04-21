@@ -34,6 +34,12 @@ Gem::Specification.new do |s|
   s.add_development_dependency('sqlite3')
   s.add_development_dependency('bourne')
   s.add_development_dependency('timecop')
+  s.add_development_dependency('capybara', '~> 1.1.1')
+  s.add_development_dependency('factory_girl_rails', '1.7.0')
+  s.add_development_dependency('shoulda-matchers', '~> 1.1.0')
+  s.add_development_dependency('database_cleaner')
+  s.add_development_dependency('launchy')
+  s.add_development_dependency('aruba', '~> 0.4.2')
 
   if s.respond_to? :specification_version then
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
