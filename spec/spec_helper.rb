@@ -12,6 +12,8 @@ require 'diesel/testing'
 require 'rspec/rails'
 require 'bourne'
 require 'timecop'
+require 'factory_girl_rails'
+require 'shoulda-matchers'
 
 require 'clearance/testing'
 

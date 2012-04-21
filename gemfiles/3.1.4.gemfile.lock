@@ -1,11 +1,5 @@
-GIT
-  remote: git://github.com/thoughtbot/shoulda-matchers.git
-  revision: d85503f86ef224bca2b54fc6b9ad96866fe12f2d
-  specs:
-    shoulda-matchers (1.0.0)
-
 PATH
-  remote: /Users/mjankowski/Development/opensource/clearance
+  remote: /Users/gabe/thoughtbot/clearance
   specs:
     clearance (0.16.1)
       diesel (~> 0.1.5)
@@ -43,7 +37,7 @@ GEM
     activesupport (3.1.4)
       multi_json (~> 1.0)
     addressable (2.2.7)
-    appraisal (0.3.8)
+    appraisal (0.4.1)
       bundler
       rake
     arel (2.2.3)
@@ -79,10 +73,10 @@ GEM
       railties
     diff-lcs (1.1.3)
     erubis (2.7.0)
-    factory_girl (2.6.4)
-      activesupport (>= 2.3.9)
-    factory_girl_rails (1.7.0)
-      factory_girl (~> 2.6.0)
+    factory_girl (3.1.1)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (3.1.0)
+      factory_girl (~> 3.1.0)
       railties (>= 3.0.0)
     ffi (1.0.11)
     gherkin (2.9.3)
@@ -149,6 +143,8 @@ GEM
       ffi (~> 1.0)
       multi_json (~> 1.0)
       rubyzip
+    shoulda-matchers (1.1.0)
+      activesupport (>= 3.0.0)
     sprockets (2.0.3)
       hike (~> 1.2)
       rack (~> 1.0)
@@ -169,18 +165,18 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  appraisal (~> 0.3.8)
-  aruba (~> 0.4.2)
-  bourne
+  appraisal (~> 0.4.1)
+  aruba (~> 0.4.11)
+  bourne (~> 1.1.2)
   bundler (~> 1.1.0)
-  capybara (~> 1.1.1)
+  capybara (~> 1.1.2)
   clearance!
   cucumber-rails (~> 1.1.1)
   database_cleaner
-  factory_girl_rails (= 1.7.0)
+  factory_girl_rails (~> 3.1.0)
   launchy
   rails (= 3.1.4)
   rspec-rails (~> 2.9.0)
-  shoulda-matchers!
+  shoulda-matchers (~> 1.1.0)
   sqlite3
   timecop
