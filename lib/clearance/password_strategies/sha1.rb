@@ -3,8 +3,6 @@ require 'digest/sha1'
 module Clearance
   module PasswordStrategies
     module SHA1
-      extend ActiveSupport::Concern
-
       # Am I authenticated with given password?
       #
       # @param [String] plain-text password

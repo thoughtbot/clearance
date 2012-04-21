@@ -3,8 +3,6 @@ require 'openssl'
 module Clearance
   module PasswordStrategies
     module Blowfish
-      extend ActiveSupport::Concern
-
       # Am I authenticated with given password?
       #
       # @param [String] plain-text password
