@@ -3,7 +3,7 @@ module Clearance
     attr_accessor :mailer_sender, :cookie_expiration, :password_strategy, :user_model
 
     def initialize
-      @mailer_sender     = 'donotreply@example.com'
+      @mailer_sender = 'reply@example.com'
       @cookie_expiration = lambda { 1.year.from_now.utc }
     end
 
