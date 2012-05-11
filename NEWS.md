@@ -1,6 +1,11 @@
+New for 0.16.2:
+
+* Change default email sender to deploy@example.com .
+
 New for 0.16.1:
 
-* Behave correctly when Rails whitelist attributes mass assignment protection is turned on
+* Behave correctly when Rails whitelist attributes mass assignment
+  protection is turned on
 * Fix for Rails 3.2.x modifying the HTTP cookie headers in rack requests
 
 New for 0.16.0:
