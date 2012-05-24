@@ -2,9 +2,9 @@ require 'clearance/testing/assertion_error'
 require 'clearance/testing/deny_access_matcher'
 require 'clearance/testing/helpers'
 
-if defined?(Test::Unit::TestCase)
-  Test::Unit::TestCase.extend Clearance::Testing::Matchers
-  class Test::Unit::TestCase
+if defined?(ActionController::TestCase)
+  ActionController::TestCase.extend Clearance::Testing::Matchers
+  class ActionController::TestCase
     include Clearance::Testing::Helpers
   end
 end
