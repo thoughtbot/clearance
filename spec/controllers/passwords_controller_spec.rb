@@ -153,6 +153,22 @@ describe Clearance::PasswordsController do
       it { should respond_with(:success) }
       it { should render_template(:edit) }
     end
+
+    describe "on PUT to #update with an empty token after the user sets a password" do
+      before do
+        put :update,
+            :user_id => @user.to_param,
+            :token   => @user.confirmation_token,
+            :user    => { :password => 'good password' }
+        put :update,
+            :user_id => @user.to_param,
+            :token   => [nil],
+            :user    => { :password => 'new password' }
+      end
+
+      it { should set_the_flash.to(/double check the URL/i).now }
+      it { should render_template(:new) }
+    end
   end
 
   describe "given two users and user one signs in" do
