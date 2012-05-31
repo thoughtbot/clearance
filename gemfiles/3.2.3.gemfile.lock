@@ -1,5 +1,5 @@
 PATH
-  remote: /home/mike/lib/clearance
+  remote: /home/mike/thoughtbot/clearance
   specs:
     clearance (0.16.2)
       diesel (~> 0.1.5)
