@@ -23,13 +23,13 @@ class Clearance::PasswordsController < ApplicationController
 
   def edit
     @user = Clearance.configuration.user_model.find_by_id_and_confirmation_token(
-                   params[:user_id], params[:token])
+                   params[:user_id], params[:token].to_s)
     render :template => 'passwords/edit'
   end
 
   def update
     @user = Clearance.configuration.user_model.find_by_id_and_confirmation_token(
-                   params[:user_id], params[:token])
+                   params[:user_id], params[:token].to_s)
 
     if @user.update_password(params[:user][:password])
       sign_in(@user)
@@ -43,7 +43,7 @@ class Clearance::PasswordsController < ApplicationController
   private
 
   def forbid_missing_token
-    if params[:token].blank?
+    if params[:token].to_s.blank?
       flash_failure_when_forbidden
       render :template => 'passwords/new'
     end
@@ -51,7 +51,7 @@ class Clearance::PasswordsController < ApplicationController
 
   def forbid_non_existent_user
     unless Clearance.configuration.user_model.find_by_id_and_confirmation_token(
-                  params[:user_id], params[:token])
+                  params[:user_id], params[:token].to_s)
       flash_failure_when_forbidden
       render :template => 'passwords/new'
     end
