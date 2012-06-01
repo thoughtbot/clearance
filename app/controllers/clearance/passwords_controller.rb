@@ -31,7 +31,7 @@ class Clearance::PasswordsController < ApplicationController
     @user = Clearance.configuration.user_model.find_by_id_and_confirmation_token(
                    params[:user_id], params[:token].to_s)
 
-    if @user.update_password(params[:user][:password].to_s)
+    if @user.update_password(params[:user][:password])
       sign_in(@user)
       redirect_to(url_after_update)
     else
