@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    clearance (0.17.0)
+    clearance (0.16.3)
       diesel (~> 0.1.5)
       rails (>= 3.0)
 
