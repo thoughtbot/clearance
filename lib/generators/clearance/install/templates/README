@@ -20,4 +20,10 @@ Next steps:
 
      rake db:migrate
 
+4. For new Rails installation, add this line to config/routes.rb
+
+     root :to => 'clearance/sessions#new'
+
+  And remove public/index.html
+
 *******************************************************************************

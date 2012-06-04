@@ -1,3 +1,4 @@
+@javascript
 Feature: Sign out
 
   In order to protect my account from unauthorized access
