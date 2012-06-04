@@ -1,3 +1,8 @@
+New for 0.17.0:
+
+* Handle the security issue found in Rails by Ben Murphy. Some details
+can be found on the Rails commit: https://github.com/rails/rails/commit/5f91ea3dc1ed3fa1c6be2cff7de1d1663990b0c3
+
 New for 0.16.2:
 
 * Change default email sender to deploy@example.com .
