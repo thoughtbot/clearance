@@ -28,8 +28,8 @@ end
 Given /^I sign in$/ do
   email = FactoryGirl.generate(:email)
   steps %{
-    I have signed up with "#{email}"
-    I sign in with "#{email}"
+    Given I have signed up with "#{email}"
+    And I sign in with "#{email}"
   }
 end
 
