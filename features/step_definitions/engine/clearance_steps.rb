@@ -93,10 +93,22 @@ When /^I update my password with "(.*)"$/ do |password|
   click_button "Save this password"
 end
 
+# Navigation
+
+Then /^I should be on the sign up page$/ do
+  page.current_path.should == sign_up_path
+end
+
 # Flashes
 
 Then /^I am told email or password is bad$/ do
-  page.should have_content("Bad email or password")
+  page.should have_content("Bad email or password. Are you trying to register a new account? Sign up.")
+end
+
+When /^I follow the sign up link in the flash$/ do
+  within '#flash' do
+    click_link 'Sign up'
+  end
 end
 
 Then /^I am told email is unknown$/ do
