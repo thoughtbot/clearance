@@ -24,3 +24,10 @@ Feature: Sign in
     Given I am signed up as "email@example.com"
     When I sign in as "Email@example.com"
     Then I should be signed in
+
+ Scenario: Visitor enters wrong password and goes to sign up
+    Given I am signed up as "email@example.com"
+    When I sign in as "email@example.com" and "badpassword"
+    Then I am told email or password is bad
+    When I follow the sign up link in the flash
+    Then I should be on the sign up page
