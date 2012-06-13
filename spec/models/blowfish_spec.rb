@@ -25,7 +25,7 @@ describe Clearance::PasswordStrategies::Blowfish do
         cipher = OpenSSL::Cipher::Cipher.new('bf-cbc').encrypt
         cipher.key = Digest::SHA256.digest(salt)
         expected = cipher.update("--#{salt}--#{password}--") << cipher.final
-        
+
         subject.encrypted_password.should == expected
       end
     end
