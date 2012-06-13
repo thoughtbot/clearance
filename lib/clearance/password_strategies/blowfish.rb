@@ -13,14 +13,15 @@ module Clearance
         encrypted_password == encrypt(password)
       end
 
-      protected
-
-      def encrypt_password
+      def password=(new_password)
+        @password = new_password
         initialize_salt_if_necessary
-        if password.present?
-          self.encrypted_password = encrypt(password)
+        if new_password.present?
+          self.encrypted_password = encrypt(new_password)
         end
       end
+
+      protected
 
       def generate_hash(string)
         cipher = OpenSSL::Cipher::Cipher.new('bf-cbc').encrypt
