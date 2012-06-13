@@ -195,11 +195,19 @@ By default, Clearance uses BCrypt encryption of the user's password. You can pro
     def password=(new_password)
     end
 
+The previous default password strategy was SHA1. To keep using SHA1, use this
+code:
+
+    Clearance.configure do |config|
+      config.password_strategy = Clearance::PasswordStrategies::SHA1
+    end
+
 See [lib/clearance/password_strategies/bcrypt.rb](https://github.com/thoughtbot/clearance/blob/master/lib/clearance/password_strategies/bcrypt.rb) for the default behavior.
 Also see [lib/clearance/password_strategies/blowfish.rb](https://github.com/thoughtbot/clearance/blob/master/lib/clearance/password_strategies/blowfish.rb) for another password strategy.
 Switching password strategies will cause your existing users' passwords to not
 work. If you are currently using the SHA1 strategy (the previous default), and
 want to transparently switch to BCrypt, use the [BCryptMigrationFromSHA1 strategy](https://github.com/thoughtbot/clearance/blob/master/lib/clearance/password_strategies/bcrypt_migration_from_sha1.rb).
+
 
 Once you have an API-compliant module, load it with:
 
@@ -210,6 +218,10 @@ Once you have an API-compliant module, load it with:
 For example:
 
     # default
+    config.password_strategy = Clearance::PasswordStrategies::BCrypt
+    # used to use SHA1, now switching to BCrypt
+    config.password_strategy = Clearance::PasswordStrategies::BCryptMigrationFromSHA1
+    # SHA1
     config.password_strategy = Clearance::PasswordStrategies::SHA1
     # Blowfish
     config.password_strategy = Clearance::PasswordStrategies::Blowfish
