@@ -2,7 +2,7 @@ module Clearance
   module Constraints
     class SignedIn
       def initialize(&block)
-        @block = block
+        @block = block || lambda { |user| true }
       end
 
       def matches?(request)
@@ -17,11 +17,7 @@ module Clearance
       end
 
       def current_user_matches_block?
-        if @block
-          @block.call(current_user)
-        else
-          true
-        end
+        @block.call(current_user)
       end
 
       def current_user
