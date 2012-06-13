@@ -18,14 +18,14 @@ describe Clearance::Session do
     env = env_with_remember_token("bogus")
 
     session = Clearance::Session.new(env)
-    session.should_not be_signed_in
+    session.should be_signed_out
     session.current_user.should be_nil
   end
 
   it "returns nil without a remember token" do
     env = env_without_remember_token
     session = Clearance::Session.new(env)
-    session.should_not be_signed_in
+    session.should be_signed_out
     session.current_user.should be_nil
   end
 
