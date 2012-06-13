@@ -210,7 +210,34 @@ For example:
     config.password_strategy = Clearance::PasswordStrategies::SHA1
     # Blowfish
     config.password_strategy = Clearance::PasswordStrategies::Blowfish
-    
+
+
+Routing Constraints
+-------------------
+
+Clearance ships with Rails [routing constraints](http://guides.rubyonrails.org/routing.html#advanced-constraints).
+These allow you to check if a user is signed in or signed out before they hit your controller - the check is moved down the stack.
+You can use them like this:
+
+    SweetBlog::Application.routes.draw do
+      # Signed-in admin users use this root path
+      constraints(Clearance::Constraints::SignedIn.new {|user| user.admin?}) do
+        root :to => 'admins/dashboard#index'
+      end
+
+      # Signed-in non-admin users use this root path
+      constraints(Clearance::Constraints::SignedIn.new) do
+        root :to => 'organizations#show'
+      end
+
+      # Signed-out users users use this fallback root path
+      constraints(Clearance::Constraints::SignedOut.new) do
+        root :to => 'high_voltage/pages#show', :id => 'home'
+      end
+    end
+
+Note that `Clearance::Constraints::SignedIn` yields a signed-in user object so
+that you can perform additional checks.
 
 Optional Cucumber features
 --------------------------

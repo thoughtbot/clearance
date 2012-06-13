@@ -10,6 +10,10 @@ module Clearance
       current_user.present?
     end
 
+    def signed_out?
+      ! signed_in?
+    end
+
     def current_user
       @current_user ||= with_remember_token do |token|
         Clearance.configuration.user_model.find_by_remember_token(token)
