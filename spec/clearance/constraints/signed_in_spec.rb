@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Clearance::Constraints::SignedIn do
   it 'returns true when user is signed in' do
-    user = create(:user, :remember_token => 'abc')
+    user = create(:user)
 
     signed_in_constraint = Clearance::Constraints::SignedIn.new
     signed_in_constraint.matches?(request_with_remember_token(user.remember_token)).should be_true
@@ -32,6 +32,22 @@ describe Clearance::Constraints::SignedIn do
 
     signed_in_constraint.matches?(request_with_remember_token(nil))
     user.reload.email.should == 'before@example.com'
+  end
+
+  it 'matches if the user-provided block returns true' do
+    user = create(:user)
+
+    signed_in_constraint = Clearance::Constraints::SignedIn.new { |user| true }
+
+    signed_in_constraint.matches?(request_with_remember_token(user.remember_token)).should be_true
+  end
+
+  it 'does not match if the user-provided block returns false' do
+    user = create(:user)
+
+    signed_in_constraint = Clearance::Constraints::SignedIn.new { |user| false }
+
+    signed_in_constraint.matches?(request_with_remember_token(user.remember_token)).should be_false
   end
 
   def request_with_remember_token(remember_token)
