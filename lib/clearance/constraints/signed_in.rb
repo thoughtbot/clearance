@@ -7,7 +7,7 @@ module Clearance
 
       def matches?(request)
         @request = request
-        signed_in? && current_user_matches_block?
+        signed_in? && current_user_fulfills_additional_requirements?
       end
 
       private
@@ -16,7 +16,7 @@ module Clearance
         @request.env[:clearance].signed_in?
       end
 
-      def current_user_matches_block?
+      def current_user_fulfills_additional_requirements?
         @block.call(current_user)
       end
 
