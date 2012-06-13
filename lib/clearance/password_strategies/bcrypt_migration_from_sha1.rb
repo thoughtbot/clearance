@@ -1,7 +1,6 @@
 module Clearance
   module PasswordStrategies
     module BCryptMigrationFromSHA1
-
       class BCryptUser
         include Clearance::PasswordStrategies::BCrypt
 

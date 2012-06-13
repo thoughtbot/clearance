@@ -22,8 +22,12 @@ module Clearance
       def password=(new_password)
         @password = new_password
         if new_password.present?
-          self.encrypted_password = password
+          self.encrypted_password = encrypt(password)
         end
+      end
+
+      def encrypt(password)
+        password
       end
     end
   end

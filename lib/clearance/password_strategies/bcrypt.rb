@@ -18,8 +18,15 @@ module Clearance
       def password=(new_password)
         @password = new_password
         if new_password.present?
-          self.encrypted_password = ::BCrypt::Password.create(new_password)
+          self.encrypted_password = encrypt(new_password)
         end
+      end
+
+      private
+
+      def encrypt(password)
+        ::BCrypt::Password.create(password)
+      end
       end
     end
   end
