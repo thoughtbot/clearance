@@ -2,23 +2,22 @@ require 'spec_helper'
 
 describe Clearance::Constraints::SignedOut do
   it 'returns true when user is signed out' do
-    user = create(:user, :remember_token => 'abc')
-    cookies = {'action_dispatch.cookies' => {
-      Clearance::Session::REMEMBER_TOKEN_COOKIE => user.remember_token
-    }}
-    env = { :clearance => Clearance::Session.new(cookies) }
-    request = Rack::Request.new(env)
-
-    signed_in_constraint = Clearance::Constraints::SignedOut.new
-    signed_in_constraint.matches?(request).should be_false
+    signed_out_constraint = Clearance::Constraints::SignedOut.new
+    signed_out_constraint.matches?(request_with_remember_token(nil)).should be_true
   end
 
   it 'returns false when user is not signed out' do
-    cookies = {'action_dispatch.cookies' => {}}
-    env = { :clearance => Clearance::Session.new(cookies) }
-    request = Rack::Request.new(env)
+    user = create(:user, :remember_token => 'abc')
 
-    signed_in_constraint = Clearance::Constraints::SignedOut.new
-    signed_in_constraint.matches?(request).should be_true
+    signed_out_constraint = Clearance::Constraints::SignedOut.new
+    signed_out_constraint.matches?(request_with_remember_token(user.remember_token)).should be_false
+  end
+
+  def request_with_remember_token(remember_token)
+    cookies = {'action_dispatch.cookies' => {
+      Clearance::Session::REMEMBER_TOKEN_COOKIE => remember_token
+    }}
+    env = { :clearance => Clearance::Session.new(cookies) }
+    Rack::Request.new(env)
   end
 end
