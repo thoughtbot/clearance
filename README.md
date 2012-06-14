@@ -219,9 +219,9 @@ For example:
 
     # default
     config.password_strategy = Clearance::PasswordStrategies::BCrypt
-    # used to use SHA1, now switching to BCrypt
+    # use this strategy if you used to use SHA1, and now you want to use BCrypt
     config.password_strategy = Clearance::PasswordStrategies::BCryptMigrationFromSHA1
-    # SHA1
+    # SHA1 (the previous default)
     config.password_strategy = Clearance::PasswordStrategies::SHA1
     # Blowfish
     config.password_strategy = Clearance::PasswordStrategies::Blowfish
