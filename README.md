@@ -221,23 +221,23 @@ You can use them like this:
 
     SweetBlog::Application.routes.draw do
       # Signed-in admin users use this root path
-      constraints(SignedInConstraint.new {|user| user.admin?}) do
+      constraints(Clearance::Constraints::SignedIn.new {|user| user.admin?}) do
         root :to => 'admins/dashboard#index'
       end
 
       # Signed-in non-admin users use this root path
-      constraints(SignedInConstraint.new) do
+      constraints(Clearance::Constraints::SignedIn.new) do
         root :to => 'organizations#show'
       end
 
       # Signed-out users users use this fallback root path
-      constraints(SignedOutConstraint.new) do
+      constraints(Clearance::Constraints::SignedOut.new) do
         root :to => 'high_voltage/pages#show', :id => 'home'
       end
     end
 
-Note that the `SignedInConstraint` yields a signed-in user object so that you
-can perform additional checks.
+Note that `Clearance::Constraints::SignedIn` yields a signed-in user object so
+that you can perform additional checks.
 
 Optional Cucumber features
 --------------------------
