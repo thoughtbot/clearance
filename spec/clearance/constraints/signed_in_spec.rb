@@ -10,7 +10,7 @@ describe Clearance::Constraints::SignedIn do
 
   it 'returns false when user is not signed in' do
     signed_in_constraint = Clearance::Constraints::SignedIn.new
-    signed_in_constraint.matches?(request_with_remember_token(nil)).should be_false
+    signed_in_constraint.matches?(request_without_remember_token).should be_false
   end
 
   it 'yields a signed-in user to a provided block' do
@@ -30,7 +30,7 @@ describe Clearance::Constraints::SignedIn do
       user.update_attribute(:email, 'after@example.com')
     end
 
-    signed_in_constraint.matches?(request_with_remember_token(nil))
+    signed_in_constraint.matches?(request_without_remember_token)
     user.reload.email.should == 'before@example.com'
   end
 
@@ -48,13 +48,5 @@ describe Clearance::Constraints::SignedIn do
     signed_in_constraint = Clearance::Constraints::SignedIn.new { |user| false }
 
     signed_in_constraint.matches?(request_with_remember_token(user.remember_token)).should be_false
-  end
-
-  def request_with_remember_token(remember_token)
-    cookies = {'action_dispatch.cookies' => {
-      Clearance::Session::REMEMBER_TOKEN_COOKIE => remember_token
-    }}
-    env = { :clearance => Clearance::Session.new(cookies) }
-    Rack::Request.new(env)
   end
 end
