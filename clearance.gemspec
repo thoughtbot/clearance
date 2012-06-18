@@ -22,7 +22,7 @@ Gem::Specification.new do |s|
   s.add_dependency('rails',  '>= 3.0')
   s.add_dependency('diesel', '~> 0.1.5')
 
-  s.add_development_dependency('bundler',        '~> 1.1.0')
+  s.add_development_dependency('bundler',        '~> 1.1')
   s.add_development_dependency('appraisal',      '~> 0.4.1')
   s.add_development_dependency('cucumber-rails', '~> 1.1.1')
   s.add_development_dependency('rspec-rails',    '~> 2.9.0')

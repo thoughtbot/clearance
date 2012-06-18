@@ -166,7 +166,7 @@ DEPENDENCIES
   appraisal (~> 0.4.1)
   aruba (~> 0.4.11)
   bourne (~> 1.1.2)
-  bundler (~> 1.1.0)
+  bundler (~> 1.1)
   capybara (~> 1.1.2)
   clearance!
   cucumber-rails (~> 1.1.1)
