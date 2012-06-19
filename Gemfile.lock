@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     clearance (0.16.2)
+      bcrypt-ruby
       diesel (~> 0.1.5)
       rails (>= 3.0)
 
@@ -45,6 +46,7 @@ GEM
       cucumber (>= 1.1.1)
       ffi (>= 1.0.11)
       rspec (>= 2.7.0)
+    bcrypt-ruby (3.0.1)
     bourne (1.1.2)
       mocha (= 0.10.5)
     builder (3.0.0)

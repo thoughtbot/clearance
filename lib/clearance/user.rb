@@ -16,12 +16,12 @@ module Clearance
     # @see Callbacks
     included do
       attr_accessor :password_changing
-      attr_reader :password
+      attr_reader   :password
 
       include Validations
       include Callbacks
 
-      include (Clearance.configuration.password_strategy || Clearance::PasswordStrategies::SHA1)
+      include (Clearance.configuration.password_strategy || Clearance::PasswordStrategies::BCrypt)
     end
 
     module ClassMethods
@@ -63,7 +63,7 @@ module Clearance
       # salt, token, password encryption are handled before_save.
       included do
         before_validation :downcase_email
-        before_create :generate_remember_token
+        before_create     :generate_remember_token
       end
     end
 
@@ -108,12 +108,7 @@ module Clearance
       save
     end
 
-    def password=(unencrypted_password)
-      @password = unencrypted_password
-      encrypt_password
-    end
-
-    protected
+    private
 
     def generate_random_code(length = 20)
       if RUBY_VERSION >= '1.9'

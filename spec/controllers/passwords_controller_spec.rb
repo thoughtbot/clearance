@@ -98,21 +98,20 @@ describe Clearance::PasswordsController do
 
     describe "on PUT to #update with password" do
       before do
-        new_password = "new_password"
-        @encrypted_new_password = @user.send(:encrypt, new_password)
-        @user.encrypted_password.should_not == @encrypted_new_password
+        @new_password = "new_password"
+        @user.encrypted_password.should_not == @new_password
 
         put(:update,
             :user_id => @user,
             :token   => @user.confirmation_token,
             :user    => {
-              :password => new_password
+              :password => @new_password
             })
         @user.reload
       end
 
       it "should update password" do
-        @user.encrypted_password.should == @encrypted_new_password
+        @user.encrypted_password.should == @new_password
       end
 
       it "should clear confirmation token" do
@@ -137,8 +136,8 @@ describe Clearance::PasswordsController do
         @user.reload
       end
 
-      it "should not update password" do
-        @user.encrypted_password.should_not == @encrypted_new_password
+      it "should not update password to be blank" do
+        @user.encrypted_password.should_not be_blank
       end
 
       it "should not clear token" do

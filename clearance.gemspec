@@ -21,6 +21,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency('rails',  '>= 3.0')
   s.add_dependency('diesel', '~> 0.1.5')
+  s.add_dependency('bcrypt-ruby')
 
   s.add_development_dependency('bundler',        '~> 1.1')
   s.add_development_dependency('appraisal',      '~> 0.4.1')

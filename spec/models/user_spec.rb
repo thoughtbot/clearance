@@ -98,7 +98,7 @@ describe User do
         @user.forgot_password!
       end
 
-      it "should generate confirmation token" do
+      it "generates confirmation token" do
         @user.confirmation_token.should_not be_nil
       end
 
@@ -108,11 +108,11 @@ describe User do
             @user.update_password("new_password")
           end
 
-          it "should change encrypted password" do
+          it "changes encrypted password" do
             @user.encrypted_password.should_not == @old_encrypted_password
           end
 
-          it "should clear confirmation token" do
+          it "clears confirmation token" do
             @user.confirmation_token.should be_nil
           end
         end
@@ -182,9 +182,8 @@ describe User do
       @user.reload.remember_token.should be_nil
     end
 
-    it "should initialize salt, generate remember token, and save encrypted password on update_password" do
+    it "should generate remember token and save encrypted password on update_password" do
       @user.update_password('password')
-      @user.salt.should_not be_nil
       @user.encrypted_password.should_not be_nil
       @user.remember_token.should_not be_nil
     end

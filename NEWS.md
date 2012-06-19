@@ -1,3 +1,9 @@
+HEAD:
+
+* Change default password strategy to BCrypt
+* Provide BCryptMigrationFromSHA1 password strategy to help people migrate from
+  SHA1 (the old default password strategy) to BCrypt (the new default).
+
 New for 0.16.2:
 
 * Change default email sender to deploy@example.com .
