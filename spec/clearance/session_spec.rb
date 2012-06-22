@@ -22,6 +22,16 @@ describe Clearance::Session do
     session.current_user.should be_nil
   end
 
+  it "does not find users with null remember tokens" do
+    user = create(:user)
+    user.update_attribute(:remember_token, nil)
+    env = env_with_remember_token(nil)
+
+    session = Clearance::Session.new(env)
+    session.stubs(:remember_token => nil)
+    session.should_not be_signed_in
+  end
+
   it "returns nil without a remember token" do
     env = env_without_remember_token
     session = Clearance::Session.new(env)
