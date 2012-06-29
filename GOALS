@@ -1,0 +1,7 @@
+Clearance hits 1.0.0 when:
+
+* A user can sign in, sign out, and sign up.
+* A user can reset and forget password.
+* A developer can be sure that Clearance is working in her app.
+* A developer can use tools provided by Clearance to make testing easier.
+* Password encryption is done using BCrypt by default.
