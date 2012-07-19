@@ -175,9 +175,8 @@ describe User do
   describe "when user exists before Clearance was installed" do
     before do
       @user = create(:user)
-      sql  = "update users set salt = NULL, encrypted_password = NULL, remember_token = NULL where id = #{@user.id}"
+      sql  = "update users set encrypted_password = NULL, remember_token = NULL where id = #{@user.id}"
       ActiveRecord::Base.connection.update(sql)
-      @user.reload.salt.should be_nil
       @user.reload.encrypted_password.should be_nil
       @user.reload.remember_token.should be_nil
     end

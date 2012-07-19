@@ -188,13 +188,7 @@ If you want to override the **model** behavior, you can include sub-modules of `
 Overriding the password strategy
 --------------------------------
 
-By default, Clearance uses BCrypt encryption of the user's password. You can provide your own password strategy by creating a module that conforms to an API of two instance methods:
-
-    def authenticated?
-    end
-
-    def password=(new_password)
-    end
+By default, Clearance uses BCrypt encryption of the user's password.
 
 The previous default password strategy was SHA1. To keep using SHA1, use this
 code:
@@ -209,6 +203,23 @@ Switching password strategies will cause your existing users' passwords to not
 work. If you are currently using the SHA1 strategy (the previous default), and
 want to transparently switch to BCrypt, use the [BCryptMigrationFromSHA1 strategy](https://github.com/thoughtbot/clearance/blob/master/lib/clearance/password_strategies/bcrypt_migration_from_sha1.rb).
 
+The SHA1 and blowfish password strategies require an additional `salt`
+column in the `users` table:
+
+    class AddSaltToUsers < ActiveRecord::Migration
+      def change
+        add_column :users, :salt, :string, :limit => 128
+      end
+    end
+
+You can provide your own password strategy by creating a module that
+conforms to an API of two instance methods:
+
+    def authenticated?
+    end
+
+    def password=(new_password)
+    end
 
 Once you have an API-compliant module, load it with:
 
