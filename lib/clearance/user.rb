@@ -60,7 +60,7 @@ module Clearance
 
       # Hook for callbacks.
       #
-      # salt, token, password encryption are handled before_save.
+      # token, password encryption are handled before_save.
       included do
         before_validation :downcase_email
         before_create     :generate_remember_token

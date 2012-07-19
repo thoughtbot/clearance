@@ -16,7 +16,6 @@ ActiveRecord::Schema.define(:version => 20110111224543) do
   create_table "users", :force => true do |t|
     t.string   "email"
     t.string   "encrypted_password", :limit => 128
-    t.string   "salt",               :limit => 128
     t.string   "confirmation_token", :limit => 128
     t.string   "remember_token",     :limit => 128
     t.datetime "created_at",                        :null => false

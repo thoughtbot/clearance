@@ -185,16 +185,10 @@ If you want to override the **model** behavior, you can include sub-modules of `
 
 `Callbacks` contains `ActiveRecord` callbacks downcasing the email and generating a remember token.
 
-Overriding the password strategy
---------------------------------
+Stock password strategies
+-------------------------
 
-By default, Clearance uses BCrypt encryption of the user's password. You can provide your own password strategy by creating a module that conforms to an API of two instance methods:
-
-    def authenticated?
-    end
-
-    def password=(new_password)
-    end
+By default, Clearance uses BCrypt encryption of the user's password.
 
 The previous default password strategy was SHA1. To keep using SHA1, use this
 code:
@@ -209,13 +203,6 @@ Switching password strategies will cause your existing users' passwords to not
 work. If you are currently using the SHA1 strategy (the previous default), and
 want to transparently switch to BCrypt, use the [BCryptMigrationFromSHA1 strategy](https://github.com/thoughtbot/clearance/blob/master/lib/clearance/password_strategies/bcrypt_migration_from_sha1.rb).
 
-
-Once you have an API-compliant module, load it with:
-
-    Clearance.configure do |config|
-      config.password_strategy = MyPasswordStrategy
-    end
-
 For example:
 
     # default
@@ -226,6 +213,34 @@ For example:
     config.password_strategy = Clearance::PasswordStrategies::SHA1
     # Blowfish
     config.password_strategy = Clearance::PasswordStrategies::Blowfish
+
+The SHA1 and blowfish password strategies require an additional `salt`
+column in the `users` table. *Run this migration* before switching
+to SHA or blowfish strategies or it *will* break:
+
+    class AddSaltToUsers < ActiveRecord::Migration
+      def change
+        add_column :users, :salt, :string, :limit => 128
+      end
+    end
+
+Custom password strategies
+--------------------------
+
+You can provide your own password strategy by creating a module that
+conforms to an API of two instance methods:
+
+    def authenticated?
+    end
+
+    def password=(new_password)
+    end
+
+Once you have an API-compliant module, load it with:
+
+    Clearance.configure do |config|
+      config.password_strategy = MyPasswordStrategy
+    end
 
 Routing Constraints
 -------------------
