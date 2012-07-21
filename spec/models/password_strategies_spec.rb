@@ -13,20 +13,20 @@ describe Clearance::User do
     end.new
   end
 
-  describe "when Clearance.configuration.password_strategy is set" do
+  describe 'when Clearance.configuration.password_strategy is set' do
     let(:mock_password_strategy) { Module.new }
 
     before { Clearance.configuration.password_strategy = mock_password_strategy }
 
-    it "includes the value it is set to" do
+    it 'includes the value it is set to' do
       subject.should be_kind_of(mock_password_strategy)
     end
   end
 
-  describe "when Clearance.configuration.password_strategy is not set" do
+  describe 'when Clearance.configuration.password_strategy is not set' do
     before { Clearance.configuration.password_strategy = nil }
 
-    it "includes Clearance::PasswordStrategies::BCrypt" do
+    it 'includes Clearance::PasswordStrategies::BCrypt' do
       subject.should be_kind_of(Clearance::PasswordStrategies::BCrypt)
     end
   end

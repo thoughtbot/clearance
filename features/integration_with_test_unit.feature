@@ -17,7 +17,7 @@ Feature: integrate with test unit
     And I add the "cucumber-rails" gem
     And I write to "test/test_helper.rb" with:
     """
-    ENV["RAILS_ENV"] = "test"
+    ENV['RAILS_ENV'] = 'test'
     require File.expand_path('../../config/environment', __FILE__)
     require 'rails/test_help'
 
@@ -32,7 +32,7 @@ Feature: integrate with test unit
     require 'test_helper'
 
     class PostsControllerTest < ActionController::TestCase
-      test "should get index" do
+      test 'should get index' do
         sign_in
         get :index
         assert_response :success

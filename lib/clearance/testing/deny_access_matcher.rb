@@ -1,12 +1,6 @@
 module Clearance
   module Testing
     module Matchers
-      # Ensures a controller denied access.
-      #
-      # @example
-      #   it { should deny_access  }
-      #   it { should deny_access(:flash => "Denied access.")  }
-      #   it { should deny_access(:redirect => sign_in_url)  }
       def deny_access(opts = {})
         DenyAccessMatcher.new(self, opts)
       end
@@ -16,11 +10,15 @@ module Clearance
 
         def initialize(context, opts)
           @context = context
-          @flash   = opts[:flash]
-          @url     = opts[:redirect]
+          @flash = opts[:flash]
+          @url = opts[:redirect]
 
-          @failure_message          = ""
-          @negative_failure_message = ""
+          @failure_message = ''
+          @negative_failure_message = ''
+        end
+
+        def description
+          'deny access'
         end
 
         def matches?(controller)
@@ -28,11 +26,40 @@ module Clearance
           sets_the_flash? && redirects_to_url?
         end
 
-        def description
-          "deny access"
+        private
+
+        def denied_access_url
+          if @controller.signed_in?
+            '/'
+          else
+            @controller.sign_in_url
+          end
         end
 
-        private
+        def flash_notice
+          @controller.flash[:notice]
+        end
+
+        def flash_notice_value
+          if flash_notice.respond_to?(:values)
+            flash_notice.values.first
+          else
+            flash_notice
+          end
+        end
+
+        def redirects_to_url?
+          @url ||= denied_access_url
+
+          begin
+            @context.send(:assert_redirected_to, @url)
+            @negative_failure_message << "Didn't expect to redirect to #{@url}."
+            true
+          rescue Clearance::Testing::AssertionError
+            @failure_message << "Expected to redirect to #{@url} but did not."
+            false
+          end
+        end
 
         def sets_the_flash?
           if @flash.blank?
@@ -45,38 +72,6 @@ module Clearance
               @failure_message << "Expected the flash to be set to #{@flash} but was #{flash_notice_value}"
               false
             end
-          end
-        end
-
-        def flash_notice_value
-          if flash_notice.respond_to?(:values)
-            flash_notice.values.first
-          else
-            flash_notice
-          end
-        end
-
-        def flash_notice
-          @controller.flash[:notice]
-        end
-
-        def redirects_to_url?
-          @url ||= denied_access_url
-          begin
-            @context.send(:assert_redirected_to, @url)
-            @negative_failure_message << "Didn't expect to redirect to #{@url}."
-            true
-          rescue Clearance::Testing::AssertionError
-            @failure_message << "Expected to redirect to #{@url} but did not."
-            false
-          end
-        end
-
-        def denied_access_url
-          if @controller.signed_in?
-            '/'
-          else
-            @controller.sign_in_url
           end
         end
       end

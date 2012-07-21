@@ -4,10 +4,10 @@
 # instead of editing this one. Cucumber will automatically load all features/**/*.rb
 # files.
 
-ENV["RAILS_ENV"] ||= "test"
+ENV['RAILS_ENV'] ||= 'test'
 
-PROJECT_ROOT = File.expand_path("../../..", __FILE__)
-$LOAD_PATH << File.join(PROJECT_ROOT, "lib")
+PROJECT_ROOT = File.expand_path('../../..', __FILE__)
+$LOAD_PATH << File.join(PROJECT_ROOT, 'lib')
 
 require 'rails/all'
 
@@ -51,5 +51,5 @@ ActionController::Base.allow_rescue = false
 begin
   DatabaseCleaner.strategy = :transaction
 rescue NameError
-  raise "You need to add database_cleaner to your Gemfile (in the :test group) if you wish to use it."
+  raise 'You need to add database_cleaner to your Gemfile (in the :test group) if you wish to use it.'
 end

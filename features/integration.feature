@@ -15,7 +15,6 @@ Feature: integrate with application
     And I add the "clearance" gem from this project
     And I run `bundle install --local`
     And I successfully run `bundle exec rails generate cucumber:install`
-    And I disable Capybara Javascript emulation
     And I successfully run `bundle exec rails generate clearance:features`
 
   Scenario: generate a Rails app, run the generators, and run the tests

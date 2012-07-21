@@ -31,17 +31,17 @@ module Clearance
 
       private
 
+      def authenticated_with_bcrypt?(password)
+        BCryptUser.new(self).authenticated? password
+      end
+
       def authenticated_with_sha1?(password)
         if sha1_password?
-          if SHA1User.new(self).authenticated?(password)
+          if SHA1User.new(self).authenticated? password
             self.password = password
             true
           end
         end
-      end
-
-      def authenticated_with_bcrypt?(password)
-        BCryptUser.new(self).authenticated?(password)
       end
 
       def sha1_password?

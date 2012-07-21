@@ -1,17 +1,12 @@
 class Clearance::PasswordsController < ApplicationController
   unloadable
 
-  skip_before_filter :authorize,           :only => [:new, :create, :edit, :update]
-  before_filter :forbid_missing_token,     :only => [:edit, :update]
+  skip_before_filter :authorize, :only => [:create, :edit, :new, :update]
+  before_filter :forbid_missing_token, :only => [:edit, :update]
   before_filter :forbid_non_existent_user, :only => [:edit, :update]
 
-  def new
-    render :template => 'passwords/new'
-  end
-
   def create
-    if user = Clearance.configuration.user_model.find_by_email(
-                   params[:password][:email])
+    if user = find_user_for_create
       user.forgot_password!
       ::ClearanceMailer.change_password(user).deliver
       render :template => 'passwords/create'
@@ -22,18 +17,20 @@ class Clearance::PasswordsController < ApplicationController
   end
 
   def edit
-    @user = Clearance.configuration.user_model.find_by_id_and_confirmation_token(
-                   params[:user_id], params[:token].to_s)
+    @user = find_user_for_edit
     render :template => 'passwords/edit'
   end
 
-  def update
-    @user = Clearance.configuration.user_model.find_by_id_and_confirmation_token(
-                   params[:user_id], params[:token].to_s)
+  def new
+    render :template => 'passwords/new'
+  end
 
-    if @user.update_password(params[:user][:password])
-      sign_in(@user)
-      redirect_to(url_after_update)
+  def update
+    @user = find_user_for_update
+
+    if @user.update_password params[:user][:password]
+      sign_in @user
+      redirect_to url_after_update
     else
       flash_failure_after_update
       render :template => 'passwords/edit'
@@ -41,6 +38,41 @@ class Clearance::PasswordsController < ApplicationController
   end
 
   private
+
+  def find_user_by_id_and_confirmation_token
+    Clearance.configuration.user_model.
+      find_by_id_and_confirmation_token params[:user_id], params[:token].to_s
+  end
+
+  def find_user_for_create
+    Clearance.configuration.user_model.find_by_email params[:password][:email]
+  end
+
+  def find_user_for_edit
+    find_user_by_id_and_confirmation_token
+  end
+
+  def find_user_for_update
+    find_user_by_id_and_confirmation_token
+  end
+
+  def flash_failure_when_forbidden
+    flash.now[:notice] = translate(:forbidden,
+      :scope => [:clearance, :controllers, :passwords],
+      :default => 'Please double check the URL or try submitting the form again.')
+  end
+
+  def flash_failure_after_create
+    flash.now[:notice] = translate(:unknown_email,
+      :scope => [:clearance, :controllers, :passwords],
+      :default => 'Unknown email.')
+  end
+
+  def flash_failure_after_update
+    flash.now[:notice] = translate(:blank_password,
+      :scope => [:clearance, :controllers, :passwords],
+      :default => "Password can't be blank.")
+  end
 
   def forbid_missing_token
     if params[:token].to_s.blank?
@@ -50,29 +82,10 @@ class Clearance::PasswordsController < ApplicationController
   end
 
   def forbid_non_existent_user
-    unless Clearance.configuration.user_model.find_by_id_and_confirmation_token(
-                  params[:user_id], params[:token].to_s)
+    unless find_user_by_id_and_confirmation_token
       flash_failure_when_forbidden
       render :template => 'passwords/new'
     end
-  end
-
-  def flash_failure_when_forbidden
-    flash.now[:notice] = translate(:forbidden,
-      :scope   => [:clearance, :controllers, :passwords],
-      :default => "Please double check the URL or try submitting the form again.")
-  end
-
-  def flash_failure_after_create
-    flash.now[:notice] = translate(:unknown_email,
-      :scope   => [:clearance, :controllers, :passwords],
-      :default => "Unknown email.")
-  end
-
-  def flash_failure_after_update
-    flash.now[:notice] = translate(:blank_password,
-      :scope   => [:clearance, :controllers, :passwords],
-      :default => "Password can't be blank.")
   end
 
   def url_after_create

@@ -12,16 +12,16 @@ module Clearance
 
       private
 
-      def signed_in?
-        @request.env[:clearance].signed_in?
+      def current_user
+        @request.env[:clearance].current_user
       end
 
       def current_user_fulfills_additional_requirements?
-        @block.call(current_user)
+        @block.call current_user
       end
 
-      def current_user
-        @request.env[:clearance].current_user
+      def signed_in?
+        @request.env[:clearance].signed_in?
       end
     end
   end

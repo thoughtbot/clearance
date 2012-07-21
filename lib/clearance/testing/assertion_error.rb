@@ -1,6 +1,6 @@
 module Clearance
   module Testing
-    if RUBY_VERSION > "1.9"
+    if RUBY_VERSION > '1.9'
       require 'minitest/unit'
       AssertionError = MiniTest::Assertion
     else

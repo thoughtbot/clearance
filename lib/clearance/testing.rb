@@ -8,6 +8,7 @@ end
 
 if defined?(ActionController::TestCase)
   ActionController::TestCase.extend Clearance::Testing::Matchers
+
   class ActionController::TestCase
     include Clearance::Testing::Helpers
   end

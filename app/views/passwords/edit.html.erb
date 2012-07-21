@@ -4,14 +4,15 @@
   Your password has been reset. Choose a new password below.
 </p>
 
-<%= form_for(:user,
-             :url  => user_password_path(@user, :token => @user.confirmation_token),
-             :html => { :method => :put }) do |form| %>
-  <div class="password_field">
-    <%= form.label :password, "Choose password" %>
+<%= form_for :user,
+      :url => user_password_path(@user, :token => @user.confirmation_token),
+      :html => { :method => :put } do |form| %>
+  <div class='password_field'>
+    <%= form.label :password, 'Choose password' %>
     <%= form.password_field :password %>
   </div>
-  <div class="submit_field">
-    <%= form.submit "Save this password" %>
+
+  <div class='submit_field'>
+    <%= form.submit 'Save this password' %>
   </div>
 <% end %>

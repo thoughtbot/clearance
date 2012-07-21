@@ -1,10 +1,10 @@
-require "clearance"
-require "rails"
+require 'clearance'
+require 'rails'
 
 module Clearance
   class Engine < Rails::Engine
-    initializer "clearance.filter" do |app|
-      app.config.filter_parameters += [:token, :password]
+    initializer 'clearance.filter' do |app|
+      app.config.filter_parameters += [:password, :token]
     end
 
     config.app_middleware.insert_after ActionDispatch::Cookies, Clearance::RackSession

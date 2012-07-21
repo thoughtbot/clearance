@@ -1,10 +1,10 @@
 module Clearance
   class Configuration
-    attr_accessor :mailer_sender, :cookie_expiration, :password_strategy, :user_model
+    attr_accessor :cookie_expiration, :mailer_sender, :password_strategy, :user_model
 
     def initialize
-      @mailer_sender = 'reply@example.com'
       @cookie_expiration = lambda { 1.year.from_now.utc }
+      @mailer_sender = 'reply@example.com'
     end
 
     def user_model
@@ -16,23 +16,8 @@ module Clearance
     attr_accessor :configuration
   end
 
-  # Configure Clearance someplace sensible,
-  # like config/initializers/clearance.rb
-  #
-  # If you want users to only be signed in during the current session
-  # instead of being remembered, do this:
-  #
-  #   config.cookie_expiration = lambda { }
-  #
-  # @example
-  #   Clearance.configure do |config|
-  #     config.mailer_sender     = 'me@example.com'
-  #     config.cookie_expiration = lambda { 2.weeks.from_now.utc }
-  #     config.password_strategy = MyPasswordStrategy
-  #     config.user_model        = MyNamespace::MyUser
-  #   end
   def self.configure
     self.configuration ||= Configuration.new
-    yield(configuration)
+    yield configuration
   end
 end
