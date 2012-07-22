@@ -10,23 +10,22 @@ describe Clearance::PasswordStrategies::SHA1 do
     end.new
   end
 
-  describe "#password=" do
-    context "when the password is set" do
-      let(:salt)     { "salt" }
-      let(:password) { "password" }
+  describe '#password=' do
+    context 'when the password is set' do
+      let(:salt) { 'salt' }
+      let(:password) { 'password' }
 
       before do
-        subject.salt     = salt
+        subject.salt = salt
         subject.password = password
       end
 
-      it "doesn't initialize the salt" do
+      it 'does not initialize the salt' do
         subject.salt.should == salt
       end
 
-      it "encrypts the password using SHA1 and the existing salt into encrypted_password" do
+      it 'encrypts the password using SHA1 and the existing salt' do
         expected = Digest::SHA1.hexdigest("--#{salt}--#{password}--")
-
         subject.encrypted_password.should == expected
       end
     end

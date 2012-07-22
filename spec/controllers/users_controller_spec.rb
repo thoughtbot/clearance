@@ -1,10 +1,10 @@
 require 'spec_helper'
 
 describe Clearance::UsersController do
-  describe "when signed out" do
+  describe 'when signed out' do
     before { sign_out }
 
-    describe "on GET to #new" do
+    describe 'on GET to #new' do
       before { get :new }
 
       it { should respond_with(:success) }
@@ -12,18 +12,18 @@ describe Clearance::UsersController do
       it { should_not set_the_flash }
     end
 
-    describe "on GET to #new with email" do
+    describe 'on GET to #new with email' do
       before do
-        @email = "a@example.com"
+        @email = 'a@example.com'
         get :new, :user => { :email => @email }
       end
 
-      it "should set assigned user's email" do
+      it 'should set assigned user email' do
         assigns(:user).email.should == @email
       end
     end
 
-    describe "on POST to #create with valid attributes" do
+    describe 'on POST to #create with valid attributes' do
       before do
         user_attributes = FactoryGirl.attributes_for(:user)
         @old_user_count = User.count
@@ -32,14 +32,14 @@ describe Clearance::UsersController do
 
       it { should assign_to(:user) }
 
-      it "should create a new user" do
+      it 'should create a new user' do
         User.count.should == @old_user_count + 1
       end
 
       it { should redirect_to_url_after_create }
     end
 
-    describe "on POST to #create with valid attributes and a session return url" do
+    describe 'on POST to #create with valid attributes and a session return url' do
       before do
         user_attributes = FactoryGirl.attributes_for(:user)
         @old_user_count = User.count
@@ -50,7 +50,7 @@ describe Clearance::UsersController do
 
       it { should assign_to(:user) }
 
-      it "should create a new user" do
+      it 'should create a new user' do
         User.count.should == @old_user_count + 1
       end
 
@@ -58,22 +58,24 @@ describe Clearance::UsersController do
     end
   end
 
-  describe "A signed-in user" do
+  describe 'A signed-in user' do
     before do
       @user = create(:user)
       sign_in_as @user
     end
 
-    describe "GET to new" do
+    describe 'GET to new' do
       before { get :new }
-      it "redirects to the home page" do
+
+      it 'redirects to the home page' do
         should redirect_to(root_url)
       end
     end
 
-    describe "POST to create" do
+    describe 'POST to create' do
       before { post :create, :user => {} }
-      it "redirects to the home page" do
+
+      it 'redirects to the home page' do
         should redirect_to(root_url)
       end
     end

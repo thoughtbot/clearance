@@ -16,8 +16,8 @@ end
 describe FlashesController do
   before do
     Rails.application.routes.draw do
-      match "set_flash" => "flashes#set_flash"
-      match "view_flash" => "flashes#view_flash"
+      match 'set_flash' => 'flashes#set_flash'
+      match 'view_flash' => 'flashes#view_flash'
     end
   end
 
@@ -25,8 +25,8 @@ describe FlashesController do
     Rails.application.reload_routes!
   end
 
-  it "sets and views a flash" do
-    visit "/set_flash?message=hello"
-    page.should have_content("hello")
+  it 'sets and views a flash' do
+    visit '/set_flash?message=hello'
+    page.should have_content('hello')
   end
 end

@@ -179,14 +179,14 @@ for the default behavior.
 
 To override a view, create your own:
 
-   app/views/clearance_mailer/change_password.html.erb
-   app/views/passwords/create.html.erb
-   app/views/passwords/edit.html.erb
-   app/views/passwords/new.html.erb
-   app/views/sessions/_form.html.erb
-   app/views/sessions/new.html.erb
-   app/views/users/_form.html.erb
-   app/views/users/new.html.erb
+    app/views/clearance_mailer/change_password.html.erb
+    app/views/passwords/create.html.erb
+    app/views/passwords/edit.html.erb
+    app/views/passwords/new.html.erb
+    app/views/sessions/_form.html.erb
+    app/views/sessions/new.html.erb
+    app/views/users/_form.html.erb
+    app/views/users/new.html.erb
 
 There is a shortcut to copy all Clearance views into your app:
 
@@ -350,13 +350,12 @@ Credits
 
 ![thoughtbot](http://thoughtbot.com/images/tm/logo.png)
 
-Clearance is maintained and funded by [thoughtbot, inc](http://thoughtbot.com/community)
-
+Clearance is maintained by [thoughtbot, inc](http://thoughtbot.com/community).
 Thank you to all [the contributors](https://github.com/thoughtbot/clearance/contributors)!
-
-The names and logos for thoughtbot are trademarks of thoughtbot, inc.
 
 License
 -------
 
 Clearance is copyright © 2009-2012 thoughtbot. It is free software, and may be redistributed under the terms specified in the LICENSE file.
+
+The names and logos for thoughtbot are trademarks of thoughtbot, inc.

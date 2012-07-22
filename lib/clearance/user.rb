@@ -105,7 +105,7 @@ module Clearance
     end
 
     def password_required?
-      warn "[DEPRECATION] password_required?: use !password_optional? instead"
+      warn '[DEPRECATION] password_required?: use !password_optional? instead'
       !password_optional?
     end
   end

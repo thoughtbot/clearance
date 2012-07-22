@@ -5,17 +5,17 @@ class DeniesController < ActionController::Base
   before_filter :authorize, :only => :show
 
   def new
-    render :text => "New page"
+    render :text => 'New page'
   end
 
   def show
-    render :text => "Show page"
+    render :text => 'Show page'
   end
 
   protected
 
   def authorize
-    deny_access("Access denied.")
+    deny_access 'Access denied.'
   end
 end
 
@@ -31,30 +31,31 @@ describe DeniesController do
     Rails.application.reload_routes!
   end
 
-  context "signed in user" do
+  context 'signed in user' do
     before { sign_in }
 
-    it "allows access to new" do
+    it 'allows access to new' do
       get :new
       subject.should_not deny_access
     end
 
-    it "denies access to show" do
+    it 'denies access to show' do
       get :show
       subject.should deny_access(:redirect => '/')
     end
   end
 
-  context "visitor" do
-    it "allows access to new" do
+  context 'visitor' do
+    it 'allows access to new' do
       get :new
       subject.should_not deny_access
     end
 
-    it "denies access to show" do
+    it 'denies access to show' do
       get :show
       subject.should deny_access
-      subject.should deny_access(:redirect => sign_in_url, :flash => "Access denied.")
+      subject.should deny_access(:redirect => sign_in_url,
+        :flash => 'Access denied.')
     end
   end
 end

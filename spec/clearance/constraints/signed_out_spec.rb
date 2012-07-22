@@ -8,8 +8,8 @@ describe Clearance::Constraints::SignedOut do
 
   it 'returns false when user is not signed out' do
     user = create(:user)
-
     signed_out_constraint = Clearance::Constraints::SignedOut.new
-    signed_out_constraint.matches?(request_with_remember_token(user.remember_token)).should be_false
+    signed_out_constraint.matches?(request_with_remember_token(user.remember_token)).
+      should be_false
   end
 end
