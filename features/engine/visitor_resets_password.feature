@@ -32,10 +32,3 @@ Feature: Password reset
     When I sign in with "email@example.com" and "newpassword"
     Then I should be signed in
 
-  Scenario: User who was created before Clearance was installed creates password for first time
-    Given a user "email@example.com" exists without a remember token or password
-    When I reset the password for "email@example.com"
-    When I follow the password reset link sent to "email@example.com"
-    And I update my password with "newpassword"
-    Then I should be signed in
-
