@@ -3,26 +3,21 @@ Clearance [![Build Status](https://secure.travis-ci.org/thoughtbot/clearance.png
 
 Rails authentication & authorization with email & password.
 
-[We have clearance, Clarence.](http://www.youtube.com/watch?v=fVq4_HhBK8Y)
+Clearance was extracted out of [Airbrake](http://airbrakeapp.com/). It is intended to be small, simple, well-tested, and easy to override defaults.
 
-Clearance was extracted out of [Airbrake](http://airbrakeapp.com/).
+Use [Github Issues](http://github.com/thoughtbot/clearance/issues) for help.
 
-Help
-----
+Read [CONTRIBUTING.md](https://github.com/thoughtbot/clearance/blob/master/config/routes.rb) to contribute.
 
-* [Documentation](http://rdoc.info/gems/clearance) at RDoc.info.
-* [Patches and bugs](http://github.com/thoughtbot/clearance/issues) at Github Issues.
-* [Mailing list](http://groups.google.com/group/thoughtbot-clearance) at Google Groups.
-
-Installation
-------------
+Install
+-------
 
 Clearance is a Rails engine for Rails 3. It is currently tested against Rails
 3.0.12, 3.1.4, and 3.2.3.
 
 Include the gem in your Gemfile:
 
-    gem "clearance"
+    gem 'clearance'
 
 Make sure the development database exists, then run the generator:
 
@@ -39,56 +34,66 @@ Follow the instructions that are output from the generator.
 Use the [0.8.x](https://github.com/thoughtbot/clearance/tree/v0.8.8)
 series of Clearance if you have a Rails 2 app.
 
-Usage
------
+Configure
+---------
 
-If you want to authorize users for a controller action, use the authorize
-method in a before_filter.
+Override any of the defaults in `config/initializers/clearance.rb`:
 
-    class WidgetsController < ApplicationController
+    Clearance.configure do |config|
+      config.cookie_expiration = lambda { 1.year.from_now.utc }
+      config.mailer_sender = 'reply@example.com'
+      config.password_strategy = Clearance::PasswordStrategies::BCrypt
+      config.user_model = User
+    end
+
+Use
+---
+
+Use `authorize` and `current_user` in controllers:
+
+    class ArticlesController < ApplicationController
       before_filter :authorize
 
       def index
-        @widgets = Widget.all
+        current_user.articles
       end
     end
 
-If you want to reference the current user in a controller, view, or helper, use
-the current_user method.
+Use `signed_in?` and `signed_out?` in controllers, views, or helpers. For example,
+you might want this in a layout:
 
-    def index
-      current_user.articles
-    end
+    - if signed_in?
+      = current_user.email
+      = link_to 'Sign out', sign_out_path, :method => :delete
+    - else
+      = link_to 'Sign in', sign_in_path
 
-If you want to know whether the current user is signed in or out, you can use
-these methods in controllers, views, or helpers:
+If you want to authenticate a user elsewhere than sessions/new, like in an API:
 
-    signed_in?
-    signed_out?
+    User.authenticate 'email@example.com', 'password'
 
-Typically, you want to have something like this in your app, maybe in a layout:
+When a user resets their password, Clearance delivers them an email on. Therefore,
+you should change the default email address in `config/initializers/clearance.rb`:
 
-    <% if signed_in? %>
-      <%= current_user.email %>
-      <%= link_to "Sign out", sign_out_path, :method => :delete %>
-    <% else %>
-      <%= link_to "Sign in", sign_in_path %>
-    <% end %>
-
-If you ever want to authenticate the user some place other than sessions/new,
-maybe in an API:
-
-    User.authenticate("email@example.com", "password")
-
-Clearance will deliver one email on your app's behalf: when a user resets their password. Therefore, you should change the default email address that email comes from:
-
-    # config/initializers/clearance.rb
     Clearance.configure do |config|
-      config.mailer_sender = "me@example.com"
+      config.mailer_sender = 'reply@example.com'
     end
 
-Rack
-----
+You can authorize users at the route level:
+
+    Blog::Application.routes.draw do
+      constraints Clearance::Constraints::SignedIn.new { |user| user.admin? } do
+        root :to => 'admin'
+      end
+
+      constraints Clearance::Constraints::SignedIn.new do
+        root :to => 'dashboard'
+      end
+
+      constraints Clearance::Constraints::SignedOut.new do
+        root :to => 'marketing'
+      end
+    end
 
 Clearance adds its session to the Rack environment hash so middleware and other
 Rack applications can interact with it:
@@ -102,15 +107,10 @@ Rack applications can interact with it:
         if env[:clearance].signed_in?
           env[:clearance].current_user.bubble_gum
         end
+
         @app.call(env)
       end
     end
-
-
-Overriding defaults
--------------------
-
-Clearance is intended to be small, simple, well-tested, and easy to override defaults.
 
 Overriding routes
 -----------------
@@ -128,43 +128,65 @@ See [app/controllers/clearance](https://github.com/thoughtbot/clearance/tree/mas
 
 To override a Clearance controller, subclass it:
 
+    class PasswordsController < Clearance::PasswordsController
     class SessionsController < Clearance::SessionsController
-      def new
-        # my special new action
-      end
+    class UsersController < Clearance::UsersController
 
-      def url_after_create
-        my_special_path
-      end
-    end
+Then, override public methods:
 
-You may want to override entire actions:
+    passwords#create
+    passwords#edit
+    passwords#new
+    passwords#update
+    sessions#create
+    sessions#destroy
+    sessions#new
+    users#new
+    users#create
 
-    def new
-    end
+Or, override private methods:
 
-Or, you may want to override private methods that actions use:
-
-    url_after_create
-    url_after_update
-    url_after_destroy
-    flash_failure_after_create
-    flash_failure_after_update
-    flash_failure_when_forbidden
-    forbid_missing_token
-    forbid_non_existent_user
+    passwords#find_user_by_id_and_confirmation_token
+    passwords#find_user_for_create
+    passwords#find_user_for_edit
+    passwords#find_user_for_update
+    passwords#flash_failure_when_forbidden
+    passwords#flash_failure_after_create
+    passwords#flash_failure_after_update
+    passwords#forbid_missing_token
+    passwords#forbid_non_existent_user
+    passwords#url_after_create
+    passwords#url_after_update
+    sessions#flash_failure_after_create
+    sessions#url_after_create
+    sessions#url_after_destroy
+    users#flash_failure_after_create
+    users#url_after_create
+    users#user_from_params
 
 Overriding translations
 -----------------------
 
-All flash messages and email subject lines are stored in [i18n translations](http://guides.rubyonrails.org/i18n.html). Override them like any other translation.
+All flash messages and email subject lines are stored in
+[i18n translations](http://guides.rubyonrails.org/i18n.html).
+Override them like any other translation.
 
 Overriding views
 ----------------
 
-See [app/views](https://github.com/thoughtbot/clearance/tree/master/app/views) for the default behavior.
+See [app/views](https://github.com/thoughtbot/clearance/tree/master/app/views)
+for the default behavior.
 
-To override those **views**, create them in your own `app/views` directory.
+To override a view, create your own:
+
+   app/views/clearance_mailer/change_password.html.erb
+   app/views/passwords/create.html.erb
+   app/views/passwords/edit.html.erb
+   app/views/passwords/new.html.erb
+   app/views/sessions/_form.html.erb
+   app/views/sessions/new.html.erb
+   app/views/users/_form.html.erb
+   app/views/users/new.html.erb
 
 There is a shortcut to copy all Clearance views into your app:
 
@@ -173,50 +195,58 @@ There is a shortcut to copy all Clearance views into your app:
 Overriding the model
 --------------------
 
-If you want to override the **model** behavior, you can include sub-modules of `Clearance::User`:
+See [lib/clearance/user.rb](https://github.com/thoughtbot/clearance/tree/master/lib/clearance/user.rb)
+for the default behavior.
 
-    extend  Clearance::User::ClassMethods
-    include Clearance::User::Validations
-    include Clearance::User::Callbacks
+To override the model, redefine public methods:
 
-`ClassMethods` contains the `User.authenticate(email, password)` method.
+    self.authenticate(email, password)
+    forgot_password!
+    reset_remember_token!
+    update_password(new_password)
 
-`Validations` contains validations for email and password.
+Or, redefine private methods:
 
-`Callbacks` contains `ActiveRecord` callbacks downcasing the email and generating a remember token.
+    downcase_email
+    email_optional?
+    generate_confirmation_token
+    generate_remember_token
+    password_optional?
 
-Stock password strategies
--------------------------
+Overriding the password strategy
+--------------------------------
 
 By default, Clearance uses BCrypt encryption of the user's password.
 
-The previous default password strategy was SHA1. To keep using SHA1, use this
-code:
+See [lib/clearance/password_strategies/bcrypt.rb](https://github.com/thoughtbot/clearance/blob/master/lib/clearance/password_strategies/bcrypt.rb) for the default behavior.
+
+Change your password strategy in `config/initializers/clearance.rb:`
 
     Clearance.configure do |config|
       config.password_strategy = Clearance::PasswordStrategies::SHA1
     end
 
-See [lib/clearance/password_strategies/bcrypt.rb](https://github.com/thoughtbot/clearance/blob/master/lib/clearance/password_strategies/bcrypt.rb) for the default behavior.
-Also see [lib/clearance/password_strategies/blowfish.rb](https://github.com/thoughtbot/clearance/blob/master/lib/clearance/password_strategies/blowfish.rb) for another password strategy.
-Switching password strategies will cause your existing users' passwords to not
-work. If you are currently using the SHA1 strategy (the previous default), and
-want to transparently switch to BCrypt, use the [BCryptMigrationFromSHA1 strategy](https://github.com/thoughtbot/clearance/blob/master/lib/clearance/password_strategies/bcrypt_migration_from_sha1.rb).
+Clearance provides the following strategies:
 
-For example:
-
-    # default
     config.password_strategy = Clearance::PasswordStrategies::BCrypt
-    # use this strategy if you used to use SHA1, and now you want to use BCrypt
     config.password_strategy = Clearance::PasswordStrategies::BCryptMigrationFromSHA1
-    # SHA1 (the previous default)
-    config.password_strategy = Clearance::PasswordStrategies::SHA1
-    # Blowfish
     config.password_strategy = Clearance::PasswordStrategies::Blowfish
+    config.password_strategy = Clearance::PasswordStrategies::SHA1
 
-The SHA1 and blowfish password strategies require an additional `salt`
-column in the `users` table. *Run this migration* before switching
-to SHA or blowfish strategies or it *will* break:
+The previous default password strategy was SHA1.
+
+Switching password strategies may cause your existing users to not be able to sign in.
+
+If you have an existing app that used the old `SHA1` strategy and you
+want to stay with SHA1, use
+[Clearance::PasswordStrategies::SHA1](https://github.com/thoughtbot/clearance/blob/master/lib/clearance/password_strategies/sha1.rb).
+
+If you have an existing app that used the old `SHA1` strategy and you
+want to switch to BCrypt transparently, use
+[Clearance::PasswordStrategies::BCryptMigrationFromSHA1](https://github.com/thoughtbot/clearance/blob/master/lib/clearance/password_strategies/bcrypt_migration_from_sha1.rb).
+
+The SHA1 and Blowfish password strategies require an additional `salt` column in
+the `users` table. Run this migration before switching to SHA or Blowfish:
 
     class AddSaltToUsers < ActiveRecord::Migration
       def change
@@ -224,50 +254,19 @@ to SHA or blowfish strategies or it *will* break:
       end
     end
 
-Custom password strategies
---------------------------
+You can write a custom password strategy that has two instance methods:
 
-You can provide your own password strategy by creating a module that
-conforms to an API of two instance methods:
+    module CustomPasswordStrategy
+      def authenticated?
+      end
 
-    def authenticated?
+      def password=(new_password)
+      end
     end
-
-    def password=(new_password)
-    end
-
-Once you have an API-compliant module, load it with:
 
     Clearance.configure do |config|
-      config.password_strategy = MyPasswordStrategy
+      config.password_strategy = CustomPasswordStrategy
     end
-
-Routing Constraints
--------------------
-
-Clearance ships with Rails [routing constraints](http://guides.rubyonrails.org/routing.html#advanced-constraints).
-These allow you to check if a user is signed in or signed out before they hit your controller - the check is moved down the stack.
-You can use them like this:
-
-    SweetBlog::Application.routes.draw do
-      # Signed-in admin users use this root path
-      constraints(Clearance::Constraints::SignedIn.new {|user| user.admin?}) do
-        root :to => 'admins/dashboard#index'
-      end
-
-      # Signed-in non-admin users use this root path
-      constraints(Clearance::Constraints::SignedIn.new) do
-        root :to => 'organizations#show'
-      end
-
-      # Signed-out users users use this fallback root path
-      constraints(Clearance::Constraints::SignedOut.new) do
-        root :to => 'high_voltage/pages#show', :id => 'home'
-      end
-    end
-
-Note that `Clearance::Constraints::SignedIn` yields a signed-in user object so
-that you can perform additional checks.
 
 Optional Cucumber features
 --------------------------
@@ -304,13 +303,13 @@ Testing
 -------
 
 If you want to write Rails functional tests or controller specs with Clearance,
-you'll need to require the  included test helpers and matchers.
+you'll need to require the included test helpers and matchers.
 
-For example, in spec/support/clearance.rb or test/test_helper.rb:
+For example, in `spec/support/clearance.rb` or `test/test_helper.rb`:
 
     require 'clearance/testing'
 
-This will make Clearance::Authentication methods work in your controllers
+This will make `Clearance::Authentication` methods work in your controllers
 during functional tests and provide access to helper methods like:
 
     sign_in
@@ -323,12 +322,15 @@ And matchers like:
 
 Example:
 
-    context "a visitor" do
-      before { get :show }
-      it     { should deny_access }
+    context 'a visitor' do
+      before do
+        get :show
+      end
+
+      it { should deny_access }
     end
 
-    context "a user" do
+    context 'a user' do
       before do
         sign_in
         get :show
@@ -337,10 +339,11 @@ Example:
       it { should respond_with(:success) }
     end
 
-Contributing
-------------
+You may want to customize the tests:
 
-Please see CONTRIBUTING.md for details.
+    it { should deny_access  }
+    it { should deny_access(:flash => 'Denied access.')  }
+    it { should deny_access(:redirect => sign_in_url)  }
 
 Credits
 -------
@@ -356,4 +359,4 @@ The names and logos for thoughtbot are trademarks of thoughtbot, inc.
 License
 -------
 
-Clearance is Copyright © 2009-2011 thoughtbot. It is free software, and may be redistributed under the terms specified in the LICENSE file.
+Clearance is copyright © 2009-2012 thoughtbot. It is free software, and may be redistributed under the terms specified in the LICENSE file.
