@@ -6,11 +6,11 @@ Feature: Sign up
 
   Scenario: Visitor signs up with invalid email
     When I sign up with "invalidemail" and "password"
-    Then I am told to enter a valid email address
+    Then I should be signed out
 
   Scenario: Visitor signs up with blank password
     When I sign up with "email@example.com" and ""
-    Then I am told to enter a password
+    Then I should be signed out
 
   Scenario: Visitor signs up with valid data
     When I sign up with "email@example.com" and "password"

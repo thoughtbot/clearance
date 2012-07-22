@@ -40,7 +40,7 @@ end
 
 # Sign out
 
-When "I sign out" do
+When 'I sign out' do
   visit '/'
   click_link 'Sign out'
 end
@@ -105,10 +105,6 @@ end
 
 Then /^I am told email is unknown$/ do
   page.should have_content('Unknown email')
-end
-
-Then /^I am told to enter a valid email address$/ do
-  page.should have_content('Must be a valid email address')
 end
 
 Then /^I am told to enter a password$/ do
