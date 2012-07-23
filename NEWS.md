@@ -7,8 +7,7 @@ New for 1.0.0:
 * A revamped, more descriptive README.
 * More extension points in more controllers.
 * The email, encrypted_password, and remember_token fields of the users
-  table cannot be NULL.
-* We do not support adding Clearance after-the-fact.
+  table are NOT NULL in the default migration.
 * We support Test::Unit.
 * Drop Rails plugin support.
 * Add SignedIn and SignedOut routing constraints.

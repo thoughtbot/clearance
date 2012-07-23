@@ -3,7 +3,8 @@ Clearance [![Build Status](https://secure.travis-ci.org/thoughtbot/clearance.png
 
 Rails authentication & authorization with email & password.
 
-Clearance was extracted out of [Airbrake](http://airbrakeapp.com/). It is intended to be small, simple, well-tested, and easy to override defaults.
+Clearance was extracted out of [Airbrake](http://airbrakeapp.com/).
+It is intended to be small, simple, well-tested, and easy to override defaults.
 
 Use [Github Issues](http://github.com/thoughtbot/clearance/issues) for help.
 
@@ -13,7 +14,7 @@ Install
 -------
 
 Clearance is a Rails engine for Rails 3 on Ruby 1.9.2. It is currently
-tested against Rails 3.0.12, 3.1.4, and 3.2.3.
+tested against Rails 3.0.15, 3.1.6, and 3.2.6.
 
 Include the gem in your Gemfile:
 
