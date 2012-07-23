@@ -7,7 +7,7 @@ Clearance was extracted out of [Airbrake](http://airbrakeapp.com/). It is intend
 
 Use [Github Issues](http://github.com/thoughtbot/clearance/issues) for help.
 
-Read [CONTRIBUTING.md](https://github.com/thoughtbot/clearance/blob/master/config/routes.rb) to contribute.
+Read [CONTRIBUTING.md](https://github.com/thoughtbot/clearance/blob/master/CONTRIBUTING.md) to contribute.
 
 Install
 -------
