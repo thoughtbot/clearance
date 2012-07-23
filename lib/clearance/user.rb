@@ -50,11 +50,6 @@ module Clearance
       save :validate => false
     end
 
-    def remember_me!
-      warn '[DEPRECATION] remember_me! will be removed in Clearance 1.0.0: use reset_remember_token! instead'
-      reset_remember_token!
-    end
-
     def reset_remember_token!
       generate_remember_token
       save :validate => false
@@ -86,27 +81,12 @@ module Clearance
       self.confirmation_token = SecureRandom.hex(20).encode('UTF-8')
     end
 
-    def generate_random_code(length = 20)
-      warn "[DEPRECATION] generate_random_code will be removed in Clearance 1.0.0: instead, use SecureRandom.hex(20).encode 'UTF-8'"
-
-      if RUBY_VERSION >= '1.9'
-        SecureRandom.hex(length).encode 'UTF-8'
-      else
-        SecureRandom.hex length
-      end
-    end
-
     def generate_remember_token
       self.remember_token = SecureRandom.hex(20).encode('UTF-8')
     end
 
     def password_optional?
       encrypted_password.present? && password.blank? && password_changing.blank?
-    end
-
-    def password_required?
-      warn '[DEPRECATION] password_required?: use !password_optional? instead'
-      !password_optional?
     end
   end
 end

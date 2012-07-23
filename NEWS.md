@@ -1,8 +1,20 @@
-HEAD:
+New for 1.0.0:
 
-* Change default password strategy to BCrypt
+* Change default password strategy to BCrypt.
 * Provide BCryptMigrationFromSHA1 password strategy to help people migrate from
   SHA1 (the old default password strategy) to BCrypt (the new default).
+* Require Ruby 1.9.2.
+* A revamped, more descriptive README.
+* More extension points in more controllers.
+* The email, encrypted_password, and remember_token fields of the users
+  table cannot be NULL.
+* We do not support adding Clearance after-the-fact.
+* We support Test::Unit.
+* Drop Rails plugin support.
+* Add SignedIn and SignedOut routing constraints.
+* Add a fake password strategy, which is useful when writing tests.
+* Remove deprecated methods on User: remember_me!, generate_random_code,
+  password_required?.
 
 New for 0.16.2:
 

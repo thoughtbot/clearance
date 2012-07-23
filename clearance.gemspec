@@ -14,8 +14,8 @@ Gem::Specification.new do |s|
   s.summary = %q{Rails authentication & authorization with email & password.}
   s.description = %q{Rails authentication & authorization with email & password.}
 
-  s.files = `git ls-files`.split('\n')
-  s.test_files = `git ls-files -- {features,spec}/*`.split('\n')
+  s.files = `git ls-files`.split("\n")
+  s.test_files = `git ls-files -- {features,spec}/*`.split("\n")
   s.extra_rdoc_files = %w(LICENSE README.md)
   s.rdoc_options = ['--charset=UTF-8']
   s.require_paths = ['lib']

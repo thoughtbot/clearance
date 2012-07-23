@@ -25,11 +25,7 @@ module Clearance
       end
 
       def generate_hash(string)
-        if RUBY_VERSION >= '1.9'
-          Digest::SHA1.hexdigest(string).encode 'UTF-8'
-        else
-          Digest::SHA1.hexdigest string
-        end
+        Digest::SHA1.hexdigest(string).encode 'UTF-8'
       end
 
       def initialize_salt_if_necessary

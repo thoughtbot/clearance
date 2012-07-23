@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    clearance (0.16.2)
+    clearance (1.0.0.rc1)
       bcrypt-ruby
       diesel (= 0.1.5)
       rails (>= 3.0)
