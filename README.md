@@ -12,8 +12,8 @@ Read [CONTRIBUTING.md](https://github.com/thoughtbot/clearance/blob/master/confi
 Install
 -------
 
-Clearance is a Rails engine for Rails 3. It is currently tested against Rails
-3.0.12, 3.1.4, and 3.2.3.
+Clearance is a Rails engine for Rails 3 on Ruby 1.9.2. It is currently
+tested against Rails 3.0.12, 3.1.4, and 3.2.3.
 
 Include the gem in your Gemfile:
 
@@ -33,6 +33,9 @@ Follow the instructions that are output from the generator.
 
 Use the [0.8.x](https://github.com/thoughtbot/clearance/tree/v0.8.8)
 series of Clearance if you have a Rails 2 app.
+
+Use version [0.16.3](http://rubygems.org/gems/clearance/versions/0.16.3)
+for Ruby 1.8.7.
 
 Configure
 ---------

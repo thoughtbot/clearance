@@ -20,6 +20,8 @@ Gem::Specification.new do |s|
   s.rdoc_options = ['--charset=UTF-8']
   s.require_paths = ['lib']
 
+  s.required_ruby_version = Gem::Requirement.new('>= 1.9.2')
+
   s.add_dependency 'bcrypt-ruby'
   s.add_dependency 'diesel', '0.1.5'
   s.add_dependency 'rails', '>= 3.0'
