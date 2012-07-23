@@ -175,22 +175,6 @@ describe User do
     end
   end
 
-  describe 'when user exists before Clearance was installed' do
-    before do
-      @user = create(:user)
-      sql  = "update users set encrypted_password = NULL, remember_token = NULL where id = #{@user.id}"
-      ActiveRecord::Base.connection.update(sql)
-      @user.reload.encrypted_password.should be_nil
-      @user.reload.remember_token.should be_nil
-    end
-
-    it 'generates remember token and save encrypted password on update_password' do
-      @user.update_password('password')
-      @user.encrypted_password.should_not be_nil
-      @user.remember_token.should_not be_nil
-    end
-  end
-
   describe 'the password setter on a User' do
     let(:password) { 'a-password' }
     before { subject.send(:password=, password) }
