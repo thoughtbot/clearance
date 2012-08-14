@@ -3,6 +3,7 @@ require 'spec_helper'
 describe Clearance::PasswordStrategies::BCryptMigrationFromSHA1 do
   subject do
     Class.new do
+      attr_reader :password
       attr_accessor :encrypted_password
       attr_accessor :salt
       include Clearance::PasswordStrategies::BCryptMigrationFromSHA1
@@ -28,6 +29,11 @@ describe Clearance::PasswordStrategies::BCryptMigrationFromSHA1 do
     it 'encrypts with BCrypt' do
       BCrypt::Password.should have_received(:create).with(password)
     end
+
+    it 'sets the pasword on the subject' do
+      subject.password.should be_present
+    end
+
   end
 
   describe '#authenticated?' do
@@ -74,4 +80,5 @@ describe Clearance::PasswordStrategies::BCryptMigrationFromSHA1 do
       end
     end
   end
+
 end
