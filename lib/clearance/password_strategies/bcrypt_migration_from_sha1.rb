@@ -26,6 +26,7 @@ module Clearance
       end
 
       def password=(new_password)
+        @password = new_password
         BCryptUser.new(self).password = new_password
       end
 
