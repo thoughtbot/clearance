@@ -10,7 +10,6 @@ module Clearance
       end
 
       def password=(new_password)
-        set_password = new_password
         @password = new_password
 
         if new_password.present?
