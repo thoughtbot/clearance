@@ -49,6 +49,12 @@ describe Clearance::PasswordStrategies::BCryptMigrationFromSHA1 do
         subject.authenticated? password
         subject.encrypted_password.should_not == sha1_hash
       end
+
+      it 'does not raise a BCrypt error for invalid passwords' do
+        lambda {
+          subject.authenticated? 'bad' + password
+        }.should_not raise_error(BCrypt::Errors::InvalidHash)
+      end
     end
 
     context 'with a BCrypt-encrypted password' do

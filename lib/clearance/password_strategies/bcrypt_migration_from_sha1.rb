@@ -32,7 +32,11 @@ module Clearance
       private
 
       def authenticated_with_bcrypt?(password)
-        BCryptUser.new(self).authenticated? password
+        begin
+          BCryptUser.new(self).authenticated? password
+        rescue ::BCrypt::Errors::InvalidHash
+          false
+        end
       end
 
       def authenticated_with_sha1?(password)
