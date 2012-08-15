@@ -34,7 +34,7 @@ module Clearance
       def authenticated_with_bcrypt?(password)
         begin
           BCryptUser.new(self).authenticated? password
-        rescue BCrypt::Errors::InvalidHash
+        rescue ::BCrypt::Errors::InvalidHash
           false
         end
       end
