@@ -119,7 +119,6 @@ Gem::Specification.new do |s|
     "spec/rails_root/public/robots.txt",
     "spec/rails_root/script/cucumber",
     "spec/rails_root/script/rails",
-    "spec/rails_root/spec/factories/clearance.rb",
     "spec/rails_root/vendor/plugins/dynamic_form/MIT-LICENSE",
     "spec/rails_root/vendor/plugins/dynamic_form/README",
     "spec/rails_root/vendor/plugins/dynamic_form/Rakefile",

@@ -1,5 +1,4 @@
 
-<%= new_user_confirmation_url(
+<%= raw(new_user_confirmation_url(
       :user_id => @user,
-      :token   => @user.confirmation_token,
-      :encode  => false) %>
+      :token   => @user.confirmation_token)) %>
