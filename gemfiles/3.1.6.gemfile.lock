@@ -1,5 +1,5 @@
 PATH
-  remote: /Users/gabe/thoughtbot/open-source/clearance
+  remote: /home/mike/thoughtbot/clearance
   specs:
     clearance (1.0.0.rc1)
       bcrypt-ruby
