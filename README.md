@@ -1,5 +1,8 @@
-Clearance [![Build Status](https://secure.travis-ci.org/thoughtbot/clearance.png)](http://travis-ci.org/thoughtbot/clearance?branch=master)
+Clearance
 =========
+
+[![Build Status](https://secure.travis-ci.org/thoughtbot/clearance.png)](http://travis-ci.org/thoughtbot/clearance?branch=master)
+[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/thoughtbot/clearance)
 
 Rails authentication & authorization with email & password.
 
@@ -13,24 +16,28 @@ Read [CONTRIBUTING.md](https://github.com/thoughtbot/clearance/blob/master/CONTR
 Install
 -------
 
-Clearance is a Rails engine for Rails 3 on Ruby 1.9.2. It is currently
-tested against Rails 3.0.15, 3.1.6, and 3.2.6.
+Clearance is a Rails engine tested against
+[Rails 3.x](/thoughtbot/clearance/blob/master/Appraisals) on Ruby 1.9.x.
 
 Include the gem in your Gemfile:
 
     gem 'clearance'
 
-Make sure the development database exists, then run the generator:
+Bundle:
+
+    bundle --binstubs
+
+Make sure the development database exists. Then, run the generator:
 
     rails generate clearance:install
 
-This:
+The generator:
 
 * inserts Clearance::User into your User model
 * inserts Clearance::Authentication into your ApplicationController
 * creates a migration that either creates a users table or adds only missing columns
 
-Follow the instructions that are output from the generator.
+Then, follow the instructions output from the generator.
 
 Use the [0.8.x](https://github.com/thoughtbot/clearance/tree/v0.8.8)
 series of Clearance if you have a Rails 2 app.
@@ -53,7 +60,27 @@ Override any of the defaults in `config/initializers/clearance.rb`:
 Use
 ---
 
-Use `authorize` and `current_user` in controllers:
+Use `current_user`, `signed_in?`, and `signed_out?` in controllers, views, and
+helpers. For example:
+
+    - if signed_in?
+      = current_user.email
+      = link_to 'Sign out', sign_out_path, method: :delete
+    - else
+      = link_to 'Sign in', sign_in_path
+
+To authenticate a user elsewhere than `sessions/new` (like in an API):
+
+    User.authenticate 'email@example.com', 'password'
+
+When a user resets their password, Clearance delivers them an email. So, you
+should change the `mailer_sender` default, used in the email's "from" header:
+
+    Clearance.configure do |config|
+      config.mailer_sender = 'reply@example.com'
+    end
+
+Use `authorize` to control access in controllers:
 
     class ArticlesController < ApplicationController
       before_filter :authorize
@@ -63,39 +90,19 @@ Use `authorize` and `current_user` in controllers:
       end
     end
 
-Use `signed_in?` and `signed_out?` in controllers, views, or helpers. For example,
-you might want this in a layout:
-
-    - if signed_in?
-      = current_user.email
-      = link_to 'Sign out', sign_out_path, :method => :delete
-    - else
-      = link_to 'Sign in', sign_in_path
-
-If you want to authenticate a user elsewhere than sessions/new, like in an API:
-
-    User.authenticate 'email@example.com', 'password'
-
-When a user resets their password, Clearance delivers them an email on. Therefore,
-you should change the default email address in `config/initializers/clearance.rb`:
-
-    Clearance.configure do |config|
-      config.mailer_sender = 'reply@example.com'
-    end
-
-You can authorize users at the route level:
+Or, you can authorize users in `config/routes.rb`:
 
     Blog::Application.routes.draw do
       constraints Clearance::Constraints::SignedIn.new { |user| user.admin? } do
-        root :to => 'admin'
+        root to: 'admin'
       end
 
       constraints Clearance::Constraints::SignedIn.new do
-        root :to => 'dashboard'
+        root to: 'dashboard'
       end
 
       constraints Clearance::Constraints::SignedOut.new do
-        root :to => 'marketing'
+        root to: 'marketing'
       end
     end
 
@@ -119,16 +126,18 @@ Rack applications can interact with it:
 Overriding routes
 -----------------
 
-See [config/routes.rb](https://github.com/thoughtbot/clearance/blob/master/config/routes.rb) for the default behavior.
+See [config/routes.rb](/thoughtbot/clearance/blob/master/config/routes.rb) for
+the default behavior.
 
 To override a Clearance route, redefine it:
 
-    resource :session, :controller => 'sessions'
+    resource :session, controller: 'sessions'
 
 Overriding controllers
 ----------------------
 
-See [app/controllers/clearance](https://github.com/thoughtbot/clearance/tree/master/app/controllers/clearance) for the default behavior.
+See [app/controllers/clearance](/thoughtbot/clearance/tree/master/app/controllers/clearance)
+for the default behavior.
 
 To override a Clearance controller, subclass it:
 
@@ -178,8 +187,8 @@ Override them like any other translation.
 Overriding views
 ----------------
 
-See [app/views](https://github.com/thoughtbot/clearance/tree/master/app/views)
-for the default behavior.
+See [app/views](/thoughtbot/clearance/tree/master/app/views) for the default
+behavior.
 
 To override a view, create your own:
 
@@ -204,25 +213,26 @@ for the default behavior.
 
 To override the model, redefine public methods:
 
-    self.authenticate(email, password)
-    forgot_password!
-    reset_remember_token!
-    update_password(new_password)
+    .authenticate(email, password)
+    #forgot_password!
+    #reset_remember_token!
+    #update_password(new_password)
 
 Or, redefine private methods:
 
-    downcase_email
-    email_optional?
-    generate_confirmation_token
-    generate_remember_token
-    password_optional?
+    #downcase_email
+    #email_optional?
+    #generate_confirmation_token
+    #generate_remember_token
+    #password_optional?
 
 Overriding the password strategy
 --------------------------------
 
 By default, Clearance uses BCrypt encryption of the user's password.
 
-See [lib/clearance/password_strategies/bcrypt.rb](https://github.com/thoughtbot/clearance/blob/master/lib/clearance/password_strategies/bcrypt.rb) for the default behavior.
+See [lib/clearance/password_strategies/bcrypt.rb](/thoughtbot/clearance/blob/master/lib/clearance/password_strategies/bcrypt.rb)
+for the default behavior.
 
 Change your password strategy in `config/initializers/clearance.rb:`
 
@@ -295,9 +305,9 @@ Edit your Gemfile to include:
 
     gem 'factory_girl_rails'
 
-Edit config/enviroments/test.rb to include the following:
+Edit `config/enviroments/test.rb` to include the following:
 
-    config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+    config.action_mailer.default_url_options = { host: 'localhost:3000' }
 
 Then run your tests!
 
@@ -346,20 +356,22 @@ Example:
 You may want to customize the tests:
 
     it { should deny_access  }
-    it { should deny_access(:flash => 'Denied access.')  }
-    it { should deny_access(:redirect => sign_in_url)  }
+    it { should deny_access(flash: 'Denied access.')  }
+    it { should deny_access(redirect: sign_in_url)  }
 
 Credits
 -------
 
 ![thoughtbot](http://thoughtbot.com/images/tm/logo.png)
 
-Clearance is maintained by [thoughtbot, inc](http://thoughtbot.com/community).
-Thank you to all [the contributors](https://github.com/thoughtbot/clearance/contributors)!
+Clearance is maintained by [thoughtbot, inc](http://thoughtbot.com/community)
+and [contributors](https://github.com/thoughtbot/clearance/contributors) like
+you. Thank you!
 
 License
 -------
 
-Clearance is copyright © 2009-2012 thoughtbot. It is free software, and may be redistributed under the terms specified in the LICENSE file.
+Clearance is copyright © 2009-2012 thoughtbot. It is free software, and may be
+redistributed under the terms specified in the `LICENSE` file.
 
 The names and logos for thoughtbot are trademarks of thoughtbot, inc.
