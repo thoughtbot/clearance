@@ -9,9 +9,9 @@ Rails authentication & authorization with email & password.
 Clearance was extracted out of [Airbrake](http://airbrakeapp.com/).
 It is intended to be small, simple, well-tested, and easy to override defaults.
 
-Use [Github Issues](http://github.com/thoughtbot/clearance/issues) for help.
+Use [Github Issues](/thoughtbot/clearance/issues) for help.
 
-Read [CONTRIBUTING.md](https://github.com/thoughtbot/clearance/blob/master/CONTRIBUTING.md) to contribute.
+Read [CONTRIBUTING.md](/thoughtbot/clearance/blob/master/CONTRIBUTING.md) to contribute.
 
 Install
 -------
@@ -39,11 +39,9 @@ The generator:
 
 Then, follow the instructions output from the generator.
 
-Use the [0.8.x](https://github.com/thoughtbot/clearance/tree/v0.8.8)
-series of Clearance if you have a Rails 2 app.
+Use the [0.8.x](/thoughtbot/clearance/tree/v0.8.8) series for Rails 2 apps.
 
-Use version [0.16.3](http://rubygems.org/gems/clearance/versions/0.16.3)
-for Ruby 1.8.7.
+Use [0.16.3](http://rubygems.org/gems/clearance/versions/0.16.3) for Ruby 1.8.7.
 
 Configure
 ---------
@@ -208,7 +206,7 @@ There is a shortcut to copy all Clearance views into your app:
 Overriding the model
 --------------------
 
-See [lib/clearance/user.rb](https://github.com/thoughtbot/clearance/tree/master/lib/clearance/user.rb)
+See [lib/clearance/user.rb](/thoughtbot/clearance/tree/master/lib/clearance/user.rb)
 for the default behavior.
 
 To override the model, redefine public methods:
@@ -253,11 +251,11 @@ Switching password strategies may cause your existing users to not be able to si
 
 If you have an existing app that used the old `SHA1` strategy and you
 want to stay with SHA1, use
-[Clearance::PasswordStrategies::SHA1](https://github.com/thoughtbot/clearance/blob/master/lib/clearance/password_strategies/sha1.rb).
+[Clearance::PasswordStrategies::SHA1](/thoughtbot/clearance/blob/master/lib/clearance/password_strategies/sha1.rb).
 
 If you have an existing app that used the old `SHA1` strategy and you
 want to switch to BCrypt transparently, use
-[Clearance::PasswordStrategies::BCryptMigrationFromSHA1](https://github.com/thoughtbot/clearance/blob/master/lib/clearance/password_strategies/bcrypt_migration_from_sha1.rb).
+[Clearance::PasswordStrategies::BCryptMigrationFromSHA1](/thoughtbot/clearance/blob/master/lib/clearance/password_strategies/bcrypt_migration_from_sha1.rb).
 
 The SHA1 and Blowfish password strategies require an additional `salt` column in
 the `users` table. Run this migration before switching to SHA or Blowfish:
@@ -365,8 +363,7 @@ Credits
 ![thoughtbot](http://thoughtbot.com/images/tm/logo.png)
 
 Clearance is maintained by [thoughtbot, inc](http://thoughtbot.com/community)
-and [contributors](https://github.com/thoughtbot/clearance/contributors) like
-you. Thank you!
+and [contributors](/thoughtbot/clearance/contributors) like you. Thank you!
 
 License
 -------
