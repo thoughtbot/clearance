@@ -28,7 +28,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'appraisal', '0.4.1'
   s.add_development_dependency 'aruba', '0.4.11'
   s.add_development_dependency 'bourne', '1.1.2'
-  s.add_development_dependency 'bundler', '~> 1.1.3'
+  s.add_development_dependency 'bundler', '~> 1.2.0'
   s.add_development_dependency 'capybara', '1.1.2'
   s.add_development_dependency 'cucumber-rails', '1.1.1'
   s.add_development_dependency 'database_cleaner', '0.8.0'
