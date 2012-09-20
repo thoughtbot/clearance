@@ -21,7 +21,7 @@ Clearance is a Rails engine tested against
 
 Include the gem in your Gemfile:
 
-    gem 'clearance'
+    gem 'clearance', '1.0.0.rc1'
 
 Bundle:
 
