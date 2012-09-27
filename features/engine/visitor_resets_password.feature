@@ -6,7 +6,7 @@ Feature: Password reset
 
   Scenario: User is not signed up
     When I reset the password for "unknown.email@example.com"
-    Then I am told email is unknown
+    Then instructions for changing my password are not emailed
 
   Scenario: User is signed up and requests password reset
     Given I signed up with "email@example.com"

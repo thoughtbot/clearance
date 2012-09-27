@@ -54,6 +54,11 @@ When /^I reset the password for "(.*)"$/ do |email|
   click_button 'Reset password'
 end
 
+Then /^instructions for changing my password are not emailed$/ do
+  page.should have_content('instructions for changing your password')
+  assert ActionMailer::Base.deliveries.empty?
+end
+
 Then /^instructions for changing my password are emailed to "(.*)"$/ do |email|
   page.should have_content('instructions for changing your password')
   user = User.find_by_email!(email)
