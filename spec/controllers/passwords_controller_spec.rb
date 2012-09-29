@@ -53,8 +53,7 @@ describe Clearance::PasswordsController do
           ActionMailer::Base.deliveries.should be_empty
         end
 
-        it { should set_the_flash.to(/unknown email/i).now }
-        it { should render_template(:new) }
+        it { should render_template(:create) }
       end
     end
   end
