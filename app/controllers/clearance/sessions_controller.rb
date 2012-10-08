@@ -38,6 +38,6 @@ class Clearance::SessionsController < ApplicationController
   end
 
   def url_after_destroy
-    sign_in_url
+    '/'
   end
 end
