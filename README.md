@@ -4,7 +4,7 @@ Clearance
 [![Build Status](https://secure.travis-ci.org/thoughtbot/clearance.png)](http://travis-ci.org/thoughtbot/clearance?branch=master)
 [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/thoughtbot/clearance)
 
-Rails authentication & authorization with email & password.
+Rails authentication with email & password.
 
 Clearance was extracted out of [Airbrake](http://airbrakeapp.com/).
 It is intended to be small, simple, well-tested, and easy to override defaults.
