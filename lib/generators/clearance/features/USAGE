@@ -1,0 +1,5 @@
+Description:
+  Generate Cucumber features and step definitions
+
+Examples:
+    rails generate clearance:cucumber_features

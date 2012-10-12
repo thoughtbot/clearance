@@ -23,7 +23,6 @@ Gem::Specification.new do |s|
   s.required_ruby_version = Gem::Requirement.new('>= 1.9.2')
 
   s.add_dependency 'bcrypt-ruby'
-  s.add_dependency 'diesel', '0.1.5'
   s.add_dependency 'rails', '>= 3.0'
   s.add_development_dependency 'appraisal', '0.4.1'
   s.add_development_dependency 'aruba', '0.4.11'

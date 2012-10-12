@@ -8,15 +8,17 @@ require 'rails/test_help'
 
 Bundler.require
 
-require 'diesel/testing'
+require 'clearance/testing/application'
 require 'rspec/rails'
 require 'bourne'
-require 'timecop'
 require 'factory_girl_rails'
 require 'shoulda-matchers'
 require 'clearance/testing'
+require 'timecop'
 
-Dir[Rails.root.join('spec/support/**/*.rb')].each {|f| require f}
+Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
+
+Clearance::Testing::Application.initialize!
 
 RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods

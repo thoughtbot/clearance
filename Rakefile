@@ -5,7 +5,6 @@ require 'bundler/setup'
 require 'bundler/gem_tasks'
 
 require 'rake'
-require 'diesel/tasks'
 require 'cucumber/rake/task'
 require 'rspec/core/rake_task'
 require 'appraisal'

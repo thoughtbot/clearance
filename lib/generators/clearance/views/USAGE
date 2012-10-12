@@ -1,0 +1,15 @@
+Description:
+  Override the default clearance views. This generator will copy all off the
+  base clearance views into your project.
+
+Examples:
+    rails generate clearance:views
+
+      View: app/views/clearance_mailer/change_password.html.erb
+      View: app/views/passwords/create.html.erb
+      View: app/views/passwords/edit.html.erb
+      View: app/views/passwords/new.html.erb
+      View: app/views/sessions/_form.html.erb
+      View: app/views/sessions/new.html.erb
+      View: app/views/users/_form.html.erb
+      View: app/views/users/new.html.erb

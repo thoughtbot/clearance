@@ -5,19 +5,26 @@ Next steps:
 
 1. Configure the mailer to create full URLs in emails:
 
-     # config/environments/{development,test}.rb
-     config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+    # config/environments/{development,test}.rb
+    config.action_mailer.default_url_options = { :host => 'localhost:3000' }
 
-   In production it should be your app's domain name.
+    In production it should be your app's domain name.
 
-2. Display flashes. For example, in your application layout:
+2. Display user session and flashes. For example, in your application layout:
 
-    <% flash.each do |key, value| -%>
+    <% if signed_in? %>
+      Signed in as: <%= current_user.email %>
+      <%= link_to 'Sign out', sign_out_path, :method => :delete %>
+    <% else %>
+      <%= link_to 'Sign in', sign_in_path %>
+    <% end %>
+
+    <% flash.each do |key, value| %>
       <div class="flash <%= key %>"><%= value %></div>
-    <% end -%>
+    <% end %>
 
 3. Migrate:
 
-     rake db:migrate
+    rake db:migrate
 
 *******************************************************************************
