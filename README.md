@@ -280,24 +280,32 @@ You can write a custom password strategy that has two instance methods:
       config.password_strategy = CustomPasswordStrategy
     end
 
-Optional Cucumber features
+Optional Integration tests
 --------------------------
 
-Clearance's Cucumber features are dependent on:
+Clearance's integration tests are dependent on:
 
-* Cucumber
 * Capybara
 * RSpec
 * Factory Girl
+* Cucumber (if using cucumber features)
 
-As your app evolves, you want to know that authentication still works. If you've
-installed [Cucumber](http://cukes.info) into your app:
+We have added support for both Cucumber features and RSpec integration tests.
+
+#### Cucumber Features
+
+  Install [Cucumber](http://cukes.info) into your app:
 
     rails generate cucumber:install
-
-Then, you can use the Clearance features generator:
-
     rails generate clearance:features
+
+
+#### RSpec integration tests
+
+  Install [RSpec](https://github.com/rspec/rspec) into your app:
+
+    rails generate rspec:install
+    rails generate clearance:specs
 
 Edit your Gemfile to include:
 
