@@ -6,7 +6,7 @@ Clearance
 
 Rails authentication with email & password.
 
-Clearance was extracted out of [Airbrake](http://airbrakeapp.com/).
+Clearance was extracted out of [Airbrake](http://airbrake.io/).
 It is intended to be small, simple, well-tested, and easy to override defaults.
 
 Use [Github Issues](/thoughtbot/clearance/issues) for help.
