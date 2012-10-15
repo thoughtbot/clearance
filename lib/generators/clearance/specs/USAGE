@@ -1,0 +1,5 @@
+Description:
+  Generate RSpec integration tests
+
+Examples:
+    rails generate clearance:specs
