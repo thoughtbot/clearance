@@ -1,3 +1,24 @@
+When "I have a project with clearance and the following gems:" do |table|
+  step "I have a project with clearance"
+
+  table.map_column!('gem') do |gem|
+    step %Q{ And I add the "#{gem}" gem }
+  end
+end
+
+When "I have a project with clearance" do
+  step "I successfully run `bundle exec rails new testapp`"
+
+  steps %Q{
+    And I cd to "testapp"
+    And I remove the file "public/index.html"
+    And I remove the file "app/views/layouts/application.html.erb"
+    And I configure ActionMailer to use "localhost" as a host
+    And I configure a root route
+    And I add the "clearance" gem from this project
+  }
+end
+
 When /^I configure ActionMailer to use "([^"]+)" as a host$/ do |host|
   mailer_config = "config.action_mailer.default_url_options = { :host => '#{host}' }"
   path = 'config/application.rb'
