@@ -289,9 +289,9 @@ Clearance's integration tests are dependent on:
 * RSpec
 * Factory Girl
 
-As your app evolves, you want to know that authentication still works. We have added support for RSpec integration tests.
+As your app evolves, you want to know that authentication still works. We include support for RSpec integration tests.
 
-If you've installed [RSpec](https://github.com/rspec/rspec) gem in your app:
+If you've installed [RSpec](https://github.com/rspec/rspec) in your app:
 
     rails generate rspec:install
 
