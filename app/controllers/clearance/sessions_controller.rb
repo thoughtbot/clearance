@@ -30,7 +30,7 @@ class Clearance::SessionsController < ApplicationController
   def flash_failure_after_create
     flash.now[:notice] = translate(:bad_email_or_password,
       :scope => [:clearance, :controllers, :sessions],
-      :default => %{Bad email or password. Are you trying to register a new account? <a href="#{sign_up_path}">Sign up</a>.}.html_safe)
+      :default => t('flashes.failure_after_create', :sign_up_path => sign_up_path).html_safe)
   end
 
   def url_after_create

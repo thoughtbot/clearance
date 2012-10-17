@@ -23,6 +23,6 @@ feature 'Visitor resets password' do
   end
 
   def page_should_display_change_password_message
-    page.should have_content('instructions for changing your password')
+    page.should have_content I18n.t('passwords.create.description')
   end
 end
