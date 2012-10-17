@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    clearance (1.0.0.rc2)
+    clearance (1.0.0.rc3)
       bcrypt-ruby
       rails (>= 3.0)
 
