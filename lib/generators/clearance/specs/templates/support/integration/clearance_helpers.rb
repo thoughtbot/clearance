@@ -2,16 +2,16 @@ module Integration
   module ClearanceHelpers
     def sign_up_with(email, password)
       visit sign_up_path
-      fill_in 'Email', :with => email
-      fill_in 'Password', :with => password
-      click_button 'Sign up'
+      fill_in 'user_email', :with => email
+      fill_in 'user_password', :with => password
+      click_button I18n.t('helpers.submit.user.create')
     end
 
     def sign_in_with(email, password)
       visit sign_in_path
-      fill_in 'Email', :with => email
-      fill_in 'Password', :with => password
-      click_button 'Sign in'
+      fill_in 'session_email', :with => email
+      fill_in 'session_password', :with => password
+      click_button I18n.t('helpers.submit.session.submit')
     end
 
     def signed_in_user
@@ -23,15 +23,15 @@ module Integration
 
     def user_should_be_signed_in
       visit root_path
-      page.should have_content('Sign out')
+      page.should have_content I18n.t('layouts.application.sign_out')
     end
 
     def sign_out
-      click_link 'Sign out'
+      click_link I18n.t('layouts.application.sign_out')
     end
 
     def user_should_be_signed_out
-      page.should have_content('Sign in')
+      page.should have_content I18n.t('layouts.application.sign_in')
     end
 
     def user_with_reset_password
@@ -42,8 +42,8 @@ module Integration
 
     def reset_password_for(email)
       visit new_password_path
-      fill_in 'Email address', :with => email
-      click_button 'Reset password'
+      fill_in 'password_email', :with => email
+      click_button I18n.t('helpers.submit.password.submit')
     end
   end
 end

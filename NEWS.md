@@ -17,6 +17,8 @@ New for 1.0.0:
 * Improve security when changing password.
 * Replace Cucumber feature generator with RSpec + Capybara.
 * Remove Diesel dependency.
+* Add locales support.
+* PasswordsController `params[:user]` has changed to `params[:password_reset]` to avoid locale conflicts
 
 New for 0.16.2:
 

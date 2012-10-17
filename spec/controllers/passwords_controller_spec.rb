@@ -101,7 +101,7 @@ describe Clearance::PasswordsController do
         @new_password = 'new_password'
         @user.encrypted_password.should_not == @new_password
         put :update, :user_id => @user, :token => @user.confirmation_token,
-          :user => { :password => @new_password }
+          :password_reset => { :password => @new_password }
         @user.reload
       end
 
@@ -123,7 +123,7 @@ describe Clearance::PasswordsController do
     describe 'on PUT to #update with blank password' do
       before do
         put :update, :user_id => @user.to_param, :token => @user.confirmation_token,
-          :user => { :password => '' }
+          :password_reset => { :password => '' }
         @user.reload
       end
 
@@ -147,9 +147,9 @@ describe Clearance::PasswordsController do
     describe 'on PUT to #update with an empty token after the user sets a password' do
       before do
         put :update, :user_id => @user.to_param, :token => @user.confirmation_token,
-          :user => { :password => 'good password' }
+          :password_reset => { :password => 'good password' }
         put :update, :user_id => @user.to_param, :token => [nil],
-          :user => { :password => 'new password' }
+          :password_reset => { :password => 'new password' }
       end
 
       it { should set_the_flash.to(/double check the URL/i).now }

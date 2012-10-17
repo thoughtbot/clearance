@@ -1,18 +1,16 @@
-<h2>Change your password</h2>
+<h2><%= t '.title' %></h2>
 
-<p>
-  Your password has been reset. Choose a new password below.
-</p>
+<p><%= t '.description' %></p>
 
-<%= form_for :user,
+<%= form_for :password_reset,
       :url => user_password_path(@user, :token => @user.confirmation_token),
       :html => { :method => :put } do |form| %>
   <div class='password_field'>
-    <%= form.label :password, 'Choose password' %>
+    <%= form.label :password %>
     <%= form.password_field :password %>
   </div>
 
   <div class='submit_field'>
-    <%= form.submit 'Save this password' %>
+    <%= form.submit %>
   </div>
 <% end %>

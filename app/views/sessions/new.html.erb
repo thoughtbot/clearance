@@ -1,13 +1,13 @@
-<h2>Sign in</h2>
+<h2><%= t '.title' %></h2>
 
 <%= render :partial => '/sessions/form' %>
 
 <ul>
   <li>
-    <%= link_to 'Sign up', sign_up_path %>
+    <%= link_to t('.sign_up'), sign_up_path %>
   </li>
 
   <li>
-    <%= link_to 'Forgot password?', new_password_path %>
+    <%= link_to t('.forgot_password'), new_password_path %>
   </li>
 </ul>

@@ -1,0 +1,42 @@
+en:
+  flashes:
+    failure_when_forbidden: Please double check the URL or try submitting the form again.
+    failure_after_update: Password can't be blank.
+    failure_after_create: Bad email or password. Are you trying to register a new account? <a href="%{sign_up_path}">Sign up</a>.
+  helpers:
+    submit:
+      password:
+        submit: Reset password
+      password_reset:
+        submit: Save this password
+      session:
+        submit: Sign in
+      user:
+        create: Sign up
+    label:
+      password:
+        email: Email address
+      password_reset:
+        password: Choose password
+  layouts:
+    application:
+      sign_in: Sign in
+      sign_out: Sign out
+  passwords:
+    create:
+      description: You will receive an email within the next few minutes. It contains instructions for changing your password.
+    edit:
+      title: Change your password
+      description: Your password has been reset. Choose a new password below.
+    new:
+      title: Reset your password
+      description: We will email you a link to reset your password.
+  sessions:
+    new:
+      title: Sign in
+      sign_up: Sign up
+      forgot_password: Forgot password?
+  clearance_mailer:
+    change_password:
+      beginning_paragraph: 'Someone, hopefully you, requested we send you a link to change your password:'
+      ending_paragraph: If you didn't request this, ignore this email. Your password hasn't been changed.

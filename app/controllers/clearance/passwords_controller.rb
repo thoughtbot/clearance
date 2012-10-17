@@ -25,7 +25,7 @@ class Clearance::PasswordsController < ApplicationController
   def update
     @user = find_user_for_update
 
-    if @user.update_password params[:user][:password]
+    if @user.update_password params[:password_reset][:password]
       sign_in @user
       redirect_to url_after_update
     else
@@ -56,13 +56,13 @@ class Clearance::PasswordsController < ApplicationController
   def flash_failure_when_forbidden
     flash.now[:notice] = translate(:forbidden,
       :scope => [:clearance, :controllers, :passwords],
-      :default => 'Please double check the URL or try submitting the form again.')
+      :default => t('flashes.failure_when_forbidden'))
   end
 
   def flash_failure_after_update
     flash.now[:notice] = translate(:blank_password,
       :scope => [:clearance, :controllers, :passwords],
-      :default => "Password can't be blank.")
+      :default => t('flashes.failure_after_update'))
   end
 
   def forbid_missing_token

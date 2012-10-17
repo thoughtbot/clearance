@@ -11,10 +11,20 @@ module Clearance
         end
       end
 
+      def create_locales
+        locales.each do |locale|
+          copy_file locale
+        end
+      end
+
       private
 
       def views
         files_within_root('.', 'app/views/**/*.*')
+      end
+
+      def locales
+        files_within_root('.', 'config/locales/**/*.*')
       end
 
       def files_within_root(prefix, glob)
