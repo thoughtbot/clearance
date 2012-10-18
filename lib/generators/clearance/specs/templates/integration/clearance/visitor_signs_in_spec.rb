@@ -37,12 +37,8 @@ feature 'Visitor signs in' do
   end
 
   def page_should_display_sign_in_error
-    page.should have_content(failure_after_create_message)
-  end
-
-  def failure_after_create_message
-    Nokogiri::HTML(
+    page.body.should include(
       I18n.t('flashes.failure_after_create', :sign_up_path => sign_up_path)
-    ).inner_text
+    )
   end
 end
