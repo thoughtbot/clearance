@@ -19,9 +19,11 @@ Next steps:
       <%= link_to 'Sign in', sign_in_path %>
     <% end %>
 
-    <% flash.each do |key, value| %>
-      <div class="flash <%= key %>"><%= value %></div>
-    <% end %>
+    <div id="flash">
+      <% flash.each do |key, value| %>
+        <div class="flash <%= key %>"><%= value %></div>
+      <% end %>
+    </div>
 
 3. Migrate:
 
