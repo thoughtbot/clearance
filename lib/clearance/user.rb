@@ -68,7 +68,6 @@ module Clearance
                         :encrypt_password
           before_create :generate_confirmation_token,
                         :generate_remember_token
-          after_create  :send_confirmation_email, :unless => :email_confirmed?
         end
       end
     end
