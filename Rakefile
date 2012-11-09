@@ -9,6 +9,9 @@ require 'cucumber/rake/task'
 require 'rspec/core/rake_task'
 require 'appraisal'
 
+require 'clearance/testing/application'
+Clearance::Testing::Application.load_tasks
+
 task :default do
   if ENV['BUNDLE_GEMFILE'] =~ /gemfiles/
     exec 'rake spec cucumber'
