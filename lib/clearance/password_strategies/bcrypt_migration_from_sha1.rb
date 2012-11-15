@@ -44,6 +44,7 @@ module Clearance
         if sha1_password?
           if SHA1User.new(self).authenticated? password
             self.password = password
+            self.save
             true
           end
         end

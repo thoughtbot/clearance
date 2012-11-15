@@ -45,6 +45,7 @@ describe Clearance::PasswordStrategies::BCryptMigrationFromSHA1 do
       before do
         subject.salt = salt
         subject.encrypted_password = sha1_hash
+        subject.stubs :save => true
       end
 
       it 'is authenticated' do
@@ -60,6 +61,11 @@ describe Clearance::PasswordStrategies::BCryptMigrationFromSHA1 do
         lambda {
           subject.authenticated? 'bad' + password
         }.should_not raise_error(BCrypt::Errors::InvalidHash)
+      end
+
+      it 'saves the subject to database' do
+        subject.authenticated? password
+        subject.should have_received(:save)
       end
     end
 
