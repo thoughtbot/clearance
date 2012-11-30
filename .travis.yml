@@ -9,7 +9,7 @@ before_script:
 gemfile:
   - gemfiles/3.0.17.gemfile
   - gemfiles/3.1.8.gemfile
-  - gemfiles/3.2.8.gemfile
+  - gemfiles/3.2.9.gemfile
 branches:
   only:
     - master
