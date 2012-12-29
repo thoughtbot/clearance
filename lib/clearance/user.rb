@@ -40,7 +40,7 @@ module Clearance
       extend ActiveSupport::Concern
 
       included do
-        before_validation :downcase_email
+        before_validation :normalize_email
         before_create :generate_remember_token
       end
     end
@@ -69,8 +69,8 @@ module Clearance
 
     private
 
-    def downcase_email
-      self.email = email.to_s.downcase
+    def normalize_email
+      self.email = email.to_s.downcase.gsub(/\s+/, "")
     end
 
     def email_optional?

@@ -15,8 +15,8 @@ describe User do
     it { should_not allow_value('foo').for(:email) }
     it { should_not allow_value('example.com').for(:email) }
 
-    it 'stores email in down case' do
-      user = create(:user, :email => 'John.Doe@example.com')
+    it 'stores email in down case and removes whitespace' do
+      user = create(:user, :email => 'Jo hn.Do e @exa mp le.c om')
       user.email.should == 'john.doe@example.com'
     end
   end
