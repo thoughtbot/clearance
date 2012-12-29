@@ -218,7 +218,7 @@ To override the model, redefine public methods:
 
 Or, redefine private methods:
 
-    #downcase_email
+    #normalize_email
     #email_optional?
     #generate_confirmation_token
     #generate_remember_token
