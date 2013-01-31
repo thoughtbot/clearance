@@ -16,8 +16,8 @@ end
 describe FlashesController do
   before do
     Rails.application.routes.draw do
-      match 'set_flash' => 'flashes#set_flash'
-      match 'view_flash' => 'flashes#view_flash'
+      get '/set_flash' => 'flashes#set_flash'
+      get '/view_flash' => 'flashes#view_flash'
     end
   end
 
