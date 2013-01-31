@@ -18,7 +18,7 @@ describe ForgeriesController do
     before do
       Rails.application.routes.draw do
         resources :forgeries
-        match 'sign_in'  => 'clearance/sessions#new', :as => 'sign_in'
+        get '/sign_in'  => 'clearance/sessions#new', :as => 'sign_in'
       end
 
       @user = create(:user)
