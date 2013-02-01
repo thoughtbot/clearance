@@ -11,6 +11,7 @@ describe User do
     it { should allow_value('foo@example.com').for(:email) }
     it { should_not allow_value('foo@').for(:email) }
     it { should_not allow_value('foo@example..com').for(:email) }
+    it { should_not allow_value('foo@.example.com').for(:email) }
     it { should_not allow_value('foo').for(:email) }
     it { should_not allow_value('example.com').for(:email) }
 
