@@ -9,9 +9,11 @@ describe User do
     it { should validate_presence_of(:password) }
     it { should allow_value('foo@example.co.uk').for(:email) }
     it { should allow_value('foo@example.com').for(:email) }
+    it { should_not allow_value("javascript:%0A
+=(Code_to_Reblog();code_to_open_the_link();)//
+foo@example.com").for(:email)}
     it { should_not allow_value('foo@').for(:email) }
     it { should_not allow_value('foo@example..com').for(:email) }
-    it { should_not allow_value('foo@.example.com').for(:email) }
     it { should_not allow_value('foo').for(:email) }
     it { should_not allow_value('example.com').for(:email) }
 
