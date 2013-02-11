@@ -1,15 +1,20 @@
 <%= form_for :session, :url => session_path do |form| %>
-  <div class='text_field'>
+  <div class='text-field'>
     <%= form.label :email %>
     <%= form.text_field :email, :type => 'email' %>
   </div>
 
-  <div class='text_field'>
+  <div class='password-field'>
     <%= form.label :password %>
     <%= form.password_field :password %>
   </div>
 
-  <div class='submit_field'>
+  <div class='submit-field'>
     <%= form.submit %>
+  </div>
+
+  <div class='other-links'>
+    <%= link_to t('.sign_up'), sign_up_path %>
+    <%= link_to t('.forgot_password'), new_password_path %>
   </div>
 <% end %>
