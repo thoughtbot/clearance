@@ -36,6 +36,9 @@ en:
       title: Sign in
       sign_up: Sign up
       forgot_password: Forgot password?
+  users:
+    new:
+      sign_in: Sign in
   clearance_mailer:
     change_password:
       beginning_paragraph: 'Someone, hopefully you, requested we send you a link to change your password:'
