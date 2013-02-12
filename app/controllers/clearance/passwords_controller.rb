@@ -53,7 +53,8 @@ class Clearance::PasswordsController < ApplicationController
   end
 
   def find_user_for_create
-    Clearance.configuration.user_model.find_by_email params[:password][:email]
+    Clearance.configuration.user_model.
+      find_by_email params[:password][:email].downcase
   end
 
   def find_user_for_edit

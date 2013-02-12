@@ -35,6 +35,20 @@ describe Clearance::PasswordsController do
         it { should respond_with(:success) }
       end
 
+      describe 'with correct email address capitalized differently' do
+        before do
+          ActionMailer::Base.deliveries.clear
+          post :create, :password => { :email => @user.email.upcase }
+        end
+
+        it 'should generate a token for the change your password email' do
+          @user.reload.confirmation_token.should_not be_nil
+        end
+
+        it { should have_sent_email.with_subject(/change your password/i) }
+        it { should respond_with(:success) }
+      end
+
       describe 'with incorrect email address' do
         before do
           email = 'user1@example.com'
