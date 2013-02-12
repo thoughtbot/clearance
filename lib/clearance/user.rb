@@ -16,11 +16,19 @@ module Clearance
 
     module ClassMethods
       def authenticate(email, password)
-        if user = find_by_email(email.to_s.downcase)
+        if user = find_by_normalized_email(email)
           if user.authenticated? password
             return user
           end
         end
+      end
+
+      def find_by_normalized_email(email)
+        find_by_email normalize_email(email)
+      end
+
+      def normalize_email(email)
+        email.to_s.downcase.gsub(/\s+/, "")
       end
     end
 
@@ -70,7 +78,7 @@ module Clearance
     private
 
     def normalize_email
-      self.email = email.to_s.downcase.gsub(/\s+/, "")
+      self.email = self.class.normalize_email(email)
     end
 
     def email_optional?
