@@ -5,8 +5,6 @@ describe Clearance::PasswordStrategies::SHA1 do
     Class.new do
       attr_accessor :salt, :encrypted_password
       include Clearance::PasswordStrategies::SHA1
-
-      def generate_random_code; "code"; end
     end.new
   end
 

@@ -5,8 +5,6 @@ describe Clearance::PasswordStrategies::Blowfish do
     Class.new do
       attr_accessor :salt, :encrypted_password
       include Clearance::PasswordStrategies::Blowfish
-
-      def generate_random_code; 'code'; end
     end.new
   end
 
