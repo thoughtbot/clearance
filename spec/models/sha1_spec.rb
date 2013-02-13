@@ -2,12 +2,7 @@ require 'spec_helper'
 
 describe Clearance::PasswordStrategies::SHA1 do
   subject do
-    Class.new do
-      attr_accessor :salt, :encrypted_password
-      include Clearance::PasswordStrategies::SHA1
-
-      def generate_random_code; "code"; end
-    end.new
+    fake_model_with_password_strategy(Clearance::PasswordStrategies::SHA1)
   end
 
   describe '#password=' do

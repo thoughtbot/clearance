@@ -30,8 +30,12 @@ module Clearance
 
       def initialize_salt_if_necessary
         if salt.blank?
-          self.salt = generate_random_code
+          self.salt = generate_salt
         end
+      end
+
+      def generate_salt
+        SecureRandom.hex(20).encode('UTF-8')
       end
     end
   end

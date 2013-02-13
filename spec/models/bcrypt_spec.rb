@@ -2,10 +2,7 @@ require 'spec_helper'
 
 describe Clearance::PasswordStrategies::BCrypt do
   subject do
-    Class.new do
-      attr_accessor :encrypted_password
-      include Clearance::PasswordStrategies::BCrypt
-    end.new
+    fake_model_with_password_strategy(Clearance::PasswordStrategies::BCrypt)
   end
 
   describe '#password=' do

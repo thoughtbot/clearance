@@ -2,12 +2,9 @@ require 'spec_helper'
 
 describe Clearance::PasswordStrategies::BCryptMigrationFromSHA1 do
   subject do
-    Class.new do
-      attr_reader :password
-      attr_accessor :encrypted_password
-      attr_accessor :salt
-      include Clearance::PasswordStrategies::BCryptMigrationFromSHA1
-    end.new
+    fake_model_with_password_strategy(
+      Clearance::PasswordStrategies::BCryptMigrationFromSHA1
+    )
   end
 
   describe '#password=' do
@@ -86,5 +83,4 @@ describe Clearance::PasswordStrategies::BCryptMigrationFromSHA1 do
       end
     end
   end
-
 end
