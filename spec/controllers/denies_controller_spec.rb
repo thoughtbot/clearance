@@ -23,7 +23,7 @@ describe DeniesController do
   before do
     Rails.application.routes.draw do
       resource :deny, :only => [:new, :show]
-      match 'sign_in'  => 'clearance/sessions#new', :as => 'sign_in'
+      get '/sign_in'  => 'clearance/sessions#new', :as => 'sign_in'
     end
   end
 

@@ -30,7 +30,7 @@ module Clearance
       included do
         validates_presence_of :email, :unless => :email_optional?
         validates_uniqueness_of :email, :allow_blank => true
-        validates_format_of :email, :with => %r{^[a-z0-9!#\$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#\$%&'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$}i, :allow_blank => true
+        validates_format_of :email, :with => %r{\A[a-z0-9!#\$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#\$%&'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\Z}i, :allow_blank => true
 
         validates_presence_of :password, :unless => :password_optional?
       end
