@@ -48,7 +48,8 @@ en:
       title:
         'Reset your password'
       description:
-        'We will email you a link to reset your password.'
+        'To be emailed a link to reset your password, please enter your email
+         address.'
   sessions:
     new:
       title:
