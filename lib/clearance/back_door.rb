@@ -1,5 +1,5 @@
 module Clearance
-  # Door middleware which allows signing in by passing as=USER_ID in a query
+  # Middleware which allows signing in by passing as=USER_ID in a query
   # parameter.
   #
   # Designed to eliminate time in integration tests wasted by visiting and
