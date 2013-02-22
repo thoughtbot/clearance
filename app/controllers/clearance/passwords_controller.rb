@@ -10,8 +10,7 @@ class Clearance::PasswordsController < ApplicationController
   def create
     if user = find_user_for_create
       user.forgot_password!
-      email = ::ClearanceMailer.change_password(user)
-      deliver_email(email)
+      deliver_email(user)
     end
     render :template => 'passwords/create'
   end
@@ -39,8 +38,8 @@ class Clearance::PasswordsController < ApplicationController
 
   private
 
-  def deliver_email(email)
-    email.deliver
+  def deliver_email(user)
+    ::ClearanceMailer.change_password(user).deliver
   end
 
   def password_reset_params
