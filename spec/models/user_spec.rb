@@ -49,6 +49,12 @@ describe User do
         should_not be
       @user.should_not be_authenticated('bad password')
     end
+
+    it 'is retrieved via a case-insensitive search' do
+      (Clearance.configuration.user_model.find_by_normalized_email(@user.email.upcase)).
+        should be
+      @user
+    end
   end
 
   describe 'when resetting authentication with reset_remember_token!' do
@@ -172,6 +178,16 @@ describe User do
   describe 'user factory' do
     it 'should create a valid user with just an overridden password' do
       build(:user, :password => 'test').should be_valid
+    end
+  end
+
+  describe 'email address normalization' do
+    let(:email) { 'Jo hn.Do e @exa mp le.c om' }
+
+    it 'downcases the address and strips spaces' do
+      (Clearance.configuration.user_model.normalize_email(email)).
+        should be
+      'john.doe@example.com'
     end
   end
 
