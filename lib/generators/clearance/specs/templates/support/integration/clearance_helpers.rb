@@ -26,7 +26,7 @@ module Integration
       page.should have_content I18n.t('layouts.application.sign_out')
     end
 
-    def sign_out
+    def sign_out_user
       click_link I18n.t('layouts.application.sign_out')
     end
 

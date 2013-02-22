@@ -3,7 +3,8 @@ require 'spec_helper'
 feature 'User signs out' do
   scenario 'signs out' do
     user = signed_in_user
-    sign_out
+
+    sign_out_user
 
     user_should_be_signed_out
   end
