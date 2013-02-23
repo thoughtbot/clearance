@@ -17,6 +17,6 @@ end
 if defined?(RSpec) && RSpec.respond_to?(:configure)
   RSpec.configure do |config|
     config.include Clearance::Testing::Matchers
-    config.include Clearance::Testing::Helpers
+    config.include Clearance::Testing::Helpers, :type => :controller
   end
 end
