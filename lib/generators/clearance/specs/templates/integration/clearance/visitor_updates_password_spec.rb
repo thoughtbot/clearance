@@ -10,8 +10,9 @@ feature 'Visitor updates password' do
 
   scenario 'signs in with new password' do
     user = user_with_reset_password
+
     update_password user, 'newpassword'
-    sign_out
+    sign_out_user
     sign_in_with user.email, 'newpassword'
 
     user_should_be_signed_in
