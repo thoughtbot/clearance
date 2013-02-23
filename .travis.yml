@@ -8,8 +8,8 @@ before_script:
   - "bundle exec rake db:migrate"
 gemfile:
   - gemfiles/3.0.20.gemfile
-  - gemfiles/3.1.10.gemfile
-  - gemfiles/3.2.11.gemfile
+  - gemfiles/3.1.11.gemfile
+  - gemfiles/3.2.12.gemfile
 branches:
   only:
     - master
