@@ -64,9 +64,9 @@ en:
         'Sign in'
   clearance_mailer:
     change_password:
-      beginning_paragraph:
+      opening:
         'Someone, hopefully you, requested we send you a link to change your
          password:'
-      ending_paragraph:
+      closing:
         "If you didn't request this, ignore this email. Your password hasn't
          been changed."
