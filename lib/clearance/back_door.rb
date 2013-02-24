@@ -34,7 +34,7 @@ module Clearance
       user_id = params['as']
 
       if user_id.present?
-        user = ::User.find(user_id)
+        user = Clearance.configuration.user_model.find(user_id)
         env[:clearance].sign_in(user)
       end
     end

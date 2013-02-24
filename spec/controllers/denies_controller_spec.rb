@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 class DeniesController < ActionController::Base
-  include Clearance::Authentication
+  include Clearance::Controller
+
   before_filter :authorize, :only => :show
 
   def new

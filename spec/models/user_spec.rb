@@ -33,33 +33,28 @@ describe User do
     end
 
     it 'is authenticated with correct email and password' do
-      (Clearance.configuration.user_model.authenticate(@user.email, @password)).
-        should be
+      User.authenticate(@user.email, @password).should be
       @user.should be_authenticated(@password)
     end
 
     it 'is authenticated with correct uppercased email and correct password' do
-      (Clearance.configuration.user_model.authenticate(@user.email.upcase, @password)).
-        should be
+      User.authenticate(@user.email.upcase, @password).should be
       @user.should be_authenticated(@password)
     end
 
     it 'is authenticated with incorrect credentials' do
-      (Clearance.configuration.user_model.authenticate(@user.email, 'bad_password')).
-        should_not be
+      User.authenticate(@user.email, 'bad_password').should_not be
       @user.should_not be_authenticated('bad password')
     end
 
     it 'is retrieved via a case-insensitive search' do
-      (Clearance.configuration.user_model.find_by_normalized_email(@user.email.upcase)).
-        should be
-      @user
+      User.find_by_normalized_email(@user.email.upcase).should eq @user
     end
   end
 
   describe 'when resetting authentication with reset_remember_token!' do
     before do
-      @user  = create(:user)
+      @user = create(:user)
       @user.remember_token = 'old-token'
       @user.reset_remember_token!
     end
@@ -145,6 +140,7 @@ describe User do
   describe 'a user with an optional email' do
     before do
       @user = User.new
+
       class << @user
         def email_optional?
           true
@@ -185,9 +181,7 @@ describe User do
     let(:email) { 'Jo hn.Do e @exa mp le.c om' }
 
     it 'downcases the address and strips spaces' do
-      (Clearance.configuration.user_model.normalize_email(email)).
-        should be
-      'john.doe@example.com'
+      User.normalize_email(email).should eq 'john.doe@example.com'
     end
   end
 

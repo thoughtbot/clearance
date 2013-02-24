@@ -4,11 +4,11 @@ Clearance.configure do |config|
 end
 
 class ApplicationController < ActionController::Base
-  include Clearance::Authentication
+  include Clearance::Controller
 end
 
 class User < ActiveRecord::Base
-  include Clearance::User
+  include Clearance::Model
 end
 
 module Clearance

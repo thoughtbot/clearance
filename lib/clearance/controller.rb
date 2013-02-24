@@ -1,5 +1,5 @@
 module Clearance
-  module Authentication
+  module Controller
     extend ActiveSupport::Concern
 
     included do

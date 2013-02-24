@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 class ForgeriesController < ActionController::Base
-  include Clearance::Authentication
+  include Clearance::Controller
+
   protect_from_forgery
   before_filter :authorize
 
