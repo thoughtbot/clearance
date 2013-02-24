@@ -2,10 +2,7 @@ require 'spec_helper'
 
 describe Clearance::PasswordStrategies::Blowfish do
   subject do
-    Class.new do
-      attr_accessor :salt, :encrypted_password
-      include Clearance::PasswordStrategies::Blowfish
-    end.new
+    fake_model_with_password_strategy(Clearance::PasswordStrategies::Blowfish)
   end
 
   describe '#password=' do
