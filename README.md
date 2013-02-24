@@ -1,23 +1,25 @@
 Clearance
 =========
 
-[![Build Status](https://secure.travis-ci.org/thoughtbot/clearance.png)](http://travis-ci.org/thoughtbot/clearance?branch=master)
-[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/thoughtbot/clearance)
+[![Build
+Status](https://secure.travis-ci.org/thoughtbot/clearance.png)](http://travis-ci.org/thoughtbot/clearance?branch=master)
+[![Code
+Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/thoughtbot/clearance)
 
 Rails authentication with email & password.
 
-Clearance was extracted out of [Airbrake](http://airbrake.io/).
-It is intended to be small, simple, well-tested, and easy to override defaults.
+Clearance was extracted out of [Airbrake](http://airbrake.io/). It is intended
+to be small, simple, well-tested, with easy to override defaults.
 
-Use [Github Issues](/thoughtbot/clearance/issues) for help.
+Use [Github Issues](https://github.com/thoughtbot/clearance/issues) for help.
 
-Read [CONTRIBUTING.md](/thoughtbot/clearance/blob/master/CONTRIBUTING.md) to contribute.
+Read [CONTRIBUTING.md](/CONTRIBUTING.md) to contribute.
 
 Install
 -------
 
-Clearance is a Rails engine tested against
-[Rails 3.x](/thoughtbot/clearance/blob/master/Appraisals) on Ruby 1.9.x.
+Clearance is a Rails engine tested against [Rails 3.x](/Appraisals) on Ruby
+1.9.x.
 
 Include the gem in your Gemfile:
 
@@ -35,11 +37,13 @@ The generator:
 
 * inserts Clearance::User into your User model
 * inserts Clearance::Authentication into your ApplicationController
-* creates a migration that either creates a users table or adds only missing columns
+* creates a migration that either creates a users table or adds only missing
+  columns
 
 Then, follow the instructions output from the generator.
 
-Use the [0.8.x](/thoughtbot/clearance/tree/v0.8.8) series for Rails 2 apps.
+Use Clearance [0.8.8](https://github.com/thoughtbot/clearance/tree/v0.8.8)
+series for Rails 2 apps.
 
 Use [0.16.3](http://rubygems.org/gems/clearance/versions/0.16.3) for Ruby 1.8.7.
 
@@ -124,8 +128,7 @@ Rack applications can interact with it:
 Overriding routes
 -----------------
 
-See [config/routes.rb](/thoughtbot/clearance/blob/master/config/routes.rb) for
-the default behavior.
+See [config/routes.rb](/config/routes.rb) for the default behavior.
 
 To override a Clearance route, redefine it:
 
@@ -134,8 +137,8 @@ To override a Clearance route, redefine it:
 Overriding controllers
 ----------------------
 
-See [app/controllers/clearance](/thoughtbot/clearance/tree/master/app/controllers/clearance)
-for the default behavior.
+See [app/controllers/clearance](/app/controllers/clearance) for the default
+behavior.
 
 To override a Clearance controller, subclass it:
 
@@ -152,8 +155,8 @@ Then, override public methods:
     sessions#create
     sessions#destroy
     sessions#new
-    users#new
     users#create
+    users#new
 
 Or, override private methods:
 
@@ -161,9 +164,9 @@ Or, override private methods:
     passwords#find_user_for_create
     passwords#find_user_for_edit
     passwords#find_user_for_update
-    passwords#flash_failure_when_forbidden
     passwords#flash_failure_after_create
     passwords#flash_failure_after_update
+    passwords#flash_failure_when_forbidden
     passwords#forbid_missing_token
     passwords#forbid_non_existent_user
     passwords#url_after_create
@@ -182,11 +185,13 @@ All flash messages and email subject lines are stored in
 [i18n translations](http://guides.rubyonrails.org/i18n.html).
 Override them like any other translation.
 
+See [config/locales/clearance.en.yml](/config/locales/clearance.en.yml) for the
+default behavior.
+
 Overriding views
 ----------------
 
-See [app/views](/thoughtbot/clearance/tree/master/app/views) for the default
-behavior.
+See [app/views](/app/views) for the default behavior.
 
 To override a view, create your own:
 
@@ -206,8 +211,7 @@ There is a shortcut to copy all Clearance views into your app:
 Overriding the model
 --------------------
 
-See [lib/clearance/user.rb](/thoughtbot/clearance/tree/master/lib/clearance/user.rb)
-for the default behavior.
+See [lib/clearance/user.rb](/lib/clearance/user.rb) for the default behavior.
 
 To override the model, redefine public methods:
 
@@ -218,10 +222,10 @@ To override the model, redefine public methods:
 
 Or, redefine private methods:
 
-    #normalize_email
     #email_optional?
     #generate_confirmation_token
     #generate_remember_token
+    #normalize_email
     #password_optional?
 
 Overriding the password strategy
@@ -229,7 +233,8 @@ Overriding the password strategy
 
 By default, Clearance uses BCrypt encryption of the user's password.
 
-See [lib/clearance/password_strategies/bcrypt.rb](/thoughtbot/clearance/blob/master/lib/clearance/password_strategies/bcrypt.rb)
+See
+[lib/clearance/password_strategies/bcrypt.rb](/lib/clearance/password_strategies/bcrypt.rb)
 for the default behavior.
 
 Change your password strategy in `config/initializers/clearance.rb:`
@@ -249,20 +254,20 @@ The previous default password strategy was SHA1.
 
 Switching password strategies may cause your existing users to not be able to sign in.
 
-If you have an existing app that used the old `SHA1` strategy and you
-want to stay with SHA1, use
-[Clearance::PasswordStrategies::SHA1](/thoughtbot/clearance/blob/master/lib/clearance/password_strategies/sha1.rb).
+If you have an existing app that used the old `SHA1` strategy and you want to
+stay with SHA1, use
+[Clearance::PasswordStrategies::SHA1](/lib/clearance/password_strategies/sha1.rb).
 
-If you have an existing app that used the old `SHA1` strategy and you
-want to switch to BCrypt transparently, use
-[Clearance::PasswordStrategies::BCryptMigrationFromSHA1](/thoughtbot/clearance/blob/master/lib/clearance/password_strategies/bcrypt_migration_from_sha1.rb).
+If you have an existing app that used the old `SHA1` strategy and you want to
+switch to BCrypt transparently, use
+[Clearance::PasswordStrategies::BCryptMigrationFromSHA1](/lib/clearance/password_strategies/bcrypt_migration_from_sha1.rb).
 
 The SHA1 and Blowfish password strategies require an additional `salt` column in
 the `users` table. Run this migration before switching to SHA or Blowfish:
 
     class AddSaltToUsers < ActiveRecord::Migration
       def change
-        add_column :users, :salt, :string, :limit => 128
+        add_column :users, :salt, :string, limit: 128
       end
     end
 
@@ -286,10 +291,11 @@ Optional Integration tests
 Clearance's integration tests are dependent on:
 
 * Capybara
-* RSpec
 * Factory Girl
+* RSpec
 
-As your app evolves, you want to know that authentication still works. We include support for RSpec integration tests.
+As your app evolves, you want to know that authentication still works. We
+include support for RSpec integration tests.
 
 If you've installed [RSpec](https://github.com/rspec/rspec) in your app:
 
@@ -334,7 +340,7 @@ And matchers like:
 
 Example:
 
-    context 'a visitor' do
+    context 'a guest' do
       before do
         get :show
       end
