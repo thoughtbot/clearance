@@ -1,4 +1,12 @@
 en:
+  clearance_mailer:
+    change_password:
+      opening:
+        'Someone, hopefully you, requested we send you a link to change your
+         password:'
+      closing:
+        "If you didn't request this, ignore this email. Your password has not
+         been changed."
   flashes:
     failure_when_forbidden:
       'Please double check the URL or try submitting the form again.'
@@ -40,33 +48,25 @@ en:
         'You will receive an email within the next few minutes.
          It contains instructions for changing your password.'
     edit:
-      title:
-        'Change your password'
       description:
         'Your password has been reset. Choose a new password below.'
-    new:
       title:
-        'Reset your password'
+        'Change your password'
+    new:
       description:
         'To be emailed a link to reset your password, please enter your email
          address.'
+      title:
+        'Reset your password'
   sessions:
     new:
-      title:
-        'Sign in'
-      sign_up:
-        'Sign up'
       forgot_password:
         'Forgot password?'
+      sign_up:
+        'Sign up'
+      title:
+        'Sign in'
   users:
     new:
       sign_in:
         'Sign in'
-  clearance_mailer:
-    change_password:
-      beginning_paragraph:
-        'Someone, hopefully you, requested we send you a link to change your
-         password:'
-      ending_paragraph:
-        "If you didn't request this, ignore this email. Your password hasn't
-         been changed."
