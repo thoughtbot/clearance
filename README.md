@@ -36,8 +36,8 @@ Make sure the development database exists. Then, run the generator:
 
 The generator:
 
-* inserts Clearance::User into your User model
-* inserts Clearance::Authentication into your ApplicationController
+* inserts `Clearance::User` into your `User` model
+* inserts `Clearance::Controller` into your `ApplicationController`
 * creates a migration that either creates a users table or adds only missing
   columns
 
@@ -328,7 +328,7 @@ For example, in `spec/support/clearance.rb` or `test/test_helper.rb`:
 
     require 'clearance/testing'
 
-This will make `Clearance::Authentication` methods work in your controllers
+This will make `Clearance::Controller` methods work in your controllers
 during functional tests and provide access to helper methods like:
 
     sign_in

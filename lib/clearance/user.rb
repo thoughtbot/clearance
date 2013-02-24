@@ -11,8 +11,10 @@ module Clearance
 
       include Validations
       include Callbacks
-      include (Clearance.configuration.password_strategy ||
-        Clearance::PasswordStrategies::BCrypt)
+      include(
+        Clearance.configuration.password_strategy ||
+        Clearance::PasswordStrategies::BCrypt
+      )
     end
 
     module ClassMethods

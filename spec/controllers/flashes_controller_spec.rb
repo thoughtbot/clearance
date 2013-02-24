@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 class FlashesController < ActionController::Base
-  include Clearance::Authentication
+  include Clearance::Controller
 
   def set_flash
     flash[:notice] = params[:message]

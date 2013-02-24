@@ -15,7 +15,7 @@ module Clearance
         inject_into(
           ApplicationController,
           'app/controllers/application_controller.rb',
-          'include Clearance::Authentication'
+          'include Clearance::Controller'
         )
       end
 
