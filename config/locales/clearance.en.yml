@@ -68,5 +68,5 @@ en:
         'Someone, hopefully you, requested we send you a link to change your
          password:'
       closing:
-        "If you didn't request this, ignore this email. Your password hasn't
+        "If you didn't request this, ignore this email. Your password has not
          been changed."

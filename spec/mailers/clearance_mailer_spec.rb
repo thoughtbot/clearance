@@ -30,6 +30,6 @@ describe ClearanceMailer do
   end
 
   it 'contains closing text in the body' do
-    @email.body.should =~ /Your password hasn't been changed/
+    @email.body.should =~ /Your password has not been changed/
   end
 end
