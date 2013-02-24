@@ -2,10 +2,16 @@ require 'spec_helper'
 
 describe Clearance::User do
   subject do
+    class UniquenessValidator < ActiveModel::Validator
+      def validate(record)
+      end
+    end
+
     Class.new do
-      def self.validates_presence_of(*args); end
-      def self.validates_uniqueness_of(*args); end
-      def self.validates_format_of(*args); end
+      include ActiveModel::Validations
+
+      validates_with UniquenessValidator
+
       def self.before_validation(*args); end
       def self.before_create(*args); end
 

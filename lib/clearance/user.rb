@@ -1,4 +1,5 @@
 require 'digest/sha1'
+require 'email_validator'
 
 module Clearance
   module User
@@ -36,11 +37,13 @@ module Clearance
       extend ActiveSupport::Concern
 
       included do
-        validates_presence_of :email, :unless => :email_optional?
-        validates_uniqueness_of :email, :allow_blank => true
-        validates_format_of :email, :with => %r{\A[a-z0-9!#\$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#\$%&'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\Z}i, :allow_blank => true
+        validates :email,
+          email: true,
+          presence: true,
+          uniqueness: { allow_blank: true },
+          unless: :email_optional?
 
-        validates_presence_of :password, :unless => :password_optional?
+        validates :password, presence: true, unless: :password_optional?
       end
     end
 
