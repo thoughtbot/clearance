@@ -21,7 +21,15 @@ describe ClearanceMailer do
     @email.body.to_s.should =~ regexp
   end
 
-  it 'should set its subject' do
+  it 'sets its subject' do
     @email.subject.should =~ /Change your password/
+  end
+
+  it 'contains opening text in the body' do
+    @email.body.should =~ /a link to change your password/
+  end
+
+  it 'contains closing text in the body' do
+    @email.body.should =~ /Your password has not been changed/
   end
 end
