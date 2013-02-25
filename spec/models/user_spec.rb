@@ -33,22 +33,22 @@ describe User do
     end
 
     it 'is authenticated with correct email and password' do
-      User.authenticate(@user.email, @password).should be
+      User.authenticate(@user.email, @password).should be(true)
       @user.should be_authenticated(@password)
     end
 
     it 'is authenticated with correct uppercased email and correct password' do
-      User.authenticate(@user.email.upcase, @password).should be
+      User.authenticate(@user.email.upcase, @password).should be(true)
       @user.should be_authenticated(@password)
     end
 
     it 'is authenticated with incorrect credentials' do
-      User.authenticate(@user.email, 'bad_password').should_not be
+      User.authenticate(@user.email, 'bad_password').should be(false)
       @user.should_not be_authenticated('bad password')
     end
 
     it 'is retrieved via a case-insensitive search' do
-      User.find_by_normalized_email(@user.email.upcase).should eq @user
+      User.find_by_normalized_email(@user.email.upcase).should eq(@user)
     end
   end
 

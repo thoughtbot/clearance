@@ -11,7 +11,7 @@ module Clearance
 
       include Validations
       include Callbacks
-      include (
+      include(
         Clearance.configuration.password_strategy ||
         Clearance::PasswordStrategies::BCrypt
       )
