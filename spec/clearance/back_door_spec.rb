@@ -10,7 +10,7 @@ describe Clearance::BackDoor do
 
     result = back_door.call(env)
 
-    env[:session].should have_received(:sign_in).with(user)
+    env[:clearance].should have_received(:sign_in).with(user)
     result.should eq mock_app.call(env)
   end
 
@@ -20,7 +20,7 @@ describe Clearance::BackDoor do
 
     result = back_door.call(env)
 
-    env[:session].should have_received(:sign_in).never
+    env[:clearance].should have_received(:sign_in).never
     result.should eq mock_app.call(env)
   end
 
@@ -29,8 +29,8 @@ describe Clearance::BackDoor do
   end
 
   def env_for_user_id(user_id)
-    session = stub('session', sign_in: true)
-    Rack::MockRequest.env_for("/?as=#{user_id}").merge(session: session)
+    clearance = stub('clearance', sign_in: true)
+    Rack::MockRequest.env_for("/?as=#{user_id}").merge(clearance: clearance)
   end
 
   def mock_app
