@@ -1,3 +1,3 @@
 module Clearance
-  VERSION = '1.0.0.rc4'
+  VERSION = '1.0.0.rc5'
 end
