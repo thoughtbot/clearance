@@ -35,7 +35,7 @@ module Clearance
 
       if user_id.present?
         user = ::User.find(user_id)
-        env[:session].sign_in(user)
+        env[:clearance].sign_in(user)
       end
     end
   end
