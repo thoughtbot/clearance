@@ -35,7 +35,7 @@ Make sure the development database exists. Then, run the generator:
 
 The generator:
 
-* inserts `Clearance::Model` into your `User` model
+* inserts `Clearance::User` into your `User` model
 * inserts `Clearance::Controller` into your `ApplicationController`
 * creates a migration that either creates a users table or adds only missing
   columns

@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
 end
 
 class User < ActiveRecord::Base
-  include Clearance::Model
+  include Clearance::User
 end
 
 module Clearance

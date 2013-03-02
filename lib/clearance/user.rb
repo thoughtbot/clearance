@@ -2,7 +2,7 @@ require 'digest/sha1'
 require 'email_validator'
 
 module Clearance
-  module Model
+  module User
     extend ActiveSupport::Concern
 
     included do
