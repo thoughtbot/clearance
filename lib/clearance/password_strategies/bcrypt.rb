@@ -20,7 +20,19 @@ module Clearance
       private
 
       def encrypt(password)
-        ::BCrypt::Password.create(password)
+        ::BCrypt::Password.create(password, :cost => cost)
+      end
+
+      def cost
+        if test_environment?
+          ::BCrypt::Engine::MIN_COST
+        else
+          ::BCrypt::Engine::DEFAULT_COST
+        end
+      end
+
+      def test_environment?
+        defined?(::Rails) && ::Rails.env.test?
       end
     end
   end
