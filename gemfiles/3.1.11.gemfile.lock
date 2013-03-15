@@ -1,5 +1,5 @@
 PATH
-  remote: /Users/croaky/dev/clearance
+  remote: ../
   specs:
     clearance (1.0.0.rc5)
       bcrypt-ruby
