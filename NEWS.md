@@ -1,24 +1,27 @@
 New for 1.0.0:
 
 * Change default password strategy to BCrypt.
-* Provide BCryptMigrationFromSHA1 password strategy to help people migrate from
+* Speed up test suites using `::BCrypt::Engine::MIN_COST`.
+* Speed up integration suites with `Clearance::BackDoor`.
+* Replace email regular expression with `EmailValidator` gem.
+* Provide `BCryptMigrationFromSHA1` password strategy to help people migrate from
   SHA1 (the old default password strategy) to BCrypt (the new default).
 * Require > Ruby 1.9.
-* A revamped, more descriptive README.
 * More extension points in more controllers.
-* The email, encrypted_password, and remember_token fields of the users
-  table are NOT NULL in the default migration.
-* We support Test::Unit.
-* Drop Rails plugin support.
-* Add SignedIn and SignedOut routing constraints.
+* The `email`, `encrypted_password`, and `remember_token` fields of the users
+  table are `NOT NULL` in the default migration.
+* Add `SignedIn` and `SignedOut` routing constraints.
 * Add a fake password strategy, which is useful when writing tests.
-* Remove deprecated methods on User: remember_me!, generate_random_code,
-  password_required?.
 * Improve security when changing password.
 * Replace Cucumber feature generator with RSpec + Capybara.
 * Remove Diesel dependency.
+* Remove deprecated methods on User: `remember_me!`, `generate_random_code`,
+  `password_required?`.
 * Add locales support.
-* PasswordsController `params[:user]` has changed to `params[:password_reset]` to avoid locale conflicts
+* `PasswordsController` `params[:user]` has changed to `params[:password_reset]`
+  to avoid locale conflicts.
+* Prepare for Rails 4.
+* Prepare for Ruby 2.
 
 New for 0.16.2:
 

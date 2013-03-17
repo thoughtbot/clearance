@@ -24,7 +24,7 @@ Clearance is a Rails engine tested against [Rails 3.x](/Appraisals) on Ruby
 
 Include the gem in your Gemfile:
 
-    gem 'clearance', '1.0.0.rc5'
+    gem 'clearance', '1.0.0.rc6'
 
 Bundle:
 
