@@ -1,6 +1,4 @@
 class Clearance::UsersController < ApplicationController
-  unloadable
-
   skip_before_filter :authorize, :only => [:create, :new]
   before_filter :redirect_to_root, :only => [:create, :new], :if => :signed_in?
 
