@@ -1,5 +1,5 @@
-module Integration
-  module ClearanceHelpers
+module Clearance
+  module IntegrationTestHelpers
     def sign_up_with(email, password)
       visit sign_up_path
       fill_in 'user_email', :with => email
