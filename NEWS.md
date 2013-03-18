@@ -1,4 +1,4 @@
-Thank you to all the [contributors](/thoughtbot/clearance/contributors)!
+Thank you to all the [contributors](https://github.com/thoughtbot/clearance/contributors)!
 
 New for 1.0.0:
 
