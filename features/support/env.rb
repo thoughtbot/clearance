@@ -13,6 +13,7 @@ require 'clearance/testing/application'
 require 'cucumber/rails/action_controller'
 require 'cucumber/rails/application'
 require 'cucumber/rails/capybara'
+require 'cucumber/rails/database'
 require 'cucumber/rails/hooks'
 require 'cucumber/rails/world'
 

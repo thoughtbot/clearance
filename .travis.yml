@@ -3,24 +3,8 @@ rvm:
   - 1.9.2
   - 1.9.3
   - 2.0.0
-before_install:
-  - gem update --system
-  - gem update bundler
 before_script:
   - "bundle exec rake db:migrate"
-gemfile:
-  - gemfiles/3.0.20.gemfile
-  - gemfiles/3.1.11.gemfile
-  - gemfiles/3.2.12.gemfile
-  - gemfiles/3.2.13.rc2.gemfile
-matrix:
-  exclude:
-    - rvm: 2.0.0
-      gemfile: gemfiles/3.0.20.gemfile
-    - rvm: 2.0.0
-      gemfile: gemfiles/3.1.11.gemfile
-    - rvm: 2.0.0
-      gemfile: gemfiles/3.2.12.gemfile
 branches:
   only:
     - master
