@@ -68,7 +68,7 @@ describe Clearance::UsersController do
       before { get :new }
 
       it 'redirects to the home page' do
-        should redirect_to(root_url)
+        should redirect_to(Clearance.configuration.redirect_url)
       end
     end
 
@@ -76,7 +76,7 @@ describe Clearance::UsersController do
       before { post :create, :user => {} }
 
       it 'redirects to the home page' do
-        should redirect_to(root_url)
+        should redirect_to(Clearance.configuration.redirect_url)
       end
     end
   end

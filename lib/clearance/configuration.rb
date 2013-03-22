@@ -4,6 +4,7 @@ module Clearance
       :cookie_expiration,
       :mailer_sender,
       :password_strategy,
+      :redirect_url,
       :secure_cookie,
       :user_model
 
@@ -11,6 +12,7 @@ module Clearance
       @cookie_expiration = lambda { 1.year.from_now.utc }
       @mailer_sender = 'reply@example.com'
       @secure_cookie = false
+      @redirect_url = '/'
     end
 
     def user_model

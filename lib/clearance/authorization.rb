@@ -43,16 +43,12 @@ module Clearance
       clear_return_to
     end
 
-    def redirect_to_root
-      redirect_to('/')
-    end
-
     def return_to
       session[:return_to] || params[:return_to]
     end
 
     def url_after_denied_access_when_signed_in
-      '/'
+      Clearance.configuration.redirect_url
     end
 
     def url_after_denied_access_when_signed_out

@@ -51,7 +51,7 @@ Use [0.16.3](http://rubygems.org/gems/clearance/versions/0.16.3) for Ruby 1.8.7.
 Configure
 ---------
 
-Override any of the defaults in `config/initializers/clearance.rb`:
+Override any of these defaults in `config/initializers/clearance.rb`:
 
     Clearance.configure do |config|
       config.cookie_expiration = lambda { 1.year.from_now.utc }
@@ -59,6 +59,7 @@ Override any of the defaults in `config/initializers/clearance.rb`:
       config.mailer_sender = 'reply@example.com'
       config.password_strategy = Clearance::PasswordStrategies::BCrypt
       config.user_model = User
+      config.redirect_path = '/'
     end
 
 Use

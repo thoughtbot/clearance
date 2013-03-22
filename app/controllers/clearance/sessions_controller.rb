@@ -32,7 +32,7 @@ class Clearance::SessionsController < ApplicationController
   end
 
   def url_after_create
-    '/'
+    Clearance.configuration.redirect_url
   end
 
   def url_after_destroy

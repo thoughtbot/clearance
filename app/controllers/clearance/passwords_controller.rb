@@ -55,7 +55,8 @@ class Clearance::PasswordsController < ApplicationController
   end
 
   def find_user_for_create
-    Clearance.configuration.user_model.find_by_normalized_email params[:password][:email]
+    Clearance.configuration.user_model.
+      find_by_normalized_email params[:password][:email]
   end
 
   def find_user_for_edit
@@ -97,6 +98,6 @@ class Clearance::PasswordsController < ApplicationController
   end
 
   def url_after_update
-    '/'
+    Clearance.configuration.redirect_url
   end
 end

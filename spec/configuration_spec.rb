@@ -41,6 +41,12 @@ describe Clearance::Configuration do
       end
     end
 
+    after do
+      Clearance.configure do |config|
+        config.secure_cookie = false
+      end
+    end
+
     it 'returns true' do
       Clearance.configuration.secure_cookie.should be_true
     end
@@ -54,6 +60,32 @@ describe Clearance::Configuration do
 
     it 'defaults to false' do
       Clearance.configuration.secure_cookie.should be_false
+    end
+  end
+
+  describe 'when no redirect URL specified' do
+    it 'should return "/" as redirect URL' do
+      Clearance::Configuration.new.redirect_url.should == '/'
+    end
+  end
+
+  describe 'when redirect URL is specified' do
+    let(:new_redirect_url) { '/admin' }
+
+    before do
+      Clearance.configure do |config|
+        config.redirect_url = new_redirect_url
+      end
+    end
+
+    after do
+      Clearance.configure do |config|
+        config.redirect_url = '/'
+      end
+    end
+
+    it 'should return new redirect URL' do
+      Clearance.configuration.redirect_url.should == new_redirect_url
     end
   end
 end
