@@ -44,7 +44,7 @@ module Clearance
     end
 
     def redirect_to_root
-      redirect_to('/')
+      redirect_to(Clearance.configuration.root_path)
     end
 
     def return_to
@@ -52,7 +52,7 @@ module Clearance
     end
 
     def url_after_denied_access_when_signed_in
-      '/'
+      Clearance.configuration.root_path
     end
 
     def url_after_denied_access_when_signed_out

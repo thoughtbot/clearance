@@ -1,10 +1,11 @@
 module Clearance
   class Configuration
-    attr_accessor :cookie_expiration, :mailer_sender, :password_strategy, :user_model
+    attr_accessor :cookie_expiration, :mailer_sender, :password_strategy, :user_model, :root_path
 
     def initialize
       @cookie_expiration = lambda { 1.year.from_now.utc }
       @mailer_sender = 'reply@example.com'
+      @root_path = '/'
     end
 
     def user_model

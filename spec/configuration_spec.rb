@@ -31,4 +31,30 @@ describe Clearance::Configuration do
       Clearance.configuration.user_model.should == ::MyUser
     end
   end
+
+  describe 'when no root path specified' do
+    it 'should return "/" as root path' do
+      Clearance::Configuration.new.root_path.should == '/'
+    end
+  end
+
+  describe 'when root path is specified' do
+    let(:desired_root_path){ '/admin/' }
+
+    before do
+      Clearance.configure do |config|
+        config.root_path = desired_root_path
+      end
+    end
+
+    after do
+      Clearance.configure do |config|
+        config.root_path = '/'
+      end
+    end
+
+    it 'should return desired root path' do
+      Clearance.configuration.root_path.should == desired_root_path
+    end
+  end
 end
