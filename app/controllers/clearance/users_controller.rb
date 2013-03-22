@@ -23,7 +23,7 @@ class Clearance::UsersController < ApplicationController
   private
 
   def url_after_create
-    '/'
+    Clearance.configuration.root_path
   end
 
   def user_from_params
