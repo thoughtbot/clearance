@@ -12,6 +12,7 @@ module Clearance
           headers, REMEMBER_TOKEN_COOKIE,
           :value => current_user.remember_token,
           :expires => Clearance.configuration.cookie_expiration.call,
+          :secure => Clearance.configuration.secure_cookie,
           :path => '/'
         )
       end

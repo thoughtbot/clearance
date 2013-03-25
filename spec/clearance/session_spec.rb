@@ -4,6 +4,10 @@ describe Clearance::Session do
   before { Timecop.freeze }
   after { Timecop.return }
 
+  let(:headers) {{}}
+  let(:session) { Clearance::Session.new(env_without_remember_token) }
+  let(:user) { create(:user) }
+
   it 'finds a user from a cookie' do
     user = create(:user)
     env = env_with_remember_token(user.remember_token)
@@ -58,6 +62,33 @@ describe Clearance::Session do
     end
   end
 
+  context 'if secure_cookie is set' do
+    before do
+      Clearance.configuration.secure_cookie = true
+      session.sign_in(user)
+    end
+
+    it 'sets a secure cookie' do
+      session.add_cookie_to_headers(headers)
+
+      headers['Set-Cookie'].should =~ /remember_token=.+; secure/
+    end
+
+    after { restore_default_config }
+  end
+
+  context 'if secure_cookie is not set' do
+    before do
+      session.sign_in(user)
+    end
+
+    it 'sets a standard cookie' do
+      session.add_cookie_to_headers(headers)
+
+      headers['Set-Cookie'].should_not =~ /remember_token=.+; secure/
+    end
+  end
+
   it 'does not set a remember token when signed out' do
     headers = {}
     session = Clearance::Session.new(env_without_remember_token)
@@ -85,11 +116,6 @@ describe Clearance::Session do
 
   def env_without_remember_token
     env_with_cookies({})
-  end
-
-  def restore_default_config
-    Clearance.configuration = nil
-    Clearance.configure {}
   end
 
   def serialize_cookies(hash)

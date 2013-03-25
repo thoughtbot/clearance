@@ -25,3 +25,8 @@ RSpec.configure do |config|
   config.mock_with :mocha
   config.use_transactional_fixtures = true
 end
+
+def restore_default_config
+  Clearance.configuration = nil
+  Clearance.configure {}
+end
