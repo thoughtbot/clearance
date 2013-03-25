@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    clearance (1.0.0.rc5)
+    clearance (1.0.0.rc6)
       bcrypt-ruby
       email_validator
       rails (>= 3.0)
@@ -158,7 +158,7 @@ GEM
     treetop (1.4.12)
       polyglot
       polyglot (>= 0.3.1)
-    tzinfo (0.3.35)
+    tzinfo (0.3.37)
     xpath (0.1.4)
       nokogiri (~> 1.3)
 

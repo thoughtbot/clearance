@@ -10,7 +10,7 @@ module Clearance
   #   # config/environments/test.rb
   #   MyRailsApp::Application.configure do
   #     # ...
-  #     config.middleware.use ClearanceBackDoor
+  #     config.middleware.use Clearance::BackDoor
   #     # ...
   #   end
   #
