@@ -1,7 +1,7 @@
 PATH
   remote: ../
   specs:
-    clearance (1.0.0.rc6)
+    clearance (1.0.0.rc7)
       bcrypt-ruby
       email_validator
       rails (>= 3.0)

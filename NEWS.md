@@ -19,11 +19,14 @@ New for 1.0.0:
 * Remove Diesel dependency.
 * Remove deprecated methods on User: `remember_me!`, `generate_random_code`,
   `password_required?`.
-* Add locales support.
 * `PasswordsController` `params[:user]` has changed to `params[:password_reset]`
   to avoid locale conflicts.
 * Prepare for Rails 4.
 * Prepare for Ruby 2.
+* Remove `unloadable` from controllers (Rails 4 bug fix in development
+  environment).
+* Add `redirect_url` configuration option.
+* Add `secure_cookie` configuration option.
 
 New for 0.16.2 (May 11, 2012):
 

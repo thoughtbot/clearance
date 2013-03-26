@@ -20,11 +20,11 @@ Install
 -------
 
 Clearance is a Rails engine tested against [Rails 3.x](/Appraisals) on Ruby
-1.9.x.
+1.9.x and Ruby 2.0.x.
 
 Include the gem in your Gemfile:
 
-    gem 'clearance', '1.0.0.rc6'
+    gem 'clearance', '1.0.0.rc7'
 
 Bundle:
 
