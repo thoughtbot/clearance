@@ -58,6 +58,7 @@ Override any of the defaults in `config/initializers/clearance.rb`:
       config.mailer_sender = 'reply@example.com'
       config.password_strategy = Clearance::PasswordStrategies::BCrypt
       config.user_model = User
+      config.default_redirect_path = '/admin/'
     end
 
 Use
