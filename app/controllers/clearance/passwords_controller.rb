@@ -99,6 +99,6 @@ class Clearance::PasswordsController < ApplicationController
   end
 
   def url_after_update
-    Clearance.configuration.root_path
+    Clearance.configuration.default_redirect_path
   end
 end

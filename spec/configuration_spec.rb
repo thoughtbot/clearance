@@ -34,27 +34,27 @@ describe Clearance::Configuration do
 
   describe 'when no root path specified' do
     it 'should return "/" as root path' do
-      Clearance::Configuration.new.root_path.should == '/'
+      Clearance::Configuration.new.default_redirect_path.should == '/'
     end
   end
 
   describe 'when root path is specified' do
-    let(:desired_root_path){ '/admin/' }
+    let(:desired_default_path){ '/admin/' }
 
     before do
       Clearance.configure do |config|
-        config.root_path = desired_root_path
+        config.default_redirect_path = desired_default_path
       end
     end
 
     after do
       Clearance.configure do |config|
-        config.root_path = '/'
+        config.default_redirect_path = '/'
       end
     end
 
     it 'should return desired root path' do
-      Clearance.configuration.root_path.should == desired_root_path
+      Clearance.configuration.default_redirect_path.should == desired_default_path
     end
   end
 end

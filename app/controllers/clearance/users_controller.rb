@@ -2,7 +2,7 @@ class Clearance::UsersController < ApplicationController
   unloadable
 
   skip_before_filter :authorize, :only => [:create, :new]
-  before_filter :redirect_to_root, :only => [:create, :new], :if => :signed_in?
+  before_filter :redirect_to_default_location, :only => [:create, :new], :if => :signed_in?
 
   def new
     @user = user_from_params
@@ -23,7 +23,7 @@ class Clearance::UsersController < ApplicationController
   private
 
   def url_after_create
-    Clearance.configuration.root_path
+    Clearance.configuration.default_redirect_path
   end
 
   def user_from_params
