@@ -59,7 +59,7 @@ Override any of these defaults in `config/initializers/clearance.rb`:
       config.mailer_sender = 'reply@example.com'
       config.password_strategy = Clearance::PasswordStrategies::BCrypt
       config.user_model = User
-      config.redirect_path = '/'
+      config.redirect_url = '/'
     end
 
 Use
@@ -180,6 +180,19 @@ Or, override private methods:
     users#flash_failure_after_create
     users#url_after_create
     users#user_from_params
+
+All of these controller methods redirect to `'/'` by default:
+
+    passwords#url_after_update
+    sessions#url_after_create
+    users#url_after_create
+    application#url_after_denied_access_when_signed_in
+
+To override them all at once, change the global configuration:
+
+    Clearance.configure do |config|
+      config.redirect_url = '/overriden'
+    end
 
 Overriding translations
 -----------------------
