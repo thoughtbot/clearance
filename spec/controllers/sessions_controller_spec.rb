@@ -67,6 +67,20 @@ describe Clearance::SessionsController do
     end
   end
 
+  describe 'on POST to #create with good credentials and foreign host in the return url' do
+    before do
+      @user = create(:user)
+      @return_path = '/return/path'
+      @return_url = "http://badhost.example.com#{@return_path}"
+      post :create, :session => { :email => @user.email, :password => @user.password },
+        :return_to => @return_url
+    end
+
+    it 'only uses the path from the return url' do
+      should redirect_to(@return_path)
+    end
+  end
+
   describe 'on DELETE to #destroy given a signed out user' do
     before do
       sign_out
