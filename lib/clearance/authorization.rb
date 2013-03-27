@@ -44,6 +44,12 @@ module Clearance
     end
 
     def return_to
+      if return_to_url
+        URI.parse(return_to_url).path
+      end
+    end
+
+    def return_to_url
       session[:return_to] || params[:return_to]
     end
 
