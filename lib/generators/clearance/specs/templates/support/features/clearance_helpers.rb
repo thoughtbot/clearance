@@ -1,4 +1,4 @@
-module Integration
+module Features
   module ClearanceHelpers
     def sign_up_with(email, password)
       visit sign_up_path
