@@ -1,16 +1,18 @@
 When "I have a project with clearance and the following gems:" do |table|
   step "I have a project with clearance"
 
-  table.map_column!('gem') do |gem|
-    step %Q{ And I add the "#{gem}" gem }
+  table.rows.flatten.each do |gem|
+    step %Q{I add the "#{gem}" gem}
   end
 end
 
 When "I have a project with clearance" do
-  step "I successfully run `bundle exec rails new testapp`"
+  Bundler.with_original_env do
+    step "I successfully run `bundle exec rails new testapp --skip-bundle`"
+  end
 
   steps %Q{
-    And I cd to "testapp"
+    When I cd to "testapp"
     And I remove the file "public/index.html"
     And I remove the file "app/views/layouts/application.html.erb"
     And I configure ActionMailer to use "localhost" as a host
@@ -49,8 +51,83 @@ When /^I configure a root route$/ do
   CONTROLLER
 end
 
-When /^I copy the locked Gemfile from this project$/ do
-  in_current_dir do
-    FileUtils.cp(File.join(PROJECT_ROOT, 'Gemfile.lock'), 'Gemfile.lock')
-  end
+When /^I configure test-unit$/ do
+  factories_path = File.join(
+    'lib', 'generators', 'clearance', 'specs', 'templates', 'factories',
+    'clearance.rb'
+  )
+  steps %Q{
+    And I write to "test/test_helper.rb" with:
+    """
+    ENV['RAILS_ENV'] = 'test'
+    require File.expand_path('../../config/environment', __FILE__)
+    require 'rails/test_help'
+
+    class ActiveSupport::TestCase
+      fixtures :all
+    end
+
+    require 'clearance/testing'
+    """
+    And I write to "test/functional/posts_controller_test.rb" with:
+    """
+    require 'test_helper'
+
+    class PostsControllerTest < ActionController::TestCase
+      test 'should get index' do
+        sign_in
+        get :index
+        assert_response :success
+      end
+    end
+    """
+    And I write to "test/factories.rb" with:
+    """
+    #{File.read(factories_path)}
+    """
+  }
+end
+
+When /^I create a simple migration$/ do
+  steps %Q{
+    When I write to "db/migrate/001_create_users.rb" with:
+      """
+      class CreateUsers < ActiveRecord::Migration
+        def self.up
+          create_table(:users) do |t|
+            t.string :email
+            t.string :name
+          end
+        end
+        def self.down
+        end
+      end
+      """
+  }
+end
+
+When /^I create a migration with clearance fields$/ do
+  steps %Q{
+    When I write to "db/migrate/001_create_users.rb" with:
+      """
+      class CreateUsers < ActiveRecord::Migration
+        def self.up
+          create_table :users  do |t|
+            t.timestamps :null => false
+            t.string :email, :null => false
+            t.string :encrypted_password, :limit => 128, :null => false
+            t.string :confirmation_token, :limit => 128
+            t.string :remember_token, :limit => 128, :null => false
+          end
+
+          add_index :users, :email
+          add_index :users, :remember_token
+        end
+
+        def self.down
+          drop_table :users
+        end
+      end
+      """
+  }
 end

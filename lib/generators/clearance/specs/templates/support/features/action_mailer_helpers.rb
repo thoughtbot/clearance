@@ -1,4 +1,4 @@
-module Integration
+module Features
   module ActionMailerHelpers
     def mailer_should_have_delivery(recipient, subject, body)
       ActionMailer::Base.deliveries.should_not be_empty
