@@ -301,45 +301,36 @@ You can write a custom password strategy that has two instance methods:
       config.password_strategy = CustomPasswordStrategy
     end
 
-Optional Integration tests
---------------------------
+Optional feature specs
+----------------------
 
-Clearance's integration tests are dependent on:
+You can generate feature specs to help prevent regressions in Clearance's
+integration with your Rails app over time.
 
-* Capybara
-* Factory Girl
-* RSpec
+Edit your `Gemfile` to include the dependencies:
 
-As your app evolves, you want to know that authentication still works. We
-include support for RSpec integration tests.
+    gem 'capybara', '~> 2.0'
+    gem 'factory_girl_rails', '~> 4.2'
+    gem 'rspec-rails', '~> 2.13'
 
-If you've installed [RSpec](https://github.com/rspec/rspec) in your app:
+Generate RSpec files:
 
     rails generate rspec:install
 
-Then, you can use the Clearance specs generator:
+Generate Clearance specs:
 
     rails generate clearance:specs
 
-Edit your Gemfile to include:
-
-    gem 'factory_girl_rails'
-
-Edit `config/enviroments/test.rb` to include the following:
-
-    config.action_mailer.default_url_options = { host: 'localhost:3000' }
-
-Then run your tests!
+Run the specs:
 
     rake
 
-Testing
--------
+Testing authorized controller actions
+-------------------------------------
 
-If you want to write Rails functional tests or controller specs with Clearance,
-you'll need to require the included test helpers and matchers.
-
-For example, in `spec/support/clearance.rb` or `test/test_helper.rb`:
+To test controller actions that are protected by `before_filter :authorize`,
+include Clearance's test helpers and matchers in `spec/support/clearance.rb` or
+`test/test_helper.rb`:
 
     require 'clearance/testing'
 
