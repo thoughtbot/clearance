@@ -23,7 +23,7 @@ Gem::Specification.new do |s|
   s.required_ruby_version = Gem::Requirement.new('>= 1.9.2')
 
   s.add_dependency 'bcrypt-ruby'
-  s.add_dependency 'email_validator'
+  s.add_dependency 'email_validator', '~> 1.4'
   s.add_dependency 'rails', '>= 3.0'
   s.add_development_dependency 'appraisal', '0.4.1'
   s.add_development_dependency 'aruba', '0.4.11'
