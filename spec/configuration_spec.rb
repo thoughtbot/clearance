@@ -88,4 +88,17 @@ describe Clearance::Configuration do
       Clearance.configuration.redirect_url.should == new_redirect_url
     end
   end
+
+  describe 'when layout is specified' do
+    let(:layout) { 'custom_layout'}
+    before do
+      Clearance.configure do |config|
+        config.layout = layout
+      end
+    end
+    it 'should return custom layout' do
+      Clearance.configuration.layout.should == layout
+    end
+  end
+
 end
