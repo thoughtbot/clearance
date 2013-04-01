@@ -33,6 +33,8 @@ module Clearance
       config.active_support.deprecation = :stderr
       config.secret_token = "SECRET_TOKEN_IS_MIN_30_CHARS_LONG"
 
+      Clearance.configure {}
+
       def require_environment!
         initialize!
       end
