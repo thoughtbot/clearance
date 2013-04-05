@@ -1,4 +1,5 @@
 class Clearance::UsersController < ApplicationController
+  layout Clearance.configuration.try(:layout)
   skip_before_filter :authorize, :only => [:create, :new]
   before_filter :avoid_sign_in, :only => [:create, :new], :if => :signed_in?
 

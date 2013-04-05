@@ -1,4 +1,5 @@
 require 'rails/all'
+require 'clearance/configuration'
 
 module Clearance
   module Testing
@@ -32,6 +33,8 @@ module Clearance
       config.action_mailer.delivery_method = :test
       config.active_support.deprecation = :stderr
       config.secret_token = "SECRET_TOKEN_IS_MIN_30_CHARS_LONG"
+
+      Clearance.configure {}
 
       def require_environment!
         initialize!

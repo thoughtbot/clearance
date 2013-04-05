@@ -1,6 +1,7 @@
 require 'active_support/deprecation'
 
 class Clearance::PasswordsController < ApplicationController
+  layout Clearance.configuration.try(:layout)
   skip_before_filter :authorize, :only => [:create, :edit, :new, :update]
   before_filter :forbid_missing_token, :only => [:edit, :update]
   before_filter :forbid_non_existent_user, :only => [:edit, :update]

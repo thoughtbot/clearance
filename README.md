@@ -60,6 +60,7 @@ Override any of these defaults in `config/initializers/clearance.rb`:
       config.password_strategy = Clearance::PasswordStrategies::BCrypt
       config.user_model = User
       config.redirect_url = '/'
+      config.layout = 'custom_layout'
     end
 
 Use
