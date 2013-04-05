@@ -1,4 +1,5 @@
 require 'rails/all'
+require 'clearance/configuration'
 
 module Clearance
   module Testing
