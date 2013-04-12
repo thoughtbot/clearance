@@ -1,3 +1,7 @@
+When /^I install dependencies$/ do
+  step "I successfully run `bundle install --local`"
+end
+
 When "I have a project with clearance and the following gems:" do |table|
   step "I have a project with clearance"
 
@@ -8,7 +12,7 @@ end
 
 When "I have a project with clearance" do
   Bundler.with_original_env do
-    step "I successfully run `bundle exec rails new testapp --skip-bundle`"
+    step "I successfully run `bundle exec rails new testapp --skip-bundle --skip-javascript --skip-sprockets`"
   end
 
   steps %Q{
@@ -17,6 +21,7 @@ When "I have a project with clearance" do
     And I remove the file "app/views/layouts/application.html.erb"
     And I configure ActionMailer to use "localhost" as a host
     And I configure a root route
+    And I remove the "turn" gem from this project
     And I add the "clearance" gem from this project
   }
 end

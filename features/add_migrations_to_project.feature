@@ -4,7 +4,7 @@ Feature: add migrations to the project
     Given I have a project with clearance
 
   Scenario: Users table does not exist
-    When I successfully run `bundle install`
+    When I install dependencies
     And I successfully run `bundle exec rails generate clearance:install`
     And I successfully run `ls db/migrate`
     Then the output should contain:
@@ -13,7 +13,7 @@ Feature: add migrations to the project
       """
 
   Scenario: Users table without clearance fields exists in the database
-    When I successfully run `bundle install`
+    When I install dependencies
     And I create a simple migration
     And I successfully run `bundle exec rake db:migrate`
     And I successfully run `bundle exec rails generate clearance:install`
@@ -24,7 +24,7 @@ Feature: add migrations to the project
       """
 
   Scenario: Users table with clearance fields exists in the database
-    When I successfully run `bundle install`
+    When I install dependencies
     And I create a migration with clearance fields
     And I successfully run `bundle exec rake db:migrate`
     And I successfully run `bundle exec rails generate clearance:install`

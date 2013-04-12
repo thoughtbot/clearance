@@ -9,7 +9,7 @@ Feature: generate rspec integration tests with application
       | database_cleaner   |
 
   Scenario: generate a Rails app, run the generators, and run the tests
-    When I successfully run `bundle install`
+    When I install dependencies
     And I successfully run `bundle exec rails generate rspec:install`
     And I successfully run `bundle exec rails generate clearance:specs`
     And I successfully run `bundle exec rails generate clearance:install`
