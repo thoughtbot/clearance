@@ -370,6 +370,27 @@ You may want to customize the tests:
     it { should deny_access(flash: 'Denied access.')  }
     it { should deny_access(redirect: sign_in_url)  }
 
+Faster tests
+------------
+
+Clearance includes middleware that avoids wasting time spent visiting, loading,
+and submitting the sign in form. It instead signs in the designated
+user directly. The speed increase can be
+[substantial](http://robots.thoughtbot.com/post/37907699673/faster-tests-sign-in-through-the-back-door).
+
+Configuration:
+
+    # config/environments/test.rb
+    MyRailsApp::Application.configure do
+      # ...
+      config.middleware.use Clearance::BackDoor
+      # ...
+    end
+
+Usage:
+
+    visit root_path(as: user)
+
 Credits
 -------
 
