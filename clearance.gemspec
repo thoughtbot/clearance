@@ -34,7 +34,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'database_cleaner', '0.8.0'
   s.add_development_dependency 'factory_girl_rails', '3.5.0'
   s.add_development_dependency 'minitest', '~> 4.7.0'
-  s.add_development_dependency 'psych', '~> 1.3.4'
   s.add_development_dependency 'rspec-rails', '2.12.2'
   s.add_development_dependency 'shoulda-matchers', '1.2.0'
   s.add_development_dependency 'sqlite3', '1.3.6'
