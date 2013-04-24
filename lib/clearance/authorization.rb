@@ -13,6 +13,15 @@ module Clearance
     end
 
     def deny_access(flash_message = nil)
+      respond_to do |format|
+        format.html { redirect_html_request(flash_message) }
+        format.all { head :unauthorized }
+      end
+    end
+
+    protected
+
+    def redirect_html_request(flash_message)
       store_location
 
       if flash_message
@@ -25,8 +34,6 @@ module Clearance
         redirect_to url_after_denied_access_when_signed_out
       end
     end
-
-    protected
 
     def clear_return_to
       session[:return_to] = nil
