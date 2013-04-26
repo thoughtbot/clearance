@@ -1,0 +1,18 @@
+<%= simple_form_for :session, :url => session_path do |form| %>
+  <div class='text-field'>
+    <%= form.input :email %>
+  </div>
+
+  <div class='password-field'>
+    <%= form.input :password %>
+  </div>
+
+  <div class='submit-field'>
+    <%= form.button :submit %>
+  </div>
+
+  <div class='other-links'>
+    <%= link_to t('.sign_up'), sign_up_path %>
+    <%= link_to t('.forgot_password'), new_password_path %>
+  </div>
+<% end %>
