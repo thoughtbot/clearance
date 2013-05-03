@@ -29,6 +29,7 @@ New for 1.0.0:
 * Add `secure_cookie` configuration option.
 * Unauthorized API requests return HTTP status 401 rather than a redirect
   to the sign in page.
+* Remove support for supplying return_to value via request parameter.
 
 New for 0.16.2 (May 11, 2012):
 

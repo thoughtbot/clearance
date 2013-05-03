@@ -57,7 +57,7 @@ module Clearance
     end
 
     def return_to_url
-      session[:return_to] || params[:return_to]
+      session[:return_to]
     end
 
     def url_after_denied_access_when_signed_in
