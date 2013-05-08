@@ -14,14 +14,14 @@ module Clearance
 
     def deny_access(flash_message = nil)
       respond_to do |format|
-        format.html { redirect_html_request(flash_message) }
-        format.all { head :unauthorized }
+        format.any(:js, :json, :xml) { head :unauthorized }
+        format.any { redirect_request(flash_message) }
       end
     end
 
     protected
 
-    def redirect_html_request(flash_message)
+    def redirect_request(flash_message)
       store_location
 
       if flash_message
