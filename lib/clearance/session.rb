@@ -13,6 +13,7 @@ module Clearance
           :value => current_user.remember_token,
           :expires => Clearance.configuration.cookie_expiration.call,
           :secure => Clearance.configuration.secure_cookie,
+          :httponly => Clearance.configuration.httponly,
           :path => '/'
         )
       end
