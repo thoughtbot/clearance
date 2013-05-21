@@ -38,6 +38,33 @@ describe Clearance::Session do
     session.current_user.should == user
   end
 
+  context 'if httponly is set' do
+    before do
+      Clearance.configuration.httponly = true
+      session.sign_in(user)
+    end
+
+    it 'sets a httponly cookie' do
+      session.add_cookie_to_headers(headers)
+
+      headers['Set-Cookie'].should =~ /remember_token=.+; HttpOnly/
+    end
+
+    after { restore_default_config }
+  end
+
+  context 'if httponly is not set' do
+    before do
+      session.sign_in(user)
+    end
+
+    it 'sets a standard cookie' do
+      session.add_cookie_to_headers(headers)
+
+      headers['Set-Cookie'].should_not =~ /remember_token=.+; HttpOnly/
+    end
+  end
+
   it 'sets a remember token cookie with a default expiration of 1 year from now' do
     user = create(:user)
     headers = {}
