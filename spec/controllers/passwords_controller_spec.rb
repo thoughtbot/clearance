@@ -3,11 +3,6 @@ require 'spec_helper'
 describe Clearance::PasswordsController do
   include Shoulda::Matchers::ActionMailer
 
-  it {
-   should route(:get, '/users/1/password/edit').
-     to(:controller => 'clearance/passwords', :action  => 'edit', :user_id => '1')
-  }
-
   describe 'a signed up user' do
     before do
       @user = create(:user)
