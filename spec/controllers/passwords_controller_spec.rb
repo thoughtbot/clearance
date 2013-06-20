@@ -1,8 +1,6 @@
 require 'spec_helper'
 
 describe Clearance::PasswordsController do
-  include Shoulda::Matchers::ActionMailer
-
   describe 'a signed up user' do
     before do
       @user = create(:user)
@@ -26,7 +24,11 @@ describe Clearance::PasswordsController do
           @user.reload.confirmation_token.should_not be_nil
         end
 
-        it { should have_sent_email.with_subject(/change your password/i) }
+        it 'sends an email with relevant subject' do
+          email = ActionMailer::Base.deliveries.last
+          email.subject.should match(/change your password/i)
+        end
+
         it { should respond_with(:success) }
       end
 
@@ -40,7 +42,11 @@ describe Clearance::PasswordsController do
           @user.reload.confirmation_token.should_not be_nil
         end
 
-        it { should have_sent_email.with_subject(/change your password/i) }
+        it 'sends an email with relevant subject' do
+          email = ActionMailer::Base.deliveries.last
+          email.subject.should match(/change your password/i)
+        end
+
         it { should respond_with(:success) }
       end
 

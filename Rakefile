@@ -12,21 +12,17 @@ require 'appraisal'
 require 'clearance/testing/application'
 Clearance::Testing::Application.load_tasks
 
-task :default do
-  if ENV['BUNDLE_GEMFILE'] =~ /gemfiles/
-    exec 'rake spec cucumber'
-  else
-    Rake::Task['appraise'].execute
-  end
-end
+desc 'Default'
+task :default => [:all]
 
-task :appraise => ['appraisal:install'] do
+desc 'Test the engine under all supported Rails versions'
+task :all => ['appraisal:install'] do |t|
   exec 'rake appraisal spec cucumber'
 end
 
 RSpec::Core::RakeTask.new(:spec)
 
 Cucumber::Rake::Task.new(:cucumber) do |t|
-  t.fork = true
+  t.fork = false
   t.cucumber_opts = ['--format', (ENV['CUCUMBER_FORMAT'] || 'progress')]
 end

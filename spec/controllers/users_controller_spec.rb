@@ -30,7 +30,9 @@ describe Clearance::UsersController do
         post :create, :user => user_attributes
       end
 
-      it { should assign_to(:user) }
+      it 'assigns a user' do
+        assigns(:user).should be
+      end
 
       it 'should create a new user' do
         User.count.should == @old_user_count + 1
@@ -48,7 +50,9 @@ describe Clearance::UsersController do
         post :create, :user => user_attributes
       end
 
-      it { should assign_to(:user) }
+      it 'assigns a user' do
+        assigns(:user).should be
+      end
 
       it 'should create a new user' do
         User.count.should == @old_user_count + 1
