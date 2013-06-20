@@ -1,11 +1,12 @@
-*.DS_Store
-*.swp
-*.swo
-*~
 !.keep
+*.DS_Store
+*.swo
+*.swp
+*~
 .bundle
+Gemfile.lock
+bin/
 db/*.sqlite3
 log/*.log
 pkg
 tmp/
-bin/

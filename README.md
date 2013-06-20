@@ -17,8 +17,8 @@ Read [CONTRIBUTING.md](/CONTRIBUTING.md) to contribute.
 Install
 -------
 
-Clearance is a Rails engine tested against [Rails 3.x](/Appraisals) on Ruby
-1.9.x and Ruby 2.0.x.
+Clearance is a Rails engine tested against Rails 3.x on Ruby 1.9.x and
+Rails `>= 3.2.13` on Ruby 2.0
 
 Include the gem in your Gemfile:
 
