@@ -396,7 +396,7 @@ Credits
 ![thoughtbot](http://thoughtbot.com/images/tm/logo.png)
 
 Clearance is maintained by [thoughtbot, inc](http://thoughtbot.com/community)
-and [contributors](/thoughtbot/clearance/contributors) like you. Thank you!
+and [contributors](/thoughtbot/clearance/graphs/contributors) like you. Thank you!
 
 License
 -------
