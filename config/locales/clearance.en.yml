@@ -59,11 +59,12 @@ en:
       title:
         'Reset your password'
   sessions:
-    new:
+    form:
       forgot_password:
         'Forgot password?'
       sign_up:
         'Sign up'
+    new:
       title:
         'Sign in'
   users:
