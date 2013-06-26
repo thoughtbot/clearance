@@ -127,6 +127,11 @@ Rack applications can interact with it:
       end
     end
 
+Clearance does not display flash messages for Users#create. You
+will be responsible for providing this functionality. A common work flow is to use
+a form builder that handles this for you. Popular options are [Simple
+Form](https://github.com/plataformatec/simple_form) or [Formtastic](https://github.com/justinfrench/formtastic).
+
 Overriding routes
 -----------------
 
