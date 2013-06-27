@@ -7,6 +7,6 @@ module Clearance
       app.config.filter_parameters += [:password, :token]
     end
 
-    config.app_middleware.insert_after ActionDispatch::Cookies, Clearance::RackSession
+    config.app_middleware.insert_after ActionDispatch::ParamsParser, Clearance::RackSession
   end
 end
