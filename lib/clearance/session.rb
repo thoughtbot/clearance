@@ -7,16 +7,15 @@ module Clearance
     end
 
     def add_cookie_to_headers(headers)
-      if signed_in?
-        Rack::Utils.set_cookie_header!(
-          headers, REMEMBER_TOKEN_COOKIE,
-          :value => current_user.remember_token,
-          :expires => Clearance.configuration.cookie_expiration.call,
-          :secure => Clearance.configuration.secure_cookie,
-          :httponly => Clearance.configuration.httponly,
-          :path => '/'
-        )
-      end
+      Rack::Utils.set_cookie_header!(
+        headers,
+        REMEMBER_TOKEN_COOKIE,
+        :value => remember_token,
+        :expires => Clearance.configuration.cookie_expiration.call,
+        :secure => Clearance.configuration.secure_cookie,
+        :httponly => Clearance.configuration.httponly,
+        :path => '/'
+      )
     end
 
     def current_user
@@ -27,6 +26,7 @@ module Clearance
 
     def sign_in(user)
       @current_user = user
+      cookies[REMEMBER_TOKEN_COOKIE] = @current_user.remember_token
     end
 
     def sign_out
@@ -57,8 +57,8 @@ module Clearance
     end
 
     def with_remember_token
-      if token = remember_token
-        yield token
+      if remember_token
+        yield remember_token
       end
     end
   end

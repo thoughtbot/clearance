@@ -15,7 +15,7 @@ module Clearance
       end
 
       def sign_out
-        @controller.current_user = nil
+        @controller.sign_out
       end
     end
   end
