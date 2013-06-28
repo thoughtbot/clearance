@@ -1,6 +1,14 @@
 require 'spec_helper'
 
 feature 'Visitor resets password' do
+  scenario 'by navigating to the page' do
+    visit sign_in_path
+
+    click_link I18n.t('sessions.form.forgot_password')
+
+    current_path.should eq new_password_path
+  end
+
   scenario 'with valid email' do
     user = user_with_reset_password
 
