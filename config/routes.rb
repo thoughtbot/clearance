@@ -5,11 +5,11 @@ Rails.application.routes.draw do
 
   resource :session,
     :controller => 'clearance/sessions',
-    :only => [:create, :new, :destroy]
+    :only => [:create]
 
   resources :users,
     :controller => 'clearance/users',
-    :only => [:create, :new] do
+    :only => [:create] do
       resource :password,
         :controller => 'clearance/passwords',
         :only => [:create, :edit, :update]
