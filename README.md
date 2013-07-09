@@ -22,7 +22,9 @@ Rails `>= 3.2.13` on Ruby 2.0
 
 Include the gem in your Gemfile:
 
-    gem 'clearance', '1.0.0.rc7'
+```ruby
+gem 'clearance', '1.0.0.rc7'
+```
 
 Bundle:
 
@@ -51,15 +53,17 @@ Configure
 
 Override any of these defaults in `config/initializers/clearance.rb`:
 
-    Clearance.configure do |config|
-      config.cookie_expiration = lambda { 1.year.from_now.utc }
-      config.httponly = false
-      config.secure_cookie = false
-      config.mailer_sender = 'reply@example.com'
-      config.password_strategy = Clearance::PasswordStrategies::BCrypt
-      config.user_model = User
-      config.redirect_url = '/'
-    end
+```ruby
+Clearance.configure do |config|
+  config.cookie_expiration = lambda { 1.year.from_now.utc }
+  config.httponly = false
+  config.secure_cookie = false
+  config.mailer_sender = 'reply@example.com'
+  config.password_strategy = Clearance::PasswordStrategies::BCrypt
+  config.user_model = User
+  config.redirect_url = '/'
+end
+```
 
 Use
 ---
@@ -67,65 +71,77 @@ Use
 Use `current_user`, `signed_in?`, and `signed_out?` in controllers, views, and
 helpers. For example:
 
-    - if signed_in?
-      = current_user.email
-      = link_to 'Sign out', sign_out_path, method: :delete
-    - else
-      = link_to 'Sign in', sign_in_path
+```haml
+- if signed_in?
+  = current_user.email
+  = link_to 'Sign out', sign_out_path, method: :delete
+- else
+  = link_to 'Sign in', sign_in_path
+```
 
 To authenticate a user elsewhere than `sessions/new` (like in an API):
 
-    User.authenticate 'email@example.com', 'password'
+```ruby
+User.authenticate 'email@example.com', 'password'
+```
 
 When a user resets their password, Clearance delivers them an email. So, you
 should change the `mailer_sender` default, used in the email's "from" header:
 
-    Clearance.configure do |config|
-      config.mailer_sender = 'reply@example.com'
-    end
+```ruby
+Clearance.configure do |config|
+  config.mailer_sender = 'reply@example.com'
+end
+```
 
 Use `authorize` to control access in controllers:
 
-    class ArticlesController < ApplicationController
-      before_filter :authorize
+```ruby
+class ArticlesController < ApplicationController
+  before_filter :authorize
 
-      def index
-        current_user.articles
-      end
-    end
+  def index
+    current_user.articles
+  end
+end
+```
 
 Or, you can authorize users in `config/routes.rb`:
 
-    Blog::Application.routes.draw do
-      constraints Clearance::Constraints::SignedIn.new { |user| user.admin? } do
-        root to: 'admin'
-      end
+```ruby
+Blog::Application.routes.draw do
+  constraints Clearance::Constraints::SignedIn.new { |user| user.admin? } do
+    root to: 'admin'
+  end
 
-      constraints Clearance::Constraints::SignedIn.new do
-        root to: 'dashboard'
-      end
+  constraints Clearance::Constraints::SignedIn.new do
+    root to: 'dashboard'
+  end
 
-      constraints Clearance::Constraints::SignedOut.new do
-        root to: 'marketing'
-      end
-    end
+  constraints Clearance::Constraints::SignedOut.new do
+    root to: 'marketing'
+  end
+end
+```
 
 Clearance adds its session to the Rack environment hash so middleware and other
 Rack applications can interact with it:
 
-    class Bubblegum::Middleware
-      def initialize(app)
-        @app = app
-      end
+```ruby
+class Bubblegum::Middleware
+  def initialize(app)
+    @app = app
+  end
 
-      def call(env)
-        if env[:clearance].signed_in?
-          env[:clearance].current_user.bubble_gum
-        end
-
-        @app.call(env)
-      end
+  def call(env)
+    if env[:clearance].signed_in?
+      env[:clearance].current_user.bubble_gum
     end
+
+    @app.call(env)
+  end
+end
+```
 
 Overriding routes
 -----------------
@@ -134,7 +150,9 @@ See [config/routes.rb](/config/routes.rb) for the default behavior.
 
 To override a Clearance route, redefine it:
 
-    resource :session, controller: 'sessions'
+```ruby
+resource :session, controller: 'sessions'
+```
 
 Overriding controllers
 ----------------------
@@ -144,9 +162,11 @@ behavior.
 
 To override a Clearance controller, subclass it:
 
-    class PasswordsController < Clearance::PasswordsController
-    class SessionsController < Clearance::SessionsController
-    class UsersController < Clearance::UsersController
+```ruby
+class PasswordsController < Clearance::PasswordsController
+class SessionsController < Clearance::SessionsController
+class UsersController < Clearance::UsersController
+```
 
 Then, override public methods:
 
@@ -189,9 +209,11 @@ All of these controller methods redirect to `'/'` by default:
 
 To override them all at once, change the global configuration:
 
-    Clearance.configure do |config|
-      config.redirect_url = '/overriden'
-    end
+```ruby
+Clearance.configure do |config|
+  config.redirect_url = '/overriden'
+end
+```
 
 Overriding translations
 -----------------------
@@ -230,18 +252,18 @@ See [lib/clearance/user.rb](/lib/clearance/user.rb) for the default behavior.
 
 To override the model, redefine public methods:
 
-    .authenticate(email, password)
-    #forgot_password!
-    #reset_remember_token!
-    #update_password(new_password)
+    User.authenticate(email, password)
+    User#forgot_password!
+    User#reset_remember_token!
+    User#update_password(new_password)
 
 Or, redefine private methods:
 
-    #email_optional?
-    #generate_confirmation_token
-    #generate_remember_token
-    #normalize_email
-    #password_optional?
+    User#email_optional?
+    User#generate_confirmation_token
+    User#generate_remember_token
+    User#normalize_email
+    User#password_optional?
 
 Overriding the password strategy
 --------------------------------
@@ -254,16 +276,20 @@ for the default behavior.
 
 Change your password strategy in `config/initializers/clearance.rb:`
 
-    Clearance.configure do |config|
-      config.password_strategy = Clearance::PasswordStrategies::SHA1
-    end
+```ruby
+Clearance.configure do |config|
+  config.password_strategy = Clearance::PasswordStrategies::SHA1
+end
+```
 
 Clearance provides the following strategies:
 
-    config.password_strategy = Clearance::PasswordStrategies::BCrypt
-    config.password_strategy = Clearance::PasswordStrategies::BCryptMigrationFromSHA1
-    config.password_strategy = Clearance::PasswordStrategies::Blowfish
-    config.password_strategy = Clearance::PasswordStrategies::SHA1
+```ruby
+Clearance::PasswordStrategies::BCrypt
+Clearance::PasswordStrategies::BCryptMigrationFromSHA1
+Clearance::PasswordStrategies::Blowfish
+Clearance::PasswordStrategies::SHA1
+```
 
 The previous default password strategy was SHA1.
 
@@ -280,25 +306,29 @@ switch to BCrypt transparently, use
 The SHA1 and Blowfish password strategies require an additional `salt` column in
 the `users` table. Run this migration before switching to SHA or Blowfish:
 
-    class AddSaltToUsers < ActiveRecord::Migration
-      def change
-        add_column :users, :salt, :string, limit: 128
-      end
-    end
+```ruby
+class AddSaltToUsers < ActiveRecord::Migration
+  def change
+    add_column :users, :salt, :string, limit: 128
+  end
+end
+```
 
 You can write a custom password strategy that has two instance methods:
 
-    module CustomPasswordStrategy
-      def authenticated?
-      end
+```ruby
+module CustomPasswordStrategy
+  def authenticated?
+  end
 
-      def password=(new_password)
-      end
-    end
+  def password=(new_password)
+  end
+end
 
-    Clearance.configure do |config|
-      config.password_strategy = CustomPasswordStrategy
-    end
+Clearance.configure do |config|
+  config.password_strategy = CustomPasswordStrategy
+end
+```
 
 Optional feature specs
 ----------------------
@@ -308,9 +338,11 @@ integration with your Rails app over time.
 
 Edit your `Gemfile` to include the dependencies:
 
-    gem 'capybara', '~> 2.0'
-    gem 'factory_girl_rails', '~> 4.2'
-    gem 'rspec-rails', '~> 2.13'
+```ruby
+gem 'capybara', '~> 2.0'
+gem 'factory_girl_rails', '~> 4.2'
+gem 'rspec-rails', '~> 2.13'
+```
 
 Generate RSpec files:
 
@@ -331,7 +363,9 @@ To test controller actions that are protected by `before_filter :authorize`,
 include Clearance's test helpers and matchers in `spec/support/clearance.rb` or
 `test/test_helper.rb`:
 
-    require 'clearance/testing'
+```ruby
+require 'clearance/testing'
+```
 
 This will make `Clearance::Controller` methods work in your controllers
 during functional tests and provide access to helper methods like:
@@ -346,28 +380,32 @@ And matchers like:
 
 Example:
 
-    context 'a guest' do
-      before do
-        get :show
-      end
+```ruby
+context 'a guest' do
+  before do
+    get :show
+  end
 
-      it { should deny_access }
-    end
+  it { should deny_access }
+end
 
-    context 'a user' do
-      before do
-        sign_in
-        get :show
-      end
+context 'a user' do
+  before do
+    sign_in
+    get :show
+  end
 
-      it { should respond_with(:success) }
-    end
+  it { should respond_with(:success) }
+end
+```
 
 You may want to customize the tests:
 
-    it { should deny_access  }
-    it { should deny_access(flash: 'Denied access.')  }
-    it { should deny_access(redirect: sign_in_url)  }
+```ruby
+it { should deny_access  }
+it { should deny_access(flash: 'Denied access.')  }
+it { should deny_access(redirect: sign_in_url)  }
+```
 
 Faster tests
 ------------
@@ -379,16 +417,20 @@ user directly. The speed increase can be
 
 Configuration:
 
-    # config/environments/test.rb
-    MyRailsApp::Application.configure do
-      # ...
-      config.middleware.use Clearance::BackDoor
-      # ...
-    end
+```ruby
+# config/environments/test.rb
+MyRailsApp::Application.configure do
+  # ...
+  config.middleware.use Clearance::BackDoor
+  # ...
+end
+```
 
 Usage:
 
-    visit root_path(as: user)
+```ruby
+visit root_path(as: user)
+```
 
 Credits
 -------
