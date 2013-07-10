@@ -15,9 +15,13 @@ When "I have a project with clearance" do
     step "I successfully run `bundle exec rails new testapp --skip-bundle --skip-javascript --skip-sprockets`"
   end
 
+  step 'I cd to "testapp"'
+
+  unless Clearance::Testing.rails4?
+    step 'I remove the file "public/index.html"'
+  end
+
   steps %Q{
-    When I cd to "testapp"
-    And I remove the file "public/index.html"
     And I remove the file "app/views/layouts/application.html.erb"
     And I configure ActionMailer to use "localhost" as a host
     And I configure a root route
@@ -62,19 +66,11 @@ When /^I configure test-unit$/ do
     'clearance.rb'
   )
   steps %Q{
-    And I write to "test/test_helper.rb" with:
+    When I append to "test/test_helper.rb" with:
     """
-    ENV['RAILS_ENV'] = 'test'
-    require File.expand_path('../../config/environment', __FILE__)
-    require 'rails/test_help'
-
-    class ActiveSupport::TestCase
-      fixtures :all
-    end
-
     require 'clearance/testing'
     """
-    And I write to "test/functional/posts_controller_test.rb" with:
+    And I overwrite "test/#{controller_test_dir}/posts_controller_test.rb" with:
     """
     require 'test_helper'
 
@@ -135,4 +131,12 @@ When /^I create a migration with clearance fields$/ do
       end
       """
   }
+end
+
+def controller_test_dir
+  if Clearance::Testing.rails4?
+    'controllers'
+  else
+    'functional'
+  end
 end

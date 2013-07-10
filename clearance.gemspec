@@ -24,19 +24,5 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'bcrypt-ruby'
   s.add_dependency 'email_validator', '~> 1.4'
-  s.add_dependency 'rails', '>= 3.0'
-
-  s.add_development_dependency 'appraisal', '~> 0.5'
-  s.add_development_dependency 'aruba', '~> 0.5'
-  s.add_development_dependency 'bourne', '~> 1.4'
-  s.add_development_dependency 'bundler', '~> 1.3'
-  s.add_development_dependency 'capybara', '~> 2.0.3'
-  s.add_development_dependency 'cucumber-rails', '~> 1.3'
-  s.add_development_dependency 'database_cleaner', '~> 1.0'
-  s.add_development_dependency 'factory_girl_rails', '~> 4.2'
-  s.add_development_dependency 'rspec', '~> 2.13'
-  s.add_development_dependency 'rspec-rails', '~> 2.13'
-  s.add_development_dependency 'shoulda-matchers', '~> 2.2'
-  s.add_development_dependency 'sqlite3', '~> 1.3'
-  s.add_development_dependency 'timecop', '~> 0.6'
+  s.add_dependency 'rails', '>= 3.1'
 end
