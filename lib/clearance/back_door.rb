@@ -34,8 +34,12 @@ module Clearance
       user_id = params['as']
 
       if user_id.present?
-        user = Clearance.configuration.user_model.find(user_id)
-        env[:clearance].sign_in(user)
+        if user_id == 'signed_out'
+          env[:clearance].sign_out
+        else
+          user = Clearance.configuration.user_model.find(user_id)
+          env[:clearance].sign_in(user)
+        end
       end
     end
   end
