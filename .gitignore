@@ -4,7 +4,6 @@
 *.swp
 *~
 .bundle
-bin/
 db/*.sqlite3
 gemfiles/
 log/*.log
