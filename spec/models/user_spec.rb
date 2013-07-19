@@ -42,7 +42,7 @@ describe User do
       @user.should be_authenticated(@password)
     end
 
-    it 'is authenticated with incorrect credentials' do
+    it 'is not authenticated with incorrect credentials' do
       User.authenticate(@user.email, 'bad_password').should be_nil
       @user.should_not be_authenticated('bad password')
     end
@@ -126,7 +126,7 @@ describe User do
           end
 
           it 'does not change encrypted password' do
-            @user.encrypted_password.should == @old_encrypted_password
+            @user.encrypted_password.to_s.should == @old_encrypted_password
           end
 
           it 'does not clear confirmation token' do
@@ -154,23 +154,6 @@ describe User do
     it { should allow_value('').for(:email) }
   end
 
-  describe 'a user with an optional password' do
-    before do
-      @user = User.new
-
-      class << @user
-        def password_optional?
-          true
-        end
-      end
-    end
-
-    subject { @user }
-
-    it { should allow_value(nil).for(:password) }
-    it { should allow_value('').for(:password) }
-  end
-
   describe 'user factory' do
     it 'should create a valid user with just an overridden password' do
       build(:user, :password => 'test').should be_valid
@@ -196,5 +179,16 @@ describe User do
     it 'also sets encrypted_password' do
       subject.encrypted_password.should_not be_nil
     end
+  end
+end
+
+describe UserWithOptionalPassword do
+  it { should allow_value(nil).for(:password) }
+  it { should allow_value('').for(:password) }
+
+  it 'cannot authenticate with blank password' do
+    user = create(:user_with_optional_password)
+
+    UserWithOptionalPassword.authenticate(user.email, '').should be_nil
   end
 end

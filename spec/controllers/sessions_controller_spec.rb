@@ -9,6 +9,19 @@ describe Clearance::SessionsController do
     it { should_not set_the_flash }
   end
 
+  context 'when password is optional' do
+    describe 'POST create' do
+      it 'renders the page with error' do
+        user = create(:user_with_optional_password)
+
+        post :create, session: { email: user.email, password: user.password }
+
+        expect(response).to render_template(:new)
+        expect(flash[:notice]).to match /^Bad email or password/
+      end
+    end
+  end
+
   describe 'on POST to #create with good credentials' do
     before do
       @user = create(:user)

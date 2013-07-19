@@ -1,6 +1,7 @@
 require 'clearance'
 
 Clearance.configure do |config|
+  # need an empty block to initialize the configuration object
 end
 
 class ApplicationController < ActionController::Base
@@ -9,6 +10,14 @@ end
 
 class User < ActiveRecord::Base
   include Clearance::User
+end
+
+class UserWithOptionalPassword < User
+  private
+
+  def password_optional?
+    true
+  end
 end
 
 module Clearance
