@@ -2,10 +2,6 @@ require 'clearance/testing/assertion_error'
 require 'clearance/testing/deny_access_matcher'
 require 'clearance/testing/helpers'
 
-Clearance.configure do |config|
-  config.password_strategy = Clearance::PasswordStrategies::Fake
-end
-
 if defined?(ActionController::TestCase)
   ActionController::TestCase.extend Clearance::Testing::Matchers
 

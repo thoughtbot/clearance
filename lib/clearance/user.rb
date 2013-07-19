@@ -11,16 +11,13 @@ module Clearance
 
       include Validations
       include Callbacks
-      include(
-        Clearance.configuration.password_strategy ||
-        Clearance::PasswordStrategies::BCrypt
-      )
+      include password_strategy
     end
 
     module ClassMethods
       def authenticate(email, password)
         if user = find_by_normalized_email(email)
-          if user.authenticated? password
+          if password.present? && user.authenticated?(password)
             return user
           end
         end
@@ -32,6 +29,12 @@ module Clearance
 
       def normalize_email(email)
         email.to_s.downcase.gsub(/\s+/, "")
+      end
+
+      private
+
+      def password_strategy
+        Clearance.configuration.password_strategy || PasswordStrategies::BCrypt
       end
     end
 
@@ -45,7 +48,7 @@ module Clearance
           uniqueness: { allow_blank: true },
           unless: :email_optional?
 
-        validates :password, presence: true, unless: :password_optional?
+        validates :password, presence: true, unless: :skip_password_validation?
       end
     end
 
@@ -90,16 +93,20 @@ module Clearance
       false
     end
 
+    def password_optional?
+      false
+    end
+
+    def skip_password_validation?
+      password_optional? || (encrypted_password.present? && !password_changing)
+    end
+
     def generate_confirmation_token
       self.confirmation_token = SecureRandom.hex(20).encode('UTF-8')
     end
 
     def generate_remember_token
       self.remember_token = SecureRandom.hex(20).encode('UTF-8')
-    end
-
-    def password_optional?
-      encrypted_password.present? && password.blank? && password_changing.blank?
     end
   end
 end
