@@ -2,12 +2,14 @@ Thank you to all the [contributors](https://github.com/thoughtbot/clearance/grap
 
 New for 1.0.0:
 
+* Support Rails 4.
 * Change default password strategy to BCrypt.
 * Speed up test suites using `::BCrypt::Engine::MIN_COST`.
 * Speed up integration suites with `Clearance::BackDoor`.
 * Replace email regular expression with `EmailValidator` gem.
 * Provide `BCryptMigrationFromSHA1` password strategy to help people migrate from
   SHA1 (the old default password strategy) to BCrypt (the new default).
+* Support Ruby 2.
 * Require > Ruby 1.9.
 * More extension points in more controllers.
 * The `email`, `encrypted_password`, and `remember_token` fields of the users
@@ -21,15 +23,14 @@ New for 1.0.0:
   `password_required?`.
 * `PasswordsController` `params[:user]` has changed to `params[:password_reset]`
   to avoid locale conflicts.
-* Prepare for Rails 4.
-* Prepare for Ruby 2.
 * Remove `unloadable` from controllers (Rails 4 bug fix in development
   environment).
 * Add `redirect_url` configuration option.
 * Add `secure_cookie` configuration option.
 * Unauthorized API requests return HTTP status 401 rather than a redirect
   to the sign in page.
-* Remove support for supplying return_to value via request parameter.
+* Remove support for supplying `return_to` value via request parameter.
+* Reduce extra user lookups when adding cookie to headers.
 
 New for 0.16.2 (May 11, 2012):
 

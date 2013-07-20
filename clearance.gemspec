@@ -6,8 +6,24 @@ Gem::Specification.new do |s|
   s.name = %q{clearance}
   s.version = Clearance::VERSION
   s.authors = [
-    'Dan Croak', 'Mike Burns', 'Jason Morrison', 'Joe Ferris', 'Eugene Bolshakov',
-    'Nick Quaranto', 'Josh Nichols', 'Mike Breen', 'Jon Yurek', 'Chad Pytel'
+    'Dan Croak',
+    'Eugene Bolshakov',
+    'Mike Burns',
+    'Joe Ferris',
+    'Nick Quaranto',
+    'Josh Nichols',
+    'Matt Jankowski',
+    'Josh Clayton',
+    'Gabe Berke-Williams',
+    'Greg Lazarev',
+    'Mike Breen',
+    'Prem Sichanugrist',
+    'Harlow Ward',
+    'Ryan McGeary',
+    'Derek Prior',
+    'Jason Morrison',
+    'Galen Frechette',
+    'Josh Steiner'
   ]
   s.email = %q{support@thoughtbot.com}
   s.homepage = %q{http://github.com/thoughtbot/clearance}
