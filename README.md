@@ -23,7 +23,7 @@ It works with Rails 4 and Ruby 2.
 Include the gem in your Gemfile:
 
 ```ruby
-gem 'clearance', '1.0.0.rc7'
+gem 'clearance', '1.0.0.rc8'
 ```
 
 Bundle:
@@ -57,11 +57,11 @@ Override any of these defaults in `config/initializers/clearance.rb`:
 Clearance.configure do |config|
   config.cookie_expiration = lambda { 1.year.from_now.utc }
   config.httponly = false
-  config.secure_cookie = false
   config.mailer_sender = 'reply@example.com'
   config.password_strategy = Clearance::PasswordStrategies::BCrypt
-  config.user_model = User
   config.redirect_url = '/'
+  config.secure_cookie = false
+  config.user_model = User
 end
 ```
 

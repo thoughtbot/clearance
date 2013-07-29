@@ -21,7 +21,11 @@ module Clearance
 
       def create_or_inject_clearance_into_user_model
         if File.exists? 'app/models/user.rb'
-          inject_into User, 'app/models/user.rb', 'include Clearance::User'
+          inject_into_file(
+            'app/models/user.rb',
+            "include Clearance::User\n\n",
+            after: "class User < ActiveRecord::Base\n"
+          )
         else
           copy_file 'user.rb', 'app/models/user.rb'
         end
