@@ -23,7 +23,7 @@ It works with Rails 4 and Ruby 2.
 Include the gem in your Gemfile:
 
 ```ruby
-gem 'clearance', '1.0.0.rc8'
+gem 'clearance', '1.0.0'
 ```
 
 Bundle:
