@@ -330,6 +330,30 @@ Clearance.configure do |config|
 end
 ```
 
+Deliver password reset email in a background job
+------------------------------------------------
+
+Clearance has one mailer. It is used to reset the user's password.
+
+To deliver it in a background job using a queue system like [Delayed
+Job](https://github.com/collectiveidea/delayed_job), subclass
+`Clearance::PasswordsController` and define the behavior you need in its
+`deliver_email` method:
+
+```ruby
+class PasswordsController < Clearance::PasswordsController
+  def deliver_email(user)
+    ClearanceMailer.delay.change_password(user)
+  end
+end
+```
+
+Then, override the route:
+
+```ruby
+resources :passwords, only: [:create]
+```
+
 Optional feature specs
 ----------------------
 
