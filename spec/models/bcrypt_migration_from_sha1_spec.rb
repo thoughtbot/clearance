@@ -54,9 +54,9 @@ describe Clearance::PasswordStrategies::BCryptMigrationFromSHA1 do
       end
 
       it 'does not raise a BCrypt error for invalid passwords' do
-        lambda {
+        expect {
           subject.authenticated? 'bad' + password
-        }.should_not raise_error(BCrypt::Errors::InvalidHash)
+        }.not_to raise_error
       end
 
       it 'saves the subject to database' do
