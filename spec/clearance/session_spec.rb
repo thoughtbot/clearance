@@ -25,17 +25,26 @@ describe Clearance::Session do
   end
 
   it 'returns nil without a remember token' do
-    env = env_without_remember_token
-    session = Clearance::Session.new(env)
     session.should be_signed_out
     session.current_user.should be_nil
   end
 
-  it 'signs in a given user' do
-    user = create(:user)
-    session = Clearance::Session.new(env_without_remember_token)
-    session.sign_in user
-    session.current_user.should == user
+  describe '#sign_in' do
+    it 'sets current_user' do
+      user = build(:user)
+
+      session.sign_in user
+
+      expect(session.current_user).to eq user
+    end
+
+    context 'with nil argument' do
+      it 'assigns current_user' do
+        session.sign_in nil
+
+        expect(session.current_user).to be_nil
+      end
+    end
   end
 
   context 'if httponly is set' do

@@ -25,8 +25,8 @@ module Clearance
     end
 
     def sign_in(user)
+      cookies[REMEMBER_TOKEN_COOKIE] = user && user.remember_token
       @current_user = user
-      cookies[REMEMBER_TOKEN_COOKIE] = @current_user.remember_token
     end
 
     def sign_out
