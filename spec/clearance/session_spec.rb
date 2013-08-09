@@ -17,7 +17,6 @@ describe Clearance::Session do
   end
 
   it 'returns nil for an unknown user' do
-    user = create(:user)
     env = env_with_remember_token('bogus')
     session = Clearance::Session.new(env)
     session.should be_signed_out
@@ -84,8 +83,6 @@ describe Clearance::Session do
   end
 
   it 'sets a remember token cookie with a custom expiration' do
-    custom_expiration = 1.day.from_now
-
     with_custom_expiration 1.day.from_now do
       user = create(:user)
       headers = {}
