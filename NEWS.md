@@ -1,5 +1,9 @@
 Thank you to all the [contributors](https://github.com/thoughtbot/clearance/graphs/contributors)!
 
+New for 1.0.1 (August 9, 2013):
+
+* Fix an issue when trying to sign in with `nil`
+
 New for 1.0.0 (August 1, 2013):
 
 * Support Rails 4.
