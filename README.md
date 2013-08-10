@@ -8,9 +8,10 @@ Clearance
 Rails authentication with email & password.
 
 Clearance was extracted out of [Airbrake](http://airbrake.io/). It is intended
-to be small, simple, well-tested, with easy to override defaults.
+to be small, simple, and well-tested. It is intended to be easy to override
+defaults.
 
-Use [Github Issues](https://github.com/thoughtbot/clearance/issues) for help.
+Use [GitHub Issues](https://github.com/thoughtbot/clearance/issues) for help.
 
 Read [CONTRIBUTING.md](/CONTRIBUTING.md) to contribute.
 
@@ -23,7 +24,7 @@ It works with Rails 4 and Ruby 2.
 Include the gem in your Gemfile:
 
 ```ruby
-gem 'clearance', '1.0.0'
+gem 'clearance'
 ```
 
 Bundle:
@@ -43,10 +44,11 @@ The generator:
 
 Then, follow the instructions output from the generator.
 
-Use Clearance [0.8.8](https://github.com/thoughtbot/clearance/tree/v0.8.8)
-series for Rails 2 apps.
+Use Clearance [0.8.8](https://github.com/thoughtbot/clearance/tree/v0.8.8) for
+Rails 2 apps.
 
-Use [0.16.3](http://rubygems.org/gems/clearance/versions/0.16.3) for Ruby 1.8.7.
+Use Clearance [0.16.3](http://rubygems.org/gems/clearance/versions/0.16.3) for
+Ruby 1.8.7 apps.
 
 Configure
 ---------
