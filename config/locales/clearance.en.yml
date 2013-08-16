@@ -69,7 +69,7 @@ en:
         'Sign in'
   users:
     new:
+      title:
+        'Sign up'
       sign_in:
         'Sign in'
-      sign_up:
-        'Sign up'
