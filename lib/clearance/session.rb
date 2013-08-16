@@ -19,9 +19,11 @@ module Clearance
     end
 
     def current_user
-      @current_user ||= with_remember_token do |token|
-        Clearance.configuration.user_model.find_by_remember_token token
+      if remember_token.present?
+        @current_user ||= user_from_remember_token(remember_token)
       end
+
+      @current_user
     end
 
     def sign_in(user)
@@ -56,10 +58,8 @@ module Clearance
       cookies[REMEMBER_TOKEN_COOKIE]
     end
 
-    def with_remember_token
-      if remember_token
-        yield remember_token
-      end
+    def user_from_remember_token(token)
+      Clearance.configuration.user_model.where(remember_token: token).first
     end
   end
 end

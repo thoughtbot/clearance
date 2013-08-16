@@ -10,12 +10,6 @@ class ApisController < ActionController::Base
   def show
     render text: 'response'
   end
-
-  protected
-
-  def authorize
-    deny_access 'Access denied.'
-  end
 end
 
 describe ApisController do
