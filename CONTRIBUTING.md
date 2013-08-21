@@ -9,8 +9,8 @@ We love pull requests. Here's a quick guide:
    to know that you have a clean slate: `rake`
 
 4. Add a test for your change. Only refactoring and documentation changes
-   require no new tests. If you are adding functionality or fixing a bug, we need
-   a test!
+   require no new tests. If you are adding functionality or fixing a
+   bug, we need a test!
 
 5. Make the test pass.
 
