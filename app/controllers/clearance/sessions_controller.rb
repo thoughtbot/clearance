@@ -3,7 +3,7 @@ class Clearance::SessionsController < ApplicationController
   protect_from_forgery :except => :create
 
   def create
-    @user = authenticate(params)
+    @user = authenticate(session_params)
 
     if @user.nil?
       flash_failure_after_create
@@ -37,5 +37,9 @@ class Clearance::SessionsController < ApplicationController
 
   def url_after_destroy
     sign_in_url
+  end
+
+  def session_params
+    params
   end
 end

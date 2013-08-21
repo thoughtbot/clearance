@@ -195,12 +195,15 @@ Or, override private methods:
     passwords#forbid_non_existent_user
     passwords#url_after_create
     passwords#url_after_update
+    passwords#password_params
     sessions#flash_failure_after_create
     sessions#url_after_create
     sessions#url_after_destroy
+    sessions#session_params
     users#flash_failure_after_create
     users#url_after_create
     users#user_from_params
+    users#user_params
 
 All of these controller methods redirect to `'/'` by default:
 

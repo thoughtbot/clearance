@@ -41,22 +41,22 @@ class Clearance::PasswordsController < ApplicationController
   end
 
   def password_reset_params
-    if params.has_key? :user
+    if password_params.has_key? :user
       ActiveSupport::Deprecation.warn %{Since locales functionality was added, accessing params[:user] is no longer supported.}
-      params[:user][:password]
+      password_params[:user][:password]
     else
-      params[:password_reset][:password]
+      password_params[:password_reset][:password]
     end
   end
 
   def find_user_by_id_and_confirmation_token
     Clearance.configuration.user_model.
-      find_by_id_and_confirmation_token params[:user_id], params[:token].to_s
+      find_by_id_and_confirmation_token password_params[:user_id], password_params[:token].to_s
   end
 
   def find_user_for_create
     Clearance.configuration.user_model.
-      find_by_normalized_email params[:password][:email]
+      find_by_normalized_email password_params[:password][:email]
   end
 
   def find_user_for_edit
@@ -80,7 +80,7 @@ class Clearance::PasswordsController < ApplicationController
   end
 
   def forbid_missing_token
-    if params[:token].to_s.blank?
+    if password_params[:token].to_s.blank?
       flash_failure_when_forbidden
       render :template => 'passwords/new'
     end
@@ -99,5 +99,9 @@ class Clearance::PasswordsController < ApplicationController
 
   def url_after_update
     Clearance.configuration.redirect_url
+  end
+
+  def password_params
+    params
   end
 end
