@@ -39,6 +39,14 @@ class Clearance::UsersController < ApplicationController
   end
 
   def user_params
-    params[:user] || Hash.new
+    params[:user] || default_params
+  end
+
+  def default_params
+    if defined?(Parameters)
+      Parameters.new
+    else
+      Hash.new
+    end
   end
 end
