@@ -396,14 +396,17 @@ Testing authorized controller actions
 -------------------------------------
 
 To test controller actions that are protected by `before_filter :authorize`,
-include Clearance's test helpers and matchers in `spec/support/clearance.rb`,
-`test/test_helper.rb`, or `spec/spec_helper.rb` as appropriate:
+require Clearance's test helpers and matchers in your test suite. For example:
 
 ```ruby
+# spec/spec_helper.rb
+...
+require 'rspec/rails'
 require 'clearance/testing'
 ```
 
-NOTE: This module should be required *after* requiring `rspec/rails`.
+NOTE: The order of these helper modules is important - `clearance/testing`
+should be *after* `rspec/rails`.
 
 This will make `Clearance::Controller` methods work in your controllers
 during functional tests and provide access to helper methods like:
