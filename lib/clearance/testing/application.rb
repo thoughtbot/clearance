@@ -28,6 +28,7 @@ module Clearance
 
       if Clearance::Testing.rails4?
         config.paths.add 'config/routes.rb', with: "#{APP_ROOT}/config/routes.rb"
+        config.secret_key_base = 'SECRET_KEY_BASE'
       else
         config.paths.add 'config/routes', with: "#{APP_ROOT}/config/routes.rb"
       end
