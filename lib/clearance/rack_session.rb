@@ -8,7 +8,7 @@ module Clearance
       session = Clearance::Session.new(env)
       env[:clearance] = session
       response = @app.call(env)
-      session.add_cookie_to_headers response[1]
+      session.add_cookie_to_headers(response[1], env['HTTPS'])
       response
     end
   end
