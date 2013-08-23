@@ -13,8 +13,6 @@ gem 'factory_girl_rails', '~> 4.2'
 gem 'jbuilder', '~> 1.2'
 gem 'rspec-rails', '~> 2.13'
 gem 'sdoc'
-gem 'shoulda-matchers',
-  github: 'thoughtbot/shoulda-matchers',
-  branch: 'dp-rails-four'
+gem 'shoulda-matchers', '~> 2.4.0.rc1'
 gem 'sqlite3', '~> 1.3'
 gem 'timecop', '~> 0.6'
