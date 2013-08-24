@@ -1,3 +1,5 @@
+require 'clearance/testing/assertion_error'
+
 module Clearance
   module Testing
     module Matchers

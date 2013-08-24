@@ -68,7 +68,7 @@ When /^I configure test-unit$/ do
   steps %Q{
     When I append to "test/test_helper.rb" with:
     """
-    require 'clearance/testing'
+    require 'clearance/test_unit'
     """
     And I overwrite "test/#{controller_test_dir}/posts_controller_test.rb" with:
     """
