@@ -14,7 +14,8 @@ module Clearance
         :expires => Clearance.configuration.cookie_expiration.call,
         :secure => Clearance.configuration.secure_cookie,
         :httponly => Clearance.configuration.httponly,
-        :path => '/'
+        :path => '/',
+        :domain => cookie_domain
       )
     end
 
@@ -49,6 +50,22 @@ module Clearance
     end
 
     private
+
+    def cookie_domain
+      case Clearance.configuration.cookie_domain
+      when :current
+        ".#{request.host}"
+      when :all
+        ".#{ActionDispatch::Http::URL.extract_domain(request.host)}"
+      else
+        Clearance.configuration.cookie_domain
+      end
+
+    end
+
+    def request
+      @request ||=Rack::Request.new(@env)
+    end
 
     def cookies
       @cookies ||= @env['action_dispatch.cookies'] || Rack::Request.new(@env).cookies

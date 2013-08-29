@@ -57,6 +57,7 @@ Override any of these defaults in `config/initializers/clearance.rb`:
 
 ```ruby
 Clearance.configure do |config|
+  config.cookie_domain = :current
   config.cookie_expiration = lambda { 1.year.from_now.utc }
   config.httponly = false
   config.mailer_sender = 'reply@example.com'
@@ -331,6 +332,37 @@ Clearance.configure do |config|
   config.password_strategy = CustomPasswordStrategy
 end
 ```
+
+Subdomains
+----------
+
+You can allow clearance authentication to carry over to subdomains, you can use the 
+following configuration:
+
+```ruby
+Clearance.configure do |config|
+  config.cookie_domain = :all
+end
+```
+
+If you have a top level domain like example.co.uk, you can also put this in your production.rb
+
+```ruby
+config.action_dispatch.tld_length = 2
+```
+
+If you would like complete control of the domain cookie, you can set it directly in the
+configuration:
+
+```ruby
+Clearance.configure do |config|
+  config.cookie_domain = ".example.com"
+end
+```
+
+Don't forget to add the leading dot to your domain.
+
+
 
 Deliver password reset email in a background job
 ------------------------------------------------

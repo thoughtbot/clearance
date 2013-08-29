@@ -1,6 +1,7 @@
 module Clearance
   class Configuration
     attr_accessor \
+      :cookie_domain,
       :cookie_expiration,
       :httponly,
       :mailer_sender,
@@ -10,6 +11,7 @@ module Clearance
       :user_model
 
     def initialize
+      @cookie_domain = :current
       @cookie_expiration = lambda { 1.year.from_now.utc }
       @httponly = false
       @mailer_sender = 'reply@example.com'
