@@ -316,14 +316,24 @@ class AddSaltToUsers < ActiveRecord::Migration
 end
 ```
 
-You can write a custom password strategy that has two instance methods:
+You can write a custom password strategy that has two instance methods.
+In your `authenticated?` method, encrypt the password with your desired
+strategy, and then compare it to the `encrypted_password` that is provided by
+Clearance.
 
 ```ruby
 module CustomPasswordStrategy
-  def authenticated?
+  def authenticated?(password)
+    encrypted_password == encrypt(password)
   end
 
   def password=(new_password)
+  end
+
+  private
+
+  def encrypt
+    # your encryption strategy
   end
 end
 
