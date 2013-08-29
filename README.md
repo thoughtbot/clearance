@@ -320,7 +320,7 @@ You can write a custom password strategy that has two instance methods:
 
 ```ruby
 module CustomPasswordStrategy
-  def authenticated?
+  def authenticated?(password)
   end
 
   def password=(new_password)
@@ -331,6 +331,11 @@ Clearance.configure do |config|
   config.password_strategy = CustomPasswordStrategy
 end
 ```
+
+In your authenticated? method, encrypt the password with your desired strategy, and then compare it to the Clearance-provided 'encrypted_password'. The most straight-forward way to do this is with:
+```ruby
+  encrypted_password == <your_encryption_method>(password)
+```  
 
 Deliver password reset email in a background job
 ------------------------------------------------
