@@ -75,49 +75,30 @@ describe Clearance::Session do
   end
 
 
-  context 'if cookie_domain is set to :all' do
+  context 'if cookie_domain is not set' do
     before do
-      Clearance.configuration.cookie_domain = :all
       session.sign_in(user)
     end
 
-    context 'when visiting a top level domain' do
+    context 'when visiting a domain' do
       let(:request_domain){ "example.com" }
-      it 'sets a cookie with the top level domain' do
+      it "sets a cookie with the host's  domain" do
         session.add_cookie_to_headers(headers)
         headers['Set-Cookie'].should =~ /domain=\.example\.com;/
       end
     end
 
-    context 'when visiting a subdomain' do
-      let(:request_domain){ "sub.example.com" }
-      it 'sets a cookie with the top level domain' do
-        session.add_cookie_to_headers(headers)
-        headers['Set-Cookie'].should =~ /domain=\.example\.com;/
-      end
-    end
-
-    after {restore_default_config}
-
   end
 
-  context 'if cookie_domain is not set' do
-      let(:request_domain){ "sub.example.com" }
-      it 'sets a cookie with the current domain' do
-        session.add_cookie_to_headers(headers)
-        headers['Set-Cookie'].should =~ /domain=\.sub\.example\.com;/
-      end
-  end
-
-  context 'if cookie_domain is set to ".example.com"' do
+  context 'if cookie_domain is set' do
     before do
-      Clearance.configuration.cookie_domain = ".example.com"
+      Clearance.configuration.cookie_domain = lambda {|request| ".foo.bar.com"}
     end
 
-    let(:request_domain){ "otherdomain.com" }
-    it 'sets the domain to ".example.com"' do
+    let(:request_domain){ "sub.example.com" }
+    it 'sets the cookie domain to the result of the callable' do
       session.add_cookie_to_headers(headers)
-      headers['Set-Cookie'].should =~ /domain=\.example\.com;/
+      headers['Set-Cookie'].should =~ /domain=\.foo\.bar\.com;/
     end
 
     after {restore_default_config}

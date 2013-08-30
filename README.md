@@ -57,7 +57,7 @@ Override any of these defaults in `config/initializers/clearance.rb`:
 
 ```ruby
 Clearance.configure do |config|
-  config.cookie_domain = :current
+  config.cookie_domain = lambda{|request| ".#{request.host}"}
   config.cookie_expiration = lambda { 1.year.from_now.utc }
   config.httponly = false
   config.mailer_sender = 'reply@example.com'
@@ -341,7 +341,9 @@ following configuration:
 
 ```ruby
 Clearance.configure do |config|
-  config.cookie_domain = :all
+  config.cookie_domain = lambda do |request|
+    ".#{ActionDispatch::Http::URL.extract_domain(request.host)}"
+  end
 end
 ```
 
@@ -356,7 +358,7 @@ configuration:
 
 ```ruby
 Clearance.configure do |config|
-  config.cookie_domain = ".example.com"
+  config.cookie_domain = lambda {|request|  ".example.com"}
 end
 ```
 

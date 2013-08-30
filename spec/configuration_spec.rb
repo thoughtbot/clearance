@@ -40,26 +40,22 @@ describe Clearance::Configuration do
       end
     end
 
-    it 'defaults to :current' do
-      Clearance.configuration.cookie_domain.should == :current
+    it 'defaults to a block that returns the current host' do
+      mock_request = OpenStruct.new(host: "foo.example.com")
+      Clearance.configuration.cookie_domain.call(mock_request).should == ".foo.example.com"
     end
   end
 
   describe 'when a custom cookie_domain is specified' do
     before do
       Clearance.configure do |config|
-        config.cookie_domain = :all
+        config.cookie_domain = ->(request){ ".example.com"}
       end
     end
 
-    after do
-      Clearance.configure do |config|
-        config.cookie_domain = :current
-      end
-    end
-
-    it 'is used instead of :current' do
-      Clearance.configuration.cookie_domain.should == :all
+    it 'returns the callable object that was passed in' do
+      mock_request = OpenStruct.new(host: "foo.example.com")
+      Clearance.configuration.cookie_domain.call(mock_request).should == ".example.com"
     end
   end
 

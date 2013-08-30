@@ -52,15 +52,7 @@ module Clearance
     private
 
     def cookie_domain
-      case Clearance.configuration.cookie_domain
-      when :current
-        ".#{request.host}"
-      when :all
-        ".#{ActionDispatch::Http::URL.extract_domain(request.host)}"
-      else
-        Clearance.configuration.cookie_domain
-      end
-
+      Clearance.configuration.cookie_domain.call(request)
     end
 
     def request
