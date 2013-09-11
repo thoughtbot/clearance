@@ -1,5 +1,10 @@
 Thank you to all the [contributors](https://github.com/thoughtbot/clearance/graphs/contributors)!
 
+New on Master:
+
+* Email validation is now done with `EmailValidator` [strict
+  mode](https://github.com/balexand/email_validator#strict-mode).
+
 New for 1.0.1 (August 9, 2013):
 
 * Fix an issue when trying to sign in with `nil`

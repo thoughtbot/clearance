@@ -9,11 +9,13 @@ describe User do
     it { should validate_presence_of(:password) }
     it { should allow_value('foo@example.co.uk').for(:email) }
     it { should allow_value('foo@example.com').for(:email) }
+    it { should allow_value('foo+bar@example.com').for(:email) }
     it { should_not allow_value('foo@').for(:email) }
     it { should_not allow_value('foo@example..com').for(:email) }
     it { should_not allow_value('foo@.example.com').for(:email) }
     it { should_not allow_value('foo').for(:email) }
     it { should_not allow_value('example.com').for(:email) }
+    it { should_not allow_value('foo;@example.com').for(:email) }
 
     it 'stores email in down case and removes whitespace' do
       user = create(:user, :email => 'Jo hn.Do e @exa mp le.c om')
