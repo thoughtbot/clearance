@@ -90,8 +90,6 @@ describe Clearance::Session do
       session.sign_in user
       session.add_cookie_to_headers headers
       headers.should set_cookie('remember_token', user.remember_token, 1.day.from_now)
-      Clearance.configuration.cookie_expiration.call.should be_within(100).
-        of(1.year.from_now)
     end
   end
 
@@ -163,6 +161,7 @@ describe Clearance::Session do
 
   def with_custom_expiration(custom_duration)
     Clearance.configuration.cookie_expiration = lambda { custom_duration }
+    yield
   ensure
     restore_default_config
   end
