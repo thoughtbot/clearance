@@ -73,23 +73,45 @@ describe Clearance::Session do
     end
   end
 
-  it 'sets a remember token cookie with a default expiration of 1 year from now' do
-    user = create(:user)
-    headers = {}
-    session = Clearance::Session.new(env_without_remember_token)
-    session.sign_in user
-    session.add_cookie_to_headers headers
-    headers.should set_cookie('remember_token', user.remember_token, 1.year.from_now)
-  end
+  describe 'remember token cookie expiration' do
+    context 'default configuration' do
+      it 'is set to 1 year from now' do
+        user = stub('User', remember_token: '123abc')
+        headers = {}
+        session = Clearance::Session.new(env_without_remember_token)
+        session.sign_in user
+        session.add_cookie_to_headers headers
+        headers.should set_cookie('remember_token', user.remember_token, 1.year.from_now)
+      end
+    end
 
-  it 'sets a remember token cookie with a custom expiration' do
-    with_custom_expiration 1.day.from_now do
-      user = create(:user)
-      headers = {}
-      session = Clearance::Session.new(env_without_remember_token)
-      session.sign_in user
-      session.add_cookie_to_headers headers
-      headers.should set_cookie('remember_token', user.remember_token, 1.day.from_now)
+    context 'configured with lambda taking no arguments' do
+      it 'is set to the value of the evaluated lambda' do
+        expires_at = -> { 1.day.from_now }
+        with_custom_expiration expires_at do
+          user = stub('User', remember_token: '123abc')
+          headers = {}
+          session = Clearance::Session.new(env_without_remember_token)
+          session.sign_in user
+          session.add_cookie_to_headers headers
+          headers.should set_cookie('remember_token', user.remember_token, expires_at.call)
+        end
+      end
+    end
+
+    context 'configured with lambda taking one argument' do
+      it 'it can use other cookies to set the value of the expires token' do
+        remembered_expires = 12.hours.from_now
+        expires_at = ->(cookies) { cookies['remember_me'] ? remembered_expires : nil }
+        with_custom_expiration expires_at do
+          user = stub('User', remember_token: '123abc')
+          headers = {}
+          session = Clearance::Session.new(env_with_cookies(remember_me: 'true'))
+          session.sign_in user
+          session.add_cookie_to_headers headers
+          headers.should set_cookie('remember_token', user.remember_token, remembered_expires)
+        end
+      end
     end
   end
 
@@ -160,7 +182,7 @@ describe Clearance::Session do
   end
 
   def with_custom_expiration(custom_duration)
-    Clearance.configuration.cookie_expiration = lambda { custom_duration }
+    Clearance.configuration.cookie_expiration = custom_duration
     yield
   ensure
     restore_default_config

@@ -37,7 +37,7 @@ module Clearance
         initialize!
       end
 
-      def initialize!
+      def initialize!(&block)
         FileUtils.mkdir_p(Rails.root.join('db').to_s)
         super unless @initialized
       end

@@ -11,7 +11,7 @@ module Clearance
         headers,
         REMEMBER_TOKEN_COOKIE,
         :value => remember_token,
-        :expires => Clearance.configuration.cookie_expiration.call,
+        :expires => remember_token_expires,
         :secure => Clearance.configuration.secure_cookie,
         :httponly => Clearance.configuration.httponly,
         :path => '/'
@@ -56,6 +56,18 @@ module Clearance
 
     def remember_token
       cookies[REMEMBER_TOKEN_COOKIE]
+    end
+
+    def remember_token_expires
+      if expires_configuration.arity == 1
+        expires_configuration.call(cookies)
+      else
+        expires_configuration.call
+      end
+    end
+
+    def expires_configuration
+      Clearance.configuration.cookie_expiration
     end
 
     def user_from_remember_token(token)
