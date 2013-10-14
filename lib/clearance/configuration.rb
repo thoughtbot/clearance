@@ -10,7 +10,7 @@ module Clearance
       :user_model
 
     def initialize
-      @cookie_expiration = lambda { 1.year.from_now.utc }
+      @cookie_expiration = ->(cookies) { 1.year.from_now.utc }
       @httponly = false
       @mailer_sender = 'reply@example.com'
       @secure_cookie = false

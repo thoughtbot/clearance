@@ -4,6 +4,11 @@ New on Master:
 
 * Email validation is now done with `EmailValidator` [strict
   mode](https://github.com/balexand/email_validator#strict-mode).
+* The `cookie_expiration` configuration lambda can now be called with  a
+  `cookies` parameter which allows the Clearance cookie expiration to be set
+  according to the value of another cookie (such as `remember_me`). Support
+  for a `cookie_expiration` lambda that does not accept this `cookies`
+  parameter has been deprecated.
 
 New for 1.0.1 (August 9, 2013):
 

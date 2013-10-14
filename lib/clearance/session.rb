@@ -62,6 +62,7 @@ module Clearance
       if expires_configuration.arity == 1
         expires_configuration.call(cookies)
       else
+        warn 'DEPRECATION WARNING: Clearance.configuration.cookie_expiration lambda with no parameters has been deprecated and will be removed from a future release. The lambda should accept the collection of previously set cookies.'
         expires_configuration.call
       end
     end
