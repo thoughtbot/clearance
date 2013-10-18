@@ -7,6 +7,7 @@ describe Clearance::Session do
   let(:headers) {{}}
   let(:session) { Clearance::Session.new(env_without_remember_token) }
   let(:user) { create(:user) }
+  let(:request_domain) { "example.com" }
 
   it 'finds a user from a cookie' do
     user = create(:user)
@@ -71,6 +72,37 @@ describe Clearance::Session do
 
       headers['Set-Cookie'].should_not =~ /remember_token=.+; HttpOnly/
     end
+  end
+
+
+  context 'if cookie_domain is not set' do
+    before do
+      session.sign_in(user)
+    end
+
+    context 'when visiting a domain' do
+      let(:request_domain){ "example.com" }
+      it "sets a cookie with the host's  domain" do
+        session.add_cookie_to_headers(headers)
+        headers['Set-Cookie'].should =~ /domain=\.example\.com;/
+      end
+    end
+
+  end
+
+  context 'if cookie_domain is set' do
+    before do
+      Clearance.configuration.cookie_domain = lambda {|request| ".foo.bar.com"}
+    end
+
+    let(:request_domain){ "sub.example.com" }
+    it 'sets the cookie domain to the result of the callable' do
+      session.add_cookie_to_headers(headers)
+      headers['Set-Cookie'].should =~ /domain=\.foo\.bar\.com;/
+    end
+
+    after {restore_default_config}
+
   end
 
   it 'sets a remember token cookie with a default expiration of 1 year from now' do
@@ -138,7 +170,7 @@ describe Clearance::Session do
   end
 
   def env_with_cookies(cookies)
-    Rack::MockRequest.env_for '/', 'HTTP_COOKIE' => serialize_cookies(cookies)
+    Rack::MockRequest.env_for "http://#{request_domain}/", 'HTTP_COOKIE' => serialize_cookies(cookies)
   end
 
   def env_with_remember_token(token)

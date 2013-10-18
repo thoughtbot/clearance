@@ -34,6 +34,31 @@ describe Clearance::Configuration do
     end
   end
 
+  describe 'when no cookie_domain is specified' do
+    before do
+      Clearance.configure do |config|
+      end
+    end
+
+    it 'defaults to a block that returns the current host' do
+      mock_request = OpenStruct.new(host: "foo.example.com")
+      Clearance.configuration.cookie_domain.call(mock_request).should == ".foo.example.com"
+    end
+  end
+
+  describe 'when a custom cookie_domain is specified' do
+    before do
+      Clearance.configure do |config|
+        config.cookie_domain = ->(request){ ".example.com"}
+      end
+    end
+
+    it 'returns the callable object that was passed in' do
+      mock_request = OpenStruct.new(host: "foo.example.com")
+      Clearance.configuration.cookie_domain.call(mock_request).should == ".example.com"
+    end
+  end
+
   describe 'when secure_cookie is set to true' do
     before do
       Clearance.configure do |config|
