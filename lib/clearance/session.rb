@@ -1,21 +1,25 @@
 module Clearance
   class Session
     REMEMBER_TOKEN_COOKIE = 'remember_token'.freeze
+    SSL_OFF = 'off'
+    SSL_ON = 'on'
 
     def initialize(env)
       @env = env
     end
 
-    def add_cookie_to_headers(headers)
-      Rack::Utils.set_cookie_header!(
-        headers,
-        REMEMBER_TOKEN_COOKIE,
-        :value => remember_token,
-        :expires => Clearance.configuration.cookie_expiration.call,
-        :secure => Clearance.configuration.secure_cookie,
-        :httponly => Clearance.configuration.httponly,
-        :path => '/'
-      )
+    def add_cookie_to_headers(headers, ssl = SSL_OFF)
+      if cookie_should_be_set?(ssl)
+        Rack::Utils.set_cookie_header!(
+          headers,
+          REMEMBER_TOKEN_COOKIE,
+          :value => remember_token,
+          :expires => Clearance.configuration.cookie_expiration.call,
+          :secure => secure_cookie?,
+          :httponly => Clearance.configuration.httponly,
+          :path => '/'
+        )
+      end
     end
 
     def current_user
@@ -49,6 +53,18 @@ module Clearance
     end
 
     private
+
+    def cookie_should_be_set?(ssl)
+      (ssl == SSL_OFF && insecure_cookie?) || ssl == SSL_ON
+    end
+
+    def insecure_cookie?
+      !secure_cookie?
+    end
+
+    def secure_cookie?
+      Clearance.configuration.secure_cookie
+    end
 
     def cookies
       @cookies ||= @env['action_dispatch.cookies'] || Rack::Request.new(@env).cookies

@@ -19,6 +19,6 @@ describe Clearance::RackSession do
     Clearance::Session.should have_received(:new).with(env)
     response.body.should == expected_session
     expected_session.should have_received(:add_cookie_to_headers).
-      with(has_entries(headers))
+      with(has_entries(headers), Clearance::Session::SSL_OFF)
   end
 end

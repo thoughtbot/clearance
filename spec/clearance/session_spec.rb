@@ -99,10 +99,16 @@ describe Clearance::Session do
       session.sign_in(user)
     end
 
-    it 'sets a secure cookie' do
-      session.add_cookie_to_headers(headers)
+    it 'sets a secure cookie for https requests' do
+      session.add_cookie_to_headers(headers, Clearance::Session::SSL_ON)
 
       headers['Set-Cookie'].should =~ /remember_token=.+; secure/
+    end
+
+    it 'does not set a cookie for http requests' do
+      session.add_cookie_to_headers(headers, Clearance::Session::SSL_OFF)
+
+      headers['Set-Cookie'].should be_nil
     end
 
     after { restore_default_config }
@@ -113,8 +119,14 @@ describe Clearance::Session do
       session.sign_in(user)
     end
 
-    it 'sets a standard cookie' do
-      session.add_cookie_to_headers(headers)
+    it 'sets a standard cookie for https requests' do
+      session.add_cookie_to_headers(headers, Clearance::Session::SSL_ON)
+
+      headers['Set-Cookie'].should_not =~ /remember_token=.+; secure/
+    end
+
+    it 'sets a standard cookie for http requests' do
+      session.add_cookie_to_headers(headers, Clearance::Session::SSL_OFF)
 
       headers['Set-Cookie'].should_not =~ /remember_token=.+; secure/
     end
