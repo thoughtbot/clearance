@@ -5,6 +5,9 @@ rvm:
   - 1.9.3
   - 2.0.0
 
+before_install:
+  - "sudo apt-get install ca-certificates"
+
 install:
   - "bundle install"
 
