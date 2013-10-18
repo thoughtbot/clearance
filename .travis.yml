@@ -7,6 +7,7 @@ rvm:
 
 before_install:
   - "sudo apt-get install ca-certificates"
+  - "gem update --system"
 
 install:
   - "bundle install"
