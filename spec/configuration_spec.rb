@@ -112,4 +112,34 @@ describe Clearance::Configuration do
       expect(Clearance.configuration.cookie_path).to eq path
     end
   end
+
+  describe '#sign_up?' do
+    context 'when allow_sign_up is configured to false' do
+      it 'returns false' do
+        Clearance.configure { |config| config.allow_sign_up = false }
+        Clearance.configuration.allow_sign_up?.should be_false
+      end
+    end
+
+    context 'when allow_sign_up has not been configured' do
+      it 'returns true' do
+        Clearance.configuration.allow_sign_up?.should be_true
+      end
+    end
+  end
+
+  describe '#user_actions' do
+    context 'when allow_sign_up is configured to false' do
+      it 'returns empty array' do
+        Clearance.configure { |config| config.allow_sign_up = false }
+        Clearance.configuration.user_actions.should eq []
+      end
+    end
+
+    context 'when sign_up has not been configured' do
+      it 'returns create' do
+        Clearance.configuration.user_actions.should eq [:create]
+      end
+    end
+  end
 end

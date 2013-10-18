@@ -1,5 +1,7 @@
 module Clearance
   class Configuration
+    attr_writer :allow_sign_up
+
     attr_accessor \
       :cookie_domain,
       :cookie_expiration,
@@ -13,6 +15,7 @@ module Clearance
       :user_model
 
     def initialize
+      @allow_sign_up = true
       @cookie_expiration = ->(cookies) { 1.year.from_now.utc }
       @cookie_path = '/'
       @httponly = false
@@ -24,6 +27,18 @@ module Clearance
 
     def user_model
       @user_model || ::User
+    end
+
+    def allow_sign_up?
+      @allow_sign_up
+    end
+
+    def  user_actions
+      if allow_sign_up?
+        [:create]
+      else
+        []
+      end
     end
   end
 
