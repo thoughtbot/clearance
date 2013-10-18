@@ -1,3 +1,5 @@
+require 'clearance/default_sign_in_guard'
+
 module Clearance
   class Session
     REMEMBER_TOKEN_COOKIE = 'remember_token'.freeze
@@ -26,9 +28,19 @@ module Clearance
       @current_user
     end
 
-    def sign_in(user)
-      cookies[REMEMBER_TOKEN_COOKIE] = user && user.remember_token
+    def sign_in(user, &block)
       @current_user = user
+      status = run_sign_in_stack
+
+      if status.success?
+        cookies[REMEMBER_TOKEN_COOKIE] = user && user.remember_token
+      else
+        @current_user = nil
+      end
+
+      if block_given?
+        block.call(status)
+      end
     end
 
     def sign_out
@@ -62,7 +74,10 @@ module Clearance
       if expires_configuration.arity == 1
         expires_configuration.call(cookies)
       else
-        warn 'DEPRECATION WARNING: Clearance.configuration.cookie_expiration lambda with no parameters has been deprecated and will be removed from a future release. The lambda should accept the collection of previously set cookies.'
+        warn 'DEPRECATION WARNING: Clearance.configuration.cookie_expiration' +
+          'lambda with no parameters has been deprecated and will be removed' +
+          ' from a future release. The lambda should accept the collection' +
+          ' of previously set cookies.'
         expires_configuration.call
       end
     end
@@ -73,6 +88,19 @@ module Clearance
 
     def user_from_remember_token(token)
       Clearance.configuration.user_model.where(remember_token: token).first
+    end
+
+    def run_sign_in_stack
+      @stack ||= initialize_sign_in_guard_stack
+      @stack.call
+    end
+
+    def initialize_sign_in_guard_stack
+      default_guard = DefaultSignInGuard.new(self)
+      guards = Clearance.configuration.sign_in_guards
+      guards.inject(default_guard) do |stack, guard_class|
+        guard_class.new(self, stack)
+      end
     end
   end
 end
