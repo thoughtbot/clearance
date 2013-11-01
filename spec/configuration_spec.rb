@@ -10,7 +10,7 @@ describe Clearance::Configuration do
     end
 
     it 'defaults to User' do
-      Clearance.configuration.user_model.should == ::User
+      expect(Clearance.configuration.user_model).to eq ::User
     end
   end
 
@@ -30,7 +30,7 @@ describe Clearance::Configuration do
     end
 
     it 'is used instead of User' do
-      Clearance.configuration.user_model.should == ::MyUser
+      expect(Clearance.configuration.user_model).to eq ::MyUser
     end
   end
 
@@ -48,7 +48,7 @@ describe Clearance::Configuration do
     end
 
     it 'returns true' do
-      Clearance.configuration.secure_cookie.should be_true
+      expect(Clearance.configuration.secure_cookie).to be_true
     end
   end
 
@@ -59,13 +59,13 @@ describe Clearance::Configuration do
     end
 
     it 'defaults to false' do
-      Clearance.configuration.secure_cookie.should be_false
+      expect(Clearance.configuration.secure_cookie).to be_false
     end
   end
 
   describe 'when no redirect URL specified' do
     it 'should return "/" as redirect URL' do
-      Clearance::Configuration.new.redirect_url.should == '/'
+      expect(Clearance::Configuration.new.redirect_url).to eq '/'
     end
   end
 
@@ -85,7 +85,27 @@ describe Clearance::Configuration do
     end
 
     it 'should return new redirect URL' do
-      Clearance.configuration.redirect_url.should == new_redirect_url
+      expect(Clearance.configuration.redirect_url).to eq new_redirect_url
+    end
+  end
+
+  describe 'when specifying sign in guards' do
+    DummyGuard = Class.new
+
+    before do
+      Clearance.configure do |config|
+        config.sign_in_guards = [DummyGuard]
+      end
+    end
+
+    after do
+      Clearance.configure do |config|
+        config.sign_in_guards = []
+      end
+    end
+
+    it 'should return the stack with added guards' do
+      expect(Clearance.configuration.sign_in_guards).to eq [DummyGuard]
     end
   end
 end

@@ -64,6 +64,7 @@ Clearance.configure do |config|
   config.redirect_url = '/'
   config.secure_cookie = false
   config.user_model = User
+  config.sign_in_guards = []
 end
 ```
 
@@ -365,6 +366,50 @@ Then, override the route:
 ```ruby
 resources :passwords, only: [:create]
 ```
+
+Using the SignInGuard stack
+-------------------
+
+A `SignInGuard` provides you with fine-grained control over the process of signing in a user.
+Each guard is run in order and will hand the session off to the next guard in the stack.
+Any guard may also choose to fail the sign in the stack and provide a message explaining why.
+Additionally a guard could determine the sign in process was a success and skip running any
+additional guards.
+
+A `SignInGuard` only needs to be an object that responds to `call` and is initialized with a
+session and the current stack. On success a guard should call the next guard or return
+`SuccessStatus.new` if you don't want any subsequent guards to run. On failure a guardn should
+call `FailureStatus.new(failure_message)`.
+
+For convenience a [SignInGuard](lib/clearance/sign_in_guard.rb) class has been provided and
+can be inherited from. The convenience class provides a few methods to help make writing
+guards simple: `success`, `failure`, `next_guard`, `signed_in?`, and `current_user`. Please reference
+[SignInGuard](lib/clearance/sign_in_guard.rb) if you'd prefer to write your own class.
+
+Here is an an example [SignInGuard](lib/clearance/sign_in_guard.rb) to handle email confirmation:
+
+```ruby
+Clearance.configure do |config|
+  config.sign_in_guards = [EmailConfirmationGuard]
+end
+```
+
+```ruby
+class EmailConfirmationGuard < Clearance::SignInGuard
+  def call
+    if unconfirmed?
+      failure("You must confirm your email address.")
+    else
+      next_guard
+    end
+  end
+
+  def unconfirmed?
+    signed_in? && !current_user.confirmed_at
+  end
+end
+```
+
 
 Optional feature specs
 ----------------------

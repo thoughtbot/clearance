@@ -25,11 +25,13 @@ module Clearance
     end
 
     def current_user=(user)
+      warn 'DEPRECATION WARNING: Assigning the current_user this way has been' +
+      ' deprecated. You should instead use the sign_in method.'
       clearance_session.sign_in user
     end
 
-    def sign_in(user)
-      clearance_session.sign_in user
+    def sign_in(user, &block)
+      clearance_session.sign_in user, &block
     end
 
     def sign_out
