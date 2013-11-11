@@ -2,19 +2,22 @@ module Clearance
   class Configuration
     attr_accessor \
       :cookie_expiration,
+      :cookie_domain,
+      :cookie_path,
+      :secure_cookie,
       :httponly,
       :mailer_sender,
       :password_strategy,
       :redirect_url,
-      :secure_cookie,
       :user_model,
       :sign_in_guards
 
     def initialize
       @cookie_expiration = ->(cookies) { 1.year.from_now.utc }
+      @cookie_path = '/'
+      @secure_cookie = false
       @httponly = false
       @mailer_sender = 'reply@example.com'
-      @secure_cookie = false
       @redirect_url = '/'
       @sign_in_guards = []
     end

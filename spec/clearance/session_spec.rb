@@ -209,30 +209,86 @@ describe Clearance::Session do
     end
   end
 
-  context 'if secure_cookie is set' do
-    before do
-      Clearance.configuration.secure_cookie = true
-      session.sign_in(user)
+  describe 'secure cookie option' do
+    context 'when not set' do
+      before do
+        session.sign_in(user)
+      end
+
+      it 'sets a standard cookie' do
+        session.add_cookie_to_headers(headers)
+
+        headers['Set-Cookie'].should_not =~ /remember_token=.+; secure/
+      end
     end
 
-    it 'sets a secure cookie' do
-      session.add_cookie_to_headers(headers)
+    context 'when set' do
+      before do
+        Clearance.configuration.secure_cookie = true
+        session.sign_in(user)
+      end
 
-      headers['Set-Cookie'].should =~ /remember_token=.+; secure/
+      it 'sets a secure cookie' do
+        session.add_cookie_to_headers(headers)
+
+        headers['Set-Cookie'].should =~ /remember_token=.+; secure/
+      end
+
+      after { restore_default_config }
     end
-
-    after { restore_default_config }
   end
 
-  context 'if secure_cookie is not set' do
-    before do
-      session.sign_in(user)
+  describe 'cookie domain option' do
+    context 'when set' do
+      before do
+        Clearance.configuration.cookie_domain = '.example.com'
+        session.sign_in(user)
+      end
+
+      it 'sets a standard cookie' do
+        session.add_cookie_to_headers(headers)
+
+        headers['Set-Cookie'].should =~ /domain=\.example\.com; path/
+      end
+
+      after { restore_default_config }
     end
 
-    it 'sets a standard cookie' do
-      session.add_cookie_to_headers(headers)
+    context 'when not set' do
+      before { session.sign_in(user) }
 
-      headers['Set-Cookie'].should_not =~ /remember_token=.+; secure/
+      it 'sets a standard cookie' do
+        session.add_cookie_to_headers(headers)
+
+        headers['Set-Cookie'].should_not =~ /domain=.+; path/
+      end
+    end
+  end
+
+  describe 'cookie path option' do
+    context 'when not set' do
+      before { session.sign_in(user) }
+
+      it 'sets a standard cookie' do
+        session.add_cookie_to_headers(headers)
+
+        headers['Set-Cookie'].should_not =~ /domain=.+; path/
+      end
+    end
+
+    context 'when set' do
+      before do
+        Clearance.configuration.cookie_path = '/user'
+        session.sign_in(user)
+      end
+
+      it 'sets a standard cookie' do
+        session.add_cookie_to_headers(headers)
+
+        headers['Set-Cookie'].should =~ /path=\/user; expires/
+      end
+
+      after { restore_default_config }
     end
   end
 
