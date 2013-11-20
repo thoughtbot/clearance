@@ -378,7 +378,7 @@ additional guards.
 
 A `SignInGuard` only needs to be an object that responds to `call` and is initialized with a
 session and the current stack. On success a guard should call the next guard or return
-`SuccessStatus.new` if you don't want any subsequent guards to run. On failure a guardn should
+`SuccessStatus.new` if you don't want any subsequent guards to run. On failure a guard should
 call `FailureStatus.new(failure_message)`.
 
 For convenience a [SignInGuard](lib/clearance/sign_in_guard.rb) class has been provided and
