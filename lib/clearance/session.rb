@@ -9,15 +9,7 @@ module Clearance
     end
 
     def add_cookie_to_headers(headers)
-      Rack::Utils.set_cookie_header!(
-        headers,
-        REMEMBER_TOKEN_COOKIE,
-        :value => remember_token,
-        :expires => remember_token_expires,
-        :secure => Clearance.configuration.secure_cookie,
-        :httponly => Clearance.configuration.httponly,
-        :path => '/'
-      )
+      Rack::Utils.set_cookie_header!(headers, REMEMBER_TOKEN_COOKIE, cookie_value)
     end
 
     def current_user
@@ -101,6 +93,20 @@ module Clearance
       guards.inject(default_guard) do |stack, guard_class|
         guard_class.new(self, stack)
       end
+    end
+
+    def cookie_value
+      value = {
+        :value => remember_token,
+        :expires => remember_token_expires,
+        :secure => Clearance.configuration.secure_cookie,
+        :httponly => Clearance.configuration.httponly,
+        :path => Clearance.configuration.cookie_path
+      }
+      if Clearance.configuration.cookie_domain.present?
+        value[:domain] = Clearance.configuration.cookie_domain
+      end
+      value
     end
   end
 end
