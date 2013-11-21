@@ -372,23 +372,25 @@ resources :passwords, only: [:create]
 Using the SignInGuard stack
 -------------------
 
-A `SignInGuard` provides you with fine-grained control over the process of signing in a user.
-Each guard is run in order and will hand the session off to the next guard in the stack.
-Any guard may also choose to fail the sign in the stack and provide a message explaining why.
-Additionally a guard could determine the sign in process was a success and skip running any
-additional guards.
+`SignInGuard`s offer fine-grained control over the process of
+signing in a user. Each guard is run in order and hands the session off to
+the next guard in the stack.
 
-A `SignInGuard` only needs to be an object that responds to `call` and is initialized with a
-session and the current stack. On success a guard should call the next guard or return
-`SuccessStatus.new` if you don't want any subsequent guards to run. On failure a guard should
-call `FailureStatus.new(failure_message)`.
+A `SignInGuard` is an object that responds to `call`. It is initialized with a
+session and the current stack.
 
-For convenience a [SignInGuard](lib/clearance/sign_in_guard.rb) class has been provided and
-can be inherited from. The convenience class provides a few methods to help make writing
-guards simple: `success`, `failure`, `next_guard`, `signed_in?`, and `current_user`. Please reference
-[SignInGuard](lib/clearance/sign_in_guard.rb) if you'd prefer to write your own class.
+On success, a guard should call the next guard or return `SuccessStatus.new` if
+you don't want any subsequent guards to run.
 
-Here is an an example [SignInGuard](lib/clearance/sign_in_guard.rb) to handle email confirmation:
+On failure, a guard should call `FailureStatus.new(failure_message)`. It can
+provide a message explaining the failure.
+
+For convenience, a [SignInGuard](lib/clearance/sign_in_guard.rb) class has been
+provided and can be inherited from. The convenience class provides a few methods
+to help make writing guards simple: `success`, `failure`, `next_guard`,
+`signed_in?`, and `current_user`.
+
+Here's an example custom guard to handle email confirmation:
 
 ```ruby
 Clearance.configure do |config|
@@ -411,7 +413,6 @@ class EmailConfirmationGuard < Clearance::SignInGuard
   end
 end
 ```
-
 
 Optional feature specs
 ----------------------
