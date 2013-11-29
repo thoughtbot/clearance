@@ -25,8 +25,8 @@ module Clearance
     end
 
     def current_user=(user)
-      warn 'DEPRECATION WARNING: Assigning the current_user this way has been' +
-      ' deprecated. You should instead use the sign_in method.'
+      warn "#{Kernel.caller.first}: [DEPRECATION] " +
+        'Assigning the current_user has been deprecated. Use the sign_in method instead.'
       clearance_session.sign_in user
     end
 

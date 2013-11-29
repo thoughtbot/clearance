@@ -11,7 +11,7 @@ module Clearance
       end
 
       def sign_in_as(user)
-        @controller.current_user = user
+        @controller.sign_in user
       end
 
       def sign_out
