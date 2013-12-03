@@ -1,6 +1,55 @@
 require 'spec_helper'
 
+class Person
+end
+
+class MultiWordHumanBeingKlass
+end
+
 describe Clearance::PasswordsController do
+
+  context "custom user model adaptations" do
+    before do
+      @original_user_model = Clearance.configuration.user_model
+    end
+    after do
+      Clearance.configuration.user_model = @original_user_model
+    end
+
+    context "when the user model is Person" do
+      describe "#user_model_identifier" do
+        before do
+          Clearance.configuration.user_model = Person
+        end
+
+        it "is :person_id" do
+          controller.send(:user_model_identifier).should eql(:person_id)
+        end
+      end
+    end
+
+    context "when the user model is MultiWordHumanBeingKlass" do
+      describe "#user_model_identifier" do
+        before do
+          Clearance.configuration.user_model = MultiWordHumanBeingKlass
+        end
+
+        it "is :person_id" do
+          controller.send(:user_model_identifier).should eql(:multi_word_human_being_klass_id)
+        end
+      end
+    end
+
+    context "when the user model is User" do
+      describe "#user_model_identifier" do
+        it "is :user_id" do
+          controller.send(:user_model_identifier).should eql(:user_id)
+        end
+      end
+    end
+  end
+
+
   describe 'a signed up user' do
     before do
       @user = create(:user)
