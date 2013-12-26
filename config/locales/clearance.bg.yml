@@ -1,0 +1,71 @@
+bg:
+  clearance_mailer:
+    change_password:
+      opening:
+        'Някой, най-вероятно вие самите, е пожелал да Ви изпратим линк за промяна на паролата.'
+      closing:
+        'Ако не сте пожелали това съобщение, игнорирайте го - вашата парола няма да се променя.'
+  flashes:
+    failure_when_forbidden:
+      'Моля проверете отново адреса на страницата (URL) или опитайте да изпратите формуляра отново.'
+    failure_after_update:
+      'Паролата не може да бъде празна.'
+    failure_after_create:
+      'Неточен имейл или парола. Ако се опитвате да създадете нов акаунт - използвайте линка:
+       <a href="%{sign_up_path}">Регистрация</a>.'
+  helpers:
+    submit:
+      password:
+        submit:
+          'Промени парола'
+      password_reset:
+        submit:
+          'Запиши паролата'
+      session:
+        submit:
+          'Вход'
+      user:
+        create:
+          'Регистрация'
+    label:
+      password:
+        email:
+          'Имейл'
+      password_reset:
+        password:
+          'Нова парола'
+  layouts:
+    application:
+      sign_in:
+        'Вход'
+      sign_out:
+        'Изход'
+  passwords:
+    create:
+      description:
+        'Ще получите имейл в рамките на няколко минути. Той съдържа инструкции за смяна на парола.'
+    edit:
+      description:
+        'Вашата парола е променена. Изберете нова парола по-долу.'
+      title:
+        'Промяна на парола'
+    new:
+      description:
+        'За да получите имейл с линк за промяна на паролата си, моля въведете имейла, с който сте се регистрирали.'
+      title:
+        'Промяна на парола'
+  sessions:
+    form:
+      forgot_password:
+        'Забравена парола'
+      sign_up:
+        'Регистрация'
+    new:
+      title:
+        'Вход'
+  users:
+    new:
+      title:
+        'Регистрация'
+      sign_in:
+        'Вход'
