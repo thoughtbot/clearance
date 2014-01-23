@@ -29,7 +29,7 @@ gem 'clearance'
 
 Bundle:
 
-    bundle --binstubs
+    bundle install
 
 Make sure the development database exists. Then, run the generator:
 
