@@ -42,12 +42,15 @@ module Clearance
     end
   end
 
-  class << self
-    attr_accessor :configuration
+  def self.configuration
+    @configuration ||= Configuration.new
+  end
+
+  def self.configuration=(config)
+    @configuration = config
   end
 
   def self.configure
-    self.configuration ||= Configuration.new
     yield configuration
   end
 end
