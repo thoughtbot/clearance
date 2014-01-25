@@ -1,7 +1,12 @@
-rails_versions = ['~> 3.2.15', '~> 4.0.0']
+appraise 'rails3.2' do
+  gem 'rails', '~> 3.2.16'
+end
 
-rails_versions.each do |rails_version|
-  appraise "rails#{rails_version.slice(/\d+\.\d+/)}" do
-    gem 'rails', rails_version
-  end
+appraise 'rails4.0' do
+  gem 'rails', '~> 4.0.2'
+end
+
+appraise 'rails4.1' do
+  gem 'rails', '~> 4.1.0.beta1'
+  gem 'spring'
 end

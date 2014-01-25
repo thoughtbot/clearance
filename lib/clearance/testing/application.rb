@@ -8,6 +8,8 @@ module Clearance
       Rails::VERSION::MAJOR == 4
     end
 
+    I18n.enforce_available_locales = true
+
     class Application < Rails::Application
       config.action_controller.allow_forgery_protection = false
       config.action_controller.perform_caching = false
