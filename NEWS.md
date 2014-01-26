@@ -1,5 +1,8 @@
 Thank you to all the [contributors](https://github.com/thoughtbot/clearance/graphs/contributors)!
 
+New on Master:
+* Sign in can now be disabled with `config.allow_sign_in = false`
+
 New for 1.1.0 (November 21, 2013):
 
 * Validate email with `EmailValidator` [strict mode][strict].
