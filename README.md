@@ -528,7 +528,7 @@ and [contributors](/thoughtbot/clearance/graphs/contributors) like you. Thank yo
 License
 -------
 
-Clearance is copyright © 2009-2013 thoughtbot. It is free software, and may be
+Clearance is copyright © 2009-2014 thoughtbot. It is free software, and may be
 redistributed under the terms specified in the `LICENSE` file.
 
 The names and logos for thoughtbot are trademarks of thoughtbot, inc.
