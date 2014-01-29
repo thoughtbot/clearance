@@ -11,8 +11,7 @@ module Clearance
       :password_strategy,
       :redirect_url,
       :secure_cookie,
-      :sign_in_guards,
-      :user_model
+      :sign_in_guards
 
     def initialize
       @allow_sign_up = true
@@ -23,10 +22,23 @@ module Clearance
       @redirect_url = '/'
       @secure_cookie = false
       @sign_in_guards = []
+      @user_model = []
+    end
+
+    def user_model=(user_model)
+      @user_model = Array(user_model)
     end
 
     def user_model
-      @user_model || ::User
+      (@user_model.empty?) ? [::User] : @user_model
+    end
+
+    def user_model_apply
+      user_model.each do |user|
+        result = yield user
+        return result if result
+      end
+      nil
     end
 
     def allow_sign_up?

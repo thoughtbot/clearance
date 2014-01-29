@@ -15,9 +15,9 @@ module Clearance
     end
 
     def authenticate(params)
-      Clearance.configuration.user_model.authenticate(
-        params[:session][:email], params[:session][:password]
-      )
+      Clearance.configuration.user_model_apply do |user_model|
+        user_model.authenticate(params[:session][:email], params[:session][:password])
+      end
     end
 
     def current_user

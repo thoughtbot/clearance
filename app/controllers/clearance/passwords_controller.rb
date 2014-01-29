@@ -50,13 +50,15 @@ class Clearance::PasswordsController < ApplicationController
   end
 
   def find_user_by_id_and_confirmation_token
-    Clearance.configuration.user_model.
-      find_by_id_and_confirmation_token params[:user_id], params[:token].to_s
+    Clearance.configuration.user_model_apply do |user_model|
+      user_model.find_by_id_and_confirmation_token(params[:user_id], params[:token].to_s)
+    end
   end
 
   def find_user_for_create
-    Clearance.configuration.user_model.
-      find_by_normalized_email params[:password][:email]
+    Clearance.configuration.user_model_apply do |user_model|
+      user_model.find_by_normalized_email(params[:password][:email])
+    end
   end
 
   def find_user_for_edit
