@@ -35,7 +35,7 @@ module Clearance
 
       if user_id.present?
         user = Clearance.configuration.user_model_apply do |user_model|
-          user_model.find(user_id)
+          user_model.where(id: user_id).first
         end
         env[:clearance].sign_in(user)
       end
