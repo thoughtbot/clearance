@@ -4,7 +4,7 @@ describe Clearance::BackDoor do
   it 'signs in as a given user' do
     user_id = '123'
     user = stub('user')
-    User.stubs(:find).with(user_id).returns(user)
+    User.stubs(:where).with(id: user_id).returns([user])
     env = env_for_user_id(user_id)
     back_door = Clearance::BackDoor.new(mock_app)
 

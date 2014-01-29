@@ -55,23 +55,23 @@ describe Clearance::SessionsController do
 
   describe 'on POST to #create with good credentials and multiple user models' do
     before do
-      class MyUser < ActiveRecord::Base
+      class OtherUser < ActiveRecord::Base
         self.table_name = "users"
         include Clearance::User
         attr_accessor :remember_token
       end
 
       Clearance.configure do |config|
-        config.user_model = [User, MyUser]
+        config.user_model = [User, OtherUser]
       end
     end
 
     it 'authenticates the correct user model' do
-      user = MyUser.new
-      MyUser.stubs(:find_by_email).returns(user)
+      user = OtherUser.new
+      OtherUser.stubs(:find_by_email).returns(user)
       params = { :session => { :email => "myuser@example.com", :password => "password" }}
 
-      MyUser.expects(:authenticate).with(params[:session][:email], params[:session][:password])
+      OtherUser.expects(:authenticate).with(params[:session][:email], params[:session][:password])
 
       post :create, params
     end
