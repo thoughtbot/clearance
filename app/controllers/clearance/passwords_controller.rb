@@ -51,7 +51,7 @@ class Clearance::PasswordsController < ApplicationController
 
   def find_user_by_id_and_confirmation_token
     Clearance.configuration.user_model.
-      find_by_id_and_confirmation_token params[:user_id], params[:token].to_s
+      find_by_id_and_confirmation_token params[user_model_identifier], params[:token].to_s
   end
 
   def find_user_for_create
@@ -99,5 +99,9 @@ class Clearance::PasswordsController < ApplicationController
 
   def url_after_update
     Clearance.configuration.redirect_url
+  end
+
+  def user_model_identifier
+    "#{Clearance.configuration.user_model.to_s.underscore.downcase}_id".to_sym
   end
 end
