@@ -53,7 +53,7 @@ describe Clearance::PasswordsController do
       describe 'with incorrect email address' do
         before do
           email = 'user1@example.com'
-          (Clearance.configuration.user_model.exists?(['email = ?', email])).should_not be
+          (Clearance.configuration.user_model.first.exists?(['email = ?', email])).should_not be
           ActionMailer::Base.deliveries.clear
           @user.reload.confirmation_token.should == @user.confirmation_token
 

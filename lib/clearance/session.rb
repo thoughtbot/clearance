@@ -79,7 +79,9 @@ module Clearance
     end
 
     def user_from_remember_token(token)
-      Clearance.configuration.user_model.where(remember_token: token).first
+      Clearance.configuration.user_model_apply do |user_model|
+        user_model.where(remember_token: token).first
+      end
     end
 
     def run_sign_in_stack

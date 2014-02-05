@@ -10,7 +10,7 @@ describe Clearance::Configuration do
     end
 
     it 'defaults to User' do
-      expect(Clearance.configuration.user_model).to eq ::User
+      expect(Clearance.configuration.user_model).to eq [::User]
     end
   end
 
@@ -24,7 +24,7 @@ describe Clearance::Configuration do
     end
 
     it 'is used instead of User' do
-      expect(Clearance.configuration.user_model).to eq ::MyUser
+      expect(Clearance.configuration.user_model).to eq [::MyUser]
     end
   end
 
