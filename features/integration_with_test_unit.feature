@@ -13,4 +13,4 @@ Feature: integrate with test-unit
     And I successfully run `bundle exec rails generate controller posts index`
     And I configure test-unit
     And I successfully run `bundle exec rake`
-    Then the output should match /1 tests.+1 assertions/
+    Then the output should match /1 (tests|runs).+1 assertions/
