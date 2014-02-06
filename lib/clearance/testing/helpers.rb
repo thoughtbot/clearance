@@ -7,7 +7,15 @@ module Clearance
       end
 
       def sign_in
-        sign_in_as FactoryGirl.create(:user)
+        unless defined?(FactoryGirl)
+          raise(
+            RuntimeError,
+            "Clearance's `sign_in` helper requires factory_girl"
+          )
+        end
+
+        factory = Clearance.configuration.user_model.to_s.underscore.to_sym
+        sign_in_as FactoryGirl.create(factory)
       end
 
       def sign_in_as(user)
