@@ -25,7 +25,7 @@ module Clearance
       status = run_sign_in_stack
 
       if status.success?
-        cookies[REMEMBER_TOKEN_COOKIE] = user && user.remember_token
+        cookies[REMEMBER_TOKEN_COOKIE] = remember_token_for_user(user)
       else
         @current_user = nil
       end
@@ -53,6 +53,16 @@ module Clearance
     end
 
     private
+
+    def remember_token_for_user(user)
+      if user
+        if user.remember_token.blank?
+          user.reset_remember_token!
+        end
+
+        user.remember_token
+      end
+    end
 
     def cookies
       @cookies ||= @env['action_dispatch.cookies'] || Rack::Request.new(@env).cookies
