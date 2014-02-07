@@ -199,7 +199,6 @@ Or, override private methods:
     passwords#forbid_non_existent_user
     passwords#url_after_create
     passwords#url_after_update
-    sessions#flash_failure_after_create
     sessions#url_after_create
     sessions#url_after_destroy
     users#flash_failure_after_create

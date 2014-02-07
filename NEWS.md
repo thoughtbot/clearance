@@ -1,6 +1,11 @@
 Thank you to all the [contributors](https://github.com/thoughtbot/clearance/graphs/contributors)!
 
 New on Master:
+* Sign in failure message is now customized exclusively via I18n.
+  `SessionsController#flash_failure_after_create` is no longer called. To
+  customize the message, change the
+  `clearance.controllers.sessions.bad_email_or_password` or
+  `flashes.failure_after_create` key.
 * Sign in can now be disabled with `config.allow_sign_in = false`
 
 New for 1.1.0 (November 21, 2013):

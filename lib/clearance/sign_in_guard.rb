@@ -19,10 +19,9 @@ module Clearance
       stack.call
     end
 
-
     private
-    attr_reader :stack, :session
 
+    attr_reader :stack, :session
 
     def signed_in?
       session.signed_in?
@@ -31,6 +30,5 @@ module Clearance
     def current_user
       session.current_user
     end
-
   end
 end
