@@ -250,6 +250,9 @@ There is a shortcut to copy all Clearance views into your app:
 
     rails generate clearance:views
 
+If [SimpleForm](https://github.com/plataformatec/simple_form) is installed, it
+will install the appropriate views.
+
 Overriding the model
 --------------------
 

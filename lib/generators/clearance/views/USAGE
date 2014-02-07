@@ -2,6 +2,8 @@ Description:
   Override the default clearance views. This generator will copy all off the
   base clearance views into your project.
 
+  If SimpleForm is installed it will install the appropriate views.
+
 Examples:
     rails generate clearance:views
 
