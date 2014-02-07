@@ -40,6 +40,10 @@ module Clearance
         []
       end
     end
+
+    def user_id_parameter
+      "#{user_model.model_name.singular}_id".to_sym
+    end
   end
 
   def self.configuration
