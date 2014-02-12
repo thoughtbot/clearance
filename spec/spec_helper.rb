@@ -13,7 +13,7 @@ require 'rspec/rails'
 require 'bourne'
 require 'factory_girl_rails'
 require 'shoulda-matchers'
-require 'clearance/testing'
+require 'clearance/rspec'
 require 'timecop'
 
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }

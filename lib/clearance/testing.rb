@@ -1,18 +1,11 @@
-require 'clearance/testing/assertion_error'
-require 'clearance/testing/deny_access_matcher'
-require 'clearance/testing/helpers'
-
-if defined?(ActionController::TestCase)
-  ActionController::TestCase.extend Clearance::Testing::Matchers
-
-  class ActionController::TestCase
-    include Clearance::Testing::Helpers
-  end
+if defined?(RSpec)
+  require 'clearance/rspec'
+elsif defined?(ActionController::TestCase)
+  require 'clearance/test_unit'
 end
 
-if defined?(RSpec) && RSpec.respond_to?(:configure)
-  RSpec.configure do |config|
-    config.include Clearance::Testing::Matchers
-    config.include Clearance::Testing::Helpers, :type => :controller
-  end
-end
+warn(
+  "#{Kernel.caller.first} [DEPRECATION] Requiring `clearance/testing` in " +
+  '`spec/spec_helper.rb` (or in `test/test_helper.rb`) is deprecated. ' +
+  'Require `clearance/rspec` or `clearance/test_unit` instead.'
+)
