@@ -1,5 +1,9 @@
 Thank you to all the [contributors](https://github.com/thoughtbot/clearance/graphs/contributors)!
 
+New on MASTER
+* Installing Clearance with an existing User model will now add remember tokens
+  to all user records.
+
 New for 1.2.1 (March 6, 2014):
 * Query string is now included in the redirect URL when Clearance redirects to a
   previously stored URL.

@@ -89,21 +89,26 @@ When /^I configure test-unit$/ do
   }
 end
 
-When /^I create a simple migration$/ do
+When /^I create a simple user model$/ do
   steps %Q{
-    When I write to "db/migrate/001_create_users.rb" with:
-      """
-      class CreateUsers < ActiveRecord::Migration
-        def self.up
-          create_table(:users) do |t|
-            t.string :email
-            t.string :name
-          end
-        end
-        def self.down
-        end
-      end
-      """
+    When I successfully run `rails generate model user email:string name:string`
+    And I successfully run `bundle exec rake db:migrate`
+  }
+end
+
+When /^I add an existing user$/ do
+  command = %q{rails runner "User.create!(email: 'a@b.com', name: 'foo')"}
+
+  steps %Q{
+    When I successfully run `#{command}`
+  }
+end
+
+When /existing user should have a remember token$/ do
+  command = 'rails runner "exit(1) unless User.first.remember_token"'
+
+  steps %Q{
+    When I successfully run `#{command}`
   }
 end
 
