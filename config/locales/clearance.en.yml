@@ -1,74 +1,53 @@
+---
 en:
   clearance_mailer:
     change_password:
-      opening:
-        'Someone, hopefully you, requested we send you a link to change your
-         password:'
-      closing:
-        "If you didn't request this, ignore this email. Your password has not
-         been changed."
+      closing: If you didn't request this, ignore this email. Your password
+        has not been changed.
+      opening: 'Someone, hopefully you, requested we send you a link to change
+        your password:'
   flashes:
-    failure_when_forbidden:
-      'Please double check the URL or try submitting the form again.'
-    failure_after_update:
-      "Password can't be blank."
-    failure_after_create:
-      'Bad email or password.'
+    failure_after_create: Bad email or password.
+    failure_after_update: Password can't be blank.
+    failure_when_forbidden: Please double check the URL or try submitting
+      the form again.
   helpers:
-    submit:
-      password:
-        submit:
-          'Reset password'
-      password_reset:
-        submit:
-          'Save this password'
-      session:
-        submit:
-          'Sign in'
-      user:
-        create:
-          'Sign up'
     label:
       password:
-        email:
-          'Email address'
+        email: Email address
       password_reset:
-        password:
-          'Choose password'
+        password: Choose password
+    submit:
+      password:
+        submit: Reset password
+      password_reset:
+        submit: Save this password
+      session:
+        submit: Sign in
+      user:
+        create: Sign up
   layouts:
     application:
-      sign_in:
-        'Sign in'
-      sign_out:
-        'Sign out'
+      sign_in: Sign in
+      sign_out: Sign out
   passwords:
     create:
-      description:
-        'You will receive an email within the next few minutes.
-         It contains instructions for changing your password.'
+      description: You will receive an email within the next few minutes. It
+        contains instructions for changing your password.
     edit:
-      description:
-        'Your password has been reset. Choose a new password below.'
-      title:
-        'Change your password'
+      description: Your password has been reset. Choose a new password below.
+      title: Change your password
     new:
-      description:
-        'To be emailed a link to reset your password, please enter your email
-         address.'
-      title:
-        'Reset your password'
+      description: To be emailed a link to reset your password, please enter
+        your email address.
+      title: Reset your password
   sessions:
     form:
-      forgot_password:
-        'Forgot password?'
-      sign_up:
-        'Sign up'
+      forgot_password: Forgot password?
+      sign_up: Sign up
     new:
-      title:
-        'Sign in'
+      title: Sign in
   users:
     new:
-      title:
-        'Sign up'
-      sign_in:
-        'Sign in'
+      sign_in: Sign in
+      title: Sign up
