@@ -1,12 +1,21 @@
+# These are the various versions of rails we want to test against.
+# The non-rails gems (jbuilder, sdoc, etc) are dependencies introduced
+# in the default rails gemfiles used in the clearance features.
 appraise 'rails3.2' do
-  gem 'rails', '~> 3.2.16'
+  gem 'jbuilder', '~> 1.2'
+  gem 'rails', '~> 3.2.17'
+  gem 'sdoc'
 end
 
 appraise 'rails4.0' do
-  gem 'rails', '~> 4.0.2'
+  gem 'jbuilder', '~> 1.2'
+  gem 'rails', '~> 4.0.3'
+  gem 'sdoc'
 end
 
 appraise 'rails4.1' do
-  gem 'rails', '~> 4.1.0.beta1'
+  gem 'jbuilder', '~> 2.0'
+  gem 'rails', '~> 4.1.0.rc1'
+  gem 'sdoc'
   gem 'spring'
 end
