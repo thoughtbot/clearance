@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     clearance (1.1.0)
-      bcrypt-ruby
+      bcrypt
       email_validator (~> 1.4)
       rails (>= 3.1)
 
@@ -42,7 +42,7 @@ GEM
       cucumber (>= 1.1.1)
       rspec-expectations (>= 2.7.0)
     atomic (1.1.14)
-    bcrypt-ruby (3.1.2)
+    bcrypt (3.1.6)
     bourne (1.5.0)
       mocha (>= 0.13.2, < 0.15)
     builder (3.1.4)
@@ -94,7 +94,7 @@ GEM
     multi_test (0.0.3)
     nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
-    polyglot (0.3.3)
+    polyglot (0.3.4)
     rack (1.5.2)
     rack-test (0.6.2)
       rack (>= 1.0)
