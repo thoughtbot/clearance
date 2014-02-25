@@ -11,7 +11,7 @@ before_install:
   - "gem update --system"
 
 install:
-  - "bundle install"
+  - "travis_retry bundle install"
 
 before_script:
   - "bundle exec rake db:migrate"
