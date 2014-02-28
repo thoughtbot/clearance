@@ -1,6 +1,9 @@
 Thank you to all the [contributors](https://github.com/thoughtbot/clearance/graphs/contributors)!
 
-New on Master:
+New for 1.2.0 (February 28, 2014):
+* Support for Rails 4.1.0.rc1
+* `clearance/testing` is now deprecated. Require `clearance/rspec` or
+  `clearance/test_unit` as appropriate.
 * Sign in failure message is now customized exclusively via I18n.
   `SessionsController#flash_failure_after_create` is no longer called. To
   customize the message, change the
