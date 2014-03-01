@@ -20,7 +20,7 @@ module Clearance
       private
 
       def encrypt(password)
-        ::BCrypt::Password.create(password, :cost => cost)
+        ::BCrypt::Password.create(password, cost: cost)
       end
 
       def cost

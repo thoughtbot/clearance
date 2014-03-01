@@ -63,12 +63,12 @@ module Clearance
 
     def forgot_password!
       generate_confirmation_token
-      save :validate => false
+      save validate: false
     end
 
     def reset_remember_token!
       generate_remember_token
-      save :validate => false
+      save validate: false
     end
 
     def update_password(new_password)

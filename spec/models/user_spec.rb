@@ -18,7 +18,7 @@ describe User do
     it { should_not allow_value('foo;@example.com').for(:email) }
 
     it 'stores email in down case and removes whitespace' do
-      user = create(:user, :email => 'Jo hn.Do e @exa mp le.c om')
+      user = create(:user, email: 'Jo hn.Do e @exa mp le.c om')
       user.email.should == 'john.doe@example.com'
     end
   end
@@ -84,10 +84,10 @@ describe User do
   end
 
   it 'does not generate same remember token for users with same password at same time' do
-    Time.stubs :now => Time.now
+    Time.stubs now: Time.now
     password = 'secret'
-    first_user = create(:user, :password => password)
-    second_user = create(:user, :password => password)
+    first_user = create(:user, password: password)
+    second_user = create(:user, password: password)
     second_user.remember_token.should_not == first_user.remember_token
   end
 
@@ -158,7 +158,7 @@ describe User do
 
   describe 'user factory' do
     it 'should create a valid user with just an overridden password' do
-      build(:user, :password => 'test').should be_valid
+      build(:user, password: 'test').should be_valid
     end
   end
 

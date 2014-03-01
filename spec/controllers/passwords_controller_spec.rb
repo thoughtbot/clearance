@@ -7,7 +7,7 @@ describe Clearance::PasswordsController do
     end
 
     describe 'on GET to #new' do
-      before { get :new, :user_id => @user.to_param }
+      before { get :new, user_id: @user.to_param }
 
       it { should respond_with(:success) }
       it { should render_template(:new) }
@@ -17,7 +17,7 @@ describe Clearance::PasswordsController do
       describe 'with correct email address' do
         before do
           ActionMailer::Base.deliveries.clear
-          post :create, :password => { :email => @user.email }
+          post :create, password: { email: @user.email }
         end
 
         it 'should generate a token for the change your password email' do
@@ -35,7 +35,7 @@ describe Clearance::PasswordsController do
       describe 'with correct email address capitalized differently' do
         before do
           ActionMailer::Base.deliveries.clear
-          post :create, :password => { :email => @user.email.upcase }
+          post :create, password: { email: @user.email.upcase }
         end
 
         it 'should generate a token for the change your password email' do
@@ -57,7 +57,7 @@ describe Clearance::PasswordsController do
           ActionMailer::Base.deliveries.clear
           @user.reload.confirmation_token.should == @user.confirmation_token
 
-          post :create, :password => { :email => email }
+          post :create, password: { email: email }
         end
 
         it 'should not generate a token for the change your password email' do
@@ -81,8 +81,8 @@ describe Clearance::PasswordsController do
 
     describe 'on GET to #edit with correct id and token' do
       before do
-        get :edit, :user_id => @user.to_param,
-          :token => @user.confirmation_token
+        get :edit, user_id: @user.to_param,
+          token: @user.confirmation_token
       end
 
       it 'should find the user' do
@@ -95,7 +95,7 @@ describe Clearance::PasswordsController do
 
     describe 'on GET to #edit with correct id but blank token' do
       before do
-        get :edit, :user_id => @user.to_param, :token => ''
+        get :edit, user_id: @user.to_param, token: ''
       end
 
       it { should set_the_flash.to(/double check the URL/i).now }
@@ -104,7 +104,7 @@ describe Clearance::PasswordsController do
 
     describe 'on GET to #edit with correct id but no token' do
       before do
-        get :edit, :user_id => @user.to_param
+        get :edit, user_id: @user.to_param
       end
 
       it { should set_the_flash.to(/double check the URL/i).now }
@@ -116,8 +116,8 @@ describe Clearance::PasswordsController do
         @new_password = 'new_password'
         @old_encrypted_password = @user.encrypted_password
 
-        put :update, :user_id => @user, :token => @user.confirmation_token,
-          :password_reset => { :password => @new_password }
+        put :update, user_id: @user, token: @user.confirmation_token,
+          password_reset: { password: @new_password }
         @user.reload
       end
 
@@ -138,8 +138,8 @@ describe Clearance::PasswordsController do
 
     describe 'on PUT to #update with blank password' do
       before do
-        put :update, :user_id => @user.to_param, :token => @user.confirmation_token,
-          :password_reset => { :password => '' }
+        put :update, user_id: @user.to_param, token: @user.confirmation_token,
+          password_reset: { password: '' }
         @user.reload
       end
 
@@ -162,10 +162,10 @@ describe Clearance::PasswordsController do
 
     describe 'on PUT to #update with an empty token after the user sets a password' do
       before do
-        put :update, :user_id => @user.to_param, :token => @user.confirmation_token,
-          :password_reset => { :password => 'good password' }
-        put :update, :user_id => @user.to_param, :token => [nil],
-          :password_reset => { :password => 'new password' }
+        put :update, user_id: @user.to_param, token: @user.confirmation_token,
+          password_reset: { password: 'good password' }
+        put :update, user_id: @user.to_param, token: [nil],
+          password_reset: { password: 'new password' }
       end
 
       it { should set_the_flash.to(/double check the URL/i).now }

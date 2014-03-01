@@ -10,7 +10,7 @@ describe Clearance::PasswordStrategies::BCrypt do
     let(:encrypted_password) { stub('encrypted password') }
 
     before do
-      BCrypt::Password.stubs :create => encrypted_password
+      BCrypt::Password.stubs create: encrypted_password
     end
 
     it 'encrypts the password into encrypted_password' do
@@ -20,13 +20,13 @@ describe Clearance::PasswordStrategies::BCrypt do
     end
 
     it 'encrypts with BCrypt using default cost in non test environments' do
-      Rails.stubs :env => ActiveSupport::StringInquirer.new("production")
+      Rails.stubs env: ActiveSupport::StringInquirer.new("production")
 
       subject.password = password
 
       BCrypt::Password.should have_received(:create).with(
         password,
-        :cost => ::BCrypt::Engine::DEFAULT_COST
+        cost: ::BCrypt::Engine::DEFAULT_COST
       )
     end
 
@@ -35,7 +35,7 @@ describe Clearance::PasswordStrategies::BCrypt do
 
       BCrypt::Password.should have_received(:create).with(
         password,
-        :cost => ::BCrypt::Engine::MIN_COST
+        cost: ::BCrypt::Engine::MIN_COST
       )
     end
   end

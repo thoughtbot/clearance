@@ -14,7 +14,7 @@ describe Clearance::Constraints::SignedIn do
   end
 
   it 'yields a signed-in user to a provided block' do
-    user = create(:user, :email => 'before@example.com')
+    user = create(:user, email: 'before@example.com')
 
     signed_in_constraint = Clearance::Constraints::SignedIn.new do |user|
       user.update_attribute :email, 'after@example.com'
@@ -25,7 +25,7 @@ describe Clearance::Constraints::SignedIn do
   end
 
   it 'does not yield a user if they are not signed in' do
-    user = create(:user, :email => 'before@example.com')
+    user = create(:user, email: 'before@example.com')
 
     signed_in_constraint = Clearance::Constraints::SignedIn.new do |user|
       user.update_attribute :email, 'after@example.com'

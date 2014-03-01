@@ -35,13 +35,13 @@ feature 'Visitor updates password' do
 
   def visit_password_reset_page_for(user)
     visit edit_user_password_path(
-      :user_id => user,
-      :token => user.confirmation_token
+      user_id: user,
+      token: user.confirmation_token
     )
   end
 
   def change_password_to(password)
-    fill_in 'password_reset_password', :with => password
+    fill_in 'password_reset_password', with: password
     click_button I18n.t('helpers.submit.password_reset.submit')
   end
 end

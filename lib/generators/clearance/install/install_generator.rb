@@ -48,8 +48,8 @@ module Clearance
       def create_add_columns_migration
         if migration_needed?
           config = {
-            :new_columns => new_columns,
-            :new_indexes => new_indexes
+            new_columns: new_columns,
+            new_indexes: new_indexes
           }
 
           copy_migration('add_clearance_to_users.rb', config)
@@ -82,17 +82,17 @@ module Clearance
 
       def new_columns
         @new_columns ||= {
-          :email => 't.string :email',
-          :encrypted_password => 't.string :encrypted_password, :limit => 128',
-          :confirmation_token => 't.string :confirmation_token, :limit => 128',
-          :remember_token => 't.string :remember_token, :limit => 128'
+          email: 't.string :email',
+          encrypted_password: 't.string :encrypted_password, limit: 128',
+          confirmation_token: 't.string :confirmation_token, limit: 128',
+          remember_token: 't.string :remember_token, limit: 128'
         }.reject { |column| existing_users_columns.include?(column.to_s) }
       end
 
       def new_indexes
         @new_indexes ||= {
-          :index_users_on_email => 'add_index :users, :email',
-          :index_users_on_remember_token => 'add_index :users, :remember_token'
+          index_users_on_email: 'add_index :users, :email',
+          index_users_on_remember_token: 'add_index :users, :remember_token'
         }.reject { |index| existing_users_indexes.include?(index.to_s) }
       end
 

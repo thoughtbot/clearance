@@ -31,7 +31,7 @@ When "I have a project with clearance" do
 end
 
 When /^I configure ActionMailer to use "([^"]+)" as a host$/ do |host|
-  mailer_config = "config.action_mailer.default_url_options = { :host => '#{host}' }"
+  mailer_config = "config.action_mailer.default_url_options = { host: '#{host}' }"
   path = 'config/application.rb'
 
   in_current_dir do
@@ -42,7 +42,7 @@ When /^I configure ActionMailer to use "([^"]+)" as a host$/ do |host|
 end
 
 When /^I configure a root route$/ do
-  route = "root :to => 'home#show'"
+  route = "root to: 'home#show'"
   path = 'config/routes.rb'
 
   in_current_dir do
@@ -54,7 +54,7 @@ When /^I configure a root route$/ do
   write_file('app/controllers/home_controller.rb', <<-CONTROLLER)
   class HomeController < ApplicationController
     def show
-      render :text => '', :layout => 'application'
+      render text: '', layout: 'application'
     end
   end
   CONTROLLER
@@ -114,11 +114,11 @@ When /^I create a migration with clearance fields$/ do
       class CreateUsers < ActiveRecord::Migration
         def self.up
           create_table :users  do |t|
-            t.timestamps :null => false
-            t.string :email, :null => false
-            t.string :encrypted_password, :limit => 128, :null => false
-            t.string :confirmation_token, :limit => 128
-            t.string :remember_token, :limit => 128, :null => false
+            t.timestamps null: false
+            t.string :email, null: false
+            t.string :encrypted_password, limit: 128, null: false
+            t.string :confirmation_token, limit: 128
+            t.string :remember_token, limit: 128, null: false
           end
 
           add_index :users, :email

@@ -33,12 +33,12 @@ feature 'Visitor signs in' do
   private
 
   def create_user(email, password)
-    create(:user, :email => email, :password => password)
+    create(:user, email: email, password: password)
   end
 
   def page_should_display_sign_in_error
     page.body.should include(
-      I18n.t('flashes.failure_after_create', :sign_up_path => sign_up_path)
+      I18n.t('flashes.failure_after_create', sign_up_path: sign_up_path)
     )
   end
 end

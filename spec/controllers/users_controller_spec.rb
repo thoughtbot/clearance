@@ -15,7 +15,7 @@ describe Clearance::UsersController do
     describe 'on GET to #new with email' do
       before do
         @email = 'a@example.com'
-        get :new, :user => { :email => @email }
+        get :new, user: { email: @email }
       end
 
       it 'should set assigned user email' do
@@ -27,7 +27,7 @@ describe Clearance::UsersController do
       before do
         user_attributes = FactoryGirl.attributes_for(:user)
         @old_user_count = User.count
-        post :create, :user => user_attributes
+        post :create, user: user_attributes
       end
 
       it 'assigns a user' do
@@ -47,7 +47,7 @@ describe Clearance::UsersController do
         @old_user_count = User.count
         @return_url = '/url_in_the_session'
         @request.session[:return_to] = @return_url
-        post :create, :user => user_attributes
+        post :create, user: user_attributes
       end
 
       it 'assigns a user' do
@@ -77,7 +77,7 @@ describe Clearance::UsersController do
     end
 
     describe 'POST to create' do
-      before { post :create, :user => {} }
+      before { post :create, user: {} }
 
       it 'redirects to the home page' do
         should redirect_to(Clearance.configuration.redirect_url)
