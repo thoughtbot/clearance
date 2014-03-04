@@ -9,7 +9,7 @@ class FlashesController < ActionController::Base
   end
 
   def view_flash
-    render :text => "<html><body>#{flash[:notice]}</body></html>"
+    render text: "<html><body>#{flash[:notice]}</body></html>"
   end
 end
 

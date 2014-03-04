@@ -1,6 +1,6 @@
 class Clearance::SessionsController < ApplicationController
-  skip_before_filter :authorize, :only => [:create, :new, :destroy]
-  protect_from_forgery :except => :create
+  skip_before_filter :authorize, only: [:create, :new, :destroy]
+  protect_from_forgery except: :create
 
   def create
     @user = authenticate(params)
@@ -10,7 +10,7 @@ class Clearance::SessionsController < ApplicationController
         redirect_back_or url_after_create
       else
         flash.now.notice = status.failure_message
-        render :template => 'sessions/new', :status => :unauthorized
+        render template: 'sessions/new', status: :unauthorized
       end
     end
   end
@@ -21,7 +21,7 @@ class Clearance::SessionsController < ApplicationController
   end
 
   def new
-    render :template => 'sessions/new'
+    render template: 'sessions/new'
   end
 
   private

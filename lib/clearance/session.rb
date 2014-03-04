@@ -98,11 +98,11 @@ module Clearance
 
     def cookie_value
       value = {
-        :expires => remember_token_expires,
-        :httponly => Clearance.configuration.httponly,
-        :path => Clearance.configuration.cookie_path,
-        :secure => Clearance.configuration.secure_cookie,
-        :value => remember_token
+        expires: remember_token_expires,
+        httponly: Clearance.configuration.httponly,
+        path: Clearance.configuration.cookie_path,
+        secure: Clearance.configuration.secure_cookie,
+        value: remember_token
       }
 
       if Clearance.configuration.cookie_domain.present?

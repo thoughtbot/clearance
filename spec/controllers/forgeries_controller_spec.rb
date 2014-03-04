@@ -10,7 +10,7 @@ class ForgeriesController < ActionController::Base
   self.allow_forgery_protection = true
 
   def create
-    redirect_to :action => 'index'
+    redirect_to action: 'index'
   end
 end
 
@@ -19,7 +19,7 @@ describe ForgeriesController do
     before do
       Rails.application.routes.draw do
         resources :forgeries
-        get '/sign_in'  => 'clearance/sessions#new', :as => 'sign_in'
+        get '/sign_in'  => 'clearance/sessions#new', as: 'sign_in'
       end
 
       @user = create(:user)
@@ -33,12 +33,12 @@ describe ForgeriesController do
     end
 
     it 'succeeds with authentic token' do
-      post :create, :authenticity_token => 'golden-ticket'
-      subject.should redirect_to(:action => 'index')
+      post :create, authenticity_token: 'golden-ticket'
+      subject.should redirect_to(action: 'index')
     end
 
     it 'fails with invalid token' do
-      post :create, :authenticity_token => 'hax0r'
+      post :create, authenticity_token: 'hax0r'
       subject.should deny_access
     end
 

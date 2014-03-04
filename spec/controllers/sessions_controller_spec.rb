@@ -26,7 +26,7 @@ describe Clearance::SessionsController do
     before do
       @user = create(:user)
       @user.update_attribute :remember_token, 'old-token'
-      post :create, :session => { :email => @user.email, :password => @user.password }
+      post :create, session: { email: @user.email, password: @user.password }
     end
 
     it { should redirect_to_url_after_create }
@@ -45,7 +45,7 @@ describe Clearance::SessionsController do
       @user = create(:user)
       @return_url = '/url_in_the_session'
       @request.session[:return_to] = @return_url
-      post :create, :session => { :email => @user.email, :password => @user.password }
+      post :create, session: { email: @user.email, password: @user.password }
     end
 
     it 'redirects to the return URL' do

@@ -5,7 +5,7 @@ module RememberTokenHelpers
         Clearance::Session::REMEMBER_TOKEN_COOKIE => remember_token
       }
     }
-    env = { :clearance => Clearance::Session.new(cookies) }
+    env = { clearance: Clearance::Session.new(cookies) }
     Rack::Request.new env
   end
 
