@@ -52,7 +52,8 @@ module Clearance
 
     def return_to
       if return_to_url
-        URI.parse(return_to_url).path
+        uri = URI.parse(return_to_url)
+        "#{uri.path}?#{uri.query}".chomp('?')
       end
     end
 
