@@ -1,5 +1,9 @@
 Thank you to all the [contributors](https://github.com/thoughtbot/clearance/graphs/contributors)!
 
+New for 1.2.1 (March 6, 2014):
+* Query string is now included in the redirect URL when Clearance redirects to a
+  previously stored URL.
+
 New for 1.2.0 (February 28, 2014):
 * Support for Rails 4.1.0.rc1
 * `clearance/testing` is now deprecated. Require `clearance/rspec` or
