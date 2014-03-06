@@ -43,7 +43,7 @@ describe Clearance::SessionsController do
   describe 'on POST to #create with good credentials and a session return url' do
     before do
       @user = create(:user)
-      @return_url = '/url_in_the_session'
+      @return_url = '/url_in_the_session?foo=bar'
       @request.session[:return_to] = @return_url
       post :create, session: { email: @user.email, password: @user.password }
     end
