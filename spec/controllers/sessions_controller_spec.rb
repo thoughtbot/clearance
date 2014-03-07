@@ -41,15 +41,15 @@ describe Clearance::SessionsController do
   end
 
   describe 'on POST to #create with good credentials and a session return url' do
-    before do
-      @user = create(:user)
-      @return_url = '/url_in_the_session?foo=bar'
-      @request.session[:return_to] = @return_url
-      post :create, session: { email: @user.email, password: @user.password }
-    end
-
     it 'redirects to the return URL' do
-      should redirect_to(@return_url)
+      user = create(:user)
+      return_path = '/path_in_the_session?query=param#fragment'
+      return_url = 'http://example.com:1234/path_in_the_session?query=param#fragment'
+      request.session[:return_to] = return_url
+
+      post :create, session: { email: user.email, password: user.password }
+
+      response.should redirect_to(return_path)
     end
   end
 
