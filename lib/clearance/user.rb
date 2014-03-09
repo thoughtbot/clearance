@@ -1,5 +1,6 @@
 require 'digest/sha1'
 require 'email_validator'
+require 'clearance/token'
 
 module Clearance
   module User
@@ -102,11 +103,11 @@ module Clearance
     end
 
     def generate_confirmation_token
-      self.confirmation_token = SecureRandom.hex(20).encode('UTF-8')
+      self.confirmation_token = Clearance::Token.new
     end
 
     def generate_remember_token
-      self.remember_token = SecureRandom.hex(20).encode('UTF-8')
+      self.remember_token = Clearance::Token.new
     end
   end
 end
