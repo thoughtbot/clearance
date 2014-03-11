@@ -1,4 +1,4 @@
-class Clearance::UsersController < ApplicationController
+class Clearance::UsersController < Clearance::BaseController
   skip_before_filter :authorize, only: [:create, :new]
   before_filter :avoid_sign_in, only: [:create, :new], if: :signed_in?
 
