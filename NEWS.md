@@ -1,8 +1,8 @@
 Thank you to all the [contributors](https://github.com/thoughtbot/clearance/graphs/contributors)!
 
-New on MASTER
-* Installing Clearance with an existing User model will now add remember tokens
-  to all user records.
+New for 1.3.0 (March 14, 2014)
+* Installing Clearance with an existing User model will now create a migration
+  that includes adding remember tokens to all existing user records.
 
 New for 1.2.1 (March 6, 2014):
 * Query string is now included in the redirect URL when Clearance redirects to a
@@ -23,7 +23,7 @@ New for 1.1.0 (November 21, 2013):
 
 * Validate email with `EmailValidator` [strict mode][strict].
 * The `cookie_expiration` configuration lambda can now be called with  a
-  `cookies` parameter. allows the Clearance cookie expiration to be set
+  `cookies` parameter. Allows the Clearance cookie expiration to be set
   according to the value of another cookie (such as `remember_me`).
 * A `cookie_expiration` lambda that does not accept this `cookies`
   parameter has been deprecated.
