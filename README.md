@@ -64,10 +64,13 @@ Clearance.configure do |config|
   config.httponly = false
   config.mailer_sender = 'reply@example.com'
   config.password_strategy = Clearance::PasswordStrategies::BCrypt
+  config.passwords_controller = 'clearance/passwords'
   config.redirect_url = '/'
   config.secure_cookie = false
+  config.sessions_controller = 'clearance/sessions'
   config.sign_in_guards = []
   config.user_model = User
+  config.users_controller = 'clearance/users'
 end
 ```
 
@@ -174,7 +177,15 @@ class SessionsController < Clearance::SessionsController
 class UsersController < Clearance::UsersController
 ```
 
-Then, override public methods:
+In your configuration, change the applicable controllers like so:
+
+```ruby
+Clearance.configure do |config|
+  config.users_controller :users # default it 'clearance/users'
+end
+```
+
+To tweak default behavior, you can override these actions:
 
     passwords#create
     passwords#edit
@@ -186,7 +197,7 @@ Then, override public methods:
     users#create
     users#new
 
-Or, override private methods:
+Or, override the supporting private methods:
 
     passwords#find_user_by_id_and_confirmation_token
     passwords#find_user_for_create

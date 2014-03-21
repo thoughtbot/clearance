@@ -151,4 +151,44 @@ describe Clearance::Configuration do
       Clearance.configuration.user_id_parameter.should eq :custom_user_id
     end
   end
+
+  describe '#users_controller' do
+    it 'defaults to clearance/users' do
+      expect(configuration.users_controller).to eq 'clearance/users'
+    end
+
+    it 'can be overriden' do
+      controller = 'people'
+      Clearance.configure { |config| config.users_controller = controller }
+      expect(configuration.users_controller).to eq controller
+    end
+  end
+
+  describe '#sessions_controller' do
+    it 'defaults to clearance/sessions' do
+      expect(configuration.sessions_controller).to eq 'clearance/sessions'
+    end
+
+    it 'can be overriden' do
+      controller = 'admin/sessions'
+      Clearance.configure { |config| config.sessions_controller = controller }
+      expect(configuration.sessions_controller).to eq controller
+    end
+  end
+
+  describe '#passwords_controller' do
+    it 'defaults to clearance/passwords' do
+      expect(configuration.passwords_controller).to eq 'clearance/passwords'
+    end
+
+    it 'can be overriden' do
+      controller = 'admin/passwords'
+      Clearance.configure { |config| config.passwords_controller = controller }
+      expect(configuration.passwords_controller).to eq controller
+    end
+  end
+
+  def configuration
+    Clearance.configuration
+  end
 end

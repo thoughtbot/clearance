@@ -1,5 +1,10 @@
 Thank you to all the [contributors](https://github.com/thoughtbot/clearance/graphs/contributors)!
 
+New on MASTER
+* Overriding clearance controllers is now simpler. The congiuration options
+  `users_controller`, `sessions_controller`, and `passwords_controller` can be
+  changed to point to the controller of your choosing.
+
 New for 1.3.0 (March 14, 2014)
 * Installing Clearance with an existing User model will now create a migration
   that includes adding remember tokens to all existing user records.
