@@ -52,7 +52,7 @@ describe Clearance::Configuration do
   end
 
   context 'when no redirect URL specified' do
-    it 'should return "/" as redirect URL' do
+    it 'returns "/" as redirect URL' do
       expect(Clearance::Configuration.new.redirect_url).to eq '/'
     end
   end
@@ -66,7 +66,7 @@ describe Clearance::Configuration do
       end
     end
 
-    it 'should return new redirect URL' do
+    it 'returns new redirect URL' do
       expect(Clearance.configuration.redirect_url).to eq new_redirect_url
     end
   end
@@ -80,7 +80,7 @@ describe Clearance::Configuration do
       end
     end
 
-    it 'should return the stack with added guards' do
+    it 'returns the stack with added guards' do
       expect(Clearance.configuration.sign_in_guards).to eq [DummyGuard]
     end
   end
@@ -113,7 +113,7 @@ describe Clearance::Configuration do
     end
   end
 
-  describe '#sign_up?' do
+  describe '#allow_sign_up?' do
     context 'when allow_sign_up is configured to false' do
       it 'returns false' do
         Clearance.configure { |config| config.allow_sign_up = false }
@@ -149,6 +149,17 @@ describe Clearance::Configuration do
       Clearance.configure { |config| config.user_model = CustomUser }
 
       expect(Clearance.configuration.user_id_parameter).to eq :custom_user_id
+    end
+  end
+
+  describe '#routes_enabled?' do
+    it 'is true by default' do
+      expect(Clearance.configuration.routes_enabled?).to be true
+    end
+
+    it 'is false when routes are set to false' do
+      Clearance.configure { |config| config.routes = false }
+      expect(Clearance.configuration.routes_enabled?).to be false
     end
   end
 end
