@@ -113,7 +113,7 @@ describe Clearance::Configuration do
     end
   end
 
-  describe '#sign_up?' do
+  describe '#allow_sign_up?' do
     context 'when allow_sign_up is configured to false' do
       it 'returns false' do
         Clearance.configure { |config| config.allow_sign_up = false }
@@ -149,6 +149,17 @@ describe Clearance::Configuration do
       Clearance.configure { |config| config.user_model = CustomUser }
 
       Clearance.configuration.user_id_parameter.should eq :custom_user_id
+    end
+  end
+
+  describe '#routes_enabled?' do
+    it 'is true by default' do
+      Clearance.configuration.routes_enabled?.should be true
+    end
+
+    it 'is false when routes are set to false' do
+      Clearance.configure { |config| config.routes = false }
+      Clearance.configuration.routes_enabled?.should be false
     end
   end
 end
