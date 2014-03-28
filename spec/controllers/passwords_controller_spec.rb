@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe Clearance::PasswordsController do
+  it { should be_a Clearance::BaseController }
+
   describe 'a signed up user' do
     before do
       @user = create(:user)

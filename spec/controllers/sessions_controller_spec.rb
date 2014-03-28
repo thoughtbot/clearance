@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe Clearance::SessionsController do
+  it { should be_a Clearance::BaseController }
+
   describe 'on GET to /sessions/new' do
     before { get :new }
 

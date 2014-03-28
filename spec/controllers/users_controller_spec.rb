@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe Clearance::UsersController do
+  it { should be_a Clearance::BaseController }
+
   describe 'when signed out' do
     before { sign_out }
 
