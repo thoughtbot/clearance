@@ -204,6 +204,7 @@ Or, override private methods:
     users#flash_failure_after_create
     users#url_after_create
     users#user_from_params
+    users#user_params
 
 All of these controller methods redirect to `'/'` by default:
 
