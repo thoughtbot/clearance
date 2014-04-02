@@ -29,7 +29,6 @@ class Clearance::UsersController < Clearance::BaseController
   end
 
   def user_from_params
-    user_params = params[:user] || Hash.new
     email = user_params.delete(:email)
     password = user_params.delete(:password)
 
@@ -37,5 +36,9 @@ class Clearance::UsersController < Clearance::BaseController
       user.email = email
       user.password = password
     end
+  end
+
+  def user_params
+    params[:user] || Hash.new
   end
 end
