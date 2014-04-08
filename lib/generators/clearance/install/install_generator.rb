@@ -39,6 +39,14 @@ module Clearance
         end
       end
 
+      def inject_routes
+        inject_into_file(
+          'config/routes.rb',
+          File.read(File.expand_path(find_in_source_paths('routes.rb'))),
+          before: /^end/
+        )
+      end
+
       def display_readme_in_terminal
         readme 'README'
       end
