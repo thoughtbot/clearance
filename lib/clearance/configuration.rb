@@ -9,10 +9,13 @@ module Clearance
       :httponly,
       :mailer_sender,
       :password_strategy,
+      :passwords_controller,
       :redirect_url,
       :secure_cookie,
+      :sessions_controller,
       :sign_in_guards,
-      :user_model
+      :user_model,
+      :users_controller
 
     def initialize
       @allow_sign_up = true
@@ -20,9 +23,12 @@ module Clearance
       @cookie_path = '/'
       @httponly = false
       @mailer_sender = 'reply@example.com'
+      @passwords_controller = 'clearance/passwords'
       @redirect_url = '/'
       @secure_cookie = false
+      @sessions_controller = 'clearance/sessions'
       @sign_in_guards = []
+      @users_controller = 'clearance/users'
     end
 
     def user_model

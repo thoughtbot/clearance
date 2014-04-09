@@ -29,4 +29,5 @@ end
 def restore_default_config
   Clearance.configuration = nil
   Clearance.configure {}
+  Rails.application.reload_routes!
 end
