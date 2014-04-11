@@ -4,17 +4,18 @@ language:
 rvm:
   - 1.9.3
   - 2.0.0
-  - 2.1.0
-
-before_install:
-  - "sudo apt-get install ca-certificates"
-  - "gem update --system"
+  - 2.1.1
 
 install:
   - "travis_retry bundle install"
+  - "bundle exec appraisal generate"
+  - "travis_retry bundle exec appraisal install"
 
 before_script:
   - "bundle exec rake db:migrate"
+
+script:
+  - "bundle exec appraisal rake"
 
 branches:
   only:
