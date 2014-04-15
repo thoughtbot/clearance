@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gemspec
 
-gem 'appraisal', '~> 0.5'
+gem 'appraisal', '~> 1.0'
 gem 'aruba', '~> 0.5'
 gem 'bourne', '~> 1.4'
 gem 'bundler', '~> 1.3'

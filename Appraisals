@@ -9,13 +9,13 @@ end
 
 appraise 'rails4.0' do
   gem 'jbuilder', '~> 1.2'
-  gem 'rails', '~> 4.0.3'
+  gem 'rails', '~> 4.0.4'
   gem 'sdoc'
 end
 
 appraise 'rails4.1' do
   gem 'jbuilder', '~> 2.0'
-  gem 'rails', '~> 4.1.0.rc1'
+  gem 'rails', '~> 4.1.0'
   gem 'sdoc'
   gem 'spring'
 end
