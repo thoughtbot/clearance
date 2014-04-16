@@ -37,6 +37,14 @@ describe Clearance::Session do
       expect(session.current_user).to eq user
     end
 
+    it 'returns current_user' do
+      user = build(:user)
+
+      returned_user = session.sign_in user
+
+      expect(returned_user).to eq user
+    end
+
     context 'with a block' do
       it 'passes the success status to the block when sign in succeeds' do
         success_status = stub_status(Clearance::SuccessStatus, true)
