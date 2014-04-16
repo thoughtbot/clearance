@@ -6,7 +6,7 @@ Next steps:
 1. Configure the mailer to create full URLs in emails:
 
     # config/environments/{development,test}.rb
-    config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+    config.action_mailer.default_url_options = { host: 'localhost:3000' }
 
     In production it should be your app's domain name.
 
@@ -14,7 +14,7 @@ Next steps:
 
     <% if signed_in? %>
       Signed in as: <%= current_user.email %>
-      <%= link_to 'Sign out', sign_out_path, :method => :delete %>
+      <%= link_to 'Sign out', sign_out_path, method: :delete %>
     <% else %>
       <%= link_to 'Sign in', sign_in_path %>
     <% end %>
