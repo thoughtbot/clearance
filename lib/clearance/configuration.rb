@@ -21,7 +21,6 @@ module Clearance
       @httponly = false
       @mailer_sender = 'reply@example.com'
       @redirect_url = '/'
-      @secure_cookie = false
       @sign_in_guards = []
     end
 
@@ -31,6 +30,22 @@ module Clearance
 
     def allow_sign_up?
       @allow_sign_up
+    end
+
+    def secure_cookie
+      if @secure_cookie.nil?
+        warn <<-WARNING.strip_heredoc
+
+          Clearance.configuration.secure_cookie is not set and is defaulting to
+          false. This subjects your users to session hijacking. We reccomend
+          this be set to 'true' in any live environment and explicitly set to
+          false in development and test if necessary.
+        WARNING
+
+        @secure_cookie = false
+      end
+
+      @secure_cookie
     end
 
     def  user_actions

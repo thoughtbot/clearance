@@ -21,6 +21,16 @@ module Clearance
     end
 
     def current_user
+      if !request.ssl? && Clearance.configuration.secure_cookie
+        raise <<-ERROR.strip_heredoc
+          Clearance has `secure_cookie` enabled in this environment but
+          `current_user` was just accessed during a non-SSL request. Assuming
+          this is a live environment, you probably want to set `force_ssl` to
+          true in your environment configuration or otherwise force HTTPS
+          connections.
+        ERROR
+      end
+
       clearance_session.current_user
     end
 
