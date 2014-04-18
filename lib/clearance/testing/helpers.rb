@@ -20,6 +20,7 @@ module Clearance
 
       def sign_in_as(user)
         @controller.sign_in user
+        user
       end
 
       def sign_out

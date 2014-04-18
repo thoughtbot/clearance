@@ -24,4 +24,14 @@ describe Clearance::Testing::Helpers do
       expect(FactoryGirl).to have_received(:create).with(:my_user_model)
     end
   end
+
+  describe '#sign_in_as' do
+    it 'returns the user if signed in successfully' do
+      user = build(:user)
+
+      returned_user = TestClass.new.sign_in_as user
+
+      expect(returned_user).to eq user
+    end
+  end
 end

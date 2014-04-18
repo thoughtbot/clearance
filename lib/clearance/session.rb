@@ -33,8 +33,6 @@ module Clearance
       if block_given?
         block.call(status)
       end
-
-      @current_user
     end
 
     def sign_out
