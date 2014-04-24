@@ -1,5 +1,10 @@
 Thank you to all the [contributors](https://github.com/thoughtbot/clearance/graphs/contributors)!
 
+New for 2.0.0.alpha
+* Clearance routes can now be turned off via configuration (`routes = false`).
+  The `clearance:routes` turns off the routes and copies the default routes to
+  the host application's routes file for customization.
+
 New for 1.3.0 (March 14, 2014)
 * Installing Clearance with an existing User model will now create a migration
   that includes adding remember tokens to all existing user records.
