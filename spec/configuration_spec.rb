@@ -62,28 +62,6 @@ describe Clearance::Configuration do
     end
   end
 
-  describe '#allow_sign_up?' do
-    it 'defaults to true' do
-      expect(Clearance.configuration.allow_sign_up?).to be true
-    end
-
-    it 'can be configured to false' do
-      Clearance.configure { |config| config.allow_sign_up = false }
-      expect(Clearance.configuration.allow_sign_up?).to be false
-    end
-  end
-
-  describe '#user_actions' do
-    it 'defaults to [:create]' do
-      expect(Clearance.configuration.user_actions).to eq [:create]
-    end
-
-    it 'is empty when sign up is disabled' do
-      Clearance.configure { |config| config.allow_sign_up = false }
-      expect(Clearance.configuration.user_actions).to be_empty
-    end
-  end
-
   describe '#user_id_parameter' do
     it 'returns the parameter key to use based on the user_model' do
       CustomUser = Class.new(ActiveRecord::Base)
