@@ -1,5 +1,3 @@
-require 'active_support/deprecation'
-
 class Clearance::PasswordsController < Clearance::BaseController
   skip_before_filter :authorize, only: [:create, :edit, :new, :update]
   before_filter :forbid_missing_token, only: [:edit, :update]
@@ -41,12 +39,7 @@ class Clearance::PasswordsController < Clearance::BaseController
   end
 
   def password_reset_params
-    if params.has_key? :user
-      ActiveSupport::Deprecation.warn %{Since locales functionality was added, accessing params[:user] is no longer supported.}
-      params[:user][:password]
-    else
-      params[:password_reset][:password]
-    end
+    params[:password_reset][:password]
   end
 
   def find_user_by_id_and_confirmation_token
