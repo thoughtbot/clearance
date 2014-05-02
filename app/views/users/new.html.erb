@@ -2,7 +2,7 @@
   <h2><%= t('.title') %></h2>
 
   <%= form_for @user do |form| %>
-    <%= render :partial => '/users/form', :object => form %>
+    <%= render partial: '/users/form', object: form %>
 
     <div class="submit-field">
       <%= form.submit %>
