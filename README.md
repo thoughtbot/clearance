@@ -18,8 +18,7 @@ Read [CONTRIBUTING.md](/CONTRIBUTING.md) to contribute.
 Install
 -------
 
-Clearance is a Rails engine tested against Rails `>= 3.2` and Ruby `>= 1.9.3`.
-It works with Rails 4 and Ruby 2.
+Clearance is a Rails engine tested against Rails `>= 4.0` and Ruby `>= 1.9.3`.
 
 Include the gem in your Gemfile:
 
@@ -43,12 +42,6 @@ The generator:
   columns
 
 Then, follow the instructions output from the generator.
-
-Use Clearance [0.8.8](https://github.com/thoughtbot/clearance/tree/v0.8.8) for
-Rails 2 apps.
-
-Use Clearance [0.16.3](http://rubygems.org/gems/clearance/versions/0.16.3) for
-Ruby 1.8.7 apps.
 
 Configure
 ---------
