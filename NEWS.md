@@ -5,6 +5,7 @@ New for 2.0.0.alpha
   The `clearance:routes` turns off the routes and copies the default routes to
   the host application's routes file for customization.
 * Rails 3.2 support dropped.
+* Removed all previously deprecated methods and features.
 
 New for 1.3.0 (March 14, 2014)
 * Installing Clearance with an existing User model will now create a migration
