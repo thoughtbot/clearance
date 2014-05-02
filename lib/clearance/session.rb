@@ -63,19 +63,7 @@ module Clearance
     end
 
     def remember_token_expires
-      if expires_configuration.arity == 1
-        expires_configuration.call(cookies)
-      else
-        warn "#{Kernel.caller.first}: [DEPRECATION] " +
-          'Clearance.configuration.cookie_expiration lambda with no parameters ' +
-          'has been deprecated and will be removed from a future release. The ' +
-          'lambda should accept the collection of previously set cookies.'
-        expires_configuration.call
-      end
-    end
-
-    def expires_configuration
-      Clearance.configuration.cookie_expiration
+      Clearance.configuration.cookie_expiration.call(cookies)
     end
 
     def user_from_remember_token(token)
