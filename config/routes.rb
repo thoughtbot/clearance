@@ -10,7 +10,7 @@ if Clearance.configuration.routes_enabled?
 
     resources :users,
       controller: 'clearance/users',
-      only: Clearance.configuration.user_actions do
+      only: [:create] do
         resource :password,
           controller: 'clearance/passwords',
           only: [:create, :edit, :update]
@@ -19,8 +19,6 @@ if Clearance.configuration.routes_enabled?
     get '/sign_in' => 'clearance/sessions#new', as: 'sign_in'
     delete '/sign_out' => 'clearance/sessions#destroy', as: 'sign_out'
 
-    if Clearance.configuration.allow_sign_up?
-      get '/sign_up' => 'clearance/users#new', as: 'sign_up'
-    end
+    get '/sign_up' => 'clearance/users#new', as: 'sign_up'
   end
 end
