@@ -3,7 +3,6 @@ Clearance
 
 [![Build Status](https://secure.travis-ci.org/thoughtbot/clearance.png)](http://travis-ci.org/thoughtbot/clearance?branch=master)
 [![Code Climate](https://codeclimate.com/github/thoughtbot/clearance.png)](https://codeclimate.com/github/thoughtbot/clearance)
-[![Dependency Status](https://gemnasium.com/thoughtbot/clearance.png)](https://gemnasium.com/thoughtbot/clearance)
 
 Rails authentication with email & password.
 
