@@ -27,6 +27,5 @@ RSpec.configure do |config|
 end
 
 def restore_default_config
-  Clearance.configuration = nil
-  Clearance.configure {}
+  Clearance.configuration = Clearance::Configuration.new
 end
