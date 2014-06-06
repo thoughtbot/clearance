@@ -22,6 +22,8 @@ Clearance::Testing::Application.initialize!
 
 RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
+  config.infer_spec_type_from_file_location!
+  config.expose_current_running_example_as :example
   config.mock_with :mocha
   config.use_transactional_fixtures = true
 end
