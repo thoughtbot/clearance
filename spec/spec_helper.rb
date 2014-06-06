@@ -1,13 +1,18 @@
-ENV['RAILS_ENV'] = "test"
-require File.expand_path('../dummy/config/environment.rb',  __FILE__)
+ENV["RAILS_ENV"] = "test"
+require File.expand_path("../dummy/config/environment.rb",  __FILE__)
 
-require 'rspec/rails'
-require 'capybara/rspec'
-require 'pry'
+require "rspec/rails"
+require "capybara/rspec"
+require "factory_girl_rails"
+require "pry"
+
+Monban.test_mode!
 
 RSpec.configure do |config|
+  config.include FactoryGirl::Syntax::Methods
+
   if config.files_to_run.one?
-    config.default_formatter = 'doc'
+    config.default_formatter = "doc"
   end
 
   config.order = :random
@@ -24,9 +29,9 @@ RSpec.configure do |config|
 
   config.before :suite, type: :feature do
     Dir.chdir("spec/dummy") do
-      `git init . && git add . && git commit -m 'commit'`
+      `git init . && git add . && git commit -m "commit"`
       `bundle exec rake db:schema:load`
-      puts "\n" + `rails g clearance:install`
+      `rails g clearance:install`
     end
 
     Rails.application.reload_routes!

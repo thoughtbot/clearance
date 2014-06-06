@@ -7,6 +7,7 @@ module Clearance
         route(%{get "sign_up" => "clearance/sign_ups#new"})
         route(%{post "sign_up" => "clearance/sign_ups#create"})
         route(%{get "sign_in" => "clearance/sessions#new"})
+        route(%{post "sign_in" => "clearance/sessions#create"})
       end
 
       def add_controller_helpers
