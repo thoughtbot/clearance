@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "clearance/version"
 
 Gem::Specification.new do |spec|
-  spec.name = "Clearance"
+  spec.name = "clearance"
   spec.version = Clearance::VERSION
   spec.authors = ["Derek Prior", "Goose Mongeau"]
   spec.email = ["derekprior@gmail.com", "halogenandtoast@gmail.com"]

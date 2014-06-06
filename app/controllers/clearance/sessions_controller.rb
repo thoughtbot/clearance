@@ -12,6 +12,11 @@ class Clearance::SessionsController < ApplicationController
     end
   end
 
+  def destroy
+    sign_out
+    redirect_to url_after_sign_out
+  end
+
   private
 
   def session_params
@@ -24,5 +29,9 @@ class Clearance::SessionsController < ApplicationController
 
   def url_after_sign_in
     Clearance.config.url_after_sign_in
+  end
+
+  def url_after_sign_out
+    Clearance.config.url_after_sign_out
   end
 end

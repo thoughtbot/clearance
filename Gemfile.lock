@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    Clearance (2.0.0.alpha)
+    clearance (2.0.0.alpha)
       monban (~> 0.0.14)
 
 GEM
@@ -135,9 +135,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  Clearance!
   bundler (~> 1.6)
   capybara (>= 2.3.0)
+  clearance!
   factory_girl_rails
   pry
   rake

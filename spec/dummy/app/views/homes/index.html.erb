@@ -1,0 +1,6 @@
+<% if signed_in? %>
+  <h1>signed in</h1>
+  <%= link_to "Sign out", sign_out_path, method: :delete %>
+<% else %>
+  <h1>GUEST</h1>
+<% end %>

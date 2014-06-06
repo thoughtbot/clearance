@@ -14,6 +14,19 @@ describe Clearance::Config do
     end
   end
 
+  describe "url_after_sign_out" do
+    it "defaults to /" do
+      expect(Clearance.config.url_after_sign_out).to eq "/"
+    end
+
+    it "can be overridden" do
+      with_config do
+        Clearance.config.url_after_sign_out = "/foo"
+        expect(Clearance.config.url_after_sign_out).to eq "/foo"
+      end
+    end
+  end
+
   describe "url_after_sign_up" do
     it "defaults to /" do
       expect(Clearance.config.url_after_sign_up).to eq "/"

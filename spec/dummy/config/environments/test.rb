@@ -6,4 +6,6 @@ Dummy::Application.configure do
   config.action_dispatch.show_exceptions = false
   config.action_controller.allow_forgery_protection = false
   config.active_support.deprecation = :stderr
+
+  config.middleware.insert_after Warden::Manager, Clearance::BackDoor
 end
