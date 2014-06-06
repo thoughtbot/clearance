@@ -1,6 +1,6 @@
 class Clearance::SignUpsController < ApplicationController
   def new
-    @user = Monban.user_class.new
+    @user = Clearance.config.user_class.new
   end
 
   def create
@@ -25,11 +25,11 @@ class Clearance::SignUpsController < ApplicationController
   end
 
   def user_param_key
-    Monban.user_class.to_s.underscore.to_sym
+    Clearance.config.user_class.to_s.underscore.to_sym
   end
 
   def permitted_user_params
-    [Monban.config.user_lookup_field, Monban.config.user_token_field]
+    [Clearance.config.user_lookup_field, Clearance.config.user_token_field]
   end
 
   def url_after_sign_up

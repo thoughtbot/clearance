@@ -7,6 +7,6 @@ feature "Visitor signs up" do
     fill_in "user_password", with: "password"
     click_on "Create"
 
-    expect(page).to have_content("signed in")
+    expect(page).to have_content "signed in"
   end
 end
