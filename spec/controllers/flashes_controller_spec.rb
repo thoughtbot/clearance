@@ -26,7 +26,8 @@ describe FlashesController do
   end
 
   it 'sets and views a flash' do
-    visit '/set_flash?message=hello'
-    page.should have_content('hello')
+    message = 'hello'
+    get :set_flash, message: message
+    expect(flash[:notice]).to eq message
   end
 end

@@ -5,12 +5,13 @@ describe Clearance::Constraints::SignedIn do
     user = create(:user)
     signed_in_constraint = Clearance::Constraints::SignedIn.new
     signed_in_constraint.matches?(request_with_remember_token(user.remember_token)).
-      should be_true
+      should be_truthy
   end
 
   it 'returns false when user is not signed in' do
     signed_in_constraint = Clearance::Constraints::SignedIn.new
-    signed_in_constraint.matches?(request_without_remember_token).should be_false
+    signed_in_constraint.matches?(request_without_remember_token).
+      should be_falsey
   end
 
   it 'yields a signed-in user to a provided block' do
@@ -39,13 +40,13 @@ describe Clearance::Constraints::SignedIn do
     user = create(:user)
     signed_in_constraint = Clearance::Constraints::SignedIn.new { |user| true }
     signed_in_constraint.matches?(request_with_remember_token(user.remember_token)).
-      should be_true
+      should be_truthy
   end
 
   it 'does not match if the user-provided block returns false' do
     user = create(:user)
     signed_in_constraint = Clearance::Constraints::SignedIn.new { |user| false }
     signed_in_constraint.matches?(request_with_remember_token(user.remember_token)).
-      should be_false
+      should be_falsey
   end
 end
