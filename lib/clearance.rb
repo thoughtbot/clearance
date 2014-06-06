@@ -1,6 +1,14 @@
+require "clearance/config"
+require "clearance/engine"
 require "clearance/version"
 require "monban"
 
 module Clearance
-  # Your code goes here...
+  def self.config
+    @config ||= Config.new
+  end
+
+  def self.config=(config)
+    @config = config
+  end
 end
