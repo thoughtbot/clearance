@@ -1,7 +1,7 @@
 require "spec_helper"
 
-describe Clearance::Config do
-  describe "url_after_sign_in" do
+describe Clearance::Configuration do
+  describe "#url_after_sign_in" do
     it "defaults to /" do
       expect(Clearance.config.url_after_sign_in).to eq "/"
     end
@@ -14,7 +14,7 @@ describe Clearance::Config do
     end
   end
 
-  describe "url_after_sign_out" do
+  describe "#url_after_sign_out" do
     it "defaults to /" do
       expect(Clearance.config.url_after_sign_out).to eq "/"
     end
@@ -27,7 +27,7 @@ describe Clearance::Config do
     end
   end
 
-  describe "url_after_sign_up" do
+  describe "#url_after_sign_up" do
     it "defaults to /" do
       expect(Clearance.config.url_after_sign_up).to eq "/"
     end
@@ -39,12 +39,11 @@ describe Clearance::Config do
       end
     end
   end
-end
 
-def with_config(&block)
-  old_config = Clearance.config.dup
-
-  yield
-ensure
-  Clearance.config = old_config
+  def with_config(&block)
+    old_config = Clearance.config.dup
+    yield
+  ensure
+    Clearance.config = old_config
+  end
 end
