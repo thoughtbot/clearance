@@ -1,11 +1,10 @@
+require "monban"
+require "clearance/back_door"
 require "clearance/configuration"
 require "clearance/engine"
 require "clearance/version"
-require "monban"
 
 module Clearance
-  BackDoor = Monban::BackDoor
-
   def self.config
     @config ||= Configuration.new
   end
