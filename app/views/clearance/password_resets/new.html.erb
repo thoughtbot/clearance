@@ -1,0 +1,16 @@
+<div id="clearance" class="password-reset">
+  <h2><%= t '.title' %></h2>
+
+  <p><%= t '.description' %></p>
+
+  <%= form_for :password_reset, url: password_reset_path do |form| %>
+    <div class="text-field">
+      <%= form.label Clearance.config.user_lookup_field %>
+      <%= form.text_field Clearance.config.user_lookup_field, :type => 'email' %>
+    </div>
+
+    <div class="submit-field">
+      <%= form.submit %>
+    </div>
+  <% end %>
+</div>

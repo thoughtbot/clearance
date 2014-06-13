@@ -6,6 +6,8 @@ require "capybara/rspec"
 require "factory_girl_rails"
 require "pry"
 
+require "support/email_spec"
+
 Monban.test_mode!
 
 RSpec.configure do |config|
@@ -32,6 +34,7 @@ RSpec.configure do |config|
       `git init . && git add . && git commit -m "commit"`
       `bundle exec rake db:schema:load`
       `rails g clearance:install`
+      `RAILS_ENV=test bundle exec rake db:migrate`
     end
 
     Rails.application.reload_routes!

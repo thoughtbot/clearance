@@ -33,6 +33,7 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
+    addressable (2.3.6)
     arel (5.0.1.20140414130214)
     bcrypt (3.1.7)
     builder (3.2.2)
@@ -44,6 +45,9 @@ GEM
       xpath (~> 2.0)
     coderay (1.1.0)
     diff-lcs (1.2.5)
+    email_spec (1.6.0)
+      launchy (~> 2.1)
+      mail (~> 2.2)
     erubis (2.7.0)
     factory_girl (4.4.0)
       activesupport (>= 3.0.0)
@@ -53,6 +57,8 @@ GEM
     hike (1.2.3)
     i18n (0.6.9)
     json (1.8.1)
+    launchy (2.4.2)
+      addressable (~> 2.3)
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
@@ -138,6 +144,7 @@ DEPENDENCIES
   bundler (~> 1.6)
   capybara (>= 2.3.0)
   clearance!
+  email_spec
   factory_girl_rails
   pry
   rake
