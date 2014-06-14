@@ -7,6 +7,7 @@ require "factory_girl_rails"
 require "pry"
 
 require "support/email_spec"
+require "support/dummy_app_setup"
 
 Monban.test_mode!
 
@@ -27,22 +28,5 @@ RSpec.configure do |config|
   config.mock_with :rspec do |mocks|
     mocks.syntax = :expect
     mocks.verify_partial_doubles = true
-  end
-
-  config.before :suite, type: :feature do
-    Dir.chdir("spec/dummy") do
-      `git init . && git add . && git commit -m "commit"`
-      `bundle exec rake db:schema:load`
-      `rails g clearance:install`
-      `RAILS_ENV=test bundle exec rake db:migrate`
-    end
-
-    Rails.application.reload_routes!
-  end
-
-  config.after :suite, type: :feature do
-    Dir.chdir("spec/dummy") do
-      `git reset --hard && git clean -xfd && rm -rf .git`
-    end
   end
 end
