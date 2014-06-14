@@ -1,4 +1,24 @@
 <div id="clearance" class="sign-in">
   <h2><%= t ".title" %></h2>
-  <%= render "clearance/sessions/form" %>
+
+  <%= form_for :session, url: sign_in_path do |form| %>
+    <div class="text-field">
+      <%= form.label Clearance.config.user_lookup_field %>
+      <%= form.text_field Clearance.config.user_lookup_field, type: "email" %>
+    </div>
+
+    <div class="password-field">
+      <%= form.label :password %>
+      <%= form.password_field :password %>
+    </div>
+
+    <div class="submit-field">
+      <%= form.submit %>
+    </div>
+
+    <div class="other-links">
+      <%= link_to t(".sign_up"), sign_up_path %>
+      <%= link_to t('.forgot_password'), new_password_reset_path %>
+    </div>
+  <% end %>
 </div>

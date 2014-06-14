@@ -2,7 +2,15 @@
   <h2><%= t(".title") %></h2>
 
   <%= form_for @user, url: sign_up_path do |form| %>
-    <%= render partial: "clearance/sign_ups/form", object: form %>
+    <div class="text-field">
+      <%= form.label Clearance.config.user_lookup_field %>
+      <%= form.text_field Clearance.config.user_lookup_field, type: "email" %>
+    </div>
+
+    <div class="password-field">
+      <%= form.label :password %>
+      <%= form.password_field :password %>
+    </div>
 
     <div class="submit-field">
       <%= form.submit %>
