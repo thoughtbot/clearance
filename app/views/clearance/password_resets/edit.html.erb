@@ -1,0 +1,16 @@
+<div id="clearance" class="password-reset">
+  <h2><%= t ".title" %></h2>
+
+  <p><%= t ".description" %></p>
+
+  <%= form_for [@password_reset.user, @password_reset] do |form| %>
+    <div class="password-field">
+      <%= form.label :password %>
+      <%= form.password_field :password %>
+    </div>
+
+    <div class="submit-field">
+      <%= form.submit %>
+    </div>
+  <% end %>
+</div>

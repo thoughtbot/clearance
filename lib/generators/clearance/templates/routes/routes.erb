@@ -1,0 +1,15 @@
+  get "sign_up" => "clearance/sign_ups#new"
+  post "sign_up" => "clearance/sign_ups#create"
+  get "sign_in" => "clearance/sessions#new"
+  post "sign_in" => "clearance/sessions#create"
+  delete "sign_out" => "clearance/sessions#destroy"
+
+  resources :<%= password_reset_class.tableize %>,
+    only: [:new, :create],
+    controller: "clearance/password_resets"
+
+  resources :<%= user_class.tableize %>, only: [] do
+    resources :<%= password_reset_class.tableize %>,
+      only: [:edit, :update],
+      controller: "clearance/password_resets"
+  end

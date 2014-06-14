@@ -12,9 +12,13 @@ module Clearance
       @url_after_sign_out = "/"
       @mailer_sender = "reply@example.com"
       @user_class = Monban.user_class
-      @password_reset_class = Clearance::PasswordReset
+      @password_reset_class = PasswordReset
       @password_reset_mailer = ClearanceMailer
       @password_reset_delivery = default_password_reset_delivery
+    end
+
+    def user_param_key
+      user_class.model_name.param_key.to_sym
     end
 
     private

@@ -10,12 +10,7 @@ module Clearance
       argument :password_reset_class, type: :string, default: "PasswordReset"
 
       def add_routes
-        route(%{get "sign_up" => "clearance/sign_ups#new"})
-        route(%{post "sign_up" => "clearance/sign_ups#create"})
-        route(%{get "sign_in" => "clearance/sessions#new"})
-        route(%{post "sign_in" => "clearance/sessions#create"})
-        route(%{delete "sign_out" => "clearance/sessions#destroy"})
-        route(%{resource :password_reset, only: [:new, :create, :edit], controller: "clearance/password_resets"})
+        route(clearance_routes)
       end
 
       def add_controller_helpers
@@ -32,6 +27,16 @@ module Clearance
 
       def self.next_migration_number(dir)
         ActiveRecord::Generators::Base.next_migration_number(dir)
+      end
+
+      private
+
+      def clearance_routes
+        routes_file_path = File.expand_path(
+          find_in_source_paths("routes/routes.erb")
+        )
+
+        ERB.new(File.read(routes_file_path)).result(binding)
       end
     end
   end

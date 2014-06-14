@@ -43,7 +43,7 @@ describe Clearance::Configuration do
   describe "#password_reset_class" do
     it "defaults to PasswordReset" do
       klass = Clearance.config.password_reset_class
-      expect(klass).to eq Clearance::PasswordReset
+      expect(klass).to eq PasswordReset
     end
 
     it "can be overridden" do
@@ -80,6 +80,12 @@ describe Clearance::Configuration do
         Clearance.config.mailer_sender = sender
         expect(Clearance.config.mailer_sender).to eq sender
       end
+    end
+  end
+
+  describe "#user_param_key" do
+    it "returns the parameter key for the configured user class" do
+      expect(Clearance.config.user_param_key).to eq :user
     end
   end
 
