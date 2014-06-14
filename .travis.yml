@@ -1,0 +1,10 @@
+language: ruby
+rvm:
+  - 2.1.2
+before_install:
+  - git config --global user.name 'Travis CI'
+  - git config --global user.email 'travis-ci@example.com'
+install:
+  - bundle install
+notifications:
+  email: false
