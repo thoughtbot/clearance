@@ -79,7 +79,7 @@ helpers. For example:
 ```haml
 - if signed_in?
   = current_user.email
-  = link_to 'Sign out', sign_out_path, method: :delete
+  = button_to 'Sign out', sign_out_path, method: :delete
 - else
   = link_to 'Sign in', sign_in_path
 ```

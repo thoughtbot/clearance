@@ -23,11 +23,11 @@ module Features
 
     def user_should_be_signed_in
       visit root_path
-      page.should have_content I18n.t('layouts.application.sign_out')
+      page.should have_button I18n.t('layouts.application.sign_out')
     end
 
     def sign_out
-      click_link I18n.t('layouts.application.sign_out')
+      click_button I18n.t('layouts.application.sign_out')
     end
 
     def user_should_be_signed_out
