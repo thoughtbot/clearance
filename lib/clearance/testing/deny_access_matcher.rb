@@ -8,7 +8,7 @@ module Clearance
       end
 
       class DenyAccessMatcher
-        attr_reader :failure_message, :negative_failure_message
+        attr_reader :failure_message, :failure_message_when_negated
 
         def initialize(context, opts)
           @context = context
@@ -16,7 +16,7 @@ module Clearance
           @url = opts[:redirect]
 
           @failure_message = ''
-          @negative_failure_message = ''
+          @failure_message_when_negated = ''
         end
 
         def description
@@ -26,6 +26,14 @@ module Clearance
         def matches?(controller)
           @controller = controller
           sets_the_flash? && redirects_to_url?
+        end
+
+        def failure_message_for_should
+          failure_message
+        end
+
+        def failure_message_for_should_not
+          failure_message_when_negated
         end
 
         private
@@ -55,7 +63,8 @@ module Clearance
 
           begin
             @context.send(:assert_redirected_to, @url)
-            @negative_failure_message << "Didn't expect to redirect to #{@url}."
+            @failure_message_when_negated <<
+              "Didn't expect to redirect to #{@url}."
             true
           rescue Clearance::Testing::AssertionError
             @failure_message << "Expected to redirect to #{@url} but did not."
@@ -68,10 +77,12 @@ module Clearance
             true
           else
             if flash_notice_value == @flash
-              @negative_failure_message << "Didn't expect to set the flash to #{@flash}"
+              @failure_message_when_negated <<
+                "Didn't expect to set the flash to #{@flash}"
               true
             else
-              @failure_message << "Expected the flash to be set to #{@flash} but was #{flash_notice_value}"
+              @failure_message << "Expected the flash to be set to #{@flash} "\
+                "but was #{flash_notice_value}"
               false
             end
           end
