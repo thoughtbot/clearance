@@ -173,6 +173,8 @@ class SessionsController < Clearance::SessionsController
 class UsersController < Clearance::UsersController
 ```
 
+Don't forget to override routes to your new controllers!
+
 Then, override public methods:
 
     passwords#create
