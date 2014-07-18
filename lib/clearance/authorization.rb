@@ -41,7 +41,7 @@ module Clearance
 
     def store_location
       if request.get?
-        session[:return_to] = request.fullpath
+        session[:return_to] = request.original_fullpath
       end
     end
 
