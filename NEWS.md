@@ -1,5 +1,16 @@
 Thank you to all the [contributors](https://github.com/thoughtbot/clearance/graphs/contributors)!
 
+New for 1.4.0 (July 18, 2014)
+* The sign out link in the default application layout has been replaced with a
+  semantically correct sign out button. This also removes an unnecessary
+  JavaScript dependency.
+* Clearance now uses `original_fullpath` when redirecting to a saved URL after
+  login. This should improve the behavior in mounted engines.
+* `user_params` method was added to `Clearance::UsersController` which provides
+  a convenient place to override the parameters used when creating users.
+* Controllers now inherit from `Clearance::BaseController` to allow for easily
+  adding behavior to all of them.
+
 New for 1.3.0 (March 14, 2014)
 * Installing Clearance with an existing User model will now create a migration
   that includes adding remember tokens to all existing user records.
