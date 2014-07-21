@@ -10,7 +10,7 @@ class AddClearanceToUsers < ActiveRecord::Migration
     <%= index %>
 <% end -%>
 
-    users = select_all('SELECT id FROM users WHERE remember_token IS NULL')
+    users = select_all("SELECT id FROM users WHERE remember_token IS NULL")
 
     users.each do |user|
       update <<-SQL
@@ -24,7 +24,7 @@ class AddClearanceToUsers < ActiveRecord::Migration
   def self.down
     change_table :users do |t|
 <% if config[:new_columns].any? -%>
-      t.remove <%= new_columns.keys.map { |column| ":#{column}" }.join(',') %>
+      t.remove <%= new_columns.keys.map { |column| ":#{column}" }.join(",") %>
 <% end -%>
     end
   end

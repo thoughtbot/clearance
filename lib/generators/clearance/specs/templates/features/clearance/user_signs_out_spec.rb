@@ -1,7 +1,7 @@
-require 'spec_helper'
+require "spec_helper"
 
-feature 'User signs out' do
-  scenario 'signs out' do
+feature "User signs out" do
+  scenario "signs out" do
     user = signed_in_user
     sign_out
 

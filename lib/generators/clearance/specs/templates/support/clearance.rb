@@ -1,1 +1,1 @@
-require 'clearance/rspec'
+require "clearance/rspec"
