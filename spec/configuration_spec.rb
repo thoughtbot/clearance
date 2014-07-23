@@ -29,25 +29,32 @@ describe Clearance::Configuration do
   end
 
   context 'when secure_cookie is set to true' do
-    before do
+    it 'returns true' do
       Clearance.configure do |config|
         config.secure_cookie = true
       end
-    end
 
-    it 'returns true' do
       expect(Clearance.configuration.secure_cookie).to be_true
     end
   end
 
   context 'when secure_cookie is not specified' do
-    before do
-      Clearance.configure do |config|
+    it 'defaults to false' do
+      Clearance.configuration = Clearance::Configuration.new
+
+      silence_warnings do
+        expect(Clearance.configuration.secure_cookie).to be_false
       end
     end
 
-    it 'defaults to false' do
-      expect(Clearance.configuration.secure_cookie).to be_false
+    it 'warns when accessed if secure_cookie is nil' do
+      config = Clearance::Configuration.new
+      config.stubs(:warn)
+      Clearance.configuration = config
+
+      Clearance.configuration.secure_cookie
+
+      expect(config).to have_received(:warn)
     end
   end
 

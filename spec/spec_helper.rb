@@ -24,6 +24,10 @@ RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
   config.mock_with :mocha
   config.use_transactional_fixtures = true
+
+  config.before(:each) do
+    Clearance.configuration.secure_cookie = false
+  end
 end
 
 def restore_default_config
