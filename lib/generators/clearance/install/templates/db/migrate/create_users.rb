@@ -1,5 +1,5 @@
 class CreateUsers < ActiveRecord::Migration
-  def self.up
+  def change
     create_table :users  do |t|
       t.timestamps null: false
       t.string :email, null: false
@@ -10,9 +10,5 @@ class CreateUsers < ActiveRecord::Migration
 
     add_index :users, :email
     add_index :users, :remember_token
-  end
-
-  def self.down
-    drop_table :users
   end
 end
