@@ -25,6 +25,6 @@ describe ApisController do
 
   it 'responds with HTTP status code 401 when denied' do
     get :show, format: :js
-    subject.should respond_with(:unauthorized)
+    expect(subject).to respond_with(:unauthorized)
   end
 end

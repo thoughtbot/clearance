@@ -36,7 +36,7 @@ describe Clearance::Configuration do
     end
 
     it 'returns true' do
-      expect(Clearance.configuration.secure_cookie).to be_true
+      expect(Clearance.configuration.secure_cookie).to eq true
     end
   end
 
@@ -47,7 +47,7 @@ describe Clearance::Configuration do
     end
 
     it 'defaults to false' do
-      expect(Clearance.configuration.secure_cookie).to be_false
+      expect(Clearance.configuration.secure_cookie).to eq false
     end
   end
 
@@ -117,13 +117,13 @@ describe Clearance::Configuration do
     context 'when allow_sign_up is configured to false' do
       it 'returns false' do
         Clearance.configure { |config| config.allow_sign_up = false }
-        Clearance.configuration.allow_sign_up?.should be_false
+        expect(Clearance.configuration.allow_sign_up?).to eq false
       end
     end
 
     context 'when allow_sign_up has not been configured' do
       it 'returns true' do
-        Clearance.configuration.allow_sign_up?.should be_true
+        expect(Clearance.configuration.allow_sign_up?).to eq true
       end
     end
   end
@@ -132,13 +132,13 @@ describe Clearance::Configuration do
     context 'when allow_sign_up is configured to false' do
       it 'returns empty array' do
         Clearance.configure { |config| config.allow_sign_up = false }
-        Clearance.configuration.user_actions.should eq []
+        expect(Clearance.configuration.user_actions).to eq []
       end
     end
 
     context 'when sign_up has not been configured' do
       it 'returns create' do
-        Clearance.configuration.user_actions.should eq [:create]
+        expect(Clearance.configuration.user_actions).to eq [:create]
       end
     end
   end
@@ -148,7 +148,7 @@ describe Clearance::Configuration do
       CustomUser = Class.new(ActiveRecord::Base)
       Clearance.configure { |config| config.user_model = CustomUser }
 
-      Clearance.configuration.user_id_parameter.should eq :custom_user_id
+      expect(Clearance.configuration.user_id_parameter).to eq :custom_user_id
     end
   end
 end

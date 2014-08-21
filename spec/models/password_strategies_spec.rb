@@ -25,7 +25,7 @@ describe Clearance::User do
     before { Clearance.configuration.password_strategy = mock_password_strategy }
 
     it 'includes the value it is set to' do
-      subject.should be_kind_of(mock_password_strategy)
+      expect(subject).to be_kind_of(mock_password_strategy)
     end
   end
 
@@ -33,7 +33,7 @@ describe Clearance::User do
     before { Clearance.configuration.password_strategy = nil }
 
     it 'includes Clearance::PasswordStrategies::BCrypt' do
-      subject.should be_kind_of(Clearance::PasswordStrategies::BCrypt)
+      expect(subject).to be_kind_of(Clearance::PasswordStrategies::BCrypt)
     end
   end
 end

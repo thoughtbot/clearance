@@ -10,8 +10,8 @@ describe Clearance::BackDoor do
 
     result = back_door.call(env)
 
-    env[:clearance].should have_received(:sign_in).with(user)
-    result.should eq mock_app.call(env)
+    expect(env[:clearance]).to have_received(:sign_in).with(user)
+    expect(result).to eq mock_app.call(env)
   end
 
   it 'delegates directly without a user' do
@@ -20,8 +20,8 @@ describe Clearance::BackDoor do
 
     result = back_door.call(env)
 
-    env[:clearance].should have_received(:sign_in).never
-    result.should eq mock_app.call(env)
+    expect(env[:clearance]).to have_received(:sign_in).never
+    expect(result).to eq mock_app.call(env)
   end
 
   def env_without_user_id

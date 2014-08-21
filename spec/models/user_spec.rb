@@ -5,27 +5,27 @@ describe User do
   it { should have_db_index(:remember_token) }
 
   describe 'when signing up' do
-    it { should validate_presence_of(:email) }
-    it { should validate_presence_of(:password) }
-    it { should allow_value('foo@example.co.uk').for(:email) }
-    it { should allow_value('foo@example.com').for(:email) }
-    it { should allow_value('foo+bar@example.com').for(:email) }
-    it { should_not allow_value('foo@').for(:email) }
-    it { should_not allow_value('foo@example..com').for(:email) }
-    it { should_not allow_value('foo@.example.com').for(:email) }
-    it { should_not allow_value('foo').for(:email) }
-    it { should_not allow_value('example.com').for(:email) }
-    it { should_not allow_value('foo;@example.com').for(:email) }
+    it { is_expected.to validate_presence_of(:email) }
+    it { is_expected.to validate_presence_of(:password) }
+    it { is_expected.to allow_value('foo@example.co.uk').for(:email) }
+    it { is_expected.to allow_value('foo@example.com').for(:email) }
+    it { is_expected.to allow_value('foo+bar@example.com').for(:email) }
+    it { is_expected.not_to allow_value('foo@').for(:email) }
+    it { is_expected.not_to allow_value('foo@example..com').for(:email) }
+    it { is_expected.not_to allow_value('foo@.example.com').for(:email) }
+    it { is_expected.not_to allow_value('foo').for(:email) }
+    it { is_expected.not_to allow_value('example.com').for(:email) }
+    it { is_expected.not_to allow_value('foo;@example.com').for(:email) }
 
     it 'stores email in down case and removes whitespace' do
       user = create(:user, email: 'Jo hn.Do e @exa mp le.c om')
-      user.email.should == 'john.doe@example.com'
+      expect(user.email).to eq 'john.doe@example.com'
     end
   end
 
   describe 'when multiple users have signed up' do
     before { create(:user) }
-    it { should validate_uniqueness_of(:email) }
+    it { is_expected.to validate_uniqueness_of(:email) }
   end
 
   describe 'a user' do
@@ -35,22 +35,22 @@ describe User do
     end
 
     it 'is authenticated with correct email and password' do
-      User.authenticate(@user.email, @password).should eq(@user)
-      @user.should be_authenticated(@password)
+      expect(User.authenticate(@user.email, @password)).to eq(@user)
+      expect(@user).to be_authenticated(@password)
     end
 
     it 'is authenticated with correct uppercased email and correct password' do
-      User.authenticate(@user.email.upcase, @password).should eq(@user)
-      @user.should be_authenticated(@password)
+      expect(User.authenticate(@user.email.upcase, @password)).to eq(@user)
+      expect(@user).to be_authenticated(@password)
     end
 
     it 'is not authenticated with incorrect credentials' do
-      User.authenticate(@user.email, 'bad_password').should be_nil
-      @user.should_not be_authenticated('bad password')
+      expect(User.authenticate(@user.email, 'bad_password')).to be_nil
+      expect(@user).not_to be_authenticated('bad password')
     end
 
     it 'is retrieved via a case-insensitive search' do
-      User.find_by_normalized_email(@user.email.upcase).should eq(@user)
+      expect(User.find_by_normalized_email(@user.email.upcase)).to eq(@user)
     end
   end
 
@@ -62,7 +62,7 @@ describe User do
     end
 
     it 'changes the remember token' do
-      @user.remember_token.should_not == 'old-token'
+      expect(@user.remember_token).not_to eq 'old-token'
     end
   end
 
@@ -78,7 +78,7 @@ describe User do
       end
 
       it 'changes encrypted password' do
-        @user.encrypted_password.should_not == @old_encrypted_password
+        expect(@user.encrypted_password).not_to eq @old_encrypted_password
       end
     end
   end
@@ -88,7 +88,7 @@ describe User do
     password = 'secret'
     first_user = create(:user, password: password)
     second_user = create(:user, password: password)
-    second_user.remember_token.should_not == first_user.remember_token
+    expect(second_user.remember_token).not_to eq first_user.remember_token
   end
 
   describe 'a user' do
@@ -99,12 +99,12 @@ describe User do
 
     describe 'who requests password reminder' do
       before do
-        @user.confirmation_token.should be_nil
+        expect(@user.confirmation_token).to be_nil
         @user.forgot_password!
       end
 
       it 'generates confirmation token' do
-        @user.confirmation_token.should_not be_nil
+        expect(@user.confirmation_token).not_to be_nil
       end
 
       describe 'and then updates password' do
@@ -114,11 +114,11 @@ describe User do
           end
 
           it 'changes encrypted password' do
-            @user.encrypted_password.should_not == @old_encrypted_password
+            expect(@user.encrypted_password).not_to eq @old_encrypted_password
           end
 
           it 'clears confirmation token' do
-            @user.confirmation_token.should be_nil
+            expect(@user.confirmation_token).to be_nil
           end
         end
 
@@ -128,11 +128,11 @@ describe User do
           end
 
           it 'does not change encrypted password' do
-            @user.encrypted_password.to_s.should == @old_encrypted_password
+            expect(@user.encrypted_password.to_s).to eq @old_encrypted_password
           end
 
           it 'does not clear confirmation token' do
-            @user.confirmation_token.should_not be_nil
+            expect(@user.confirmation_token).to_not be_nil
           end
         end
       end
@@ -152,13 +152,13 @@ describe User do
 
     subject { @user }
 
-    it { should allow_value(nil).for(:email) }
-    it { should allow_value('').for(:email) }
+    it { is_expected.to allow_value(nil).for(:email) }
+    it { is_expected.to allow_value('').for(:email) }
   end
 
   describe 'user factory' do
     it 'should create a valid user with just an overridden password' do
-      build(:user, password: 'test').should be_valid
+      expect(build(:user, password: 'test')).to be_valid
     end
   end
 
@@ -166,7 +166,7 @@ describe User do
     let(:email) { 'Jo hn.Do e @exa mp le.c om' }
 
     it 'downcases the address and strips spaces' do
-      User.normalize_email(email).should eq 'john.doe@example.com'
+      expect(User.normalize_email(email)).to eq 'john.doe@example.com'
     end
   end
 
@@ -175,22 +175,22 @@ describe User do
     before { subject.send(:password=, password) }
 
     it 'sets password to the plain-text password' do
-      subject.password.should == password
+      expect(subject.password).to eq password
     end
 
     it 'also sets encrypted_password' do
-      subject.encrypted_password.should_not be_nil
+      expect(subject.encrypted_password).to_not be_nil
     end
   end
 end
 
 describe UserWithOptionalPassword do
-  it { should allow_value(nil).for(:password) }
-  it { should allow_value('').for(:password) }
+  it { is_expected.to allow_value(nil).for(:password) }
+  it { is_expected.to allow_value('').for(:password) }
 
   it 'cannot authenticate with blank password' do
     user = create(:user_with_optional_password)
 
-    UserWithOptionalPassword.authenticate(user.email, '').should be_nil
+    expect(UserWithOptionalPassword.authenticate(user.email, '')).to be_nil
   end
 end
