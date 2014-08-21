@@ -13,7 +13,7 @@ class FlashesController < ActionController::Base
   end
 end
 
-describe FlashesController do
+feature FlashesController do
   before do
     Rails.application.routes.draw do
       get '/set_flash' => 'flashes#set_flash'
@@ -27,6 +27,6 @@ describe FlashesController do
 
   it 'sets and views a flash' do
     visit '/set_flash?message=hello'
-    page.should have_content('hello')
+    expect(page).to have_content('hello')
   end
 end

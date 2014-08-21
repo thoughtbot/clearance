@@ -32,13 +32,13 @@ describe PermissionsController do
     it 'allows access to new' do
       get :new
 
-      subject.should_not deny_access
+      expect(subject).not_to deny_access
     end
 
     it 'allows access to show' do
       get :show
 
-      subject.should_not deny_access
+      expect(subject).not_to deny_access
     end
   end
 
@@ -46,13 +46,13 @@ describe PermissionsController do
     it 'allows access to new' do
       get :new
 
-      subject.should_not deny_access
+      expect(subject).not_to deny_access
     end
 
     it 'denies access to show' do
       get :show
 
-      subject.should deny_access(redirect: sign_in_url)
+      expect(subject).to deny_access(redirect: sign_in_url)
     end
   end
 
@@ -64,7 +64,7 @@ describe PermissionsController do
 
       get :show
 
-      subject.should deny_access
+      expect(subject).to deny_access
     end
   end
 end

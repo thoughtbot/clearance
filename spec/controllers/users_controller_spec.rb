@@ -9,9 +9,9 @@ describe Clearance::UsersController do
     describe 'on GET to #new' do
       before { get :new }
 
-      it { should respond_with(:success) }
-      it { should render_template(:new) }
-      it { should_not set_the_flash }
+      it { is_expected.to respond_with(:success) }
+      it { is_expected.to render_template(:new) }
+      it { is_expected.not_to set_the_flash }
     end
 
     describe 'on GET to #new with email' do
@@ -21,7 +21,7 @@ describe Clearance::UsersController do
       end
 
       it 'should set assigned user email' do
-        assigns(:user).email.should == @email
+        expect(assigns(:user).email).to eq @email
       end
     end
 
@@ -33,11 +33,11 @@ describe Clearance::UsersController do
       end
 
       it 'assigns a user' do
-        assigns(:user).should be
+        expect(assigns(:user)).to be_present
       end
 
       it 'should create a new user' do
-        User.count.should == @old_user_count + 1
+        expect(User.count).to eq @old_user_count + 1
       end
 
       it { should redirect_to_url_after_create }
@@ -53,11 +53,11 @@ describe Clearance::UsersController do
       end
 
       it 'assigns a user' do
-        assigns(:user).should be
+        expect(assigns(:user)).to be_present
       end
 
       it 'should create a new user' do
-        User.count.should == @old_user_count + 1
+        expect(User.count).to eq @old_user_count + 1
       end
 
       it { should redirect_to(@return_url) }

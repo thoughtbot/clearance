@@ -16,14 +16,14 @@ describe Clearance::PasswordStrategies::Blowfish do
       end
 
       it 'does not initialize the salt' do
-        subject.salt.should == salt
+        expect(subject.salt).to eq salt
       end
 
       it 'encrypts the password using Blowfish and the existing salt' do
         cipher = OpenSSL::Cipher::Cipher.new('bf-cbc').encrypt
         cipher.key = Digest::SHA256.digest(salt)
         expected = cipher.update("--#{salt}--#{password}--") << cipher.final
-        subject.encrypted_password.should == expected
+        expect(subject.encrypted_password).to eq expected
       end
     end
 
@@ -34,7 +34,7 @@ describe Clearance::PasswordStrategies::Blowfish do
       end
 
       it 'should initialize the salt' do
-        subject.salt.should_not be_nil
+        expect(subject.salt).not_to be_nil
       end
     end
   end

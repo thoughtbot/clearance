@@ -14,21 +14,23 @@ describe Clearance::PasswordStrategies::BCryptMigrationFromSHA1 do
 
     before do
       subject.salt = salt
-      subject.encrypted_password = Digest::SHA1.hexdigest("--#{salt}--#{password}--")
+      digestable = "--#{salt}--#{password}--"
+      subject.encrypted_password = Digest::SHA1.hexdigest(digestable)
       BCrypt::Password.stubs create: encrypted_password
       subject.password = password
     end
 
     it 'encrypts the password into a BCrypt-encrypted encrypted_password' do
-      subject.encrypted_password.should == encrypted_password
+      expect(subject.encrypted_password).to eq encrypted_password
     end
 
     it 'encrypts with BCrypt' do
-      BCrypt::Password.should have_received(:create).with(password, anything)
+      have_received_password = have_received(:create).with(password, anything)
+      expect(BCrypt::Password).to have_received_password
     end
 
     it 'sets the pasword on the subject' do
-      subject.password.should be_present
+      expect(subject.password).to be_present
     end
   end
 
@@ -45,23 +47,21 @@ describe Clearance::PasswordStrategies::BCryptMigrationFromSHA1 do
       end
 
       it 'is authenticated' do
-        subject.should be_authenticated(password)
+        expect(subject).to be_authenticated(password)
       end
 
       it 'changes the hash into a BCrypt-encrypted one' do
         subject.authenticated? password
-        subject.encrypted_password.should_not == sha1_hash
+        expect(subject.encrypted_password).not_to eq sha1_hash
       end
 
       it 'does not raise a BCrypt error for invalid passwords' do
-        expect {
-          subject.authenticated? 'bad' + password
-        }.not_to raise_error
+        expect { subject.authenticated? 'bad' + password }.not_to raise_error
       end
 
       it 'saves the subject to database' do
         subject.authenticated? password
-        subject.should have_received(:save)
+        expect(subject).to have_received(:save)
       end
     end
 
@@ -73,12 +73,12 @@ describe Clearance::PasswordStrategies::BCryptMigrationFromSHA1 do
       end
 
       it 'is authenticated' do
-        subject.should be_authenticated(password)
+        expect(subject).to be_authenticated(password)
       end
 
       it 'does not change the hash' do
         subject.authenticated? password
-        subject.encrypted_password.to_s.should == bcrypt_hash.to_s
+        expect(subject.encrypted_password.to_s).to eq bcrypt_hash.to_s
       end
     end
   end

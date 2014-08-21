@@ -16,12 +16,12 @@ describe Clearance::PasswordStrategies::SHA1 do
       end
 
       it 'does not initialize the salt' do
-        subject.salt.should == salt
+        expect(subject.salt).to eq salt
       end
 
       it 'encrypts the password using SHA1 and the existing salt' do
         expected = Digest::SHA1.hexdigest("--#{salt}--#{password}--")
-        subject.encrypted_password.should == expected
+        expect(subject.encrypted_password).to eq expected
       end
     end
 
@@ -32,11 +32,11 @@ describe Clearance::PasswordStrategies::SHA1 do
       end
 
       it "initializes the salt" do
-        subject.salt.should_not be_nil
+        expect(subject.salt).not_to be_nil
       end
 
       it "doesn't encrpt the password" do
-        subject.encrypted_password.should be_nil
+        expect(subject.encrypted_password).to be_nil
       end
     end
   end

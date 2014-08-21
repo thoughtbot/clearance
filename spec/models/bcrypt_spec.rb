@@ -16,7 +16,7 @@ describe Clearance::PasswordStrategies::BCrypt do
     it 'encrypts the password into encrypted_password' do
       subject.password = password
 
-      subject.encrypted_password.should == encrypted_password
+      expect(subject.encrypted_password).to eq encrypted_password
     end
 
     it 'encrypts with BCrypt using default cost in non test environments' do
@@ -24,7 +24,7 @@ describe Clearance::PasswordStrategies::BCrypt do
 
       subject.password = password
 
-      BCrypt::Password.should have_received(:create).with(
+      expect(BCrypt::Password).to have_received(:create).with(
         password,
         cost: ::BCrypt::Engine::DEFAULT_COST
       )
@@ -33,7 +33,7 @@ describe Clearance::PasswordStrategies::BCrypt do
     it 'encrypts with BCrypt using minimum cost in test environment' do
       subject.password = password
 
-      BCrypt::Password.should have_received(:create).with(
+      expect(BCrypt::Password).to have_received(:create).with(
         password,
         cost: ::BCrypt::Engine::MIN_COST
       )
@@ -50,7 +50,7 @@ describe Clearance::PasswordStrategies::BCrypt do
       let(:password) { 'password' }
 
       it 'is authenticated with BCrypt' do
-        subject.should be_authenticated(password)
+        expect(subject).to be_authenticated(password)
       end
     end
 
@@ -58,7 +58,7 @@ describe Clearance::PasswordStrategies::BCrypt do
       let(:password) { nil }
 
       it 'is not authenticated' do
-        subject.should_not be_authenticated(password)
+        expect(subject).not_to be_authenticated(password)
       end
     end
   end

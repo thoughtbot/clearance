@@ -4,7 +4,7 @@ describe Clearance::Session do
   before { Timecop.freeze }
   after { Timecop.return }
 
-  let(:headers) {{}}
+  let(:headers) { {} }
   let(:session) { Clearance::Session.new(env_without_remember_token) }
   let(:user) { create(:user) }
 
@@ -12,20 +12,22 @@ describe Clearance::Session do
     user = create(:user)
     env = env_with_remember_token(user.remember_token)
     session = Clearance::Session.new(env)
-    session.should be_signed_in
-    session.current_user.should == user
+
+    expect(session).to be_signed_in
+    expect(session.current_user).to eq user
   end
 
   it 'returns nil for an unknown user' do
     env = env_with_remember_token('bogus')
     session = Clearance::Session.new(env)
-    session.should be_signed_out
-    session.current_user.should be_nil
+
+    expect(session).to be_signed_out
+    expect(session.current_user).to be_nil
   end
 
   it 'returns nil without a remember token' do
-    session.should be_signed_out
-    session.current_user.should be_nil
+    expect(session).to be_signed_out
+    expect(session.current_user).to be_nil
   end
 
   describe '#sign_in' do
@@ -109,13 +111,15 @@ describe Clearance::Session do
 
       def stub_default_sign_in_guard
         stub(:default_sign_in_guard).tap do |sign_in_guard|
-          Clearance::DefaultSignInGuard.stubs(:new).with(session).returns(sign_in_guard)
+          Clearance::DefaultSignInGuard.stubs(:new).with(session).
+            returns(sign_in_guard)
         end
       end
 
       def stub_guard_class(guard)
         stub(:guard_class).tap do |guard_class|
-          guard_class.stubs(:new).with(session, stub_default_sign_in_guard).returns(guard)
+          guard_class.stubs(:new).with(session, stub_default_sign_in_guard).
+            returns(guard)
         end
       end
 
@@ -138,7 +142,7 @@ describe Clearance::Session do
     it 'sets a httponly cookie' do
       session.add_cookie_to_headers(headers)
 
-      headers['Set-Cookie'].should =~ /remember_token=.+; HttpOnly/
+      expect(headers['Set-Cookie']).to match(/remember_token=.+; HttpOnly/)
     end
 
     after { restore_default_config }
@@ -152,7 +156,7 @@ describe Clearance::Session do
     it 'sets a standard cookie' do
       session.add_cookie_to_headers(headers)
 
-      headers['Set-Cookie'].should_not =~ /remember_token=.+; HttpOnly/
+      expect(headers['Set-Cookie']).not_to match(/remember_token=.+; HttpOnly/)
     end
   end
 
@@ -164,7 +168,11 @@ describe Clearance::Session do
         session = Clearance::Session.new(env_without_remember_token)
         session.sign_in user
         session.add_cookie_to_headers headers
-        headers.should set_cookie('remember_token', user.remember_token, 1.year.from_now)
+
+        expect(headers).to set_cookie(
+          'remember_token',
+          user.remember_token, 1.year.from_now
+        )
       end
     end
 
@@ -175,6 +183,7 @@ describe Clearance::Session do
           session = Clearance::Session.new(env_without_remember_token)
           session.stubs(:warn)
           session.add_cookie_to_headers headers
+
           expect(session).to have_received(:warn).once
         end
       end
@@ -188,7 +197,11 @@ describe Clearance::Session do
           session.sign_in user
           session.stubs(:warn)
           session.add_cookie_to_headers headers
-          headers.should set_cookie('remember_token', user.remember_token, expires_at.call)
+
+          expect(headers).to set_cookie(
+            'remember_token',
+            user.remember_token, expires_at.call
+          )
         end
       end
     end
@@ -196,14 +209,23 @@ describe Clearance::Session do
     context 'configured with lambda taking one argument' do
       it 'it can use other cookies to set the value of the expires token' do
         remembered_expires = 12.hours.from_now
-        expires_at = ->(cookies) { cookies['remember_me'] ? remembered_expires : nil }
+        expires_at = ->(cookies) do
+          cookies['remember_me'] ? remembered_expires : nil
+        end
         with_custom_expiration expires_at do
           user = stub('User', remember_token: '123abc')
           headers = {}
-          session = Clearance::Session.new(env_with_cookies(remember_me: 'true'))
+          environment = env_with_cookies(remember_me: 'true')
+          session = Clearance::Session.new(environment)
           session.sign_in user
           session.add_cookie_to_headers headers
-          headers.should set_cookie('remember_token', user.remember_token, remembered_expires)
+
+          expect(headers).to set_cookie(
+            'remember_token',
+            user.remember_token,
+            remembered_expires
+          )
+
         end
       end
     end
@@ -218,7 +240,7 @@ describe Clearance::Session do
       it 'sets a standard cookie' do
         session.add_cookie_to_headers(headers)
 
-        headers['Set-Cookie'].should_not =~ /remember_token=.+; secure/
+        expect(headers['Set-Cookie']).not_to match(/remember_token=.+; secure/)
       end
     end
 
@@ -231,7 +253,7 @@ describe Clearance::Session do
       it 'sets a secure cookie' do
         session.add_cookie_to_headers(headers)
 
-        headers['Set-Cookie'].should =~ /remember_token=.+; secure/
+        expect(headers['Set-Cookie']).to match(/remember_token=.+; secure/)
       end
 
       after { restore_default_config }
@@ -248,7 +270,7 @@ describe Clearance::Session do
       it 'sets a standard cookie' do
         session.add_cookie_to_headers(headers)
 
-        headers['Set-Cookie'].should =~ /domain=\.example\.com; path/
+        expect(headers['Set-Cookie']).to match(/domain=\.example\.com; path/)
       end
 
       after { restore_default_config }
@@ -260,7 +282,7 @@ describe Clearance::Session do
       it 'sets a standard cookie' do
         session.add_cookie_to_headers(headers)
 
-        headers['Set-Cookie'].should_not =~ /domain=.+; path/
+        expect(headers['Set-Cookie']).not_to match(/domain=.+; path/)
       end
     end
   end
@@ -272,7 +294,7 @@ describe Clearance::Session do
       it 'sets a standard cookie' do
         session.add_cookie_to_headers(headers)
 
-        headers['Set-Cookie'].should_not =~ /domain=.+; path/
+        expect(headers['Set-Cookie']).to_not match(/domain=.+; path/)
       end
     end
 
@@ -285,7 +307,7 @@ describe Clearance::Session do
       it 'sets a standard cookie' do
         session.add_cookie_to_headers(headers)
 
-        headers['Set-Cookie'].should =~ /path=\/user; expires/
+        expect(headers['Set-Cookie']).to match(/path=\/user; expires/)
       end
 
       after { restore_default_config }
@@ -296,7 +318,7 @@ describe Clearance::Session do
     headers = {}
     session = Clearance::Session.new(env_without_remember_token)
     session.add_cookie_to_headers headers
-    headers.should_not set_cookie('remember_token')
+    expect(headers).not_to set_cookie('remember_token')
   end
 
   it 'signs out a user' do
@@ -305,8 +327,8 @@ describe Clearance::Session do
     env = env_with_remember_token(old_remember_token)
     session = Clearance::Session.new(env)
     session.sign_out
-    session.current_user.should be_nil
-    user.reload.remember_token.should_not == old_remember_token
+    expect(session.current_user).to be_nil
+    expect(user.reload.remember_token).not_to eq old_remember_token
   end
 
   def env_with_cookies(cookies)

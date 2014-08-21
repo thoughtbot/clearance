@@ -19,16 +19,16 @@ RSpec::Matchers.define :set_cookie do |name, expected_value, expected_expires_at
   end
 
   def ensure_cookie_set
-    @value.should == @expected_value
+    expect(@value).to eq @expected_value
   end
 
   def ensure_expiration_correct
-    @expires_at.should_not be_nil
-    @expires_at.should be_within(100).of(@expected_expires_at)
+    expect(@expires_at).not_to be_nil
+    expect(@expires_at).to be_within(100).of(@expected_expires_at)
   end
 
   def ensure_path_is_correct
-    @path.should == "/"
+    expect(@path).to eq '/'
   end
 
   def expectation
