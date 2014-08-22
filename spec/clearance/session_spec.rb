@@ -109,13 +109,15 @@ describe Clearance::Session do
 
       def stub_default_sign_in_guard
         stub(:default_sign_in_guard).tap do |sign_in_guard|
-          Clearance::DefaultSignInGuard.stubs(:new).with(session).returns(sign_in_guard)
+          Clearance::DefaultSignInGuard.stubs(:new).with(session).
+            returns(sign_in_guard)
         end
       end
 
       def stub_guard_class(guard)
         stub(:guard_class).tap do |guard_class|
-          guard_class.stubs(:new).with(session, stub_default_sign_in_guard).returns(guard)
+          guard_class.stubs(:new).with(session, stub_default_sign_in_guard).
+            returns(guard)
         end
       end
 
@@ -164,7 +166,8 @@ describe Clearance::Session do
         session = Clearance::Session.new(env_without_remember_token)
         session.sign_in user
         session.add_cookie_to_headers headers
-        expect(headers).to set_cookie('remember_token', user.remember_token, 1.year.from_now)
+        expect(headers).to set_cookie('remember_token',
+                                      user.remember_token, 1.year.from_now)
       end
     end
 
@@ -188,7 +191,8 @@ describe Clearance::Session do
           session.sign_in user
           session.stubs(:warn)
           session.add_cookie_to_headers headers
-          expect(headers).to set_cookie('remember_token', user.remember_token, expires_at.call)
+          expect(headers).to set_cookie('remember_token',
+                                        user.remember_token, expires_at.call)
         end
       end
     end
@@ -196,14 +200,17 @@ describe Clearance::Session do
     context 'configured with lambda taking one argument' do
       it 'it can use other cookies to set the value of the expires token' do
         remembered_expires = 12.hours.from_now
-        expires_at = ->(cookies) { cookies['remember_me'] ? remembered_expires : nil }
+        expires_at = ->(cookies) {
+          cookies['remember_me'] ? remembered_expires : nil
+        }
         with_custom_expiration expires_at do
           user = stub('User', remember_token: '123abc')
           headers = {}
           session = Clearance::Session.new(env_with_cookies(remember_me: 'true'))
           session.sign_in user
           session.add_cookie_to_headers headers
-          expect(headers).to set_cookie('remember_token', user.remember_token, remembered_expires)
+          expect(headers).to\
+            set_cookie('remember_token', user.remember_token, remembered_expires)
         end
       end
     end

@@ -24,9 +24,6 @@ RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
   config.mock_with :mocha
   config.use_transactional_fixtures = true
-  config.expect_with :rspec do |c|
-    c.syntax = :expect
-  end
   config.infer_spec_type_from_file_location!
 end
 

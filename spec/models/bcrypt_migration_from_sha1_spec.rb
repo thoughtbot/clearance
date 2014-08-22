@@ -14,7 +14,8 @@ describe Clearance::PasswordStrategies::BCryptMigrationFromSHA1 do
 
     before do
       subject.salt = salt
-      subject.encrypted_password = Digest::SHA1.hexdigest("--#{salt}--#{password}--")
+      subject.encrypted_password = 
+        Digest::SHA1.hexdigest("--#{salt}--#{password}--")
       BCrypt::Password.stubs create: encrypted_password
       subject.password = password
     end
@@ -24,7 +25,8 @@ describe Clearance::PasswordStrategies::BCryptMigrationFromSHA1 do
     end
 
     it 'encrypts with BCrypt' do
-      expect(BCrypt::Password).to have_received(:create).with(password, anything)
+      expect(BCrypt::Password).to\
+        have_received(:create).with(password, anything)
     end
 
     it 'sets the pasword on the subject' do

@@ -28,7 +28,7 @@ RSpec::Matchers.define :set_cookie do |name, expected_value, expected_expires_at
   end
 
   def ensure_path_is_correct
-    expect(@path).to eq "/"
+    expect(@path).to eq '/'
   end
 
   def expectation

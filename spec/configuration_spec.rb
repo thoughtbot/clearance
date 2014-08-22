@@ -36,7 +36,7 @@ describe Clearance::Configuration do
     end
 
     it 'returns true' do
-      expect(Clearance.configuration.secure_cookie).to eq true
+      expect(Clearance.configuration.secure_cookie).to be_truthy
     end
   end
 
@@ -47,7 +47,7 @@ describe Clearance::Configuration do
     end
 
     it 'defaults to false' do
-      expect(Clearance.configuration.secure_cookie).to eq false
+      expect(Clearance.configuration.secure_cookie).to be_falsey
     end
   end
 
@@ -117,13 +117,13 @@ describe Clearance::Configuration do
     context 'when allow_sign_up is configured to false' do
       it 'returns false' do
         Clearance.configure { |config| config.allow_sign_up = false }
-        expect(Clearance.configuration.allow_sign_up?).to eq false
+        expect(Clearance.configuration.allow_sign_up?).to be_falsey
       end
     end
 
     context 'when allow_sign_up has not been configured' do
       it 'returns true' do
-        expect(Clearance.configuration.allow_sign_up?).to eq true
+        expect(Clearance.configuration.allow_sign_up?).to be_truthy
       end
     end
   end

@@ -3,13 +3,14 @@ require 'spec_helper'
 describe Clearance::Constraints::SignedOut do
   it 'returns true when user is signed out' do
     signed_out_constraint = Clearance::Constraints::SignedOut.new
-    expect(signed_out_constraint.matches?(request_without_remember_token)).to eq true
+    expect(signed_out_constraint.matches?\
+           (request_without_remember_token)).to be_truthy
   end
 
   it 'returns false when user is not signed out' do
     user = create(:user)
     signed_out_constraint = Clearance::Constraints::SignedOut.new
-    expect(signed_out_constraint.matches?(request_with_remember_token(user.remember_token))).
-      to eq false
+    expect(signed_out_constraint.matches?\
+           (request_with_remember_token(user.remember_token))).to be_falsey
   end
 end
