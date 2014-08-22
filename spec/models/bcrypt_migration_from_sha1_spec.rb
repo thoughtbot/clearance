@@ -25,8 +25,8 @@ describe Clearance::PasswordStrategies::BCryptMigrationFromSHA1 do
     end
 
     it 'encrypts with BCrypt' do
-      expect(BCrypt::Password).to\
-        have_received(:create).with(password, anything)
+      have_received_password = have_received(:create).with(password, anything)
+      expect(BCrypt::Password).to have_received_password
     end
 
     it 'sets the pasword on the subject' do
