@@ -14,7 +14,7 @@ describe Clearance::PasswordStrategies::BCryptMigrationFromSHA1 do
 
     before do
       subject.salt = salt
-      subject.encrypted_password = 
+      subject.encrypted_password =
         Digest::SHA1.hexdigest("--#{salt}--#{password}--")
       BCrypt::Password.stubs create: encrypted_password
       subject.password = password

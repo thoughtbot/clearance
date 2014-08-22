@@ -200,9 +200,8 @@ describe Clearance::Session do
     context 'configured with lambda taking one argument' do
       it 'it can use other cookies to set the value of the expires token' do
         remembered_expires = 12.hours.from_now
-        expires_at = ->(cookies) {
-          cookies['remember_me'] ? remembered_expires : nil
-        }
+        expires_at = ->(cookies)\
+          { cookies['remember_me'] ? remembered_expires : nil }
         with_custom_expiration expires_at do
           user = stub('User', remember_token: '123abc')
           headers = {}
