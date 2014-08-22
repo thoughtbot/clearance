@@ -201,7 +201,7 @@ describe Clearance::Session do
       it 'it can use other cookies to set the value of the expires token' do
         remembered_expires = 12.hours.from_now
         expires_at = ->(cookies) do
-           cookies['remember_me'] ? remembered_expires : nil
+          cookies['remember_me'] ? remembered_expires : nil
         end
         with_custom_expiration expires_at do
           user = stub('User', remember_token: '123abc')
