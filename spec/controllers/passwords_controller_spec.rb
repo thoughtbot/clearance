@@ -84,8 +84,9 @@ describe Clearance::PasswordsController do
 
     describe 'on GET to #edit with correct id and token' do
       before do
-        get :edit, user_id: @user.to_param,
-          token: @user.confirmation_token
+        get :edit,
+            user_id: @user.to_param,
+            token: @user.confirmation_token
       end
 
       it 'should find the user' do

@@ -4,7 +4,7 @@ describe Clearance::Session do
   before { Timecop.freeze }
   after { Timecop.return }
 
-  let(:headers) {{}}
+  let(:headers) { {} }
   let(:session) { Clearance::Session.new(env_without_remember_token) }
   let(:user) { create(:user) }
 
