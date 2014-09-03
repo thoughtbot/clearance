@@ -56,7 +56,7 @@ describe Clearance::PasswordStrategies::BCryptMigrationFromSHA1 do
       end
 
       it 'does not raise a BCrypt error for invalid passwords' do
-        expect (
+        expect(
           subject.authenticated? 'bad' + password
         ).not_to raise_error
       end
