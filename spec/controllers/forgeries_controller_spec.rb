@@ -34,17 +34,17 @@ describe ForgeriesController do
 
     it 'succeeds with authentic token' do
       post :create, authenticity_token: 'golden-ticket'
-      subject.should redirect_to(action: 'index')
+      expect(subject).to redirect_to(action: 'index')
     end
 
     it 'fails with invalid token' do
       post :create, authenticity_token: 'hax0r'
-      subject.should deny_access
+      expect(subject).to deny_access
     end
 
     it 'fails with no token' do
       post :create
-      subject.should deny_access
+      expect(subject).to deny_access
     end
   end
 end

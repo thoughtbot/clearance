@@ -34,11 +34,11 @@ describe Clearance::SessionsController do
     it { should redirect_to_url_after_create }
 
     it 'sets the user in the clearance session' do
-      controller.current_user.should == @user
+      expect(controller.current_user).to eq @user
     end
 
     it 'should not change the remember token' do
-      @user.reload.remember_token.should == 'old-token'
+      expect(@user.reload.remember_token).to eq 'old-token'
     end
   end
 
@@ -75,11 +75,11 @@ describe Clearance::SessionsController do
     it { should redirect_to_url_after_destroy }
 
     it 'should reset the remember token' do
-      @user.reload.remember_token.should_not == 'old-token'
+      expect(@user.reload.remember_token).not_to eq 'old-token'
     end
 
     it 'should unset the current user' do
-      @controller.current_user.should be_nil
+      expect(@controller.current_user).to be_nil
     end
   end
 end

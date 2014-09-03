@@ -4,13 +4,14 @@ describe Clearance::Constraints::SignedIn do
   it 'returns true when user is signed in' do
     user = create(:user)
     signed_in_constraint = Clearance::Constraints::SignedIn.new
-    signed_in_constraint.matches?(request_with_remember_token(user.remember_token)).
-      should be_true
+    request = request_with_remember_token(user.remember_token)
+    expect(signed_in_constraint.matches? (request)).to be_truthy
   end
 
   it 'returns false when user is not signed in' do
     signed_in_constraint = Clearance::Constraints::SignedIn.new
-    signed_in_constraint.matches?(request_without_remember_token).should be_false
+    request = request_without_remember_token
+    expect(signed_in_constraint.matches? (request)).to be_falsey
   end
 
   it 'yields a signed-in user to a provided block' do
@@ -20,8 +21,9 @@ describe Clearance::Constraints::SignedIn do
       user.update_attribute :email, 'after@example.com'
     end
 
-    signed_in_constraint.matches?(request_with_remember_token(user.remember_token))
-    user.reload.email.should == 'after@example.com'
+    request = request_with_remember_token(user.remember_token)
+    signed_in_constraint.matches? (request)
+    expect(user.reload.email).to eq 'after@example.com'
   end
 
   it 'does not yield a user if they are not signed in' do
@@ -32,20 +34,20 @@ describe Clearance::Constraints::SignedIn do
     end
 
     signed_in_constraint.matches?(request_without_remember_token)
-    user.reload.email.should == 'before@example.com'
+    expect(user.reload.email).to eq 'before@example.com'
   end
 
   it 'matches if the user-provided block returns true' do
     user = create(:user)
     signed_in_constraint = Clearance::Constraints::SignedIn.new { |user| true }
-    signed_in_constraint.matches?(request_with_remember_token(user.remember_token)).
-      should be_true
+    request = request_with_remember_token(user.remember_token)
+    expect(signed_in_constraint.matches? (request)).to be_truthy
   end
 
   it 'does not match if the user-provided block returns false' do
     user = create(:user)
     signed_in_constraint = Clearance::Constraints::SignedIn.new { |user| false }
-    signed_in_constraint.matches?(request_with_remember_token(user.remember_token)).
-      should be_false
+    request = request_with_remember_token(user.remember_token)
+    expect(signed_in_constraint.matches? (request)).to be_falsey
   end
 end
