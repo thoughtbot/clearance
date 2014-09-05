@@ -1,5 +1,9 @@
 Thank you to all the [contributors](https://github.com/thoughtbot/clearance/graphs/contributors)!
 
+New for 1.4.1 (September 5, 2014)
+* Prevent BCrypt strategy from raising an exception when `encypted_password`
+  is nil.
+
 New for 1.4.0 (July 18, 2014)
 * The sign out link in the default application layout has been replaced with a
   semantically correct sign out button. This also removes an unnecessary
