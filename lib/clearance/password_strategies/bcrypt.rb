@@ -6,7 +6,9 @@ module Clearance
       extend ActiveSupport::Concern
 
       def authenticated?(password)
-        ::BCrypt::Password.new(encrypted_password) == password
+        if encrypted_password.present?
+          ::BCrypt::Password.new(encrypted_password) == password
+        end
       end
 
       def password=(new_password)

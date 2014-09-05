@@ -41,14 +41,25 @@ describe Clearance::PasswordStrategies::BCrypt do
   end
 
   describe '#authenticated?' do
-    let(:password) { 'password' }
 
     before do
       subject.password = password
     end
 
-    it 'is authenticated with BCrypt' do
-      subject.should be_authenticated(password)
+    context 'given a password' do
+      let(:password) { 'password' }
+
+      it 'is authenticated with BCrypt' do
+        subject.should be_authenticated(password)
+      end
+    end
+
+    context 'given no password' do
+      let(:password) { nil }
+
+      it 'is not authenticated' do
+        subject.should_not be_authenticated(password)
+      end
     end
   end
 end
