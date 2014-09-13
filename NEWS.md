@@ -1,5 +1,8 @@
 Thank you to all the [contributors](https://github.com/thoughtbot/clearance/graphs/contributors)!
 
+New for 1.4.2 (September 13, 2014)
+* Eliminate deprecation message when using DenyAccess matcher with RSpec 3.
+
 New for 1.4.1 (September 5, 2014)
 * Prevent BCrypt strategy from raising an exception when `encypted_password`
   is nil.
