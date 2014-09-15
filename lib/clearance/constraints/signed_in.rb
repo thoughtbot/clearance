@@ -12,8 +12,12 @@ module Clearance
 
       private
 
+      def clearance_session
+        @request.env[:clearance]
+      end
+
       def current_user
-        @request.env[:clearance].current_user
+        clearance_session.current_user
       end
 
       def current_user_fulfills_additional_requirements?
@@ -21,7 +25,7 @@ module Clearance
       end
 
       def signed_in?
-        @request.env[:clearance].signed_in?
+        clearance_session.present? && clearance_session.signed_in?
       end
     end
   end
