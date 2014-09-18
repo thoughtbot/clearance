@@ -232,6 +232,19 @@ Override them like any other translation.
 See [config/locales/clearance.en.yml](/config/locales/clearance.en.yml) for the
 default behavior.
 
+Overriding layouts
+----------------
+
+By default, Clearance uses your application's default layout. If you would like 
+to change the layout that Clearance uses when rendering its views, simply specify 
+the layout in an initializer.
+
+```ruby
+Clearance::PasswordsController.layout 'my_passwords_layout'
+Clearance::SessionsController.layout 'my_sessions_layout'
+Clearance::UsersController.layout 'my_admin_layout'
+```
+
 Overriding views
 ----------------
 
