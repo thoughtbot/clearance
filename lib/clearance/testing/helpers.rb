@@ -19,7 +19,7 @@ module Clearance
       end
 
       def sign_in_as(user)
-        @controller.sign_in user
+        @controller.send(:sign_in, user)
         user
       end
 

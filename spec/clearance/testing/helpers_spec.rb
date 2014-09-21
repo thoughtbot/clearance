@@ -9,6 +9,8 @@ describe Clearance::Testing::Helpers do
     end
 
     class Controller
+      protected
+
       def sign_in(user); end
     end
   end
