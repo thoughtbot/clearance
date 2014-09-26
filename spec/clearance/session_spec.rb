@@ -12,6 +12,7 @@ describe Clearance::Session do
     user = create(:user)
     env = env_with_remember_token(user.remember_token)
     session = Clearance::Session.new(env)
+
     expect(session).to be_signed_in
     expect(session.current_user).to eq user
   end
@@ -19,6 +20,7 @@ describe Clearance::Session do
   it 'returns nil for an unknown user' do
     env = env_with_remember_token('bogus')
     session = Clearance::Session.new(env)
+
     expect(session).to be_signed_out
     expect(session.current_user).to be_nil
   end
@@ -166,8 +168,11 @@ describe Clearance::Session do
         session = Clearance::Session.new(env_without_remember_token)
         session.sign_in user
         session.add_cookie_to_headers headers
-        expect(headers).to set_cookie('remember_token',
-                                      user.remember_token, 1.year.from_now)
+
+        expect(headers).to set_cookie(
+          'remember_token',
+          user.remember_token, 1.year.from_now
+        )
       end
     end
 
@@ -178,6 +183,7 @@ describe Clearance::Session do
           session = Clearance::Session.new(env_without_remember_token)
           session.stubs(:warn)
           session.add_cookie_to_headers headers
+
           expect(session).to have_received(:warn).once
         end
       end
@@ -191,8 +197,11 @@ describe Clearance::Session do
           session.sign_in user
           session.stubs(:warn)
           session.add_cookie_to_headers headers
-          expect(headers).to set_cookie('remember_token',
-                                        user.remember_token, expires_at.call)
+
+          expect(headers).to set_cookie(
+            'remember_token',
+            user.remember_token, expires_at.call
+          )
         end
       end
     end
@@ -210,8 +219,13 @@ describe Clearance::Session do
           session = Clearance::Session.new(environment)
           session.sign_in user
           session.add_cookie_to_headers headers
-          cookie = set_cookie('remember_token', user.remember_token, remembered_expires)
-          expect(headers).to cookie
+
+          expect(headers).to set_cookie(
+            'remember_token',
+            user.remember_token,
+            remembered_expires
+          )
+
         end
       end
     end

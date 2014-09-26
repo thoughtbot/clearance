@@ -28,7 +28,7 @@ describe Clearance::PasswordsController do
 
         it 'sends an email with relevant subject' do
           email = ActionMailer::Base.deliveries.last
-          expect(email.subject).to match /change your password/i
+          expect(email.subject).to match(/change your password/i)
         end
 
         it { is_expected.to respond_with(:success) }
@@ -46,7 +46,7 @@ describe Clearance::PasswordsController do
 
         it 'sends an email with relevant subject' do
           email = ActionMailer::Base.deliveries.last
-          expect(email.subject).to match /change your password/i
+          expect(email.subject).to match(/change your password/i)
         end
 
         it { is_expected.to respond_with(:success) }
@@ -56,7 +56,7 @@ describe Clearance::PasswordsController do
         before do
           email = 'user1@example.com'
           user = Clearance.configuration.user_model.exists?(['email = ?', email])
-          expect(user).not_to be
+          expect(user).not_to be_present
           ActionMailer::Base.deliveries.clear
           expect(@user.reload.confirmation_token).to eq @user.confirmation_token
 

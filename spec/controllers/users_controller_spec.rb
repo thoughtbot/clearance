@@ -33,7 +33,7 @@ describe Clearance::UsersController do
       end
 
       it 'assigns a user' do
-        expect(assigns(:user)).to be
+        expect(assigns(:user)).to be_present
       end
 
       it 'should create a new user' do
@@ -53,7 +53,7 @@ describe Clearance::UsersController do
       end
 
       it 'assigns a user' do
-        expect(assigns(:user)).to be
+        expect(assigns(:user)).to be_present
       end
 
       it 'should create a new user' do

@@ -14,8 +14,8 @@ describe Clearance::PasswordStrategies::BCryptMigrationFromSHA1 do
 
     before do
       subject.salt = salt
-      subject.encrypted_password =
-        Digest::SHA1.hexdigest("--#{salt}--#{password}--")
+      digestable = "--#{salt}--#{password}--"
+      subject.encrypted_password = Digest::SHA1.hexdigest(digestable)
       BCrypt::Password.stubs create: encrypted_password
       subject.password = password
     end
@@ -56,9 +56,9 @@ describe Clearance::PasswordStrategies::BCryptMigrationFromSHA1 do
       end
 
       it 'does not raise a BCrypt error for invalid passwords' do
-        expect(
+        expect{
           subject.authenticated? 'bad' + password
-        ).not_to raise_error
+        }.not_to raise_error
       end
 
       it 'saves the subject to database' do
