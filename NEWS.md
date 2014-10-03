@@ -1,5 +1,8 @@
 Thank you to all the [contributors](https://github.com/thoughtbot/clearance/graphs/contributors)!
 
+New for 1.4.3 (October 3, 2014)
+* Routing constraints act appropriately when session data is missing.
+
 New for 1.4.2 (September 13, 2014)
 * Eliminate deprecation message when using DenyAccess matcher with RSpec 3.
 
