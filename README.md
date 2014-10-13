@@ -1,8 +1,8 @@
 Clearance
 =========
 
-[![Build Status](https://secure.travis-ci.org/thoughtbot/clearance.png)](http://travis-ci.org/thoughtbot/clearance?branch=master)
-[![Code Climate](https://codeclimate.com/github/thoughtbot/clearance.png)](https://codeclimate.com/github/thoughtbot/clearance)
+[![Build Status](https://secure.travis-ci.org/thoughtbot/clearance.svg)](http://travis-ci.org/thoughtbot/clearance?branch=master)
+[![Code Climate](https://codeclimate.com/github/thoughtbot/clearance.svg)](https://codeclimate.com/github/thoughtbot/clearance)
 
 Rails authentication with email & password.
 
