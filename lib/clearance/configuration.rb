@@ -1,6 +1,6 @@
 module Clearance
   class Configuration
-    attr_writer :allow_sign_up
+    attr_writer :allow_sign_up, :routes
 
     attr_accessor \
       :cookie_domain,
@@ -21,6 +21,7 @@ module Clearance
       @httponly = false
       @mailer_sender = 'reply@example.com'
       @redirect_url = '/'
+      @routes = true
       @secure_cookie = false
       @sign_in_guards = []
     end
@@ -43,6 +44,10 @@ module Clearance
 
     def user_id_parameter
       "#{user_model.model_name.singular}_id".to_sym
+    end
+
+    def routes_enabled?
+      @routes
     end
   end
 
