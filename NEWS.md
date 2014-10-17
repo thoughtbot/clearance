@@ -1,5 +1,10 @@
 Thank you to all the [contributors](https://github.com/thoughtbot/clearance/graphs/contributors)!
 
+New for 1.5.0 (October 17, 2014)
+* Disable clearance routes by setting `config.routes = false`.
+* Running `rails generate clearance:routes` will dump the default set of
+  routes to your application's routes file for modification.
+
 New for 1.4.3 (October 3, 2014)
 * Routing constraints act appropriately when session data is missing.
 
