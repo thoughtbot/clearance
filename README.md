@@ -60,6 +60,7 @@ Clearance.configure do |config|
   config.cookie_domain = '.example.com'
   config.cookie_expiration = lambda { |cookies| 1.year.from_now.utc }
   config.cookie_path = '/'
+  config.routes = true
   config.httponly = false
   config.mailer_sender = 'reply@example.com'
   config.password_strategy = Clearance::PasswordStrategies::BCrypt
@@ -151,13 +152,17 @@ end
 Overriding routes
 -----------------
 
-See [config/routes.rb](/config/routes.rb) for the default behavior.
+See [config/routes.rb](/config/routes.rb) for the default set of routes.
 
-To override a Clearance route, redefine it:
+Route overrides became more difficult with [changes made in Rails
+4][rails_routes]. For this reason, Clearance 1.5 introduces an option to disable
+all clearance routes, giving the user full control over routing and URL design.
 
-```ruby
-resource :session, controller: 'sessions'
-```
+To disable the routes, set `config.routes = false`. You can optionally run
+`rails generate clearance:routes` to dump a copy of the default routes into your
+application for modification.
+
+[rails_routes]: https://github.com/rails/rails/issues/11895
 
 Overriding controllers
 ----------------------
@@ -173,7 +178,7 @@ class SessionsController < Clearance::SessionsController
 class UsersController < Clearance::UsersController
 ```
 
-Don't forget to override routes to your new controllers!
+Don't forget to [override routes](#overriding-routes) to your new controllers!
 
 Then, override public methods:
 
@@ -235,8 +240,8 @@ default behavior.
 Overriding layouts
 ----------------
 
-By default, Clearance uses your application's default layout. If you would like 
-to change the layout that Clearance uses when rendering its views, simply specify 
+By default, Clearance uses your application's default layout. If you would like
+to change the layout that Clearance uses when rendering its views, simply specify
 the layout in an initializer.
 
 ```ruby
