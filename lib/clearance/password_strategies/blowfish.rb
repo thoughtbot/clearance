@@ -1,4 +1,5 @@
 require 'openssl'
+require 'base64'
 
 module Clearance
   module PasswordStrategies
@@ -25,7 +26,8 @@ module Clearance
       def generate_hash(string)
         cipher = OpenSSL::Cipher::Cipher.new('bf-cbc').encrypt
         cipher.key = Digest::SHA256.digest(salt)
-        cipher.update(string) << cipher.final
+        hash = cipher.update(string) << cipher.final
+        Base64.encode64(hash).encode('utf-8')
       end
 
       def initialize_salt_if_necessary
@@ -35,7 +37,7 @@ module Clearance
       end
 
       def generate_salt
-        SecureRandom.hex(20).encode('UTF-8')
+        Base64.encode64(SecureRandom.hex(20)).encode('utf-8')
       end
     end
   end
