@@ -23,7 +23,8 @@ describe Clearance::PasswordStrategies::Blowfish do
         cipher = OpenSSL::Cipher::Cipher.new('bf-cbc').encrypt
         cipher.key = Digest::SHA256.digest(salt)
         expected = cipher.update("--#{salt}--#{password}--") << cipher.final
-        expect(subject.encrypted_password).to eq expected
+        encrypted_password = Base64.decode64(subject.encrypted_password)
+        expect(encrypted_password).to eq expected
       end
     end
 

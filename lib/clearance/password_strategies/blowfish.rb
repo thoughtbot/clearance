@@ -26,8 +26,8 @@ module Clearance
       def generate_hash(string)
         cipher = OpenSSL::Cipher::Cipher.new('bf-cbc').encrypt
         cipher.key = Digest::SHA256.digest(salt)
-        cipher.update(string) << cipher.final
-        Base64.encode64(string).encode('utf-8')
+        hash = cipher.update(string) << cipher.final
+        Base64.encode64(hash).encode('utf-8')
       end
 
       def initialize_salt_if_necessary
