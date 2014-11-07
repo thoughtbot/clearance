@@ -25,6 +25,10 @@ describe ClearanceMailer do
     @email.subject.should =~ /Change your password/
   end
 
+  it 'has subject line properly scoped to localized value' do
+    @email.subject.should == I18n.t('clearance_mailer.change_password.subject')
+  end
+
   it 'contains opening text in the body' do
     @email.body.should =~ /a link to change your password/
   end

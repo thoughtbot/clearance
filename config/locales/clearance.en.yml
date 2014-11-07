@@ -1,6 +1,8 @@
 en:
   clearance_mailer:
     change_password:
+      subject:
+        'Change your password'
       opening:
         'Someone, hopefully you, requested we send you a link to change your
          password:'
