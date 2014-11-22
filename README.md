@@ -314,6 +314,7 @@ Clearance::PasswordStrategies::BCrypt
 Clearance::PasswordStrategies::BCryptMigrationFromSHA1
 Clearance::PasswordStrategies::Blowfish
 Clearance::PasswordStrategies::SHA1
+Clearance::PasswordStrategies::PKCS5
 ```
 
 The previous default password strategy was SHA1.
@@ -329,7 +330,8 @@ switch to BCrypt transparently, use
 [Clearance::PasswordStrategies::BCryptMigrationFromSHA1](/lib/clearance/password_strategies/bcrypt_migration_from_sha1.rb).
 
 The SHA1 and Blowfish password strategies require an additional `salt` column in
-the `users` table. Run this migration before switching to SHA or Blowfish:
+the `users` table. Run this migration before switching to SHA, Blowfish
+or PKCS5:
 
 ```ruby
 class AddSaltToUsers < ActiveRecord::Migration

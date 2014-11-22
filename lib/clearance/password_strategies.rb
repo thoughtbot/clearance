@@ -5,5 +5,6 @@ module Clearance
       'clearance/password_strategies/bcrypt_migration_from_sha1'
     autoload :Blowfish, 'clearance/password_strategies/blowfish'
     autoload :SHA1, 'clearance/password_strategies/sha1'
+    autoload :PKCS5, 'clearance/password_strategies/pkcs5'
   end
 end
