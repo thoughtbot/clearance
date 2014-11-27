@@ -3,7 +3,7 @@ class Clearance::UsersController < Clearance::BaseController
   before_filter :avoid_sign_in, only: [:create, :new], if: :signed_in?
 
   def new
-    @user = user_from_params
+    @user = Clearance.configuration.user_model.new
     render template: 'users/new'
   end
 
