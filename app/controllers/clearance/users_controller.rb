@@ -4,6 +4,9 @@ class Clearance::UsersController < Clearance::BaseController
 
   def new
     @user = Clearance.configuration.user_model.new
+    if got_email?
+      @user.email = params[:user][:email]
+    end
     render template: 'users/new'
   end
 
@@ -22,6 +25,10 @@ class Clearance::UsersController < Clearance::BaseController
 
   def avoid_sign_in
     redirect_to Clearance.configuration.redirect_url
+  end
+
+  def got_email?
+    params[:user] && params[:user][:email]
   end
 
   def url_after_create
