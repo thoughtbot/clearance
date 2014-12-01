@@ -1,9 +1,8 @@
 We love pull requests. Here's a quick guide:
 
-1. Fork the repo and `bundle install`
+1. Fork the repo.
 
-2. Set up Appraisal, which helps us test against multiple Rails versions:
-   `bundle exec appraisal install`
+2. Run `./bin/setup`.
 
 3. Run the tests. We only take pull requests with passing tests, and it's great
    to know that you have a clean slate: `bundle exec appraisal rake`
