@@ -223,7 +223,7 @@ To override them all at once, change the global configuration:
 
 ```ruby
 Clearance.configure do |config|
-  config.redirect_url = '/overriden'
+  config.redirect_url = '/overridden'
 end
 ```
 
