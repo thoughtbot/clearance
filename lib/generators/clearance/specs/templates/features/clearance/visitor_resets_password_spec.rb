@@ -12,29 +12,33 @@ feature "Visitor resets password" do
   scenario "with valid email" do
     user = user_with_reset_password
 
-    page_should_display_change_password_message
-    reset_notification_should_be_sent_to user
+    expect_page_to_display_change_password_message
+    expect_reset_notification_to_be_sent_to user
   end
 
   scenario "with non-user account" do
     reset_password_for "unknown.email@example.com"
 
-    page_should_display_change_password_message
-    mailer_should_have_no_deliveries
+    expect_page_to_display_change_password_message
+    expect_mailer_to_have_no_deliveries
   end
 
   private
 
-  def reset_notification_should_be_sent_to(user)
+  def expect_reset_notification_to_be_sent_to(user)
     expect(user.confirmation_token).not_to be_blank
-    mailer_should_have_delivery user.email, "password", user.confirmation_token
+    expect_mailer_to_have_delivery(
+      user.email,
+      "password",
+      user.confirmation_token
+    )
   end
 
-  def page_should_display_change_password_message
+  def expect_page_to_display_change_password_message
     expect(page).to have_content I18n.t("passwords.create.description")
   end
 
-  def mailer_should_have_delivery(recipient, subject, body)
+  def expect_mailer_to_have_delivery(recipient, subject, body)
     expect(ActionMailer::Base.deliveries).not_to be_empty
 
     message = ActionMailer::Base.deliveries.any? do |email|
@@ -46,7 +50,7 @@ feature "Visitor resets password" do
     expect(message).to be
   end
 
-  def mailer_should_have_no_deliveries
+  def expect_mailer_to_have_no_deliveries
     expect(ActionMailer::Base.deliveries).to be_empty
   end
 end

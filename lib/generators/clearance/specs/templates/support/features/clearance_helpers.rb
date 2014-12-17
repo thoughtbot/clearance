@@ -30,12 +30,12 @@ module Features
       click_button I18n.t("helpers.submit.user.create")
     end
 
-    def user_should_be_signed_in
+    def expect_user_to_be_signed_in
       visit root_path
       expect(page).to have_button I18n.t("layouts.application.sign_out")
     end
 
-    def user_should_be_signed_out
+    def expect_user_to_be_signed_out
       expect(page).to have_content I18n.t("layouts.application.sign_in")
     end
 
