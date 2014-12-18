@@ -9,4 +9,4 @@ bundle exec appraisal clean
 bundle exec appraisal install
 
 # Set up database for the application that Clearance tests against
-RAILS_ENV=test rake db:create db:migrate
+RAILS_ENV=test rake db:reset
