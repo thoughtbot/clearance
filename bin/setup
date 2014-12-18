@@ -5,6 +5,7 @@ set -e
 # Install required gems, including Appraisal, which helps us test against
 # multiple Rails versions
 bundle install
+bundle exec appraisal clean
 bundle exec appraisal install
 
 # Set up database for the application that Clearance tests against
