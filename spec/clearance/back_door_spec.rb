@@ -3,8 +3,8 @@ require 'spec_helper'
 describe Clearance::BackDoor do
   it 'signs in as a given user' do
     user_id = '123'
-    user = stub('user')
-    User.stubs(:find).with(user_id).returns(user)
+    user = double("user")
+    allow(User).to receive(:find).with(user_id).and_return(user)
     env = env_for_user_id(user_id)
     back_door = Clearance::BackDoor.new(mock_app)
 
@@ -20,7 +20,7 @@ describe Clearance::BackDoor do
 
     result = back_door.call(env)
 
-    expect(env[:clearance]).to have_received(:sign_in).never
+    expect(env[:clearance]).not_to have_received(:sign_in)
     expect(result).to eq mock_app.call(env)
   end
 
@@ -29,7 +29,7 @@ describe Clearance::BackDoor do
   end
 
   def env_for_user_id(user_id)
-    clearance = stub('clearance', sign_in: true)
+    clearance = double("clearance", sign_in: true)
     Rack::MockRequest.env_for("/?as=#{user_id}").merge(clearance: clearance)
   end
 

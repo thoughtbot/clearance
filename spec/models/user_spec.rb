@@ -84,7 +84,7 @@ describe User do
   end
 
   it 'does not generate same remember token for users with same password at same time' do
-    Time.stubs now: Time.now
+    allow(Time).to receive(:now).and_return(Time.now)
     password = 'secret'
     first_user = create(:user, password: password)
     second_user = create(:user, password: password)

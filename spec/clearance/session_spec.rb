@@ -59,14 +59,14 @@ describe Clearance::Session do
       end
 
       def stub_status(status_class, success)
-        stub('status', success?: success).tap do |status|
-          status_class.stubs(new: status)
+        double("status", success?: success).tap do |status|
+          allow(status_class).to receive(:new).and_return(status)
         end
       end
 
       def stub_callable
         lambda {}.tap do |callable|
-          callable.stubs(:call)
+          allow(callable).to receive(:call)
         end
       end
     end
@@ -104,27 +104,29 @@ describe Clearance::Session do
       def stub_sign_in_guard(options)
         session_status = stub_status(options.fetch(:succeed))
 
-        stub('guard', call: session_status).tap do |guard|
+        double("guard", call: session_status).tap do |guard|
           Clearance.configuration.sign_in_guards << stub_guard_class(guard)
         end
       end
 
       def stub_default_sign_in_guard
-        stub(:default_sign_in_guard).tap do |sign_in_guard|
-          Clearance::DefaultSignInGuard.stubs(:new).with(session).
-            returns(sign_in_guard)
+        double("default_sign_in_guard").tap do |sign_in_guard|
+          allow(Clearance::DefaultSignInGuard).to receive(:new).
+            with(session).
+            and_return(sign_in_guard)
         end
       end
 
       def stub_guard_class(guard)
-        stub(:guard_class).tap do |guard_class|
-          guard_class.stubs(:new).with(session, stub_default_sign_in_guard).
-            returns(guard)
+        double("guard_class").tap do |guard_class|
+          allow(guard_class).to receive(:new).
+            with(session, stub_default_sign_in_guard).
+            and_return(guard)
         end
       end
 
       def stub_status(success)
-        stub('status', success?: success)
+        double("status", success?: success)
       end
 
       after do
@@ -163,7 +165,7 @@ describe Clearance::Session do
   describe 'remember token cookie expiration' do
     context 'default configuration' do
       it 'is set to 1 year from now' do
-        user = stub('User', remember_token: '123abc')
+        user = double("User", remember_token: "123abc")
         headers = {}
         session = Clearance::Session.new(env_without_remember_token)
         session.sign_in user
@@ -181,7 +183,7 @@ describe Clearance::Session do
         expiration = -> { Time.now }
         with_custom_expiration expiration do
           session = Clearance::Session.new(env_without_remember_token)
-          session.stubs(:warn)
+          allow(session).to receive(:warn)
           session.add_cookie_to_headers headers
 
           expect(session).to have_received(:warn).once
@@ -191,11 +193,11 @@ describe Clearance::Session do
       it 'is set to the value of the evaluated lambda' do
         expires_at = -> { 1.day.from_now }
         with_custom_expiration expires_at do
-          user = stub('User', remember_token: '123abc')
+          user = double("User", remember_token: "123abc")
           headers = {}
           session = Clearance::Session.new(env_without_remember_token)
           session.sign_in user
-          session.stubs(:warn)
+          allow(session).to receive(:warn)
           session.add_cookie_to_headers headers
 
           expect(headers).to set_cookie(
@@ -213,7 +215,7 @@ describe Clearance::Session do
           cookies['remember_me'] ? remembered_expires : nil
         end
         with_custom_expiration expires_at do
-          user = stub('User', remember_token: '123abc')
+          user = double("User", remember_token: "123abc")
           headers = {}
           environment = env_with_cookies(remember_me: 'true')
           session = Clearance::Session.new(environment)

@@ -3,8 +3,8 @@ require 'spec_helper'
 describe Clearance::RackSession do
   it 'injects a clearance session into the environment' do
     expected_session = 'the session'
-    expected_session.stubs :add_cookie_to_headers
-    Clearance::Session.stubs new: expected_session
+    allow(expected_session).to receive(:add_cookie_to_headers)
+    allow(Clearance::Session).to receive(:new).and_return(expected_session)
     headers = { 'X-Roaring-Lobster' => 'Red' }
 
     app = Rack::Builder.new do
@@ -19,6 +19,6 @@ describe Clearance::RackSession do
     expect(Clearance::Session).to have_received(:new).with(env)
     expect(response.body).to eq expected_session
     expect(expected_session).to have_received(:add_cookie_to_headers).
-      with(has_entries(headers))
+      with(hash_including(headers))
   end
 end

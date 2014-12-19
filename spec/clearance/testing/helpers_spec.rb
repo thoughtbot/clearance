@@ -16,8 +16,9 @@ describe Clearance::Testing::Helpers do
   describe '#sign_in' do
     it 'creates an instance of the clearance user model with FactoryGirl' do
       MyUserModel = Class.new
-      FactoryGirl.stubs(:create)
-      Clearance.configuration.stubs(user_model: MyUserModel)
+      allow(FactoryGirl).to receive(:create)
+      allow(Clearance.configuration).to receive(:user_model).
+        and_return(MyUserModel)
 
       TestClass.new.sign_in
 

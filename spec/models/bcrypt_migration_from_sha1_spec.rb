@@ -10,13 +10,13 @@ describe Clearance::PasswordStrategies::BCryptMigrationFromSHA1 do
   describe '#password=' do
     let(:salt) { 'salt' }
     let(:password) { 'password' }
-    let(:encrypted_password) { stub('encrypted password') }
+    let(:encrypted_password) { double("encrypted password") }
 
     before do
       subject.salt = salt
       digestable = "--#{salt}--#{password}--"
       subject.encrypted_password = Digest::SHA1.hexdigest(digestable)
-      BCrypt::Password.stubs create: encrypted_password
+      allow(BCrypt::Password).to receive(:create).and_return(encrypted_password)
       subject.password = password
     end
 
@@ -43,7 +43,7 @@ describe Clearance::PasswordStrategies::BCryptMigrationFromSHA1 do
       before do
         subject.salt = salt
         subject.encrypted_password = sha1_hash
-        subject.stubs save: true
+        allow(subject).to receive(:save).and_return(true)
       end
 
       it 'is authenticated' do
