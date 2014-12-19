@@ -8,7 +8,7 @@ module Features
 
     def sign_in
       password = "password"
-      user = create(:user, password: password)
+      user = FactoryGirl.create(:user, password: password)
       sign_in_with user.email, password
     end
 
@@ -40,10 +40,13 @@ module Features
     end
 
     def user_with_reset_password
-      user = create(:user)
+      user = FactoryGirl.create(:user)
       reset_password_for user.email
       user.reload
     end
-
   end
+end
+
+RSpec.configure do |config|
+  config.include Features::ClearanceHelpers, type: :feature
 end
