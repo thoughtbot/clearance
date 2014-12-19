@@ -1,5 +1,10 @@
 Thank you to all the [contributors](https://github.com/thoughtbot/clearance/graphs/contributors)!
 
+New for 1.5.1 (December 19, 2014)
+* Blowfish password strategy fixed
+* Specs generated with `rails generate clearance:specs` now work properly in
+  RSpec 3 projects.
+
 New for 1.5.0 (October 17, 2014)
 * Disable clearance routes by setting `config.routes = false`.
 * Running `rails generate clearance:routes` will dump the default set of
