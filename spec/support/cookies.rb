@@ -1,5 +1,5 @@
 RSpec::Matchers.define :set_cookie do |name, expected_value, expected_expires_at|
-  failure_message_for_should do
+  failure_message do
     "Expected #{expectation} got #{result}"
   end
 

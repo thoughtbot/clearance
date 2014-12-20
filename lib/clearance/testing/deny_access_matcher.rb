@@ -1,5 +1,3 @@
-require 'clearance/testing/assertion_error'
-
 module Clearance
   module Testing
     module Matchers
@@ -66,7 +64,7 @@ module Clearance
             @failure_message_when_negated <<
               "Didn't expect to redirect to #{@url}."
             true
-          rescue Clearance::Testing::AssertionError
+          rescue MiniTest::Assertion
             @failure_message << "Expected to redirect to #{@url} but did not."
             false
           end

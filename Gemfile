@@ -9,9 +9,8 @@ gem 'capybara', '~> 2.2.0'
 gem 'cucumber-rails', '~> 1.3', require: false
 gem 'database_cleaner', '~> 1.0'
 gem 'factory_girl_rails', '~> 4.2'
-gem 'rspec-rails'
+gem 'rspec-rails', '~> 3.1'
 gem 'shoulda-matchers', '~> 2.4'
 gem 'sqlite3', '~> 1.3'
 gem 'timecop', '~> 0.6'
-gem 'rspec', '~> 2.14'
 gem 'pry', require: false
