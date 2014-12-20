@@ -1,5 +1,9 @@
 Thank you to all the [contributors](https://github.com/thoughtbot/clearance/graphs/contributors)!
 
+New for 1.6.0 (December 20, 2014)
+* When using Rails 4.2, password reset emails are sent with the
+  ActiveJob-compatible `#deliver_later` method.
+
 New for 1.5.1 (December 19, 2014)
 * Blowfish password strategy fixed
 * Specs generated with `rails generate clearance:specs` now work properly in
