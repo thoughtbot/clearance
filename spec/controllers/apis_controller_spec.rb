@@ -5,8 +5,6 @@ class ApisController < ActionController::Base
 
   before_filter :authorize
 
-  respond_to :js
-
   def show
     render text: 'response'
   end

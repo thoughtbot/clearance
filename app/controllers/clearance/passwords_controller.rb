@@ -37,7 +37,13 @@ class Clearance::PasswordsController < Clearance::BaseController
   private
 
   def deliver_email(user)
-    ::ClearanceMailer.change_password(user).deliver
+    mail = ::ClearanceMailer.change_password(user)
+
+    if Gem::Version.new(Rails::VERSION::STRING) >= Gem::Version.new("4.2.0")
+      mail.deliver_later
+    else
+      mail.deliver
+    end
   end
 
   def password_reset_params

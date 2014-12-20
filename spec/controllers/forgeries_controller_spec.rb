@@ -25,7 +25,6 @@ describe ForgeriesController do
       @user = create(:user)
       @user.update_attribute(:remember_token, 'old-token')
       @request.cookies['remember_token'] = 'old-token'
-      @request.session[:_csrf_token] = 'golden-ticket'
     end
 
     after do
@@ -33,7 +32,8 @@ describe ForgeriesController do
     end
 
     it 'succeeds with authentic token' do
-      post :create, authenticity_token: 'golden-ticket'
+      token = controller.send(:form_authenticity_token)
+      post :create, authenticity_token: token
       expect(subject).to redirect_to(action: 'index')
     end
 

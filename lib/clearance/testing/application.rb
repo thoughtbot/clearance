@@ -5,7 +5,7 @@ module Clearance
     APP_ROOT = File.expand_path('..', __FILE__).freeze
 
     def self.rails4?
-      Rails::VERSION::MAJOR == 4
+      Rails::VERSION::MAJOR >= 4
     end
 
     I18n.enforce_available_locales = true
@@ -27,6 +27,7 @@ module Clearance
       config.paths['config/database'] = "#{APP_ROOT}/config/database.yml"
       config.paths['log'] = 'tmp/log/development.log'
       config.secret_token = 'SECRET_TOKEN_IS_MIN_30_CHARS_LONG'
+      config.active_support.test_order = :random
 
       if Clearance::Testing.rails4?
         config.paths.add 'config/routes.rb', with: "#{APP_ROOT}/config/routes.rb"

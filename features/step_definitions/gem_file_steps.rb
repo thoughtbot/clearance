@@ -9,7 +9,7 @@ end
 When /^I remove the "([^"]*)" gem from this project$/ do |gem_name|
   in_current_dir do
     content = File.read('Gemfile')
-    content.gsub!(/^.*gem 'turn'.*\n/, '')
+    content.sub!(/^.*gem '#{gem_name}'.*\n/, "")
     File.open('Gemfile', 'w') { |file| file.write(content) }
   end
 end

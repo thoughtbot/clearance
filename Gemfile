@@ -14,3 +14,4 @@ gem 'shoulda-matchers', '~> 2.4'
 gem 'sqlite3', '~> 1.3'
 gem 'timecop', '~> 0.6'
 gem 'rspec', '~> 2.14'
+gem 'pry', require: false

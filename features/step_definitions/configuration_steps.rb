@@ -26,6 +26,12 @@ When "I have a project with clearance" do
     And I configure ActionMailer to use "localhost" as a host
     And I configure a root route
     And I remove the "turn" gem from this project
+    And I remove the "web-console" gem from this project
+    And I remove the "jbuilder" gem from this project
+    And I remove the "sdoc" gem from this project
+    And I remove the "byebug" gem from this project
+    And I remove the "debugger" gem from this project
+    And I remove the "spring" gem from this project
     And I add the "clearance" gem from this project
   }
 end
