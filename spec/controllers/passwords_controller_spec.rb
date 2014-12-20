@@ -138,7 +138,31 @@ describe Clearance::PasswordsController do
         expect(@user.remember_token).not_to be_nil
       end
 
+
       it { is_expected.to redirect_to_url_after_update }
+    end
+
+    describe "on PUT with  an invalid user" do
+      it "should not validate the user" do
+        @user.stubs(:valid?).returns(false)
+        old_encrypted_password = @user.encrypted_password
+        new_password = "new_password"
+
+        reset_password(new_password)
+
+        expect(@user.encrypted_password).not_to eq old_encrypted_password
+      end
+
+      def reset_password(new_password)
+        expect(@user.encrypted_password).not_to eq new_password
+
+        put :update,
+          user_id: @user,
+          token: @user.confirmation_token,
+          password_reset: { password: new_password }
+
+        @user.reload
+      end
     end
 
     describe 'on PUT to #update with blank password' do
