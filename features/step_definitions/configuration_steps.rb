@@ -17,7 +17,7 @@ When "I have a project with clearance" do
 
   step 'I cd to "testapp"'
 
-  unless Clearance::Testing.rails4?
+  unless Dummy.rails4?
     step 'I remove the file "public/index.html"'
   end
 
@@ -145,7 +145,7 @@ When /^I create a migration with clearance fields$/ do
 end
 
 def controller_test_dir
-  if Clearance::Testing.rails4?
+  if Dummy.rails4?
     'controllers'
   else
     'functional'

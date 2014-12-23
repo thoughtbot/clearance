@@ -1,7 +1,7 @@
 ENV["RAILS_ENV"] ||= "test"
 
 require "rails/all"
-require "clearance/testing/application"
+require "dummy/application"
 
 require "clearance/rspec"
 require "factory_girl_rails"
@@ -11,7 +11,7 @@ require "timecop"
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
-Clearance::Testing::Application.initialize!
+Dummy::Application.initialize!
 
 RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods

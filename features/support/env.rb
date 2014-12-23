@@ -5,7 +5,7 @@ require "rails/all"
 
 require "clearance"
 require "aruba/cucumber"
-require "clearance/testing/application"
+require_relative "../../spec/dummy/application"
 require "cucumber/rails/action_controller"
 require "cucumber/rails/application"
 require "cucumber/rails/capybara"
@@ -16,7 +16,7 @@ require "cucumber/rails/world"
 ActionController::Base.allow_rescue = false
 Capybara.default_selector = :css
 Capybara.save_and_open_page_path = "tmp"
-Clearance::Testing::Application.initialize!
+Dummy::Application.initialize!
 
 DatabaseCleaner.strategy = :transaction
 
