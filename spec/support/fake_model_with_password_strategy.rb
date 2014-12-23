@@ -8,7 +8,3 @@ module FakeModelWithPasswordStrategy
     end.new
   end
 end
-
-RSpec.configure do |config|
-  config.include FakeModelWithPasswordStrategy
-end

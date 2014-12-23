@@ -1,4 +1,5 @@
 require "spec_helper"
+include FakeModelWithPasswordStrategy
 
 describe Clearance::PasswordStrategies::BCryptMigrationFromSHA1 do
   describe "#password=" do
