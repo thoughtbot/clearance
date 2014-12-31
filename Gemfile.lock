@@ -44,6 +44,10 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
+    ammeter (1.1.2)
+      activesupport (>= 3.0)
+      railties (>= 3.0)
+      rspec-rails (>= 2.2)
     appraisal (1.0.2)
       bundler
       rake
@@ -180,6 +184,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  ammeter
   appraisal (~> 1.0)
   aruba (~> 0.5)
   bundler (~> 1.3)

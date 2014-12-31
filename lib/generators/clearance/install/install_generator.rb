@@ -12,10 +12,10 @@ module Clearance
       end
 
       def inject_clearance_into_application_controller
-        inject_into(
+        inject_into_class(
+          "app/controllers/application_controller.rb",
           ApplicationController,
-          'app/controllers/application_controller.rb',
-          'include Clearance::Controller'
+          "  include Clearance::Controller\n"
         )
       end
 
@@ -64,16 +64,6 @@ module Clearance
             config
           )
         end
-      end
-
-      def inject_into(class_name, file, text)
-        if file_does_not_contain?(file, text)
-          inject_into_class file, class_name, "  #{text}\n"
-        end
-      end
-
-      def file_does_not_contain?(file, text)
-        File.readlines(file).grep(/#{text}/).none?
       end
 
       def migration_needed?
