@@ -1,5 +1,5 @@
 class Clearance::SessionsController < Clearance::BaseController
-  skip_before_filter :authorize, only: [:create, :new, :destroy]
+  skip_before_filter :require_login, only: [:create, :new, :destroy]
   protect_from_forgery except: :create
 
   def create

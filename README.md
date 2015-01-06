@@ -100,11 +100,11 @@ Clearance.configure do |config|
 end
 ```
 
-Use `authorize` to control access in controllers:
+Use `require_login` to control access in controllers:
 
 ```ruby
 class ArticlesController < ApplicationController
-  before_filter :authorize
+  before_filter :require_login
 
   def index
     current_user.articles
@@ -460,10 +460,10 @@ Run the specs:
 
     rake
 
-Testing authorized controller actions
--------------------------------------
+Testing controller actions that require login
+---------------------------------------------
 
-To test controller actions that are protected by `before_filter :authorize`,
+To test controller actions that are protected by `before_filter :require_login`,
 require Clearance's test helpers and matchers in your test suite.
 
 For `rspec`, add this line to your `spec/spec_helper.rb`:

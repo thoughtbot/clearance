@@ -3,13 +3,21 @@ module Clearance
     extend ActiveSupport::Concern
 
     included do
-      hide_action :authorize, :deny_access
+      hide_action :authorize, :deny_access, :require_login
     end
 
-    def authorize
+    def require_login
       unless signed_in?
         deny_access
       end
+    end
+
+    def authorize
+      warn "[DEPRECATION] Clearance's `authorize` before_filter is " +
+        "deprecated. Use `require_login` instead. Be sure to update any " +
+        "instances of `skip_before_filter :authorize` or " +
+        "`skip_before_action :authorize` as well"
+      require_login
     end
 
     def deny_access(flash_message = nil)

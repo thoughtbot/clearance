@@ -1,5 +1,10 @@
 Thank you to all the [contributors](https://github.com/thoughtbot/clearance/graphs/contributors)!
 
+New on Master
+* The `authorize` filter has been deprecated in favor of `require_login`. Update
+  all reference to the filter including any calls to `skip_before_filter` or
+  `skip_before_action`.
+
 New for 1.6.1 (January 6, 2015)
 * Secure cookies are no longer overwritten when the user visits a non-HTTPS URL.
 
