@@ -11,7 +11,9 @@ module Clearance
     end
 
     def add_cookie_to_headers(headers)
-      Rack::Utils.set_cookie_header!(headers, REMEMBER_TOKEN_COOKIE, cookie_value)
+      if cookie_value[:value].present?
+        Rack::Utils.set_cookie_header!(headers, REMEMBER_TOKEN_COOKIE, cookie_value)
+      end
     end
 
     def current_user
