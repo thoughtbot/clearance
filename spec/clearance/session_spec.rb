@@ -320,7 +320,7 @@ describe Clearance::Session do
     headers = {}
     session = Clearance::Session.new(env_without_remember_token)
     session.add_cookie_to_headers headers
-    expect(headers).not_to set_cookie('remember_token')
+    expect(headers["Set-Cookie"]).to be nil
   end
 
   it 'signs out a user' do
