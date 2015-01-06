@@ -3,6 +3,8 @@ require 'spec_helper'
 describe Clearance::User do
   subject do
     class UniquenessValidator < ActiveModel::Validator
+      undef validate
+
       def validate(record)
       end
     end

@@ -27,7 +27,7 @@ module Clearance
     end
 
     def user_model
-      @user_model || ::User
+      @user_model ||= ::User
     end
 
     def allow_sign_up?

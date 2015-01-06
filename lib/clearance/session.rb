@@ -6,6 +6,8 @@ module Clearance
 
     def initialize(env)
       @env = env
+      @current_user = nil
+      @cookies = nil
     end
 
     def add_cookie_to_headers(headers)
