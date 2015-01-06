@@ -17,6 +17,5 @@ script:
 branches:
   only:
     - master
-    - 2.0
 
 sudo: false
