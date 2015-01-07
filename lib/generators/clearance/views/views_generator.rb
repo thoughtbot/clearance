@@ -3,7 +3,7 @@ require 'rails/generators/base'
 module Clearance
   module Generators
     class ViewsGenerator < Rails::Generators::Base
-      source_root Clearance.root
+      source_root File.expand_path("../../../../..", __FILE__)
 
       def create_views
         views.each do |view|
