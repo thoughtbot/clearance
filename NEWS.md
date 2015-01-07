@@ -1,5 +1,8 @@
 Thank you to all the [contributors](https://github.com/thoughtbot/clearance/graphs/contributors)!
 
+New for 1.6.1 (January 6, 2015)
+* Secure cookies are no longer overwritten when the user visits a non-HTTPS URL.
+
 New for 1.6.0 (December 20, 2014)
 * When using Rails 4.2, password reset emails are sent with the
   ActiveJob-compatible `#deliver_later` method.
