@@ -64,7 +64,7 @@ module Clearance
             @failure_message_when_negated <<
               "Didn't expect to redirect to #{@url}."
             true
-          rescue MiniTest::Assertion
+          rescue MiniTest::Assertion, ::Test::Unit::AssertionFailedError
             @failure_message << "Expected to redirect to #{@url} but did not."
             false
           end

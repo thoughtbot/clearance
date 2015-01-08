@@ -7,6 +7,7 @@ Feature: generate rspec integration tests with application
       | rspec-rails        |
       | factory_girl_rails |
       | database_cleaner   |
+      | test-unit          |
 
   Scenario: generate a Rails app, run the generators, and run the tests
     When I install dependencies
