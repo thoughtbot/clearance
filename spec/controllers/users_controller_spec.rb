@@ -1,88 +1,75 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe Clearance::UsersController do
   it { should be_a Clearance::BaseController }
 
-  describe 'when signed out' do
-    before { sign_out }
+  describe "on GET to #new" do
+    context "when signed out" do
+      it "renders a form for a new user" do
+        get :new
 
-    describe 'on GET to #new' do
-      before { get :new }
-
-      it { is_expected.to respond_with(:success) }
-      it { is_expected.to render_template(:new) }
-      it { is_expected.not_to set_the_flash }
-    end
-
-    describe 'on GET to #new with email' do
-      before do
-        @email = 'a@example.com'
-        get :new, user: { email: @email }
+        expect(response).to be_success
+        expect(response).to render_template(:new)
       end
 
-      it 'should set assigned user email' do
-        expect(assigns(:user).email).to eq @email
+      it "defaults email field to the value provided in the query string" do
+        get :new, user: { email: "a@example.com" }
+
+        expect(assigns(:user).email).to eq "a@example.com"
+        expect(response).to be_success
+        expect(response).to render_template(:new)
       end
     end
 
-    describe 'on POST to #create with valid attributes' do
-      before do
-        user_attributes = FactoryGirl.attributes_for(:user)
-        @old_user_count = User.count
-        post :create, user: user_attributes
+    context "when signed in" do
+      it "redirects to the configured clearance redirect url" do
+        sign_in
+
+        get :new
+
+        expect(response).to redirect_to(Clearance.configuration.redirect_url)
       end
-
-      it 'assigns a user' do
-        expect(assigns(:user)).to be_present
-      end
-
-      it 'should create a new user' do
-        expect(User.count).to eq @old_user_count + 1
-      end
-
-      it { should redirect_to_url_after_create }
-    end
-
-    describe 'on POST to #create with valid attributes and a session return url' do
-      before do
-        user_attributes = FactoryGirl.attributes_for(:user)
-        @old_user_count = User.count
-        @return_url = '/url_in_the_session'
-        @request.session[:return_to] = @return_url
-        post :create, user: user_attributes
-      end
-
-      it 'assigns a user' do
-        expect(assigns(:user)).to be_present
-      end
-
-      it 'should create a new user' do
-        expect(User.count).to eq @old_user_count + 1
-      end
-
-      it { should redirect_to(@return_url) }
     end
   end
 
-  describe 'A signed-in user' do
-    before do
-      @user = create(:user)
-      sign_in_as @user
-    end
+  describe "on POST to #create" do
+    context "when signed out" do
+      context "with valid attributes" do
+        it "assigns and creates a user then redirects to the redirect_url" do
+          user_attributes = FactoryGirl.attributes_for(:user)
+          old_user_count = User.count
 
-    describe 'GET to new' do
-      before { get :new }
+          post :create, user: user_attributes
 
-      it 'redirects to the home page' do
-        should redirect_to(Clearance.configuration.redirect_url)
+          expect(assigns(:user)).to be_present
+          expect(User.count).to eq old_user_count + 1
+          expect(response).to redirect_to(Clearance.configuration.redirect_url)
+        end
+      end
+
+      context "with valid attributes and a session return url" do
+        it "assigns and creates a user then redirects to the return_url" do
+          user_attributes = FactoryGirl.attributes_for(:user)
+          old_user_count = User.count
+          return_url = "/url_in_the_session"
+          @request.session[:return_to] = return_url
+
+          post :create, user: user_attributes
+
+          expect(assigns(:user)).to be_present
+          expect(User.count).to eq old_user_count + 1
+          expect(response).to redirect_to(return_url)
+        end
       end
     end
 
-    describe 'POST to create' do
-      before { post :create, user: {} }
+    context "when signed in" do
+      it "redirects to the configured clearance redirect url" do
+        sign_in
 
-      it 'redirects to the home page' do
-        should redirect_to(Clearance.configuration.redirect_url)
+        post :create, user: {}
+
+        expect(response).to redirect_to(Clearance.configuration.redirect_url)
       end
     end
   end
