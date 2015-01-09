@@ -37,6 +37,6 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib']
   s.required_ruby_version = Gem::Requirement.new('>= 1.9.2')
   s.summary = 'Rails authentication & authorization with email & password.'
-  s.test_files = `git ls-files -- {features,spec}/*`.split("\n")
+  s.test_files = `git ls-files -- {spec}/*`.split("\n")
   s.version = Clearance::VERSION
 end

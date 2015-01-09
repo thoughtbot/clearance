@@ -1,10 +1,8 @@
-# encoding: utf-8
 require "rubygems"
 require "bundler/setup"
 require "bundler/gem_tasks"
 
 require "rake"
-require "cucumber/rake/task"
 require "rspec/core/rake_task"
 
 namespace :dummy do
@@ -12,12 +10,17 @@ namespace :dummy do
   Dummy::Application.load_tasks
 end
 
-desc "Default"
-task default: [:spec, :cucumber]
-
-Cucumber::Rake::Task.new(:cucumber) do |t|
-  t.fork = false
-  t.cucumber_opts = ["--format", (ENV["CUCUMBER_FORMAT"] || "progress")]
+desc "Run specs other than spec/acceptance"
+RSpec::Core::RakeTask.new("spec") do |task|
+  task.exclude_pattern = "spec/acceptance/**/*_spec.rb"
+  task.verbose = false
 end
 
-RSpec::Core::RakeTask.new(:spec)
+desc "Run acceptance specs in spec/acceptance"
+RSpec::Core::RakeTask.new("spec:acceptance") do |task|
+  task.pattern = "spec/acceptance/**/*_spec.rb"
+  task.verbose = false
+end
+
+desc "Run the specs and acceptance tests"
+task default: %w(spec spec:acceptance)
