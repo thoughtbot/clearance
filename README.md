@@ -216,6 +216,7 @@ All of these controller methods redirect to `'/'` by default:
 
     passwords#url_after_update
     sessions#url_after_create
+    sessions#url_for_signed_in_users
     users#url_after_create
     application#url_after_denied_access_when_signed_in
 
