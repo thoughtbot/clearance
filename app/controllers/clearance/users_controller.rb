@@ -1,10 +1,10 @@
 class Clearance::UsersController < Clearance::BaseController
+  before_filter :redirect_signed_in_users, only: [:create, :new]
   skip_before_filter :require_login, only: [:create, :new]
-  before_filter :avoid_sign_in, only: [:create, :new], if: :signed_in?
 
   def new
     @user = user_from_params
-    render template: 'users/new'
+    render template: "users/new"
   end
 
   def create
@@ -14,14 +14,24 @@ class Clearance::UsersController < Clearance::BaseController
       sign_in @user
       redirect_back_or url_after_create
     else
-      render template: 'users/new'
+      render template: "users/new"
     end
   end
 
   private
 
   def avoid_sign_in
-    redirect_to Clearance.configuration.redirect_url
+    warn "[DEPRECATION] Clearance's `avoid_sign_in` before_filter is " +
+      "deprecated. Use `redirect_signed_in_users` instead. " +
+      "Be sure to update any instances of `skip_before_filter :avoid_sign_in`" +
+      " or `skip_before_action :avoid_sign_in` as well"
+    redirect_signed_in_users
+  end
+
+  def redirect_signed_in_users
+    if signed_in?
+      redirect_to Clearance.configuration.redirect_url
+    end
   end
 
   def url_after_create
