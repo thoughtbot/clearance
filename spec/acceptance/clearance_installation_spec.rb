@@ -35,7 +35,7 @@ describe "Clearance Installation" do
   end
 
   def testapp_templates
-    File.expand_path("../../support/app_templates/testapp/", __FILE__)
+    File.expand_path("../../app_templates/testapp/", __FILE__)
   end
 
   def configure_test_app

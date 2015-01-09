@@ -4,22 +4,6 @@ Clearance.configure do |config|
   # need an empty block to initialize the configuration object
 end
 
-class ApplicationController < ActionController::Base
-  include Clearance::Controller
-end
-
-class User < ActiveRecord::Base
-  include Clearance::User
-end
-
-class UserWithOptionalPassword < User
-  private
-
-  def password_optional?
-    true
-  end
-end
-
 module Clearance
   module Test
     module Redirects
