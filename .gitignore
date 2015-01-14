@@ -9,3 +9,5 @@ gemfiles/*.lock
 log/*.log
 pkg
 tmp/
+doc/
+.yardoc/

@@ -10,6 +10,8 @@ require 'clearance/password_strategies'
 require 'clearance/constraints'
 
 module Clearance
+  # @deprecated Use `Gem::Specification` API if you need to access Clearance's
+  #   Gem root.
   def self.root
     warn "#{Kernel.caller.first}: [DEPRECATION] `Clearance.root` is " +
       "deprecated and will be removed in the next major release. If you need " +
