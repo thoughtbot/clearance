@@ -10,7 +10,12 @@ Clearance was extracted out of [Airbrake](http://airbrake.io/). It is intended
 to be small, simple, and well-tested. It is intended to be easy to override
 defaults.
 
-Use [GitHub Issues](https://github.com/thoughtbot/clearance/issues) for help.
+Please use [GitHub Issues] to report bugs. If you have a question about the
+library, please use the `clearance` tag on [Stack Overflow]. This tag is
+monitored by contributors.
+
+[GitHub Issues]: https://github.com/thoughtbot/clearance/issues
+[Stack Overflow]: http://stackoverflow.com/questions/tagged/clearance
 
 Read [CONTRIBUTING.md](/CONTRIBUTING.md) to contribute.
 
