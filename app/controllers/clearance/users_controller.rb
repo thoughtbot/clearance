@@ -1,6 +1,7 @@
 class Clearance::UsersController < Clearance::BaseController
   before_filter :redirect_signed_in_users, only: [:create, :new]
   skip_before_filter :require_login, only: [:create, :new]
+  skip_before_filter :authorize, only: [:create, :new]
 
   def new
     @user = user_from_params
