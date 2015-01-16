@@ -97,10 +97,7 @@ describe Clearance::PasswordsController do
         old_encrypted_password = user.encrypted_password
         allow(user).to receive(:valid?).and_return(false)
 
-        put :update,
-          user_id: user,
-          token: user.confirmation_token,
-          password_reset: { password: "my_new_password" }
+        put :update, update_parameters(user, new_password: "my_new_password")
 
         expect(user.reload.encrypted_password).not_to eq old_encrypted_password
       end
@@ -108,10 +105,7 @@ describe Clearance::PasswordsController do
       it "sets the remember token and clears the confirmation token" do
         user = create(:user, :with_forgotten_password)
 
-        put :update,
-          user_id: user,
-          token: user.confirmation_token,
-          password_reset: { password: "my_new_password" }
+        put :update, update_parameters(user, new_password: "my_new_password")
 
         user.reload
         expect(user.remember_token).not_to be_nil
@@ -121,10 +115,7 @@ describe Clearance::PasswordsController do
       it "signs the user in and redirects" do
         user = create(:user, :with_forgotten_password)
 
-        put :update,
-          user_id: user,
-          token: user.confirmation_token,
-          password_reset: { password: "my_new_password" }
+        put :update, update_parameters(user, new_password: "my_new_password")
 
         expect(response).to redirect_to(Clearance.configuration.redirect_url)
         expect(cookies[:remember_token]).to be_present
@@ -136,10 +127,7 @@ describe Clearance::PasswordsController do
         user = create(:user, :with_forgotten_password)
         old_encrypted_password = user.encrypted_password
 
-        put :update,
-          user_id: user,
-          token: user.confirmation_token,
-          password_reset: { password: "" }
+        put :update, update_parameters(user, new_password: "")
 
         user.reload
         expect(user.encrypted_password).to eq old_encrypted_password
@@ -149,15 +137,22 @@ describe Clearance::PasswordsController do
       it "re-renders the password edit form" do
         user = create(:user, :with_forgotten_password)
 
-        put :update,
-          user_id: user,
-          token: user.confirmation_token,
-          password_reset: { password: "" }
+        put :update, update_parameters(user, new_password: "")
 
         expect(flash.now[:notice]).to match(/password can't be blank/i)
         expect(response).to render_template(:edit)
         expect(cookies[:remember_token]).to be_nil
       end
     end
+  end
+
+  def update_parameters(user, options = {})
+    new_password = options.fetch(:new_password)
+
+    {
+      user_id: user,
+      token: user.confirmation_token,
+      password_reset: { password: new_password }
+    }
   end
 end
