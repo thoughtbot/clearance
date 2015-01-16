@@ -176,6 +176,22 @@ describe Clearance::PasswordsController do
       it { is_expected.to set_the_flash.to(/double check the URL/i).now }
       it { is_expected.to render_template(:new) }
     end
+
+    describe "user record is invalid" do
+      it "can rotate password anyway" do
+        user = create(:user)
+        user.forgot_password!
+        new_password = 'new_password'
+        old_encrypted_password = user.encrypted_password
+        allow(user).to receive(:valid?).and_return(false)
+
+        put :update, user_id: user, token: user.confirmation_token,
+          password_reset: { password: new_password }
+
+        user.reload
+        expect(user.encrypted_password.to_s).not_to eq old_encrypted_password
+      end
+    end
   end
 
   describe 'given two users and user one signs in' do

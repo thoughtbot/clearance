@@ -75,13 +75,13 @@ module Clearance
     def update_password(new_password)
       self.password_changing = true
       self.password = new_password
+      self.valid?
 
-      if valid?
+      if self.errors[:password].blank?
         self.confirmation_token = nil
         generate_remember_token
+        save(validate: false)
       end
-
-      save
     end
 
     private
