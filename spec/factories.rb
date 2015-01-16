@@ -11,5 +11,9 @@ FactoryGirl.define do
       password nil
       encrypted_password ''
     end
+
+    trait :with_forgotten_password do
+      confirmation_token Clearance::Token.new
+    end
   end
 end

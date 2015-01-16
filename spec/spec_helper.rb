@@ -8,6 +8,7 @@ require "factory_girl_rails"
 require "rspec/rails"
 require "shoulda-matchers"
 require "timecop"
+require "pry"
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
