@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe Clearance::PasswordsController do
   it { is_expected.to be_a Clearance::BaseController }
@@ -71,7 +71,7 @@ describe Clearance::PasswordsController do
 
     context "blank token is supplied" do
       it "renders the new password reset form with a flash notice" do
-        get :edit, user_id: 1, token: ''
+        get :edit, user_id: 1, token: ""
 
         expect(response).to render_template(:new)
         expect(flash.now[:notice]).to match(/double check the URL/i)
@@ -82,7 +82,7 @@ describe Clearance::PasswordsController do
       it "renders the new password reset form with a flash notice" do
         user = create(:user, :with_forgotten_password)
 
-        get :edit, user_id: 1, token: user.confirmation_token + 'a'
+        get :edit, user_id: 1, token: user.confirmation_token + "a"
 
         expect(response).to render_template(:new)
         expect(flash.now[:notice]).to match(/double check the URL/i)
