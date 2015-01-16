@@ -84,9 +84,11 @@ module Clearance
     # Defualts to `::User`.
     # @return [ActiveRecord::Base]
     attr_accessor :user_model
+    attr_writer :allow_password_reset_expiration
 
     def initialize
       @allow_sign_up = true
+      @allow_password_reset_expiration = false
       @cookie_expiration = ->(cookies) { 1.year.from_now.utc }
       @cookie_domain = nil
       @cookie_path = '/'
@@ -107,6 +109,10 @@ module Clearance
     # @return [Boolean]
     def allow_sign_up?
       @allow_sign_up
+    end
+
+    def allow_password_reset_expiration?
+      @allow_password_reset_expiration
     end
 
     # Specifies which controller actions are allowed for user resources.
