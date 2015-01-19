@@ -115,4 +115,34 @@ describe Clearance::Generators::InstallGenerator, :generator do
       end
     end
   end
+
+  describe "password resets migration" do
+    context "when password reset expiration is enabled" do
+      it "creates a migration for the password resets table" do
+        provide_existing_application_controller
+        allow(Clearance.configuration).
+          to receive(:allow_password_reset_expiration?).and_return(true)
+
+        run_generator
+
+        migration = migration_file("db/migrate/create_password_resets.rb")
+        expect(migration).to exist
+        expect(migration).to have_correct_syntax
+        expect(migration).to contain("create_table :password_resets")
+      end
+    end
+
+    context "when password reset expiration is disabled" do
+      it "does not create a migration for password resets" do
+        provide_existing_application_controller
+        allow(Clearance.configuration).
+          to receive(:allow_password_reset_expiration?).and_return(false)
+
+        run_generator
+
+        migration = migration_file("db/migrate/create_password_resets.rb")
+        expect(migration).not_to exist
+      end
+    end
+  end
 end

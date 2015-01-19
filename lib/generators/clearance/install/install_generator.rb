@@ -31,11 +31,17 @@ module Clearance
         end
       end
 
-      def create_clearance_migration
+      def create_clearance_users_migration
         if users_table_exists?
           create_add_columns_migration
         else
           copy_migration 'create_users.rb'
+        end
+      end
+
+      def create_clearance_password_resets_migration
+        if Clearance.configuration.allow_password_reset_expiration?
+          copy_migration "create_password_resets.rb"
         end
       end
 
