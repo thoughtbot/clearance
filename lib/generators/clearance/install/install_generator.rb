@@ -1,10 +1,11 @@
-require 'rails/generators/base'
-require 'rails/generators/active_record'
+require "rails/generators/base"
+require "generators/clearance/migration"
+require "generators/clearance/password_reset_migration/password_reset_migration_generator"
 
 module Clearance
   module Generators
     class InstallGenerator < Rails::Generators::Base
-      include Rails::Generators::Migration
+      include Clearance::Generators::Migration
       source_root File.expand_path('../templates', __FILE__)
 
       def create_clearance_initializer
@@ -39,10 +40,8 @@ module Clearance
         end
       end
 
-      def create_clearance_password_resets_migration
-        if Clearance.configuration.allow_password_reset_expiration?
-          copy_migration "create_password_resets.rb"
-        end
+      def invoke_password_reset_migration_generator
+        invoke "clearance:password_reset_migration"
       end
 
       def display_readme_in_terminal
@@ -59,16 +58,6 @@ module Clearance
           }
 
           copy_migration('add_clearance_to_users.rb', config)
-        end
-      end
-
-      def copy_migration(migration_name, config = {})
-        unless migration_exists?(migration_name)
-          migration_template(
-            "db/migrate/#{migration_name}",
-            "db/migrate/#{migration_name}",
-            config
-          )
         end
       end
 
@@ -92,20 +81,6 @@ module Clearance
         }.reject { |index| existing_users_indexes.include?(index.to_s) }
       end
 
-      def migration_exists?(name)
-        existing_migrations.include?(name)
-      end
-
-      def existing_migrations
-        @existing_migrations ||= Dir.glob("db/migrate/*.rb").map do |file|
-          migration_name_without_timestamp(file)
-        end
-      end
-
-      def migration_name_without_timestamp(file)
-        file.sub(%r{^.*(db/migrate/)(?:\d+_)?}, '')
-      end
-
       def users_table_exists?
         ActiveRecord::Base.connection.table_exists?(:users)
       end
@@ -116,11 +91,6 @@ module Clearance
 
       def existing_users_indexes
         ActiveRecord::Base.connection.indexes(:users).map(&:name)
-      end
-
-      # for generating a timestamp when using `create_migration`
-      def self.next_migration_number(dir)
-        ActiveRecord::Generators::Base.next_migration_number(dir)
       end
     end
   end

@@ -128,24 +128,6 @@ describe Clearance::Configuration do
     end
   end
 
-  describe '#allow_password_reset_expiration?' do
-    context 'when allow_password_reset_expiration is configured to true' do
-      it 'returns true' do
-        Clearance.configure do |config|
-          config.allow_password_reset_expiration = true
-        end
-
-        expect(Clearance.configuration.allow_password_reset_expiration?).to eq true
-      end
-    end
-
-    context 'when allow_password_reset_expiration is not configured' do
-      it 'returns false' do
-        expect(Clearance.configuration.allow_password_reset_expiration?).to eq false
-      end
-    end
-  end
-
   describe '#user_actions' do
     context 'when allow_sign_up is configured to false' do
       it 'returns empty array' do
