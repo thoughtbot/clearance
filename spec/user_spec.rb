@@ -68,7 +68,43 @@ describe User do
   end
 
   describe "#update_password" do
+    context "with a valid password" do
+      it "changes the encrypted password" do
+        user = create(:user, :with_forgotten_password)
+        old_encrypted_password = user.encrypted_password
 
+        user.update_password("new_password")
+
+        expect(user.encrypted_password).not_to eq old_encrypted_password
+      end
+
+      it "clears the confirmation token" do
+        user = create(:user, :with_forgotten_password)
+
+        user.update_password("new_password")
+
+        expect(user.confirmation_token).to be_nil
+      end
+    end
+
+    context "with blank password" do
+      it "does not change the encrypted password" do
+        user = create(:user, :with_forgotten_password)
+        old_encrypted_password = user.encrypted_password
+
+        user.update_password("")
+
+        expect(user.encrypted_password.to_s).to eq old_encrypted_password
+      end
+
+      it "does not clear the confirmation token" do
+        user = create(:user, :with_forgotten_password)
+
+        user.update_password("")
+
+        expect(user.confirmation_token).not_to be_nil
+      end
+    end
   end
 
   describe "before_create callbacks" do
@@ -85,71 +121,12 @@ describe User do
   end
 
   describe "#forgot_password!" do
-    describe "who requests password reminder" do
-      it "generates confirmation token" do
-        user = create(:user, confirmation_token: nil)
+    it "generates the confirmation token" do
+      user = create(:user, confirmation_token: nil)
 
-        user.forgot_password!
+      user.forgot_password!
 
-        expect(user.confirmation_token).not_to be_nil
-      end
-
-      describe "and then updates password" do
-        describe "with password" do
-          it "changes encrypted password" do
-            user = create(:user)
-            old_encrypted_password = user.encrypted_password
-
-            user.forgot_password!
-            user.update_password("new_password")
-
-            expect(user.encrypted_password).not_to eq old_encrypted_password
-          end
-
-          it "clears confirmation token" do
-            user = create(:user)
-
-            user.forgot_password!
-            user.update_password("new_password")
-
-            expect(user.confirmation_token).to be_nil
-          end
-        end
-
-        describe "#update_password" do
-          context "with new password" do
-            it "changes encrypted password" do
-              user = create(:user)
-              old_encrypted_password = user.encrypted_password
-
-              user.update_password("new_password")
-
-              expect(user.encrypted_password).not_to eq old_encrypted_password
-            end
-          end
-
-          context "with blank password" do
-            it "does not change encrypted password" do
-              user = create(:user)
-              old_encrypted_password = user.encrypted_password
-
-              user.forgot_password!
-              user.update_password("")
-
-              expect(user.encrypted_password.to_s).to eq old_encrypted_password
-            end
-
-            it "does not clear confirmation token" do
-              user = create(:user)
-
-              user.forgot_password!
-              user.update_password("")
-
-              expect(user.confirmation_token).not_to be_nil
-            end
-          end
-        end
-      end
+      expect(user.confirmation_token).not_to be_nil
     end
   end
 
