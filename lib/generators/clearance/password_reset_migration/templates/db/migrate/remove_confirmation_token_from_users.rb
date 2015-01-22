@@ -1,10 +1,15 @@
 class RemoveConfirmationTokenFromUsers < ActiveRecord::Migration
   def up
+    expiration_timestamp = Clearance.configuration.
+      password_reset_time_limit.
+      from_now
+
     execute <<-SQL
-      INSERT INTO password_resets (user_id, token)
+      INSERT INTO password_resets (user_id, token, expires_at)
       SELECT
         users.id AS user_id,
-        users.confirmation_token AS token
+        users.confirmation_token AS token,
+        #{expiration_timestamp} AS expires_at
       FROM users
       WHERE users.confirmation_token IS NOT NULL
     SQL

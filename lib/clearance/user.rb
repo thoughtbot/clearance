@@ -63,8 +63,7 @@ module Clearance
     end
 
     def forgot_password!
-      generate_confirmation_token
-      save validate: false
+      PasswordReset.create(user: self)
     end
 
     def reset_remember_token!
@@ -100,10 +99,6 @@ module Clearance
 
     def skip_password_validation?
       password_optional? || (encrypted_password.present? && !password_changing)
-    end
-
-    def generate_confirmation_token
-      self.confirmation_token = Clearance::Token.new
     end
 
     def generate_remember_token

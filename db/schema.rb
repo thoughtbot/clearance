@@ -11,9 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20110111224543) do
+ActiveRecord::Schema.define(version: 20150122204353) do
 
-  create_table "users", force: true do |t|
+  create_table "password_resets", force: :cascade do |t|
+    t.integer  "user_id",                null: false
+    t.string   "token",      limit: 128, null: false
+    t.datetime "expires_at",             null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "password_resets", ["user_id"], name: "index_password_resets_on_user_id"
+
+  create_table "users", force: :cascade do |t|
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
     t.string   "email",                          null: false

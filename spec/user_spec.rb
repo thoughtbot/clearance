@@ -130,12 +130,13 @@ describe User do
   end
 
   describe "#forgot_password!" do
-    it "generates the confirmation token" do
-      user = create(:user, confirmation_token: nil)
+    it "creates a new password reset for the user" do
+      user = create(:user)
 
       user.forgot_password!
 
-      expect(user.confirmation_token).not_to be_nil
+      password_reset = PasswordReset.first
+      expect(password_reset.user_id).to eq user.id
     end
   end
 

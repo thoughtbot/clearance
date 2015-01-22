@@ -177,4 +177,23 @@ describe Clearance::Configuration do
       expect(Clearance.configuration.reload_user_model).to be_nil
     end
   end
+
+  describe "#password_reset_time_limit" do
+    context "when the password reset time limit isn't specified" do
+      it "returns 15.minutes by default" do
+        expect(Clearance.configuration.password_reset_time_limit).
+          to eq 15.minutes
+      end
+    end
+
+    context "when the time limit is specified" do
+      it "returns that custom duration" do
+        Clearance.configure do |config|
+          config.password_reset_time_limit = 1.hour
+        end
+
+        expect(Clearance.configuration.password_reset_time_limit).to eq 1.hour
+      end
+    end
+  end
 end

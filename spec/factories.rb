@@ -16,4 +16,8 @@ FactoryGirl.define do
       encrypted_password ''
     end
   end
+
+  factory :password_reset do
+    user
+  end
 end
