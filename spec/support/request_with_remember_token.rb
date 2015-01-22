@@ -2,7 +2,7 @@ module RememberTokenHelpers
   def request_with_remember_token(remember_token)
     cookies = {
       'action_dispatch.cookies' => {
-        Clearance::Session::REMEMBER_TOKEN_COOKIE => remember_token
+        Clearance.configuration.cookie_name => remember_token
       }
     }
     env = { clearance: Clearance::Session.new(cookies) }

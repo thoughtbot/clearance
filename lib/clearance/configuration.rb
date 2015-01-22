@@ -5,6 +5,7 @@ module Clearance
     attr_accessor \
       :cookie_domain,
       :cookie_expiration,
+      :cookie_name,
       :cookie_path,
       :httponly,
       :mailer_sender,
@@ -18,6 +19,7 @@ module Clearance
       @allow_sign_up = true
       @cookie_expiration = ->(cookies) { 1.year.from_now.utc }
       @cookie_path = '/'
+      @cookie_name = "remember_token"
       @httponly = false
       @mailer_sender = 'reply@example.com'
       @redirect_url = '/'

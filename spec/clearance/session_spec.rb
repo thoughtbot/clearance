@@ -30,6 +30,19 @@ describe Clearance::Session do
     expect(session.current_user).to be_nil
   end
 
+  context "with a custom cookie name" do
+    it "sets a custom cookie name in the header" do
+      Clearance.configuration.cookie_domain = "custom_token"
+
+      session.sign_in user
+      session.add_cookie_to_headers(headers)
+
+      expect(headers["Set-Cookie"]).to match(/custom_token/)
+    end
+
+    after { restore_default_config }
+  end
+
   describe '#sign_in' do
     it 'sets current_user' do
       user = build(:user)

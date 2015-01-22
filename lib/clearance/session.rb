@@ -2,8 +2,6 @@ require 'clearance/default_sign_in_guard'
 
 module Clearance
   class Session
-    REMEMBER_TOKEN_COOKIE = 'remember_token'.freeze
-
     def initialize(env)
       @env = env
       @current_user = nil
@@ -12,7 +10,11 @@ module Clearance
 
     def add_cookie_to_headers(headers)
       if cookie_value[:value].present?
-        Rack::Utils.set_cookie_header!(headers, REMEMBER_TOKEN_COOKIE, cookie_value)
+        Rack::Utils.set_cookie_header!(
+          headers,
+          remember_token_cookie,
+          cookie_value
+        )
       end
     end
 
@@ -29,7 +31,7 @@ module Clearance
       status = run_sign_in_stack
 
       if status.success?
-        cookies[REMEMBER_TOKEN_COOKIE] = user && user.remember_token
+        cookies[remember_token_cookie] = user && user.remember_token
       else
         @current_user = nil
       end
@@ -45,7 +47,7 @@ module Clearance
       end
 
       @current_user = nil
-      cookies.delete REMEMBER_TOKEN_COOKIE
+      cookies.delete remember_token_cookie
     end
 
     def signed_in?
@@ -63,7 +65,7 @@ module Clearance
     end
 
     def remember_token
-      cookies[REMEMBER_TOKEN_COOKIE]
+      cookies[remember_token_cookie]
     end
 
     def remember_token_expires
@@ -76,6 +78,10 @@ module Clearance
           'lambda should accept the collection of previously set cookies.'
         expires_configuration.call
       end
+    end
+
+    def remember_token_cookie
+      Clearance.configuration.cookie_name.freeze
     end
 
     def expires_configuration
