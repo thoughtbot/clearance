@@ -1,5 +1,17 @@
 Thank you to all the [contributors](https://github.com/thoughtbot/clearance/graphs/contributors)!
 
+New for 1.8.0 (January 23, 2015)
+* Fixed an issue that would cause sites that are still using the deprecated
+ `authorize` filter to enter a redirect loop when redirecting to the sign in
+  path.
+* The Clearance remember token cookie name is now customizable via
+  `Clearance.configuration.cookie_name`.
+* Signed in users that attempt to visit the sign in path are now redirected. The
+  redirect URL defaults to the same URL used for the redirect after sign in, but
+  can be customized by overriding `passwords_controller#url_for_signed_in_users`
+* `users_controller#avoid_sign_in` is now deprecated in favor of
+  `redirect_signed_in_users` which is more accurately named.
+
 New for 1.7.0 (January, 8, 2015)
 * The `authorize` filter has been deprecated in favor of `require_login`. Update
   all reference to the filter including any calls to `skip_before_filter` or
