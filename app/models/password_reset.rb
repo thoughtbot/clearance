@@ -1,6 +1,4 @@
 class PasswordReset < ActiveRecord::Base
-  belongs_to :user, class_name: Clearance.configuration.user_model
-
   before_create :generate_token, :generate_expiration_timestamp
 
   private

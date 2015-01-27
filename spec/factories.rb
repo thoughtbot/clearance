@@ -18,6 +18,6 @@ FactoryGirl.define do
   end
 
   factory :password_reset do
-    user
+    sequence(:user_id)
   end
 end

@@ -63,7 +63,7 @@ module Clearance
     end
 
     def forgot_password!
-      PasswordReset.create(user: self)
+      PasswordReset.create(user_id: id)
     end
 
     def reset_remember_token!
