@@ -1,6 +1,8 @@
 class PasswordReset < ActiveRecord::Base
   before_create :generate_token, :generate_expiration_timestamp
 
+  validates :user_id, presence: true
+
   private
 
   def generate_token

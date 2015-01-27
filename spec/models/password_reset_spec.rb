@@ -1,6 +1,8 @@
 require "spec_helper"
 
 describe PasswordReset do
+  it { is_expected.to validate_presence_of(:user_id) }
+
   context "before create" do
     describe "#generate_token" do
       it "generates the token" do
