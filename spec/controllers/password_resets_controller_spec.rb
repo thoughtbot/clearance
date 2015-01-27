@@ -17,7 +17,7 @@ describe Clearance::PasswordResetsController do
   describe "#create" do
     context "email corresponds to an existing user" do
       it "creates a password reset for the user" do
-        user = build_stubbed(:user)
+        user = create(:user)
 
         post :create, password: { email: user.email.upcase }
 

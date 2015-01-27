@@ -7,8 +7,8 @@ class Clearance::PasswordResetsController < Clearance::BaseController
 
   def create
     if user = find_user_for_create
-      user.forgot_password!
-      deliver_email(user)
+      password_reset = PasswordReset.create(user_id: user.id)
+      deliver_email(user, password_reset)
     end
     render template: 'passwords/create'
   end
@@ -36,8 +36,8 @@ class Clearance::PasswordResetsController < Clearance::BaseController
 
   private
 
-  def deliver_email(user)
-    mail = ::ClearanceMailer.change_password(user)
+  def deliver_email(user, password_reset)
+    mail = ::ClearanceMailer.change_password(user, password_reset)
 
     if Gem::Version.new(Rails::VERSION::STRING) >= Gem::Version.new("4.2.0")
       mail.deliver_later
