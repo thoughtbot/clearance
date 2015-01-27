@@ -1,6 +1,6 @@
 if Clearance.configuration.routes_enabled?
   Rails.application.routes.draw do
-    resources :password_resets,
+    resources :passwords,
       controller: 'clearance/password_resets',
       only: [:create, :new]
 
@@ -11,7 +11,7 @@ if Clearance.configuration.routes_enabled?
     resources :users,
       controller: 'clearance/users',
       only: Clearance.configuration.user_actions do
-        resource :password_reset,
+        resource :password,
           controller: 'clearance/password_resets',
           only: [:create, :edit, :update]
       end
