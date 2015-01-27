@@ -5,9 +5,9 @@ describe 'routes for Clearance' do
     it 'draws the default routes' do
       expect(get: 'sign_up').to be_routable
       expect(get: 'sign_in').to be_routable
-      expect(get: 'passwords/new').to be_routable
+      expect(get: 'password_resets/new').to be_routable
       expect(post: 'session').to be_routable
-      expect(post: 'passwords').to be_routable
+      expect(post: 'password_resets').to be_routable
       expect(post: 'users').to be_routable
     end
   end
@@ -24,9 +24,9 @@ describe 'routes for Clearance' do
     it 'does not draw any routes' do
       expect(get: 'sign_up').not_to be_routable
       expect(get: 'sign_in').not_to be_routable
-      expect(get: 'passwords/new').not_to be_routable
+      expect(get: 'password_resets/new').not_to be_routable
       expect(post: 'session').not_to be_routable
-      expect(post: 'passwords').not_to be_routable
+      expect(post: 'password_resets').not_to be_routable
       expect(post: 'users').not_to be_routable
     end
   end

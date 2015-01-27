@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe Clearance::PasswordsController do
+describe Clearance::PasswordResetsController do
   it { is_expected.to be_a Clearance::BaseController }
 
   describe "#new" do
@@ -16,12 +16,13 @@ describe Clearance::PasswordsController do
 
   describe "#create" do
     context "email corresponds to an existing user" do
-      it "generates a password change token" do
-        user = create(:user)
+      it "creates a password reset for the user" do
+        user = build_stubbed(:user)
 
         post :create, password: { email: user.email.upcase }
 
-        expect(user.reload.confirmation_token).not_to be_nil
+        password_reset = PasswordReset.first
+        expect(password_reset.user_id).to eq user.id
       end
 
       it "sends the password reset email" do
