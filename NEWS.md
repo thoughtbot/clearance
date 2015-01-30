@@ -1,506 +1,771 @@
-Thank you to all the [contributors](https://github.com/thoughtbot/clearance/graphs/contributors)!
+# News
 
-New for 1.8.0 (January 23, 2015)
-* Fixed an issue that would cause sites that are still using the deprecated
- `authorize` filter to enter a redirect loop when redirecting to the sign in
-  path.
-* The Clearance remember token cookie name is now customizable via
+The noteworthy changes for each Clearance version are included here. For a
+complete changelog, see the git history.
+
+## [1.8.0] - January 23, 2015
+
+### Added
+- The remember token cookie name is now customizable via
   `Clearance.configuration.cookie_name`.
-* Signed in users that attempt to visit the sign in path are now redirected. The
+
+### Fixed
+- Fixed a redirect loop on the sign in page for applications that are still
+  using the deprecated `authorize` filter.
+- Signed in users that attempt to visit the sign in path are now redirected. The
   redirect URL defaults to the same URL used for the redirect after sign in, but
   can be customized by overriding `passwords_controller#url_for_signed_in_users`
-* `users_controller#avoid_sign_in` is now deprecated in favor of
+
+### Deprecated
+- `users_controller#avoid_sign_in` is now deprecated in favor of
   `redirect_signed_in_users` which is more accurately named.
 
-New for 1.7.0 (January, 8, 2015)
-* The `authorize` filter has been deprecated in favor of `require_login`. Update
+[1.8.0]: https://github.com/thoughtbot/clearance/compare/v1.7.0...v1.8.0
+
+## [1.7.0] - January, 8, 2015
+
+### Fixed
+- Fix the negation of the `deny_access` matcher in Rails 4.0.x on Ruby 2.2
+
+### Deprecated
+- The `authorize` filter has been deprecated in favor of `require_login`. Update
   all reference to the filter including any calls to `skip_before_filter` or
   `skip_before_action`.
-* The `Clearance.root` method has been deprecated.
-* Fix the negation of the `deny_access` matcher in Rails 4.0.x on Ruby 2.2
+- The `Clearance.root` method has been deprecated. It was used internally and
+  unlikely to impact external users.
 
-New for 1.6.1 (January 6, 2015)
-* Secure cookies are no longer overwritten when the user visits a non-HTTPS URL.
+[1.7.0]: https://github.com/thoughtbot/clearance/compare/v1.6.1...v1.7.0
 
-New for 1.6.0 (December 20, 2014)
-* When using Rails 4.2, password reset emails are sent with the
+## [1.6.1] - January 6, 2015
+
+### Fixed
+- Secure cookies are no longer overwritten when the user visits a non-HTTPS URL.
+
+[1.6.1]: https://github.com/thoughtbot/clearance/compare/v1.6.0...v1.6.1
+
+## [1.6.0] - December 20, 2014
+
+### Added
+- When using Rails 4.2, password reset emails are sent with the
   ActiveJob-compatible `#deliver_later` method.
 
-New for 1.5.1 (December 19, 2014)
-* Blowfish password strategy fixed
-* Specs generated with `rails generate clearance:specs` now work properly in
+[1.6.0]: https://github.com/thoughtbot/clearance/compare/v1.5.1...v1.6.0
+
+## [1.5.1] - December 19, 2014
+
+### Fixed
+- Blowfish password strategy fixed
+- Specs generated with `rails generate clearance:specs` now work properly in
   RSpec 3 projects.
 
-New for 1.5.0 (October 17, 2014)
-* Disable clearance routes by setting `config.routes = false`.
-* Running `rails generate clearance:routes` will dump the default set of
+[1.5.1]: https://github.com/thoughtbot/clearance/compare/v1.5.0...v1.5.1
+
+## [1.5.0] - October 17, 2014
+
+### Added
+- Disable clearance routes by setting `config.routes = false`.
+- Running `rails generate clearance:routes` will dump the default set of
   routes to your application's routes file for modification.
 
-New for 1.4.3 (October 3, 2014)
-* Routing constraints act appropriately when session data is missing.
+[1.5.0]: https://github.com/thoughtbot/clearance/compare/v1.4.3...v1.5.0
 
-New for 1.4.2 (September 13, 2014)
-* Eliminate deprecation message when using DenyAccess matcher with RSpec 3.
+## [1.4.3] - October 3, 2014
 
-New for 1.4.1 (September 5, 2014)
-* Prevent BCrypt strategy from raising an exception when `encypted_password`
+### Fixed
+- Routing constraints act appropriately when session data is missing.
+
+[1.4.3]: https://github.com/thoughtbot/clearance/compare/v1.4.2...v1.4.3
+
+## [1.4.2] - September 13, 2014
+
+### Fixed
+- Eliminate deprecation message when using DenyAccess matcher with RSpec 3.
+
+[1.4.2]: https://github.com/thoughtbot/clearance/compare/v1.4.1...v1.4.2
+
+## [1.4.1] - September 5, 2014
+
+### Fixed
+- Prevent BCrypt strategy from raising an exception when `encypted_password`
   is nil.
 
-New for 1.4.0 (July 18, 2014)
-* The sign out link in the default application layout has been replaced with a
-  semantically correct sign out button. This also removes an unnecessary
-  JavaScript dependency.
-* Clearance now uses `original_fullpath` when redirecting to a saved URL after
-  login. This should improve the behavior in mounted engines.
-* `user_params` method was added to `Clearance::UsersController` which provides
+[1.4.1]: https://github.com/thoughtbot/clearance/compare/v1.4.0...v1.4.1
+
+## [1.4.0] - July 18, 2014
+
+### Added
+- `user_params` method was added to `Clearance::UsersController` which provides
   a convenient place to override the parameters used when creating users.
-* Controllers now inherit from `Clearance::BaseController` to allow for easily
+- Controllers now inherit from `Clearance::BaseController` to allow for easily
   adding behavior to all of them.
 
-New for 1.3.0 (March 14, 2014)
-* Installing Clearance with an existing User model will now create a migration
+### Changed
+- The sign out link in the default application layout has been replaced with a
+  semantically correct sign out button. This also removes an unnecessary
+  JavaScript dependency.
+
+### Fixed
+- Clearance now uses `original_fullpath` when redirecting to a saved URL after
+  login. This should improve the behavior in mounted engines.
+
+[1.4.0]: https://github.com/thoughtbot/clearance/compare/v1.3.0...v1.4.0
+
+## [1.3.0] - March 14, 2014
+
+### Added
+- Installing Clearance with an existing User model will now create a migration
   that includes adding remember tokens to all existing user records.
 
-New for 1.2.1 (March 6, 2014):
-* Query string is now included in the redirect URL when Clearance redirects to a
+[1.3.0]: https://github.com/thoughtbot/clearance/compare/v1.2.1...v1.3.0
+
+## [1.2.1] - March 6, 2014
+
+### Fixed
+- Query string is now included in the redirect URL when Clearance redirects to a
   previously stored URL.
 
-New for 1.2.0 (February 28, 2014):
-* Support for Rails 4.1.0.rc1
-* `clearance/testing` is now deprecated. Require `clearance/rspec` or
-  `clearance/test_unit` as appropriate.
-* Sign in failure message is now customized exclusively via I18n.
+[1.2.1]: https://github.com/thoughtbot/clearance/compare/v1.2.0...v1.2.1
+
+## [1.2.0] - February 28, 2014
+
+### Added
+- Support for Rails 4.1.0.rc1
+- Sign in can now be disabled with `config.allow_sign_in = false`
+
+### Changed
+- Sign in failure message is now customized exclusively via I18n.
   `SessionsController#flash_failure_after_create` is no longer called. To
   customize the message, change the
   `clearance.controllers.sessions.bad_email_or_password` or
   `flashes.failure_after_create` key.
-* Sign in can now be disabled with `config.allow_sign_in = false`
 
-New for 1.1.0 (November 21, 2013):
+### Deprecated
+- `clearance/testing` is now deprecated. Require `clearance/rspec` or
+  `clearance/test_unit` as appropriate.
 
-* Validate email with `EmailValidator` [strict mode][strict].
-* The `cookie_expiration` configuration lambda can now be called with  a
+[1.2.0]: https://github.com/thoughtbot/clearance/compare/v1.1.0...v1.2.0
+
+## [1.1.0] - November 21, 2013
+
+### Added
+- Validate email with `EmailValidator` [strict mode][strict].
+- The `cookie_expiration` configuration lambda can now be called with  a
   `cookies` parameter. Allows the Clearance cookie expiration to be set
   according to the value of another cookie (such as `remember_me`).
-* A `cookie_expiration` lambda that does not accept this `cookies`
-  parameter has been deprecated.
-* Allow cookie domain and path configuration.
-* Add sign in guards.
-* Don't allow logins with blank `remember_token`.
+- Allow cookie domain and path configuration.
+- Add sign in guards.
 
 [strict]: https://github.com/balexand/email_validator#strict-mode
 
-New for 1.0.1 (August 9, 2013):
+### Fixed
+- Don't allow logins with blank `remember_token`.
 
-* Fix an issue when trying to sign in with `nil`
+### Deprecated
+- A `cookie_expiration` lambda that does not accept this `cookies`
+  parameter has been deprecated.
 
-New for 1.0.0 (August 1, 2013):
+[1.1.0]: https://github.com/thoughtbot/clearance/compare/v1.0.1...v1.1.0
 
-* Support Rails 4.
-* Change default password strategy to BCrypt.
-* Speed up test suites using `::BCrypt::Engine::MIN_COST`.
-* Speed up integration suites with `Clearance::BackDoor`.
-* Replace email regular expression with `EmailValidator` gem.
-* Provide `BCryptMigrationFromSHA1` password strategy to help people migrate from
+
+## [1.0.1] - August 9, 2013
+
+### Fixed
+- Fix an issue when trying to sign in with `nil`
+
+[1.0.1]: https://github.com/thoughtbot/clearance/compare/v1.0.0...v1.1.1
+
+## [1.0.0] - August 1, 2013
+
+### Added
+- Support Rails 4.
+- Speed up test suites using `::BCrypt::Engine::MIN_COST`.
+- Speed up integration suites with `Clearance::BackDoor`.
+- Provide `BCryptMigrationFromSHA1` password strategy to help people migrate from
   SHA1 (the old default password strategy) to BCrypt (the new default).
-* Support Ruby 2.
-* Require > Ruby 1.9.
-* More extension points in more controllers.
-* The `email`, `encrypted_password`, and `remember_token` fields of the users
+- Support Ruby 2.
+- More extension points in more controllers.
+- Add `SignedIn` and `SignedOut` routing constraints.
+- Add a fake password strategy, which is useful when writing tests.
+- Add `redirect_url` configuration option.
+- Add `secure_cookie` configuration option.
+
+### Changed
+- Change default password strategy to BCrypt.
+- Replace email regular expression with `EmailValidator` gem.
+- Require > Ruby 1.9.
+- The `email`, `encrypted_password`, and `remember_token` fields of the users
   table are `NOT NULL` in the default migration.
-* Add `SignedIn` and `SignedOut` routing constraints.
-* Add a fake password strategy, which is useful when writing tests.
-* Improve security when changing password.
-* Replace Cucumber feature generator with RSpec + Capybara.
-* Remove Diesel dependency.
-* Remove deprecated methods on User: `remember_me!`, `generate_random_code`,
-  `password_required?`.
-* `PasswordsController` `params[:user]` has changed to `params[:password_reset]`
+- Replace Cucumber feature generator with RSpec + Capybara.
+- Remove Diesel dependency.
+- `PasswordsController` `params[:user]` has changed to `params[:password_reset]`
   to avoid locale conflicts.
-* Remove `unloadable` from controllers (Rails 4 bug fix in development
-  environment).
-* Add `redirect_url` configuration option.
-* Add `secure_cookie` configuration option.
-* Unauthorized API requests return HTTP status 401 rather than a redirect
+
+### Fixed
+- Improve security when changing password.
+- Reduce extra user lookups when adding cookie to headers.
+- Unauthorized API requests return HTTP status 401 rather than a redirect
   to the sign in page.
-* Remove support for supplying `return_to` value via request parameter.
-* Reduce extra user lookups when adding cookie to headers.
 
-New for 0.16.2 (May 11, 2012):
+### Removed
+- Remove deprecated methods on User: `remember_me!`, `generate_random_code`,
+  `password_required?`.
+- Remove `unloadable` from controllers (Rails 4 bug fix in development
+  environment).
+- Remove support for supplying `return_to` value via request parameter.
 
-* Change default email sender to `deploy@example.com`.
+[1.0.0]: https://github.com/thoughtbot/clearance/compare/v0.16.2...v1.0.0
 
-New for 0.16.1 (April 16, 2012):
+## [0.16.2] - May 11, 2012
 
-* Behave correctly when Rails whitelist attributes mass assignment
+### Changed
+- Change default email sender to `deploy@example.com`.
+
+[0.16.2]: https://github.com/thoughtbot/clearance/compare/v0.16.1...v0.16.2
+
+## [0.16.1] - April 16, 2012
+
+### Fixed
+- Behave correctly when Rails whitelist attributes mass assignment
   protection is turned on.
-* Fix for Rails 3.2.x modifying the HTTP cookie headers in rack requests.
+- Fix for Rails 3.2.x modifying the HTTP cookie headers in rack requests.
 
-New for 0.16.0 (March 16, 2012):
+[0.16.1]: https://github.com/thoughtbot/clearance/compare/v0.16.0...v0.16.1
 
-* Blowfish password encryption strategy.
+## [0.16.0] - March 16, 2012
 
-New for 0.15.0 (February 3, 2012):
+### Added
+- Blowfish password encryption strategy.
 
-* The `User` model can be swapped out using the `Clearance.configure` method.
-* Remove `User::InstanceMethods` to silence a Rails 3.2 deprecation warning.
-* Bump development dependency of cucumber-rails to 1.1.1.
+[0.16.0]: https://github.com/thoughtbot/clearance/compare/v0.15.0...v0.16.0
 
-New for 0.14.0 (January 13, 2012):
+## [0.15.0] - February 3, 2012
 
-* Support clearance session management from the Rack environment.
+### Added
+- The `User` model can be swapped out using the `Clearance.configure` method.
 
-New for 0.13.2 (January 13, 2012):
+### Removed
+- Remove `User::InstanceMethods` to silence a Rails 3.2 deprecation warning.
 
-* Fixed the `deny_access` matcher.
+[0.15.0]: https://github.com/thoughtbot/clearance/compare/v0.14.0...v0.15.0
 
-New for 0.13.0 (October 11, 2011):
+## [0.14.0] - January 13, 2012
 
-* In Clearance's optional generated features, use pure Capybara instead of
+### Added
+- Support clearance session management from the Rack environment.
+
+[0.14.0]: https://github.com/thoughtbot/clearance/compare/v0.13.2...v0.14.0
+
+## [0.13.2] - January 13, 2012
+
+### Fixed
+- Fixed the `deny_access` matcher.
+
+[0.13.2]: https://github.com/thoughtbot/clearance/compare/v0.13.0...v0.13.2
+
+## [0.13.0] - October 11, 2011
+
+### Changed
+- In Clearance's optional generated features, use pure Capybara instead of
   depending on Cucumber's removed `web_steps`, paths, and selectors.
-* Extract SHA-1-specific code out of `User` into `PasswordStrategies` module.
-* Extract sign in form so that other methods can be added easily.
-* Test against Rails 3.1. Required upgrades to Diesel and Appraisal.
-* Improved README documentation for overrides.
+- Extract SHA-1-specific code out of `User` into `PasswordStrategies` module.
+- Extract sign in form so that other methods can be added easily.
+- Test against Rails 3.1. Required upgrades to Diesel and Appraisal.
 
-New for 0.12.0 (June 30, 2011):
+[0.13.0]: https://github.com/thoughtbot/clearance/compare/v0.12.0...v0.13.0
 
-* Denying access redirects to `root_url` when signed in, `sign_in_url` when signed
-  out.
-* Using flash `:notice` key everywhere now instead of `:success` and `:failure`. More
-  in line with Rails conventions.
-* `redirect_back_or` on sign up.
-* Resetting password no longer redirects to sign in page. It displays a message
+## [0.12.0] - June 30, 2011
+
+### Changed
+- Denying access redirects to `root_url` when signed in, `sign_in_url` when
+  signed out.
+- Using flash `:notice` key everywhere now instead of `:success` and `:failure`.
+  More in line with Rails conventions.
+- `redirect_back_or` on sign up.
+- Resetting password no longer redirects to sign in page. It displays a message
   telling them to look for an email.
-* Removed redundant flash messages. ("Signed in.", "Signed out.", and "You are
+- Removed redundant flash messages. ("Signed in.", "Signed out.", and "You are
   now signed up.")
 
-New for 0.11.2 (June 29, 2011):
+[0.12.0]: https://github.com/thoughtbot/clearance/compare/v0.11.2...v0.12.0
 
-* Rails 3.1.rc compatible.
-* Cucumber features no longer require password.
-* No more Clearance `shoulda_macros`. Instead providing RSpec- and
+## [0.11.2] - June 29, 2011
+
+### Added
+- Rails 3.1.rc compatible.
+- RSpec and Test::Unit compliant test matcher (`should deny_access`, etc)
+
+### Removed
+- No more Clearance `shoulda_macros`. Instead providing RSpec and
   Test::Unit-compliant test matchers (`should deny_access`, etc).
 
-New for 0.11.1 (April 30, 2011):
+[0.11.2]: https://github.com/thoughtbot/clearance/compare/v0.11.1...v0.11.2
 
-* Redirect to home page after sign up.
-* Remove dependency on `dynamic_form`. Replaced with flashes due to limited number
-  of failure cases.
-* Moving `ClearanceMailer` to `app/mailers`. Moving spec to `spec/mailers`.
-* Removing `:case_sensitive` option from `validates_uniqueness_of`. It was
+## [0.11.1] - April 30, 2011
+
+### Added
+- Redirect to home page after sign up.
+
+### Fixed
+- Removing `:case_sensitive` option from `validates_uniqueness_of`. It was
   unnecessary and causes a small performance problem on some apps.
-* Only development dependency in `gemspec` should be `bundler`. All others are
-  derived by bundling.
 
-New for 0.11.0 (April 24, 2011):
+### Removed
+- Remove dependency on `dynamic_form`. Replaced with flashes due to limited number
+  of failure cases.
 
-* Removing password confirmation.
-* Use `ActiveSupport::Concern` and `ActiveSupport::SecureRandom` to clean up code.
-* New `controller#authenticate(params)` method. Redefine username & password or
+[0.11.1]: https://github.com/thoughtbot/clearance/compare/v0.11.0...v0.11.1
+
+## [0.11.0] - April 24, 2011
+
+### Added
+- New `controller#authenticate(params)` method. Redefine username & password or
   other styles of authentication.
-* `before_filter :authenticate` API replaced with more aptly-named `before_filter
+
+### Changed
+- `before_filter :authenticate` API replaced with more aptly-named `before_filter
   :authorize`.
 
-New for 0.10.5 (April 19, 2011):
+### Removed
+- Removing password confirmation.
 
-* Closing CSRF hole for Rails >= 3.0.4 apps.
+[0.11.0]: https://github.com/thoughtbot/clearance/compare/v0.10.5...v0.11.0
 
-New for 0.10.4 (April 16, 2011):
+## [0.10.5] - April 19, 2011
 
-* Formtastic views generator removed.
-* Emails forced to be downcased (particularly for iPhone user case).
-* Suite converted from test/unit to RSpec.
-* Password reset requires a password.
-* Use HTML5 email fields.
+### Security
+- Closing CSRF hole for Rails >= 3.0.4 apps.
 
-New for 0.10.3.2 (March 6, 2011):
+[0.10.5]: https://github.com/thoughtbot/clearance/compare/v0.10.4...v0.10.5
 
-* Fix gemspec to include all necessary files.
+## [0.10.4] - April 16, 2011
 
-New for 0.10.3.1 (February 20, 2011):
+### Added
+- Use HTML5 email fields.
 
-* Ensure everything within features inside any engine directory is included in
+### Changed
+- Emails forced to be downcased (particularly for iPhone user case).
+
+### Fixed
+- Password reset requires a password.
+
+### Removed
+- Formtastic views generator removed.
+
+[0.10.4]: https://github.com/thoughtbot/clearance/compare/v0.10.3.2...v0.10.4
+
+## [0.10.3.2] - March 6, 2011
+
+### Fixed
+- Fix gemspec to include all necessary files.
+
+[0.10.3.2]: https://github.com/thoughtbot/clearance/compare/v0.10.3.1...v0.10.3.2
+
+## [0.10.3.1] - February 20, 2011
+
+### Fixed
+- Ensure everything within features inside any engine directory is included in
   the `gemspec`.
 
-New for 0.10.3 (February 19, 2011):
+[0.10.3.1]: https://github.com/thoughtbot/clearance/compare/v0.10.3...v0.10.3.1
 
-* Include features/engines in `gemspec` file list so generator works as
+## [0.10.3] - February 19, 2011
+
+### Fixed
+- Include features/engines in `gemspec` file list so generator works as
   expected.
 
-New for 0.10.2 (February 18, 2011):
+[0.10.3]: https://github.com/thoughtbot/clearance/compare/v0.10.2...v0.10.3
 
-* Replaced `test/rails_root` & general testing strategy with Diesel.
-* Conveniences in factories for password/confirmation.
-* New generator command: `rails generate clearance:install`.
-* Step definitions are now prefixed with `visitor_` to use thoughtbot
-  convention.
-* When Clearance installed in an app that already has users, allow old users to
+## [0.10.2] - February 18, 2011
+
+### Added
+- New generator command: `rails generate clearance:install`.
+- When Clearance installed in an app that already has users, allow old users to
   sign in by resetting their password.
 
-New for 0.10.1 (February 9, 2011):
+### Changed
+- Step definitions are now prefixed with `visitor_` to use thoughtbot
+  convention.
 
-* Replaced `ActionController::Forbidden` with a user-friendly flash message.
-* Improved language of Cucumber steps by allowing a little more flexibility.
+[0.10.2]: https://github.com/thoughtbot/clearance/compare/v0.10.1...v0.10.2
 
-New for 0.10.0 (June 29, 2010):
+## [0.10.1] - February 9, 2011
 
-* Better email validation regular expression.
-* Removed email confirmation step, was mostly a hassle and can always be added
+### Fixed
+- Replaced `ActionController::Forbidden` with a user-friendly flash message.
+
+[0.10.1]: https://github.com/thoughtbot/clearance/compare/v0.10.0...v0.10.1
+
+## [0.10.0] - June 29, 2010
+
+### Added
+- Better email validation regular expression.
+
+### Removed
+- Removed email confirmation step, was mostly a hassle and can always be added
   back in at the application level (instead of engine level) if necessary.
-* Removed `disable_with` on forms since it does not allow IE users to submit
+- Removed `disable_with` on forms since it does not allow IE users to submit
   forms. [Read more](https://github.com/rails/jquery-ujs/issues#issue/30).
 
-New for 0.9.1 (June 29, 2010):
+[0.10.0]: https://github.com/thoughtbot/clearance/compare/v0.9.1...v0.10.0
 
-* This release supports Rails 3, capybara, and shoulda 2.10+.
+## [0.9.1] - June 29, 2010
 
-New for 0.9.0 (June 11, 2010):
+### Added
+- This release supports Rails 3, capybara, and shoulda 2.10+.
 
-* Removed unnecessary db index.
-* Allow customization of cookie duration.
-* `rake generator:cleanup` needed to be... cleaned up.
+[0.9.1]: https://github.com/thoughtbot/clearance/compare/v0.9.0...v0.9.1
 
-New for 0.8.8 (February 25, 2010):
+## [0.9.0] - June 11, 2010
 
-* Fixed `sign_in` and `sign_out` not setting `current_user`.
+### Added
+- Allow customization of cookie duration.
 
-New for 0.8.7 (February 21, 2010):
+### Changed
+- Removed unnecessary db index.
 
-* Fixed global sign out bug.
-* Allow Rails apps to `before_filter :authenticate` the entire app
+[0.9.0]: https://github.com/thoughtbot/clearance/compare/v0.8.8...v0.9.0
+
+## [0.8.8] - February 25, 2010
+
+### Fixed
+- Fixed `sign_in` and `sign_out` not setting `current_user`.
+
+[0.8.8]: https://github.com/thoughtbot/clearance/compare/v0.8.7...v0.8.8
+
+## [0.8.7] - February 21, 2010
+
+### Fixed
+- Fixed global sign out bug.
+- Allow Rails apps to `before_filter :authenticate` the entire app
   in `ApplicationController` and still have password recovery work without
   overriding any controllers.
-* Rails 3 fix for `ActionController`/`ActionDispatch` change.
+- Rails 3 fix for `ActionController`/`ActionDispatch` change.
 
-New for 0.8.6 (February 17, 2010):
+[0.8.7]: https://github.com/thoughtbot/clearance/compare/v0.8.6...v0.8.7
 
-* Clearance features capitalization should match view text.
-* Skip `:authenticate before_filter` in controllers so apps can easily
-  authenticate a whole site without subclassing.
-* Added randomness to token and salt generation,
-* Reset the `remember_token` on sign out instead of sign in. Allows for the same
-  user to sign in from two locations at once.
-* Append the version number to generated update migrations.
-* Allow overridden user models to skip email/password validations
+## [0.8.6] - February 17, 2010
+
+### Added
+- Allow overridden user models to skip email/password validations
   conditionally. This makes username/facebook integration easier.
 
-New for 0.8.5 (January 20, 2010):
+### Fixed
+- Clearance features capitalization should match view text.
+- Skip `:authenticate before_filter` in controllers so apps can easily
+  authenticate a whole site without subclassing.
+- Added randomness to token and salt generation,
+- Reset the `remember_token` on sign out instead of sign in. Allows for the same
+  user to sign in from two locations at once.
+- Append the version number to generated update migrations.
 
-* Replaced routing hack with `Clearance::Routes.draw(map)` to give more control
-  to the application developer.
-* Removed `attr_accessible` from `Clearance::User`.
-* Fixed bug in password reset feature.
-* Use Jeweler for gemming.
-* Remove dependency on `root_path`, use `'/'` instead.
-* Use `Clearance.configure` block to set mailer sender instead of `DO_NOT_REPLY`
+[0.8.6]: https://github.com/thoughtbot/clearance/compare/v0.8.5...v0.8.6
+
+## [0.8.5] - January 20, 2010
+
+### Changed
+- Removed `attr_accessible` from `Clearance::User`.
+- Remove dependency on `root_path`, use `'/'` instead.
+- Use `Clearance.configure` block to set mailer sender instead of `DO_NOT_REPLY`
   constant.
 
-New for 0.8.4 (December 08, 2009):
+### Fixed
+- Replaced routing hack with `Clearance::Routes.draw(map)` to give more control
+  to the application developer.
+- Fixed bug in password reset feature.
 
-* Remove unnecessary `require 'factory_girl'` in generator.
-* Reference gemcutter (not github) as the gem source in README.
-* Add IRC, rdoc.info links to README.
-* Move user confirmation email trigger into model.
+[0.8.5]: https://github.com/thoughtbot/clearance/compare/v0.8.4...v0.8.5
 
-New for 0.8.3 (September 21, 2009):
+## [0.8.4] - December 08, 2009
 
-* Remove `class_eval` in `Clearance::Authentication`.
-* Avoid possible collisions in the remember me token.
+### Fixed
+- Remove unnecessary `require 'factory_girl'` in generator.
 
-New for 0.8.2 (September 01, 2009):
+[0.8.4]: https://github.com/thoughtbot/clearance/compare/v0.8.3...v0.8.4
 
-* `current_user= accessor` method.
-* Set `current_user` in `sign_in`.
+## [0.8.3] - September 21, 2009
 
-New for 0.8.1 (August 31, 2009):
+### Fixed
+- Avoid possible collisions in the remember me token.
 
-* Removed unnecessary `remember_token_expires_at` column and the
-  `remember?` and `forget_me!` user instance methods.
+[0.8.3]: https://github.com/thoughtbot/clearance/compare/v0.8.2...v0.8.3
 
-New for 0.8.0 (August 31, 2009):
+## [0.8.2] - September 01, 2009
 
-* Always remember me. Replaced session-and-remember-me authentication with
+### Added
+- `current_user= accessor` method.
+- Set `current_user` in `sign_in`.
+
+[0.8.2]: https://github.com/thoughtbot/clearance/compare/v0.8.1...v0.8.2
+
+## [0.8.1] - August 31, 2009
+
+### Changed
+- Removed unnecessary `remember_token_expires_at` column.
+
+### Removed
+- Removed `remember?` and `forget_me!` user instance methods.
+
+[0.8.1]: https://github.com/thoughtbot/clearance/compare/v0.8.0...v0.8.1
+
+## [0.8.0] - August 31, 2009
+
+### Added
+- Documented `Clearance::Authentication` with YARD.
+- Documented `Clearance::User` with YARD.
+
+### Changed
+- Always remember me. Replaced session-and-remember-me authentication with
   always using a cookie with a long timeout.
-* Documented `Clearance::Authentication` with YARD.
-* Documented `Clearance::User` with YARD.
 
-New for 0.7.0 (August 4, 2009):
+[0.8.0]: https://github.com/thoughtbot/clearance/compare/v0.7.0...v0.8.0
 
-* Redirect signed in user who clicks confirmation link again.
-* Redirect signed out user who clicks confirmation link again.
-* Added `signed_out?` convenience method for controllers, helpers, views.
-* Added `clearance_views` generator. By default, creates formtastic views which
+## [0.7.0] - August 4, 2009
+
+### Added
+- Added `signed_out?` convenience method for controllers, helpers, views.
+- Added `clearance_views` generator. By default, creates formtastic views which
   pass all tests and features.
 
-New for 0.6.9 (July 4, 2009):
+### Fixed
+- Redirect signed in user who clicks confirmation link again.
+- Redirect signed out user who clicks confirmation link again.
 
-* Added timestamps to create users migration.
-* Ready for Ruby 1.9.
+[0.7.0]: https://github.com/thoughtbot/clearance/compare/v0.6.9...v0.7.0
 
-New for 0.6.8 (June 24, 2009):
+## [0.6.9] - July 4, 2009
 
-* Added `defined?` checks for various Rails constants such as `ActionController`
+### Added
+- Added timestamps to create users migration.
+- Ready for Ruby 1.9.
+
+[0.6.9]: https://github.com/thoughtbot/clearance/compare/v0.6.8...v0.6.9
+
+## [0.6.8] - June 24, 2009
+
+### Fixed
+- Added `defined?` checks for various Rails constants such as `ActionController`
   for easier unit testing of Clearance extensions... particularly `ActiveRecord`
   extensions... `particularly strong_password`.
 
-New for 0.6.7 (June 13, 2009):
+[0.6.8]: https://github.com/thoughtbot/clearance/compare/v0.6.7...v0.6.8
 
-* Added `sign_up`, `sign_in`, `sign_out` named routes.
-* Minimizing Reek smell: Duplication in `redirect_back_or`.
-* Deprecated `sign_user_in`. Told developers to use `sign_in` instead.
-* `flash_success_after_create`, `flash_notice_after_create`,
+## [0.6.7] - June 13, 2009
+
+### Added
+- Added `sign_up`, `sign_in`, `sign_out` named routes.
+- `flash_success_after_create`, `flash_notice_after_create`,
   `flash_failure_after_create`, `flash_sucess_after_update`,
   `flash_success_after_destroy`, etc.
-* Added `#create` to forbidden `before_filters` on confirmations controller.
-* `should_be_signed_in_as` shouldn't look in the session.
-* README improvements.
-* Move routes loading to separate file.
+- Added `#create` to forbidden `before_filters` on confirmations controller.
 
-New for 0.6.6 (May 18, 2009):
+### Fixed
+- `should_be_signed_in_as` shouldn't look in the session.
 
-* replaced `class_eval` in `Clearance::User` with modules. This was needed
+### Deprecated
+- Deprecated `sign_user_in`. Told developers to use `sign_in` instead.
+
+[0.6.7]: https://github.com/thoughtbot/clearance/compare/v0.6.6...v0.6.7
+
+## [0.6.6] - May 18, 2009
+
+### Fixed
+- replaced `class_eval` in `Clearance::User` with modules. This was needed
   so we could write our own validations.
 
-New for 0.6.5 (May 17, 2009):
+[0.6.6]: https://github.com/thoughtbot/clearance/compare/v0.6.5...v0.6.6
 
-* Make Clearance i18n aware.
+## [0.6.5] - May 17, 2009
 
-New for 0.6.4 (May 12, 2009):
+### Added
+- Make Clearance i18n aware.
 
-* Moved issue tracking to Github from Lighthouse.
-* Asking higher-level questions of controllers in webrat steps, such as
-  `signed_in`? instead of what's in the session. same for accessors.
-* Replacing `sign_in_as` & `sign_out` shoulda macros with a stubbing (requires no
-  dependency) approach. this will avoid dealing with the internals of
+[0.6.5]: https://github.com/thoughtbot/clearance/compare/v0.6.4...v0.6.5
+
+## [0.6.4] - May 12, 2009
+
+### Changed
+- Replacing `sign_in_as` & `sign_out` shoulda macros with a stubbing (requires no
+  dependency) approach. This will avoid dealing with the internals of
   `current_user`, such as session & cookies. Added `sign_in` macro which signs in an
   email confirmed user from clearance's factories.
-* Move private methods on sessions controller into `Clearance::Authentication`
+- Move private methods on sessions controller into `Clearance::Authentication`
   module.
-* Audited flash keys.
+- Audited flash keys.
 
-New for 0.6.3 (April 23, 2009):
+[0.6.4]: https://github.com/thoughtbot/clearance/compare/v0.6.3...v0.6.4
 
-* Scoping `ClearanceMailer` properly within controllers so it works in
+## [0.6.3] - April 23, 2009
+
+### Fixed
+- Scoping `ClearanceMailer` properly within controllers so it works in
   production environments.
 
-New for 0.6.2 (April 22, 2009):
+[0.6.3]: https://github.com/thoughtbot/clearance/compare/v0.6.2...v0.6.3
 
-* Insert `Clearance::User` into User model if it exists.
-* `World(NavigationHelpers)` Cucumber 3.0 style.
+## [0.6.2] - April 22, 2009
 
-New for 0.6.1 (April 21, 2009):
+### Added
+- Insert `Clearance::User` into User model if it exists.
 
-* Scope operators are necessary to keep Rails happy. Reverting the original
+[0.6.2]: https://github.com/thoughtbot/clearance/compare/v0.6.1...v0.6.2
+
+## [0.6.1] - April 21, 2009
+
+### Changed
+- Scope operators are necessary to keep Rails happy. Reverting the original
   revert so they're back in the library now for constants referenced inside of
   the gem.
 
-New for 0.6.0 (April 21, 2009):
+[0.6.1]: https://github.com/thoughtbot/clearance/compare/v0.6.0...v0.6.1
 
-* Converted Clearance to a Rails engine.
-* Include `Clearance::User` in User model in app.
-* Include `Clearance::Authentication` in `ApplicationController`.
-* Namespace controllers under `Clearance` module.
-* Routes move to engine, use namespaced controllers but publicly the same.
-* If you want to override a controller, subclass it like `SessionsController <
+## [0.6.0] - April 21, 2009
+
+### Changed
+- Converted Clearance to a Rails engine.
+- Include `Clearance::User` in User model in app.
+- Include `Clearance::Authentication` in `ApplicationController`.
+- Namespace controllers under `Clearance` module.
+- Routes move to engine, use namespaced controllers but publicly the same.
+- If you want to override a controller, subclass it like `SessionsController <
   Clearance::SessionsController`. This gives you access to usual hooks such as
   `url_after_create`.
-* Controllers, mailer, model, routes all unit tested inside engine. Use
+- Controllers, mailer, model, routes all unit tested inside engine. Use
   `script/generate clearance_features` to test integration of Clearance with your
   Rails app. No longer including modules in your app's test files.
-* Moved views to engine.
-* Converted generated `test/factories/clearance.rb` to use inheritence for
+- Moved views to engine.
+- Converted generated `test/factories/clearance.rb` to use inheritence for
   `email_confirmed_user`.
-* Corrected some spelling errors with methods.
-* Converted "I should see error messages" to use a regex in the features.
-* Loading clearance routes after rails routes via some monkeypatching.
-* Made the clearance controllers `unloadable` to stop constant loading errors in
+- Corrected some spelling errors with methods.
+- Loading clearance routes after rails routes via some monkeypatching.
+- Made the clearance controllers `unloadable` to stop constant loading errors in
   development mode.
 
-New for 0.5.6 (April 11, 2009):
+[0.6.0]: https://github.com/thoughtbot/clearance/compare/v0.5.6...v0.6.0
 
-* Step definition changed for "User should see error messages" so features won't
+## [0.5.6] - April 11, 2009
+
+### Fixed
+- Step definition changed for "User should see error messages" so features won't
   fail for certain validations.
 
-New for 0.5.5 (March 23, 2009):
+[0.5.6]: https://github.com/thoughtbot/clearance/compare/v0.5.5...v0.5.6
 
-* Removing duplicate test to get rid of warning.
+## [0.5.5] - March 23, 2009
 
-New for 0.5.4 (March 21, 2009):
+### Fixed
+- Removing duplicate test to get rid of warning.
 
-* When users fail logging in, redirect them instead of rendering.
+[0.5.5]: https://github.com/thoughtbot/clearance/compare/v0.5.4...v0.5.5
 
-New for 0.5.3 (March 5, 2009):
+## [0.5.4] - March 21, 2009
 
-* Clearance now works with (and requires) Shoulda 2.10.0.
-* Prefer flat over nested contexts in `sessions_controller_test`.
+### Changed
+- When users fail logging in, redirect them instead of rendering.
 
-New for 0.5.2 (March 2, 2009):
+[0.5.4]: https://github.com/thoughtbot/clearance/compare/v0.5.3...v0.5.4
 
-* Fixed last remaining errors in Rails 2.3 tests. Now fully compatible.
+## [0.5.3] - March 5, 2009
 
-New for 0.5.1 (February 27, 2009):
+### Changed
+- Clearance now works with (and requires) Shoulda 2.10.0.
 
-* A user with unconfirmed email who resets password now confirms email.
-* Refactored `user_from_cookie`, `user_from_session`, `User#authenticate` to use
-  more direct return code instead of ugly, harder to read ternary.
-* Switch order of cookies and sessions to take advantage of Rails 2.3's
+[0.5.3]: https://github.com/thoughtbot/clearance/compare/v0.5.2...v0.5.3
+
+## [0.5.2] - March 2, 2009
+
+### Added
+- Full compatible with Rails 2.3 (all tests pass)
+
+[0.5.2]: https://github.com/thoughtbot/clearance/compare/v0.5.1...v0.5.2
+
+## [0.5.1] - February 27, 2009
+
+### Changed
+- A user with unconfirmed email who resets password now confirms email.
+- Switch order of cookies and sessions to take advantage of Rails 2.3's
   "Rack-based lazy-loaded sessions",
-* Altered generator to interact with `application_controller.rb` instead of
+- Altered generator to interact with `application_controller.rb` instead of
   `application.rb` in Rails 2.3 apps.
-* Bug fix. Rack-based session change altered how to test remember me cookie.
 
-New for 0.5.0 (February 27, 2009):
+### Fixed
+- Rack-based session change altered how to test remember me cookie.
 
-* Fixed problem with Cucumber features.
-* Fixed mising HTTP fluency use case.
-* Refactored `User#update_password` to take just parameters it needs.
-* Refactored `User` unit tests to be more readable.
+[0.5.1]: https://github.com/thoughtbot/clearance/compare/v0.5.0...v0.5.1
 
-New for 0.4.9 (February 20, 2009):
+## [0.5.0] - February 27, 2009
 
-* Protect passwords & confirmations actions with forbidden filters.
-* Return 403 Forbidden status code in those cases.
-* Test 403 Forbidden status code in Cucumber feature.
-* Raise custom `ActionController::Forbidden` error internally.
-* Test `ActionController::Forbidden` error is raised in functional test.
-* Fixed bug that allowed anyone to edit another user's password.
-* Required Factory Girl >= 1.2.0.
+### Fixed
+- Fixed problem with Cucumber features.
+- Fixed missing HTTP fluency use case.
 
-New for 0.4.8 (February 16, 2009):
+[0.5.0]: https://github.com/thoughtbot/clearance/compare/v0.4.9...v0.5.0
 
-* Added support paths for Cucumber.
-* Added documentation for the flash.
-* Generators `require 'test_helper'` instead of `File.join` for RR compatibility.
-* Removed interpolated email address from flash message to make i18n easier.
-* Standardized flash messages that refer to email delivery.
+## [0.4.9] - February 20, 2009
 
-New for 0.4.7 (February 12, 2009):
+### Changed
+- Protect passwords & confirmations actions with forbidden filters.
+- Return 403 Forbidden status code in those cases.
 
-* Removed `Clearance::Test::TestHelper` so there is one less setup step.
-* All test helpers now in `shoulda_macros`.
+### Security
+- Fixed bug that allowed anyone to edit another user's password.
 
-New for 0.4.6 (February 11, 2009):
+[0.4.9]: https://github.com/thoughtbot/clearance/compare/v0.4.8...v0.4.9
 
-* Made the modules behave like mixins again.
-* Created `Actions` and `PrivateMethods` modules on controllers for future RDoc
+## [0.4.8] - February 16, 2009
+
+### Added
+- Added documentation for the flash.
+- Generators `require 'test_helper'` instead of `File.join` for RR
+  compatibility.
+
+### Changed
+- Removed interpolated email address from flash message to make i18n easier.
+- Standardized flash messages that refer to email delivery.
+
+[0.4.8]: https://github.com/thoughtbot/clearance/compare/v0.4.7...v0.4.8
+
+## [0.4.7] - February 12, 2009
+
+### Changed
+- Removed `Clearance::Test::TestHelper` so there is one less setup step.
+- All test helpers now in `shoulda_macros`.
+
+[0.4.7]: https://github.com/thoughtbot/clearance/compare/v0.4.7...v0.4.7
+
+## [0.4.6] - February 11, 2009
+
+### Added
+- Created `Actions` and `PrivateMethods` modules on controllers for future RDoc
   reasons.
 
-New for 0.4.5 (February 9, 2009):
+[0.4.6]: https://github.com/thoughtbot/clearance/compare/v0.4.5...v0.4.6
 
-* Removed email downcasing because local-part is case sensitive per
-  RFC5321.
-* Removed dependency on Mocha.
-* Required Shoulda >= 2.9.1.
-* Added password reset feature to `clearance_features` generator.
-* Removed unnecessary `session[:salt]`.
-* Only store location for `session[:return_to]` for GET requests.
-* Audited "sign up" naming convention. "Register" had slipped in a few places.
-* Switched to `SHA1` encryption. Cypher doesn't matter much for email
+## [0.4.5] - February 9, 2009
+
+### Added
+- Added password reset feature to `clearance_features` generator.
+
+### Changed
+- Only store location for `session[:return_to]` for GET requests.
+- Audited "sign up" naming convention. "Register" had slipped in a few places.
+- Switched to `SHA1` encryption. Cypher doesn't matter much for email
   confirmation, password reset. Better to have shorter hashes in the emails for
   clients who line break on 72 chars.
 
-New for 0.4.4 (February 2, 2009):
+### Removed
+- Removed email downcasing because local-part is case sensitive per
+  RFC5321.
+- Removed unnecessary `session[:salt]`.
 
-* Added a generator for Cucumber features.
-* Standardized naming for "Sign up," "Sign in," and "Sign out".
+[0.4.5]: https://github.com/thoughtbot/clearance/compare/v0.4.4...v0.4.5
+
+## [0.4.4] - February 2, 2009
+
+### Added
+- Added a generator for Cucumber features.
+
+### Changed
+- Standardized naming for "Sign up," "Sign in," and "Sign out".
+
+[0.4.4]: https://github.com/thoughtbot/clearance/compare/v0.3.7...v0.4.4
