@@ -96,10 +96,11 @@ describe Clearance::PasswordResetsController do
   describe "#update" do
     context "valid id, token, and new password provided" do
       it "updates the user's password" do
-        user = create(:user, :with_forgotten_password)
+        user = create(:user)
+        password_reset = create(:password_reset, user: user)
         old_encrypted_password = user.encrypted_password
 
-        put :update, update_parameters(user, new_password: "my_new_password")
+        put :update, update_parameters(password_reset, new_password: "my_new_password")
 
         expect(user.reload.encrypted_password).not_to eq old_encrypted_password
       end
@@ -107,7 +108,7 @@ describe Clearance::PasswordResetsController do
       it "signs the user in and redirects" do
         user = create(:user, :with_forgotten_password)
 
-        put :update, update_parameters(user, new_password: "my_new_password")
+        put :update, update_parameters(password_reset, new_password: "my_new_password")
 
         expect(response).to redirect_to(Clearance.configuration.redirect_url)
         expect(cookies[:remember_token]).to be_present
@@ -119,7 +120,7 @@ describe Clearance::PasswordResetsController do
         user = create(:user, :with_forgotten_password)
         old_encrypted_password = user.encrypted_password
 
-        put :update, update_parameters(user, new_password: "")
+        put :update, update_parameters(password_reset, new_password: "")
 
         user.reload
         expect(user.encrypted_password).to eq old_encrypted_password
@@ -129,7 +130,7 @@ describe Clearance::PasswordResetsController do
       it "re-renders the password edit form" do
         user = create(:user, :with_forgotten_password)
 
-        put :update, update_parameters(user, new_password: "")
+        put :update, update_parameters(password_reset, new_password: "")
 
         expect(flash.now[:notice]).to match(/password can't be blank/i)
         expect(response).to render_template(:edit)
@@ -138,12 +139,12 @@ describe Clearance::PasswordResetsController do
     end
   end
 
-  def update_parameters(user, options = {})
+  def update_parameters(password_reset, options = {})
     new_password = options.fetch(:new_password)
 
     {
-      user_id: user,
-      token: user.confirmation_token,
+      user_id: password_reset.user_id,
+      token: password_reset.token,
       password_reset: { password: new_password }
     }
   end

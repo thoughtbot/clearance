@@ -4,8 +4,8 @@
   <p><%= t(".description") %></p>
 
   <%= form_for :password_reset,
-        url: user_password_path(@user, token: @user.confirmation_token),
-        html: { method: :put } do |form| %>
+    url: user_password_path(@password_reset.user, token: @password_reset.token),
+    html: { method: :put } do |form| %>
     <div class="password-field">
       <%= form.label :password %>
       <%= form.password_field :password %>
