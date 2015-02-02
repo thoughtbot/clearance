@@ -56,10 +56,20 @@ class Clearance::PasswordResetsController < Clearance::BaseController
   end
 
   def find_user_by_id_and_confirmation_token
-    user_param = Clearance.configuration.user_id_parameter
+    if find_password_reset_by_user_id_and_token
+      Clearance.configuration.user_model.find_by_id params[user_param]
+    end
+  end
 
-    Clearance.configuration.user_model.
-      find_by_id_and_confirmation_token params[user_param], params[:token].to_s
+  def find_password_reset_by_user_id_and_token
+    PasswordReset.find_by_user_id_and_token(
+      params[user_param],
+      params[:token].to_s,
+    )
+  end
+
+  def user_param
+    Clearance.configuration.user_id_parameter
   end
 
   def find_user_for_create

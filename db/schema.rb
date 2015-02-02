@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150122204353) do
+ActiveRecord::Schema.define(version: 20150127232904) do
 
   create_table "password_resets", force: :cascade do |t|
     t.integer  "user_id",                null: false
@@ -28,7 +28,6 @@ ActiveRecord::Schema.define(version: 20150122204353) do
     t.datetime "updated_at",                     null: false
     t.string   "email",                          null: false
     t.string   "encrypted_password", limit: 128, null: false
-    t.string   "confirmation_token", limit: 128
     t.string   "remember_token",     limit: 128, null: false
   end
 

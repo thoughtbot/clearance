@@ -8,7 +8,9 @@ FactoryGirl.define do
     password 'password'
 
     trait :with_forgotten_password do
-      confirmation_token Clearance::Token.new
+      after(:create) do |user|
+        create(:password_reset, user_id: user.id)
+      end
     end
 
     factory :user_with_optional_password, class: 'UserWithOptionalPassword' do
