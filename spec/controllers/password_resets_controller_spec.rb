@@ -60,14 +60,13 @@ describe Clearance::PasswordResetsController do
   describe "#edit" do
     context "valid id and token are supplied" do
       it "renders the password form for the user" do
-        user = create(:user)
-        password_reset = create(:password_reset, user_id: user.id)
+        password_reset = create(:password_reset)
 
         get :edit, user_id: password_reset.user_id, token: password_reset.token
 
         expect(response).to be_success
         expect(response).to render_template(:edit)
-        expect(assigns(:user)).to eq user
+        expect(assigns(:user)).to eq password.user
       end
     end
 
@@ -82,10 +81,11 @@ describe Clearance::PasswordResetsController do
 
     context "invalid token is supplied" do
       it "renders the new password reset form with a flash notice" do
-        user = create(:user)
-        password_reset = create(:password_reset, user_id: user.id)
+        password_reset = create(:password_reset)
 
-        get :edit, user_id: user.id, token: password_reset.token + "a"
+        get :edit,
+          user_id: password_reset.user,
+          token: password_reset.token + "a"
 
         expect(response).to render_template(:new)
         expect(flash.now[:notice]).to match(/double check the URL/i)

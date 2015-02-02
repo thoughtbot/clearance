@@ -7,7 +7,7 @@ class Clearance::PasswordResetsController < Clearance::BaseController
 
   def create
     if user = find_user_for_create
-      password_reset = PasswordReset.create(user_id: user.id)
+      password_reset = PasswordReset.create(user: user)
       deliver_email(user, password_reset)
     end
     render template: 'passwords/create'
@@ -56,8 +56,8 @@ class Clearance::PasswordResetsController < Clearance::BaseController
   end
 
   def find_user_by_id_and_confirmation_token
-    if find_password_reset_by_user_id_and_token
-      Clearance.configuration.user_model.find_by_id params[user_param]
+    if matching_password_reset = find_password_reset_by_user_id_and_token
+      matching_password_reset.user
     end
   end
 
