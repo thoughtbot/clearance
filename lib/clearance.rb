@@ -6,6 +6,7 @@ require 'clearance/back_door'
 require 'clearance/controller'
 require 'clearance/user'
 require 'clearance/engine'
+require "clearance/password_reset_deactivator"
 require 'clearance/password_strategies'
 require 'clearance/constraints'
 
