@@ -66,7 +66,7 @@ describe Clearance::PasswordResetsController do
 
         expect(response).to be_success
         expect(response).to render_template(:edit)
-        expect(assigns(:user)).to eq password.user
+        expect(assigns(:password_reset)).to eq password_reset
       end
     end
 
@@ -86,6 +86,20 @@ describe Clearance::PasswordResetsController do
         get :edit,
           user_id: password_reset.user,
           token: password_reset.token + "a"
+
+        expect(response).to render_template(:new)
+        expect(flash.now[:notice]).to match(/double check the URL/i)
+      end
+    end
+
+    context "an expired token is supplied" do
+      it "renders the new password reset form with a flash notice" do
+        password_reset = create(:password_reset)
+        password_reset.update(expires_at: 1.day.ago)
+
+        get :edit,
+          user_id: password_reset.user,
+          token: password_reset.token
 
         expect(response).to render_template(:new)
         expect(flash.now[:notice]).to match(/double check the URL/i)

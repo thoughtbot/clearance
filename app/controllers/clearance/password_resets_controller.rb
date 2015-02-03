@@ -4,6 +4,7 @@ class Clearance::PasswordResetsController < Clearance::BaseController
   skip_before_filter :require_login, only: [:create, :edit, :new, :update]
   skip_before_filter :authorize, only: [:create, :edit, :new, :update]
   before_filter :ensure_existing_user, only: [:edit, :update]
+  before_filter :forbid_expired_password_reset, only: [:edit, :update]
 
   def create
     if user = find_user_for_create
@@ -102,6 +103,15 @@ class Clearance::PasswordResetsController < Clearance::BaseController
     flash.now[:notice] = translate(:blank_password,
       scope: [:clearance, :controllers, :passwords],
       default: t('flashes.failure_after_update'))
+  end
+
+  def forbid_expired_password_reset
+    matched_password_reset = find_password_reset_by_user_id_and_token
+
+    if matched_password_reset && matched_password_reset.expired?
+      flash_failure_when_forbidden
+      render template: 'passwords/new'
+    end
   end
 
   def url_after_create

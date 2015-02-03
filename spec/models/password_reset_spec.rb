@@ -32,4 +32,20 @@ describe PasswordReset do
       end
     end
   end
+
+  describe "#expired?" do
+    it "returns true if the reset has expired" do
+      password_reset = create(:password_reset)
+      password_reset.update(expires_at: 10.minutes.ago)
+
+      expect(password_reset).to be_expired
+    end
+
+    it "returns false if the reset has not expired" do
+      password_reset = create(:password_reset)
+      password_reset.update(expires_at: 15.minutes.from_now)
+
+      expect(password_reset).not_to be_expired
+    end
+  end
 end

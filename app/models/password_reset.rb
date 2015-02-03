@@ -5,6 +5,10 @@ class PasswordReset < ActiveRecord::Base
 
   validates :user_id, presence: true
 
+  def expired?
+    expires_at <= Time.zone.now
+  end
+
   private
 
   def generate_token
