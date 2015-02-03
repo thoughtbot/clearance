@@ -5,11 +5,14 @@ class RemoveConfirmationTokenFromUsers < ActiveRecord::Migration
       from_now
 
     execute <<-SQL
-      INSERT INTO password_resets (user_id, token, expires_at)
+      INSERT INTO password_resets
+        (user_id, token, expires_at, created_at, updated_at)
       SELECT
-        users.id AS user_id,
-        users.confirmation_token AS token,
-        "#{expiration_timestamp}" AS expires_at
+        users.id,
+        users.confirmation_token,
+        '#{expiration_timestamp}',
+        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP
       FROM users
       WHERE users.confirmation_token IS NOT NULL
     SQL
