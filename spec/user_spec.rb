@@ -78,14 +78,6 @@ describe User do
         expect(user.encrypted_password).not_to eq old_encrypted_password
       end
 
-      it "clears the confirmation token" do
-        user = create(:user, :with_forgotten_password)
-
-        user.update_password("new_password")
-
-        expect(user.confirmation_token).to be_nil
-      end
-
       it "sets the remember token" do
         user = create(:user, :with_forgotten_password)
 
@@ -104,14 +96,6 @@ describe User do
         user.update_password("")
 
         expect(user.encrypted_password.to_s).to eq old_encrypted_password
-      end
-
-      it "does not clear the confirmation token" do
-        user = create(:user, :with_forgotten_password)
-
-        user.update_password("")
-
-        expect(user.confirmation_token).not_to be_nil
       end
     end
   end
