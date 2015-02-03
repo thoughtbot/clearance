@@ -146,18 +146,20 @@ describe Clearance::PasswordResetsController do
 
     context "password update fails" do
       it "does not update the password" do
-        user = create(:user, :with_forgotten_password)
+        user = create(:user)
+        password_reset = create(:password_reset, user: user)
         old_encrypted_password = user.encrypted_password
 
         put :update, update_parameters(password_reset, new_password: "")
 
         user.reload
         expect(user.encrypted_password).to eq old_encrypted_password
-        expect(user.confirmation_token).to be_present
+        expect(password_reset).not_to be_expired
       end
 
       it "re-renders the password edit form" do
-        user = create(:user, :with_forgotten_password)
+        user = create(:user)
+        password_reset = create(:password_reset, user: user)
 
         put :update, update_parameters(password_reset, new_password: "")
 
