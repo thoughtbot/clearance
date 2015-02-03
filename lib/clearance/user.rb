@@ -76,7 +76,6 @@ module Clearance
       self.password = new_password
 
       if valid?
-        self.confirmation_token = nil
         generate_remember_token
       end
 

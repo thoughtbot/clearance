@@ -27,6 +27,7 @@ class Clearance::PasswordResetsController < Clearance::BaseController
     @user = find_user_for_update
 
     if @user.update_password password_reset_params
+      Clearance::PasswordResetInvalidator.new(user).run
       sign_in @user
       redirect_to url_after_update
     else

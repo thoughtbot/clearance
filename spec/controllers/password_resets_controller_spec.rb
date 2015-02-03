@@ -119,8 +119,22 @@ describe Clearance::PasswordResetsController do
         expect(user.reload.encrypted_password).not_to eq old_encrypted_password
       end
 
+      it "invalidates all other reset tokens" do
+        user = create(:user)
+        password_reset = create(:password_reset, user: user)
+        invalidator = double(:invalidator)
+        allow(Clearance::PasswordResetInvalidator).to receive(:new).and_return(invalidator)
+        allow(invalidator).to receive(:run)
+
+        put :update, update_password(password_reset, new_password: "new_password")
+
+        expect(Clearance::PasswordResetInvalidator).to have_received(:new).with(user)
+        expect(invalidator).to have_received(:run)
+      end
+
       it "signs the user in and redirects" do
-        user = create(:user, :with_forgotten_password)
+        user = create(:user)
+        password_reset = create(:password_reset, user: user)
 
         put :update, update_parameters(password_reset, new_password: "my_new_password")
 
