@@ -3,6 +3,7 @@ require "spec_helper"
 describe PasswordReset do
   it { is_expected.to belong_to(:user) }
   it { is_expected.to validate_presence_of(:user_id) }
+  it { is_expected.to delegate_method(:user_email).to(:user).as(:email) }
 
   context "before create" do
     describe "#generate_token" do

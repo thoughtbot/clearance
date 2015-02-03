@@ -5,6 +5,8 @@ class PasswordReset < ActiveRecord::Base
 
   validates :user_id, presence: true
 
+  delegate :email, to: :user, prefix: true
+
   def self.active_for(user)
     where("user_id = ? AND expires_at > ?", user.id, Time.zone.now)
   end
