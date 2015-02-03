@@ -9,6 +9,10 @@ class PasswordReset < ActiveRecord::Base
     where("user_id = ? AND expires_at > ?", user.id, Time.zone.now)
   end
 
+  def self.deactivate_all
+    update_all(expires_at: Time.zone.now)
+  end
+
   def expired?
     expires_at <= Time.zone.now
   end

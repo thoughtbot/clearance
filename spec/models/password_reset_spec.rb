@@ -46,6 +46,16 @@ describe PasswordReset do
     end
   end
 
+  describe ".deactivate_all" do
+    it "sets the password resets expiration to now" do
+      password_reset = create(:password_reset)
+
+      PasswordReset.deactivate_all
+
+      expect(password_reset.reload).to be_expired
+    end
+  end
+
   describe "#expired?" do
     it "returns true if the reset has expired" do
       password_reset = create(:password_reset)
