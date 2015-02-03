@@ -33,6 +33,19 @@ describe PasswordReset do
     end
   end
 
+  describe ".active_for" do
+    it "returns all the unexpired password resets for a user" do
+      user = create(:user)
+      another_user = create(:user)
+      password_reset = create(:password_reset, user: user)
+      expired_password_reset = create(:password_reset, user: user)
+      expired_password_reset.update(expires_at: 1.day.ago)
+      _another_user_password_reset = create(:password_reset, user: another_user)
+
+      expect(PasswordReset.active_for(user)).to match_array [password_reset]
+    end
+  end
+
   describe "#expired?" do
     it "returns true if the reset has expired" do
       password_reset = create(:password_reset)
