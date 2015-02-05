@@ -69,7 +69,6 @@ module Clearance
         @new_columns ||= {
           email: 't.string :email',
           encrypted_password: 't.string :encrypted_password, limit: 128',
-          confirmation_token: 't.string :confirmation_token, limit: 128',
           remember_token: 't.string :remember_token, limit: 128'
         }.reject { |column| existing_users_columns.include?(column.to_s) }
       end
@@ -81,12 +80,12 @@ module Clearance
         }.reject { |index| existing_users_indexes.include?(index.to_s) }
       end
 
-      def users_table_exists?
-        ActiveRecord::Base.connection.table_exists?(:users)
-      end
-
       def existing_users_columns
         ActiveRecord::Base.connection.columns(:users).map(&:name)
+      end
+
+      def users_table_exists?
+        ActiveRecord::Base.connection.table_exists?(:users)
       end
 
       def existing_users_indexes
