@@ -6,7 +6,7 @@ en:
         not been changed.
       link_text: Change my password
       opening: "Someone, hopefully you, requested we send you a link to change
-        your password. This link expires in 15 minutes:"
+        your password. This link expires in %{time_limit}:"
   flashes:
     failure_after_create: Bad email or password.
     failure_after_update: Password can't be blank.
