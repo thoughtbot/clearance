@@ -12,7 +12,7 @@ module Clearance
       end
 
       def creates_confirmation_token_removal_migration
-        if confirmation_token_column_exists?
+        if users_table_exists? && confirmation_token_column_exists?
           copy_migration "remove_confirmation_token_from_users.rb"
         end
       end
@@ -21,6 +21,10 @@ module Clearance
 
       def confirmation_token_column_exists?
         existing_users_columns.include? "confirmation_token"
+      end
+
+      def users_table_exists?
+        ActiveRecord::Base.connection.table_exists?(:users)
       end
 
       def existing_users_columns
