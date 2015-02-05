@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe Clearance::PasswordResetsController do
+describe Clearance::PasswordsController do
   it { is_expected.to be_a Clearance::BaseController }
 
   describe "#new" do
