@@ -113,17 +113,6 @@ describe User do
     end
   end
 
-  describe "#forgot_password!" do
-    it "creates a new password reset for the user" do
-      user = create(:user)
-
-      user.forgot_password!
-
-      password_reset = PasswordReset.first
-      expect(password_reset.user_id).to eq user.id
-    end
-  end
-
   describe "a user with an optional email" do
     subject { user }
 

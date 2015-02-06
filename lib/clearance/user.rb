@@ -62,10 +62,6 @@ module Clearance
       end
     end
 
-    def forgot_password!
-      PasswordReset.create(user_id: id)
-    end
-
     def reset_remember_token!
       generate_remember_token
       save validate: false
