@@ -94,7 +94,7 @@ describe Clearance::PasswordsController do
     context "an expired token is supplied" do
       it "renders the new password reset form with a flash notice" do
         password_reset = create(:password_reset)
-        password_reset.update(expires_at: 1.day.ago)
+        password_reset.update_attributes(expires_at: 1.day.ago)
 
         get :edit, user_id: password_reset.user, token: password_reset.token
 

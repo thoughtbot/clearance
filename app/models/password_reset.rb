@@ -1,7 +1,7 @@
 class PasswordReset < ActiveRecord::Base
   before_create :generate_token, :generate_expiration_timestamp
 
-  belongs_to :user, class_name: Clearance.configuration.user_model
+  belongs_to :user
 
   validates :user_id, presence: true
 

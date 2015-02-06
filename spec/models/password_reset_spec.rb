@@ -40,7 +40,7 @@ describe PasswordReset do
       another_user = create(:user)
       password_reset = create(:password_reset, user: user)
       expired_password_reset = create(:password_reset, user: user)
-      expired_password_reset.update(expires_at: 1.day.ago)
+      expired_password_reset.update_attributes(expires_at: 1.day.ago)
       _another_user_password_reset = create(:password_reset, user: another_user)
 
       expect(PasswordReset.active_for(user)).to match_array [password_reset]
@@ -60,14 +60,14 @@ describe PasswordReset do
   describe "#expired?" do
     it "returns true if the reset has expired" do
       password_reset = create(:password_reset)
-      password_reset.update(expires_at: 10.minutes.ago)
+      password_reset.update_attributes(expires_at: 10.minutes.ago)
 
       expect(password_reset).to be_expired
     end
 
     it "returns false if the reset has not expired" do
       password_reset = create(:password_reset)
-      password_reset.update(expires_at: 15.minutes.from_now)
+      password_reset.update_attributes(expires_at: 15.minutes.from_now)
 
       expect(password_reset).not_to be_expired
     end

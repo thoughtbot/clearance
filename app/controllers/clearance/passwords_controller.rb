@@ -8,7 +8,9 @@ class Clearance::PasswordsController < Clearance::BaseController
 
   def create
     if user = find_user_for_create
-      password_reset = PasswordReset.create(user: user)
+      password_reset = PasswordReset.new
+      password_reset.user = user
+      password_reset.save
       deliver_email(password_reset)
     end
     render template: 'passwords/create'
