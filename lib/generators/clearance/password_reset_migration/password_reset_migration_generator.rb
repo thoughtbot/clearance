@@ -22,14 +22,6 @@ module Clearance
       def confirmation_token_column_exists?
         existing_users_columns.include? "confirmation_token"
       end
-
-      def users_table_exists?
-        ActiveRecord::Base.connection.table_exists?(:users)
-      end
-
-      def existing_users_columns
-        ActiveRecord::Base.connection.columns(:users).map(&:name)
-      end
     end
   end
 end

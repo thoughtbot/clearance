@@ -79,14 +79,6 @@ module Clearance
         }.reject { |index| existing_users_indexes.include?(index.to_s) }
       end
 
-      def existing_users_columns
-        ActiveRecord::Base.connection.columns(:users).map(&:name)
-      end
-
-      def users_table_exists?
-        ActiveRecord::Base.connection.table_exists?(:users)
-      end
-
       def existing_users_indexes
         ActiveRecord::Base.connection.indexes(:users).map(&:name)
       end

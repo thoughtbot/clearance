@@ -24,6 +24,16 @@ module Clearance
           )
         end
       end
+
+      private
+
+      def users_table_exists?
+        ActiveRecord::Base.connection.table_exists?(:users)
+      end
+
+      def existing_users_columns
+        ActiveRecord::Base.connection.columns(:users).map(&:name)
+      end
     end
   end
 end
