@@ -112,7 +112,7 @@ class Clearance::PasswordsController < Clearance::BaseController
 
     if matched_password_reset && matched_password_reset.expired?
       flash_failure_when_forbidden
-      render template: 'passwords/new'
+      render template: "passwords/new"
     end
   end
 

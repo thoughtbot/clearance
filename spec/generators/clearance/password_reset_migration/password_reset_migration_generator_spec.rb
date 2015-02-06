@@ -25,7 +25,7 @@ describe Clearance::Generators::PasswordResetMigrationGenerator, :generator do
 
       run_generator
 
-      migration = migration_file("db/migrate/remove_confirmation_token_from_users.rb")
+      migration = remove_confirmation_token_migration_file
       expect(migration).to exist
       expect(migration).to have_correct_syntax
       expect(migration).to contain("remove_column :users, :confirmation_token")
@@ -42,8 +42,12 @@ describe Clearance::Generators::PasswordResetMigrationGenerator, :generator do
 
       run_generator
 
-      migration = migration_file("db/migrate/remove_confirmation_token_from_users.rb")
+      migration = remove_confirmation_token_migration_file
       expect(migration).not_to exist
     end
+  end
+
+  def remove_confirmation_token_migration_file
+    migration_file("db/migrate/remove_confirmation_token_from_users.rb")
   end
 end

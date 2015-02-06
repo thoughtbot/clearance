@@ -1,6 +1,5 @@
 require "rails/generators/base"
 require "generators/clearance/migration"
-require "generators/clearance/password_reset_migration/password_reset_migration_generator"
 
 module Clearance
   module Generators

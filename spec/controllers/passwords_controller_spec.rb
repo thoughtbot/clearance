@@ -82,10 +82,9 @@ describe Clearance::PasswordsController do
     context "invalid token is supplied" do
       it "renders the new password reset form with a flash notice" do
         password_reset = create(:password_reset)
+        bad_token = password_reset.token + "a"
 
-        get :edit,
-          user_id: password_reset.user,
-          token: password_reset.token + "a"
+        get :edit, user_id: password_reset.user, token: bad_token
 
         expect(response).to render_template(:new)
         expect(flash.now[:notice]).to match(/double check the URL/i)
@@ -97,9 +96,7 @@ describe Clearance::PasswordsController do
         password_reset = create(:password_reset)
         password_reset.update(expires_at: 1.day.ago)
 
-        get :edit,
-          user_id: password_reset.user,
-          token: password_reset.token
+        get :edit, user_id: password_reset.user, token: password_reset.token
 
         expect(response).to render_template(:new)
         expect(flash.now[:notice]).to match(/double check the URL/i)
@@ -114,7 +111,7 @@ describe Clearance::PasswordsController do
         password_reset = create(:password_reset, user: user)
         old_encrypted_password = user.encrypted_password
 
-        put :update, update_parameters(password_reset, new_password: "my_new_password")
+        put :update, update_parameters(password_reset, new_password: "foobar")
 
         expect(user.reload.encrypted_password).not_to eq old_encrypted_password
       end
@@ -127,9 +124,10 @@ describe Clearance::PasswordsController do
           and_return(deactivator)
         allow(deactivator).to receive(:run)
 
-        put :update, update_parameters(password_reset, new_password: "new_password")
+        put :update, update_parameters(password_reset, new_password: "foobar")
 
-        expect(Clearance::PasswordResetDeactivator).to have_received(:new).with(user)
+        expect(Clearance::PasswordResetDeactivator).
+          to have_received(:new).with(user)
         expect(deactivator).to have_received(:run)
       end
 
@@ -137,7 +135,7 @@ describe Clearance::PasswordsController do
         user = create(:user)
         password_reset = create(:password_reset, user: user)
 
-        put :update, update_parameters(password_reset, new_password: "my_new_password")
+        put :update, update_parameters(password_reset, new_password: "foobar")
 
         expect(response).to redirect_to(Clearance.configuration.redirect_url)
         expect(cookies[:remember_token]).to be_present
