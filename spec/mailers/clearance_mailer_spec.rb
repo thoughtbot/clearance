@@ -27,6 +27,8 @@ describe ClearanceMailer do
 
   it "has html and plain text parts" do
     password_reset = create(:password_reset)
+    allow(Clearance.configuration).to receive(:password_reset_time_limit).
+      and_return(10.minutes)
 
     email = ClearanceMailer.change_password(password_reset)
 
@@ -49,6 +51,12 @@ describe ClearanceMailer do
     expect(email.html_part.body).to have_css(
       "a",
       text: I18n.t("clearance_mailer.change_password.link_text")
+    )
+    expect(email.body).to include(
+      I18n.t(
+        "clearance_mailer.change_password.opening",
+        time_limit: "10 minutes"
+      )
     )
   end
 end
