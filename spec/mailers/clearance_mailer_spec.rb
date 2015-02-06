@@ -43,6 +43,7 @@ describe ClearanceMailer do
     host = ActionMailer::Base.default_url_options[:host]
     link = "http://#{host}/users/#{user.id}/password/edit" \
       "?token=#{user.confirmation_token}"
+    allow(PasswordReset).to receive(:time_limit).and_return(10.minutes)
 
     email = ClearanceMailer.change_password(password_reset)
 

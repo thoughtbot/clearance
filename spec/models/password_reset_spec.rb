@@ -27,8 +27,6 @@ describe PasswordReset do
         expect(password_reset.expires_at).to be_nil
 
         password_reset.save
-        expect(Clearance.configuration).
-          to have_received(:password_reset_time_limit)
         expect(password_reset.expires_at).not_to be_nil
       end
     end
@@ -54,6 +52,15 @@ describe PasswordReset do
       PasswordReset.deactivate_all
 
       expect(password_reset.reload).to be_expired
+    end
+  end
+
+  describe ".time_limit" do
+    it "returns the time limit as set in the Clearance configuration" do
+      allow(Clearance.configuration).to receive(:password_reset_time_limit).
+        and_return(10.minutes)
+
+      expect(PasswordReset.time_limit).to eq 10.minutes
     end
   end
 

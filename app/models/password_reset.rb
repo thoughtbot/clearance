@@ -15,6 +15,10 @@ class PasswordReset < ActiveRecord::Base
     update_all(expires_at: Time.zone.now)
   end
 
+  def self.time_limit
+    Clearance.configuration.password_reset_time_limit
+  end
+
   def expired?
     expires_at <= Time.zone.now
   end
@@ -26,10 +30,6 @@ class PasswordReset < ActiveRecord::Base
   end
 
   def generate_expiration_timestamp
-    self.expires_at = time_limit.from_now
-  end
-
-  def time_limit
-    Clearance.configuration.password_reset_time_limit
+    self.expires_at = self.class.time_limit.from_now
   end
 end

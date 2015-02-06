@@ -1,7 +1,7 @@
 class ClearanceMailer < ActionMailer::Base
   def change_password(password_reset)
     @password_reset = password_reset
-    @time_limit = Clearance.configuration.password_reset_time_limit
+    @time_limit = PasswordReset.time_limit
 
     mail(
       from: Clearance.configuration.mailer_sender,
