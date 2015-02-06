@@ -248,8 +248,8 @@ If you are using an earlier version of Rails, you can override the
 
 ```ruby
 class PasswordsController < Clearance::PasswordsController
-  def deliver_email(user)
-    ClearanceMailer.delay.change_password(user)
+  def deliver_email(password_reset)
+    ClearanceMailer.delay.change_password(password_reset)
   end
 end
 ```
