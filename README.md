@@ -122,6 +122,18 @@ Clearance.configure do |config|
 end
 ```
 
+If your app is already using Clearance but it does not have the token expiration
+feature, you can generate and run the migrations:
+
+```shell
+rails generate clearance:password_reset_migration
+```
+
+This will create a migration for the new password_resets table. If there are any
+existing password resets (i.e. any user with a confirmation token), those will
+be migrated over to the new table with its expiration set to the time limit
+configured.
+
 ### Integrating with Rack Applications
 
 Clearance adds its session to the Rack environment hash so middleware and other
