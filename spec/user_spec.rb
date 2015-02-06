@@ -70,7 +70,7 @@ describe User do
   describe "#update_password" do
     context "with a valid password" do
       it "changes the encrypted password" do
-        user = create(:user, :with_forgotten_password)
+        user = create(:user)
         old_encrypted_password = user.encrypted_password
 
         user.update_password("new_password")
@@ -90,7 +90,7 @@ describe User do
 
     context "with blank password" do
       it "does not change the encrypted password" do
-        user = create(:user, :with_forgotten_password)
+        user = create(:user)
         old_encrypted_password = user.encrypted_password
 
         user.update_password("")
