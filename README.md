@@ -32,6 +32,9 @@ The generator:
 * Creates an initializer to allow further configuration.
 * Creates a migration that either creates a users table or adds any necessary
   columns to the existing table.
+* Creates a `PasswordReset` model.
+* Creates a migration to remove the `confirmation_token` column from the users
+table if it exists.
 
 ## Configure
 
@@ -47,6 +50,7 @@ Clearance.configure do |config|
   config.routes = true
   config.httponly = false
   config.mailer_sender = 'reply@example.com'
+  config.password_reset_time_limit = 15.minutes
   config.password_strategy = Clearance::PasswordStrategies::BCrypt
   config.redirect_url = '/'
   config.secure_cookie = false
@@ -106,12 +110,15 @@ helpers. For example:
 
 ### Password Resets
 
-When a user resets their password, Clearance delivers them an email. You
-should change the `mailer_sender` default, used in the email's "from" header:
+When a user resets their password, Clearance delivers them an email. By default,
+the password reset token expires in 15 minutes. You can change the time limit by
+passing in an `ActiveSupport::Duration`. You should also change the
+`mailer_sender` default, used in the email's "from" header:
 
 ```ruby
 Clearance.configure do |config|
   config.mailer_sender = 'reply@example.com'
+  config.password_reset_time_limit = 1.hour
 end
 ```
 
