@@ -21,13 +21,13 @@ class RemoveConfirmationTokenFromUsers < ActiveRecord::Migration
   end
 
   def down
-    add_column :users, :confirmation_token, limit: 128
+    add_column :users, :confirmation_token, :string, limit: 128
 
     execute <<-SQL
       UPDATE users
-      SET confirmation_token = password_resets.token
-      FROM password_resets
-      WHERE users.id = password_resets.user_id
+      SET confirmation_token =
+        (SELECT token FROM password_resets
+         WHERE users.id = password_resets.user_id)
     SQL
   end
 end
