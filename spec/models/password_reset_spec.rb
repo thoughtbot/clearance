@@ -45,11 +45,11 @@ describe PasswordReset do
     end
   end
 
-  describe ".deactivate_all" do
+  describe "#deactivate!" do
     it "sets the password resets expiration to now" do
       password_reset = create(:password_reset)
 
-      PasswordReset.deactivate_all
+      password_reset.deactivate!
 
       expect(password_reset.reload).to be_expired
     end

@@ -11,12 +11,13 @@ class PasswordReset < ActiveRecord::Base
     where("user_id = ? AND expires_at > ?", user.id, Time.zone.now)
   end
 
-  def self.deactivate_all
-    update_all(expires_at: Time.zone.now)
-  end
-
   def self.time_limit
     Clearance.configuration.password_reset_time_limit
+  end
+
+  def deactivate!
+    self.expires_at = Time.zone.now
+    self.save!
   end
 
   def expired?

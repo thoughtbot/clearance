@@ -5,11 +5,17 @@ module Clearance
     end
 
     def run
-      PasswordReset.active_for(user).deactivate_all
+      active_password_resets.each do |reset|
+        reset.deactivate!
+      end
     end
 
     private
 
     attr_reader :user
+
+    def active_password_resets
+      PasswordReset.active_for(user)
+    end
   end
 end
