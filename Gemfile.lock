@@ -137,7 +137,7 @@ GEM
       rspec-mocks (~> 3.2.0)
       rspec-support (~> 3.2.0)
     rspec-support (3.2.1)
-    shoulda-matchers (2.7.0)
+    shoulda-matchers (2.8.0)
       activesupport (>= 3.0.0)
     slop (3.6.0)
     sprockets (2.12.3)
@@ -172,6 +172,6 @@ DEPENDENCIES
   factory_girl_rails (~> 4.2)
   pry
   rspec-rails (~> 3.1)
-  shoulda-matchers (~> 2.4)
+  shoulda-matchers (~> 2.8)
   sqlite3 (~> 1.3)
   timecop (~> 0.6)

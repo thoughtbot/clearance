@@ -9,7 +9,7 @@ describe Clearance::SessionsController do
 
       it { should respond_with(:success) }
       it { should render_template(:new) }
-      it { should_not set_the_flash }
+      it { should_not set_flash }
     end
 
     context "when a user is signed in" do
@@ -19,7 +19,7 @@ describe Clearance::SessionsController do
       end
 
       it { should redirect_to(Clearance.configuration.redirect_url) }
-      it { should_not set_the_flash }
+      it { should_not set_flash }
     end
   end
 
