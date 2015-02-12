@@ -7,6 +7,6 @@ class CreatePasswordResets < ActiveRecord::Migration
       t.timestamps null: false
     end
 
-    add_index :password_resets, :user_id
+    add_index :password_resets, [:user_id, :expires_at]
   end
 end
