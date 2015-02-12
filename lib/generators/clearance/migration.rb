@@ -4,7 +4,7 @@ module Clearance
   module Generators
     module Migration
       def self.included(base)
-        base.include Rails::Generators::Migration
+        base.send :include, Rails::Generators::Migration
         base.extend ClassMethods
       end
 
