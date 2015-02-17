@@ -339,7 +339,8 @@ $ rails generate clearance:specs
 To test controller actions that are protected by `before_filter :require_login`,
 require Clearance's test helpers in your test suite.
 
-For `rspec`, add this line to your `spec/spec_helper.rb`:
+For `rspec`, add the following line to your `spec/rails_helper.rb` or
+`spec/spec_helper` if `rails_helper` does not exist:
 
 ```ruby
 require 'clearance/rspec'
