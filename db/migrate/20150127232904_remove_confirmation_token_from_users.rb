@@ -1,9 +1,5 @@
 class RemoveConfirmationTokenFromUsers < ActiveRecord::Migration
   def up
-    expiration_timestamp = Clearance.configuration.
-      password_reset_time_limit.
-      from_now
-
     execute <<-SQL
       INSERT INTO password_resets
         (user_id, token, expires_at, created_at, updated_at)
@@ -18,6 +14,13 @@ class RemoveConfirmationTokenFromUsers < ActiveRecord::Migration
     SQL
 
     remove_column :users, :confirmation_token
+  end
+
+  def expiration_timestamp
+    Clearance.
+      configuration.
+      password_reset_time_limit.
+      from_now
   end
 
   def down
