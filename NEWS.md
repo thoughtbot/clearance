@@ -3,6 +3,16 @@
 The noteworthy changes for each Clearance version are included here. For a
 complete changelog, see the git history.
 
+## [1.8.1] - March 3, 2015
+
+### Security
+- Enable cross-site request forgery protection on `sessions#create`. See
+  [7f5d56e](https://github.com/thoughtbot/clearance/commit/7f5d56ed3a51aca14fa60247a90ca0cd11db0e0d).
+
+### Fixed
+- All methods included by `Clearance::Controller` are now excluded from
+  `action_methods`.
+
 ## [1.8.0] - January 23, 2015
 
 ### Added
