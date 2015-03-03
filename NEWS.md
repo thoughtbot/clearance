@@ -13,6 +13,8 @@ complete changelog, see the git history.
 - All methods included by `Clearance::Controller` are now excluded from
   `action_methods`.
 
+[1.8.1]: https://github.com/thoughtbot/clearance/compare/v1.8.0...v1.8.1
+
 ## [1.8.0] - January 23, 2015
 
 ### Added
