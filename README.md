@@ -361,17 +361,31 @@ sign_in_as(user)
 sign_out
 ```
 
-## Credits
+## Contributing
 
-![thoughtbot](http://thoughtbot.com/images/tm/logo.png)
+Please see [CONTRIBUTING.md].
+Thank you, [contributors]!
 
-Clearance is maintained by [thoughtbot, inc](http://thoughtbot.com/community)
-and [contributors](https://github.com/thoughtbot/clearance/contributors) like
-you. Thank you!
+[CONTRIBUTING.md]: /CONTRIBUTING.md
+[contributors]: https://github.com/thoughtbot/clearance/graphs/contributors
 
 ## License
 
 Clearance is copyright © 2009 thoughtbot. It is free software, and may be
-redistributed under the terms specified in the `LICENSE` file.
+redistributed under the terms specified in the [`LICENSE`] file.
 
+[`LICENSE`]: /LICENSE
+
+## About thoughtbot
+
+![thoughtbot](https://thoughtbot.com/logo.png)
+
+Clearance is maintained and funded by thoughtbot, inc.
 The names and logos for thoughtbot are trademarks of thoughtbot, inc.
+
+We love open source software!
+See [our other projects][community].
+We are [available for hire][hire].
+
+[community]: https://thoughtbot.com/community?utm_source=github
+[hire]: https://thoughtbot.com/hire-us?utm_source=github
