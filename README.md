@@ -369,6 +369,12 @@ Thank you, [contributors]!
 [CONTRIBUTING.md]: /CONTRIBUTING.md
 [contributors]: https://github.com/thoughtbot/clearance/graphs/contributors
 
+## Need Help?
+
+We offer 1-on-1 coaching. We can help you set up Clearance, write authentication
+and authorization extensions for your application, and work out a permission and
+role model which works for you. [Get in touch][coaching].
+
 ## License
 
 Clearance is copyright © 2009 thoughtbot. It is free software, and may be
@@ -384,8 +390,10 @@ Clearance is maintained and funded by thoughtbot, inc.
 The names and logos for thoughtbot are trademarks of thoughtbot, inc.
 
 We love open source software!
-See [our other projects][community].
-We are [available for hire][hire].
+See [our other projects][community],
+[hire us][hire] to design, develop, and grow your product,
+or get in touch about [1-on-1 coaching][coaching].
 
 [community]: https://thoughtbot.com/community?utm_source=github
 [hire]: https://thoughtbot.com/hire-us?utm_source=github
+[coaching]: http://coaching.thoughtbot.com/rails/?utm_source=github
