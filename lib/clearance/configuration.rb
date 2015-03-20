@@ -156,4 +156,12 @@ module Clearance
   def self.configure
     yield configuration
   end
+
+  # Reload user_model on Rails restart
+  class ClearanceRailtie < Rails::Railtie
+    config.to_prepare do
+      config = Clearance.configuration
+      config.user_model = config.user_model.to_s.constantize
+    end
+  end
 end
