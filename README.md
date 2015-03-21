@@ -110,10 +110,14 @@ helpers. For example:
 
 ### Password Resets
 
-When a user resets their password, Clearance delivers them an email. By default,
-the password reset token expires in 15 minutes. You can change the time limit by
-passing in an `ActiveSupport::Duration`. You should also change the
-`mailer_sender` default, used in the email's "from" header:
+When a user resets their password, Clearance delivers them an email. 
+
+By default, the password reset token expires in 15 minutes. You can change the
+time limit by passing in an `ActiveSupport::Duration` to
+`config.password_reset_time_limit`.
+
+You should also change the `mailer_sender` default, which used in the email's
+"from" header:
 
 ```ruby
 Clearance.configure do |config|
