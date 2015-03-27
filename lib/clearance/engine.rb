@@ -11,5 +11,9 @@ module Clearance
       ActionDispatch::ParamsParser,
       Clearance::RackSession
     )
+
+    config.to_prepare do
+      Clearance.configuration.reload_user_model
+    end
   end
 end

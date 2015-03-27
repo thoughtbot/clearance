@@ -162,4 +162,19 @@ describe Clearance::Configuration do
       expect(Clearance.configuration.routes_enabled?).to be false
     end
   end
+
+  describe "#reload_user_model" do
+    it "returns the user model class if one has already been configured" do
+      ConfiguredUser = Class.new
+      Clearance.configure { |config| config.user_model = ConfiguredUser }
+
+      expect(Clearance.configuration.reload_user_model).to eq ConfiguredUser
+    end
+
+    it "returns nil if the user_model has not been configured" do
+      Clearance.configuration = Clearance::Configuration.new
+
+      expect(Clearance.configuration.reload_user_model).to be_nil
+    end
+  end
 end
