@@ -29,6 +29,9 @@ describe ClearanceMailer do
     email = ClearanceMailer.change_password(user)
 
     expect(email.body.to_s).to include(link)
+    expect(email.body.to_s).to have_css(
+      "a", text: I18n.t("clearance_mailer.change_password.link_text")
+    )
   end
 
   it "sets its subject" do
