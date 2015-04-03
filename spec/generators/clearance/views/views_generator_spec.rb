@@ -6,18 +6,19 @@ describe Clearance::Generators::ViewsGenerator, :generator do
     run_generator
 
     views = %w(
-      clearance_mailer/change_password
-      layouts/application
-      passwords/create
-      passwords/edit
-      passwords/new
-      sessions/_form
-      sessions/new
-      users/_form
-      users/new
+      clearance_mailer/change_password.html.erb
+      clearance_mailer/change_password.text.erb
+      layouts/application.html.erb
+      passwords/create.html.erb
+      passwords/edit.html.erb
+      passwords/new.html.erb
+      sessions/_form.html.erb
+      sessions/new.html.erb
+      users/_form.html.erb
+      users/new.html.erb
     )
 
-    view_files = views.map { |view| file("app/views/#{view}.html.erb") }
+    view_files = views.map { |view| file("app/views/#{view}") }
 
     view_files.each do |each|
       expect(each).to exist
