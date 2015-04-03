@@ -3,6 +3,23 @@
 The noteworthy changes for each Clearance version are included here. For a
 complete changelog, see the git history.
 
+## [1.9.0] - April 3, 2015
+
+### Added
+- The change password mailer now produces a multipart message which includes a
+  text part along with the previously existing HTML part. To override the text
+  part, add `change_password.text.erb` alongside your `change_password.html.erb`
+  file.
+
+### Fixed
+- Custom `user_model` configured in a Rails initializer will now be reloaded in
+  development mode.
+- Change password template now contains "Change my password" link text to
+  address an issue linking the URL in some mail clients.
+
+
+[1.9.0]: https://github.com/thoughtbot/clearance/compare/v1.8.1...v1.9.0
+
 ## [1.8.1] - March 3, 2015
 
 ### Security
