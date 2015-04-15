@@ -155,7 +155,8 @@ See [app/controllers/clearance](/app/controllers/clearance) for the default
 behavior. Many protected methods were extracted in these controllers in an
 attempt to make overrides and hooks simpler.
 
-To override a Clearance controller, subclass it:
+To override a Clearance controller, subclass it and update the routes to
+point to your new controller (see the "Routes" section).
 
 ```ruby
 class PasswordsController < Clearance::PasswordsController
