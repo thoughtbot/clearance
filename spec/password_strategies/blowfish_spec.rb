@@ -2,6 +2,12 @@ require "spec_helper"
 include FakeModelWithPasswordStrategy
 
 describe Clearance::PasswordStrategies::Blowfish do
+  around do |example|
+    silence_warnings do
+      example.run
+    end
+  end
+
   describe "#password=" do
     context "when the password is set" do
       it "does not initialize the salt" do

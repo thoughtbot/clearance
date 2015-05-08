@@ -1,6 +1,13 @@
 module Clearance
   module PasswordStrategies
     module BCryptMigrationFromSHA1
+      DEPRECATION_MESSAGE = "[DEPRECATION] The BCryptMigrationFromSha1 " \
+        "password strategy has been deprecated and will be removed from " \
+        "Clearance 2.0. BCrypt is the only officially supported strategy, " \
+        "though you are free to provide your own. To continue using this " \
+        "strategy, add clearance-deprecated_password_strategies to your " \
+        "Gemfile."
+
       class BCryptUser
         include Clearance::PasswordStrategies::BCrypt
 
@@ -22,10 +29,12 @@ module Clearance
       end
 
       def authenticated?(password)
+        warn "#{Kernel.caller.first}: #{DEPRECATION_MESSAGE}"
         authenticated_with_sha1?(password) || authenticated_with_bcrypt?(password)
       end
 
       def password=(new_password)
+        warn "#{Kernel.caller.first}: #{DEPRECATION_MESSAGE}"
         @password = new_password
         BCryptUser.new(self).password = new_password
       end

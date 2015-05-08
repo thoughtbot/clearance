@@ -2,6 +2,12 @@ require "spec_helper"
 include FakeModelWithPasswordStrategy
 
 describe Clearance::PasswordStrategies::BCryptMigrationFromSHA1 do
+  around do |example|
+    silence_warnings do
+      example.run
+    end
+  end
+
   describe "#password=" do
     it "encrypts the password into a BCrypt-encrypted encrypted_password" do
       stub_bcrypt_password
