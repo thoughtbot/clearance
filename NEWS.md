@@ -3,14 +3,14 @@
 The noteworthy changes for each Clearance version are included here. For a
 complete changelog, see the git history.
 
-## [1.10.0] - May 15, 2015
+## [1.10.1] - May 15, 2015
 
 ### Deprecated
 - All clearance-provided password strategies other than BCrypt have been
   deprecated. You can continue to use those strategies without a deprecation
   warning by adding `clearance-deprecated_password_strategies` to your Gemfile.
 
-[1.10.0]: https://github.com/thoughtbot/clearance/compare/v1.9.0...v1.10.0
+[1.10.1]: https://github.com/thoughtbot/clearance/compare/v1.9.0...v1.10.1
 
 ## [1.9.0] - April 3, 2015
 
