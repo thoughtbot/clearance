@@ -14,11 +14,11 @@
 ActiveRecord::Schema.define(version: 20150127232904) do
 
   create_table "password_resets", force: :cascade do |t|
-    t.integer  "user_id",                null: false
-    t.string   "token",      limit: 128, null: false
-    t.datetime "expires_at",             null: false
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.integer  "user_id",    null: false
+    t.string   "token",      null: false
+    t.datetime "expires_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_index "password_resets", ["user_id", "expires_at"], name: "index_password_resets_on_user_id_and_expires_at"
