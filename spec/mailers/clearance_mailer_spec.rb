@@ -39,10 +39,9 @@ describe ClearanceMailer do
 
   it "contains a link to edit the password" do
     password_reset = create(:password_reset)
-    user = password_reset.user
     host = ActionMailer::Base.default_url_options[:host]
-    link = "http://#{host}/users/#{user.id}/password/edit" \
-      "?token=#{user.confirmation_token}"
+    link = "http://#{host}/users/#{password_reset.user_id}/password/edit" \
+      "?token=#{password_reset.token}"
     allow(PasswordReset).to receive(:time_limit).and_return(10.minutes)
 
     email = ClearanceMailer.change_password(password_reset)
@@ -53,11 +52,11 @@ describe ClearanceMailer do
       "a",
       text: I18n.t("clearance_mailer.change_password.link_text")
     )
-    expect(email.body).to include(
-      I18n.t(
-        "clearance_mailer.change_password.opening",
-        time_limit: "10 minutes"
-      )
-    )
+    expect(email.text_part.body).to include(expiration_warning("10 minutes"))
+    expect(email.html_part.body).to include(expiration_warning("10 minutes"))
+  end
+
+  def expiration_warning(duration)
+    I18n.t("clearance_mailer.change_password.opening", time_limit: duration)
   end
 end
