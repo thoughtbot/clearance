@@ -5,7 +5,7 @@ module Clearance
     end
 
     def run
-      active_password_resets.each(&:deactivate!)
+      active_password_resets.each(&:deactivate)
     end
 
     private

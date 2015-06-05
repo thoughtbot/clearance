@@ -119,16 +119,10 @@ describe Clearance::PasswordsController do
       it "deactivates all other reset tokens" do
         user = create(:user)
         password_reset = create(:password_reset, user: user)
-        deactivator = double(:deactivator)
-        allow(Clearance::PasswordResetDeactivator).to receive(:new).
-          and_return(deactivator)
-        allow(deactivator).to receive(:run)
 
         put :update, update_parameters(password_reset, new_password: "foobar")
 
-        expect(Clearance::PasswordResetDeactivator).
-          to have_received(:new).with(user)
-        expect(deactivator).to have_received(:run)
+        expect(PasswordReset.active_for(user)).to be_empty
       end
 
       it "signs the user in and redirects" do

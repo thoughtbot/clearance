@@ -15,16 +15,33 @@ class PasswordReset < ActiveRecord::Base
     Clearance.configuration.password_reset_time_limit
   end
 
-  def deactivate!
-    self.expires_at = Time.zone.now
-    self.save!
+  def complete(new_password)
+    transaction do
+      unless user.update_password(new_password)
+        raise ActiveRecord::Rollback
+      end
+
+      deactivate_user_resets
+    end
+  end
+
+  def deactivate
+    update_attributes(expires_at: Time.zone.now)
   end
 
   def expired?
     expires_at <= Time.zone.now
   end
 
+  def successful?
+    !self.class.active_for(user).exists?
+  end
+
   private
+
+  def deactivate_user_resets
+    Clearance::PasswordResetsDeactivator.new(user).run
+  end
 
   def generate_token
     self.token = Clearance::Token.new
