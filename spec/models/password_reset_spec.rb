@@ -45,6 +45,15 @@ describe PasswordReset do
     end
   end
 
+  describe ".time_limit" do
+    it "returns the time limit as set in the Clearance configuration" do
+      allow(Clearance.configuration).to receive(:password_reset_time_limit).
+        and_return(10.minutes)
+
+      expect(PasswordReset.time_limit).to eq 10.minutes
+    end
+  end
+
   describe "#complete" do
     it "updates the password and deactivates all of the user's resets" do
       user = create(:user)
@@ -80,15 +89,6 @@ describe PasswordReset do
       password_reset.deactivate
 
       expect(password_reset.reload).to be_expired
-    end
-  end
-
-  describe ".time_limit" do
-    it "returns the time limit as set in the Clearance configuration" do
-      allow(Clearance.configuration).to receive(:password_reset_time_limit).
-        and_return(10.minutes)
-
-      expect(PasswordReset.time_limit).to eq 10.minutes
     end
   end
 
