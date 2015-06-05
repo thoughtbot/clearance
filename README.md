@@ -50,7 +50,7 @@ Clearance.configure do |config|
   config.routes = true
   config.httponly = false
   config.mailer_sender = 'reply@example.com'
-  config.password_reset_time_limit = 15.minutes
+  config.password_reset_time_limit = 20.minutes
   config.password_strategy = Clearance::PasswordStrategies::BCrypt
   config.redirect_url = '/'
   config.secure_cookie = false

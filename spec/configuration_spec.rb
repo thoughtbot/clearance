@@ -180,9 +180,9 @@ describe Clearance::Configuration do
 
   describe "#password_reset_time_limit" do
     context "when the password reset time limit isn't specified" do
-      it "returns 15.minutes by default" do
+      it "returns 20.minutes by default" do
         expect(Clearance.configuration.password_reset_time_limit).
-          to eq 15.minutes
+          to eq 20.minutes
       end
     end
 
