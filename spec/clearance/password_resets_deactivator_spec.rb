@@ -1,11 +1,11 @@
 require "spec_helper"
 
-describe Clearance::PasswordResetDeactivator do
+describe Clearance::PasswordResetsDeactivator do
   describe ".run" do
     it "invalidates all active password resets for the user" do
       user = create(:user)
       password_reset = create(:password_reset, user: user)
-      password_reset_deactivator = Clearance::PasswordResetDeactivator.new(user)
+      password_reset_deactivator = Clearance::PasswordResetsDeactivator.new(user)
 
       expect(password_reset).not_to be_expired
 

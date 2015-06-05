@@ -1,5 +1,5 @@
 module Clearance
-  class PasswordResetDeactivator
+  class PasswordResetsDeactivator
     def initialize(user)
       @user = user
     end
