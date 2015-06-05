@@ -110,7 +110,7 @@ helpers. For example:
 
 ### Password Resets
 
-When a user resets their password, Clearance delivers them an email. 
+When a user resets their password, Clearance sends them an email.
 
 By default, the password reset token expires in 15 minutes. You can change the
 time limit by passing in an `ActiveSupport::Duration` to
@@ -126,8 +126,8 @@ Clearance.configure do |config|
 end
 ```
 
-If your app is already using Clearance but it does not have the token expiration
-feature, you can generate and run the migrations:
+*Existing users*: If your app is already using Clearance but it does not have
+the token expiration feature, you can generate and run the migrations:
 
 ```shell
 rails generate clearance:password_reset_migration
