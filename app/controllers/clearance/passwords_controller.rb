@@ -15,7 +15,7 @@ class Clearance::PasswordsController < Clearance::BaseController
   end
 
   def edit
-    @password_reset = find_password_reset_by_user_id_and_token
+    @password_reset = find_password_reset
     render template: 'passwords/edit'
   end
 
@@ -24,7 +24,7 @@ class Clearance::PasswordsController < Clearance::BaseController
   end
 
   def update
-    @password_reset = find_password_reset_by_user_id_and_token
+    @password_reset = find_password_reset
     user = @password_reset.user
 
     if user.update_password password_reset_params
@@ -58,7 +58,7 @@ class Clearance::PasswordsController < Clearance::BaseController
     end
   end
 
-  def find_password_reset_by_user_id_and_token
+  def find_password_reset
     PasswordReset.find_by_user_id_and_token(
       params[user_param],
       params[:token].to_s,
@@ -102,13 +102,13 @@ class Clearance::PasswordsController < Clearance::BaseController
   end
 
   def find_user_from_password_reset
-    if matching_password_reset = find_password_reset_by_user_id_and_token
+    if matching_password_reset = find_password_reset
       matching_password_reset.user
     end
   end
 
   def forbid_expired_password_reset
-    matched_password_reset = find_password_reset_by_user_id_and_token
+    matched_password_reset = find_password_reset
 
     if matched_password_reset && matched_password_reset.expired?
       flash_failure_when_forbidden
