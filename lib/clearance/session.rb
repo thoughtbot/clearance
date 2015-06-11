@@ -115,10 +115,12 @@ module Clearance
         value: remember_token
       }
 
-      allowed_domains = Array(Clearance.configuration.cookie_domain).map(&:downcase)
+      allowed_domains = Array(Clearance.configuration.cookie_domain).dup
+      allowed_domains.map!(&:downcase)
 
       if allowed_domains.any?
-        value[:domain] = allowed_domains.delete(extract_base_host(get_request_uri))
+        base_host = extract_base_host(get_request_uri)
+        value[:domain] = allowed_domains.delete(base_host)
         value[:domain] ||= allowed_domains.first
       end
 
@@ -129,12 +131,12 @@ module Clearance
 
     def extract_base_host(uri)
       hostname = URI.parse(uri).host
-      hostname.split('.').last(2).join('.').downcase
+      hostname.split(".").last(2).join(".").downcase
     rescue URI::InvalidURIError
     end
 
     def get_request_uri
-      @env['REQUEST_URI']
+      @env["REQUEST_URI"]
     end
   end
 end
