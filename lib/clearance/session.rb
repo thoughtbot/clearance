@@ -115,11 +115,26 @@ module Clearance
         value: remember_token
       }
 
-      if Clearance.configuration.cookie_domain.present?
-        value[:domain] = Clearance.configuration.cookie_domain
+      allowed_domains = Array(Clearance.configuration.cookie_domain).map(&:downcase)
+
+      if allowed_domains.any?
+        value[:domain] = allowed_domains.delete(extract_base_host(get_request_uri))
+        value[:domain] ||= allowed_domains.first
       end
 
       value
+    end
+
+    private
+
+    def extract_base_host(uri)
+      hostname = URI.parse(uri).host
+      hostname.split('.').last(2).join('.').downcase
+    rescue URI::InvalidURIError
+    end
+
+    def get_request_uri
+      @env['REQUEST_URI']
     end
   end
 end
