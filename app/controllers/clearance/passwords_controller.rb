@@ -3,8 +3,7 @@ require 'active_support/deprecation'
 class Clearance::PasswordsController < Clearance::BaseController
   skip_before_filter :require_login, only: [:create, :edit, :new, :update]
   skip_before_filter :authorize, only: [:create, :edit, :new, :update]
-  before_filter :forbid_missing_token, only: [:edit, :update]
-  before_filter :forbid_non_existent_user, only: [:edit, :update]
+  before_filter :ensure_existing_user, only: [:edit, :update]
 
   def create
     if user = find_user_for_create
@@ -76,6 +75,13 @@ class Clearance::PasswordsController < Clearance::BaseController
     find_user_by_id_and_confirmation_token
   end
 
+  def ensure_existing_user
+    unless find_user_by_id_and_confirmation_token
+      flash_failure_when_forbidden
+      render template: "passwords/new"
+    end
+  end
+
   def flash_failure_when_forbidden
     flash.now[:notice] = translate(:forbidden,
       scope: [:clearance, :controllers, :passwords],
@@ -86,20 +92,6 @@ class Clearance::PasswordsController < Clearance::BaseController
     flash.now[:notice] = translate(:blank_password,
       scope: [:clearance, :controllers, :passwords],
       default: t('flashes.failure_after_update'))
-  end
-
-  def forbid_missing_token
-    if params[:token].to_s.blank?
-      flash_failure_when_forbidden
-      render template: 'passwords/new'
-    end
-  end
-
-  def forbid_non_existent_user
-    unless find_user_by_id_and_confirmation_token
-      flash_failure_when_forbidden
-      render template: 'passwords/new'
-    end
   end
 
   def url_after_create
