@@ -108,15 +108,6 @@ class Clearance::PasswordsController < Clearance::BaseController
     end
   end
 
-  def forbid_expired_password_reset
-    matched_password_reset = find_password_reset
-
-    if matched_password_reset && matched_password_reset.expired?
-      flash_failure_when_forbidden
-      render template: "passwords/new"
-    end
-  end
-
   def url_after_create
     sign_in_url
   end

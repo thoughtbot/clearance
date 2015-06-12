@@ -32,6 +32,14 @@ describe PasswordReset do
     end
   end
 
+  context "on update" do
+    it "is invalid if the reset has expired already" do
+      password_reset = create(:password_reset)
+      password_reset.deactivate
+      expect(password_reset).to be_invalid
+    end
+  end
+
   describe ".active_for" do
     it "returns all the unexpired password resets for a user" do
       user = create(:user)

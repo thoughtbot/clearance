@@ -16,12 +16,16 @@ class PasswordReset < ActiveRecord::Base
   end
 
   def complete(new_password)
-    transaction do
-      unless user.update_password(new_password)
-        raise ActiveRecord::Rollback
-      end
+    if active?
+      transaction do
+        unless user.update_password(new_password)
+          raise ActiveRecord::Rollback
+        end
 
-      deactivate_user_resets
+        deactivate_user_resets
+      end
+    else
+      false
     end
   end
 
@@ -38,6 +42,10 @@ class PasswordReset < ActiveRecord::Base
   end
 
   private
+
+  def active?
+    !expired?
+  end
 
   def deactivate_user_resets
     Clearance::PasswordResetsDeactivator.new(user).run
