@@ -69,7 +69,10 @@ describe "Clearance Installation" do
       silencer = ""
     end
 
-    return_value = system("#{command} #{silencer}")
+    return_value = Bundler.with_clean_env do
+      system("#{command} #{silencer}")
+    end
+
     expect(return_value).to eq true
   end
 end
