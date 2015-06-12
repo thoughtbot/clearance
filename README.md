@@ -363,6 +363,23 @@ sign_in_as(user)
 sign_out
 ```
 
+### View and Helper Spec Helpers
+
+Does the view or helper you're testing reference `signed_in?`, `signed_out?` or
+`current_user`? If you `require 'clearance/rspec'`, you will have the following
+helpers available in your view specs:
+
+```ruby
+sign_in
+sign_in_as(user)
+```
+
+These will make the clearance view helpers work as expected by signing in either
+a new instance of your user model (`sign_in`) or the object you pass to
+`sign_in_as`. If you do not call one of these sign in helpers or otherwise set
+`current_user` in your view specs, your view will behave as if there is no
+current user: `signed_in?` will be false and `signed_out?` will be true.
+
 ## Contributing
 
 Please see [CONTRIBUTING.md].

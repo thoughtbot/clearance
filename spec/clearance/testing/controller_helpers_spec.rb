@@ -1,8 +1,8 @@
-require 'spec_helper'
+require "spec_helper"
 
-describe Clearance::Testing::Helpers do
+describe Clearance::Testing::ControllerHelpers do
   class TestClass
-    include Clearance::Testing::Helpers
+    include Clearance::Testing::ControllerHelpers
 
     def initialize
       @controller = Controller.new
@@ -13,8 +13,8 @@ describe Clearance::Testing::Helpers do
     end
   end
 
-  describe '#sign_in' do
-    it 'creates an instance of the clearance user model with FactoryGirl' do
+  describe "#sign_in" do
+    it "creates an instance of the clearance user model with FactoryGirl" do
       MyUserModel = Class.new
       allow(FactoryGirl).to receive(:create)
       allow(Clearance.configuration).to receive(:user_model).
@@ -26,8 +26,8 @@ describe Clearance::Testing::Helpers do
     end
   end
 
-  describe '#sign_in_as' do
-    it 'returns the user if signed in successfully' do
+  describe "#sign_in_as" do
+    it "returns the user if signed in successfully" do
       user = build(:user)
 
       returned_user = TestClass.new.sign_in_as user
