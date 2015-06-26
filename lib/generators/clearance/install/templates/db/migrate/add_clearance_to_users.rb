@@ -1,6 +1,6 @@
 class AddClearanceToUsers < ActiveRecord::Migration
   def self.up
-    change_table :users  do |t|
+    change_table :users do |t|
 <% config[:new_columns].values.each do |column| -%>
       <%= column %>
 <% end -%>
