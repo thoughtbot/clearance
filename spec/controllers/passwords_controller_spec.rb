@@ -146,7 +146,7 @@ describe Clearance::PasswordsController do
 
         put :update, update_parameters(password_reset, new_password: "")
 
-        expect(flash.now[:notice]).to match(/password can't be blank/i)
+        expect(flash.now[:notice]).to match(/something went wrong with the password you provided/i)
         expect(response).to render_template(:edit)
         expect(cookies[:remember_token]).to be_nil
       end

@@ -9,7 +9,7 @@ en:
         your password. This link expires in %{time_limit}:"
   flashes:
     failure_after_create: Bad email or password.
-    failure_after_update: Password can't be blank.
+    failure_after_update: Something went wrong with the password you provided.
     failure_when_forbidden: Please double check the URL or try submitting
       the form again.
   helpers:
