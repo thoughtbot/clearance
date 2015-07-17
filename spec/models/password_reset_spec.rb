@@ -20,23 +20,12 @@ describe PasswordReset do
 
     describe "#generate_expires_at" do
       it "generates an expiration timestamp for the reset" do
-        allow(Clearance.configuration).to receive(:password_reset_time_limit).
-          and_return(10.minutes)
-
         password_reset = build(:password_reset)
         expect(password_reset.expires_at).to be_nil
 
         password_reset.save
         expect(password_reset.expires_at).not_to be_nil
       end
-    end
-  end
-
-  context "on update" do
-    it "is invalid if the reset has expired already" do
-      password_reset = create(:password_reset)
-      password_reset.deactivate
-      expect(password_reset).to be_invalid
     end
   end
 
