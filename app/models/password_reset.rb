@@ -16,18 +16,18 @@ class PasswordReset < ActiveRecord::Base
   end
 
   def complete(new_password)
-    if active?
-      transaction do
-        unless user.update_password(new_password)
-          raise ActiveRecord::Rollback
-        end
+    reset_successful = false
 
-        deactivate_user_resets
+    transaction do
+      unless user.update_password(new_password)
+        raise ActiveRecord::Rollback
       end
-      true
-    else
-      false
+
+      deactivate_user_resets
+      reset_successful = true
     end
+
+    reset_successful
   end
 
   def deactivate
@@ -36,10 +36,6 @@ class PasswordReset < ActiveRecord::Base
 
   def expired?
     expires_at <= Time.zone.now
-  end
-
-  def successful?
-    !self.class.active_for(user).exists?
   end
 
   private

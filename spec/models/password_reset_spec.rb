@@ -68,7 +68,7 @@ describe PasswordReset do
       password_reset = create(:password_reset, user: user)
       another_password_reset = create(:password_reset, user: user)
 
-      password_reset.complete("password")
+      reset_complete = password_reset.complete("password")
 
       expect(reset_complete).to eq true
       expect(password_reset.reload).to be_expired
@@ -81,8 +81,9 @@ describe PasswordReset do
         old_encrypted_password = user.encrypted_password
         password_reset = create(:password_reset, user: user)
 
-        password_reset.complete("")
+        reset_complete = password_reset.complete("")
 
+        expect(reset_complete).to eq false
         expect(user.reload.encrypted_password).to eq old_encrypted_password
         expect(password_reset.reload).not_to be_expired
       end
@@ -112,22 +113,6 @@ describe PasswordReset do
       password_reset.update_attributes(expires_at: 15.minutes.from_now)
 
       expect(password_reset).not_to be_expired
-    end
-  end
-
-  describe "#successful?" do
-    it "returns true if there are no active password resets" do
-      password_reset = create(:password_reset, expires_at: 1.day)
-
-      password_reset.complete("new_password")
-
-      expect(password_reset).to be_successful
-    end
-
-    it "returns false if active password resets exists" do
-      password_reset = create(:password_reset, expires_at: DateTime.tomorrow)
-
-      expect(password_reset).not_to be_successful
     end
   end
 end
