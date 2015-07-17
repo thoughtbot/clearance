@@ -85,6 +85,15 @@ describe User do
 
         expect(user.confirmation_token).to be_nil
       end
+
+      it "sets the remember token" do
+        user = create(:user, :with_forgotten_password)
+
+        user.update_password("my_new_password")
+
+        user.reload
+        expect(user.remember_token).not_to be_nil
+      end
     end
 
     context "with blank password" do

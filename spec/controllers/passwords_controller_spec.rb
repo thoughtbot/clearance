@@ -101,16 +101,6 @@ describe Clearance::PasswordsController do
         expect(user.reload.encrypted_password).not_to eq old_encrypted_password
       end
 
-      it "sets the remember token and clears the confirmation token" do
-        user = create(:user, :with_forgotten_password)
-
-        put :update, update_parameters(user, new_password: "my_new_password")
-
-        user.reload
-        expect(user.remember_token).not_to be_nil
-        expect(user.confirmation_token).to be_nil
-      end
-
       it "signs the user in and redirects" do
         user = create(:user, :with_forgotten_password)
 
@@ -121,7 +111,7 @@ describe Clearance::PasswordsController do
       end
     end
 
-    context "no password provided" do
+    context "password update fails" do
       it "does not update the password" do
         user = create(:user, :with_forgotten_password)
         old_encrypted_password = user.encrypted_password
