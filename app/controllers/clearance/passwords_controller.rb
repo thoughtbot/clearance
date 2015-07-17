@@ -3,7 +3,7 @@ require 'active_support/deprecation'
 class Clearance::PasswordsController < Clearance::BaseController
   skip_before_filter :require_login, only: [:create, :edit, :new, :update]
   skip_before_filter :authorize, only: [:create, :edit, :new, :update]
-  before_filter :ensure_existing_user, only: [:edit, :update]
+  before_filter :ensure_valid_password_reset, only: [:edit, :update]
 
   def create
     if user = find_user_for_create
@@ -14,7 +14,7 @@ class Clearance::PasswordsController < Clearance::BaseController
   end
 
   def edit
-    @password_reset = find_password_reset
+    @password_reset = find_active_password_reset
     render template: 'passwords/edit'
   end
 
@@ -23,13 +23,12 @@ class Clearance::PasswordsController < Clearance::BaseController
   end
 
   def update
-    @password_reset = find_password_reset
-    user = @password_reset.user
+    @password_reset = find_active_password_reset
 
     @password_reset.complete(password_reset_params)
 
     if @password_reset.successful?
-      sign_in user
+      sign_in @password_reset.user
       redirect_to url_after_update
     else
       flash_failure_after_update
@@ -58,11 +57,10 @@ class Clearance::PasswordsController < Clearance::BaseController
     end
   end
 
-  def find_password_reset
-    PasswordReset.find_by_user_id_and_token(
-      params[user_param],
-      params[:token].to_s,
-    )
+  def find_active_password_reset
+    @find_active_password_reset ||= PasswordReset.
+      active_for(params[user_param]).
+      find_by_token(params[:token])
   end
 
   def user_param
@@ -74,16 +72,8 @@ class Clearance::PasswordsController < Clearance::BaseController
       find_by_normalized_email params[:password][:email]
   end
 
-  def find_user_for_edit
-    find_user_from_password_reset
-  end
-
-  def find_user_for_update
-    find_user_from_password_reset
-  end
-
-  def ensure_existing_user
-    unless find_user_from_password_reset
+  def ensure_valid_password_reset
+    unless find_active_password_reset
       flash_failure_when_forbidden
       render template: "passwords/new"
     end
@@ -99,12 +89,6 @@ class Clearance::PasswordsController < Clearance::BaseController
     flash.now[:notice] = translate(:blank_password,
       scope: [:clearance, :controllers, :passwords],
       default: t('flashes.failure_after_update'))
-  end
-
-  def find_user_from_password_reset
-    if matching_password_reset = find_password_reset
-      matching_password_reset.user
-    end
   end
 
   def url_after_create

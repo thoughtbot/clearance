@@ -7,8 +7,8 @@ class PasswordReset < ActiveRecord::Base
 
   delegate :email, to: :user, prefix: true
 
-  def self.active_for(user)
-    where("user_id = ? AND expires_at > ?", user.id, Time.zone.now)
+  def self.active_for(user_id)
+    where("#{Clearance.configuration.user_id_parameter} = ? AND expires_at > ?", user_id, Time.zone.now)
   end
 
   def self.time_limit
