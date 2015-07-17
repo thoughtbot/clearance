@@ -52,15 +52,25 @@ describe PasswordReset do
   end
 
   describe "#complete" do
-    it "updates the password and deactivates all of the user's resets" do
+    it "updates the password" do
       user = create(:user)
       old_encrypted_password = user.encrypted_password
+      password_reset = create(:password_reset, user: user)
+
+      reset_complete = password_reset.complete("password")
+
+      expect(reset_complete).to eq true
+      expect(user.reload.encrypted_password).not_to eq old_encrypted_password
+    end
+
+    it "deactivates all of the user's resets" do
+      user = create(:user)
       password_reset = create(:password_reset, user: user)
       another_password_reset = create(:password_reset, user: user)
 
       password_reset.complete("password")
 
-      expect(user.reload.encrypted_password).not_to eq old_encrypted_password
+      expect(reset_complete).to eq true
       expect(password_reset.reload).to be_expired
       expect(another_password_reset.reload).to be_expired
     end

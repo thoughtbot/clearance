@@ -24,6 +24,7 @@ class PasswordReset < ActiveRecord::Base
 
         deactivate_user_resets
       end
+      true
     else
       false
     end
