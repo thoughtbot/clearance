@@ -4,7 +4,6 @@ class Clearance::PasswordsController < Clearance::BaseController
   skip_before_filter :require_login, only: [:create, :edit, :new, :update]
   skip_before_filter :authorize, only: [:create, :edit, :new, :update]
   before_filter :ensure_existing_user, only: [:edit, :update]
-  before_filter :forbid_expired_password_reset, only: [:edit, :update]
 
   def create
     if user = find_user_for_create
