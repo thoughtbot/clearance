@@ -116,15 +116,6 @@ describe Clearance::PasswordsController do
         expect(user.reload.encrypted_password).not_to eq old_encrypted_password
       end
 
-      it "deactivates all other reset tokens" do
-        user = create(:user)
-        password_reset = create(:password_reset, user: user)
-
-        put :update, update_parameters(password_reset, new_password: "foobar")
-
-        expect(PasswordReset.active_for(user)).to be_empty
-      end
-
       it "signs the user in and redirects" do
         user = create(:user)
         password_reset = create(:password_reset, user: user)
