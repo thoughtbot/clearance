@@ -79,7 +79,7 @@ describe User do
       end
 
       it "sets the remember token" do
-        user = create(:user, :with_forgotten_password)
+        user = create(:user)
 
         user.update_password("my_new_password")
 
