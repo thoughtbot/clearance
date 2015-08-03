@@ -61,7 +61,7 @@ module Clearance
     private
 
     def cookies
-      @cookies ||= @env['action_dispatch.cookies'] || Rack::Request.new(@env).cookies
+      @cookies ||= ActionDispatch::Request.new(@env).cookie_jar
     end
 
     def remember_token
