@@ -9,6 +9,10 @@ module GeneratorSpecHelpers
     copy_to_generator_root("config", "routes.rb")
   end
 
+  def provide_existing_initializer
+    copy_to_generator_root("config/initializers", "clearance.rb")
+  end
+
   def provide_existing_application_controller
     copy_to_generator_root("app/controllers", "application_controller.rb")
   end

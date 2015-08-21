@@ -9,6 +9,14 @@ module Clearance
         route(clearance_routes)
       end
 
+      def disable_clearance_internal_routes
+        inject_into_file(
+          "config/initializers/clearance.rb",
+          "  config.routes = false\n",
+          after: "Clearance.configure do |config|\n",
+        )
+      end
+
       private
 
       def clearance_routes
