@@ -1,7 +1,29 @@
 # News
 
 The noteworthy changes for each Clearance version are included here. For a
-complete changelog, see the git history.
+complete changelog, see the git history for each version via the version links.
+
+## [1.11.0] - August 21, 2015
+
+### Added
+- Add `sign_in` and `sign_in_as` helper methods to view specs. These helpers
+  avoid errors from verified partial doubles that come from. See
+  [462c009].
+
+### Fixed
+- `clearance:routes` generator now properly disables internal routes in your
+  Clearance initializer.
+- Clearance now accesses the cookie jar via ActionDispatch::Request rather than
+  `Rack::Request`. This is more consistent with what Rails does internally.
+
+### Deprecated
+- `Clearance::Testing::Helpers` has been deprecated in favor of
+  `Clearance::Testing::ControllerHelpers`. Most users are accessing these
+  helpers by requiring `clearance/rspec` or `clearance/test_unit` and should be
+  unaffected.
+
+[462c009]: https://github.com/thoughtbot/clearance/commit/462c00965c14b2492500fbb4fecd7b84b9790bb9
+[1.11.0]: https://github.com/thoughtbot/clearance/compare/v1.10.1...v1.11.0
 
 ## [1.10.1] - May 15, 2015
 
