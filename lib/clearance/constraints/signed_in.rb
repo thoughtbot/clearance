@@ -1,5 +1,22 @@
 module Clearance
   module Constraints
+    # Can be applied to make a set of routes visible only to users that are
+    # signed in.
+    #
+    #     # config/routes.rb
+    #     constraints Clearance::Constraints::SignedIn.new do
+    #       resources :posts
+    #     end
+    #
+    # In the example above, requests to `/posts` from users that are not signed
+    # in will result in a 404. You can make additional assertions about the user
+    # by passing a block. For instance, if you want to require that the
+    # signed-in user be an admin:
+    #
+    #     # config/routes.rb
+    #     constraints Clearance::Constraints::SignedIn.new { |user| user.admin? } do
+    #       resources :posts
+    #     end
     class SignedIn
       def initialize(&block)
         @block = block || lambda { |user| true }
