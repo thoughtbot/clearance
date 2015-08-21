@@ -48,8 +48,8 @@ module Clearance
     attr_accessor :mailer_sender
 
     # The password strategy to use when authenticating and setting passwords.
-    # Defaults to `Clearance::PasswordStrategies::BCrypt`.
-    # @return [Class #authenticated? #password=]
+    # Defaults to {Clearance::PasswordStrategies::BCrypt}.
+    # @return [Module #authenticated? #password=]
     attr_accessor :password_strategy
 
     # The default path Clearance will redirect signed in users to.

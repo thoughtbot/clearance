@@ -1,5 +1,6 @@
 module Clearance
   module PasswordStrategies
+    # @deprecated Use {BCrypt} or `clearance-deprecated_password_strategies` gem
     module SHA1
       require 'digest/sha1'
 

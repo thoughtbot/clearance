@@ -3,6 +3,7 @@ require 'base64'
 
 module Clearance
   module PasswordStrategies
+    # @deprecated Use {BCrypt} or `clearance-deprecated_password_strategies` gem
     module Blowfish
       DEPRECATION_MESSAGE = "[DEPRECATION] The Blowfish password strategy " \
         "has been deprecated and will be removed from Clearance 2.0. BCrypt " \

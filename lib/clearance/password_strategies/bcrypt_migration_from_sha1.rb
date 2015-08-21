@@ -1,5 +1,6 @@
 module Clearance
   module PasswordStrategies
+    # @deprecated Use {BCrypt} or `clearance-deprecated_password_strategies` gem
     module BCryptMigrationFromSHA1
       DEPRECATION_MESSAGE = "[DEPRECATION] The BCryptMigrationFromSha1 " \
         "password strategy has been deprecated and will be removed from " \
