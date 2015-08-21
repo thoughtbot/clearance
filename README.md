@@ -165,7 +165,9 @@ class UsersController < Clearance::UsersController
 ```
 
 ### Redirects
-All of these controller methods redirect to `'/'` by default:
+
+All of these controller methods redirect to
+`Clearance.configuration.redirect_url` (which is `/` by default):
 
 ```
 passwords#url_after_update
@@ -173,10 +175,13 @@ sessions#url_after_create
 sessions#url_for_signed_in_users
 users#url_after_create
 application#url_after_denied_access_when_signed_in
-application#url_after_denied_access_when_signed_out
 ```
 
 To override them all at once, change the global configuration of `redirect_url`.
+To change individual URLs, override the appropriate method.
+
+`application#url_after_denied_access_when_signed_out` defaults to `sign_in_url`.
+Override this method to change this.
 
 ### Views
 
