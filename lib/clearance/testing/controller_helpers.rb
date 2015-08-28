@@ -1,5 +1,9 @@
 module Clearance
   module Testing
+    # Provides helpers to your controller specs.
+    # These are typically used in tests by requiring `clearance/rspec` or
+    # `clearance/test_unit` as appropriate in your `rails_helper.rb` or
+    # `test_helper.rb` files.
     module ControllerHelpers
       # @private
       def setup_controller_request_and_response

@@ -1,10 +1,40 @@
 module Clearance
   module Testing
+    # Provides matchers to be used in your controller specs.
+    # These are typically exposed to your controller specs by
+    # requiring `clearance/rspec` or `clearance/test_unit` as
+    # appropriate in your `rails_helper.rb` or `test_helper.rb`
+    # files.
     module Matchers
+      # The `deny_access` matcher is used to assert that a
+      #   request is denied access by clearance.
+      # @option opts [String] :flash The expected flash notice message. Defaults
+      #   to nil, which means the flash will not be checked.
+      # @option opts [String] :redirect The expected redirect url. Defaults to
+      #   `'/'` if signed in or the `sign_in_url` if signed out.
+      #
+      #       class PostsController < ActionController::Base
+      #         before_action :require_login
+      #
+      #         def index
+      #           @posts = Post.all
+      #         end
+      #       end
+      #
+      #       describe PostsController do
+      #         describe "#index" do
+      #           it "denies access to users not signed in" do
+      #             get :index
+      #
+      #             expect(controller).to deny_access
+      #           end
+      #         end
+      #       end
       def deny_access(opts = {})
         DenyAccessMatcher.new(self, opts)
       end
 
+      # @private
       class DenyAccessMatcher
         attr_reader :failure_message, :failure_message_when_negated
 
