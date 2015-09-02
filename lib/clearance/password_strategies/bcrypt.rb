@@ -9,8 +9,6 @@ module Clearance
     module BCrypt
       require 'bcrypt'
 
-      extend ActiveSupport::Concern
-
       def authenticated?(password)
         if encrypted_password.present?
           ::BCrypt::Password.new(encrypted_password) == password
