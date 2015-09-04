@@ -7,7 +7,7 @@ module Clearance
     end
   end
 
-  # Indicates a failure in the {SignInGuard} stack which prevented successfull
+  # Indicates a failure in the {SignInGuard} stack which prevented successful
   # sign in.
   class FailureStatus
     # The reason the sign in failed.
