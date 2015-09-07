@@ -5,7 +5,7 @@ module Clearance
     # `clearance/test_unit` as appropriate in your `rails_helper.rb` or
     # `test_helper.rb` files.
     module ControllerHelpers
-      # @private
+      # @api private
       def setup_controller_request_and_response
         super
         @request.env[:clearance] = Clearance::Session.new(@request.env)
@@ -14,6 +14,7 @@ module Clearance
       # Signs in a user that is created using FactoryGirl.
       # The factory name is derrived from your `user_class` Clearance
       # configuration.
+      #
       # @raise [RuntimeError] if FactoryGirl is not defined.
       def sign_in
         unless defined?(FactoryGirl)
@@ -25,12 +26,16 @@ module Clearance
       end
 
       # Signs in the provided user.
+      #
+      # @return user
       def sign_in_as(user)
         @controller.sign_in user
         user
       end
 
       # Signs out a user that may be signed in.
+      #
+      # @return [void]
       def sign_out
         @controller.sign_out
       end

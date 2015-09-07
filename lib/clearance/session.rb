@@ -96,14 +96,17 @@ module Clearance
 
     private
 
+    # @api private
     def cookies
       @cookies ||= ActionDispatch::Request.new(@env).cookie_jar
     end
 
+    # @api private
     def remember_token
       cookies[remember_token_cookie]
     end
 
+    # @api private
     def remember_token_expires
       if expires_configuration.arity == 1
         expires_configuration.call(cookies)
@@ -116,23 +119,28 @@ module Clearance
       end
     end
 
+    # @api private
     def remember_token_cookie
       Clearance.configuration.cookie_name.freeze
     end
 
+    # @api private
     def expires_configuration
       Clearance.configuration.cookie_expiration
     end
 
+    # @api private
     def user_from_remember_token(token)
       Clearance.configuration.user_model.where(remember_token: token).first
     end
 
+    # @api private
     def run_sign_in_stack
       @stack ||= initialize_sign_in_guard_stack
       @stack.call
     end
 
+    # @api private
     def initialize_sign_in_guard_stack
       default_guard = DefaultSignInGuard.new(self)
       guards = Clearance.configuration.sign_in_guards
@@ -142,6 +150,7 @@ module Clearance
       end
     end
 
+    # @api private
     def cookie_value
       value = {
         expires: remember_token_expires,

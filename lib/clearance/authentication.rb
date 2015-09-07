@@ -105,7 +105,7 @@ module Clearance
 
     protected
 
-    # @private
+    # @api private
     def clearance_session
       request.env[:clearance]
     end

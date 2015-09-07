@@ -29,6 +29,7 @@ module Clearance
 
     private
 
+    # @api private
     def sign_in_through_the_back_door(env)
       params = Rack::Utils.parse_query(env['QUERY_STRING'])
       user_id = params['as']

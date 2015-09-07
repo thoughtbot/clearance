@@ -58,7 +58,7 @@ module Clearance
 
     protected
 
-    # @private
+    # @api private
     def redirect_request(flash_message)
       store_location
 
@@ -73,25 +73,25 @@ module Clearance
       end
     end
 
-    # @private
+    # @api private
     def clear_return_to
       session[:return_to] = nil
     end
 
-    # @private
+    # @api private
     def store_location
       if request.get?
         session[:return_to] = request.original_fullpath
       end
     end
 
-    # @private
+    # @api private
     def redirect_back_or(default)
       redirect_to(return_to || default)
       clear_return_to
     end
 
-    # @private
+    # @api private
     def return_to
       if return_to_url
         uri = URI.parse(return_to_url)
@@ -99,13 +99,14 @@ module Clearance
       end
     end
 
-    # @private
+    # @api private
     def return_to_url
       session[:return_to]
     end
 
     # Used as the redirect location when {#deny_access} is called and there is a
     # currently signed in user.
+    #
     # @return [String]
     def url_after_denied_access_when_signed_in
       Clearance.configuration.redirect_url
@@ -113,6 +114,7 @@ module Clearance
 
     # Used as the redirect location when {#deny_access} is called and there is
     # no currently signed in user.
+    #
     # @return [String]
     def url_after_denied_access_when_signed_out
       sign_in_url

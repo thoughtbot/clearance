@@ -34,7 +34,7 @@ module Clearance
         DenyAccessMatcher.new(self, opts)
       end
 
-      # @private
+      # @api private
       class DenyAccessMatcher
         attr_reader :failure_message, :failure_message_when_negated
 

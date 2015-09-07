@@ -15,7 +15,7 @@ module Clearance
         view.current_user = user
       end
 
-      # @private
+      # @api private
       module CurrentUser
         attr_accessor :current_user
 

@@ -29,18 +29,22 @@ module Clearance
 
       private
 
+      # @api private
       def clearance_session
         @request.env[:clearance]
       end
 
+      # @api private
       def current_user
         clearance_session.current_user
       end
 
+      # @api private
       def current_user_fulfills_additional_requirements?
         @block.call current_user
       end
 
+      # @api private
       def signed_in?
         clearance_session.present? && clearance_session.signed_in?
       end

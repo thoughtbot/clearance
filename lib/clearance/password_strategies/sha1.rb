@@ -12,11 +12,15 @@ module Clearance
 
       extend ActiveSupport::Concern
 
+      # @deprecated Use {BCrypt} or `clearance-deprecated_password_strategies`
+      #   gem
       def authenticated?(password)
         warn "#{Kernel.caller.first}: #{DEPRECATION_MESSAGE}"
         encrypted_password == encrypt(password)
       end
 
+      # @deprecated Use {BCrypt} or `clearance-deprecated_password_strategies`
+      #   gem
       def password=(new_password)
         warn "#{Kernel.caller.first}: #{DEPRECATION_MESSAGE}"
         @password = new_password
@@ -29,20 +33,24 @@ module Clearance
 
       private
 
+      # @api private
       def encrypt(string)
         generate_hash "--#{salt}--#{string}--"
       end
 
+      # @api private
       def generate_hash(string)
         Digest::SHA1.hexdigest(string).encode 'UTF-8'
       end
 
+      # @api private
       def initialize_salt_if_necessary
         if salt.blank?
           self.salt = generate_salt
         end
       end
 
+      # @api private
       def generate_salt
         SecureRandom.hex(20).encode('UTF-8')
       end

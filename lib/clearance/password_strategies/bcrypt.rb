@@ -25,10 +25,12 @@ module Clearance
 
       private
 
+      # @api private
       def encrypt(password)
         ::BCrypt::Password.create(password, cost: cost)
       end
 
+      # @api private
       def cost
         if test_environment?
           ::BCrypt::Engine::MIN_COST
@@ -37,6 +39,7 @@ module Clearance
         end
       end
 
+      # @api private
       def test_environment?
         defined?(::Rails) && ::Rails.env.test?
       end

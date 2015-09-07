@@ -18,10 +18,12 @@ module Clearance
 
       private
 
+      # @api private
       def clearance_session
         @request.env[:clearance]
       end
 
+      # @api private
       def missing_session?
         clearance_session.nil?
       end

@@ -138,7 +138,8 @@ module Clearance
     # This is called from the Clearance engine to reload the configured
     # user class during each request while in development mode, but only once
     # in production.
-    # @private
+    #
+    # @api private
     def reload_user_model
       if @user_model.present?
         @user_model = @user_model.to_s.constantize
