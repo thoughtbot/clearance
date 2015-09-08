@@ -3,18 +3,18 @@ require 'active_support/deprecation'
 class Clearance::PasswordsController < Clearance::BaseController
   skip_before_filter :require_login, only: [:create, :edit, :new, :update]
   skip_before_filter :authorize, only: [:create, :edit, :new, :update]
-  before_filter :ensure_existing_user, only: [:edit, :update]
+  before_filter :ensure_valid_password_reset, only: [:edit, :update]
 
   def create
     if user = find_user_for_create
-      user.forgot_password!
-      deliver_email(user)
+      password_reset = PasswordReset.create!(user: user)
+      deliver_email(password_reset)
     end
     render template: 'passwords/create'
   end
 
   def edit
-    @user = find_user_for_edit
+    @password_reset = find_active_password_reset
     render template: 'passwords/edit'
   end
 
@@ -23,10 +23,10 @@ class Clearance::PasswordsController < Clearance::BaseController
   end
 
   def update
-    @user = find_user_for_update
+    @password_reset = find_active_password_reset
 
-    if @user.update_password password_reset_params
-      sign_in @user
+    if @password_reset.complete(password_reset_params)
+      sign_in @password_reset.user
       redirect_to url_after_update
     else
       flash_failure_after_update
@@ -36,8 +36,8 @@ class Clearance::PasswordsController < Clearance::BaseController
 
   private
 
-  def deliver_email(user)
-    mail = ::ClearanceMailer.change_password(user)
+  def deliver_email(password_reset)
+    mail = ::ClearanceMailer.change_password(password_reset)
 
     if Gem::Version.new(Rails::VERSION::STRING) >= Gem::Version.new("4.2.0")
       mail.deliver_later
@@ -55,11 +55,14 @@ class Clearance::PasswordsController < Clearance::BaseController
     end
   end
 
-  def find_user_by_id_and_confirmation_token
-    user_param = Clearance.configuration.user_id_parameter
+  def find_active_password_reset
+    @find_active_password_reset ||= PasswordReset.
+      active_for(params[user_param]).
+      find_by_token(params[:token])
+  end
 
-    Clearance.configuration.user_model.
-      find_by_id_and_confirmation_token params[user_param], params[:token].to_s
+  def user_param
+    Clearance.configuration.user_id_parameter
   end
 
   def find_user_for_create
@@ -67,16 +70,8 @@ class Clearance::PasswordsController < Clearance::BaseController
       find_by_normalized_email params[:password][:email]
   end
 
-  def find_user_for_edit
-    find_user_by_id_and_confirmation_token
-  end
-
-  def find_user_for_update
-    find_user_by_id_and_confirmation_token
-  end
-
-  def ensure_existing_user
-    unless find_user_by_id_and_confirmation_token
+  def ensure_valid_password_reset
+    unless find_active_password_reset
       flash_failure_when_forbidden
       render template: "passwords/new"
     end

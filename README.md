@@ -32,6 +32,9 @@ The generator:
 * Creates an initializer to allow further configuration.
 * Creates a migration that either creates a users table or adds any necessary
   columns to the existing table.
+* Creates a `PasswordReset` model.
+* Creates a migration to remove the `confirmation_token` column from the users
+table if it exists.
 
 ## Configure
 
@@ -47,6 +50,7 @@ Clearance.configure do |config|
   config.routes = true
   config.httponly = false
   config.mailer_sender = 'reply@example.com'
+  config.password_reset_time_limit = 20.minutes
   config.password_strategy = Clearance::PasswordStrategies::BCrypt
   config.redirect_url = '/'
   config.secure_cookie = false
@@ -106,14 +110,33 @@ helpers. For example:
 
 ### Password Resets
 
-When a user resets their password, Clearance delivers them an email. You
-should change the `mailer_sender` default, used in the email's "from" header:
+When a user resets their password, Clearance sends them an email.
+
+By default, the password reset token expires in 15 minutes. You can change the
+time limit by passing in an `ActiveSupport::Duration` to
+`config.password_reset_time_limit`.
+
+You should also change the `mailer_sender` default, which used in the email's
+"from" header:
 
 ```ruby
 Clearance.configure do |config|
   config.mailer_sender = 'reply@example.com'
+  config.password_reset_time_limit = 1.hour
 end
 ```
+
+*Existing users*: If your app is already using Clearance but it does not have
+the token expiration feature, you can generate and run the migrations:
+
+```shell
+rails generate clearance:password_reset_migration
+```
+
+This will create a migration for the new password_resets table. If there are any
+existing password resets (i.e. any user with a confirmation token), those will
+be migrated over to the new table with its expiration set to the time limit
+configured.
 
 ### Integrating with Rack Applications
 
@@ -246,8 +269,8 @@ If you are using an earlier version of Rails, you can override the
 
 ```ruby
 class PasswordsController < Clearance::PasswordsController
-  def deliver_email(user)
-    ClearanceMailer.delay.change_password(user)
+  def deliver_email(password_reset)
+    ClearanceMailer.delay.change_password(password_reset)
   end
 end
 ```

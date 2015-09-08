@@ -1,10 +1,10 @@
-require 'rails/generators/base'
-require 'rails/generators/active_record'
+require "rails/generators/base"
+require "generators/clearance/migration"
 
 module Clearance
   module Generators
     class InstallGenerator < Rails::Generators::Base
-      include Rails::Generators::Migration
+      include Clearance::Generators::Migration
       source_root File.expand_path('../templates', __FILE__)
 
       def create_clearance_initializer
@@ -31,12 +31,16 @@ module Clearance
         end
       end
 
-      def create_clearance_migration
+      def create_clearance_users_migration
         if users_table_exists?
           create_add_columns_migration
         else
           copy_migration 'create_users.rb'
         end
+      end
+
+      def invoke_password_reset_migration_generator
+        invoke "clearance:password_reset_migration"
       end
 
       def display_readme_in_terminal
@@ -56,16 +60,6 @@ module Clearance
         end
       end
 
-      def copy_migration(migration_name, config = {})
-        unless migration_exists?(migration_name)
-          migration_template(
-            "db/migrate/#{migration_name}",
-            "db/migrate/#{migration_name}",
-            config
-          )
-        end
-      end
-
       def migration_needed?
         new_columns.any? || new_indexes.any?
       end
@@ -74,7 +68,6 @@ module Clearance
         @new_columns ||= {
           email: 't.string :email',
           encrypted_password: 't.string :encrypted_password, limit: 128',
-          confirmation_token: 't.string :confirmation_token, limit: 128',
           remember_token: 't.string :remember_token, limit: 128'
         }.reject { |column| existing_users_columns.include?(column.to_s) }
       end
@@ -86,35 +79,8 @@ module Clearance
         }.reject { |index| existing_users_indexes.include?(index.to_s) }
       end
 
-      def migration_exists?(name)
-        existing_migrations.include?(name)
-      end
-
-      def existing_migrations
-        @existing_migrations ||= Dir.glob("db/migrate/*.rb").map do |file|
-          migration_name_without_timestamp(file)
-        end
-      end
-
-      def migration_name_without_timestamp(file)
-        file.sub(%r{^.*(db/migrate/)(?:\d+_)?}, '')
-      end
-
-      def users_table_exists?
-        ActiveRecord::Base.connection.table_exists?(:users)
-      end
-
-      def existing_users_columns
-        ActiveRecord::Base.connection.columns(:users).map(&:name)
-      end
-
       def existing_users_indexes
         ActiveRecord::Base.connection.indexes(:users).map(&:name)
-      end
-
-      # for generating a timestamp when using `create_migration`
-      def self.next_migration_number(dir)
-        ActiveRecord::Generators::Base.next_migration_number(dir)
       end
     end
   end

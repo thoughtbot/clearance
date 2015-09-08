@@ -47,6 +47,11 @@ module Clearance
     # @return [String]
     attr_accessor :mailer_sender
 
+    # The time limit given to the user before their password reset token expires
+    # Defaults to 20.minutes (900 seconds)
+    # @return [ActiveSupport::Duration]
+    attr_accessor :password_reset_time_limit
+
     # The password strategy to use when authenticating and setting passwords.
     # Defaults to {Clearance::PasswordStrategies::BCrypt}.
     # @return [Module #authenticated? #password=]
@@ -93,6 +98,7 @@ module Clearance
       @cookie_name = "remember_token"
       @httponly = false
       @mailer_sender = 'reply@example.com'
+      @password_reset_time_limit = 20.minutes
       @redirect_url = '/'
       @routes = true
       @secure_cookie = false

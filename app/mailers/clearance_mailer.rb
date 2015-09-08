@@ -1,9 +1,11 @@
 class ClearanceMailer < ActionMailer::Base
-  def change_password(user)
-    @user = user
+  def change_password(password_reset)
+    @password_reset = password_reset
+    @time_limit = PasswordReset.time_limit
+
     mail(
       from: Clearance.configuration.mailer_sender,
-      to: @user.email,
+      to: @password_reset.user_email,
       subject: I18n.t(
         :change_password,
         scope: [:clearance, :models, :clearance_mailer],

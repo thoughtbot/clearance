@@ -115,4 +115,20 @@ describe Clearance::Generators::InstallGenerator, :generator do
       end
     end
   end
+
+  it "invokes the password reset migration generator" do
+    provide_existing_application_controller
+    allow(password_reset_migration_generator).to receive(:new).
+      and_return(
+        instance_double(password_reset_migration_generator).as_null_object
+      )
+
+    run_generator
+
+    expect(password_reset_migration_generator).to have_received(:new)
+  end
+
+  def password_reset_migration_generator
+    Clearance::Generators::PasswordResetMigrationGenerator
+  end
 end
