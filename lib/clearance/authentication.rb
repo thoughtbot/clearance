@@ -53,7 +53,7 @@ module Clearance
     # Your block will receive either a {SuccessStatus} or {FailureStatus}
     #
     #     sign_in(user) do |status|
-    #       if status.success
+    #       if status.success?
     #         # ...
     #       else
     #         # ...
