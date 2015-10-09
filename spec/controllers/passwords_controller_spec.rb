@@ -16,20 +16,16 @@ describe Clearance::PasswordsController do
 
   describe "#create" do
     context "email corresponds to an existing user" do
+      let(:user) { create(:user) }
+
       it "generates a password change token" do
-        user = create(:user)
-
         post :create, password: { email: user.email.upcase }
-
         expect(user.reload.confirmation_token).not_to be_nil
       end
 
       it "sends the password reset email" do
         ActionMailer::Base.deliveries.clear
-        user = create(:user)
-
         post :create, password: { email: user.email }
-
         email = ActionMailer::Base.deliveries.last
         expect(email.subject).to match(/change your password/i)
       end
@@ -92,8 +88,9 @@ describe Clearance::PasswordsController do
 
   describe "#update" do
     context "valid id, token, and new password provided" do
+      let(:user) { create(:user, :with_forgotten_password) }
+
       it "updates the user's password" do
-        user = create(:user, :with_forgotten_password)
         old_encrypted_password = user.encrypted_password
 
         put :update, update_parameters(user, new_password: "my_new_password")
@@ -102,8 +99,6 @@ describe Clearance::PasswordsController do
       end
 
       it "signs the user in and redirects" do
-        user = create(:user, :with_forgotten_password)
-
         put :update, update_parameters(user, new_password: "my_new_password")
 
         expect(response).to redirect_to(Clearance.configuration.redirect_url)
@@ -112,8 +107,9 @@ describe Clearance::PasswordsController do
     end
 
     context "password update fails" do
+      let(:user) { create(:user, :with_forgotten_password) }
+
       it "does not update the password" do
-        user = create(:user, :with_forgotten_password)
         old_encrypted_password = user.encrypted_password
 
         put :update, update_parameters(user, new_password: "")
@@ -124,8 +120,6 @@ describe Clearance::PasswordsController do
       end
 
       it "re-renders the password edit form" do
-        user = create(:user, :with_forgotten_password)
-
         put :update, update_parameters(user, new_password: "")
 
         expect(flash.now[:notice]).to match(/password can't be blank/i)
