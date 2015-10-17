@@ -1,0 +1,54 @@
+---
+pt-BR:
+  clearance_mailer:
+    change_password:
+      closing: Se você não fez essa solicitação, ignore este email. Sua senha
+        não foi alterada.
+      link_text: Alterar minha senha
+      opening: "Alguém, supondo que tenha sido você, solicitou que enviássemos
+        um link para alterar sua senha:"
+  flashes:
+    failure_after_create: Email ou senha inválido(s).
+    failure_after_update: Senha não ser vazia.
+    failure_when_forbidden: Por favor, verifique a URL utilizada ou tente
+      enviar o formulário novamente.
+  helpers:
+    label:
+      password:
+        email: Endereço de email
+      password_reset:
+        password: Escolha uma senha
+    submit:
+      password:
+        submit: Redefinir senha
+      password_reset:
+        submit: Salvar esta senha
+      session:
+        submit: Entrar
+      user:
+        create: Cadastrar
+  layouts:
+    application:
+      sign_in: Entrar
+      sign_out: Sair
+  passwords:
+    create:
+      description: Você receberá um email nos próximos minutos. Este email irá
+        conter instruções para alterar sua senha.
+    edit:
+      description: Sua senha foi redefinida. Entre com uma nova senha abaixo.
+      title: Troque sua senha
+    new:
+      description: Será enviado um link por email para redefinir sua senha,
+        por favor informe seu endereço de email.
+      title: Redefinir sua senha
+  sessions:
+    form:
+      forgot_password: Esqueceu sua senha?
+      sign_up: Cadastrar
+    new:
+      title: Entrar
+  users:
+    new:
+      sign_in: Entrar
+      title: Cadastrar
