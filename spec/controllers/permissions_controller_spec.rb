@@ -54,6 +54,12 @@ describe PermissionsController do
 
       expect(subject).to deny_access(redirect: sign_in_url)
     end
+
+    it "denies access to show and display a flash message" do
+      get :show
+
+      expect(flash[:notice]).to match(/^Please sign in to continue/)
+    end
   end
 
   context 'when remember_token is blank' do
