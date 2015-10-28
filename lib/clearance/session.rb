@@ -2,7 +2,7 @@ require 'clearance/default_sign_in_guard'
 
 module Clearance
   # Represents a clearance session, ultimately persisted in
-  # `request.env[:clearane]` by {RackSession}.
+  # `request.env[:clearance]` by {RackSession}.
   class Session
     # @param env The current rack environment
     def initialize(env)
