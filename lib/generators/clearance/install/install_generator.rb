@@ -23,7 +23,7 @@ module Clearance
         if File.exist? "app/models/user.rb"
           inject_into_file(
             "app/models/user.rb",
-            "include Clearance::User\n\n",
+            "  include Clearance::User\n\n",
             after: "class User < ActiveRecord::Base\n"
           )
         else
