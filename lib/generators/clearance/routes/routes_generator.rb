@@ -26,6 +26,21 @@ module Clearance
       def routes_file_path
         File.expand_path(find_in_source_paths('routes.rb'))
       end
+
+      def route(routing_code)
+        log :route, "all clearance routes"
+        sentinel = /\.routes\.draw do\s*\n/m
+
+        in_root do
+          inject_into_file(
+            "config/routes.rb",
+            routing_code,
+            after: sentinel,
+            verbose: false,
+            force: true,
+          )
+        end
+      end
     end
   end
 end
