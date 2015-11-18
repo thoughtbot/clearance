@@ -3,6 +3,23 @@
 The noteworthy changes for each Clearance version are included here. For a
 complete changelog, see the git history for each version via the version links.
 
+## [1.12.0] - November 17, 2015
+
+### Added
+- Users will now see a flash message when redirected to sign in by
+  `require_login`. This I18n key for this message is
+  `flashes.failure_when_not_signed_in` and defaults to "Please sign in to
+  continue".
+- Added significant API documentation. API documentation effort is ongoing.
+
+### Fixed
+- Fixed expectation in the generated `visitor_resets_password_spec.rb` file.
+- Corrected indentation of routes inserted by the routes generator.
+- Corrected indentation of `include Clearance::User` when the install generator
+  adds it to an existing user class.
+
+[1.12.0]: https://github.com/thoughtbot/clearance/compare/v1.11.0...v1.12.0
+
 ## [1.11.0] - August 21, 2015
 
 ### Added
