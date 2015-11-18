@@ -19,7 +19,7 @@ module Clearance
     #     end
     def require_login
       unless signed_in?
-        deny_access
+        deny_access(I18n.t("flashes.failure_when_not_signed_in"))
       end
     end
 
