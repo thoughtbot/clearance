@@ -28,7 +28,8 @@ describe "Clearance Installation" do
        --skip-git \
        --skip-javascript \
        --skip-sprockets \
-       --skip-keeps"
+       --skip-keeps \
+       --no-rc"
 
     FileUtils.rm_f("public/index.html")
     FileUtils.rm_f("app/views/layouts/application.html.erb")
