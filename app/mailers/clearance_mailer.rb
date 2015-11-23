@@ -6,8 +6,7 @@ class ClearanceMailer < ActionMailer::Base
       to: @user.email,
       subject: I18n.t(
         :change_password,
-        scope: [:clearance, :models, :clearance_mailer],
-        default: "Change your password"
+        scope: [:clearance, :models, :clearance_mailer]
       )
     )
   end
