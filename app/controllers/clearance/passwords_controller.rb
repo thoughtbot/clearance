@@ -6,6 +6,7 @@ class Clearance::PasswordsController < Clearance::BaseController
   before_filter :ensure_existing_user, only: [:edit, :update]
 
   def create
+    byebug
     if user = find_user_for_create
       user.forgot_password!
       deliver_email(user)
