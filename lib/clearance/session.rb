@@ -30,8 +30,8 @@ module Clearance
       @current_user = user
       status = run_sign_in_stack
 
-      if status.success?
-        cookies[remember_token_cookie] = user && user.remember_token
+      if status.success? && user && user.remember_token
+        cookies[remember_token_cookie] = cookie_options.merge(value: user.remember_token)
       else
         @current_user = nil
       end
@@ -47,7 +47,11 @@ module Clearance
       end
 
       @current_user = nil
-      cookies.delete remember_token_cookie
+      if Clearance.configuration.cookie_domain.present?
+        cookies.delete remember_token_cookie, domain: Clearance.configuration.cookie_domain
+      else
+        cookies.delete remember_token_cookie
+      end
     end
 
     def signed_in?
@@ -106,13 +110,12 @@ module Clearance
       end
     end
 
-    def cookie_value
+    def cookie_options
       value = {
         expires: remember_token_expires,
         httponly: Clearance.configuration.httponly,
         path: Clearance.configuration.cookie_path,
-        secure: Clearance.configuration.secure_cookie,
-        value: remember_token
+        secure: Clearance.configuration.secure_cookie
       }
 
       if Clearance.configuration.cookie_domain.present?
@@ -120,6 +123,10 @@ module Clearance
       end
 
       value
+    end
+
+    def cookie_value
+      cookie_options.merge(value: remember_token)
     end
   end
 end

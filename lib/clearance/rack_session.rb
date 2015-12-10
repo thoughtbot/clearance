@@ -7,9 +7,7 @@ module Clearance
     def call(env)
       session = Clearance::Session.new(env)
       env[:clearance] = session
-      response = @app.call(env)
-      session.add_cookie_to_headers response[1]
-      response
+      @app.call(env)
     end
   end
 end
