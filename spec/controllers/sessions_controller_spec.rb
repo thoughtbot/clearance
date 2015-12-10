@@ -43,7 +43,10 @@ describe Clearance::SessionsController do
 
       context "without configuration" do
         before do
-          post :create, session: { email: @user.email, password: @user.password }
+          post :create, session: {
+            email: @user.email,
+            password: @user.password
+          }
         end
 
         it { should redirect_to_url_after_create }
@@ -60,21 +63,28 @@ describe Clearance::SessionsController do
       context "with configuration" do
         context "with a custom cookie name" do
           before do
-            with_custom_config(:cookie_name, "custom-cookie"){
-              post :create, session: { email: @user.email, password: @user.password }
-            }
+            with_custom_config(:cookie_name, "custom-cookie") do
+              post :create, session: {
+                email: @user.email,
+                password: @user.password
+              }
+            end
           end
 
           it "sets a custom cookie name in the header" do
-            expect(response.headers["Set-Cookie"]).to match /custom-cookie=old-token/
+            expect(response.headers["Set-Cookie"]).
+              to match /custom-cookie=old-token/
           end
         end
 
         context "with cookie path set" do
           before do
-            with_custom_config(:cookie_path, "/cool-page"){
-              post :create, session: { email: @user.email, password: @user.password }
-            }
+            with_custom_config(:cookie_path, "/cool-page") do
+              post :create, session: {
+                email: @user.email,
+                password: @user.password
+              }
+            end
           end
           it "sets a path cookie" do
             expect(response.headers["Set-Cookie"]).to match /path=\/cool-page/
@@ -83,9 +93,12 @@ describe Clearance::SessionsController do
 
         context "if httponly is set" do
           before do
-            with_custom_config(:httponly, "true"){
-              post :create, session: { email: @user.email, password: @user.password }
-            }
+            with_custom_config(:httponly, "true") do
+              post :create, session: {
+                email: @user.email,
+                password: @user.password
+              }
+            end
           end
 
           it "sets a httponly cookie" do
@@ -95,13 +108,17 @@ describe Clearance::SessionsController do
 
         context "if the cookie domain is set" do
           before do
-            with_custom_config(:cookie_domain, ".example.com"){
-              post :create, session: { email: @user.email, password: @user.password }
-            }
+            with_custom_config(:cookie_domain, ".example.com") do
+              post :create, session: {
+                email: @user.email,
+                password: @user.password
+              }
+            end
           end
 
           it "sets a domain cookie" do
-            expect(response.headers["Set-Cookie"]).to match("domain=.example.com")
+            expect(response.headers["Set-Cookie"]).
+              to match("domain=.example.com")
           end
 
           # There was previously a bug where two cookies would be set
@@ -124,24 +141,32 @@ describe Clearance::SessionsController do
 
           context "default configuration" do
             before do
-              post :create, session: { email: @user.email, password: @user.password }
+              post :create, session: {
+                email: @user.email,
+                password: @user.password
+              }
             end
 
             it "is set to 1 year from now" do
-              expect(response.headers["Set-Cookie"]).to match /expires=#{format_expires(1.year.from_now)}/
+              expect(response.headers["Set-Cookie"]).
+                to match /expires=#{format_expires(1.year.from_now)}/
             end
           end
 
           context "configured with lambda taking one argument" do
             before do
               expiration = ->(cookies) { 12.hours.from_now }
-              with_custom_config(:cookie_expiration, expiration){
-                post :create, session: { email: @user.email, password: @user.password }
-              }
+              with_custom_config(:cookie_expiration, expiration) do
+                post :create, session: {
+                  email: @user.email,
+                  password: @user.password
+                }
+              end
             end
 
-            it "it can use other cookies to set the value of the expires token" do
-              expect(response.headers["Set-Cookie"]).to match /expires=#{format_expires(12.hours.from_now)}/
+            it "it can use other cookies to set the expires token" do
+              expect(response.headers["Set-Cookie"]).
+                to match /expires=#{format_expires(12.hours.from_now)}/
             end
           end
         end
@@ -174,13 +199,16 @@ describe Clearance::SessionsController do
 
     context "with a domain cookie" do
       before do
-        with_custom_config(:cookie_domain, ".example.com"){
+        with_custom_config(:cookie_domain, ".example.com") do
           user = create(:user)
           user.update_attribute :remember_token, "old-token"
           post :create, session: { email: user.email, password: user.password }
-          request.cookies["remember_token"] = { value: "old-token", domain: ".example.com" }
+          request.cookies["remember_token"] = {
+            value: "old-token",
+            domain: ".example.com"
+          }
           delete :destroy
-        }
+        end
       end
 
       it "should delete the domain cookie" do
