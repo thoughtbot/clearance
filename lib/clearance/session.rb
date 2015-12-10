@@ -8,16 +8,6 @@ module Clearance
       @cookies = nil
     end
 
-    def add_cookie_to_headers(headers)
-      if cookie_value[:value].present?
-        Rack::Utils.set_cookie_header!(
-          headers,
-          remember_token_cookie,
-          cookie_value
-        )
-      end
-    end
-
     def current_user
       if remember_token.present?
         @current_user ||= user_from_remember_token(remember_token)
@@ -65,7 +55,7 @@ module Clearance
     private
 
     def cookies
-      @cookies ||= @env['action_dispatch.cookies'] || Rack::Request.new(@env).cookies
+      @cookies ||= ActionDispatch::Request.new(@env).cookie_jar
     end
 
     def remember_token

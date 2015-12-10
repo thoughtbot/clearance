@@ -39,17 +39,112 @@ describe Clearance::SessionsController do
       before do
         @user = create(:user)
         @user.update_attribute :remember_token, "old-token"
-        post :create, session: { email: @user.email, password: @user.password }
       end
 
-      it { should redirect_to_url_after_create }
+      context "without configuration" do
+        before do
+          post :create, session: { email: @user.email, password: @user.password }
+        end
 
-      it "sets the user in the clearance session" do
-        expect(controller.current_user).to eq @user
+        it { should redirect_to_url_after_create }
+
+        it "sets the user in the clearance session" do
+          expect(controller.current_user).to eq @user
+        end
+
+        it "should not change the remember token" do
+          expect(@user.reload.remember_token).to eq "old-token"
+        end
       end
 
-      it "should not change the remember token" do
-        expect(@user.reload.remember_token).to eq "old-token"
+      context "with configuration" do
+        context "with a custom cookie name" do
+          before do
+            with_custom_config(:cookie_name, 'custom-cookie'){
+              post :create, session: { email: @user.email, password: @user.password }
+            }
+          end
+
+          it "sets a custom cookie name in the header" do
+            expect(response.headers['Set-Cookie']).to match /custom-cookie=old-token/
+          end
+        end
+
+        context 'with cookie path set' do
+          before do
+            with_custom_config(:cookie_path, '/cool-page'){
+              post :create, session: { email: @user.email, password: @user.password }
+            }
+          end
+          it 'sets a path cookie' do
+            expect(response.headers['Set-Cookie']).to match /path=\/cool-page/
+          end
+        end
+
+        context 'if httponly is set' do
+          before do
+            with_custom_config(:httponly, 'true'){
+              post :create, session: { email: @user.email, password: @user.password }
+            }
+          end
+
+          it 'sets a httponly cookie' do
+            expect(response.headers['Set-Cookie']).to match /HttpOnly/
+          end
+        end
+
+        context 'if the cookie domain is set' do
+          before do
+            with_custom_config(:cookie_domain, '.example.com'){
+              post :create, session: { email: @user.email, password: @user.password }
+            }
+          end
+
+          it 'sets a domain cookie' do
+            expect(response.headers['Set-Cookie']).to match('domain=.example.com')
+          end
+
+          # There was previously a bug where two cookies would be set
+          # with the same cookie name when using the domain setting
+          # see: https://github.com/thoughtbot/clearance/issues/616
+          it "should not set a second remember token cookie" do
+            cookie_list = response.headers['Set-Cookie'].split("\n")
+            expect(cookie_list.length).to be 1
+          end
+        end
+
+        describe 'remember token cookie expiration' do
+          def format_expires(time)
+            if Rails::VERSION::MAJOR > 3
+              time.gmtime.rfc2822
+            else
+              Rack::Utils.rfc2822(time)
+            end
+          end
+
+          context 'default configuration' do
+            before do
+              post :create, session: { email: @user.email, password: @user.password }
+            end
+
+            it 'is set to 1 year from now' do
+              expect(response.headers['Set-Cookie']).to match /expires=#{format_expires(1.year.from_now)}/
+            end
+          end
+
+          context 'configured with lambda taking one argument' do
+            before do
+              expiration = ->(cookies) { 12.hours.from_now }
+              with_custom_config(:cookie_expiration, expiration){
+                post :create, session: { email: @user.email, password: @user.password }
+              }
+            end
+
+            it 'it can use other cookies to set the value of the expires token' do
+              expect(response.headers['Set-Cookie']).to match /expires=#{format_expires(12.hours.from_now)}/
+            end
+          end
+        end
       end
     end
 
@@ -77,6 +172,24 @@ describe Clearance::SessionsController do
       it { should redirect_to_url_after_destroy }
     end
 
+    context "with a domain cookie" do
+      before do
+        with_custom_config(:cookie_domain, '.example.com'){
+          user = create(:user)
+          user.update_attribute :remember_token, "old-token"
+          post :create, session: { email: user.email, password: user.password }
+          request.cookies["remember_token"] = { value: "old-token", domain: '.example.com' }
+          delete :destroy
+        }
+      end
+
+      it "should delete the domain cookie" do
+        expect(response.cookies['remember_token']).to be_nil
+        expect(response.headers['Set-Cookie']).to match('domain=.example.com')
+        expect(response.headers['Set-Cookie']).to match(/Jan.1970/)
+      end
+    end
+
     context "with a cookie" do
       before do
         @user = create(:user)
@@ -95,5 +208,12 @@ describe Clearance::SessionsController do
         expect(@controller.current_user).to be_nil
       end
     end
+  end
+
+  def with_custom_config(clearance_setting, value)
+    Clearance.configuration.send("#{clearance_setting}=",value)
+    yield
+  ensure
+    restore_default_config
   end
 end
