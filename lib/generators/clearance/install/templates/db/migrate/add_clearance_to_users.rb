@@ -24,7 +24,7 @@ class AddClearanceToUsers < ActiveRecord::Migration
   def self.down
     change_table :users do |t|
 <% if config[:new_columns].any? -%>
-      t.remove <%= new_columns.keys.map { |column| ":#{column}" }.join(",") %>
+      t.remove <%= new_columns.keys.map { |column| ":#{column}" }.join(", ") %>
 <% end -%>
     end
   end
