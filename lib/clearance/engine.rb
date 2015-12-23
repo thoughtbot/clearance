@@ -23,10 +23,7 @@ module Clearance
       app.config.filter_parameters += [:password, :token]
     end
 
-    config.app_middleware.insert_after(
-      ActionDispatch::ParamsParser,
-      Clearance::RackSession
-    )
+    config.app_middleware.use(Clearance::RackSession)
 
     config.to_prepare do
       Clearance.configuration.reload_user_model
