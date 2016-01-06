@@ -4,8 +4,12 @@ set -e
 
 # Install required gems, including Appraisal, which helps us test against
 # multiple Rails versions
-bundle install
-bundle exec appraisal install
+gem install bundler --conservative
+bundle check || bundle install
+
+if [ -z "$CI" ]; then
+  bundle exec appraisal install
+fi
 
 # Set up database for the application that Clearance tests against
 RAILS_ENV=test bundle exec rake dummy:db:reset

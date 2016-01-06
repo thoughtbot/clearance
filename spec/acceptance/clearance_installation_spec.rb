@@ -10,6 +10,7 @@ describe "Clearance Installation" do
 
   it "can successfully run specs" do
     app_name = "testapp"
+
     generate_test_app(app_name)
 
     Dir.chdir(app_name) do
@@ -70,9 +71,7 @@ describe "Clearance Installation" do
       silencer = ""
     end
 
-    return_value = Bundler.with_clean_env do
-      system("#{command} #{silencer}")
-    end
+    return_value = system("#{command} #{silencer}")
 
     expect(return_value).to eq true
   end
