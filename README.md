@@ -2,6 +2,7 @@
 
 [![Build Status](https://secure.travis-ci.org/thoughtbot/clearance.svg)](http://travis-ci.org/thoughtbot/clearance?branch=master)
 [![Code Climate](https://codeclimate.com/github/thoughtbot/clearance.svg)](https://codeclimate.com/github/thoughtbot/clearance)
+[![Documentation Quality](https://inch-ci.org/github/thoughtbot/clearance.svg?branch=master)](https://inch-ci.org/github/thoughtbot/clearance)
 
 Rails authentication with email & password.
 
@@ -227,7 +228,6 @@ translation.
 
 See [config/locales/clearance.en.yml](/config/locales/clearance.en.yml) for the
 default behavior.
-
 
 ### User Model
 
