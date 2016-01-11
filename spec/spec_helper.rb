@@ -26,6 +26,13 @@ RSpec.configure do |config|
   config.mock_with :rspec do |mocks|
     mocks.syntax = :expect
   end
+
+  if Rails::VERSION::MAJOR >= 5
+    require 'rails-controller-testing'
+    config.include Rails::Controller::Testing::TestProcess
+    config.include Rails::Controller::Testing::TemplateAssertions
+    config.include Rails::Controller::Testing::Integration
+  end
 end
 
 def restore_default_config
