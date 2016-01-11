@@ -61,9 +61,7 @@ describe Clearance::Generators::InstallGenerator, :generator do
     context "users table does not exist" do
       it "creates a migration to create the users table" do
         provide_existing_application_controller
-        allow(ActiveRecord::Base.connection).to receive(:table_exists?).
-          with(:users).
-          and_return(false)
+        table_does_not_exist(:users)
 
         run_generator
         migration = migration_file("db/migrate/create_users.rb")
@@ -113,6 +111,20 @@ describe Clearance::Generators::InstallGenerator, :generator do
         expect(migration).not_to contain("t.string :remember_token")
         expect(migration).not_to contain("add_index :users, :remember_token")
       end
+    end
+  end
+
+  def table_does_not_exist(name)
+    connection = ActiveRecord::Base.connection
+
+    if connection.respond_to?(:data_source_exists?)
+      allow(connection).to receive(:data_source_exists?).
+        with(name).
+        and_return(false)
+    else
+      allow(connection).to receive(:table_exists?).
+        with(name).
+        and_return(false)
     end
   end
 end
