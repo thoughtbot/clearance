@@ -1,8 +1,12 @@
 require 'active_support/deprecation'
 
 class Clearance::PasswordsController < Clearance::BaseController
-  skip_before_filter :require_login, only: [:create, :edit, :new, :update]
-  skip_before_filter :authorize, only: [:create, :edit, :new, :update]
+  skip_before_filter :require_login,
+    only: [:create, :edit, :new, :update],
+    raise: false
+  skip_before_filter :authorize,
+    only: [:create, :edit, :new, :update],
+    raise: false
   before_filter :ensure_existing_user, only: [:edit, :update]
 
   def create
