@@ -3,7 +3,11 @@ require 'spec_helper'
 class ApisController < ActionController::Base
   include Clearance::Controller
 
-  before_filter :require_login
+  if respond_to?(:before_action)
+    before_action :require_login
+  else
+    before_filter :require_login
+  end
 
   def show
     render text: 'response'

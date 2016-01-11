@@ -25,9 +25,9 @@ module Clearance
 
     # @deprecated use {#require_login}
     def authorize
-      warn "[DEPRECATION] Clearance's `authorize` before_filter is " +
+      warn "[DEPRECATION] Clearance's `authorize` before_action is " +
         "deprecated. Use `require_login` instead. Be sure to update any " +
-        "instances of `skip_before_filter :authorize` or " +
+        "instances of `skip_before_action :authorize` or " +
         "`skip_before_action :authorize` as well"
       require_login
     end

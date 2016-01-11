@@ -4,7 +4,12 @@ class ForgeriesController < ActionController::Base
   include Clearance::Controller
 
   protect_from_forgery
-  before_filter :require_login
+
+  if respond_to?(:before_action)
+    before_action :require_login
+  else
+    before_filter :require_login
+  end
 
   # This is off in test by default, but we need it for this test
   self.allow_forgery_protection = true
