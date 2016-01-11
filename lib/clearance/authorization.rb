@@ -3,7 +3,7 @@ module Clearance
     extend ActiveSupport::Concern
 
     included do
-      hide_action :authorize, :deny_access, :require_login
+      private :authorize, :deny_access, :require_login
     end
 
     # Use as a `before_action` to require a user be signed in to proceed.

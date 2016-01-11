@@ -45,7 +45,7 @@ describe Clearance::SessionsController do
       it { should redirect_to_url_after_create }
 
       it "sets the user in the clearance session" do
-        expect(controller.current_user).to eq @user
+        expect(request.env[:clearance].current_user).to eq @user
       end
 
       it "should not change the remember token" do
@@ -92,7 +92,7 @@ describe Clearance::SessionsController do
       end
 
       it "should unset the current user" do
-        expect(@controller.current_user).to be_nil
+        expect(request.env[:clearance].current_user).to be_nil
       end
     end
   end

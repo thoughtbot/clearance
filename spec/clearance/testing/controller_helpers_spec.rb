@@ -5,11 +5,11 @@ describe Clearance::Testing::ControllerHelpers do
     include Clearance::Testing::ControllerHelpers
 
     def initialize
-      @controller = Controller.new
-    end
-
-    class Controller
-      def sign_in(user); end
+      @request = Class.new do
+        def env
+          { clearance: Clearance::Session.new({}) }
+        end
+      end.new
     end
   end
 

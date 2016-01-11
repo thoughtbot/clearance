@@ -67,11 +67,15 @@ module Clearance
         private
 
         def denied_access_url
-          if @controller.signed_in?
+          if clearance_session.signed_in?
             '/'
           else
             @controller.sign_in_url
           end
+        end
+
+        def clearance_session
+          @controller.request.env[:clearance]
         end
 
         def flash_notice

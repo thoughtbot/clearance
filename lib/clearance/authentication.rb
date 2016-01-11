@@ -4,7 +4,7 @@ module Clearance
 
     included do
       helper_method :current_user, :signed_in?, :signed_out?
-      hide_action(
+      private(
         :authenticate,
         :current_user,
         :current_user=,

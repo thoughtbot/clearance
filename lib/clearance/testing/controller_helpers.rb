@@ -29,7 +29,7 @@ module Clearance
       #
       # @return user
       def sign_in_as(user)
-        @controller.sign_in user
+        @request.env[:clearance].sign_in(user)
         user
       end
 
@@ -37,7 +37,7 @@ module Clearance
       #
       # @return [void]
       def sign_out
-        @controller.sign_out
+        @request.env[:clearance].sign_out
       end
     end
   end
