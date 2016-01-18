@@ -16,17 +16,25 @@ monitored by contributors.
 [GitHub Issues]: https://github.com/thoughtbot/clearance/issues
 [Stack Overflow]: http://stackoverflow.com/questions/tagged/clearance
 
-## Install
+## Getting Started
 
 Clearance is a Rails engine tested against Rails `>= 3.2` and Ruby `>= 1.9.3`.
-To get started, add Clearance to your `Gemfile`, `bundle install`, and run the
-`install generator`:
+
+You can add it to your Gemfile with:
+
+```sh
+gem 'clearance'
+```
+
+Run the bundle command to install it.
+
+After you install Clearance, you need to run the generator:
 
 ```sh
 $ rails generate clearance:install
 ```
 
-The generator:
+The generator will:
 
 * Inserts `Clearance::User` into your `User` model
 * Inserts `Clearance::Controller` into your `ApplicationController`
