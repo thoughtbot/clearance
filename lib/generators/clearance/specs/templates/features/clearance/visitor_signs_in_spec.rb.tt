@@ -1,7 +1,7 @@
 require "<%= @helper_file %>"
 require "support/features/clearance_helpers"
 
-feature "Visitor signs in" do
+RSpec.feature "Visitor signs in" do
   scenario "with valid email and password" do
     create_user "user@example.com", "password"
     sign_in_with "user@example.com", "password"
