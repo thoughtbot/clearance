@@ -38,8 +38,8 @@ The generator will:
 
 * Insert `Clearance::User` into your `User` model
 * Insert `Clearance::Controller` into your `ApplicationController`
-* Creates an initializer to allow further configuration.
-* Creates a migration that either creates a users table or adds any necessary
+* Creates an initializer file to allow further configuration.
+* Creates a migration file that either creates a users table or adds any necessary
   columns to the existing table.
 
 ## Configure
