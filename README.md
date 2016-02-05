@@ -34,7 +34,7 @@ After you install Clearance, you need to run the generator:
 $ rails generate clearance:install
 ```
 
-The generator will insert `Clearance:: User` into your `User` model and as well as insert `Clearance:: Controller` into your `ApplicationController`.It will also create an initializer, which allows further configuration and also creates a migration file that either create a users table or adds any necessary columns to the existing table.
+The generator will insert `Clearance:: User` into your `User` model and as well as insert `Clearance:: Controller` into your `ApplicationController`. It will also create an initializer, which allows further configuration and also creates a migration file that either create a users table or adds any necessary columns to the existing table.
 
 ## Configure
 
