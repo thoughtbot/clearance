@@ -50,6 +50,7 @@ class Clearance::UsersController < Clearance::BaseController
   end
 
   def user_params
-    params[:user] || Hash.new
+    user_model_sym = Clearance.configuration.user_model.name.parameterize.to_sym
+    params[user_model_sym] || Hash.new
   end
 end

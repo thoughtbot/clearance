@@ -16,4 +16,9 @@ FactoryGirl.define do
       encrypted_password ''
     end
   end
+
+  factory :person do
+    email
+    password 'password'
+  end
 end
