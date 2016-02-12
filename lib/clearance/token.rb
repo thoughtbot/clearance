@@ -1,5 +1,5 @@
 module Clearance
-  # Random token used for password reset tokens and password reset tokens.
+  # Random token used for password reset and remember tokens.
   # Clearance tokens are also public API and are inteded to be used anywhere you
   # need a random token to correspond to a given user (e.g. you added an email
   # confirmation token).
