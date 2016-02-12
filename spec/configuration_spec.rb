@@ -143,6 +143,15 @@ describe Clearance::Configuration do
     end
   end
 
+  describe "#user_parameter" do
+    it "returns the parameter key to use based on the user_model" do
+      Account = Class.new(ActiveRecord::Base)
+      Clearance.configure { |config| config.user_model = Account }
+
+      expect(Clearance.configuration.user_parameter).to eq :account
+    end
+  end
+
   describe '#user_id_parameter' do
     it 'returns the parameter key to use based on the user_model' do
       CustomUser = Class.new(ActiveRecord::Base)

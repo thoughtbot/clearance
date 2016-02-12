@@ -121,12 +121,20 @@ module Clearance
       end
     end
 
+    # The name of user parameter for the configured user model.
+    # This is derived from the `model_name` of the `user_model` setting.
+    # In the default configuration, this is `user`.
+    # @return [Symbol]
+    def user_parameter
+      user_model.model_name.singular.to_sym
+    end
+
     # The name of foreign key parameter for the configured user model.
     # This is derived from the `model_name` of the `user_model` setting.
     # In the default configuration, this is `user_id`.
     # @return [Symbol]
     def user_id_parameter
-      "#{user_model.model_name.singular}_id".to_sym
+      "#{user_parameter}_id".to_sym
     end
 
     # @return [Boolean] are Clearance's built-in routes enabled?
