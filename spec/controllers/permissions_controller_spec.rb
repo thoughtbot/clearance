@@ -10,11 +10,11 @@ class PermissionsController < ActionController::Base
   end
 
   def new
-    render text: 'New page'
+    head :ok
   end
 
   def show
-    render text: 'Show page'
+    head :ok
   end
 end
 

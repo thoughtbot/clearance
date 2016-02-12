@@ -10,7 +10,7 @@ class ApisController < ActionController::Base
   end
 
   def show
-    render text: 'response'
+    head :ok
   end
 end
 
