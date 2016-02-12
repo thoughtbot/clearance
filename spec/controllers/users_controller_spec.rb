@@ -61,6 +61,34 @@ describe Clearance::UsersController do
           expect(response).to redirect_to(return_url)
         end
       end
+
+      context "with a custom user model valid attributes and a session return url" do
+        it "assigns and creates a user then redirects to the return_url" do
+          user_model = Person
+          user_symbol = user_model.name.parameterize.to_sym
+
+          old_model = Clearance.configuration.user_model
+
+          Clearance.configure do |config|
+            config.user_model = user_model
+          end
+
+          user_attributes = FactoryGirl.attributes_for(user_symbol)
+          old_user_count = user_model.count
+          return_url = "/url_in_the_session"
+          @request.session[:return_to] = return_url
+
+          post :create,  user_symbol => user_attributes
+
+          expect(assigns(:user)).to be_present
+          expect(user_model.count).to eq old_user_count + 1
+          expect(response).to redirect_to(return_url)
+
+          Clearance.configure do |config|
+            config.user_model = old_model
+          end
+        end
+      end
     end
 
     context "when signed in" do
