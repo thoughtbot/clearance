@@ -19,7 +19,7 @@ end
 
 if RUBY_VERSION >= "2.2.0"
   appraise "rails50" do
-    gem "rails", "~> 5.0.0.beta1"
+    gem "rails", git: "https://github.com/rails/rails"
     gem "rails-controller-testing"
     gem "rspec-rails", github: "rspec/rspec-rails"
     gem "rspec-support", github: "rspec/rspec-support"

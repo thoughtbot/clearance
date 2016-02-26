@@ -37,6 +37,10 @@ module Dummy
       config.paths.add "config/routes", with: "#{APP_ROOT}/config/routes.rb"
     end
 
+    if config.respond_to?(:active_job)
+      config.active_job.queue_adapter = :inline
+    end
+
     def require_environment!
       initialize!
     end
