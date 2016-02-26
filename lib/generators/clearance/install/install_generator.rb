@@ -61,7 +61,7 @@ module Clearance
           migration_template(
             "db/migrate/#{migration_name}",
             "db/migrate/#{migration_name}",
-            config
+            config.merge(migration_version: migration_version),
           )
         end
       end
@@ -119,6 +119,12 @@ module Clearance
       # for generating a timestamp when using `create_migration`
       def self.next_migration_number(dir)
         ActiveRecord::Generators::Base.next_migration_number(dir)
+      end
+
+      def migration_version
+        if Rails.version >= "5.0.0"
+          "[#{Rails::VERSION::MAJOR}.#{Rails::VERSION::MINOR}]"
+        end
       end
     end
   end

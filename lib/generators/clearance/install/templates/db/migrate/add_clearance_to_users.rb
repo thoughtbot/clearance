@@ -1,4 +1,4 @@
-class AddClearanceToUsers < ActiveRecord::Migration
+class AddClearanceToUsers < ActiveRecord::Migration<%= migration_version %>
   def self.up
     change_table :users do |t|
 <% config[:new_columns].values.each do |column| -%>
