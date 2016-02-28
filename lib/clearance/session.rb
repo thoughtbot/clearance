@@ -131,7 +131,7 @@ module Clearance
 
     # @api private
     def user_from_remember_token(token)
-      Clearance.configuration.user_model.where(remember_token: token).first
+      Clearance.configuration.user_model.find_by(remember_token: token)
     end
 
     # @api private
