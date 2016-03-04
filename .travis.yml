@@ -18,8 +18,6 @@ gemfile:
   - gemfiles/rails50.gemfile
 
 matrix:
-  allow_failures:
-    - gemfile: gemfiles/rails50.gemfile
   exclude:
     - rvm: 1.9.3
       gemfile: gemfiles/rails50.gemfile
