@@ -3,6 +3,19 @@
 The noteworthy changes for each Clearance version are included here. For a
 complete changelog, see the git history for each version via the version links.
 
+## [1.13.0] - March 4, 2016
+
+### Added
+- Clearance now supports Rails 5.0.0.beta3 and newer.
+
+### Fixed
+- Clearance will now infer the parameter name to use when accessing user
+  parameters in a request. This previously used `:user`, which was incorrect for
+  customized user models.
+- Generated feature specs no longer rely on RSpec monkey patches.
+
+[1.13.0]: https://github.com/thoughtbot/clearance/compare/v1.12.1...v1.13.0
+
 ## [1.12.1] - January 7, 2016
 
 ### Fixed
