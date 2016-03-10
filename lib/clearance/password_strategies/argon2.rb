@@ -24,15 +24,12 @@ module Clearance
       def encrypt(password)
         t_cost, m_cost = costs
         argon = ::Argon2::Password.new(t_cost: t_cost, m_cost: m_cost)
-
-        binding.pry # ::Argon2::Password.create("password") (NoMethodError)
-
         argon.create(password)
       end
 
       # @api private
       def costs
-        test_environment? ? [1, 1] : [2, 16]
+        test_environment? ? [1, 4] : [2, 16]
       end
 
       # @api private
