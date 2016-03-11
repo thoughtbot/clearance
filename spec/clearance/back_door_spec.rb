@@ -24,6 +24,20 @@ describe Clearance::BackDoor do
     expect(result).to eq mock_app.call(env)
   end
 
+  it 'can set the user via a block' do
+    env = env_for_username("foo")
+    user = double("user")
+    allow(User).to receive(:find_by).with(username: "foo").and_return(user)
+    back_door = Clearance::BackDoor.new(mock_app) do |username|
+      User.find_by(username: username)
+    end
+
+    result = back_door.call(env)
+
+    expect(env[:clearance]).to have_received(:sign_in).with(user)
+    expect(result).to eq mock_app.call(env)
+  end
+
   def env_without_user_id
     env_for_user_id('')
   end
@@ -31,6 +45,11 @@ describe Clearance::BackDoor do
   def env_for_user_id(user_id)
     clearance = double("clearance", sign_in: true)
     Rack::MockRequest.env_for("/?as=#{user_id}").merge(clearance: clearance)
+  end
+
+  def env_for_username(username)
+    clearance = double("clearance", sign_in: true)
+    Rack::MockRequest.env_for("/?as=#{username}").merge(clearance: clearance)
   end
 
   def mock_app

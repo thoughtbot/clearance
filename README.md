@@ -337,6 +337,20 @@ Usage:
 visit root_path(as: user)
 ```
 
+Additionally, if `User#to_param` is overridden, you can pass a block in
+order to override the default behavior:
+
+```ruby
+# config/environments/test.rb
+MyRailsApp::Application.configure do
+  # ...
+  config.middleware.use Clearance::BackDoor do |username|
+    Clearance.configuration.user_model.find_by(username: username)
+  end
+  # ...
+end
+```
+
 ### Ready Made Feature Specs
 
 If you're using RSpec, you can generate feature specs to help prevent
