@@ -61,6 +61,31 @@ describe User do
 
       expect(User.find_by_normalized_email(user.email.upcase)).to eq(user)
     end
+
+    context "when defer_sign_in_password_check is enabled" do
+      before { Clearance.configuration.defer_sign_in_password_check = true }
+      after { restore_default_config }
+
+      it "returns a DeferredSignInUser when password is correct" do
+        user = create(:user)
+        deferred_signed_in_user = User.authenticate(user.email, "bad_password")
+
+        expect(deferred_signed_in_user).to eq user
+        expect(deferred_signed_in_user).to be_deferred_sign_in_user
+      end
+
+      it "returns a DeferredSignInUser when password is wrong" do
+        user = create(:user)
+        deferred_signed_in_user = User.authenticate(user.email, "bad_password")
+
+        expect(deferred_signed_in_user).to eq user
+        expect(deferred_signed_in_user).to be_deferred_sign_in_user
+      end
+
+      it "returns nil when user does not exist" do
+        expect(User.authenticate("foo@bar.com", "password")).to be_nil
+      end
+    end
   end
 
   describe ".reset_remember_token" do

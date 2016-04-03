@@ -1,6 +1,7 @@
 require 'digest/sha1'
 require 'email_validator'
 require 'clearance/token'
+require 'clearance/deferred_sign_in_user'
 
 module Clearance
   # Required to be included in your configued user class, which is `User` by
@@ -114,10 +115,12 @@ module Clearance
     # @api private
     module ClassMethods
       def authenticate(email, password)
-        if user = find_by_normalized_email(email)
-          if password.present? && user.authenticated?(password)
-            return user
-          end
+        return unless user = find_by_normalized_email(email)
+
+        if defer_sign_in_user?
+          build_deferred_sign_in_user(user, password)
+        elsif password.present? && user.authenticated?(password)
+          user
         end
       end
 
@@ -130,6 +133,14 @@ module Clearance
       end
 
       private
+
+      def build_deferred_sign_in_user(user, password)
+        DeferredSignInUser.new(user, password)
+      end
+
+      def defer_sign_in_user?
+        Clearance.configuration.defer_sign_in_password_check?
+      end
 
       def password_strategy
         Clearance.configuration.password_strategy || PasswordStrategies::BCrypt
