@@ -1,7 +1,7 @@
 require 'digest/sha1'
 require 'email_validator'
 require 'clearance/token'
-require 'clearance/deferred_sign_in_user'
+require "clearance/deferred_sign_in_user"
 
 module Clearance
   # Required to be included in your configued user class, which is `User` by

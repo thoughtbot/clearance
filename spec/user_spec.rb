@@ -39,7 +39,7 @@ describe User do
       password = user.password
 
       expect(User.authenticate(user.email, password)).to_not(
-        be_deferred_sign_in_user
+        be_deferred_sign_in_user,
       )
     end
 

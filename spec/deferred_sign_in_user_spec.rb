@@ -6,7 +6,7 @@ describe Clearance::DeferredSignInUser do
     it "returns true" do
       deferred_sign_in_user = Clearance::DeferredSignInUser.new(
         nil,
-        "password"
+        "password",
       )
 
       expect(deferred_sign_in_user).to be_deferred_sign_in_user
@@ -18,7 +18,7 @@ describe Clearance::DeferredSignInUser do
       user = stub_user(authenticated: true, password: "password")
       deferred_sign_in_user = Clearance::DeferredSignInUser.new(
         user,
-        "password"
+        "password",
       )
 
       expect(deferred_sign_in_user).to be_present
@@ -32,7 +32,7 @@ describe Clearance::DeferredSignInUser do
       user = stub_user(authenticated: false, password: "password")
       deferred_sign_in_user = Clearance::DeferredSignInUser.new(
         user,
-        "password"
+        "password",
       )
 
       expect(deferred_sign_in_user).to_not be_present

@@ -52,7 +52,7 @@ describe Clearance::Session do
       expect(session.current_user).to eq user
     end
 
-    it 'is signed_in when user is present' do
+    it "is signed_in when user is present" do
       user = double(present?: true, remember_token: "foo")
 
       session.sign_in(user)
@@ -60,7 +60,7 @@ describe Clearance::Session do
       expect(session).to be_signed_in
     end
 
-    it 'is not signed_in when user is not present' do
+    it "is not signed_in when user is not present" do
       user = double(present?: false, remember_token: "foo")
 
       session.sign_in(user)
