@@ -34,6 +34,15 @@ describe User do
       expect(User.authenticate(user.email, password)).to eq(user)
     end
 
+    it "is not a deferred signed in user" do
+      user = create(:user)
+      password = user.password
+
+      expect(User.authenticate(user.email, password)).to_not(
+        be_deferred_sign_in_user
+      )
+    end
+
     it "is authenticated with correct uppercased email and correct password" do
       user = create(:user)
       password = user.password
@@ -179,6 +188,12 @@ describe User do
       subject.send(:password=, password)
 
       expect(subject.encrypted_password).to_not be_nil
+    end
+  end
+
+  describe "#deferred_sign_in_user" do
+    it "returns false" do
+      expect(build(:user)).to_not be_deferred_sign_in_user
     end
   end
 end

@@ -34,6 +34,14 @@ module Clearance
       __getobj__.nil?
     end
 
+    # Returns whether this is a deferred_sign_in_user, which it is. Can be used
+    # polymorphically with a regular user object.
+    #
+    # @return [Boolean]
+    def deferred_sign_in_user?
+      true
+    end
+
     private
 
     # @api private

@@ -214,6 +214,18 @@ module Clearance
       save
     end
 
+    # Returns whether this is a deferred_sign_in_user, which is not in this
+    # case.
+    #
+    # DeferredSignInUser objects are augmented wrappers to user objects. This
+    # method was implemented here in order to comply with a polymorphic
+    # contract.
+    #
+    # @return [Boolean]
+    def deferred_sign_in_user?
+      false
+    end
+
     private
 
     # Sets the email on this instance to the value returned by

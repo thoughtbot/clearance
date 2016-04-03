@@ -1,6 +1,18 @@
 require "spec_helper"
+require "clearance/deferred_sign_in_user"
 
 describe Clearance::DeferredSignInUser do
+  describe "#deferred_sign_in_user" do
+    it "returns true" do
+      deferred_sign_in_user = Clearance::DeferredSignInUser.new(
+        nil,
+        "password"
+      )
+
+      expect(deferred_sign_in_user).to be_deferred_sign_in_user
+    end
+  end
+
   context "when an underlying user is present and authenticated" do
     it "is present, not blank and not nil" do
       user = stub_user(authenticated: true, password: "password")
@@ -46,7 +58,7 @@ describe Clearance::DeferredSignInUser do
     expect(deferred_sign_in_user.first_name).to eq("Foobar")
   end
 
-  def stub_user(**options)
+  def stub_user(options)
     double("user").tap do |user|
       allow(user).to receive(:authenticated?).
         with(options[:password]).
