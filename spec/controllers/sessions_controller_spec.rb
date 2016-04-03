@@ -65,6 +65,18 @@ describe Clearance::SessionsController do
         should redirect_to(@return_url)
       end
     end
+
+    it "uses User#authenticate to perform the authentication" do
+      user = build(:user)
+      allow(User).to receive(:authenticate).
+        with(user.email, user.password).
+        once.
+        and_return(user)
+
+      post :create, session: { email: user.email, password: user.password }
+
+      expect(request.env[:clearance].current_user).to eq user
+    end
   end
 
   describe "on DELETE to #destroy" do
