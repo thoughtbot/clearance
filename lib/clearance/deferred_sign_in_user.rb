@@ -1,3 +1,5 @@
+require "delegate"
+
 module Clearance
   class DeferredSignInUser < SimpleDelegator
     def initialize(user, password)
