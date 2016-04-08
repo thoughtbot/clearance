@@ -49,7 +49,7 @@ GEM
       activesupport (>= 3.0)
       railties (>= 3.0)
       rspec-rails (>= 2.2)
-    appraisal (1.0.3)
+    appraisal (2.1.0)
       bundler
       rake
       thor (>= 0.14.0)
@@ -164,7 +164,7 @@ PLATFORMS
 
 DEPENDENCIES
   ammeter
-  appraisal (~> 1.0)
+  appraisal
   bundler (~> 1.3)
   capybara (>= 2.6.2)
   clearance!
