@@ -24,10 +24,11 @@ module Clearance
           inject_into_file(
             "app/models/user.rb",
             "  include Clearance::User\n\n",
-            after: "class User < ActiveRecord::Base\n"
+            after: "class User < ",
           )
         else
-          copy_file 'user.rb', 'app/models/user.rb'
+          @inherit_from = models_inherit_from
+          template("user.rb.erb", "app/models/user.rb")
         end
       end
 
@@ -124,6 +125,14 @@ module Clearance
       def migration_version
         if Rails.version >= "5.0.0"
           "[#{Rails::VERSION::MAJOR}.#{Rails::VERSION::MINOR}]"
+        end
+      end
+
+      def models_inherit_from
+        if Rails.version >= "5.0.0"
+          "ApplicationRecord"
+        else
+          "ActiveRecord::Base"
         end
       end
     end
