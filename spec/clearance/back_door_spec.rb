@@ -1,8 +1,8 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe Clearance::BackDoor do
-  it 'signs in as a given user' do
-    user_id = '123'
+  it "signs in as a given user" do
+    user_id = "123"
     user = double("user")
     allow(User).to receive(:find).with(user_id).and_return(user)
     env = env_for_user_id(user_id)
@@ -14,7 +14,7 @@ describe Clearance::BackDoor do
     expect(result).to eq mock_app.call(env)
   end
 
-  it 'delegates directly without a user' do
+  it "delegates directly without a user" do
     env = env_without_user_id
     back_door = Clearance::BackDoor.new(mock_app)
 
@@ -24,7 +24,7 @@ describe Clearance::BackDoor do
     expect(result).to eq mock_app.call(env)
   end
 
-  it 'can set the user via a block' do
+  it "can set the user via a block" do
     env = env_for_username("foo")
     user = double("user")
     allow(User).to receive(:find_by).with(username: "foo").and_return(user)
@@ -39,7 +39,7 @@ describe Clearance::BackDoor do
   end
 
   def env_without_user_id
-    env_for_user_id('')
+    env_for_user_id("")
   end
 
   def env_for_user_id(user_id)
@@ -53,6 +53,6 @@ describe Clearance::BackDoor do
   end
 
   def mock_app
-    lambda { |env| [200, {}, ['okay']] }
+    lambda { |env| [200, {}, ["okay"]] }
   end
 end
