@@ -15,5 +15,6 @@ gem "timecop", "~> 0.6"
 gem "pry", :require => false
 gem "rails", "~> 4.0.13"
 gem "test-unit"
+gem "mime-types", "~> 2.99"
 
 gemspec :path => "../"

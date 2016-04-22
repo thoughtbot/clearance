@@ -7,14 +7,17 @@ end
 appraise 'rails40' do
   gem 'rails', '~> 4.0.13'
   gem 'test-unit'
+  gem 'mime-types', '~> 2.99'
 end
 
 appraise 'rails41' do
   gem 'rails', '~> 4.1.9'
+  gem 'mime-types', '~> 2.99'
 end
 
 appraise 'rails42' do
   gem 'rails', '~> 4.2.0'
+  gem 'mime-types', '~> 2.99'
 end
 
 if RUBY_VERSION >= "2.2.0"
