@@ -23,7 +23,7 @@ Clearance is a Rails engine tested against Rails `>= 3.2` and Ruby `>= 1.9.3`.
 You can add it to your Gemfile with:
 
 ```sh
-gem 'clearance'
+gem "clearance"
 ```
 
 Run the bundle command to install it.
@@ -49,15 +49,15 @@ Override any of these defaults in `config/initializers/clearance.rb`:
 ```ruby
 Clearance.configure do |config|
   config.allow_sign_up = true
-  config.cookie_domain = '.example.com'
+  config.cookie_domain = ".example.com"
   config.cookie_expiration = lambda { |cookies| 1.year.from_now.utc }
-  config.cookie_name = 'remember_token'
-  config.cookie_path = '/'
+  config.cookie_name = "remember_token"
+  config.cookie_path = "/"
   config.routes = true
   config.httponly = false
-  config.mailer_sender = 'reply@example.com'
+  config.mailer_sender = "reply@example.com"
   config.password_strategy = Clearance::PasswordStrategies::BCrypt
-  config.redirect_url = '/'
+  config.redirect_url = "/"
   config.secure_cookie = false
   config.sign_in_guards = []
   config.user_model = User
@@ -86,15 +86,15 @@ at the routing layer:
 ```ruby
 Blog::Application.routes.draw do
   constraints Clearance::Constraints::SignedIn.new { |user| user.admin? } do
-    root to: 'admin/dashboards#show', as: :admin_root
+    root to: "admin/dashboards#show", as: :admin_root
   end
 
   constraints Clearance::Constraints::SignedIn.new do
-    root to: 'dashboards#show', as: :signed_in_root
+    root to: "dashboards#show", as: :signed_in_root
   end
 
   constraints Clearance::Constraints::SignedOut.new do
-    root to: 'marketing#index'
+    root to: "marketing#index"
   end
 end
 ```
@@ -120,7 +120,7 @@ should change the `mailer_sender` default, used in the email's "from" header:
 
 ```ruby
 Clearance.configure do |config|
-  config.mailer_sender = 'reply@example.com'
+  config.mailer_sender = "reply@example.com"
 end
 ```
 
@@ -223,9 +223,9 @@ to change the layout that Clearance uses when rendering its views, simply
 specify the layout in an initializer.
 
 ```ruby
-Clearance::PasswordsController.layout 'my_passwords_layout'
-Clearance::SessionsController.layout 'my_sessions_layout'
-Clearance::UsersController.layout 'my_admin_layout'
+Clearance::PasswordsController.layout "my_passwords_layout"
+Clearance::SessionsController.layout "my_sessions_layout"
+Clearance::UsersController.layout "my_admin_layout"
 ```
 
 ### Translations
@@ -372,13 +372,13 @@ For `rspec`, add the following line to your `spec/rails_helper.rb` or
 `spec/spec_helper` if `rails_helper` does not exist:
 
 ```ruby
-require 'clearance/rspec'
+require "clearance/rspec"
 ```
 
 For `test-unit`, add this line to your `test/test_helper.rb`:
 
 ```ruby
-require 'clearance/test_unit'
+require "clearance/test_unit"
 ```
 
 This will make `Clearance::Controller` methods work in your controllers
