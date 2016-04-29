@@ -1,10 +1,10 @@
 PATH
   remote: .
   specs:
-    clearance (1.14.0)
+    clearance (2.0.0.alpha)
       bcrypt
       email_validator (~> 1.4)
-      rails (>= 3.1)
+      rails (>= 4.2)
 
 GEM
   remote: https://rubygems.org/
