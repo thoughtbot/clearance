@@ -1,13 +1,20 @@
 PATH
   remote: .
   specs:
+<<<<<<< HEAD
     clearance (1.17.0)
       actionmailer (>= 3.1)
       activemodel (>= 3.1)
       activerecord (>= 3.1)
+=======
+    clearance (2.0.0.alpha)
+      actionmailer (>= 4.2)
+      activemodel (>= 4.2)
+      activerecord (>= 4.2)
+>>>>>>> Stop supporting older versions of Ruby and Rails
       bcrypt
       email_validator (~> 1.4)
-      railties (>= 3.1)
+      railties (>= 4.2)
 
 GEM
   remote: https://rubygems.org/
