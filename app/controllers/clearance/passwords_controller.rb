@@ -116,10 +116,6 @@ class Clearance::PasswordsController < Clearance::BaseController
       default: t('flashes.failure_after_update'))
   end
 
-  def url_after_create
-    sign_in_url
-  end
-
   def url_after_update
     Clearance.configuration.redirect_url
   end
