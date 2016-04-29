@@ -5,10 +5,10 @@ require 'date'
 Gem::Specification.new do |s|
   s.add_dependency 'bcrypt'
   s.add_dependency 'email_validator', '~> 1.4'
-  s.add_dependency 'railties', '>= 3.1'
-  s.add_dependency 'activemodel', '>= 3.1'
-  s.add_dependency 'activerecord', '>= 3.1'
-  s.add_dependency 'actionmailer', '>= 3.1'
+  s.add_dependency 'railties', '>= 4.2'
+  s.add_dependency 'activemodel', '>= 4.2'
+  s.add_dependency 'activerecord', '>= 4.2'
+  s.add_dependency 'actionmailer', '>= 4.2'
   s.authors = [
     'Dan Croak',
     'Eugene Bolshakov',
@@ -38,7 +38,7 @@ Gem::Specification.new do |s|
   s.name = %q{clearance}
   s.rdoc_options = ['--charset=UTF-8']
   s.require_paths = ['lib']
-  s.required_ruby_version = Gem::Requirement.new('>= 1.9.2')
+  s.required_ruby_version = Gem::Requirement.new('>= 2.3.0')
   s.summary = 'Rails authentication & authorization with email & password.'
   s.test_files = `git ls-files -- {spec}/*`.split("\n")
   s.version = Clearance::VERSION
