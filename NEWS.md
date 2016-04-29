@@ -8,6 +8,7 @@ complete changelog, see the git history for each version via the version links.
 ### Removed
 - Removed support for Ruby versions older than 2.3
 - Removed support for Rails versions older than 4.2
+- Removed all deprecated code from Clearance 1.x
 
 [Unreleased]: https://github.com/thoughtbot/clearance/compare/v1.17.0...HEAD
 

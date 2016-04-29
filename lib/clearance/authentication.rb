@@ -10,7 +10,6 @@ module Clearance
       private(
         :authenticate,
         :current_user,
-        :current_user=,
         :handle_unverified_request,
         :sign_in,
         :sign_out,
@@ -38,13 +37,6 @@ module Clearance
     # @return [User, nil] The user if one is signed in or nil otherwise.
     def current_user
       clearance_session.current_user
-    end
-
-    # @deprecated Use the {#sign_in} method instead.
-    def current_user=(user)
-      warn "#{Kernel.caller.first}: [DEPRECATION] " +
-        'Assigning the current_user has been deprecated. Use the sign_in method instead.'
-      clearance_session.sign_in user
     end
 
     # Sign in the provided user.

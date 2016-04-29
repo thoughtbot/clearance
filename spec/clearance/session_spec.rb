@@ -186,37 +186,6 @@ describe Clearance::Session do
       end
     end
 
-    context 'configured with lambda taking no arguments' do
-      it 'logs a deprecation warning' do
-        expiration = -> { Time.now }
-        with_custom_expiration expiration do
-          session = Clearance::Session.new(env_without_remember_token)
-          session.sign_in user
-          allow(session).to receive(:warn)
-          session.add_cookie_to_headers headers
-
-          expect(session).to have_received(:warn).once
-        end
-      end
-
-      it 'is set to the value of the evaluated lambda' do
-        expires_at = -> { 1.day.from_now }
-        with_custom_expiration expires_at do
-          user = double("User", remember_token: "123abc")
-          headers = {}
-          session = Clearance::Session.new(env_without_remember_token)
-          session.sign_in user
-          allow(session).to receive(:warn)
-          session.add_cookie_to_headers headers
-
-          expect(headers).to set_cookie(
-            'remember_token',
-            user.remember_token, expires_at.call
-          )
-        end
-      end
-    end
-
     context 'configured with lambda taking one argument' do
       it 'it can use other cookies to set the value of the expires token' do
         remembered_expires = 12.hours.from_now
