@@ -113,7 +113,6 @@ describe Clearance::Session do
         expect(session.current_user).to be_nil
       end
 
-
       def stub_sign_in_guard(options)
         session_status = stub_status(options.fetch(:succeed))
 
@@ -188,36 +187,6 @@ describe Clearance::Session do
           'remember_token',
           user.remember_token, 1.year.from_now
         )
-      end
-    end
-
-    context 'configured with lambda taking no arguments' do
-      it 'logs a deprecation warning' do
-        expiration = -> { Time.now }
-        with_custom_expiration expiration do
-          session = Clearance::Session.new(env_without_remember_token)
-          allow(session).to receive(:warn)
-          session.add_cookie_to_headers headers
-
-          expect(session).to have_received(:warn).once
-        end
-      end
-
-      it 'is set to the value of the evaluated lambda' do
-        expires_at = -> { 1.day.from_now }
-        with_custom_expiration expires_at do
-          user = double("User", remember_token: "123abc")
-          headers = {}
-          session = Clearance::Session.new(env_without_remember_token)
-          session.sign_in user
-          allow(session).to receive(:warn)
-          session.add_cookie_to_headers headers
-
-          expect(headers).to set_cookie(
-            'remember_token',
-            user.remember_token, expires_at.call
-          )
-        end
       end
     end
 

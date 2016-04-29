@@ -3,7 +3,7 @@ module Clearance
     extend ActiveSupport::Concern
 
     included do
-      private :authorize, :deny_access, :require_login
+      private :deny_access, :require_login
     end
 
     # Use as a `before_action` to require a user be signed in to proceed.
@@ -21,15 +21,6 @@ module Clearance
       unless signed_in?
         deny_access(I18n.t("flashes.failure_when_not_signed_in"))
       end
-    end
-
-    # @deprecated use {#require_login}
-    def authorize
-      warn "[DEPRECATION] Clearance's `authorize` before_action is " +
-        "deprecated. Use `require_login` instead. Be sure to update any " +
-        "instances of `skip_before_action :authorize` or " +
-        "`skip_before_action :authorize` as well"
-      require_login
     end
 
     # Responds to unauthorized requests in a manner fitting the request format.
