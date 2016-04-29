@@ -107,16 +107,14 @@ module Clearance
         def sets_the_flash?
           if @flash.blank?
             true
+          elsif flash_alert_value == @flash
+            @failure_message_when_negated <<
+              "Didn't expect to set the flash to #{@flash}"
+            true
           else
-            if flash_alert_value == @flash
-              @failure_message_when_negated <<
-                "Didn't expect to set the flash to #{@flash}"
-              true
-            else
-              @failure_message << "Expected the flash to be set to #{@flash} "\
-                "but was #{flash_alert_value}"
-              false
-            end
+            @failure_message << "Expected the flash to be set to #{@flash} "\
+              "but was #{flash_alert_value}"
+            false
           end
         end
       end
