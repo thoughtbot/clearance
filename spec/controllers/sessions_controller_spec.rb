@@ -31,7 +31,7 @@ describe Clearance::SessionsController do
         post :create, session: { email: user.email, password: user.password }
 
         expect(response).to render_template(:new)
-        expect(flash[:notice]).to match(/^Bad email or password/)
+        expect(flash[:alert]).to match(/^Bad email or password/)
       end
     end
 

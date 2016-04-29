@@ -70,22 +70,22 @@ describe Clearance::PasswordsController do
     end
 
     context "blank token is supplied" do
-      it "renders the new password reset form with a flash notice" do
+      it "renders the new password reset form with a flash alert" do
         get :edit, user_id: 1, token: ""
 
         expect(response).to render_template(:new)
-        expect(flash.now[:notice]).to match(/double check the URL/i)
+        expect(flash.now[:alert]).to match(/double check the URL/i)
       end
     end
 
     context "invalid token is supplied" do
-      it "renders the new password reset form with a flash notice" do
+      it "renders the new password reset form with a flash alert" do
         user = create(:user, :with_forgotten_password)
 
         get :edit, user_id: 1, token: user.confirmation_token + "a"
 
         expect(response).to render_template(:new)
-        expect(flash.now[:notice]).to match(/double check the URL/i)
+        expect(flash.now[:alert]).to match(/double check the URL/i)
       end
     end
   end
@@ -128,7 +128,7 @@ describe Clearance::PasswordsController do
 
         put :update, update_parameters(user, new_password: "")
 
-        expect(flash.now[:notice]).to match(/password can't be blank/i)
+        expect(flash.now[:alert]).to match(/password can't be blank/i)
         expect(response).to render_template(:edit)
         expect(cookies[:remember_token]).to be_nil
       end

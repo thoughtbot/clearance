@@ -10,6 +10,10 @@ complete changelog, see the git history for each version via the version links.
 - Removed support for Rails versions older than 4.2
 - Removed all deprecated code from Clearance 1.x
 
+### Changed
+- Flash messages now use `flash[:alert]` rather than `flash[:notice]` as they
+  were used as errors more than notices.
+
 [2.0.0]: https://github.com/thoughtbot/clearance/compare/v1.14.1...2.0
 
 ## [1.14.1] - May 12, 2016
