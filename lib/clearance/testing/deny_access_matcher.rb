@@ -8,7 +8,7 @@ module Clearance
     module Matchers
       # The `deny_access` matcher is used to assert that a
       #   request is denied access by clearance.
-      # @option opts [String] :flash The expected flash notice message. Defaults
+      # @option opts [String] :flash The expected flash alert message. Defaults
       #   to nil, which means the flash will not be checked.
       # @option opts [String] :redirect The expected redirect url. Defaults to
       #   `'/'` if signed in or the `sign_in_url` if signed out.
@@ -78,15 +78,15 @@ module Clearance
           @controller.request.env[:clearance]
         end
 
-        def flash_notice
-          @controller.flash[:notice]
+        def flash_alert
+          @controller.flash[:alert]
         end
 
-        def flash_notice_value
-          if flash_notice.respond_to?(:values)
-            flash_notice.values.first
+        def flash_alert_value
+          if flash_alert.respond_to?(:values)
+            flash_alert.values.first
           else
-            flash_notice
+            flash_alert
           end
         end
 
@@ -108,13 +108,13 @@ module Clearance
           if @flash.blank?
             true
           else
-            if flash_notice_value == @flash
+            if flash_alert_value == @flash
               @failure_message_when_negated <<
                 "Didn't expect to set the flash to #{@flash}"
               true
             else
               @failure_message << "Expected the flash to be set to #{@flash} "\
-                "but was #{flash_notice_value}"
+                "but was #{flash_alert_value}"
               false
             end
           end
