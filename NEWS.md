@@ -3,6 +3,28 @@
 The noteworthy changes for each Clearance version are included here. For a
 complete changelog, see the git history for each version via the version links.
 
+## [1.14.0] - April 29, 2016
+
+### Added
+- `Clearance::BackDoor` now accepts a block, allowing the user for a test to be
+  looked up by a parameter other than `id` if you have overridden `to_param` for
+  the `User` model.
+
+### Fixed
+- We now correctly track the dirty state of `User#encrypted_password`, which
+  fixes custom validations on `User#password` (e.g. validating password length)
+  that were conditional on the password actually changing.
+- The `clearance:install` generator will now generate a `User` model that
+  inherits from `ApplicationRecord` if run on a Rails 5 app that doesn't already
+  have a `User` model.
+
+### Deprecated
+- `User#password_changing` is deprecated in favor of automatic dirty tracking on
+  `encrypted_password` and `password`. If you are calling this in your
+  application you should be able to remove it.
+
+[1.14.0]: https://github.com/thoughtbot/clearance/compare/v1.13.0...v1.14.0
+
 ## [1.13.0] - March 4, 2016
 
 ### Added
