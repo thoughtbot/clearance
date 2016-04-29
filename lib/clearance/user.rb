@@ -46,9 +46,6 @@ module Clearance
   #   @return [String] The value used to identify this user in the password
   #     reset link.
   #
-  # @!attribute password_changing
-  #   @deprecated Dirty tracking is now handled automatically.
-  #
   # @!attribute [r] password
   #   @return [String] Transient (non-persisted) attribute that is set when
   #     updating a user's password. Only the {#encrypted_password} is persisted.
@@ -109,24 +106,6 @@ module Clearance
       def password=(value)
         encrypted_password_will_change!
         super
-      end
-
-      def password_changing
-        warn "#{Kernel.caller.first}: [DEPRECATION] " \
-          "The `password_changing` attribute is deprecated. Clearance uses " \
-          "the dirty state of the `encrypted_password` field to track this " \
-          "automatically."
-
-        @password_changing
-      end
-
-      def password_changing=(value)
-        warn "#{Kernel.caller.first}: [DEPRECATION] " \
-          "The `password_changing` attribute is deprecated. Clearance uses " \
-          "the dirty state of the `encrypted_password` field to track this " \
-          "automatically."
-
-        @password_changing = value
       end
     end
 
