@@ -38,6 +38,7 @@ describe Clearance::Generators::InstallGenerator, :generator do
         expect(user_class).to exist
         expect(user_class).to have_correct_syntax
         expect(user_class).to contain("include Clearance::User")
+        expect(user_class).to contain proper_model_superclass
       end
     end
 
@@ -125,6 +126,14 @@ describe Clearance::Generators::InstallGenerator, :generator do
       allow(connection).to receive(:table_exists?).
         with(name).
         and_return(false)
+    end
+  end
+
+  def proper_model_superclass
+    if Rails.version >= "5.0.0"
+      "ApplicationRecord"
+    else
+      "ActiveRecord::Base"
     end
   end
 end
