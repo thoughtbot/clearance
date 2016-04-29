@@ -62,7 +62,7 @@ describe PermissionsController do
     it "denies access to show and display a flash message" do
       get :show
 
-      expect(flash[:notice]).to match(/^Please sign in to continue/)
+      expect(flash[:alert]).to match(/^Please sign in to continue/)
     end
   end
 
