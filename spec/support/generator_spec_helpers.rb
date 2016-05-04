@@ -18,7 +18,7 @@ module GeneratorSpecHelpers
   end
 
   def provide_existing_user_class
-    copy_to_generator_root("app/models", "user.rb")
+    copy_to_generator_root("app/models", versionize_template("user.rb"))
     allow(File).to receive(:exist?).and_call_original
     allow(File).to receive(:exist?).with("app/models/user.rb").and_return(true)
   end
@@ -31,6 +31,14 @@ module GeneratorSpecHelpers
 
     FileUtils.mkdir_p(destination)
     FileUtils.cp(template_file, destination)
+  end
+
+  def versionize_template(template_file)
+    if Rails.version >= "5.0.0"
+      template_file = ["rails5", template_file].join("/")
+    end
+
+    template_file
   end
 end
 
