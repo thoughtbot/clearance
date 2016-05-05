@@ -68,7 +68,7 @@ module Clearance
 
         def denied_access_url
           if clearance_session.signed_in?
-            '/'
+            Clearance.configuration.redirect_url
           else
             @controller.sign_in_url
           end
