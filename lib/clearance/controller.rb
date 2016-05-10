@@ -11,7 +11,7 @@ module Clearance
   # The `clearance:install` generator automatically adds this mixin to
   # `ApplicationController`, which is the recommended configuration.
   #
-  #     class ApplicationController < ApplicationController
+  #     class ApplicationController < ActionController::Base
   #       include Clearance::Controller
   #     end
   #
