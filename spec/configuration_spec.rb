@@ -1,16 +1,16 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe Clearance::Configuration do
   after { restore_default_config }
 
-  context 'when no user_model_name is specified' do
-    it 'defaults to User' do
+  context "when no user_model_name is specified" do
+    it "defaults to User" do
       expect(Clearance.configuration.user_model).to eq ::User
     end
   end
 
-  context 'when a custom user_model_name is specified' do
-    it 'is used instead of User' do
+  context "when a custom user_model_name is specified" do
+    it "is used instead of User" do
       MyUser = Class.new
       Clearance.configure { |config| config.user_model = MyUser }
 
@@ -18,27 +18,27 @@ describe Clearance::Configuration do
     end
   end
 
-  context 'when secure_cookie is set to true' do
-    it 'returns true' do
+  context "when secure_cookie is set to true" do
+    it "returns true" do
       Clearance.configure { |config| config.secure_cookie = true }
       expect(Clearance.configuration.secure_cookie).to eq true
     end
   end
 
-  context 'when secure_cookie is not specified' do
-    it 'defaults to false' do
+  context "when secure_cookie is not specified" do
+    it "defaults to false" do
       expect(Clearance.configuration.secure_cookie).to eq false
     end
   end
 
-  context 'when no redirect URL specified' do
+  context "when no redirect URL specified" do
     it 'returns "/" as redirect URL' do
-      expect(Clearance::Configuration.new.redirect_url).to eq '/'
+      expect(Clearance::Configuration.new.redirect_url).to eq "/"
     end
   end
 
-  context 'when redirect URL is specified' do
-    it 'returns new redirect URL' do
+  context "when redirect URL is specified" do
+    it "returns new redirect URL" do
       new_redirect_url = "/admin"
       Clearance.configure { |config| config.redirect_url = new_redirect_url }
 
@@ -46,8 +46,8 @@ describe Clearance::Configuration do
     end
   end
 
-  context 'when specifying sign in guards' do
-    it 'returns the stack with added guards' do
+  context "when specifying sign in guards" do
+    it "returns the stack with added guards" do
       DummyGuard = Class.new
       Clearance.configure { |config| config.sign_in_guards = [DummyGuard] }
 
@@ -55,8 +55,8 @@ describe Clearance::Configuration do
     end
   end
 
-  context 'when cookie domain is specified' do
-    it 'returns configured value' do
+  context "when cookie domain is specified" do
+    it "returns configured value" do
       domain = ".example.com"
       Clearance.configure { |config| config.cookie_domain = domain }
 
@@ -64,8 +64,8 @@ describe Clearance::Configuration do
     end
   end
 
-  context 'when cookie path is specified' do
-    it 'returns configured value' do
+  context "when cookie path is specified" do
+    it "returns configured value" do
       path = "/user"
       Clearance.configure { |config| config.cookie_path = path }
 
@@ -73,31 +73,31 @@ describe Clearance::Configuration do
     end
   end
 
-  describe '#allow_sign_up?' do
-    context 'when allow_sign_up is configured to false' do
-      it 'returns false' do
+  describe "#allow_sign_up?" do
+    context "when allow_sign_up is configured to false" do
+      it "returns false" do
         Clearance.configure { |config| config.allow_sign_up = false }
         expect(Clearance.configuration.allow_sign_up?).to eq false
       end
     end
 
-    context 'when allow_sign_up has not been configured' do
-      it 'returns true' do
+    context "when allow_sign_up has not been configured" do
+      it "returns true" do
         expect(Clearance.configuration.allow_sign_up?).to eq true
       end
     end
   end
 
-  describe '#user_actions' do
-    context 'when allow_sign_up is configured to false' do
-      it 'returns empty array' do
+  describe "#user_actions" do
+    context "when allow_sign_up is configured to false" do
+      it "returns empty array" do
         Clearance.configure { |config| config.allow_sign_up = false }
         expect(Clearance.configuration.user_actions).to eq []
       end
     end
 
-    context 'when sign_up has not been configured' do
-      it 'returns create' do
+    context "when sign_up has not been configured" do
+      it "returns create" do
         expect(Clearance.configuration.user_actions).to eq [:create]
       end
     end
@@ -112,8 +112,8 @@ describe Clearance::Configuration do
     end
   end
 
-  describe '#user_id_parameter' do
-    it 'returns the parameter key to use based on the user_model' do
+  describe "#user_id_parameter" do
+    it "returns the parameter key to use based on the user_model" do
       CustomUser = Class.new(ActiveRecord::Base)
       Clearance.configure { |config| config.user_model = CustomUser }
 
@@ -121,12 +121,12 @@ describe Clearance::Configuration do
     end
   end
 
-  describe '#routes_enabled?' do
-    it 'is true by default' do
+  describe "#routes_enabled?" do
+    it "is true by default" do
       expect(Clearance.configuration.routes_enabled?).to be true
     end
 
-    it 'is false when routes are set to false' do
+    it "is false when routes are set to false" do
       Clearance.configure { |config| config.routes = false }
       expect(Clearance.configuration.routes_enabled?).to be false
     end
