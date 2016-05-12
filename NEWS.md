@@ -3,6 +3,16 @@
 The noteworthy changes for each Clearance version are included here. For a
 complete changelog, see the git history for each version via the version links.
 
+## [1.14.1] - May 12, 2016
+
+### Fixed
+- Fixed insertion of `include Clearance::User` when running the install
+  generator in an app that already has a `User` model.
+- Updated `deny_access` matcher to assert against configured redirect location
+  rather than hard coded `/`.
+
+[1.14.1]: https://github.com/thoughtbot/clearance/compare/v1.14.0...v1.14.1
+
 ## [1.14.0] - April 29, 2016
 
 ### Added
