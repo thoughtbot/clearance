@@ -37,8 +37,8 @@ describe Clearance::Generators::InstallGenerator, :generator do
 
         expect(user_class).to exist
         expect(user_class).to have_correct_syntax
+        expect(user_class).to contain_models_inherit_from
         expect(user_class).to contain("include Clearance::User")
-        expect(user_class).to contain proper_model_superclass
       end
     end
 
@@ -52,6 +52,7 @@ describe Clearance::Generators::InstallGenerator, :generator do
 
         expect(user_class).to exist
         expect(user_class).to have_correct_syntax
+        expect(user_class).to contain_models_inherit_from
         expect(user_class).to contain("include Clearance::User")
         expect(user_class).to have_method("previously_existed?")
       end
@@ -129,7 +130,11 @@ describe Clearance::Generators::InstallGenerator, :generator do
     end
   end
 
-  def proper_model_superclass
+  def contain_models_inherit_from
+    contain "< #{models_inherit_from}\n"
+  end
+
+  def models_inherit_from
     if Rails.version >= "5.0.0"
       "ApplicationRecord"
     else

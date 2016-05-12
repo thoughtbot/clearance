@@ -24,7 +24,7 @@ module Clearance
           inject_into_file(
             "app/models/user.rb",
             "  include Clearance::User\n\n",
-            after: "class User < ",
+            after: "class User < #{models_inherit_from}\n",
           )
         else
           @inherit_from = models_inherit_from
