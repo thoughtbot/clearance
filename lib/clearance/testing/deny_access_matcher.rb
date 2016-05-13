@@ -83,11 +83,7 @@ module Clearance
         end
 
         def flash_alert_value
-          if flash_alert.respond_to?(:values)
-            flash_alert.values.first
-          else
-            flash_alert
-          end
+          flash_alert.values.first
         end
 
         def redirects_to_url?
