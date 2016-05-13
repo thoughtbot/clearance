@@ -118,16 +118,9 @@ describe Clearance::Generators::InstallGenerator, :generator do
 
   def table_does_not_exist(name)
     connection = ActiveRecord::Base.connection
-
-    if connection.respond_to?(:data_source_exists?)
-      allow(connection).to receive(:data_source_exists?).
-        with(name).
-        and_return(false)
-    else
-      allow(connection).to receive(:table_exists?).
-        with(name).
-        and_return(false)
-    end
+    allow(connection).to receive(:data_source_exists?).
+      with(name).
+      and_return(false)
   end
 
   def contain_models_inherit_from

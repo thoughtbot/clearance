@@ -31,9 +31,7 @@ module Dummy
       config.active_record.sqlite3.represent_boolean_as_integer = true
     end
 
-    if config.respond_to?(:active_job)
-      config.active_job.queue_adapter = :inline
-    end
+    config.active_job.queue_adapter = :inline
 
     def require_environment!
       initialize!
