@@ -3,11 +3,6 @@ require "clearance"
 
 module Dummy
   APP_ROOT = File.expand_path("..", __FILE__).freeze
-
-  def self.rails4?
-    Rails::VERSION::MAJOR >= 4
-  end
-
   I18n.enforce_available_locales = true
 
   class Application < Rails::Application
@@ -29,13 +24,8 @@ module Dummy
     config.paths["config/database"] = "#{APP_ROOT}/config/database.yml"
     config.paths["log"] = "tmp/log/development.log"
     config.secret_token = "SECRET_TOKEN_IS_MIN_30_CHARS_LONG"
-
-    if Dummy.rails4?
-      config.paths.add "config/routes.rb", with: "#{APP_ROOT}/config/routes.rb"
-      config.secret_key_base = "SECRET_KEY_BASE"
-    else
-      config.paths.add "config/routes", with: "#{APP_ROOT}/config/routes.rb"
-    end
+    config.paths.add "config/routes.rb", with: "#{APP_ROOT}/config/routes.rb"
+    config.secret_key_base = "SECRET_KEY_BASE"
 
     if config.respond_to?(:active_job)
       config.active_job.queue_adapter = :inline
