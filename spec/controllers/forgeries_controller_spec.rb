@@ -5,11 +5,7 @@ class ForgeriesController < ActionController::Base
 
   protect_from_forgery
 
-  if respond_to?(:before_action)
-    before_action :require_login
-  else
-    before_filter :require_login
-  end
+  before_action :require_login
 
   # This is off in test by default, but we need it for this test
   self.allow_forgery_protection = true

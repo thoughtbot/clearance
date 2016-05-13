@@ -26,10 +26,7 @@ module Dummy
     config.secret_token = "SECRET_TOKEN_IS_MIN_30_CHARS_LONG"
     config.paths.add "config/routes.rb", with: "#{APP_ROOT}/config/routes.rb"
     config.secret_key_base = "SECRET_KEY_BASE"
-
-    if config.respond_to?(:active_job)
-      config.active_job.queue_adapter = :inline
-    end
+    config.active_job.queue_adapter = :inline
 
     def require_environment!
       initialize!
