@@ -4,12 +4,17 @@ class Clearance::PasswordsController < Clearance::BaseController
   before_action :ensure_existing_user, only: [:edit, :update]
   skip_before_action :require_login, only: [:create, :edit, :new, :update], raise: false
 
+  def new
+    render template: "passwords/new"
+  end
+
   def create
     if user = find_user_for_create
       user.forgot_password!
       deliver_email(user)
     end
-    render template: 'passwords/create'
+
+    render template: "passwords/create"
   end
 
   def edit
@@ -19,12 +24,8 @@ class Clearance::PasswordsController < Clearance::BaseController
       session[:password_reset_token] = params[:token]
       redirect_to url_for
     else
-      render template: 'passwords/edit'
+      render template: "passwords/edit"
     end
-  end
-
-  def new
-    render template: 'passwords/new'
   end
 
   def update
@@ -36,7 +37,7 @@ class Clearance::PasswordsController < Clearance::BaseController
       session[:password_reset_token] = nil
     else
       flash_failure_after_update
-      render template: 'passwords/edit'
+      render template: "passwords/edit"
     end
   end
 
@@ -48,12 +49,7 @@ class Clearance::PasswordsController < Clearance::BaseController
   end
 
   def password_reset_params
-    if params.has_key? :user
-      ActiveSupport::Deprecation.warn %{Since locales functionality was added, accessing params[:user] is no longer supported.}
-      params[:user][:password]
-    else
-      params[:password_reset][:password]
-    end
+    params[:password_reset][:password]
   end
 
   def find_user_by_id_and_confirmation_token
@@ -87,13 +83,13 @@ class Clearance::PasswordsController < Clearance::BaseController
   def flash_failure_when_forbidden
     flash.now[:alert] = translate(:forbidden,
       scope: [:clearance, :controllers, :passwords],
-      default: t('flashes.failure_when_forbidden'))
+      default: t("flashes.failure_when_forbidden"))
   end
 
   def flash_failure_after_update
     flash.now[:alert] = translate(:blank_password,
       scope: [:clearance, :controllers, :passwords],
-      default: t('flashes.failure_after_update'))
+      default: t("flashes.failure_after_update"))
   end
 
   def url_after_update
