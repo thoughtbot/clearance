@@ -3,6 +3,22 @@
 The noteworthy changes for each Clearance version are included here. For a
 complete changelog, see the git history for each version via the version links.
 
+## [2.0.0] - Unreleased
+
+### Removed
+- Removed `User#confirmation_token`, `User#forgot_password!`, and
+  `User#generate_confirmation_token` as part of the change to expiring,
+  databaseless password reset tokens.
+
+### Changed
+- Password resets now use expiring signed tokens that do not require persistence
+  to the `users` table. By default, the tokens are generated with
+  `ActiveSupport::MessageVerifier` and expire in 15 minutes.
+
+### Added
+- `rails generate clearance:upgrade` generator to prepare your Clearance 1.x
+  project for Clearance 2.0
+
 ## [2.0.0.beta1] - April 12, 2019
 
 ### Removed
