@@ -57,6 +57,8 @@ Clearance.configure do |config|
   config.routes = true
   config.httponly = false
   config.mailer_sender = "reply@example.com"
+  config.message_verifier = ActiveSupport::MessageVerifier.new(secret_key_base)
+  config.password_reset_time_limit = 15.minutes
   config.password_strategy = Clearance::PasswordStrategies::BCrypt
   config.redirect_url = "/"
   config.rotate_csrf_on_sign_in = false
@@ -127,6 +129,15 @@ should change the `mailer_sender` default, used in the email's "from" header:
 ```ruby
 Clearance.configure do |config|
   config.mailer_sender = "reply@example.com"
+end
+```
+
+The password reset link contained in the email is configured to expire in 15
+minutes. You can change this with the `password_reset_time_limit` configuration.
+
+```ruby
+Clearance.configure do |config|
+  config.password_reset_time_limit = 1.hour
 end
 ```
 

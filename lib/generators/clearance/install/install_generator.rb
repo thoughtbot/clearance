@@ -75,7 +75,6 @@ module Clearance
         @new_columns ||= {
           email: 't.string :email',
           encrypted_password: 't.string :encrypted_password, limit: 128',
-          confirmation_token: 't.string :confirmation_token, limit: 128',
           remember_token: 't.string :remember_token, limit: 128'
         }.reject { |column| existing_users_columns.include?(column.to_s) }
       end
