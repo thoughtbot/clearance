@@ -9,10 +9,20 @@ complete changelog, see the git history for each version via the version links.
 - Removed support for Ruby versions older than 2.2
 - Removed support for Rails versions older than 4.2
 - Removed all deprecated code from Clearance 1.x
+- Removed `User#confirmation_token`, `User#forgot_password!`, and
+  `User#generate_confirmation_token` as part of the change to expiring,
+  databaseless password reset tokens.
 
 ### Changed
+- Password resets now use expiring signed tokens that do not require persistence
+  to the `users` table. By default, the tokens are generated with
+  `ActiveSupport::MessageVerifier` and expire in 15 minutes.
 - Flash messages now use `flash[:alert]` rather than `flash[:notice]` as they
   were used as errors more than notices.
+
+### Added
+- `rails generate clearance:upgrade` generator to prepare your Clearance 1.x
+  project for Clearance 2.0
 
 [2.0.0]: https://github.com/thoughtbot/clearance/compare/v1.14.1...2.0
 

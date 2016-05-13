@@ -3,7 +3,6 @@ require "spec_helper"
 describe ClearanceMailer do
   it "is from DO_NOT_REPLY" do
     user = create(:user)
-    user.forgot_password!
 
     email = ClearanceMailer.change_password(user)
 
@@ -12,7 +11,6 @@ describe ClearanceMailer do
 
   it "is sent to user" do
     user = create(:user)
-    user.forgot_password!
 
     email = ClearanceMailer.change_password(user)
 
@@ -21,7 +19,6 @@ describe ClearanceMailer do
 
   it "sets its subject" do
     user = create(:user)
-    user.forgot_password!
 
     email = ClearanceMailer.change_password(user)
 
@@ -30,7 +27,6 @@ describe ClearanceMailer do
 
   it "has html and plain text parts" do
     user = create(:user)
-    user.forgot_password!
 
     email = ClearanceMailer.change_password(user)
 
@@ -40,19 +36,23 @@ describe ClearanceMailer do
   end
 
   it "contains a link to edit the password" do
-    user = create(:user)
-    user.forgot_password!
-    host = ActionMailer::Base.default_url_options[:host]
-    link = "http://#{host}/users/#{user.id}/password/edit" \
-      "?token=#{user.confirmation_token}"
+    Timecop.freeze do
+      user = create(:user)
+      host = ActionMailer::Base.default_url_options[:host]
+      allow(Clearance.configuration.message_verifier).to receive(:generate).
+        with([user.id, user.encrypted_password, 15.minutes.from_now]).
+        and_return("THIS_IS_THE_TOKEN")
+      link = "http://#{host}/users/#{user.id}/password/edit" \
+        "?token=THIS_IS_THE_TOKEN"
 
-    email = ClearanceMailer.change_password(user)
+      email = ClearanceMailer.change_password(user)
 
-    expect(email.text_part.body).to include(link)
-    expect(email.html_part.body).to include(link)
-    expect(email.html_part.body).to have_css(
-      "a",
-      text: I18n.t("clearance_mailer.change_password.link_text")
-    )
+      expect(email.text_part.body).to include(link)
+      expect(email.html_part.body).to include(link)
+      expect(email.html_part.body).to have_css(
+        "a",
+        text: I18n.t("clearance_mailer.change_password.link_text"),
+      )
+    end
   end
 end

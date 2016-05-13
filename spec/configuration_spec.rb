@@ -146,4 +146,35 @@ describe Clearance::Configuration do
       expect(Clearance.configuration.reload_user_model).to be_nil
     end
   end
+
+  describe "#message_verifier" do
+    it "returns the configured verifier if one has been configured" do
+      verifier = Class.new.new
+      Clearance.configure { |config| config.message_verifier = verifier }
+
+      expect(Clearance.configuration.message_verifier).to be verifier
+    end
+
+    it "returns an active support message verifier instance by default" do
+      Clearance.configuration = Clearance::Configuration.new
+
+      expect(Clearance.configuration.message_verifier).to be_an_instance_of(
+        ActiveSupport::MessageVerifier,
+      )
+    end
+  end
+
+  describe "#password_reset_time_limit" do
+    it "is the configured amount if overridden" do
+      Clearance.configure { |config| config.password_reset_time_limit = 1.hour }
+
+      expect(Clearance.configuration.password_reset_time_limit).to eq 1.hour
+    end
+
+    it "is 15 minutes by default" do
+      Clearance.configuration = Clearance::Configuration.new
+
+      expect(Clearance.configuration.password_reset_time_limit).to eq 15.minutes
+    end
+  end
 end

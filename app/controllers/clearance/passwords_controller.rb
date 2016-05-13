@@ -10,7 +10,6 @@ class Clearance::PasswordsController < Clearance::BaseController
 
   def create
     if user = find_user_for_create
-      user.forgot_password!
       deliver_email(user)
     end
 
@@ -26,9 +25,9 @@ class Clearance::PasswordsController < Clearance::BaseController
   def update
     @user = find_user_for_update
 
-    if @user.update_password password_reset_params
-      sign_in @user
-      redirect_to url_after_update
+    if @user.update_password(password_reset_params)
+      sign_in(@user)
+      redirect_to(url_after_update)
     else
       flash_failure_after_update
       render template: "passwords/edit"
@@ -38,19 +37,11 @@ class Clearance::PasswordsController < Clearance::BaseController
   private
 
   def deliver_email(user)
-    mail = ::ClearanceMailer.change_password(user)
-    mail.deliver_later
+    ::ClearanceMailer.change_password(user).deliver_later
   end
 
   def password_reset_params
     params[:password_reset][:password]
-  end
-
-  def find_user_by_id_and_confirmation_token
-    user_param = Clearance.configuration.user_id_parameter
-
-    Clearance.configuration.user_model.
-      find_by_id_and_confirmation_token params[user_param], params[:token].to_s
   end
 
   def find_user_for_create
@@ -58,25 +49,38 @@ class Clearance::PasswordsController < Clearance::BaseController
       find_by_normalized_email params[:password][:email]
   end
 
+  def find_user_by_password_reset_token(token)
+    verifier = Clearance.configuration.message_verifier
+    user_model = Clearance.configuration.user_model
+
+    begin
+      user_id, encrypted_password, expiration = verifier.verify(token)
+    rescue ActiveSupport::MessageVerifier::InvalidSignature
+      expiration = 1.day.ago
+    end
+
+    if expiration.future?
+      user_model.find_by(id: user_id, encrypted_password: encrypted_password)
+    end
+  end
+
   def find_user_for_edit
-    find_user_by_id_and_confirmation_token
+    find_user_by_password_reset_token(params[:token])
   end
 
   def find_user_for_update
-    find_user_by_id_and_confirmation_token
+    find_user_by_password_reset_token(params[:token])
   end
 
   def ensure_existing_user
-    unless find_user_by_id_and_confirmation_token
-      flash_failure_when_forbidden
+    unless find_user_by_password_reset_token(params[:token])
+      flash_failure_when_invalid
       render template: "passwords/new"
     end
   end
 
-  def flash_failure_when_forbidden
-    flash.now[:alert] = translate(:forbidden,
-      scope: [:clearance, :controllers, :passwords],
-      default: t("flashes.failure_when_forbidden"))
+  def flash_failure_when_invalid
+    flash.now[:alert] = translate("flashes.failure_when_password_reset_invalid")
   end
 
   def flash_failure_after_update
