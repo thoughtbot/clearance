@@ -61,6 +61,7 @@ Clearance.configure do |config|
   config.secure_cookie = false
   config.sign_in_guards = []
   config.user_model = User
+  config.defer_sign_in_password_check = false
 end
 ```
 
@@ -307,6 +308,39 @@ class EmailConfirmationGuard < Clearance::SignInGuard
   def unconfirmed?
     signed_in? && !current_user.confirmed_at
   end
+end
+```
+
+### Deferring Sign In Password Check
+
+You can also enable the `SignInGuard` stack to receive an unauthenticated _but_
+existing user object, thus deferring its password check to happen at the
+`SignInGuard` stack.  Clearance's default behavior is to represent an
+unauthenticated user as `nil`, but this is undesirable if you need to work with
+existing `user` objects regardless if the incoming password is correct or not.
+So this feature enables Sign In Guards to deal with concerns such as _locking
+an account after a certain number of failed attempts_.
+
+If you want to use this feature you'll need to enable it:
+
+```ruby
+Clearance.configure do |config|
+  config.defer_sign_in_password_check = true
+end
+```
+
+With this feature enabled the `Clearance::Session#current_user` method will
+hold a `DeferredSignInUser` object _at sign in time_, which can be used within
+your Sign In Guards as regular user objects.
+
+`DeferredSignInUser` wraps and delegates to your `user` object, and its
+`present?` method only returns `true` if the user is present **and** also
+authenticated. To check if there exists an underlying user to work with, you
+can use the `nil?` method within your custom Sign In Guards:
+
+```ruby
+if current_user.nil?
+  # No user found in the database
 end
 ```
 

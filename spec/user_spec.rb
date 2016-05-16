@@ -34,6 +34,15 @@ describe User do
       expect(User.authenticate(user.email, password)).to eq(user)
     end
 
+    it "is not a deferred signed in user" do
+      user = create(:user)
+      password = user.password
+
+      expect(User.authenticate(user.email, password)).to_not(
+        be_deferred_sign_in_user,
+      )
+    end
+
     it "is authenticated with correct uppercased email and correct password" do
       user = create(:user)
       password = user.password
@@ -51,6 +60,31 @@ describe User do
       user = create(:user)
 
       expect(User.find_by_normalized_email(user.email.upcase)).to eq(user)
+    end
+
+    context "when defer_sign_in_password_check is enabled" do
+      before { Clearance.configuration.defer_sign_in_password_check = true }
+      after { restore_default_config }
+
+      it "returns a DeferredSignInUser when password is correct" do
+        user = create(:user)
+        deferred_signed_in_user = User.authenticate(user.email, "bad_password")
+
+        expect(deferred_signed_in_user).to eq user
+        expect(deferred_signed_in_user).to be_deferred_sign_in_user
+      end
+
+      it "returns a DeferredSignInUser when password is wrong" do
+        user = create(:user)
+        deferred_signed_in_user = User.authenticate(user.email, "bad_password")
+
+        expect(deferred_signed_in_user).to eq user
+        expect(deferred_signed_in_user).to be_deferred_sign_in_user
+      end
+
+      it "returns nil when user does not exist" do
+        expect(User.authenticate("foo@bar.com", "password")).to be_nil
+      end
     end
   end
 
@@ -179,6 +213,12 @@ describe User do
       subject.send(:password=, password)
 
       expect(subject.encrypted_password).to_not be_nil
+    end
+  end
+
+  describe "#deferred_sign_in_user" do
+    it "returns false" do
+      expect(build(:user)).to_not be_deferred_sign_in_user
     end
   end
 end

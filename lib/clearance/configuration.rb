@@ -85,6 +85,20 @@ module Clearance
     # @return [ActiveRecord::Base]
     attr_accessor :user_model
 
+    # Controls whether user password checks should be deferred to happen at the
+    # sign in guard stack. This feature enables a DeferredSignInUser object to
+    # enter within sign in guards, regardless if the user is authenticated or
+    # not.  Clearance's default behavior is to represent an unauthenticated
+    # user as nil, and this is undesirable if we need sign in guards to work
+    # with existing but unauthenticated user objects.
+    #
+    # DeferredSignInUser wraps a user object and can be used as such, and its
+    # present? method returns true only if the user is present AND password is
+    # correct.
+    #
+    # @return [Boolean]
+    attr_accessor :defer_sign_in_password_check
+
     def initialize
       @allow_sign_up = true
       @cookie_expiration = ->(cookies) { 1.year.from_now.utc }
@@ -97,6 +111,7 @@ module Clearance
       @routes = true
       @secure_cookie = false
       @sign_in_guards = []
+      @defer_sign_in_password_check = false
     end
 
     def user_model
@@ -140,6 +155,12 @@ module Clearance
     # @return [Boolean] are Clearance's built-in routes enabled?
     def routes_enabled?
       @routes
+    end
+
+    # Is the defer sign in password check feature enabled?
+    # @return [Boolean]
+    def defer_sign_in_password_check?
+      @defer_sign_in_password_check
     end
 
     # Reloads the clearance user model class.

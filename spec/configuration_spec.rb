@@ -146,4 +146,27 @@ describe Clearance::Configuration do
       expect(Clearance.configuration.reload_user_model).to be_nil
     end
   end
+
+  context "when defer_sign_in_password_check is set to true" do
+    before do
+      Clearance.configure do |config|
+        config.defer_sign_in_password_check = true
+      end
+    end
+
+    it "returns true" do
+      expect(Clearance.configuration.defer_sign_in_password_check).to eq true
+    end
+  end
+
+  context "when defer_sign_in_password_check is not specified" do
+    before do
+      Clearance.configure do |config|
+      end
+    end
+
+    it "defaults to false" do
+      expect(Clearance.configuration.defer_sign_in_password_check).to eq false
+    end
+  end
 end
