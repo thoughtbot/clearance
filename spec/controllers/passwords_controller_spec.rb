@@ -181,10 +181,6 @@ describe Clearance::PasswordsController do
   end
 
   def token_for(user)
-    Clearance.configuration.message_verifier.generate([
-      user.id,
-      user.encrypted_password,
-      15.minutes.from_now,
-    ])
+    Clearance::PasswordResetToken.generate_for(user)
   end
 end

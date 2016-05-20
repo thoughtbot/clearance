@@ -16,10 +16,6 @@ class ClearanceMailer < ActionMailer::Base
   private
 
   def generate_password_reset_token(user)
-    Clearance.configuration.message_verifier.generate([
-      user.id,
-      user.encrypted_password,
-      Clearance.configuration.password_reset_time_limit.from_now,
-    ])
+    Clearance::PasswordResetToken.generate_for(user)
   end
 end
