@@ -7,7 +7,7 @@ describe Clearance::PasswordResetToken do
         user = double("User", id: 1, encrypted_password: "foo")
         time_limit = Clearance.configuration.password_reset_time_limit
         allow(Clearance.configuration.message_verifier).to receive(:generate).
-          with([1, "foo", time_limit.from_now]).
+          with([1, Digest::MD5.hexdigest("foo"), time_limit.from_now]).
           and_return("SEKRET")
 
         token = Clearance::PasswordResetToken.generate_for(user)
