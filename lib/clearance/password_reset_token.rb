@@ -3,7 +3,7 @@ module Clearance
     def self.generate_for(user)
       token = Clearance.configuration.message_verifier.generate([
         user.id,
-        user.encrypted_password,
+        Digest::MD5.hexdigest(user.encrypted_password),
         Clearance.configuration.password_reset_time_limit.from_now
       ])
 
@@ -15,13 +15,14 @@ module Clearance
     end
 
     def user
-      user_id, encrypted_password, expires_at = verify
+      user_id, digested_secret, expires_at = verify
 
       if expires_at.future?
-        Clearance.configuration.user_model.find_by(
-          id: user_id,
-          encrypted_password: encrypted_password
-        )
+        user = Clearance.configuration.user_model.find_by(id: user_id)
+
+        if digested_secret == Digest::MD5.hexdigest(user.encrypted_password)
+          user
+        end
       end
     end
 
