@@ -17,13 +17,12 @@ class Clearance::PasswordsController < Clearance::BaseController
   end
 
   def edit
-    @user = find_user_for_edit
-
+    @user = find_user_by_password_reset_token(params[:token])
     render template: "passwords/edit"
   end
 
   def update
-    @user = find_user_for_update
+    @user = find_user_by_password_reset_token(params[:token])
 
     if @user.update_password(password_reset_params)
       sign_in(@user)
@@ -50,26 +49,7 @@ class Clearance::PasswordsController < Clearance::BaseController
   end
 
   def find_user_by_password_reset_token(token)
-    verifier = Clearance.configuration.message_verifier
-    user_model = Clearance.configuration.user_model
-
-    begin
-      user_id, encrypted_password, expiration = verifier.verify(token)
-    rescue ActiveSupport::MessageVerifier::InvalidSignature
-      expiration = 1.day.ago
-    end
-
-    if expiration.future?
-      user_model.find_by(id: user_id, encrypted_password: encrypted_password)
-    end
-  end
-
-  def find_user_for_edit
-    find_user_by_password_reset_token(params[:token])
-  end
-
-  def find_user_for_update
-    find_user_by_password_reset_token(params[:token])
+    @user ||= Clearance::PasswordResetToken.new(token).user
   end
 
   def ensure_existing_user

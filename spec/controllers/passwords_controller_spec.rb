@@ -61,45 +61,9 @@ describe Clearance::PasswordsController do
       end
     end
 
-    context "blank token is supplied" do
-      it "renders the new password reset form with a flash alert" do
-        get :edit, user_id: 1, token: ""
-
-        expect(response).to render_template(:new)
-        expect(flash.now[:alert]).to match(/expired or is invalid/i)
-      end
-    end
-
     context "invalid token is supplied" do
       it "renders the new password reset form with a flash alert" do
         get :edit, user_id: 1, token: "a"
-
-        expect(response).to render_template(:new)
-        expect(flash.now[:alert]).to match(/expired or is invalid/i)
-      end
-    end
-
-    context "expired token is supplied" do
-      it "does not allow password reset to continue" do
-        user = create(:user)
-        token = token_for(user)
-
-        Timecop.freeze(1.day.from_now) do
-          get :edit, user_id: 1, token: token
-
-          expect(response).to render_template(:new)
-          expect(flash.now[:alert]).to match(/expired or is invalid/i)
-        end
-      end
-    end
-
-    context "password is changed before reset is complete" do
-      it "does not allow password reset to continue" do
-        user = create(:user)
-        token = token_for(user)
-        user.update_password("foobar")
-
-        get :edit, user_id: 1, token: token
 
         expect(response).to render_template(:new)
         expect(flash.now[:alert]).to match(/expired or is invalid/i)
@@ -162,10 +126,6 @@ describe Clearance::PasswordsController do
   end
 
   def token_for(user)
-    Clearance.configuration.message_verifier.generate([
-      user.id,
-      user.encrypted_password,
-      15.minutes.from_now,
-    ])
+    Clearance::PasswordResetToken.generate_for(user)
   end
 end
