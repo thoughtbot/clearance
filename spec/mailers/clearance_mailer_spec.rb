@@ -39,8 +39,8 @@ describe ClearanceMailer do
     Timecop.freeze do
       user = create(:user)
       host = ActionMailer::Base.default_url_options[:host]
-      allow(Clearance.configuration.message_verifier).to receive(:generate).
-        with([user.id, user.encrypted_password, 15.minutes.from_now]).
+      allow(Clearance::PasswordResetToken).to receive(:generate_for).
+        with(user).
         and_return("THIS_IS_THE_TOKEN")
       link = "http://#{host}/users/#{user.id}/password/edit" \
         "?token=THIS_IS_THE_TOKEN"
