@@ -135,7 +135,7 @@ module Clearance
       def authenticate(email, password)
         if user = find_by_normalized_email(email)
           if password.present? && user.authenticated?(password)
-            return user
+            user
           end
         end
       end
