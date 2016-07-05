@@ -19,18 +19,17 @@ module Clearance
         @password = new_password
 
         if new_password.present?
-          self.encrypted_password = encrypt(new_password)
+          self.encrypted_password = _encrypt(new_password)
         end
       end
 
       private
 
       # @api private
-      def encrypt(password)
+      def _encrypt(password)
         ::BCrypt::Password.create(password, cost: cost)
       end
 
-      # @api private
       def cost
         if test_environment?
           ::BCrypt::Engine::MIN_COST

@@ -15,7 +15,7 @@ module Clearance
       #   gem
       def authenticated?(password)
         warn "#{Kernel.caller.first}: #{DEPRECATION_MESSAGE}"
-        encrypted_password == encrypt(password)
+        encrypted_password == _encrypt(password)
       end
 
       # @deprecated Use {BCrypt} or `clearance-deprecated_password_strategies`
@@ -26,14 +26,14 @@ module Clearance
         initialize_salt_if_necessary
 
         if new_password.present?
-          self.encrypted_password = encrypt(new_password)
+          self.encrypted_password = _encrypt(new_password)
         end
       end
 
       protected
 
       # @api private
-      def encrypt(string)
+      def _encrypt(string)
         generate_hash("--#{salt}--#{string}--")
       end
 
