@@ -152,7 +152,8 @@ end
 See [config/routes.rb](/config/routes.rb) for the default set of routes.
 
 As of Clearance 1.5 it is recommended that you disable Clearance routes and take
-full control over routing and URL design.
+full control over routing and URL design. This ensures that your app's URL design
+won't be affected if the gem's routes and URL design are changed.
 
 To disable the routes, set `config.routes = false`. You can optionally run
 `rails generate clearance:routes` to dump a copy of the default routes into your
