@@ -19,29 +19,17 @@ module Clearance
         @password = new_password
 
         if new_password.present?
-          self.encrypted_password = encrypt(new_password)
+          cost = if defined?(::Rails) && ::Rails.env.test?
+                   ::BCrypt::Engine::MIN_COST
+                 else
+                   ::BCrypt::Engine::DEFAULT_COST
+                 end
+
+          self.encrypted_password = ::BCrypt::Password.create(
+            new_password,
+            cost: cost,
+          )
         end
-      end
-
-      private
-
-      # @api private
-      def encrypt(password)
-        ::BCrypt::Password.create(password, cost: cost)
-      end
-
-      # @api private
-      def cost
-        if test_environment?
-          ::BCrypt::Engine::MIN_COST
-        else
-          ::BCrypt::Engine::DEFAULT_COST
-        end
-      end
-
-      # @api private
-      def test_environment?
-        defined?(::Rails) && ::Rails.env.test?
       end
     end
   end
