@@ -3,6 +3,14 @@
 The noteworthy changes for each Clearance version are included here. For a
 complete changelog, see the git history for each version via the version links.
 
+## [1.14.2] - August 10, 2016
+
+### Fixed
+- Fixed incompatibility with `attr_encrypted` gem by inlining the body of the
+  `encrypt` helper method used in the BCrypt password strategy.
+
+[1.14.2]: https://github.com/thoughtbot/clearance/compare/v1.14.1...v1.14.2
+
 ## [1.14.1] - May 12, 2016
 
 ### Fixed
