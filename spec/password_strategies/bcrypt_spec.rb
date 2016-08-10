@@ -69,6 +69,26 @@ describe Clearance::PasswordStrategies::BCrypt do
     end
   end
 
+  describe "#_encrypt" do
+    it "reserves #encrypt to prevent name conflicts with other gems" do
+      model_instance = fake_model_with_bcrypt_strategy
+
+      expect(model_instance.respond_to?(:encrypt, true)).to eq(false)
+    end
+
+    it "responds to #_encrypt" do
+      model_instance = fake_model_with_bcrypt_strategy
+
+      expect(model_instance.respond_to?(:_encrypt, true)).to eq(true)
+    end
+
+    it "ensures that #_encrypt is a private method as its name implies" do
+      model_instance = fake_model_with_bcrypt_strategy
+
+      expect(model_instance.respond_to?(:_encrypt)).to eq(false)
+    end
+  end
+
   def fake_model_with_bcrypt_strategy
     @model_instance ||= fake_model_with_password_strategy(
       Clearance::PasswordStrategies::BCrypt
