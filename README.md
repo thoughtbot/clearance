@@ -238,6 +238,8 @@ translation.
 See [config/locales/clearance.en.yml](/config/locales/clearance.en.yml) for the
 default behavior.
 
+You can also install [clearance-i18n](https://github.com/thoughtbot/clearance-i18n) gem
+
 ### User Model
 
 See [lib/clearance/user.rb](/lib/clearance/user.rb) for the default behavior.
