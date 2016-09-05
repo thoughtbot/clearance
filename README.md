@@ -217,6 +217,25 @@ application for modification.
 $ rails generate clearance:views
 ```
 
+#### Forms in other views
+
+To put forms into arbitrary views, you can wrap the form partials from
+Clearance with your own form builder. For instance:
+
+```erb
+# sign in
+<%= form_for :session, url: session_path do |form_builder| %>
+  <%= render "sessions/form", form: form_builder %>
+  <%= form_builder.submit %>
+<% end %>
+
+# sign up
+<%= form_for :user, url: users_path do |form_builder| %>
+  <%= render "users/form", form: form_builder %>
+  <%= form_builder.submit %>
+<% end %>
+```
+
 ### Layouts
 
 By default, Clearance uses your application's default layout. If you would like
