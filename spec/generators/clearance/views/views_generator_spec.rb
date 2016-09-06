@@ -8,7 +8,6 @@ describe Clearance::Generators::ViewsGenerator, :generator do
     views = %w(
       clearance_mailer/change_password.html.erb
       clearance_mailer/change_password.text.erb
-      layouts/application.html.erb
       passwords/create.html.erb
       passwords/edit.html.erb
       passwords/new.html.erb
