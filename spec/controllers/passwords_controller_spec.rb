@@ -67,6 +67,15 @@ describe Clearance::PasswordsController do
         expect(response).to render_template(:edit)
         expect(assigns(:user)).to eq user
       end
+
+      it "immediately expires the supplied token" do
+        user = create(:user, :with_forgotten_password)
+        token = user.confirmation_token
+
+        get :edit, user_id: user, token: token
+
+        expect(user.reload.confirmation_token).not_to eq(token)
+      end
     end
 
     context "blank token is supplied" do
