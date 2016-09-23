@@ -57,11 +57,24 @@ describe Clearance::PasswordsController do
   end
 
   describe "#edit" do
-    context "valid id and token are supplied" do
-      it "renders the password form for the user" do
+    context "valid id and token are supplied in url" do
+      it "redirects to the edit page with token now removed from url" do
         user = create(:user, :with_forgotten_password)
 
         get :edit, user_id: user, token: user.confirmation_token
+
+        expect(response).to be_redirect
+        expect(response).to redirect_to edit_user_password_url(user)
+        expect(session[:password_reset_token]).to eq user.confirmation_token
+      end
+    end
+
+    context "valid id in url and valid token in session" do
+      it "renders the password reset form" do
+        user = create(:user, :with_forgotten_password)
+
+        request.session[:password_reset_token] = user.confirmation_token
+        get :edit, user_id: user
 
         expect(response).to be_success
         expect(response).to render_template(:edit)

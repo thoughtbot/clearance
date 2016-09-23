@@ -29,7 +29,13 @@ class Clearance::PasswordsController < Clearance::BaseController
 
   def edit
     @user = find_user_for_edit
-    render template: 'passwords/edit'
+
+    if params[:token]
+      session[:password_reset_token] = params[:token]
+      redirect_to edit_user_password_url(@user)
+    else
+      render template: 'passwords/edit'
+    end
   end
 
   def new
@@ -42,6 +48,7 @@ class Clearance::PasswordsController < Clearance::BaseController
     if @user.update_password password_reset_params
       sign_in @user
       redirect_to url_after_update
+      session[:password_reset_token] = nil
     else
       flash_failure_after_update
       render template: 'passwords/edit'
@@ -71,9 +78,10 @@ class Clearance::PasswordsController < Clearance::BaseController
 
   def find_user_by_id_and_confirmation_token
     user_param = Clearance.configuration.user_id_parameter
+    token = session[:password_reset_token] || params[:token]
 
     Clearance.configuration.user_model.
-      find_by_id_and_confirmation_token params[user_param], params[:token].to_s
+      find_by_id_and_confirmation_token params[user_param], token.to_s
   end
 
   def find_user_for_create
