@@ -32,7 +32,7 @@ class Clearance::PasswordsController < Clearance::BaseController
 
     if params[:token]
       session[:password_reset_token] = params[:token]
-      redirect_to edit_user_password_url(@user)
+      redirect_to url_for
     else
       render template: 'passwords/edit'
     end
