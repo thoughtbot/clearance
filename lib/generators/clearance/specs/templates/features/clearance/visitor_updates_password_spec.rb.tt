@@ -37,7 +37,7 @@ RSpec.feature "Visitor updates password" do
   def visit_password_reset_page_for(user)
     visit edit_user_password_path(
       user_id: user,
-      token: user.confirmation_token
+      token: user.confirmation_token,
     )
   end
 
