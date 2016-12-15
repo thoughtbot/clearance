@@ -4,7 +4,7 @@
   resources :users, controller: "clearance/users", only: [:create] do
     resource :password,
       controller: "clearance/passwords",
-      only: [:create, :edit, :update]
+      only: [:edit, :update]
   end
 
   get "/sign_in" => "clearance/sessions#new", as: "sign_in"
