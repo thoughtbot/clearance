@@ -82,6 +82,7 @@ describe Clearance::SessionsController do
         @user = create(:user)
         @user.update_attribute :remember_token, "old-token"
         @request.cookies["remember_token"] = "old-token"
+        session["test"] = "present"
         delete :destroy
       end
 
@@ -93,6 +94,10 @@ describe Clearance::SessionsController do
 
       it "should unset the current user" do
         expect(request.env[:clearance].current_user).to be_nil
+      end
+
+      it "should reset the rails session" do
+        expect(session["test"]).to be_nil
       end
     end
   end
