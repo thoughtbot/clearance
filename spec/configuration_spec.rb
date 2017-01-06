@@ -1,8 +1,6 @@
 require "spec_helper"
 
 describe Clearance::Configuration do
-  after { restore_default_config }
-
   context "when no user_model_name is specified" do
     it "defaults to User" do
       expect(Clearance.configuration.user_model).to eq ::User
@@ -144,6 +142,32 @@ describe Clearance::Configuration do
       Clearance.configuration = Clearance::Configuration.new
 
       expect(Clearance.configuration.reload_user_model).to be_nil
+    end
+  end
+
+  describe "#rotate_csrf_on_sign_in?" do
+    it "defaults to falsey and warns" do
+      Clearance.configuration = Clearance::Configuration.new
+      allow(Clearance.configuration).to receive(:warn)
+
+      expect(Clearance.configuration.rotate_csrf_on_sign_in?).to be_falsey
+      expect(Clearance.configuration).to have_received(:warn)
+    end
+
+    it "is true and does not warn when `rotate_csrf_on_sign_in` is true" do
+      Clearance.configure { |config| config.rotate_csrf_on_sign_in = true }
+      allow(Clearance.configuration).to receive(:warn)
+
+      expect(Clearance.configuration.rotate_csrf_on_sign_in?).to be true
+      expect(Clearance.configuration).not_to have_received(:warn)
+    end
+
+    it "is false and does not warn when `rotate_csrf_on_sign_in` is false" do
+      Clearance.configure { |config| config.rotate_csrf_on_sign_in = false }
+      allow(Clearance.configuration).to receive(:warn)
+
+      expect(Clearance.configuration.rotate_csrf_on_sign_in?).to be false
+      expect(Clearance.configuration).not_to have_received(:warn)
     end
   end
 end

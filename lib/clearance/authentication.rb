@@ -62,8 +62,16 @@ module Clearance
     #
     # For an example of how clearance uses this internally, see
     # {SessionsController#create}.
+    #
+    # Signing in will also regenerate the CSRF token for the current session,
+    # provided {Configuration#rotate_csrf_token_on_sign_in} is set.
     def sign_in(user, &block)
-      clearance_session.sign_in user, &block
+      clearance_session.sign_in(user, &block)
+
+      if signed_in? && Clearance.configuration.rotate_csrf_on_sign_in?
+        session.delete(:_csrf_token)
+        form_authenticity_token
+      end
     end
 
     # Destroy the current user's Clearance session.

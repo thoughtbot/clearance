@@ -27,6 +27,8 @@ RSpec.configure do |config|
     mocks.syntax = :expect
   end
 
+  config.before { restore_default_warning_free_config }
+
   if Rails::VERSION::MAJOR >= 5
     require 'rails-controller-testing'
     config.include Rails::Controller::Testing::TestProcess
@@ -35,7 +37,7 @@ RSpec.configure do |config|
   end
 end
 
-def restore_default_config
+def restore_default_warning_free_config
   Clearance.configuration = nil
-  Clearance.configure {}
+  Clearance.configure { |config| config.rotate_csrf_on_sign_in = true }
 end

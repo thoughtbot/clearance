@@ -58,11 +58,16 @@ Clearance.configure do |config|
   config.mailer_sender = "reply@example.com"
   config.password_strategy = Clearance::PasswordStrategies::BCrypt
   config.redirect_url = "/"
+  config.rotate_csrf_on_sign_in = false
   config.secure_cookie = false
   config.sign_in_guards = []
   config.user_model = User
 end
 ```
+
+The install generator will set `rotate_csrf_on_sign_in` to `true`, so new
+installations will get this behavior from the start. This helps avoid session
+fixation attacks, and will become the default in Clearance 2.0.
 
 ## Use
 

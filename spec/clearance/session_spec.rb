@@ -39,8 +39,6 @@ describe Clearance::Session do
 
       expect(headers["Set-Cookie"]).to match(/custom_cookie_name=.+;/)
     end
-
-    after { restore_default_config }
   end
 
   describe '#sign_in' do
@@ -113,7 +111,6 @@ describe Clearance::Session do
         expect(session.current_user).to be_nil
       end
 
-
       def stub_sign_in_guard(options)
         session_status = stub_status(options.fetch(:succeed))
 
@@ -159,8 +156,6 @@ describe Clearance::Session do
 
       expect(headers['Set-Cookie']).to match(/remember_token=.+; HttpOnly/)
     end
-
-    after { restore_default_config }
   end
 
   context 'if httponly is not set' do
@@ -270,8 +265,6 @@ describe Clearance::Session do
 
         expect(headers['Set-Cookie']).to match(/remember_token=.+; secure/)
       end
-
-      after { restore_default_config }
     end
   end
 
@@ -287,8 +280,6 @@ describe Clearance::Session do
 
         expect(headers['Set-Cookie']).to match(/domain=\.example\.com; path/)
       end
-
-      after { restore_default_config }
     end
 
     context 'when not set' do
@@ -324,8 +315,6 @@ describe Clearance::Session do
 
         expect(headers['Set-Cookie']).to match(/path=\/user; expires/)
       end
-
-      after { restore_default_config }
     end
   end
 
@@ -375,7 +364,5 @@ describe Clearance::Session do
   def with_custom_expiration(custom_duration)
     Clearance.configuration.cookie_expiration = custom_duration
     yield
-  ensure
-    restore_default_config
   end
 end
