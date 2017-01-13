@@ -13,7 +13,7 @@ if Clearance.configuration.routes_enabled?
       only: Clearance.configuration.user_actions do
         resource :password,
           controller: 'clearance/passwords',
-          only: [:create, :edit, :update]
+          only: [:edit, :update]
       end
 
     get '/sign_in' => 'clearance/sessions#new', as: 'sign_in'
