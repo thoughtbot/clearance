@@ -5,9 +5,7 @@ describe Clearance::PasswordsController do
 
   describe "#new" do
     it "renders the password reset form" do
-      user = create(:user)
-
-      get :new, user_id: user
+      get :new
 
       expect(response).to be_success
       expect(response).to render_template(:new)
