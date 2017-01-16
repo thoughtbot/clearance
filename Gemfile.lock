@@ -170,6 +170,7 @@ DEPENDENCIES
   clearance!
   database_cleaner (~> 1.0)
   factory_girl_rails (~> 4.2)
+  nokogiri (~> 1.6.8)
   pry
   rspec-rails (~> 3.1)
   shoulda-matchers (~> 2.8)
