@@ -37,6 +37,16 @@ describe Clearance::PasswordsController do
       end
     end
 
+    context "email param is missing" do
+      it "does not raise error" do
+        expect do
+          post :create, params: {
+            password: {},
+          }
+        end.not_to raise_error
+      end
+    end
+
     context "email does not belong to an existing user" do
       it "does not deliver an email" do
         ActionMailer::Base.deliveries.clear
@@ -164,6 +174,18 @@ describe Clearance::PasswordsController do
         user.reload
         expect(user.encrypted_password).to eq old_encrypted_password
         expect(user.confirmation_token).to be_present
+      end
+
+      it "does not raise NoMethodError from incomplete password_reset params" do
+        user = create(:user, :with_forgotten_password)
+
+        expect do
+          put :update, params: {
+            user_id: user,
+            token: user.confirmation_token,
+            password_reset: {},
+          }
+        end.not_to raise_error
       end
 
       it "re-renders the password edit form" do

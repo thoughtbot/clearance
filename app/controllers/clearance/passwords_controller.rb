@@ -31,7 +31,7 @@ class Clearance::PasswordsController < Clearance::BaseController
   def update
     @user = find_user_for_update
 
-    if @user.update_password password_reset_params
+    if @user.update_password(password_from_password_reset_params)
       sign_in @user
       redirect_to url_after_update
       session[:password_reset_token] = nil
@@ -48,8 +48,8 @@ class Clearance::PasswordsController < Clearance::BaseController
     mail.deliver_later
   end
 
-  def password_reset_params
-    params[:password_reset][:password]
+  def password_from_password_reset_params
+    params.dig(:password_reset, :password)
   end
 
   def find_user_by_id_and_confirmation_token
@@ -60,9 +60,13 @@ class Clearance::PasswordsController < Clearance::BaseController
       find_by_id_and_confirmation_token params[user_param], token.to_s
   end
 
+  def email_from_password_params
+    params.dig(:password, :email)
+  end
+
   def find_user_for_create
     Clearance.configuration.user_model.
-      find_by_normalized_email params[:password][:email]
+      find_by_normalized_email(email_from_password_params)
   end
 
   def find_user_for_edit

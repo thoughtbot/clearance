@@ -3,6 +3,15 @@
 The noteworthy changes for each Clearance version are included here. For a
 complete changelog, see the git history for each version via the version links.
 
+## Unreleased
+
+### Fixed
+
+- Fix issue where invalid params could raise `NoMethodError` when updating and
+  resetting passwords.
+
+[Unreleased]: https://github.com/thoughtbot/clearance/compare/v2.0.0.beta2...HEAD
+
 ## [2.0.0.beta2] - September 17, 2019
 
 ### Added
