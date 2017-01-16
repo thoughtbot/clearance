@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gemspec
 
+gem 'addressable', '~> 2.4.0'
 gem 'appraisal'
 gem 'ammeter'
 gem 'bundler', '~> 1.3'

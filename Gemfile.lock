@@ -163,6 +163,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  addressable (~> 2.4.0)
   ammeter
   appraisal
   bundler (~> 1.3)
