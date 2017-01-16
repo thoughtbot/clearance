@@ -3,6 +3,19 @@
 The noteworthy changes for each Clearance version are included here. For a
 complete changelog, see the git history for each version via the version links.
 
+## [1.16.0] - January 16, 2017
+
+### Security
+- Clearance users can now help prevent [session fixation attacks] by setting
+  `Clearance.configuration.rotate_csrf_on_sign_in` to `true`. This will cause
+  the user's CSRF token to be rotated on sign in and is recommended for all
+  Clearance applications. This setting will default to `true` in Clearance 2.0.
+  Clearance will emit a warning on each sign in until this configuration setting
+  is explicitly set to `true` or `false`.
+
+[session fixation attacks]: https://www.owasp.org/index.php/Session_fixation
+[1.16.0]: https://github.com/thoughtbot/clearance/compare/v1.15.1...v1.16.0
+
 ## [1.15.1] - October 6, 2016
 
 ### Fixed
