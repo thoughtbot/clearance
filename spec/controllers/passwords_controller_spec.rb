@@ -62,7 +62,7 @@ describe Clearance::PasswordsController do
         get :edit, user_id: user, token: user.confirmation_token
 
         expect(response).to be_redirect
-        expect(response).to redirect_to edit_user_password_url(user)
+        expect(response).to redirect_to edit_user_password_url
         expect(session[:password_reset_token]).to eq user.confirmation_token
       end
     end
