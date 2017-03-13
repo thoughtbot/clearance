@@ -74,10 +74,14 @@ module Clearance
       end
     end
 
-    # Destroy the current user's Clearance session.
-    # See {Session#sign_out} for specifics.
+    # Destroy the current user's Clearance and Rails sessions.
+    # See {Session#sign_out} for Clearance specifics. The Rails
+    # session itself is also reset as it is common practice for
+    # application developers to store user-specific information
+    # there.
     def sign_out
       clearance_session.sign_out
+      reset_session
     end
 
     # True if there is a currently-signed-in user. Exposed as a `helper_method`,
