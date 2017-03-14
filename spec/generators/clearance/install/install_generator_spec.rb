@@ -74,6 +74,20 @@ describe Clearance::Generators::InstallGenerator, :generator do
       end
     end
 
+    context "database does not exist" do
+      it "creates a migration to create the users table" do
+        provide_existing_application_controller
+        database_does_not_exist
+
+        run_generator
+        migration = migration_file("db/migrate/create_users.rb")
+
+        expect(migration).to exist
+        expect(migration).to have_correct_syntax
+        expect(migration).to contain("create_table :users")
+      end
+    end
+
     context "existing users table with all clearance columns and indexes" do
       it "does not create a migration" do
         provide_existing_application_controller
@@ -128,6 +142,11 @@ describe Clearance::Generators::InstallGenerator, :generator do
         with(name).
         and_return(false)
     end
+  end
+
+  def database_does_not_exist
+    fake_active_record = class_double("ActiveRecord::Base")
+    allow(fake_active_record).to receive(:connection).and_raise(ActiveRecord::NoDatabaseError)
   end
 
   def contain_models_inherit_from

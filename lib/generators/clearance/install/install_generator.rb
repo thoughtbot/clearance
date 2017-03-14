@@ -102,10 +102,16 @@ module Clearance
       end
 
       def users_table_exists?
-        if ActiveRecord::Base.connection.respond_to?(:data_source_exists?)
-          ActiveRecord::Base.connection.data_source_exists?(:users)
+        begin
+          connection = ActiveRecord::Base.connection
+        rescue ActiveRecord::NoDatabaseError
+          return false
+        end
+
+        if connection.respond_to?(:data_source_exists?)
+          connection.data_source_exists?(:users)
         else
-          ActiveRecord::Base.connection.table_exists?(:users)
+          connection.table_exists?(:users)
         end
       end
 
