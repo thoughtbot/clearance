@@ -10,19 +10,30 @@ class Clearance::UsersController < Clearance::BaseController
   end
 
   def new
-    @user = user_from_params
-    render template: "users/new"
+    if Clearance.configuration.allow_sign_up?
+      @user = user_from_params
+      render template: "users/new"
+
+    else
+      redirect_to Clearance.configuration.redirect_url
+    end
   end
 
   def create
-    @user = user_from_params
+    if Clearance.configuration.allow_sign_up?
+      @user = user_from_params
 
-    if @user.save
-      sign_in @user
-      redirect_back_or url_after_create
+      if @user.save
+        sign_in @user
+        redirect_back_or url_after_create
+      else
+        render template: "users/new"
+      end
+
     else
-      render template: "users/new"
+      redirect_to Clearance.configuration.redirect_url
     end
+
   end
 
   private
