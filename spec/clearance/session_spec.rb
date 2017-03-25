@@ -41,6 +41,59 @@ describe Clearance::Session do
     end
   end
 
+  context "without a custom cookie name" do
+    it "does not specify the cookie domain" do
+      Clearance.configuration.cookie_domain = nil
+
+      session.sign_in user
+      session.add_cookie_to_headers(headers)
+
+      expect(headers["Set-Cookie"]).not_to match(/domain=/)
+    end
+  end
+
+  context "with multiple allowable domains" do
+    let(:session_stubbed) { session.dup }
+
+    before do
+      Clearance.configuration.cookie_domain = %w(example.com example.org)
+
+      session_stubbed.sign_in user
+    end
+
+    it "permits whitelisted hosts" do
+      allow(session_stubbed).to receive(:get_request_uri).
+        and_return "http://example.org/foo"
+      session_stubbed.add_cookie_to_headers(headers)
+
+      expect(headers["Set-Cookie"]).to match(/example.org/)
+    end
+
+    it "defaults to the first whitelisted host when no header is present" do
+      allow(session_stubbed).to receive(:get_request_uri).
+        and_return "http://127.0.0.1/foo"
+      session_stubbed.add_cookie_to_headers(headers)
+
+      expect(headers["Set-Cookie"]).to match(/example.com/)
+    end
+
+    it "defaults to the first host if the URI doesn't match" do
+      allow(session_stubbed).to receive(:get_request_uri).
+        and_return "http://example.net/foo"
+      session_stubbed.add_cookie_to_headers(headers)
+
+      expect(headers["Set-Cookie"]).to match(/example.com/)
+    end
+
+    it "ignores urls that fail to parse for any reason" do
+      allow(session_stubbed).to receive(:get_request_uri).
+        and_return("invalid domain name")
+      session_stubbed.add_cookie_to_headers(headers)
+
+      expect(headers["Set-Cookie"]).to match(/example.com/)
+    end
+  end
+
   describe '#sign_in' do
     it 'sets current_user' do
       user = build(:user)
@@ -283,7 +336,10 @@ describe Clearance::Session do
     end
 
     context 'when not set' do
-      before { session.sign_in(user) }
+      before do
+        Clearance.configuration.cookie_domain = nil
+        session.sign_in(user)
+      end
 
       it 'sets a standard cookie' do
         session.add_cookie_to_headers(headers)
@@ -298,6 +354,7 @@ describe Clearance::Session do
       before { session.sign_in(user) }
 
       it 'sets a standard cookie' do
+        Clearance.configuration.cookie_domain = nil
         session.add_cookie_to_headers(headers)
 
         expect(headers['Set-Cookie']).to_not match(/domain=.+; path/)
