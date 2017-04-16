@@ -105,6 +105,12 @@ module Clearance
       @sign_in_guards = []
     end
 
+    def reload_user_model!
+      unless @user_model.nil?
+        @user_model = @user_model.to_s.constantize
+      end
+    end
+
     def user_model
       @user_model ||= ::User
     end
@@ -200,5 +206,11 @@ module Clearance
   # ```
   def self.configure
     yield configuration
+  end
+
+  class ClearanceRailtie < Rails::Railtie
+    config.to_prepare do
+      Clearance.configuration.reload_user_model!
+    end
   end
 end
