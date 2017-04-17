@@ -1,0 +1,54 @@
+---
+es:
+  clearance:
+    models:
+      clearance_mailer:
+        change_password: Cambia tu contraseña
+  clearance_mailer:
+    change_password:
+      closing: Si no ha sido usted, por favor ignorar este correo electrónico, su contraseña no sera restablecida.
+      link_text: Cambiar mi contraseña
+      opening: "Alguien, solicito que le enviaramos un enlace para cambiar su contraseña:"
+  flashes:
+    failure_after_create: Email o contraseña incorrecta.
+    failure_after_update: Contraseña no puede estar en blanco.
+    failure_when_forbidden: Por favor revise la URL o vuelva a intentarlo.
+    failure_when_not_signed_in: Por favor ingrese para continuar.
+  helpers:
+    label:
+      password:
+        email: Correo electrónico 
+      password_reset:
+        password: Elija una contraseña 
+    submit:
+      password:
+        submit: Restablecer contraseña
+      password_reset:
+        submit: Guardar contraseña 
+      session:
+        submit: Ingresar 
+      user:
+        create: Registrarse 
+  layouts:
+    application:
+      sign_in: Ingresar 
+      sign_out: Cerrar sesión 
+  passwords:
+    create:
+      description: En unos minutos recibirá un correo electrónico, con las instrucciones para restablecer su contraseña.
+    edit:
+      description: Su contraseña ha sido restablecida. Elija una nueva contraseña.
+      title: Restablecer su contraseña
+    new:
+      description: Por favor ingrese su correo electrónico, para recibir un enlace para restablecer su contraseña.
+      title: Restablecer contraseña
+  sessions:
+    form:
+      forgot_password: ¿Olvido su contraseña?
+      sign_up: Registrarse 
+    new:
+      title: Ingresar 
+  users:
+    new:
+      sign_in: Ingresar 
+      title: Registrarse 
