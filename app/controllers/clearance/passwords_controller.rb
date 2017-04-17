@@ -20,6 +20,7 @@ class Clearance::PasswordsController < Clearance::BaseController
   end
 
   def create
+    byebug
     if user = find_user_for_create
       user.forgot_password!
       deliver_email(user)
