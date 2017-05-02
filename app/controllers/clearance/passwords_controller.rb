@@ -24,7 +24,6 @@ class Clearance::PasswordsController < Clearance::BaseController
       user.forgot_password!
       deliver_email(user)
     end
-    render template: 'passwords/create'
   end
 
   def edit
@@ -33,13 +32,7 @@ class Clearance::PasswordsController < Clearance::BaseController
     if params[:token]
       session[:password_reset_token] = params[:token]
       redirect_to url_for
-    else
-      render template: 'passwords/edit'
     end
-  end
-
-  def new
-    render template: 'passwords/new'
   end
 
   def update
@@ -51,14 +44,14 @@ class Clearance::PasswordsController < Clearance::BaseController
       session[:password_reset_token] = nil
     else
       flash_failure_after_update
-      render template: 'passwords/edit'
+      render :edit
     end
   end
 
   private
 
   def deliver_email(user)
-    mail = ::ClearanceMailer.change_password(user)
+    mail = ::Clearance::Mailer.change_password(user)
 
     if mail.respond_to?(:deliver_later)
       mail.deliver_later
@@ -100,20 +93,18 @@ class Clearance::PasswordsController < Clearance::BaseController
   def ensure_existing_user
     unless find_user_by_id_and_confirmation_token
       flash_failure_when_forbidden
-      render template: "passwords/new"
+      render :new
     end
   end
 
   def flash_failure_when_forbidden
-    flash.now[:notice] = translate(:forbidden,
-      scope: [:clearance, :controllers, :passwords],
-      default: t('flashes.failure_when_forbidden'))
+    flash.now[:notice] = t('.forbidden',
+                           default: :'clearance.flashes.failure_when_forbidden')
   end
 
   def flash_failure_after_update
-    flash.now[:notice] = translate(:blank_password,
-      scope: [:clearance, :controllers, :passwords],
-      default: t('flashes.failure_after_update'))
+    flash.now[:notice] = t('.blank_password',
+                           default: :'clearance.flashes.failure_after_update')
   end
 
   def url_after_create

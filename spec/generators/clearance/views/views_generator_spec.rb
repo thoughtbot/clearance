@@ -6,16 +6,16 @@ describe Clearance::Generators::ViewsGenerator, :generator do
     run_generator
 
     views = %w(
-      clearance_mailer/change_password.html.erb
-      clearance_mailer/change_password.text.erb
+      clearance/mailer/change_password.html.erb
+      clearance/mailer/change_password.text.erb
+      clearance/passwords/create.html.erb
+      clearance/passwords/edit.html.erb
+      clearance/passwords/new.html.erb
+      clearance/sessions/_form.html.erb
+      clearance/sessions/new.html.erb
+      clearance/users/_form.html.erb
+      clearance/users/new.html.erb
       layouts/application.html.erb
-      passwords/create.html.erb
-      passwords/edit.html.erb
-      passwords/new.html.erb
-      sessions/_form.html.erb
-      sessions/new.html.erb
-      users/_form.html.erb
-      users/new.html.erb
     )
 
     view_files = views.map { |view| file("app/views/#{view}") }

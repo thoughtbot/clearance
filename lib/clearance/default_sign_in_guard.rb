@@ -21,16 +21,13 @@ module Clearance
     #
     # Will use the value returned from the following i18n keys, in this order:
     #
-    # * `clearance.controllers.sessions.bad_email_or_password`
-    # * `flashes.failure_after_create`
+    # * `controllers.sessions.bad_email_or_password`
+    # * `clearance.flashes.failure_after_create`
     #
     # @return [String]
     def default_failure_message
-      I18n.t(
-        :bad_email_or_password,
-        scope: [:clearance, :controllers, :sessions],
-        default: I18n.t('flashes.failure_after_create').html_safe
-      )
+      I18n.t('controllers.sessions.bad_email_or_password',
+             default: :'clearance.flashes.failure_after_create')
     end
   end
 end

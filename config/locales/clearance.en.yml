@@ -1,22 +1,9 @@
 ---
 en:
-  clearance:
-    models:
-      clearance_mailer:
-        change_password: Change your password
-  clearance_mailer:
-    change_password:
-      closing: If you didn't request this, ignore this email. Your password has
-        not been changed.
-      link_text: Change my password
-      opening: "Someone, hopefully you, requested we send you a link to change
-        your password:"
-  flashes:
-    failure_after_create: Bad email or password.
-    failure_after_update: Password can't be blank.
-    failure_when_forbidden: Please double check the URL or try submitting
-      the form again.
-    failure_when_not_signed_in: Please sign in to continue.
+  layouts:
+    application:
+      sign_in: Sign in
+      sign_out: Sign out
   helpers:
     label:
       password:
@@ -32,28 +19,39 @@ en:
         submit: Sign in
       user:
         create: Sign up
-  layouts:
-    application:
-      sign_in: Sign in
-      sign_out: Sign out
-  passwords:
-    create:
-      description: You will receive an email within the next few minutes. It
-        contains instructions for changing your password.
-    edit:
-      description: Your password has been reset. Choose a new password below.
-      title: Change your password
-    new:
-      description: To be emailed a link to reset your password, please enter
-        your email address.
-      title: Reset your password
-  sessions:
-    form:
-      forgot_password: Forgot password?
-      sign_up: Sign up
-    new:
-      title: Sign in
-  users:
-    new:
-      sign_in: Sign in
-      title: Sign up
+  clearance:
+    mailer:
+      change_password:
+        subject: Change your password
+        closing: If you didn't request this, ignore this email. Your password has
+          not been changed.
+        link_text: Change my password
+        opening: "Someone, hopefully you, requested we send you a link to change
+          your password:"
+    flashes:
+      failure_after_create: Bad email or password.
+      failure_after_update: Password can't be blank.
+      failure_when_forbidden: Please double check the URL or try submitting
+        the form again.
+      failure_when_not_signed_in: Please sign in to continue.
+    passwords:
+      create:
+        description: You will receive an email within the next few minutes. It
+          contains instructions for changing your password.
+      edit:
+        description: Your password has been reset. Choose a new password below.
+        title: Change your password
+      new:
+        description: To be emailed a link to reset your password, please enter
+          your email address.
+        title: Reset your password
+    sessions:
+      form:
+        forgot_password: Forgot password?
+        sign_up: Sign up
+      new:
+        title: Sign in
+    users:
+      new:
+        sign_in: Sign in
+        title: Sign up

@@ -1,11 +1,11 @@
 require "spec_helper"
 
-describe ClearanceMailer do
+describe Clearance::Mailer do
   it "is from DO_NOT_REPLY" do
     user = create(:user)
     user.forgot_password!
 
-    email = ClearanceMailer.change_password(user)
+    email = Clearance::Mailer.change_password(user)
 
     expect(Clearance.configuration.mailer_sender).to eq(email.from[0])
   end
@@ -14,7 +14,7 @@ describe ClearanceMailer do
     user = create(:user)
     user.forgot_password!
 
-    email = ClearanceMailer.change_password(user)
+    email = Clearance::Mailer.change_password(user)
 
     expect(email.to.first).to eq(user.email)
   end
@@ -23,7 +23,7 @@ describe ClearanceMailer do
     user = create(:user)
     user.forgot_password!
 
-    email = ClearanceMailer.change_password(user)
+    email = Clearance::Mailer.change_password(user)
 
     expect(email.subject).to include("Change your password")
   end
@@ -32,7 +32,7 @@ describe ClearanceMailer do
     user = create(:user)
     user.forgot_password!
 
-    email = ClearanceMailer.change_password(user)
+    email = Clearance::Mailer.change_password(user)
 
     expect(email.body.parts.length).to eq 2
     expect(email.text_part).to be_present
@@ -46,13 +46,18 @@ describe ClearanceMailer do
     link = "http://#{host}/users/#{user.id}/password/edit" \
       "?token=#{user.confirmation_token}"
 
-    email = ClearanceMailer.change_password(user)
+    email = Clearance::Mailer.change_password(user)
 
     expect(email.text_part.body).to include(link)
     expect(email.html_part.body).to include(link)
     expect(email.html_part.body).to have_css(
       "a",
-      text: I18n.t("clearance_mailer.change_password.link_text")
+      text: I18n.t("clearance.mailer.change_password.link_text")
     )
+  end
+
+  it "has a top-level alias for backwards compatibility" do
+    expect(Kernel).to be_const_defined :ClearanceMailer
+    expect(::ClearanceMailer).to eq described_class
   end
 end

@@ -5,11 +5,12 @@ Description:
 Examples:
     rails generate clearance:views
 
-      View: app/views/clearance_mailer/change_password.html.erb
-      View: app/views/passwords/create.html.erb
-      View: app/views/passwords/edit.html.erb
-      View: app/views/passwords/new.html.erb
-      View: app/views/sessions/_form.html.erb
-      View: app/views/sessions/new.html.erb
-      View: app/views/users/_form.html.erb
-      View: app/views/users/new.html.erb
+      View: app/views/clearance/mailer/change_password.html.erb
+      View: app/views/clearance/mailer/change_password.text.erb
+      View: app/views/clearance/passwords/create.html.erb
+      View: app/views/clearance/passwords/edit.html.erb
+      View: app/views/clearance/passwords/new.html.erb
+      View: app/views/clearance/sessions/_form.html.erb
+      View: app/views/clearance/sessions/new.html.erb
+      View: app/views/clearance/users/_form.html.erb
+      View: app/views/clearance/users/new.html.erb
