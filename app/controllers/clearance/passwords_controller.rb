@@ -98,12 +98,12 @@ class Clearance::PasswordsController < Clearance::BaseController
   end
 
   def flash_failure_when_forbidden
-    flash.now[:notice] = t('.forbidden',
+    flash.now[:notice] = t(".forbidden",
                            default: :'clearance.flashes.failure_when_forbidden')
   end
 
   def flash_failure_after_update
-    flash.now[:notice] = t('.blank_password',
+    flash.now[:notice] = t(".blank_password",
                            default: :'clearance.flashes.failure_after_update')
   end
 

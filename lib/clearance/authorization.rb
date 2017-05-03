@@ -19,7 +19,7 @@ module Clearance
     #     end
     def require_login
       unless signed_in?
-        deny_access(I18n.t('controllers.sessions.please_sign_in_to_continue',
+        deny_access(I18n.t("controllers.sessions.please_sign_in_to_continue",
                            default: :'clearance.flashes.failure_when_not_signed_in'))
       end
     end

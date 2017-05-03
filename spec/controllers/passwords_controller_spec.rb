@@ -8,7 +8,7 @@ describe Clearance::PasswordsController do
       get :new
 
       expect(response).to be_success
-      expect(response).to render_template('clearance/passwords/new')
+      expect(response).to render_template("clearance/passwords/new")
     end
   end
 
@@ -49,7 +49,7 @@ describe Clearance::PasswordsController do
         post :create, password: { email: email }
 
         expect(response).to be_success
-        expect(response).to render_template 'clearance/passwords/create'
+        expect(response).to render_template "clearance/passwords/create"
       end
     end
   end
@@ -75,7 +75,7 @@ describe Clearance::PasswordsController do
         get :edit, user_id: user
 
         expect(response).to be_success
-        expect(response).to render_template('clearance/passwords/edit')
+        expect(response).to render_template("clearance/passwords/edit")
         expect(assigns(:user)).to eq user
       end
     end
@@ -84,7 +84,7 @@ describe Clearance::PasswordsController do
       it "renders the new password reset form with a flash notice" do
         get :edit, user_id: 1, token: ""
 
-        expect(response).to render_template('clearance/passwords/new')
+        expect(response).to render_template("clearance/passwords/new")
         expect(flash.now[:notice]).to match(/double check the URL/i)
       end
     end
@@ -95,7 +95,7 @@ describe Clearance::PasswordsController do
 
         get :edit, user_id: 1, token: user.confirmation_token + "a"
 
-        expect(response).to render_template('clearance/passwords/new')
+        expect(response).to render_template("clearance/passwords/new")
         expect(flash.now[:notice]).to match(/double check the URL/i)
       end
     end
@@ -140,7 +140,7 @@ describe Clearance::PasswordsController do
         put :update, update_parameters(user, new_password: "")
 
         expect(flash.now[:notice]).to match(/password can't be blank/i)
-        expect(response).to render_template('clearance/passwords/edit')
+        expect(response).to render_template("clearance/passwords/edit")
         expect(cookies[:remember_token]).to be_nil
       end
     end
@@ -149,9 +149,9 @@ describe Clearance::PasswordsController do
       it "renders the new password reset form with a flash notice" do
         user = create(:user, :with_forgotten_password)
 
-        put :update, user_id: user, token: 'an-invalid-token'
+        put :update, user_id: user, token: "an-invalid-token"
 
-        expect(response).to render_template('clearance/passwords/new')
+        expect(response).to render_template("clearance/passwords/new")
         expect(flash.now[:notice]).to match(/double check the URL/i)
       end
     end

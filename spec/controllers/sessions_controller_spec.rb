@@ -8,7 +8,7 @@ describe Clearance::SessionsController do
       before { get :new }
 
       it { should respond_with(:success) }
-      it { should render_template('clearance/sessions/new') }
+      it { should render_template("clearance/sessions/new") }
       it { should_not set_flash }
     end
 
@@ -30,7 +30,7 @@ describe Clearance::SessionsController do
 
         post :create, session: { email: user.email, password: user.password }
 
-        expect(response).to render_template('clearance/sessions/new')
+        expect(response).to render_template("clearance/sessions/new")
         expect(flash[:notice]).to match(/^Bad email or password/)
       end
     end

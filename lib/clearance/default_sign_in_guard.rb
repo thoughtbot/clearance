@@ -26,7 +26,7 @@ module Clearance
     #
     # @return [String]
     def default_failure_message
-      I18n.t('controllers.sessions.bad_email_or_password',
+      I18n.t("controllers.sessions.bad_email_or_password",
              default: :'clearance.flashes.failure_after_create')
     end
   end

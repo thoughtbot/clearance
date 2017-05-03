@@ -9,7 +9,7 @@ describe Clearance::UsersController do
         get :new
 
         expect(response).to be_success
-        expect(response).to render_template('clearance/users/new')
+        expect(response).to render_template("clearance/users/new")
       end
 
       it "defaults email field to the value provided in the query string" do
@@ -17,7 +17,7 @@ describe Clearance::UsersController do
 
         expect(assigns(:user).email).to eq "a@example.com"
         expect(response).to be_success
-        expect(response).to render_template('clearance/users/new')
+        expect(response).to render_template("clearance/users/new")
       end
     end
 

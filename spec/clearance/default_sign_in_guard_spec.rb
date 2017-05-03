@@ -23,6 +23,6 @@ describe Clearance::DefaultSignInGuard do
   end
 
   def default_failure_message
-    I18n.t('clearance.flashes.failure_after_create').html_safe
+    I18n.t("clearance.flashes.failure_after_create").html_safe
   end
 end
