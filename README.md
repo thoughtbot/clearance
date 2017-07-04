@@ -226,12 +226,14 @@ $ rails generate clearance:views
 
 By default, Clearance uses your application's default layout. If you would like
 to change the layout that Clearance uses when rendering its views, simply
-specify the layout in an initializer.
+specify the layout in the `config/application.rb`
 
 ```ruby
-Clearance::PasswordsController.layout "my_passwords_layout"
-Clearance::SessionsController.layout "my_sessions_layout"
-Clearance::UsersController.layout "my_admin_layout"
+config.to_prepare do
+  Clearance::PasswordsController.layout "my_passwords_layout"
+  Clearance::SessionsController.layout "my_sessions_layout"
+  Clearance::UsersController.layout "my_admin_layout"
+end
 ```
 
 ### Translations
