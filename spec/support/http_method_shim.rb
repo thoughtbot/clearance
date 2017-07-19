@@ -3,16 +3,16 @@
 # supported in Rails 5+. Since we support back to 3.1, we need some sort of shim
 # to avoid super noisy deprecations when running tests.
 module HTTPMethodShim
-  def get(path, params=nil, headers=nil)
-    super(path, params: params, headers: headers)
+  def get(path, params = nil)
+    super(path, params: params)
   end
 
-  def put(path, params=nil, headers=nil)
-    super(path, params: params, headers: headers)
+  def put(path, params = nil)
+    super(path, params: params)
   end
 
-  def post(path, params=nil, headers=nil)
-    super(path, params: params, headers: headers)
+  def post(path, params = nil)
+    super(path, params: params)
   end
 end
 
