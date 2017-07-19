@@ -3,7 +3,9 @@ module Clearance
     extend ActiveSupport::Concern
 
     included do
-      helper_method :current_user, :signed_in?, :signed_out?
+      if respond_to?(:helper_method) # not available on api controllers
+        helper_method :current_user, :signed_in?, :signed_out?
+      end
       private(
         :authenticate,
         :current_user,
