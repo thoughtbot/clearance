@@ -11,6 +11,8 @@ describe Clearance::RackSession do
     env = Rack::MockRequest.env_for('/')
     expected_session = "the session"
     allow(expected_session).to receive(:add_cookie_to_headers)
+    allow(expected_session).to receive(:authentication_successful?).
+      and_return(true)
     allow(Clearance::Session).to receive(:new).
       with(env).
       and_return(expected_session)

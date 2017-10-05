@@ -21,7 +21,11 @@ module Clearance
       session = Clearance::Session.new(env)
       env[:clearance] = session
       response = @app.call(env)
-      session.add_cookie_to_headers response[1]
+
+      if session.authentication_successful?
+        session.add_cookie_to_headers response[1]
+      end
+
       response
     end
   end
