@@ -98,6 +98,13 @@ module Clearance
       ! signed_in?
     end
 
+    # True if a successful authentication has been performed
+    #
+    # @return [Boolean]
+    def authentication_successful?
+      !!@current_user
+    end
+
     private
 
     # @api private
