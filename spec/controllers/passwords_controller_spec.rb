@@ -99,6 +99,19 @@ describe Clearance::PasswordsController do
         expect(flash.now[:notice]).to match(/double check the URL/i)
       end
     end
+
+    context "old token in session and recent token in params" do
+      it "updates password reset session and redirect to edit page" do
+        user = create(:user, :with_forgotten_password)
+        request.session[:password_reset_token] = user.confirmation_token
+
+        user.forgot_password!
+        get :edit, user_id: user.id, token: user.reload.confirmation_token
+
+        expect(response).to redirect_to(edit_user_password_url(user))
+        expect(session[:password_reset_token]).to eq(user.confirmation_token)
+      end
+    end
   end
 
   describe "#update" do
