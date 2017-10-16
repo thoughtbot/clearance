@@ -9,6 +9,7 @@ class CreateUsers < ActiveRecord::Migration<%= migration_version %>
     end
 
     add_index :users, :email
-    add_index :users, :remember_token
+    add_index :users, :remember_token, unique: true
+    add_index :users, :confirmation_token, unique: true
   end
 end

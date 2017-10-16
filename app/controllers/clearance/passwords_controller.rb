@@ -76,12 +76,9 @@ class Clearance::PasswordsController < Clearance::BaseController
     end
   end
 
-  def find_user_by_id_and_confirmation_token
-    user_param = Clearance.configuration.user_id_parameter
+  def find_user_by_confirmation_token
     token = session[:password_reset_token] || params[:token]
-
-    Clearance.configuration.user_model.
-      find_by_id_and_confirmation_token params[user_param], token.to_s
+    Clearance.configuration.user_model.find_by_confirmation_token token.to_s
   end
 
   def find_user_for_create
@@ -90,15 +87,15 @@ class Clearance::PasswordsController < Clearance::BaseController
   end
 
   def find_user_for_edit
-    find_user_by_id_and_confirmation_token
+    find_user_by_confirmation_token
   end
 
   def find_user_for_update
-    find_user_by_id_and_confirmation_token
+    find_user_by_confirmation_token
   end
 
   def ensure_existing_user
-    unless find_user_by_id_and_confirmation_token
+    unless find_user_by_confirmation_token
       flash_failure_when_forbidden
       render template: "passwords/new"
     end
