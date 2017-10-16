@@ -30,6 +30,10 @@ matrix:
     - rvm: 2.3.0
       gemfile: gemfiles/rails32.gemfile
 
+before_install:
+  - gem update --system
+  - gem update bundler
+
 install:
   - "bin/setup"
 
