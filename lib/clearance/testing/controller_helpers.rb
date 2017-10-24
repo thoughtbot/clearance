@@ -41,7 +41,8 @@ module Clearance
       # Determines the appropriate factory library
       #
       # @api private
-      # @raise [RuntimeError] if both FactoryGirl and FactoryBot are not defined.
+      # @raise [RuntimeError] if both FactoryGirl and FactoryBot are not
+      #   defined.
       def factory_module(provider:)
         if defined?(FactoryGirl)
           FactoryGirl
