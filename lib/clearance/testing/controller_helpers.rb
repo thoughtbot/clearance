@@ -17,7 +17,7 @@ module Clearance
       #
       # @raise [RuntimeError] if FactoryGirl is not defined.
       def sign_in
-        constructor = factory_module(provider: "sign_in")
+        constructor = factory_module("sign_in")
 
         factory = Clearance.configuration.user_model.to_s.underscore.to_sym
         sign_in_as constructor.create(factory)
@@ -43,7 +43,7 @@ module Clearance
       # @api private
       # @raise [RuntimeError] if both FactoryGirl and FactoryBot are not
       #   defined.
-      def factory_module(provider:)
+      def factory_module(provider)
         if defined?(FactoryGirl)
           FactoryGirl
         elsif defined?(FactoryBot)
