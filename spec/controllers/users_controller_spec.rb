@@ -36,7 +36,7 @@ describe Clearance::UsersController do
     context "when signed out" do
       context "with valid attributes" do
         it "assigns and creates a user then redirects to the redirect_url" do
-          user_attributes = FactoryGirl.attributes_for(:user)
+          user_attributes = FactoryBot.attributes_for(:user)
           old_user_count = User.count
 
           post :create, user: user_attributes
@@ -49,7 +49,7 @@ describe Clearance::UsersController do
 
       context "with valid attributes and a session return url" do
         it "assigns and creates a user then redirects to the return_url" do
-          user_attributes = FactoryGirl.attributes_for(:user)
+          user_attributes = FactoryBot.attributes_for(:user)
           old_user_count = User.count
           return_url = "/url_in_the_session"
           @request.session[:return_to] = return_url

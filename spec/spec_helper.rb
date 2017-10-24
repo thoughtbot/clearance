@@ -4,7 +4,7 @@ require "rails/all"
 require "dummy/application"
 
 require "clearance/rspec"
-require "factory_girl_rails"
+require "factory_bot_rails"
 require "rspec/rails"
 require "shoulda-matchers"
 require "timecop"
@@ -14,7 +14,7 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 Dummy::Application.initialize!
 
 RSpec.configure do |config|
-  config.include FactoryGirl::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
   config.infer_spec_type_from_file_location!
   config.order = :random
   config.use_transactional_fixtures = true
