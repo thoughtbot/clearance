@@ -44,10 +44,10 @@ module Clearance
       # @raise [RuntimeError] if both FactoryGirl and FactoryBot are not
       #   defined.
       def factory_module(provider)
-        if defined?(FactoryGirl)
-          FactoryGirl
-        elsif defined?(FactoryBot)
+        if defined?(FactoryBot)
           FactoryBot
+        elsif defined?(FactoryGirl)
+          FactoryGirl
         else
           raise("Clearance's `#{provider}` helper requires factory_bot")
         end
