@@ -70,10 +70,10 @@ GEM
     email_validator (1.6.0)
       activemodel
     erubis (2.7.0)
-    factory_girl (4.7.0)
+    factory_bot (4.8.2)
       activesupport (>= 3.0.0)
-    factory_girl_rails (4.7.0)
-      factory_girl (~> 4.7.0)
+    factory_bot_rails (4.8.2)
+      factory_bot (~> 4.8.2)
       railties (>= 3.0.0)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
@@ -170,7 +170,7 @@ DEPENDENCIES
   capybara (>= 2.6.2)
   clearance!
   database_cleaner (~> 1.0)
-  factory_girl_rails (~> 4.2)
+  factory_bot_rails (~> 4.8)
   nokogiri (~> 1.6.8)
   pry
   rspec-rails (~> 3.1)
@@ -179,4 +179,4 @@ DEPENDENCIES
   timecop (~> 0.6)
 
 BUNDLED WITH
-   1.10.6
+   1.13.6
