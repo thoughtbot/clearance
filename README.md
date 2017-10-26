@@ -366,7 +366,7 @@ end
 
 If you're using RSpec, you can generate feature specs to help prevent
 regressions in Clearance's integration with your Rails app over time. These
-feature specs, will also require `factory_girl_rails`.
+feature specs, will also require `factory_bot_rails`.
 
 To Generate the clearance specs, run:
 

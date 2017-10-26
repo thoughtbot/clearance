@@ -17,12 +17,10 @@ module Clearance
       #
       # @raise [RuntimeError] if FactoryGirl is not defined.
       def sign_in
-        unless defined?(FactoryGirl)
-          raise("Clearance's `sign_in` helper requires factory_girl")
-        end
+        constructor = factory_module("sign_in")
 
         factory = Clearance.configuration.user_model.to_s.underscore.to_sym
-        sign_in_as FactoryGirl.create(factory)
+        sign_in_as constructor.create(factory)
       end
 
       # Signs in the provided user.
@@ -38,6 +36,21 @@ module Clearance
       # @return [void]
       def sign_out
         @request.env[:clearance].sign_out
+      end
+
+      # Determines the appropriate factory library
+      #
+      # @api private
+      # @raise [RuntimeError] if both FactoryGirl and FactoryBot are not
+      #   defined.
+      def factory_module(provider)
+        if defined?(FactoryBot)
+          FactoryBot
+        elsif defined?(FactoryGirl)
+          FactoryGirl
+        else
+          raise("Clearance's `#{provider}` helper requires factory_bot")
+        end
       end
     end
   end
