@@ -54,15 +54,34 @@ describe Clearance::SessionsController do
     end
 
     context "with good credentials and a session return url" do
-      before do
-        @user = create(:user)
-        @return_url = "/url_in_the_session?foo=bar"
-        @request.session[:return_to] = @return_url
-        post :create, session: { email: @user.email, password: @user.password }
+      it "redirects to the return URL maintaining query and fragment" do
+        user = create(:user)
+        return_url = "/url_in_the_session?foo=bar#baz"
+        request.session[:return_to] = return_url
+
+        post :create, session: { email: user.email, password: user.password }
+
+        should redirect_to(return_url)
       end
 
-      it "redirects to the return URL" do
-        should redirect_to(@return_url)
+      it "redirects to the return URL maintaining query without fragment" do
+        user = create(:user)
+        return_url = "/url_in_the_session?foo=bar"
+        request.session[:return_to] = return_url
+
+        post :create, session: { email: user.email, password: user.password }
+
+        should redirect_to(return_url)
+      end
+
+      it "redirects to the return URL without query or fragment" do
+        user = create(:user)
+        return_url = "/url_in_the_session"
+        request.session[:return_to] = return_url
+
+        post :create, session: { email: user.email, password: user.password }
+
+        should redirect_to(return_url)
       end
     end
   end
