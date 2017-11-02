@@ -3,6 +3,20 @@
 The noteworthy changes for each Clearance version are included here. For a
 complete changelog, see the git history for each version via the version links.
 
+## [1.16.1] - November 2, 2017
+
+### Fixed
+- Fixed issue where tokens from abandoned password reset attempts were stored in
+  the session, preventing newly generated password reset tokens from working.
+- Improve compatibility with Rails API projects by calling `helper_method` only
+  when it is defined.
+- URL fragment in server-set `session[:return_to]` values are preserved when
+  redirecting to the stored value.
+- Eliminated deprecation in Clearance test helpers that were related to the
+  renaming of FactoryGirl to FactoryBot.
+
+[1.16.1]: https://github.com/thoughtbot/clearance/compare/v1.16.0...v1.16.1
+
 ## [1.16.0] - January 16, 2017
 
 ### Security
