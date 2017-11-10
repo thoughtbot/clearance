@@ -15,7 +15,7 @@ describe Clearance::Generators::RoutesGenerator, :generator do
     expect(initializer).to contain("config.routes = false")
     expect(routes).to have_correct_syntax
     expect(routes).to contain(
-      'get "/sign_in" => "clearance/sessions#new", as: "sign_in"'
+      'get "/sign_in", to: "sessions#new", as: "sign_in"'
     )
   end
 end
