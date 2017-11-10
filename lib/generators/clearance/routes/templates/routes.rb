@@ -1,9 +1,9 @@
   scope module: :clearance do
-    resources :passwords, only: [:create, :new]
-    resource :session, controller: :sessions, only: [:create]
+    resources :passwords, only: %i(create new)
+    resource :session, controller: :sessions, only: %i(create)
 
     resources :users, only: [:create] do
-      resource :password, controller: :passwords, only: [:create, :edit, :update]
+      resource :password, controller: :passwords, only: %i(create edit update)
     end
 
     get "/sign_in", to: "sessions#new", as: "sign_in"
