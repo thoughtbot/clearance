@@ -10,3 +10,4 @@
     delete "/sign_out", to: "sessions#destroy", as: "sign_out"
     get "/sign_up", to: "users#new", as: "sign_up"
   end
+
