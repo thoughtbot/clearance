@@ -4,7 +4,7 @@
 
     resources :users, only: [:create] do
       resource :password, controller: :passwords,
-        only: [:create, :edit, :update]
+                          only: [:create, :edit, :update]
     end
 
     get "/sign_in", to: "sessions#new", as: "sign_in"
