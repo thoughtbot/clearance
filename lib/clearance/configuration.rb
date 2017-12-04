@@ -86,7 +86,7 @@ module Clearance
     attr_accessor :sign_in_guards
 
     # The ActiveRecord class that represents users in your application.
-    # Defualts to `::User`.
+    # Defaults to `::User`.
     # @return [ActiveRecord::Base]
     attr_accessor :user_model
 
