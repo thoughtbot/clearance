@@ -159,7 +159,6 @@ describe Clearance::PasswordsController do
         )
 
         expect(response).to redirect_to(Clearance.configuration.redirect_url)
-        expect(cookies[:remember_token]).to be_present
       end
     end
 

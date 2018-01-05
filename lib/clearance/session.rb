@@ -15,11 +15,11 @@ module Clearance
     #
     # @return [void]
     def add_cookie_to_headers(headers)
-      if cookie_options[:value].present?
+      if current_user&.remember_token
         Rack::Utils.set_cookie_header!(
           headers,
           remember_token_cookie,
-          cookie_options,
+          cookie_options.merge(value: current_user.remember_token),
         )
       end
     end
@@ -53,9 +53,7 @@ module Clearance
       @current_user = user
       status = run_sign_in_stack
 
-      if status.success?
-        cookies[remember_token_cookie] = user && user.remember_token
-      else
+      if !status.success?
         @current_user = nil
       end
 
@@ -158,7 +156,6 @@ module Clearance
         httponly: Clearance.configuration.httponly,
         path: Clearance.configuration.cookie_path,
         secure: Clearance.configuration.secure_cookie,
-        value: remember_token,
       }
     end
   end

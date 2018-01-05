@@ -191,6 +191,7 @@ describe Clearance::Session do
         expiration = -> { Time.now }
         with_custom_expiration expiration do
           session = Clearance::Session.new(env_without_remember_token)
+          session.sign_in user
           allow(session).to receive(:warn)
           session.add_cookie_to_headers headers
 
