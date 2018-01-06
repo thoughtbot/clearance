@@ -238,8 +238,7 @@ end
 
 ### Translations
 
-All flash messages and email subject lines are stored in [i18n translations]
-(http://guides.rubyonrails.org/i18n.html). Override them like any other
+All flash messages and email subject lines are stored in [i18n translations](http://guides.rubyonrails.org/i18n.html). Override them like any other
 translation.
 
 See [config/locales/clearance.en.yml](/config/locales/clearance.en.yml) for the
