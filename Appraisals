@@ -1,4 +1,7 @@
-if RUBY_VERSION < "2.2.0"
+ruby_version = Gem::Version.new(RUBY_VERSION)
+ruby_2_2 = Gem::Version.new("2.2.0")
+
+if ruby_version < ruby_2_2
   appraise 'rails32' do
     gem 'rails', '~> 3.2.21'
   end
@@ -20,7 +23,7 @@ appraise 'rails42' do
   gem 'mime-types', '~> 2.99'
 end
 
-if RUBY_VERSION >= "2.2.0"
+if ruby_version >= ruby_2_2
   appraise "rails50" do
     gem "rails", "~> 5.0.0.beta3"
     gem "rails-controller-testing"
