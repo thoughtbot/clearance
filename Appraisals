@@ -1,4 +1,4 @@
-if RUBY_VERSION < "2.2.0"
+if RUBY_VERSION < '2.2.0'
   appraise 'rails32' do
     gem 'rails', '~> 3.2.21'
   end
@@ -20,10 +20,16 @@ appraise 'rails42' do
   gem 'mime-types', '~> 2.99'
 end
 
-if RUBY_VERSION >= "2.2.0"
-  appraise "rails50" do
-    gem "rails", "~> 5.0.0.beta3"
-    gem "rails-controller-testing"
-    gem "rspec-rails", "~> 3.5.0.beta1"
+if RUBY_VERSION >= '2.2.0'
+  appraise 'rails50' do
+    gem 'rails', '~> 5.0.0.beta3'
+    gem 'rails-controller-testing'
+    gem 'rspec-rails', '~> 3.5.0.beta1'
+  end
+
+  appraise 'rails51' do
+    gem 'rails', '~> 5.1.0'
+    gem 'rails-controller-testing'
+    gem 'rspec-rails', '~> 3.7.0'
   end
 end
