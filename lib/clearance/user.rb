@@ -1,4 +1,5 @@
 require 'digest/sha1'
+require 'active_model'
 require 'email_validator'
 require 'clearance/token'
 
