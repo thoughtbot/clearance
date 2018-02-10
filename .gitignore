@@ -12,3 +12,4 @@ pkg
 tmp/
 doc/
 .yardoc/
+vendor
