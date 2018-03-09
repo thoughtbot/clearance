@@ -5,18 +5,24 @@ to abide by the thoughtbot [code of conduct].
 
 1. Fork the repo.
 
-2. Run `./bin/setup`.
+2. Install VirtualBox
 
-3. Run the tests. We only take pull requests with passing tests, and it's great
+3. `vagrant up`
+
+4. `vagrant ssh`
+
+5. `cd /vagrant`
+
+6. Run the tests. We only take pull requests with passing tests, and it's great
    to know that you have a clean slate: `bundle exec appraisal rake`
 
-4. Add a test for your change. Only refactoring and documentation changes
+7. Add a test for your change. Only refactoring and documentation changes
    require no new tests. If you are adding functionality or fixing a
    bug, we need a test!
 
-5. Make the test pass.
+8. Make the test pass.
 
-6. Push to your fork and submit a pull request.
+9. Push to your fork and submit a pull request.
 
 At this point you're waiting on us. We like to at least comment on, if not
 accept, pull requests within three business days (and, typically, one business

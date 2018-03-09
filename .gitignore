@@ -12,3 +12,5 @@ pkg
 tmp/
 doc/
 .yardoc/
+vendor
+.vagrant
