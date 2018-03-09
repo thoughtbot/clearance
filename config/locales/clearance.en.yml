@@ -23,6 +23,10 @@ en:
         email: Email address
       password_reset:
         password: Choose password
+      session:
+        password: Password
+      user:
+        password: Password
     submit:
       password:
         submit: Reset password
