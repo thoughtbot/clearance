@@ -105,6 +105,11 @@ module Clearance
     # @return [Array<String>]
     attr_accessor :allowed_backdoor_environments
 
+    # The parameter for user routes. By default this is derived from the user
+    # model.
+    # @return [Symbol]
+    attr_accessor :user_parameter
+
     def initialize
       @allow_sign_up = true
       @allowed_backdoor_environments = ["test", "ci", "development"]
@@ -120,6 +125,7 @@ module Clearance
       @routes = true
       @secure_cookie = false
       @sign_in_guards = []
+      @user_parameter = nil
     end
 
     def user_model
@@ -149,7 +155,7 @@ module Clearance
     # In the default configuration, this is `user`.
     # @return [Symbol]
     def user_parameter
-      user_model.model_name.singular.to_sym
+      @user_parameter ||= user_model.model_name.singular.to_sym
     end
 
     # The name of foreign key parameter for the configured user model.
