@@ -1,6 +1,8 @@
 require "spec_helper"
 
 describe Clearance::Configuration do
+  let(:config) { Clearance.configuration }
+
   context "when no user_model_name is specified" do
     it "defaults to User" do
       expect(Clearance.configuration.user_model).to eq ::User
@@ -13,6 +15,21 @@ describe Clearance::Configuration do
       Clearance.configure { |config| config.user_model = MyUser }
 
       expect(Clearance.configuration.user_model).to eq ::MyUser
+    end
+  end
+
+  context "when no parent_controller is specified" do
+    it "defaults to ApplicationController" do
+      expect(config.parent_controller).to eq ::ApplicationController
+    end
+  end
+
+  context "when a custom parent_controller is specified" do
+    it "is used instead of ApplicationController" do
+      AdminController = Class.new
+      Clearance.configure { |c| c.parent_controller = AdminController }
+
+      expect(config.parent_controller).to eq ::AdminController
     end
   end
 

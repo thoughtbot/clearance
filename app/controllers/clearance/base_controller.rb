@@ -1,2 +1,1 @@
-class Clearance::BaseController < ApplicationController
-end
+Clearance::BaseController = Class.new(Clearance.configuration.parent_controller)
