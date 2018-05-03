@@ -22,8 +22,21 @@ describe Clearance::PasswordStrategies::BCrypt do
 
       expect(BCrypt::Password).to have_received(:create).with(
         password,
-        cost: ::BCrypt::Engine::DEFAULT_COST
+        cost: ::BCrypt::Engine::DEFAULT_COST,
       )
+    end
+
+    it "uses an explicity configured BCrypt cost" do
+      stub_bcrypt_cost(8)
+      bcrypt_password = BCrypt::Password.create(password, cost: nil)
+
+      expect(bcrypt_password.cost).to eq(8)
+    end
+
+    it "uses the default BCrypt cost value implicitly" do
+      bcrypt_password = BCrypt::Password.create(password, cost: nil)
+
+      expect(bcrypt_password.cost).to eq(BCrypt::Engine::DEFAULT_COST)
     end
 
     it "encrypts with BCrypt using minimum cost in test environment" do
@@ -40,6 +53,10 @@ describe Clearance::PasswordStrategies::BCrypt do
 
     def stub_bcrypt_password
       allow(BCrypt::Password).to receive(:create).and_return(encrypted_password)
+    end
+
+    def stub_bcrypt_cost(cost)
+      allow(BCrypt::Engine).to receive(:cost).and_return(cost)
     end
 
     def encrypted_password
