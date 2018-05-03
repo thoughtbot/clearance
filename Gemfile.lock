@@ -5,7 +5,7 @@ PATH
       actionmailer (>= 5.0)
       activemodel (>= 5.0)
       activerecord (>= 5.0)
-      bcrypt
+      bcrypt (>= 3.1.1)
       email_validator (~> 1.4)
       railties (>= 5.0)
 

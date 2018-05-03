@@ -2,7 +2,7 @@ $LOAD_PATH.push File.expand_path('../lib', __FILE__)
 require 'clearance/version'
 
 Gem::Specification.new do |s|
-  s.add_dependency 'bcrypt'
+  s.add_dependency 'bcrypt', '>= 3.1.1'
   s.add_dependency 'email_validator', '~> 1.4'
   s.add_dependency 'railties', '>= 5.0'
   s.add_dependency 'activemodel', '>= 5.0'

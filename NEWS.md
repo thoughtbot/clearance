@@ -3,7 +3,11 @@
 The noteworthy changes for each Clearance version are included here. For a
 complete changelog, see the git history for each version via the version links.
 
-## Unreleased
+## [Unreleased]
+
+### Added
+
+- Add ability to configure BCrypt computational cost of hash calculation.
 
 ### Fixed
 
