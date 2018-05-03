@@ -7,7 +7,7 @@ module Clearance
     # Rails is operating in the test environment and the default cost in all
     # other envionments. This provides a speed boost in tests.
     #
-    # To set your own cost value, use an inititalizer:
+    # To set your own cost value, use an initializer:
     # `BCrypt::Engine.cost = 12`
     module BCrypt
       require 'bcrypt'
