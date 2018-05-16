@@ -90,6 +90,11 @@ module Clearance
     # @return [ActiveRecord::Base]
     attr_accessor :user_model
 
+    # The key used for flash errors.
+    # Defaults to `:notice`. `:error` or `:danger` are suitable substitutions
+    # @return [Symbol]
+    attr_accessor :flash_error_key
+
     def initialize
       @allow_sign_up = true
       @cookie_expiration = ->(cookies) { 1.year.from_now.utc }
@@ -103,6 +108,7 @@ module Clearance
       @rotate_csrf_on_sign_in = nil
       @secure_cookie = false
       @sign_in_guards = []
+      @flash_error_key = :notice
     end
 
     def user_model

@@ -79,7 +79,7 @@ module Clearance
         end
 
         def flash_notice
-          @controller.flash[:notice]
+          @controller.flash[Clearance.configuration.flash_error_key]
         end
 
         def flash_notice_value

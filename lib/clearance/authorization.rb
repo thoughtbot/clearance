@@ -63,7 +63,7 @@ module Clearance
       store_location
 
       if flash_message
-        flash[:notice] = flash_message
+        flash[Clearance.configuration.flash_error_key] = flash_message
       end
 
       if signed_in?

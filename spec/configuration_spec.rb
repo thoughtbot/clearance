@@ -170,4 +170,17 @@ describe Clearance::Configuration do
       expect(Clearance.configuration).not_to have_received(:warn)
     end
   end
+
+  context "when flash_error_key is set to :danger" do
+    it "returns configured value" do
+      Clearance.configure { |config| config.flash_error_key = :danger }
+      expect(Clearance.configuration.flash_error_key).to eq :danger
+    end
+  end
+
+  context "when flash_error_key is not specified" do
+    it "defaults to false" do
+      expect(Clearance.configuration.flash_error_key).to eq :notice
+    end
+  end
 end

@@ -62,6 +62,7 @@ Clearance.configure do |config|
   config.secure_cookie = false
   config.sign_in_guards = []
   config.user_model = User
+  config.flash_error_key = :notice
 end
 ```
 
@@ -127,6 +128,28 @@ should change the `mailer_sender` default, used in the email's "from" header:
 Clearance.configure do |config|
   config.mailer_sender = "reply@example.com"
 end
+```
+
+### Flash Messages
+
+The flash key used for displaying errors can be set using the `flash_error_key` config option.
+
+An example bootstrap setup might look like this:
+
+```ruby
+Clearance.configure do |config|
+  config.flash_error_key = :danger
+end
+```
+
+With the following code in the layout:
+
+```ruby
+<% flash.each do |key, value| %>
+  <div class="alert alert-<%= key %>">
+    <%= value %>
+  </div>
+<% end %>
 ```
 
 ### Integrating with Rack Applications

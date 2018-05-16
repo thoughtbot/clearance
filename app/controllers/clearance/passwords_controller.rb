@@ -105,13 +105,15 @@ class Clearance::PasswordsController < Clearance::BaseController
   end
 
   def flash_failure_when_forbidden
-    flash.now[:notice] = translate(:forbidden,
+    flash_error_key = Clearance.configuration.flash_error_key
+    flash.now[flash_error_key] = translate(:forbidden,
       scope: [:clearance, :controllers, :passwords],
       default: t('flashes.failure_when_forbidden'))
   end
 
   def flash_failure_after_update
-    flash.now[:notice] = translate(:blank_password,
+    flash_error_key = Clearance.configuration.flash_error_key
+    flash.now[flash_error_key] = translate(:blank_password,
       scope: [:clearance, :controllers, :passwords],
       default: t('flashes.failure_after_update'))
   end
