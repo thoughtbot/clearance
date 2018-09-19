@@ -397,6 +397,10 @@ For `test-unit`, add this line to your `test/test_helper.rb`:
 require "clearance/test_unit"
 ```
 
+**Note for Rails 5:** the default generated controller tests are now
+integration tests. You will need to use the
+[backdoor middleware](#fast-feature-specs) instead.
+
 This will make `Clearance::Controller` methods work in your controllers
 during functional tests and provide access to helper methods like:
 
