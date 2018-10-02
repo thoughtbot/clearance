@@ -160,8 +160,14 @@ As of Clearance 1.5 it is recommended that you disable Clearance routes and take
 full control over routing and URL design. This ensures that your app's URL design
 won't be affected if the gem's routes and URL design are changed.
 
-To disable the routes, set `config.routes = false`. You can optionally run
-`rails generate clearance:routes` to dump a copy of the default routes into your
+To disable the routes, change the `routes` configuration option to false: 
+
+```ruby
+Clearance.configure do |config|
+  config.routes = false
+end
+```
+You can optionally run `rails generate clearance:routes` to dump a copy of the default routes into your
 application for modification.
 
 ### Controllers
@@ -238,8 +244,7 @@ end
 
 ### Translations
 
-All flash messages and email subject lines are stored in [i18n translations]
-(http://guides.rubyonrails.org/i18n.html). Override them like any other
+All flash messages and email subject lines are stored in [i18n translations](http://guides.rubyonrails.org/i18n.html). Override them like any other
 translation.
 
 See [config/locales/clearance.en.yml](/config/locales/clearance.en.yml) for the
@@ -391,6 +396,10 @@ For `test-unit`, add this line to your `test/test_helper.rb`:
 ```ruby
 require "clearance/test_unit"
 ```
+
+**Note for Rails 5:** the default generated controller tests are now
+integration tests. You will need to use the
+[backdoor middleware](#fast-feature-specs) instead.
 
 This will make `Clearance::Controller` methods work in your controllers
 during functional tests and provide access to helper methods like:
