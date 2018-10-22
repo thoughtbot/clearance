@@ -4,16 +4,12 @@ language:
   - ruby
 
 rvm:
-  - 1.9.3
-  - 2.0.0
-  - 2.1.8
-  - 2.2.4
-  - 2.3.0
+  - 2.2.10
+  - 2.3.8
+  - 2.4.5
+  - 2.5.3
 
 gemfile:
-  - gemfiles/rails32.gemfile
-  - gemfiles/rails40.gemfile
-  - gemfiles/rails41.gemfile
   - gemfiles/rails42.gemfile
   - gemfiles/rails50.gemfile
 
