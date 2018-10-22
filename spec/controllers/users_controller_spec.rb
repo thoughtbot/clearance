@@ -13,7 +13,9 @@ describe Clearance::UsersController do
       end
 
       it "defaults email field to the value provided in the query string" do
-        get :new, user: { email: "a@example.com" }
+        get :new, params: {
+          user: { email: "a@example.com" },
+        }
 
         expect(assigns(:user).email).to eq "a@example.com"
         expect(response).to be_success
@@ -39,7 +41,9 @@ describe Clearance::UsersController do
           user_attributes = FactoryBot.attributes_for(:user)
           old_user_count = User.count
 
-          post :create, user: user_attributes
+          post :create, params: {
+            user: user_attributes,
+          }
 
           expect(assigns(:user)).to be_present
           expect(User.count).to eq old_user_count + 1
@@ -54,7 +58,9 @@ describe Clearance::UsersController do
           return_url = "/url_in_the_session"
           @request.session[:return_to] = return_url
 
-          post :create, user: user_attributes
+          post :create, params: {
+            user: user_attributes,
+          }
 
           expect(assigns(:user)).to be_present
           expect(User.count).to eq old_user_count + 1
@@ -67,7 +73,9 @@ describe Clearance::UsersController do
       it "redirects to the configured clearance redirect url" do
         sign_in
 
-        post :create, user: {}
+        post :create, params: {
+          user: {},
+        }
 
         expect(response).to redirect_to(Clearance.configuration.redirect_url)
       end

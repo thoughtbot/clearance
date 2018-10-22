@@ -30,6 +30,7 @@ describe "Clearance Installation" do
        --skip-javascript \
        --skip-sprockets \
        --skip-keeps \
+       --skip-bootsnap \
        --no-rc"
 
     FileUtils.rm_f("public/index.html")

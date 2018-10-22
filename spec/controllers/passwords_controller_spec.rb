@@ -17,7 +17,9 @@ describe Clearance::PasswordsController do
       it "generates a password change token" do
         user = create(:user)
 
-        post :create, password: { email: user.email.upcase }
+        post :create, params: {
+          password: { email: user.email.upcase },
+        }
 
         expect(user.reload.confirmation_token).not_to be_nil
       end
@@ -26,7 +28,9 @@ describe Clearance::PasswordsController do
         ActionMailer::Base.deliveries.clear
         user = create(:user)
 
-        post :create, password: { email: user.email }
+        post :create, params: {
+          password: { email: user.email },
+        }
 
         email = ActionMailer::Base.deliveries.last
         expect(email.subject).to match(/change your password/i)
@@ -38,7 +42,9 @@ describe Clearance::PasswordsController do
         ActionMailer::Base.deliveries.clear
         email = "this_user_does_not_exist@non_existent_domain.com"
 
-        post :create, password: { email: email }
+        post :create, params: {
+          password: { email: email },
+        }
 
         expect(ActionMailer::Base.deliveries).to be_empty
       end
@@ -46,7 +52,9 @@ describe Clearance::PasswordsController do
       it "still responds with success so as not to leak registered users" do
         email = "this_user_does_not_exist@non_existent_domain.com"
 
-        post :create, password: { email: email }
+        post :create, params: {
+          password: { email: email },
+        }
 
         expect(response).to be_success
         expect(response).to render_template "passwords/create"
@@ -59,7 +67,10 @@ describe Clearance::PasswordsController do
       it "redirects to the edit page with token now removed from url" do
         user = create(:user, :with_forgotten_password)
 
-        get :edit, user_id: user, token: user.confirmation_token
+        get :edit, params: {
+          user_id: user,
+          token: user.confirmation_token,
+        }
 
         expect(response).to be_redirect
         expect(response).to redirect_to edit_user_password_url(user)
@@ -72,7 +83,9 @@ describe Clearance::PasswordsController do
         user = create(:user, :with_forgotten_password)
 
         request.session[:password_reset_token] = user.confirmation_token
-        get :edit, user_id: user
+        get :edit, params: {
+          user_id: user,
+        }
 
         expect(response).to be_success
         expect(response).to render_template(:edit)
@@ -82,7 +95,10 @@ describe Clearance::PasswordsController do
 
     context "blank token is supplied" do
       it "renders the new password reset form with a flash notice" do
-        get :edit, user_id: 1, token: ""
+        get :edit, params: {
+          user_id: 1,
+          token: "",
+        }
 
         expect(response).to render_template(:new)
         expect(flash.now[:notice]).to match(/double check the URL/i)
@@ -93,7 +109,10 @@ describe Clearance::PasswordsController do
       it "renders the new password reset form with a flash notice" do
         user = create(:user, :with_forgotten_password)
 
-        get :edit, user_id: 1, token: user.confirmation_token + "a"
+        get :edit, params: {
+          user_id: 1,
+          token: user.confirmation_token + "a",
+        }
 
         expect(response).to render_template(:new)
         expect(flash.now[:notice]).to match(/double check the URL/i)
@@ -106,7 +125,10 @@ describe Clearance::PasswordsController do
         request.session[:password_reset_token] = user.confirmation_token
 
         user.forgot_password!
-        get :edit, user_id: user.id, token: user.reload.confirmation_token
+        get :edit, params: {
+          user_id: user.id,
+          token: user.reload.confirmation_token,
+        }
 
         expect(response).to redirect_to(edit_user_password_url(user))
         expect(session[:password_reset_token]).to eq(user.confirmation_token)
@@ -120,7 +142,10 @@ describe Clearance::PasswordsController do
         user = create(:user, :with_forgotten_password)
         old_encrypted_password = user.encrypted_password
 
-        put :update, update_parameters(user, new_password: "my_new_password")
+        put :update, params: update_parameters(
+          user,
+          new_password: "my_new_password",
+        )
 
         expect(user.reload.encrypted_password).not_to eq old_encrypted_password
       end
@@ -128,7 +153,10 @@ describe Clearance::PasswordsController do
       it "signs the user in and redirects" do
         user = create(:user, :with_forgotten_password)
 
-        put :update, update_parameters(user, new_password: "my_new_password")
+        put :update, params: update_parameters(
+          user,
+          new_password: "my_new_password",
+        )
 
         expect(response).to redirect_to(Clearance.configuration.redirect_url)
         expect(cookies[:remember_token]).to be_present
@@ -140,7 +168,10 @@ describe Clearance::PasswordsController do
         user = create(:user, :with_forgotten_password)
         old_encrypted_password = user.encrypted_password
 
-        put :update, update_parameters(user, new_password: "")
+        put :update, params: update_parameters(
+          user,
+          new_password: "",
+        )
 
         user.reload
         expect(user.encrypted_password).to eq old_encrypted_password
@@ -150,7 +181,10 @@ describe Clearance::PasswordsController do
       it "re-renders the password edit form" do
         user = create(:user, :with_forgotten_password)
 
-        put :update, update_parameters(user, new_password: "")
+        put :update, params: update_parameters(
+          user,
+          new_password: "",
+        )
 
         expect(flash.now[:notice]).to match(/password can't be blank/i)
         expect(response).to render_template(:edit)
