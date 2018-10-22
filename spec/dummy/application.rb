@@ -28,7 +28,6 @@ module Dummy
     config.paths["app/views"] << "#{APP_ROOT}/app/views"
     config.paths["config/database"] = "#{APP_ROOT}/config/database.yml"
     config.paths["log"] = "tmp/log/development.log"
-    config.secret_token = "SECRET_TOKEN_IS_MIN_30_CHARS_LONG"
 
     if Dummy.rails4?
       config.paths.add "config/routes.rb", with: "#{APP_ROOT}/config/routes.rb"
