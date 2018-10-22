@@ -7,7 +7,7 @@ describe Clearance::PasswordsController do
     it "renders the password reset form" do
       get :new
 
-      expect(response).to be_success
+      expect(response).to be_successful
       expect(response).to render_template(:new)
     end
   end
@@ -56,7 +56,7 @@ describe Clearance::PasswordsController do
           password: { email: email },
         }
 
-        expect(response).to be_success
+        expect(response).to be_successful
         expect(response).to render_template "passwords/create"
       end
     end
@@ -87,7 +87,7 @@ describe Clearance::PasswordsController do
           user_id: user,
         }
 
-        expect(response).to be_success
+        expect(response).to be_successful
         expect(response).to render_template(:edit)
         expect(assigns(:user)).to eq user
       end

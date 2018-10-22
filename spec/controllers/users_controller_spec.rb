@@ -8,7 +8,7 @@ describe Clearance::UsersController do
       it "renders a form for a new user" do
         get :new
 
-        expect(response).to be_success
+        expect(response).to be_successful
         expect(response).to render_template(:new)
       end
 
@@ -18,7 +18,7 @@ describe Clearance::UsersController do
         }
 
         expect(assigns(:user).email).to eq "a@example.com"
-        expect(response).to be_success
+        expect(response).to be_successful
         expect(response).to render_template(:new)
       end
     end
