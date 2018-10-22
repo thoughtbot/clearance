@@ -15,19 +15,6 @@ gemfile:
   - gemfiles/rails51.gemfile
   - gemfiles/rails52.gemfile
 
-matrix:
-  exclude:
-    - rvm: 1.9.3
-      gemfile: gemfiles/rails50.gemfile
-    - rvm: 2.0.0
-      gemfile: gemfiles/rails50.gemfile
-    - rvm: 2.1.8
-      gemfile: gemfiles/rails50.gemfile
-    - rvm: 2.2.4
-      gemfile: gemfiles/rails32.gemfile
-    - rvm: 2.3.0
-      gemfile: gemfiles/rails32.gemfile
-
 before_install:
   - gem update --system
   - gem update bundler
