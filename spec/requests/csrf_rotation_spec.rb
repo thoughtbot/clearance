@@ -15,7 +15,9 @@ describe "CSRF Rotation" do
         user = create(:user, password: "password")
         original_token = csrf_token
 
-        post session_path, session: session_params(user, "password")
+        post session_path, params: {
+          session: session_params(user, "password"),
+        }
 
         expect(csrf_token).not_to eq original_token
         expect(csrf_token).to be_present

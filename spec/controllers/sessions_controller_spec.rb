@@ -28,7 +28,9 @@ describe Clearance::SessionsController do
       it "renders the page with error" do
         user = create(:user_with_optional_password)
 
-        post :create, session: { email: user.email, password: user.password }
+        post :create, params: {
+          session: { email: user.email, password: user.password },
+        }
 
         expect(response).to render_template(:new)
         expect(flash[:notice]).to match(/^Bad email or password/)
@@ -39,7 +41,9 @@ describe Clearance::SessionsController do
       before do
         @user = create(:user)
         @user.update_attribute :remember_token, "old-token"
-        post :create, session: { email: @user.email, password: @user.password }
+        post :create, params: {
+          session: { email: @user.email, password: @user.password },
+        }
       end
 
       it { should redirect_to_url_after_create }
@@ -59,7 +63,9 @@ describe Clearance::SessionsController do
         return_url = "/url_in_the_session?foo=bar#baz"
         request.session[:return_to] = return_url
 
-        post :create, session: { email: user.email, password: user.password }
+        post :create, params: {
+          session: { email: user.email, password: user.password },
+        }
 
         should redirect_to(return_url)
       end
@@ -69,7 +75,9 @@ describe Clearance::SessionsController do
         return_url = "/url_in_the_session?foo=bar"
         request.session[:return_to] = return_url
 
-        post :create, session: { email: user.email, password: user.password }
+        post :create, params: {
+          session: { email: user.email, password: user.password },
+        }
 
         should redirect_to(return_url)
       end
@@ -79,7 +87,9 @@ describe Clearance::SessionsController do
         return_url = "/url_in_the_session"
         request.session[:return_to] = return_url
 
-        post :create, session: { email: user.email, password: user.password }
+        post :create, params: {
+          session: { email: user.email, password: user.password },
+        }
 
         should redirect_to(return_url)
       end

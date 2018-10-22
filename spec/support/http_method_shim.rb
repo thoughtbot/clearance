@@ -1,23 +1,25 @@
 # Rails 5 deprecates calling HTTP action methods with positional arguments
 # in favor of keyword arguments. However, the keyword argument form is only
-# supported in Rails 5+. Since we support back to 3.1, we need some sort of shim
-# to avoid super noisy deprecations when running tests.
-module HTTPMethodShim
-  def get(path, params=nil, headers=nil)
-    super(path, params: params, headers: headers)
+# supported in Rails 5+. Since we support 4.2, we must give it a shim to massage
+# the params into the previous style!
+
+module PreRailsFiveHTTPMethodShim
+  def get(path, params: {}, headers: {}, format: :html)
+    super(path, params.merge(format: format), headers)
   end
 
-  def put(path, params=nil, headers=nil)
-    super(path, params: params, headers: headers)
+  def put(path, params: {}, headers: {}, format: :html)
+    super(path, params.merge(format: format), headers)
   end
 
-  def post(path, params=nil, headers=nil)
-    super(path, params: params, headers: headers)
+  def post(path, params: {}, headers: {}, format: :html)
+    super(path, params.merge(format: format), headers)
   end
 end
 
-if Rails::VERSION::MAJOR >= 5
+if Rails::VERSION::MAJOR < 5
   RSpec.configure do |config|
-    config.include HTTPMethodShim, type: :controller
+    config.include PreRailsFiveHTTPMethodShim, type: :controller
+    config.include PreRailsFiveHTTPMethodShim, type: :request
   end
 end

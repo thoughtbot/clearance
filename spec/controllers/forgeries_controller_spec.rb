@@ -38,12 +38,16 @@ describe ForgeriesController do
 
     it 'succeeds with authentic token' do
       token = controller.send(:form_authenticity_token)
-      post :create, authenticity_token: token
+      post :create, params: {
+        authenticity_token: token,
+      }
       expect(subject).to redirect_to(action: 'index')
     end
 
     it 'fails with invalid token' do
-      post :create, authenticity_token: 'hax0r'
+      post :create, params: {
+        authenticity_token: "hax0r",
+      }
       expect(subject).to deny_access
     end
 
