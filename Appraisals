@@ -11,3 +11,8 @@ appraise "rails51" do
   gem "rails", "~> 5.1"
   gem "rails-controller-testing"
 end
+
+appraise "rails52" do
+  gem "rails", "~> 5.2"
+  gem "rails-controller-testing"
+end

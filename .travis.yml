@@ -13,6 +13,7 @@ gemfile:
   - gemfiles/rails42.gemfile
   - gemfiles/rails50.gemfile
   - gemfiles/rails51.gemfile
+  - gemfiles/rails52.gemfile
 
 matrix:
   exclude:
