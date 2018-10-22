@@ -40,7 +40,7 @@ module Clearance
       # @api private
       def generate_hash(string)
         cipher = OpenSSL::Cipher::Cipher.new('bf-cbc').encrypt
-        cipher.key = Digest::SHA256.digest(salt)
+        cipher.key = Digest::SHA256.digest(salt).first(16)
         hash = cipher.update(string) << cipher.final
         Base64.encode64(hash).encode('utf-8')
       end

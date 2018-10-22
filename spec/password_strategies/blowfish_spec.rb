@@ -24,7 +24,7 @@ describe Clearance::PasswordStrategies::Blowfish do
         model_instance.salt = salt
         model_instance.password = password
         cipher = OpenSSL::Cipher::Cipher.new("bf-cbc").encrypt
-        cipher.key = Digest::SHA256.digest(salt)
+        cipher.key = Digest::SHA256.digest(salt).first(16)
         expected = cipher.update("--#{salt}--#{password}--") << cipher.final
 
         encrypted_password = Base64.decode64(model_instance.encrypted_password)
