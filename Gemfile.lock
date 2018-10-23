@@ -60,7 +60,7 @@ GEM
       rake
       thor (>= 0.14.0)
     arel (9.0.0)
-    bcrypt (3.1.11)
+    bcrypt (3.1.12)
     builder (3.2.3)
     capybara (2.7.1)
       addressable
