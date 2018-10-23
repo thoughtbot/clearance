@@ -28,7 +28,7 @@ module Dummy
     config.paths.add "config/routes.rb", with: "#{APP_ROOT}/config/routes.rb"
     config.secret_key_base = "SECRET_KEY_BASE"
 
-    if Rails::VERSION::MAJOR >= 5
+    if config.active_record.sqlite3.respond_to?(:represent_boolean_as_integer)
       config.active_record.sqlite3.represent_boolean_as_integer = true
     end
 

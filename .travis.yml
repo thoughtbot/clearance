@@ -10,10 +10,10 @@ rvm:
   - 2.5.3
 
 gemfile:
-  - gemfiles/rails42.gemfile
-  - gemfiles/rails50.gemfile
-  - gemfiles/rails51.gemfile
-  - gemfiles/rails52.gemfile
+  - gemfiles/rails_4.2.gemfile
+  - gemfiles/rails_5.0.gemfile
+  - gemfiles/rails_5.1.gemfile
+  - gemfiles/rails_5.2.gemfile
 
 before_install:
   - gem update --system
