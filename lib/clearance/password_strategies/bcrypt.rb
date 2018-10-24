@@ -25,7 +25,7 @@ module Clearance
         if new_password.present?
           self.encrypted_password = ::BCrypt::Password.create(
             new_password,
-            cost: cost
+            cost: cost,
           )
         end
       end
