@@ -8,6 +8,11 @@ complete changelog, see the git history for each version via the version links.
 ### Fixed
 - Added missing translation keys
 
+### changed
+- Remove Rails as a dependency so that clearance does not trigger a cascade of
+  requirements as rails pulls in every framework. Instead, depend on just the
+  frameworks relevant to Clearance.
+
 [Unreleased]: https://github.com/thoughtbot/clearance/compare/v1.16.1...HEAD
 
 ## [1.16.1] - November 2, 2017

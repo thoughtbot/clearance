@@ -23,15 +23,19 @@ describe "Clearance Installation" do
   end
 
   def generate_test_app(app_name)
-    successfully "bundle exec rails new #{app_name} \
-       --skip-gemfile \
-       --skip-bundle \
-       --skip-git \
-       --skip-javascript \
-       --skip-sprockets \
-       --skip-keeps \
-       --skip-bootsnap \
-       --no-rc"
+    successfully <<-CMD.squish
+      bundle exec rails new #{app_name}
+       --no-rc
+       --skip-action-cable
+       --skip-active-storage
+       --skip-bootsnap
+       --skip-bundle
+       --skip-gemfile
+       --skip-git
+       --skip-javascript
+       --skip-keeps
+       --skip-sprockets
+    CMD
 
     FileUtils.rm_f("public/index.html")
     FileUtils.rm_f("app/views/layouts/application.html.erb")

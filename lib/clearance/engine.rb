@@ -1,5 +1,5 @@
 require "clearance"
-require "rails"
+require "rails/engine"
 
 module Clearance
   # Makes Clearance behavior available to Rails apps on initialization. By using
