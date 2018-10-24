@@ -7,7 +7,13 @@ module Clearance
     # Rails is operating in the test environment and the default cost in all
     # other envionments. This provides a speed boost in tests.
     #
-    # To set your own cost value, use an initializer:
+  # BCrypt has a `cost` argument which determines how computationally expensive
+  # the hash is to calculate. The higher the cost, the harder it is for
+  # attackers to crack passwords even if they posess a database dump of the
+  # encrypted passwords. Clearance uses the `bcrypt-ruby` default cost except in 
+  # the test environment, where it uses the minimum cost value for speed. If you
+  # wish to increase the cost over the default, you can do so by setting a
+  # higher cost in an initializer: 
     # `BCrypt::Engine.cost = 12`
     module BCrypt
       require 'bcrypt'
