@@ -36,7 +36,7 @@ module Clearance
         if users_table_exists?
           create_add_columns_migration
         else
-          copy_migration 'create_users.rb'
+          copy_migration "create_users"
         end
       end
 
@@ -53,15 +53,15 @@ module Clearance
             new_indexes: new_indexes
           }
 
-          copy_migration('add_clearance_to_users.rb', config)
+          copy_migration("add_clearance_to_users", config)
         end
       end
 
       def copy_migration(migration_name, config = {})
         unless migration_exists?(migration_name)
           migration_template(
-            "db/migrate/#{migration_name}",
-            "db/migrate/#{migration_name}",
+            "db/migrate/#{migration_name}.rb.erb",
+            "db/migrate/#{migration_name}.rb",
             config.merge(migration_version: migration_version),
           )
         end
