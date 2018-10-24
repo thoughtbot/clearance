@@ -12,7 +12,7 @@ describe Clearance::PasswordStrategies::BCrypt do
       expect(model_instance.encrypted_password).to eq encrypted_password
     end
 
-    it "encrypts with BCrypt using default cost in non test environments" do
+    it "encrypts with BCrypt using default cost in non-test environments" do
       stub_bcrypt_password
       model_instance = fake_model_with_bcrypt_strategy
       allow(Rails).to receive(:env).
@@ -22,7 +22,7 @@ describe Clearance::PasswordStrategies::BCrypt do
 
       expect(BCrypt::Password).to have_received(:create).with(
         password,
-        cost: nil,
+        cost: ::BCrypt::Engine::DEFAULT_COST,
       )
     end
 

@@ -32,6 +32,8 @@ module Clearance
       def cost
         if defined?(::Rails) && ::Rails.env.test?
           ::BCrypt::Engine::MIN_COST
+        else
+          ::BCrypt::Engine.cost
         end
         # Otherwise return nil, so that the cost stored in BCrypt
         # (or its default) is used
