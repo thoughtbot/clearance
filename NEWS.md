@@ -8,9 +8,9 @@ complete changelog, see the git history for each version via the version links.
 ### Fixed
 - Added missing translation keys
 
-## [1.16.1] - November 2, 2017
-
 [Unreleased]: https://github.com/thoughtbot/clearance/compare/v1.16.1...HEAD
+
+## [1.16.1] - November 2, 2017
 
 ### Fixed
 - Fixed issue where tokens from abandoned password reset attempts were stored in
