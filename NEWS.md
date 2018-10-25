@@ -7,8 +7,10 @@ complete changelog, see the git history for each version via the version links.
 
 ### Fixed
 - Added missing translation keys
+- Fix issue where a cookie value could be set more than once when interacting
+  with the `httponly` option
 
-### changed
+### Changed
 - Remove Rails as a dependency so that clearance does not trigger a cascade of
   requirements as rails pulls in every framework. Instead, depend on just the
   frameworks relevant to Clearance.
