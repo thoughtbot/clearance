@@ -15,11 +15,11 @@ module Clearance
     #
     # @return [void]
     def add_cookie_to_headers(headers)
-      if cookie_value[:value].present?
+      if cookie_options[:value].present?
         Rack::Utils.set_cookie_header!(
           headers,
           remember_token_cookie,
-          cookie_value
+          cookie_options,
         )
       end
     end
@@ -151,7 +151,7 @@ module Clearance
     end
 
     # @api private
-    def cookie_value
+    def cookie_options
       value = {
         expires: remember_token_expires,
         httponly: Clearance.configuration.httponly,
