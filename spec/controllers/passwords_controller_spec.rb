@@ -149,18 +149,6 @@ describe Clearance::PasswordsController do
 
         expect(user.reload.encrypted_password).not_to eq old_encrypted_password
       end
-
-      it "signs the user in and redirects" do
-        user = create(:user, :with_forgotten_password)
-
-        put :update, params: update_parameters(
-          user,
-          new_password: "my_new_password",
-        )
-
-        expect(response).to redirect_to(Clearance.configuration.redirect_url)
-        expect(cookies[:remember_token]).to be_present
-      end
     end
 
     context "password update fails" do
