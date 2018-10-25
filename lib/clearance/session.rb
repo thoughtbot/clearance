@@ -15,11 +15,13 @@ module Clearance
     #
     # @return [void]
     def add_cookie_to_headers(headers)
-      if cookie_options[:value].present?
+      if signed_in_with_remember_token?
         Rack::Utils.set_cookie_header!(
           headers,
           remember_token_cookie,
-          cookie_options,
+          cookie_options.merge(
+            value: current_user.remember_token,
+          ),
         )
       end
     end
@@ -54,7 +56,9 @@ module Clearance
       status = run_sign_in_stack
 
       if status.success?
-        cookies[remember_token_cookie] = user && user.remember_token
+        # Sign in succeeded, and when {RackSession} is run and calls
+        # {#add_cookie_to_headers} it will set the cookie with the
+        # remember_token for the current_user
       else
         @current_user = nil
       end
@@ -117,6 +121,11 @@ module Clearance
           'lambda should accept the collection of previously set cookies.'
         expires_configuration.call
       end
+    end
+
+    # @api private
+    def signed_in_with_remember_token?
+      current_user&.remember_token
     end
 
     # @api private
