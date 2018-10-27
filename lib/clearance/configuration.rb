@@ -88,7 +88,7 @@ module Clearance
     # The ActiveRecord class that represents users in your application.
     # Defaults to `::User`.
     # @return [ActiveRecord::Base]
-    attr_accessor :user_model
+    attr_writer :user_model
 
     def initialize
       @allow_sign_up = true
