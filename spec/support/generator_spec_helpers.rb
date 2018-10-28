@@ -21,6 +21,9 @@ module GeneratorSpecHelpers
     copy_to_generator_root("app/models", versionize_template("user.rb"))
     allow(File).to receive(:exist?).and_call_original
     allow(File).to receive(:exist?).with("app/models/user.rb").and_return(true)
+    allow(File).to receive(:readlines)
+      .with("app/models/user.rb")
+      .and_return(user_class_content)
   end
 
   private
@@ -39,6 +42,10 @@ module GeneratorSpecHelpers
     end
 
     template_file
+  end
+
+  def user_class_content
+    File.readlines("#{destination_root}/app/models/user.rb")
   end
 end
 

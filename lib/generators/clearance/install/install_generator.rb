@@ -20,7 +20,10 @@ module Clearance
       end
 
       def create_or_inject_clearance_into_user_model
-        if File.exist? "app/models/user.rb"
+        if (File.exist? "app/models/user.rb") &&
+           (File.readlines("app/models/user.rb")
+                .grep(/include Clearance::User/)
+                .size.zero?)
           inject_into_file(
             "app/models/user.rb",
             "  include Clearance::User\n\n",
