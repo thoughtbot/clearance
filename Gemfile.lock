@@ -82,7 +82,7 @@ GEM
       activesupport (>= 4.2.0)
     i18n (1.1.1)
       concurrent-ruby (~> 1.0)
-    loofah (2.2.2)
+    loofah (2.2.3)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mail (2.7.1)
@@ -160,4 +160,4 @@ DEPENDENCIES
   timecop (~> 0.6)
 
 BUNDLED WITH
-   1.16.6
+   1.17.1
