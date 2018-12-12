@@ -1,6 +1,9 @@
 require "spec_helper"
+require "support/environment"
 
 describe Clearance::BackDoor do
+  include EnvironmentSupport
+
   it "signs in as a given user" do
     user_id = "123"
     user = double("user")
@@ -36,6 +39,13 @@ describe Clearance::BackDoor do
 
     expect(env[:clearance]).to have_received(:sign_in).with(user)
     expect(result).to eq mock_app.call(env)
+  end
+
+  it "can't be used outside the test environment" do
+    with_environment("RAILS_ENV" => "production") do
+      expect { Clearance::BackDoor.new(mock_app) }.
+        to raise_exception "Can't use backdoor outside test environment"
+    end
   end
 
   def env_without_user_id

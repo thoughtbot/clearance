@@ -31,6 +31,10 @@ module Clearance
   #   visit new_feedback_path(as: user)
   class BackDoor
     def initialize(app, &block)
+      unless ENV["RAILS_ENV"] == "test"
+        raise "Can't use backdoor outside test environment"
+      end
+
       @app = app
       @block = block
     end
