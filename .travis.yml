@@ -16,7 +16,6 @@ gemfile:
 
 before_install:
   - gem update --system
-  - gem update bundler
 
 install:
   - "bin/setup"
