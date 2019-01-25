@@ -33,7 +33,7 @@ Gem::Specification.new do |s|
   s.email = 'support@thoughtbot.com'
   s.extra_rdoc_files = %w(LICENSE README.md)
   s.files = `git ls-files`.split("\n")
-  s.homepage = 'http://github.com/thoughtbot/clearance'
+  s.homepage = 'https://github.com/thoughtbot/clearance'
   s.license = 'MIT'
   s.name = %q{clearance}
   s.rdoc_options = ['--charset=UTF-8']
