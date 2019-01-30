@@ -14,6 +14,7 @@ complete changelog, see the git history for each version via the version links.
 - Remove Rails as a dependency so that clearance does not trigger a cascade of
   requirements as rails pulls in every framework. Instead, depend on just the
   frameworks relevant to Clearance.
+- Prevent `Clearance::BackDoor` from being used outside the "test" environment.
 
 [Unreleased]: https://github.com/thoughtbot/clearance/compare/v1.16.1...HEAD
 
