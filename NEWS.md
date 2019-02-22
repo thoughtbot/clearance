@@ -3,7 +3,7 @@
 The noteworthy changes for each Clearance version are included here. For a
 complete changelog, see the git history for each version via the version links.
 
-## [Unreleased]
+## [1.16.2] - February 25, 2019
 
 ### Fixed
 - Added missing translation keys
@@ -16,7 +16,7 @@ complete changelog, see the git history for each version via the version links.
   frameworks relevant to Clearance.
 - Prevent `Clearance::BackDoor` from being used outside the "test" environment.
 
-[Unreleased]: https://github.com/thoughtbot/clearance/compare/v1.16.1...HEAD
+[1.16.2]: https://github.com/thoughtbot/clearance/compare/v1.16.1...v1.16.2
 
 ## [1.16.1] - November 2, 2017
 
