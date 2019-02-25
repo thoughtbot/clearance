@@ -65,7 +65,7 @@ describe PermissionsController do
   context 'when remember_token is blank' do
     it 'denies acess to show' do
       user = create(:user)
-      user.update_attributes(remember_token: '')
+      user.update(remember_token: '')
       cookies[:remember_token] = ''
 
       get :show
