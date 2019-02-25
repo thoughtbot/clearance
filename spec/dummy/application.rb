@@ -28,7 +28,9 @@ module Dummy
     config.secret_key_base = "SECRET_KEY_BASE"
 
     if config.active_record.sqlite3.respond_to?(:represent_boolean_as_integer)
-      config.active_record.sqlite3.represent_boolean_as_integer = true
+      if Rails::VERSION::MAJOR < 6
+        config.active_record.sqlite3.represent_boolean_as_integer = true
+      end
     end
 
     config.active_job.queue_adapter = :inline
