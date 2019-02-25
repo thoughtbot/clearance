@@ -12,8 +12,7 @@ gem "nokogiri", "~> 1.10.0"
 gem "pry", require: false
 gem "shoulda-matchers", "~> 4.1"
 gem "timecop", "~> 0.6"
-gem "railties", "~> 5.0.0"
-gem "rails-controller-testing"
+gem "railties", "~> 4.2.0"
 gem "sqlite3", "~> 1.3.13"
 gem "rspec-rails", "~> 3.1"
 
