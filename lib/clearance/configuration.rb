@@ -1,3 +1,5 @@
+require 'clearance/tokenizer'
+
 module Clearance
   class Configuration
     # Controls whether the sign up route is enabled.
@@ -47,12 +49,10 @@ module Clearance
     # @return [String]
     attr_accessor :mailer_sender
 
-    # Used to generate and verify password reset tokens
-    # Defaults to an `ActiveSupport::MessageVerifier` instance, initialized
-    # in concert with your application's `secret_key_base` via
-    # `Rails.application.message_verifier`.
-    # @return [#generate #verify]
-    attr_accessor :message_verifier
+    # Used to generate and verify secure encrypted tokens
+    # Defaults to `Clearance::Tokenizer`
+    # @return [#new #generate #valid?]
+    attr_accessor :tokenizer
 
     # Determines how long password reset emails are valid for
     # Defaults to 15 minutes
@@ -116,7 +116,7 @@ module Clearance
       @cookie_path = '/'
       @httponly = true
       @mailer_sender = 'reply@example.com'
-      @message_verifier = Rails.application.message_verifier("clearance")
+      @tokenizer = Clearance::Tokenizer
       @password_reset_time_limit = 15.minutes
       @redirect_url = '/'
       @rotate_csrf_on_sign_in = nil

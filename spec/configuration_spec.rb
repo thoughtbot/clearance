@@ -171,20 +171,18 @@ describe Clearance::Configuration do
     end
   end
 
-  describe "#message_verifier" do
-    it "returns the configured verifier if one has been configured" do
-      verifier = Class.new.new
-      Clearance.configure { |config| config.message_verifier = verifier }
+  describe "#tokenizer" do
+    it "returns the configured tokenizer if one has been configured" do
+      tokenizer = Class.new.new
+      Clearance.configure { |config| config.tokenizer = tokenizer }
 
-      expect(Clearance.configuration.message_verifier).to be verifier
+      expect(Clearance.configuration.tokenizer).to be tokenizer
     end
 
-    it "returns an active support message verifier instance by default" do
+    it "returns a clearance tokenizer class by default" do
       Clearance.configuration = Clearance::Configuration.new
 
-      expect(Clearance.configuration.message_verifier).to be_an_instance_of(
-        ActiveSupport::MessageVerifier,
-      )
+      expect(Clearance.configuration.tokenizer).to eq Clearance::Tokenizer
     end
   end
 
