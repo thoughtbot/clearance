@@ -57,7 +57,7 @@ Clearance.configure do |config|
   config.routes = true
   config.httponly = false
   config.mailer_sender = "reply@example.com"
-  config.message_verifier = ActiveSupport::MessageVerifier.new(secret_key_base)
+  config.tokenizer = Clearance::Tokenizer
   config.password_reset_time_limit = 15.minutes
   config.password_strategy = Clearance::PasswordStrategies::BCrypt
   config.redirect_url = "/"

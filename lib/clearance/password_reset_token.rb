@@ -1,43 +1,37 @@
 module Clearance
   class PasswordResetToken
     def self.generate_for(user)
-      token = Clearance.configuration.message_verifier.generate([
-        user.id,
-        Digest::MD5.hexdigest(user.encrypted_password),
-        Clearance.configuration.password_reset_time_limit.from_now
-      ])
-
-      new(token)
+      new(user).generate
     end
 
-    def initialize(token)
-      @token = token.to_s
+    def self.find_user(user_id, token)
+      user = Clearance.configuration.user_model.find_by(id: user_id)
+      user if user && new(user).valid?(token)
     end
 
-    def user
-      user_id, digested_secret, expires_at = verify
+    def initialize(user)
+      @user = user
+      @tokenizer = Clearance.configuration.tokenizer.new(user)
+    end
 
-      if expires_at.future?
-        user = Clearance.configuration.user_model.find_by(id: user_id)
+    def generate
+      tokenizer.generate(user.id, expires_in: expires_in)
+    end
 
-        if digested_secret == Digest::MD5.hexdigest(user.encrypted_password)
-          user
-        end
-      end
+    def valid?(token)
+      tokenizer.valid?(token)
     end
 
     def to_s
-      token
+      generate
     end
 
     private
 
-    attr_reader :token
+    attr_reader :user, :tokenizer
 
-    def verify
-      Clearance.configuration.message_verifier.verify(token)
-    rescue ActiveSupport::MessageVerifier::InvalidSignature
-      [nil, nil, 1.hour.ago]
+    def expires_in
+      Clearance.configuration.password_reset_time_limit
     end
   end
 end

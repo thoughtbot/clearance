@@ -17,12 +17,12 @@ class Clearance::PasswordsController < Clearance::BaseController
   end
 
   def edit
-    @user = find_user_by_password_reset_token(params[:token])
+    @user = find_user_by_password_reset_token(params[:user_id], params[:token])
     render template: "passwords/edit"
   end
 
   def update
-    @user = find_user_by_password_reset_token(params[:token])
+    @user = find_user_by_password_reset_token(params[:user_id], params[:token])
 
     if @user.update_password(password_reset_params)
       sign_in(@user)
@@ -48,12 +48,12 @@ class Clearance::PasswordsController < Clearance::BaseController
       find_by_normalized_email params[:password][:email]
   end
 
-  def find_user_by_password_reset_token(token)
-    @user ||= Clearance::PasswordResetToken.new(token).user
+  def find_user_by_password_reset_token(user_id, token)
+    @user ||= Clearance::PasswordResetToken.find_user(user_id, token)
   end
 
   def ensure_existing_user
-    unless find_user_by_password_reset_token(params[:token])
+    unless find_user_by_password_reset_token(params[:user_id], params[:token])
       flash_failure_when_invalid
       render template: "passwords/new"
     end
