@@ -147,7 +147,6 @@ describe Clearance::Session do
 
   context 'if httponly is set' do
     before do
-      Clearance.configuration.httponly = true
       session.sign_in(user)
     end
 
@@ -160,6 +159,7 @@ describe Clearance::Session do
 
   context 'if httponly is not set' do
     before do
+      Clearance.configuration.httponly = false
       session.sign_in(user)
     end
 

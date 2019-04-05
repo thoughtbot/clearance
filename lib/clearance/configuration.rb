@@ -35,8 +35,8 @@ module Clearance
     # @return [String]
     attr_accessor :cookie_path
 
-    # Controls whether the  HttpOnly flag should be set on the remember token
-    # cookie. Defaults to `false`. If `true`, the cookie will not be made
+    # Controls whether the HttpOnly flag should be set on the remember token
+    # cookie. Defaults to `true`, which prevents the cookie from being made
     # available to JavaScript. For more see
     # [RFC6265](http://tools.ietf.org/html/rfc6265#section-5.2.6).
     # @return [Boolean]
@@ -96,7 +96,7 @@ module Clearance
       @cookie_domain = nil
       @cookie_path = '/'
       @cookie_name = "remember_token"
-      @httponly = false
+      @httponly = true
       @mailer_sender = 'reply@example.com'
       @redirect_url = '/'
       @routes = true

@@ -3,6 +3,15 @@
 The noteworthy changes for each Clearance version are included here. For a
 complete changelog, see the git history for each version via the version links.
 
+## [Unreleased]
+
+### Changed
+
+- Update the `HttpOnly` cookie setting for the remember token to default to
+  true, which prevents the value from being available to JavaScript.
+
+[Unreleased]: https://github.com/thoughtbot/clearance/compare/v1.16.2...HEAD
+
 ## [1.16.2] - February 25, 2019
 
 ### Fixed
