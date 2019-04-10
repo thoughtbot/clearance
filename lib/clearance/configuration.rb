@@ -90,7 +90,7 @@ module Clearance
     # @return [ActiveRecord::Base]
     attr_accessor :user_model
 
-    # The array of explictly allowed environments to use the Clearance::BackDoor in.
+    # The array of explictly allowed environments to use Clearance::BackDoor in.
     # Defaults to ["test", "ci", "development"]
     # @return [Array<String>]
     attr_accessor :allowed_envs
