@@ -41,10 +41,45 @@ describe Clearance::BackDoor do
     expect(result).to eq mock_app.call(env)
   end
 
-  it "can't be used outside the test environment" do
+  it "can't be used outside the allowed environments" do
     with_environment("RAILS_ENV" => "production") do
       expect { Clearance::BackDoor.new(mock_app) }.
-        to raise_exception "Can't use backdoor outside test environment"
+        to raise_exception "Can't use auth backdoor outside of configured \
+          environments (test, ci, development).".squish
+    end
+  end
+
+  context "when the environments are disabled" do
+    before do
+      Clearance.configuration.allowed_backdoor_environments = nil
+    end
+
+    it "raises an error for a default allowed env" do
+      with_environment("RAILS_ENV" => "test") do
+        expect { Clearance::BackDoor.new(mock_app) }.
+          to raise_exception "BackDoor auth is disabled."
+      end
+    end
+  end
+
+  context "when the environments are not defaults" do
+    before do
+      Clearance.configuration.allowed_backdoor_environments = ['demo']
+    end
+
+    it "can be used with configured allowed environments" do
+      with_environment("RAILS_ENV" => "demo") do
+        user_id = "123"
+        user = double("user")
+        allow(User).to receive(:find).with(user_id).and_return(user)
+        env = env_for_user_id(user_id)
+        back_door = Clearance::BackDoor.new(mock_app)
+
+        result = back_door.call(env)
+
+        expect(env[:clearance]).to have_received(:sign_in).with(user)
+        expect(result).to eq mock_app.call(env)
+      end
     end
   end
 

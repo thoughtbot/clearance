@@ -31,8 +31,8 @@ module Clearance
   #   visit new_feedback_path(as: user)
   class BackDoor
     def initialize(app, &block)
-      unless ENV["RAILS_ENV"] == "test"
-        raise "Can't use backdoor outside test environment"
+      unless environment_is_allowed?
+        raise error_message
       end
 
       @app = app
@@ -63,6 +63,28 @@ module Clearance
         @block.call(user_param)
       else
         Clearance.configuration.user_model.find(user_param)
+      end
+    end
+
+    # @api private
+    def environment_is_allowed?
+      allowed_environments.include? ENV["RAILS_ENV"]
+    end
+
+    # @api private
+    def allowed_environments
+      Clearance.configuration.allowed_backdoor_environments || []
+    end
+
+    # @api private
+    def error_message
+      unless allowed_environments.empty?
+        <<-EOS.squish
+          Can't use auth backdoor outside of
+          configured environments (#{allowed_environments.join(", ")}).
+        EOS
+      else
+        "BackDoor auth is disabled."
       end
     end
   end

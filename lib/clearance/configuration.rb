@@ -90,17 +90,23 @@ module Clearance
     # @return [ActiveRecord::Base]
     attr_accessor :user_model
 
+    # The array of allowed environments where `Clearance::BackDoor` is enabled.
+    # Defaults to ["test", "ci", "development"]
+    # @return [Array<String>]
+    attr_accessor :allowed_backdoor_environments
+
     def initialize
       @allow_sign_up = true
-      @cookie_expiration = ->(cookies) { 1.year.from_now.utc }
+      @allowed_backdoor_environments = ["test", "ci", "development"]
       @cookie_domain = nil
-      @cookie_path = '/'
+      @cookie_expiration = ->(cookies) { 1.year.from_now.utc }
       @cookie_name = "remember_token"
+      @cookie_path = '/'
       @httponly = true
       @mailer_sender = 'reply@example.com'
       @redirect_url = '/'
-      @routes = true
       @rotate_csrf_on_sign_in = nil
+      @routes = true
       @secure_cookie = false
       @sign_in_guards = []
     end

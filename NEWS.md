@@ -9,6 +9,8 @@ complete changelog, see the git history for each version via the version links.
 
 - Update the `HttpOnly` cookie setting for the remember token to default to
   true, which prevents the value from being available to JavaScript.
+- Add configuration option to allow the auth backdoor to work in specified
+  environments (defaults to `test`, `development`, `ci`).
 
 [Unreleased]: https://github.com/thoughtbot/clearance/compare/v1.16.2...HEAD
 
