@@ -90,6 +90,11 @@ module Clearance
     # @return [ActiveRecord::Base]
     attr_accessor :user_model
 
+    # The array of explictly allowed environments to use the Clearance::BackDoor in.
+    # Defaults to ["test", "ci", "development"]
+    # @return [Array<String>]
+    attr_accessor :allowed_envs
+
     def initialize
       @allow_sign_up = true
       @cookie_expiration = ->(cookies) { 1.year.from_now.utc }
@@ -103,6 +108,7 @@ module Clearance
       @rotate_csrf_on_sign_in = nil
       @secure_cookie = false
       @sign_in_guards = []
+      @allowed_envs = ["test", "ci", "development"]
     end
 
     def user_model
