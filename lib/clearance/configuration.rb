@@ -108,7 +108,7 @@ module Clearance
       @rotate_csrf_on_sign_in = nil
       @secure_cookie = false
       @sign_in_guards = []
-      @allowed_envs = ["test", "ci", "development"]
+      @allowed_backdoor_environments = ["test", "ci", "development"]
     end
 
     def user_model
