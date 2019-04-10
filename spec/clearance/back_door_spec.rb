@@ -41,10 +41,10 @@ describe Clearance::BackDoor do
     expect(result).to eq mock_app.call(env)
   end
 
-  it "can't be used outside the test environment" do
+  it "can't be used outside the explicitly allowed environments" do
     with_environment("RAILS_ENV" => "production") do
       expect { Clearance::BackDoor.new(mock_app) }.
-        to raise_exception "Can't use backdoor outside test environment"
+        to raise_exception "Can't use backdoor outside of explicitly allowed environments"
     end
   end
 
