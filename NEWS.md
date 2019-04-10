@@ -3,7 +3,7 @@
 The noteworthy changes for each Clearance version are included here. For a
 complete changelog, see the git history for each version via the version links.
 
-## [Unreleased]
+## [1.17.0] - April 11, 2019
 
 ### Changed
 
@@ -12,7 +12,7 @@ complete changelog, see the git history for each version via the version links.
 - Add configuration option to allow the auth backdoor to work in specified
   environments (defaults to `test`, `development`, `ci`).
 
-[Unreleased]: https://github.com/thoughtbot/clearance/compare/v1.16.2...HEAD
+[1.17.0]: https://github.com/thoughtbot/clearance/compare/v1.16.2...1.17.0
 
 ## [1.16.2] - February 25, 2019
 
