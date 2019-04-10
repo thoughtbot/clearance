@@ -93,7 +93,7 @@ module Clearance
     # The array of explictly allowed environments to use Clearance::BackDoor in.
     # Defaults to ["test", "ci", "development"]
     # @return [Array<String>]
-    attr_accessor :allowed_envs
+    attr_accessor :allowed_backdoor_environments
 
     def initialize
       @allow_sign_up = true
