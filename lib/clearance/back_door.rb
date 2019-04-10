@@ -31,7 +31,7 @@ module Clearance
   #   visit new_feedback_path(as: user)
   class BackDoor
     def initialize(app, &block)
-      unless Clearance.configuration.allowed_backdoor_environments.include? ENV["RAILS_ENV"]
+      unless environment_is_allowed?
         raise "Can't use backdoor outside of explicitly allowed envs"
       end
 
@@ -64,6 +64,14 @@ module Clearance
       else
         Clearance.configuration.user_model.find(user_param)
       end
+    end
+
+    # @api private
+    def environment_is_allowed?
+      unless Clearance.configuration.allowed_backdoor_environments.include? ENV["RAILS_ENV"]
+        return false
+      end
+      return true
     end
   end
 end

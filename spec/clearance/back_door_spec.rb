@@ -48,6 +48,22 @@ describe Clearance::BackDoor do
     end
   end
 
+  it "can be used with non-default explicitly allowed envs" do
+    Clearance.configuration.allowed_backdoor_environments.push("demo")
+    with_environment("RAILS_ENV" => "demo") do
+      user_id = "123"
+      user = double("user")
+      allow(User).to receive(:find).with(user_id).and_return(user)
+      env = env_for_user_id(user_id)
+      back_door = Clearance::BackDoor.new(mock_app)
+
+      result = back_door.call(env)
+
+      expect(env[:clearance]).to have_received(:sign_in).with(user)
+      expect(result).to eq mock_app.call(env)
+    end 
+  end
+
   def env_without_user_id
     env_for_user_id("")
   end
