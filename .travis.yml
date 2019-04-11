@@ -5,9 +5,9 @@ language:
 
 rvm:
   - 2.3.8
-  - 2.4.5
-  - 2.5.3
-  - 2.6.1
+  - 2.4.6
+  - 2.5.5
+  - 2.6.2
 
 gemfile:
   - gemfiles/rails_4.2.gemfile
@@ -29,6 +29,6 @@ branches:
 matrix:
   allow_failures:
     - gemfile: gemfiles/rails_4.2.gemfile
-      rvm: 2.6.1
+      rvm: 2.6.2
 
 sudo: false

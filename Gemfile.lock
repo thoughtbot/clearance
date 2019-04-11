@@ -149,7 +149,6 @@ DEPENDENCIES
   addressable (~> 2.6.0)
   ammeter
   appraisal
-  bundler (~> 1.3)
   capybara (>= 2.6.2)
   clearance!
   database_cleaner (~> 1.0)
