@@ -16,7 +16,7 @@ complete changelog, see the git history for each version via the version links.
 - Flash messages now use `flash[:alert]` rather than `flash[:notice]` as they
   were used as errors more often than notices.
 
-[2.0.0.beta1]: https://github.com/thoughtbot/clearance/compare/v1.16.2...v2.0.0.beta1
+[2.0.0.beta1]: https://github.com/thoughtbot/clearance/compare/v1.17.0...v2.0.0.beta1
 
 ## [1.17.0] - April 11, 2019
 
