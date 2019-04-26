@@ -33,6 +33,10 @@ module Dummy
       end
     end
 
+    if Rails::VERSION::MAJOR >= 6
+      config.action_mailer.delivery_job = "ActionMailer::MailDeliveryJob"
+    end
+
     config.active_job.queue_adapter = :inline
 
     def require_environment!
