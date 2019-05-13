@@ -24,7 +24,6 @@ install:
 branches:
   only:
     - master
-    - 2.0
 
 matrix:
   allow_failures:
