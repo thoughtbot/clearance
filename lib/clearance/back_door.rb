@@ -68,7 +68,7 @@ module Clearance
 
     # @api private
     def environment_is_allowed?
-      allowed_environments.include? ENV["RAILS_ENV"]
+      allowed_environments.include? Rails.env
     end
 
     # @api private
