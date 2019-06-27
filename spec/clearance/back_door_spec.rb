@@ -1,9 +1,6 @@
 require "spec_helper"
-require "support/environment"
 
 describe Clearance::BackDoor do
-  include EnvironmentSupport
-
   it "signs in as a given user" do
     user_id = "123"
     user = double("user")
@@ -42,7 +39,7 @@ describe Clearance::BackDoor do
   end
 
   it "can't be used outside the allowed environments" do
-    with_environment("RAILS_ENV" => "production") do
+    with_environment("production") do
       expect { Clearance::BackDoor.new(mock_app) }.
         to raise_exception "Can't use auth backdoor outside of configured \
           environments (test, ci, development).".squish
@@ -55,7 +52,7 @@ describe Clearance::BackDoor do
     end
 
     it "raises an error for a default allowed env" do
-      with_environment("RAILS_ENV" => "test") do
+      with_environment("test") do
         expect { Clearance::BackDoor.new(mock_app) }.
           to raise_exception "BackDoor auth is disabled."
       end
@@ -68,7 +65,7 @@ describe Clearance::BackDoor do
     end
 
     it "can be used with configured allowed environments" do
-      with_environment("RAILS_ENV" => "demo") do
+      with_environment("demo") do
         user_id = "123"
         user = double("user")
         allow(User).to receive(:find).with(user_id).and_return(user)
@@ -99,5 +96,14 @@ describe Clearance::BackDoor do
 
   def mock_app
     lambda { |env| [200, {}, ["okay"]] }
+  end
+
+  def with_environment(environment)
+    original_env = Rails.env
+    Rails.env = environment
+
+    yield
+  ensure
+    Rails.env = original_env
   end
 end
