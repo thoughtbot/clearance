@@ -38,12 +38,6 @@ module Features
     def expect_user_to_be_signed_out
       expect(page).to have_content I18n.t("layouts.application.sign_in")
     end
-
-    def user_with_reset_password
-      user = FactoryBot.create(:user)
-      reset_password_for user.email
-      user.reload
-    end
   end
 end
 

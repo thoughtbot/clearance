@@ -8,6 +8,7 @@ require 'clearance/user'
 require 'clearance/engine'
 require 'clearance/password_strategies'
 require 'clearance/constraints'
+require "clearance/password_reset_token"
 
 module Clearance
 end

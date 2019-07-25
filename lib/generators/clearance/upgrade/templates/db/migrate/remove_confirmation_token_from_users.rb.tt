@@ -1,0 +1,5 @@
+class RemoveConfirmationTokenFromUsers < ActiveRecord::Migration<%= migration_version %>
+  def change
+    remove_column :<%= Clearance.configuration.user_model.table_name %>, :confirmation_token, type: :string, limit: 128
+  end
+end

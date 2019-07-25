@@ -1,3 +1,5 @@
+require "clearance/tokenizer"
+
 module Clearance
   class Configuration
     # Controls whether the sign up route is enabled.
@@ -46,6 +48,16 @@ module Clearance
     # Defaults to reply@example.com.
     # @return [String]
     attr_accessor :mailer_sender
+
+    # Used to generate and verify secure encrypted tokens
+    # Defaults to `Clearance::Tokenizer`
+    # @return [#new #generate #valid?]
+    attr_accessor :tokenizer
+
+    # Determines how long password reset emails are valid for
+    # Defaults to 15 minutes
+    # @return [Integer]
+    attr_accessor :password_reset_time_limit
 
     # The password strategy to use when authenticating and setting passwords.
     # Defaults to {Clearance::PasswordStrategies::BCrypt}.
@@ -104,6 +116,8 @@ module Clearance
       @cookie_path = '/'
       @httponly = true
       @mailer_sender = 'reply@example.com'
+      @tokenizer = Clearance::Tokenizer
+      @password_reset_time_limit = 15.minutes
       @redirect_url = '/'
       @rotate_csrf_on_sign_in = nil
       @routes = true

@@ -17,6 +17,8 @@ en:
     failure_when_forbidden: Please double check the URL or try submitting
       the form again.
     failure_when_not_signed_in: Please sign in to continue.
+    failure_when_password_reset_invalid: Your password reset token has expired
+      or is invalid.
   helpers:
     label:
       password:
