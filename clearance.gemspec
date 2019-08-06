@@ -37,7 +37,7 @@ Gem::Specification.new do |s|
   s.name = %q{clearance}
   s.rdoc_options = ['--charset=UTF-8']
   s.require_paths = ['lib']
-  s.required_ruby_version = Gem::Requirement.new('>= 2.3.0')
+  s.required_ruby_version = Gem::Requirement.new('>= 2.4.0')
   s.summary = 'Rails authentication & authorization with email & password.'
   s.test_files = `git ls-files -- {spec}/*`.split("\n")
   s.version = Clearance::VERSION

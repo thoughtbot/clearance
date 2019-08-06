@@ -3,6 +3,14 @@
 The noteworthy changes for each Clearance version are included here. For a
 complete changelog, see the git history for each version via the version links.
 
+## [Unreleased]
+
+### Removed
+
+- Removed support for Ruby versions older than 2.4
+
+[Unreleased]: https://github.com/thoughtbot/clearance/compare/v2.0.0.beta1...HEAD
+
 ## [2.0.0.beta1] - April 12, 2019
 
 ### Removed
