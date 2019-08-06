@@ -81,7 +81,10 @@ module Clearance
       end
 
       @current_user = nil
-      cookies.delete remember_token_cookie, domain: Clearance.configuration.cookie_domain
+      cookies.delete(
+        remember_token_cookie,
+        domain: Clearance.configuration.cookie_domain,
+      )
     end
 
     # True if {#current_user} is set.
