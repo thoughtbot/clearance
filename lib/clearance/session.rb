@@ -56,15 +56,9 @@ module Clearance
       status = run_sign_in_stack
 
       if status.success?
-<<<<<<< HEAD
         # Sign in succeeded, and when {RackSession} is run and calls
         # {#add_cookie_to_headers} it will set the cookie with the
         # remember_token for the current_user
-=======
-        cookies[remember_token_cookie] = cookie_options.merge(
-          value: user && user.remember_token,
-        )
->>>>>>> fc6f367... Lint
       else
         @current_user = nil
       end
@@ -87,18 +81,7 @@ module Clearance
       end
 
       @current_user = nil
-<<<<<<< HEAD
       cookies.delete remember_token_cookie, domain: Clearance.configuration.cookie_domain
-=======
-      if Clearance.configuration.cookie_domain.present?
-        cookies.delete(
-          remember_token_cookie,
-          domain: Clearance.configuration.cookie_domain,
-        )
-      else
-        cookies.delete remember_token_cookie
-      end
->>>>>>> fc6f367... Lint
     end
 
     # True if {#current_user} is set.
