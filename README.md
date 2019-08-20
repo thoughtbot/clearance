@@ -130,6 +130,16 @@ Clearance.configure do |config|
 end
 ```
 
+### Multiple Domain Support
+
+You can support multiple domains, or other special domain configurations by optionally setting `cookie_domain` as a callable object. The first argument passed to the method is an ActionDispatch::Request object.
+
+```ruby
+Clearance.configure do |config|
+  config.cookie_domain = lambda { |request| request.host }
+end
+```
+
 ### Integrating with Rack Applications
 
 Clearance adds its session to the Rack environment hash so middleware and other
