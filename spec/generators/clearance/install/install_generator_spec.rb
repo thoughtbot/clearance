@@ -128,10 +128,6 @@ describe Clearance::Generators::InstallGenerator, :generator do
   end
 
   def models_inherit_from
-    if Rails.version >= "5.0.0"
-      "ApplicationRecord"
-    else
-      "ActiveRecord::Base"
-    end
+    "ApplicationRecord"
   end
 end

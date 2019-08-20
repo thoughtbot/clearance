@@ -8,6 +8,7 @@ complete changelog, see the git history for each version via the version links.
 ### Removed
 
 - Removed support for Ruby versions older than 2.4
+- Removed support for Rails versions older than 5.0
 
 [Unreleased]: https://github.com/thoughtbot/clearance/compare/v2.0.0.beta1...HEAD
 
