@@ -154,13 +154,22 @@ module Clearance
     # @api private
     def cookie_options
       {
-        domain: Clearance.configuration.cookie_domain,
+        domain: domain,
         expires: remember_token_expires,
         httponly: Clearance.configuration.httponly,
         path: Clearance.configuration.cookie_path,
         secure: Clearance.configuration.secure_cookie,
         value: remember_token,
       }
+    end
+
+    # @api private
+    def domain
+      if Clearance.configuration.cookie_domain.respond_to?(:call)
+        Clearance.configuration.cookie_domain.call(ActionDispatch::Request.new(@env))
+      else
+        Clearance.configuration.cookie_domain
+      end
     end
   end
 end

@@ -241,14 +241,28 @@ describe Clearance::Session do
   describe 'cookie domain option' do
     context 'when set' do
       before do
-        Clearance.configuration.cookie_domain = '.example.com'
+        Clearance.configuration.cookie_domain = cookie_domain
         session.sign_in(user)
       end
 
-      it 'sets a standard cookie' do
-        session.add_cookie_to_headers(headers)
+      context 'with string' do
+        let(:cookie_domain) { '.example.com' }
 
-        expect(headers['Set-Cookie']).to match(/domain=\.example\.com; path/)
+        it 'sets a standard cookie' do
+          session.add_cookie_to_headers(headers)
+
+          expect(headers['Set-Cookie']).to match(/domain=\.example\.com; path/)
+        end
+      end
+
+      context 'with lambda' do
+        let(:cookie_domain) { lambda {|r| '.example.com' } }
+
+        it 'sets a standard cookie' do
+          session.add_cookie_to_headers(headers)
+
+          expect(headers['Set-Cookie']).to match(/domain=\.example\.com; path/)
+        end
       end
     end
 
