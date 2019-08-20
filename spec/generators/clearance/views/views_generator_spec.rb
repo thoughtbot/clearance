@@ -22,7 +22,6 @@ describe Clearance::Generators::ViewsGenerator, :generator do
 
     view_files.each do |each|
       expect(each).to exist
-      expect(each).to have_correct_syntax
     end
   end
 
