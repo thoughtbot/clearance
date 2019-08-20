@@ -34,11 +34,7 @@ module GeneratorSpecHelpers
   end
 
   def versionize_template(template_file)
-    if Rails.version >= "5.0.0"
-      template_file = ["rails5", template_file].join("/")
-    end
-
-    template_file
+    ["rails5", template_file].join("/")
   end
 end
 

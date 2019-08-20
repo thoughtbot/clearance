@@ -29,12 +29,10 @@ RSpec.configure do |config|
 
   config.before { restore_default_warning_free_config }
 
-  if Rails::VERSION::MAJOR >= 5
-    require 'rails-controller-testing'
-    config.include Rails::Controller::Testing::TestProcess
-    config.include Rails::Controller::Testing::TemplateAssertions
-    config.include Rails::Controller::Testing::Integration
-  end
+  require 'rails-controller-testing'
+  config.include Rails::Controller::Testing::TestProcess
+  config.include Rails::Controller::Testing::TemplateAssertions
+  config.include Rails::Controller::Testing::Integration
 end
 
 Shoulda::Matchers.configure do |config|
