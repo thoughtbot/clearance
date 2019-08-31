@@ -112,7 +112,7 @@ module Clearance
     end
 
     def user_model
-      @user_model ||= ::User
+      (@user_model || "User").to_s.constantize
     end
 
     # Is the user sign up route enabled?
