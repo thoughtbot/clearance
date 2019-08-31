@@ -8,9 +8,22 @@ describe Clearance::Configuration do
   end
 
   context "when a custom user_model_name is specified" do
-    it "is used instead of User" do
+    before(:each) do
       MyUser = Class.new
+    end
+
+    after(:each) do
+      Object.send(:remove_const, :MyUser)
+    end
+
+    it "is used instead of User" do
       Clearance.configure { |config| config.user_model = MyUser }
+
+      expect(Clearance.configuration.user_model).to eq ::MyUser
+    end
+
+    it "can be specified as a string to avoid triggering autoloading" do
+      Clearance.configure { |config| config.user_model = "MyUser" }
 
       expect(Clearance.configuration.user_model).to eq ::MyUser
     end
