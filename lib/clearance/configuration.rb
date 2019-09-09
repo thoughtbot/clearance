@@ -42,6 +42,15 @@ module Clearance
     # @return [Boolean]
     attr_accessor :httponly
 
+    # Same-site cookies ("First-Party-Only" or "First-Party") allow servers to
+    # mitigate the risk of CSRF and information leakage attacks by asserting
+    # that a particular cookie should only be sent with requests initiated from
+    # the same registrable domain.
+    # Defaults to `nil`. For more, see
+    # [RFC6265](https://tools.ietf.org/html/draft-west-first-party-cookies-06#section-4.1.1).
+    # @return [String]
+    attr_accessor :same_site
+
     # Controls the address the password reset email is sent from.
     # Defaults to reply@example.com.
     # @return [String]
@@ -103,6 +112,7 @@ module Clearance
       @cookie_name = "remember_token"
       @cookie_path = '/'
       @httponly = true
+      @same_site = nil
       @mailer_sender = 'reply@example.com'
       @redirect_url = '/'
       @rotate_csrf_on_sign_in = nil
