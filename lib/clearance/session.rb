@@ -157,6 +157,7 @@ module Clearance
         domain: Clearance.configuration.cookie_domain,
         expires: remember_token_expires,
         httponly: Clearance.configuration.httponly,
+        same_site: Clearance.configuration.same_site,
         path: Clearance.configuration.cookie_path,
         secure: Clearance.configuration.secure_cookie,
         value: remember_token,

@@ -170,6 +170,31 @@ describe Clearance::Session do
     end
   end
 
+  context "if same_site is set" do
+    before do
+      Clearance.configuration.same_site = :lax
+      session.sign_in(user)
+    end
+
+    it "sets a same-site cookie" do
+      session.add_cookie_to_headers(headers)
+
+      expect(headers["Set-Cookie"]).to match(/remember_token=.+; SameSite/)
+    end
+  end
+
+  context "if same_site is not set" do
+    before do
+      session.sign_in(user)
+    end
+
+    it "sets a standard cookie" do
+      session.add_cookie_to_headers(headers)
+
+      expect(headers["Set-Cookie"]).to_not match(/remember_token=.+; SameSite/)
+    end
+  end
+
   describe 'remember token cookie expiration' do
     context 'default configuration' do
       it 'is set to 1 year from now' do
