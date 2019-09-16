@@ -31,8 +31,8 @@ Run the bundle command to install it.
 
 After you install Clearance, you need to run the generator:
 
-```sh
-$ rails generate clearance:install
+```shell
+rails generate clearance:install
 ```
 
 The Clearance install generator:
@@ -132,7 +132,9 @@ end
 
 ### Multiple Domain Support
 
-You can support multiple domains, or other special domain configurations by optionally setting `cookie_domain` as a callable object. The first argument passed to the method is an ActionDispatch::Request object.
+You can support multiple domains, or other special domain configurations by
+optionally setting `cookie_domain` as a callable object. The first argument
+passed to the method is an ActionDispatch::Request object.
 
 ```ruby
 Clearance.configure do |config|
@@ -171,15 +173,16 @@ As of Clearance 1.5 it is recommended that you disable Clearance routes and take
 full control over routing and URL design. This ensures that your app's URL design
 won't be affected if the gem's routes and URL design are changed.
 
-To disable the routes, change the `routes` configuration option to false: 
+To disable the routes, change the `routes` configuration option to false:
 
 ```ruby
 Clearance.configure do |config|
   config.routes = false
 end
 ```
-You can optionally run `rails generate clearance:routes` to dump a copy of the default routes into your
-application for modification.
+
+You can optionally run `rails generate clearance:routes` to dump a copy of the
+default routes into your application for modification.
 
 ### Controllers
 
@@ -236,7 +239,7 @@ You can use the Clearance views generator to copy the default views to your
 application for modification.
 
 ```shell
-$ rails generate clearance:views
+rails generate clearance:views
 ```
 
 ### Layouts
@@ -255,8 +258,10 @@ end
 
 ### Translations
 
-All flash messages and email subject lines are stored in [i18n translations](http://guides.rubyonrails.org/i18n.html). Override them like any other
-translation.
+All flash messages and email subject lines are stored in [i18n translations].
+Override them like any other translation.
+
+[i18n translations]: http://guides.rubyonrails.org/i18n.html
 
 See [config/locales/clearance.en.yml](/config/locales/clearance.en.yml) for the
 default behavior.
@@ -387,7 +392,7 @@ feature specs, will also require `factory_bot_rails`.
 To Generate the clearance specs, run:
 
 ```shell
-$ rails generate clearance:specs
+rails generate clearance:specs
 ```
 
 ### Controller Test Helpers
