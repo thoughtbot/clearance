@@ -165,13 +165,21 @@ module Clearance
 
     # @api private
     def domain
-      configured_cookie_domain = Clearance.configuration.cookie_domain
-
       if configured_cookie_domain.respond_to?(:call)
-        configured_cookie_domain.call(ActionDispatch::Request.new(@env))
+        configured_cookie_domain.call(request_with_env)
       else
         configured_cookie_domain
       end
+    end
+
+    # @api private
+    def configured_cookie_domain
+      Clearance.configuration.cookie_domain
+    end
+
+    # @api private
+    def request_with_env
+      ActionDispatch::Request.new(@env)
     end
   end
 end
