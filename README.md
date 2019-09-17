@@ -215,7 +215,8 @@ application#url_after_denied_access_when_signed_in
 To override them all at once, change the global configuration of `redirect_url`.
 To change individual URLs, override the appropriate method.
 
-`application#url_after_denied_access_when_signed_out` defaults to `sign_in_url`.
+`application#url_after_denied_access_when_signed_out` and `sessions#url_after_destroy`
+defaults to `sign_in_url`.
 Override this method to change this.
 
 ### Views
