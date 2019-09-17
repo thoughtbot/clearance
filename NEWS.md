@@ -5,6 +5,16 @@ complete changelog, see the git history for each version via the version links.
 
 ## [Unreleased]
 
+### Added
+
+- Add support for Rails version 6
+- Allow `cookie_domain` to be configured with a lambda for custom configuration
+
+### Fixed
+
+- The backdoor auth mechanism now supports scenarios where `Rails.env` has been
+  configured via env variables other than `RAILS_ENV` (`RACK_ENV` for example).
+
 ### Removed
 
 - Removed support for Ruby versions older than 2.4
