@@ -201,23 +201,29 @@ class UsersController < Clearance::UsersController
 
 ### Redirects
 
-All of these controller methods redirect to
+The post-action redirects in Clearance are simple methods which can be
+overridden one by one, or configured globally.
+
+These "success" methods are called for signed in users, and redirect to
 `Clearance.configuration.redirect_url` (which is `/` by default):
 
-```
-passwords#url_after_update
-sessions#url_after_create
-sessions#url_for_signed_in_users
-users#url_after_create
-application#url_after_denied_access_when_signed_in
-```
+- `passwords#url_after_update`
+- `sessions#url_after_create`
+- `sessions#url_for_signed_in_users`
+- `users#url_after_create`
+- `application#url_after_denied_access_when_signed_in`
 
 To override them all at once, change the global configuration of `redirect_url`.
-To change individual URLs, override the appropriate method.
+To change individual URLs, override the appropriate method in your subclassed
+controller.
 
-`application#url_after_denied_access_when_signed_out` and `sessions#url_after_destroy`
-defaults to `sign_in_url`.
-Override this method to change this.
+These "failure" methods are called for signed out sessions:
+
+- `application#url_after_denied_access_when_signed_out`
+- `sessions#url_after_destroy`
+
+They both default to `sign_in_url`. Override this method to change both of their
+behavior, or override them individually to just change one.
 
 ### Views
 
