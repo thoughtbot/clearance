@@ -78,12 +78,8 @@ module Clearance
           @controller.request.env[:clearance]
         end
 
-        def flash_alert
-          @controller.flash[:alert]
-        end
-
         def flash_alert_value
-          flash_alert.values.first
+          @controller.flash[:alert]
         end
 
         def redirects_to_url?
