@@ -3,10 +3,12 @@
 The noteworthy changes for each Clearance version are included here. For a
 complete changelog, see the git history for each version via the version links.
 
-## [Unreleased]
+## [2.0.0] - November 12, 2019
 
 ### Added
 
+- Add support for Rails version 6
+- Allow `cookie_domain` to be configured with a lambda for custom configuration
 - Add ability to configure BCrypt computational cost of hash calculation.
 - Add `same_site` configuration option for increased CSRF protection.
 
@@ -14,18 +16,6 @@ complete changelog, see the git history for each version via the version links.
 
 - Fix issue where invalid params could raise `NoMethodError` when updating and
   resetting passwords.
-
-[Unreleased]: https://github.com/thoughtbot/clearance/compare/v2.0.0.beta2...HEAD
-
-## [2.0.0.beta2] - September 17, 2019
-
-### Added
-
-- Add support for Rails version 6
-- Allow `cookie_domain` to be configured with a lambda for custom configuration
-
-### Fixed
-
 - The backdoor auth mechanism now supports scenarios where `Rails.env` has been
   configured via env variables other than `RAILS_ENV` (`RACK_ENV` for example).
 
@@ -33,15 +23,6 @@ complete changelog, see the git history for each version via the version links.
 
 - Removed support for Ruby versions older than 2.4
 - Removed support for Rails versions older than 5.0
-
-[2.0.0.beta2]: https://github.com/thoughtbot/clearance/compare/v2.0.0.beta1...v2.0.0.beta2
-
-## [2.0.0.beta1] - April 12, 2019
-
-### Removed
-
-- Removed support for Ruby versions older than 2.3
-- Removed support for Rails versions older than 4.2
 - Removed all deprecated code from Clearance 1.x
 
 ### Changed
@@ -49,7 +30,7 @@ complete changelog, see the git history for each version via the version links.
 - Flash messages now use `flash[:alert]` rather than `flash[:notice]` as they
   were used as errors more often than notices.
 
-[2.0.0.beta1]: https://github.com/thoughtbot/clearance/compare/v1.17.0...v2.0.0.beta1
+[2.0.0]: https://github.com/thoughtbot/clearance/compare/v1.17.0...v2.0.0
 
 ## [1.17.0] - April 11, 2019
 
