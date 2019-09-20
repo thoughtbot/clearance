@@ -5,6 +5,7 @@ PATH
       actionmailer (>= 5.0)
       activemodel (>= 5.0)
       activerecord (>= 5.0)
+      argon2 (~> 2.0, >= 2.0.2)
       bcrypt (>= 3.1.1)
       email_validator (~> 2.0)
       railties (>= 5.0)
@@ -55,6 +56,9 @@ GEM
       bundler
       rake
       thor (>= 0.14.0)
+    argon2 (2.0.2)
+      ffi (~> 1.9)
+      ffi-compiler (>= 0.1)
     bcrypt (3.1.13)
     builder (3.2.4)
     capybara (3.31.0)
@@ -78,6 +82,10 @@ GEM
     factory_bot_rails (5.1.1)
       factory_bot (~> 5.1.0)
       railties (>= 4.2.0)
+    ffi (1.11.1)
+    ffi-compiler (1.0.1)
+      ffi (>= 1.0.0)
+      rake
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     i18n (1.8.2)

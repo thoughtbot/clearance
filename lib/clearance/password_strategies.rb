@@ -13,10 +13,11 @@ module Clearance
   # `password=(new_password)`. For an example of how to implement these methods,
   # see {Clearance::PasswordStrategies::BCrypt}.
   module PasswordStrategies
-    autoload :BCrypt, 'clearance/password_strategies/bcrypt'
+    autoload :BCrypt, "clearance/password_strategies/bcrypt"
+    autoload :Argon2, "clearance/password_strategies/argon2"
     autoload :BCryptMigrationFromSHA1,
-      'clearance/password_strategies/bcrypt_migration_from_sha1'
-    autoload :Blowfish, 'clearance/password_strategies/blowfish'
-    autoload :SHA1, 'clearance/password_strategies/sha1'
+             "clearance/password_strategies/bcrypt_migration_from_sha1"
+    autoload :Blowfish, "clearance/password_strategies/blowfish"
+    autoload :SHA1, "clearance/password_strategies/sha1"
   end
 end
