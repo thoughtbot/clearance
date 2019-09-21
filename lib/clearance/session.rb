@@ -147,7 +147,7 @@ module Clearance
       guards = Clearance.configuration.sign_in_guards
 
       guards.inject(default_guard) do |stack, guard_class|
-        guard_class.new(self, stack)
+        guard_class.to_s.constantize.new(self, stack)
       end
     end
 

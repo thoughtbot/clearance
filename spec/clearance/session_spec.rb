@@ -129,6 +129,12 @@ describe Clearance::Session do
 
       def stub_guard_class(guard)
         double("guard_class").tap do |guard_class|
+          allow(guard_class).to receive(:to_s).
+            and_return(guard_class)
+
+          allow(guard_class).to receive(:constantize).
+            and_return(guard_class)
+
           allow(guard_class).to receive(:new).
             with(session, stub_default_sign_in_guard).
             and_return(guard)
