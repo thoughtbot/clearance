@@ -281,6 +281,13 @@ for access to additional, user-contributed translations.
 See [lib/clearance/user.rb](/lib/clearance/user.rb) for the default behavior.
 You can override those methods as needed.
 
+Note that there are some model-level validations (see above link for detail)
+which the `Clearance::User` module will add to the configured model class and
+which may conflict with or duplicate already present validations on the `email`
+and `password` attributes. Over-riding the `email_optional?` or
+`skip_password_validation?` methods to return `true` will disable those
+validations from being added.
+
 ### Deliver Email in Background Job
 
 Clearance has a password reset mailer. If you are using Rails 4.2 and Clearance
