@@ -15,9 +15,7 @@ module Clearance
         @password = new_password
 
         if new_password.present?
-          hasher = ::Argon2::Password.new(t_cost: 2, m_cost: 16)
-
-          self.encrypted_password = hasher.create(new_password)
+          self.encrypted_password = ::Argon2::Password.new.create(new_password)
         end
       end
     end
