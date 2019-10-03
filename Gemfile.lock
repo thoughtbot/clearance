@@ -73,9 +73,9 @@ GEM
     email_validator (1.6.0)
       activemodel
     erubi (1.9.0)
-    factory_bot (5.1.0)
+    factory_bot (5.1.1)
       activesupport (>= 4.2.0)
-    factory_bot_rails (5.1.0)
+    factory_bot_rails (5.1.1)
       factory_bot (~> 5.1.0)
       railties (>= 4.2.0)
     globalid (0.4.2)
