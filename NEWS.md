@@ -8,6 +8,7 @@ complete changelog, see the git history for each version via the version links.
 ### Added
 
 - Add ability to configure BCrypt computational cost of hash calculation.
+- Add `same_site` configuration option for increased CSRF protection.
 
 ### Fixed
 

@@ -48,6 +48,7 @@ module Clearance
     # the same registrable domain.
     # Defaults to `nil`. For more, see
     # [RFC6265](https://tools.ietf.org/html/draft-west-first-party-cookies-06#section-4.1.1).
+    # and https://github.com/rack/rack/blob/6eda04886e3a57918ca2d6a482fda02a678fef0a/lib/rack/utils.rb#L232-L244
     # @return [String]
     attr_accessor :same_site
 
