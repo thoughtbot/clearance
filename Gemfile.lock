@@ -139,7 +139,7 @@ GEM
       thread_safe (~> 0.1)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.1.10)
+    zeitwerk (2.2.0)
 
 PLATFORMS
   ruby
