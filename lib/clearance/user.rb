@@ -60,7 +60,7 @@ module Clearance
   #   @see PasswordStrategies
   #   @return [void]
   #
-  # @!method authenticated?
+  # @!method authenticated?(password)
   #   Check's the provided password against the user's encrypted password using
   #   the configured password strategy. By default, this will be
   #   {PasswordStrategies::BCrypt#authenticated?}, but can be changed with
