@@ -9,6 +9,10 @@ complete changelog, see the git history for each version via the version links.
 
 - Delete cookies when custom domain is being used.
 
+### Changed
+
+- Update `email_validator` gem and use more relaxed email validation options.
+
 [Unreleased]: https://github.com/thoughtbot/clearance/compare/v2.0.0...HEAD
 
 ## [2.0.0] - November 12, 2019
