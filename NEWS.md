@@ -3,6 +3,14 @@
 The noteworthy changes for each Clearance version are included here. For a
 complete changelog, see the git history for each version via the version links.
 
+## Unreleased
+
+### Fixed
+
+- Delete cookies when custom domain is being used.
+
+[Unreleased]: https://github.com/thoughtbot/clearance/compare/v2.0.0...HEAD
+
 ## [2.0.0] - November 12, 2019
 
 ### Added
