@@ -98,7 +98,7 @@ module Clearance
     # The ActiveRecord class that represents users in your application.
     # Defaults to `::User`.
     # @return [ActiveRecord::Base]
-    attr_accessor :user_model
+    attr_writer :user_model
 
     # The array of allowed environments where `Clearance::BackDoor` is enabled.
     # Defaults to ["test", "ci", "development"]
@@ -122,6 +122,9 @@ module Clearance
       @sign_in_guards = []
     end
 
+    # The class representing the configured user model.
+    # In the default configuration, this is the `User` class.
+    # @return [Class]
     def user_model
       (@user_model || "User").to_s.constantize
     end
