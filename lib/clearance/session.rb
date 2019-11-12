@@ -81,15 +81,7 @@ module Clearance
       end
 
       @current_user = nil
-
-      if Clearance.configuration.cookie_domain
-        cookies.delete(
-          remember_token_cookie,
-          domain: Clearance.configuration.cookie_domain,
-        )
-      else
-        cookies.delete remember_token_cookie
-      end
+      cookies.delete remember_token_cookie, delete_cookie_options
     end
 
     # True if {#current_user} is set.
@@ -170,6 +162,15 @@ module Clearance
         secure: Clearance.configuration.secure_cookie,
         value: remember_token,
       }
+    end
+
+    # @api private
+    def delete_cookie_options
+      Hash.new.tap do |options|
+        if configured_cookie_domain
+          options[:domain] = configured_cookie_domain
+        end
+      end
     end
 
     # @api private

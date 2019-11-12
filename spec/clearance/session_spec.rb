@@ -357,7 +357,7 @@ describe Clearance::Session do
     end
 
     context "with custom cookie domain" do
-      domain = ".example.com"
+      let(:domain) { ".example.com" }
 
       before do
         Clearance.configuration.cookie_domain = domain
