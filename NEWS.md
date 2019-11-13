@@ -13,6 +13,9 @@ complete changelog, see the git history for each version via the version links.
 ### Fixed
 
 - Delete cookies when custom domain is being used.
+- Do not set the authorization cookie on requests which don't exercise the
+  authorization code. Avoids leaving the auth cookie in a publicly cacheable
+  page.
 
 ### Changed
 
