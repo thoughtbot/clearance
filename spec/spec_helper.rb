@@ -46,5 +46,4 @@ end
 
 def restore_default_warning_free_config
   Clearance.configuration = nil
-  Clearance.configure { |config| config.rotate_csrf_on_sign_in = true }
 end

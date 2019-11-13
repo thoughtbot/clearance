@@ -121,7 +121,7 @@ module Clearance
       @same_site = nil
       @mailer_sender = 'reply@example.com'
       @redirect_url = '/'
-      @rotate_csrf_on_sign_in = nil
+      @rotate_csrf_on_sign_in = true
       @routes = true
       @secure_cookie = false
       @sign_in_guards = []
@@ -193,22 +193,7 @@ module Clearance
     end
 
     def rotate_csrf_on_sign_in?
-      if rotate_csrf_on_sign_in.nil?
-        warn <<-EOM.squish
-          Clearance's `rotate_csrf_on_sign_in` configuration setting is unset and
-          will be treated as `false`. Setting this value to `true` is
-          recommended to avoid session fixation attacks and will be the default
-          in Clearance 2.0. It is recommended that you opt-in to this setting
-          now and test your application. To silence this warning, set
-          `rotate_csrf_on_sign_in` to `true` or `false` in Clearance's
-          initializer.
-
-          For more information on session fixation, see:
-            https://www.owasp.org/index.php/Session_fixation
-        EOM
-      end
-
-      rotate_csrf_on_sign_in
+      !!rotate_csrf_on_sign_in
     end
   end
 

@@ -183,28 +183,22 @@ describe Clearance::Configuration do
   end
 
   describe "#rotate_csrf_on_sign_in?" do
-    it "defaults to falsey and warns" do
-      Clearance.configuration = Clearance::Configuration.new
-      allow(Clearance.configuration).to receive(:warn)
-
-      expect(Clearance.configuration.rotate_csrf_on_sign_in?).to be_falsey
-      expect(Clearance.configuration).to have_received(:warn)
-    end
-
-    it "is true and does not warn when `rotate_csrf_on_sign_in` is true" do
+    it "is true when `rotate_csrf_on_sign_in` is set to true" do
       Clearance.configure { |config| config.rotate_csrf_on_sign_in = true }
-      allow(Clearance.configuration).to receive(:warn)
 
       expect(Clearance.configuration.rotate_csrf_on_sign_in?).to be true
-      expect(Clearance.configuration).not_to have_received(:warn)
     end
 
-    it "is false and does not warn when `rotate_csrf_on_sign_in` is false" do
+    it "is false when `rotate_csrf_on_sign_in` is set to false" do
       Clearance.configure { |config| config.rotate_csrf_on_sign_in = false }
-      allow(Clearance.configuration).to receive(:warn)
 
       expect(Clearance.configuration.rotate_csrf_on_sign_in?).to be false
-      expect(Clearance.configuration).not_to have_received(:warn)
+    end
+
+    it "is false when `rotate_csrf_on_sign_in` is set to nil" do
+      Clearance.configure { |config| config.rotate_csrf_on_sign_in = nil }
+
+      expect(Clearance.configuration.rotate_csrf_on_sign_in?).to be false
     end
   end
 end
