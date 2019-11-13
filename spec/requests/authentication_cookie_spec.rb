@@ -1,21 +1,55 @@
 require "spec_helper"
 
-describe "Authentication cookie" do
-  it "is not returned if the request does not authenticate" do
-    user = create(:user, password: "password")
+class PagesController < ApplicationController
+  include Clearance::Controller
+  before_action :require_login, only: :private
 
-    post session_path, session: { email: user.email, password: "password" }
+  # A page requiring user authentication
+  def private
+    head :ok
+  end
 
-    get static_endpoint_path
+  # A page that does not require user authentication
+  def public
+    head :ok
+  end
+end
+
+describe "Authentication cookies in the response" do
+  before do
+    draw_test_routes
+    create_user_and_sign_in
+  end
+
+  after do
+    Rails.application.reload_routes!
+  end
+
+  it "are not present if the request does not authenticate" do
+    get public_path
+
     expect(headers["Set-Cookie"]).to be_nil
   end
 
-  it "is returned if the request does authentication" do
+  it "are present if the request does authenticate" do
+    get private_path
+
+    expect(headers["Set-Cookie"]).to match(/remember_token=/)
+  end
+
+  def draw_test_routes
+    Rails.application.routes.draw do
+      get "/private" => "pages#private", as: :private
+      get "/public" => "pages#public", as: :public
+      resource :session, controller: "clearance/sessions", only: [:create]
+    end
+  end
+
+  def create_user_and_sign_in
     user = create(:user, password: "password")
 
-    post session_path, session: { email: user.email, password: "password" }
-
-    get static_endpoint_path(use_current_user: true)
-    expect(headers["Set-Cookie"]).to match(/remember_token=/)
+    post session_path, params: {
+      session: { email: user.email, password: "password" },
+    }
   end
 end
