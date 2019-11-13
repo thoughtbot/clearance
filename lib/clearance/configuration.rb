@@ -100,6 +100,11 @@ module Clearance
     # @return [ActiveRecord::Base]
     attr_writer :user_model
 
+    # The controller class that all Clearance controllers will inherit from.
+    # Defaults to `::ApplicationController`.
+    # @return [ActionController::Base]
+    attr_writer :parent_controller
+
     # The array of allowed environments where `Clearance::BackDoor` is enabled.
     # Defaults to ["test", "ci", "development"]
     # @return [Array<String>]
@@ -127,6 +132,13 @@ module Clearance
     # @return [Class]
     def user_model
       (@user_model || "User").to_s.constantize
+    end
+
+    # The class representing the configured base controller.
+    # In the default configuration, this is the `ApplicationController` class.
+    # @return [Class]
+    def parent_controller
+      (@parent_controller || "ApplicationController").to_s.constantize
     end
 
     # Is the user sign up route enabled?

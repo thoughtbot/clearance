@@ -63,6 +63,7 @@ Clearance.configure do |config|
   config.secure_cookie = false
   config.sign_in_guards = []
   config.user_model = "User"
+  config.parent_controller = "ApplicationController"
 end
 ```
 
