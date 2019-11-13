@@ -5,6 +5,11 @@ complete changelog, see the git history for each version via the version links.
 
 ## Unreleased
 
+### Added
+
+- Add `parent_controller` configuration option to specify the controller that
+  `BaseController` will inherit from. Defaults to `ApplicationController`.
+
 ### Fixed
 
 - Delete cookies when custom domain is being used.
