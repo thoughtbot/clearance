@@ -9,6 +9,8 @@ complete changelog, see the git history for each version via the version links.
 
 - Add `parent_controller` configuration option to specify the controller that
   `BaseController` will inherit from. Defaults to `ApplicationController`.
+- Use a configured `primary_key_type` (for example: `:uuid`) if one is set while
+  generating the migration for the users table.
 
 ### Fixed
 

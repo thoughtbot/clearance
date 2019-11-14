@@ -70,7 +70,30 @@ describe Clearance::Generators::InstallGenerator, :generator do
 
         expect(migration).to exist
         expect(migration).to have_correct_syntax
-        expect(migration).to contain("create_table :users")
+        expect(migration).to contain("create_table :users do")
+      end
+
+      context "active record configured for uuid" do
+        around do |example|
+          preserve_original_primary_key_type_setting do
+            Rails.application.config.generators do |g|
+              g.orm :active_record, primary_key_type: :uuid
+            end
+            example.run
+          end
+        end
+
+        it "creates a migration to create the users table with key type set" do
+          provide_existing_application_controller
+          table_does_not_exist(:users)
+
+          run_generator
+          migration = migration_file("db/migrate/create_users.rb")
+
+          expect(migration).to exist
+          expect(migration).to have_correct_syntax
+          expect(migration).to contain("create_table :users, id: :uuid do")
+        end
       end
     end
 
@@ -121,6 +144,12 @@ describe Clearance::Generators::InstallGenerator, :generator do
     allow(connection).to receive(:data_source_exists?).
       with(name).
       and_return(false)
+  end
+
+  def preserve_original_primary_key_type_setting
+    original = Rails.configuration.generators.active_record[:primary_key_type]
+    yield
+    Rails.configuration.generators.active_record[:primary_key_type] = original
   end
 
   def contain_models_inherit_from
