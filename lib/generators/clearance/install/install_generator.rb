@@ -122,6 +122,16 @@ module Clearance
         "[#{Rails::VERSION::MAJOR}.#{Rails::VERSION::MINOR}]"
       end
 
+      def migration_primary_key_type_string
+        if configured_key_type
+          ", id: :#{configured_key_type}"
+        end
+      end
+
+      def configured_key_type
+        Rails.configuration.generators.active_record[:primary_key_type]
+      end
+
       def models_inherit_from
         "ApplicationRecord"
       end
