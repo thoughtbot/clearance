@@ -20,6 +20,9 @@ complete changelog, see the git history for each version via the version links.
 ### Changed
 
 - Update `email_validator` gem and use more relaxed email validation options.
+
+### Removed
+
 - Remove unused route to `passwords#create` nested under `users`.
 
 [Unreleased]: https://github.com/thoughtbot/clearance/compare/v2.0.0...HEAD
