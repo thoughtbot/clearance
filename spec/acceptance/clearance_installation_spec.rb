@@ -36,8 +36,6 @@ describe "Clearance Installation" do
        --skip-keeps
        --skip-sprockets
     CMD
-
-    FileUtils.rm_f("public/index.html")
   end
 
   def testapp_templates
