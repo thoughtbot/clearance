@@ -38,12 +38,26 @@ describe Clearance::PasswordsController do
     end
 
     context "email param is missing" do
-      it "does not raise error" do
-        expect do
-          post :create, params: {
-            password: {},
+      it "displays flash error on new page" do
+        post :create, params: {
+          password: {},
+        }
+
+        expect(flash.now[:alert]).to match(/email can't be blank/i)
+        expect(response).to render_template(:new)
+      end
+    end
+
+    context "email param is blank" do
+      it "displays flash error on new page" do
+        post :create, params: {
+          password: {
+            email: "",
           }
-        end.not_to raise_error
+        }
+
+        expect(flash.now[:alert]).to match(/email can't be blank/i)
+        expect(response).to render_template(:new)
       end
     end
 

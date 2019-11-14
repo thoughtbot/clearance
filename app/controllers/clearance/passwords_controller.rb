@@ -2,6 +2,7 @@ require 'active_support/deprecation'
 
 class Clearance::PasswordsController < Clearance::BaseController
   before_action :ensure_existing_user, only: [:edit, :update]
+  before_action :ensure_email_present, only: [:create]
   skip_before_action :require_login, only: [:create, :edit, :new, :update], raise: false
 
   def new
@@ -77,6 +78,13 @@ class Clearance::PasswordsController < Clearance::BaseController
     find_user_by_id_and_confirmation_token
   end
 
+  def ensure_email_present
+    if email_from_password_params.blank?
+      flash_failure_when_missing_email
+      render template: "passwords/new"
+    end
+  end
+
   def ensure_existing_user
     unless find_user_by_id_and_confirmation_token
       flash_failure_when_forbidden
@@ -94,6 +102,12 @@ class Clearance::PasswordsController < Clearance::BaseController
     flash.now[:alert] = translate(:blank_password,
       scope: [:clearance, :controllers, :passwords],
       default: t("flashes.failure_after_update"))
+  end
+
+  def flash_failure_when_missing_email
+    flash.now[:alert] = translate(:missing_email,
+      scope: [:clearance, :controllers, :passwords],
+      default: t("flashes.failure_when_missing_email"))
   end
 
   def url_after_update
