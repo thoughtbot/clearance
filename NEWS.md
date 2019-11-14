@@ -22,6 +22,10 @@ complete changelog, see the git history for each version via the version links.
 ### Changed
 
 - Update `email_validator` gem and use more relaxed email validation options.
+- When a password reset request is submitted without an email address, a flash
+  alert is now provided. Previously this continued silently as though it had
+  worked. We still proceed that way when there is an invalid (but present)
+  value, so as not to reveal existent vs. non-existent emails.
 
 ### Removed
 
