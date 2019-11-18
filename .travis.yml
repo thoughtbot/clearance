@@ -28,5 +28,3 @@ matrix:
   exclude:
     - rvm: 2.4.6
       gemfile: gemfiles/rails_6.0.gemfile
-
-sudo: false
