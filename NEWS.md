@@ -7,36 +7,41 @@ complete changelog, see the git history for each version via the version links.
 
 ### Added
 
-- Add `parent_controller` configuration option to specify the controller that
-  `BaseController` will inherit from. Defaults to `ApplicationController`.
-- Use a configured `primary_key_type` (for example: `:uuid`) if one is set while
-  generating the migration for the users table.
+- Add a `parent_controller` configuration option to specify the controller that
+  Clearance's `BaseController` will inherit from. Defaults to a value of
+  `ApplicationController`.
+- Use the configured `primary_key_type` from the Active Record settings of the
+  project including Clearance, if it is set, while generating migrations. For
+  example, a setting of `:uuid` in a Rails app using Clearance will cause the
+  clearance-generated migrations to use this for the `users` table id type.
 
 ### Fixed
 
-- Delete cookies when custom domain is being used.
-- Do not set the authorization cookie on requests which don't exercise the
-  authorization code. Avoids leaving the auth cookie in a publicly cacheable
-  page.
+- Delete cookies correctly when a custom domain setting is being used.
+- Do not set the authorization cookie on requests which did not exercise the
+  authorization code. Reduces the chances of leaving an auth cookie in a
+  publicly cacheable page that didn't require authorization to access.
 
 ### Changed
 
-- Update `email_validator` gem and use more relaxed email validation options.
+- Update the `email_validator` gem to a newer version embrace the more relaxed
+  email validation options which it now defaults to.
 - When a password reset request is submitted without an email address, a flash
   alert is now provided. Previously this continued silently as though it had
   worked. We still proceed that way when there is an invalid (but present)
-  value, so as not to reveal existent vs. non-existent emails.
+  value, so as not to reveal existent vs. non-existent emails in the database.
 
 ### Removed
 
-- Remove unused route to `passwords#create` nested under `users`.
+- Remove an unused route to `passwords#create` nested under `users`.
 - No longer include the (rarely used in practice) application layout as part of
-  the views installer.
+  the views installer; but continue to provide some stock sign-in/out and flash
+  partial code in the gem installation README output.
 
 ### Deprecated
 
-- Remove the deprecation notice around the `rotate_csrf_on_sign_in` setting, and
-  make it default to true.
+- Remove the existing deprecation notice around the `rotate_csrf_on_sign_in`
+  setting, and make that setting default to true.
 
 [Unreleased]: https://github.com/thoughtbot/clearance/compare/v2.0.0...HEAD
 
