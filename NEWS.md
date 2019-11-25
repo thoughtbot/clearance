@@ -30,10 +30,13 @@ complete changelog, see the git history for each version via the version links.
 ### Removed
 
 - Remove unused route to `passwords#create` nested under `users`.
-- Remove the deprecation notice around the `rotate_csrf_on_sign_in` setting, and
-  make it default to true.
 - No longer include the (rarely used in practice) application layout as part of
   the views installer.
+
+### Deprecated
+
+- Remove the deprecation notice around the `rotate_csrf_on_sign_in` setting, and
+  make it default to true.
 
 [Unreleased]: https://github.com/thoughtbot/clearance/compare/v2.0.0...HEAD
 
