@@ -3,7 +3,7 @@
 The noteworthy changes for each Clearance version are included here. For a
 complete changelog, see the git history for each version via the version links.
 
-## [Unreleased]
+## [2.1.0] - December 19, 2019
 
 ### Added
 
@@ -43,7 +43,7 @@ complete changelog, see the git history for each version via the version links.
 - Remove the existing deprecation notice around the `rotate_csrf_on_sign_in`
   setting, and make that setting default to true.
 
-[Unreleased]: https://github.com/thoughtbot/clearance/compare/v2.0.0...HEAD
+[2.1.0]: https://github.com/thoughtbot/clearance/compare/v2.0.0...v2.1.0
 
 ## [2.0.0] - November 12, 2019
 
