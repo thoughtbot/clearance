@@ -4,9 +4,9 @@ language:
   - ruby
 
 rvm:
-  - 2.4.6
-  - 2.5.5
-  - 2.6.2
+  - 2.4.9
+  - 2.5.7
+  - 2.6.5
 
 gemfile:
   - gemfiles/rails_5.0.gemfile
@@ -26,5 +26,5 @@ branches:
 
 matrix:
   exclude:
-    - rvm: 2.4.6
+    - rvm: 2.4.9
       gemfile: gemfiles/rails_6.0.gemfile
