@@ -14,7 +14,7 @@ gem "shoulda-matchers", "~> 4.1"
 gem "timecop", "~> 0.6"
 gem "railties", "~> 6.0.0"
 gem "rails-controller-testing"
-gem "rspec-rails", "~> 4.0.0.beta2"
+gem "rspec-rails", "~> 4.0.0.beta3"
 gem "sqlite3", "~> 1.4.0"
 
 gemspec path: "../"
