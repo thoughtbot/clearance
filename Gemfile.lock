@@ -56,7 +56,7 @@ GEM
       rake
       thor (>= 0.14.0)
     bcrypt (3.1.13)
-    builder (3.2.3)
+    builder (3.2.4)
     capybara (3.29.0)
       addressable
       mini_mime (>= 0.1.3)
