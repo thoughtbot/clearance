@@ -28,7 +28,13 @@ Gem::Specification.new do |s|
     'Galen Frechette',
     'Josh Steiner'
   ]
-  s.description = 'Rails authentication & authorization with email & password.'
+  s.description = <<-DESCRIPTION
+    Clearance is built to support authentication and authorization via an
+    email/password sign-in mechanism in applications.
+
+    It provides some core classes commonly used for these features, along with
+    some opinionated defaults - but is intended to be easy to override.
+  DESCRIPTION
   s.email = 'support@thoughtbot.com'
   s.extra_rdoc_files = %w(LICENSE README.md)
   s.files = `git ls-files`.split("\n")
