@@ -130,7 +130,7 @@ GEM
       rspec-mocks (~> 3.9.0)
       rspec-support (~> 3.9.0)
     rspec-support (3.9.2)
-    shoulda-matchers (4.1.2)
+    shoulda-matchers (4.2.0)
       activesupport (>= 4.2.0)
     thor (1.0.1)
     thread_safe (0.3.6)
