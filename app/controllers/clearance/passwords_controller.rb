@@ -45,8 +45,7 @@ class Clearance::PasswordsController < Clearance::BaseController
   private
 
   def deliver_email(user)
-    mail = ::ClearanceMailer.change_password(user)
-    mail.deliver_later
+    ::ClearanceMailer.change_password(user).deliver_now
   end
 
   def password_from_password_reset_params
