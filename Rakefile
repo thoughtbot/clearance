@@ -28,4 +28,4 @@ task :erb_lint do
 end
 
 desc "Run the specs and acceptance tests"
-task default: %w(spec spec:acceptance)
+task default: %w(spec spec:acceptance erb_lint)
