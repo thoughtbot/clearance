@@ -59,7 +59,16 @@ GEM
     argon2 (2.0.2)
       ffi (~> 1.9)
       ffi-compiler (>= 0.1)
+    ast (2.4.1)
     bcrypt (3.1.15)
+    better_html (1.0.15)
+      actionview (>= 4.0)
+      activesupport (>= 4.0)
+      ast (~> 2.0)
+      erubi (~> 1.4)
+      html_tokenizer (~> 0.0.6)
+      parser (>= 2.4)
+      smart_properties
     builder (3.2.4)
     capybara (3.33.0)
       addressable
@@ -76,6 +85,13 @@ GEM
     diff-lcs (1.4.4)
     email_validator (2.0.1)
       activemodel
+    erb_lint (0.0.34)
+      activesupport
+      better_html (~> 1.0.7)
+      html_tokenizer
+      rainbow
+      rubocop (~> 0.79)
+      smart_properties
     erubi (1.9.0)
     factory_bot (6.1.0)
       activesupport (>= 5.0.0)
@@ -88,6 +104,7 @@ GEM
       rake
     globalid (0.4.2)
       activesupport (>= 4.2.0)
+    html_tokenizer (0.0.7)
     i18n (1.8.5)
       concurrent-ruby (~> 1.0)
     loofah (2.6.0)
@@ -101,6 +118,9 @@ GEM
     minitest (5.14.1)
     nokogiri (1.10.10)
       mini_portile2 (~> 2.4.0)
+    parallel (1.19.2)
+    parser (2.7.1.4)
+      ast (~> 2.4.1)
     pry (0.13.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -123,8 +143,10 @@ GEM
       method_source
       rake (>= 0.8.7)
       thor (>= 0.20.3, < 2.0)
+    rainbow (3.0.0)
     rake (13.0.1)
     regexp_parser (1.7.1)
+    rexml (3.2.4)
     rspec-core (3.9.2)
       rspec-support (~> 3.9.3)
     rspec-expectations (3.9.2)
@@ -142,14 +164,28 @@ GEM
       rspec-mocks (~> 3.9)
       rspec-support (~> 3.9)
     rspec-support (3.9.3)
+    rubocop (0.88.0)
+      parallel (~> 1.10)
+      parser (>= 2.7.1.1)
+      rainbow (>= 2.2.2, < 4.0)
+      regexp_parser (>= 1.7)
+      rexml
+      rubocop-ast (>= 0.1.0, < 1.0)
+      ruby-progressbar (~> 1.7)
+      unicode-display_width (>= 1.4.0, < 2.0)
+    rubocop-ast (0.3.0)
+      parser (>= 2.7.1.4)
+    ruby-progressbar (1.10.1)
     shoulda-matchers (4.3.0)
       activesupport (>= 4.2.0)
+    smart_properties (1.15.0)
     sqlite3 (1.4.2)
     thor (1.0.1)
     thread_safe (0.3.6)
     timecop (0.9.1)
     tzinfo (1.2.7)
       thread_safe (~> 0.1)
+    unicode-display_width (1.7.0)
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zeitwerk (2.4.0)
@@ -164,6 +200,7 @@ DEPENDENCIES
   capybara
   clearance!
   database_cleaner
+  erb_lint
   factory_bot_rails
   nokogiri
   pry

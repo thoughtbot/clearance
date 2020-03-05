@@ -1,0 +1,5 @@
+---
+EnableDefaultLinters: true
+linters:
+  ErbSafety:
+    enabled: true
