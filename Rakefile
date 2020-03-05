@@ -22,5 +22,10 @@ RSpec::Core::RakeTask.new("spec:acceptance") do |task|
   task.verbose = false
 end
 
+desc "Lint ERB templates"
+task :erb_lint do
+  sh("bundle", "exec", "erblint", "app/views/**/*.erb")
+end
+
 desc "Run the specs and acceptance tests"
 task default: %w(spec spec:acceptance)
