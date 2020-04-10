@@ -333,7 +333,7 @@ Here's an example custom guard to handle email confirmation:
 
 ```ruby
 Clearance.configure do |config|
-  config.sign_in_guards = [EmailConfirmationGuard]
+  config.sign_in_guards = ["EmailConfirmationGuard"]
 end
 ```
 
