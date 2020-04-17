@@ -16,6 +16,9 @@ module Clearance
       def authenticated?(password)
         if encrypted_password.present?
           ::BCrypt::Password.new(encrypted_password) == password
+        else
+          ::BCrypt::Password.create(password)
+          false
         end
       end
 
