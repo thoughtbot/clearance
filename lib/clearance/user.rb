@@ -121,7 +121,7 @@ module Clearance
       end
 
       def find_by_normalized_email(email)
-        find_by_email normalize_email(email)
+        find_by(email: normalize_email(email))
       end
 
       def normalize_email(email)
