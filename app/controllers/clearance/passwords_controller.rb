@@ -58,7 +58,7 @@ class Clearance::PasswordsController < Clearance::BaseController
     token = params[:token] || session[:password_reset_token]
 
     Clearance.configuration.user_model.
-      find_by_id_and_confirmation_token params[user_param], token.to_s
+      find_by(id: params[user_param], confirmation_token: token.to_s)
   end
 
   def email_from_password_params
