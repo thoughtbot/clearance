@@ -46,6 +46,18 @@ describe Clearance::BackDoor do
     end
   end
 
+  it "strips 'as' from the params" do
+    user_id = "123"
+    user = double("user")
+    allow(User).to receive(:find).with(user_id).and_return(user)
+    env = env_for_user_id(user_id)
+    back_door = Clearance::BackDoor.new(mock_app)
+
+    back_door.call(env)
+
+    expect(env["QUERY_STRING"]).to be_empty
+  end
+
   context "when the environments are disabled" do
     before do
       Clearance.configuration.allowed_backdoor_environments = nil
