@@ -50,12 +50,12 @@ describe Clearance::BackDoor do
     user_id = "123"
     user = double("user")
     allow(User).to receive(:find).with(user_id).and_return(user)
-    env = env_for_user_id(user_id)
+    env = build_env(as: user_id, foo: :bar)
     back_door = Clearance::BackDoor.new(mock_app)
 
     back_door.call(env)
 
-    expect(env["QUERY_STRING"]).to be_empty
+    expect(env["QUERY_STRING"]).to eq("foo=bar")
   end
 
   context "when the environments are disabled" do
@@ -96,14 +96,18 @@ describe Clearance::BackDoor do
     env_for_user_id("")
   end
 
-  def env_for_user_id(user_id)
+  def build_env(params)
+    query = Rack::Utils.build_query(params)
     clearance = double("clearance", sign_in: true)
-    Rack::MockRequest.env_for("/?as=#{user_id}").merge(clearance: clearance)
+    Rack::MockRequest.env_for("/?#{query}").merge(clearance: clearance)
+  end
+
+  def env_for_user_id(user_id)
+    build_env(as: user_id)
   end
 
   def env_for_username(username)
-    clearance = double("clearance", sign_in: true)
-    Rack::MockRequest.env_for("/?as=#{username}").merge(clearance: clearance)
+    build_env(as: username)
   end
 
   def mock_app
