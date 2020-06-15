@@ -82,7 +82,7 @@ GEM
     factory_bot_rails (5.2.0)
       factory_bot (~> 5.2.0)
       railties (>= 4.2.0)
-    ffi (1.13.0)
+    ffi (1.13.1)
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
       rake
