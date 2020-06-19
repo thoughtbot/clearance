@@ -14,6 +14,8 @@ complete changelog, see the git history for each version via the version links.
 - Use strings instead of classes on guard classes, avoids Rails deprecation
   warning.
 - Use `find_by` style for finders, improves neo4j support
+- Provide explicit case sensitivity option for email uniqueness, avoid Rails
+  deprecation warning.
 
 [Unreleased]: https://github.com/thoughtbot/clearance/compare/v2.1.0...master
 
