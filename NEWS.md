@@ -3,7 +3,7 @@
 The noteworthy changes for each Clearance version are included here. For a
 complete changelog, see the git history for each version via the version links.
 
-## [Unreleased]
+## [2.2.0] - June 19, 2020
 
 ### Added
 
@@ -17,7 +17,7 @@ complete changelog, see the git history for each version via the version links.
 - Provide explicit case sensitivity option for email uniqueness, avoid Rails
   deprecation warning.
 
-[Unreleased]: https://github.com/thoughtbot/clearance/compare/v2.1.0...master
+[2.2.0]: https://github.com/thoughtbot/clearance/compare/v2.1.0...v2.2.0
 
 ## [2.1.0] - December 19, 2019
 
