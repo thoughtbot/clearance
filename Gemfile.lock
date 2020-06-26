@@ -73,7 +73,7 @@ GEM
     concurrent-ruby (1.1.6)
     crass (1.0.6)
     database_cleaner (1.8.5)
-    diff-lcs (1.4)
+    diff-lcs (1.4.2)
     email_validator (2.0.1)
       activemodel
     erubi (1.9.0)
