@@ -60,6 +60,7 @@ Clearance.configure do |config|
   config.password_strategy = Clearance::PasswordStrategies::BCrypt
   config.redirect_url = "/"
   config.rotate_csrf_on_sign_in = true
+  config.same_site = nil
   config.secure_cookie = false
   config.sign_in_guards = []
   config.user_model = "User"
