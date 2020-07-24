@@ -378,6 +378,25 @@ describe Clearance::Session do
         expect(cookie_jar.deleted?(:remember_token, domain: domain)).to be true
       end
     end
+
+    context 'with callable cookie domain' do
+      it 'clears cookie' do
+        domain = '.example.com'
+        Clearance.configuration.cookie_domain = ->(_) { domain }
+        user = create(:user)
+        env = env_with_remember_token(
+          value: user.remember_token,
+          domain: domain
+        )
+        session = Clearance::Session.new(env)
+        cookie_jar = ActionDispatch::Request.new(env).cookie_jar
+        expect(cookie_jar.deleted?(:remember_token, domain: domain)).to be false
+
+        session.sign_out
+
+        expect(cookie_jar.deleted?(:remember_token, domain: domain)).to be true
+      end
+    end
   end
 
   def env_with_cookies(cookies)

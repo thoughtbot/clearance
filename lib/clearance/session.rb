@@ -175,7 +175,7 @@ module Clearance
     def delete_cookie_options
       Hash.new.tap do |options|
         if configured_cookie_domain
-          options[:domain] = configured_cookie_domain
+          options[:domain] = domain
         end
       end
     end
