@@ -121,7 +121,7 @@ module Clearance
       end
 
       def find_by_normalized_email(email)
-        find_by_email normalize_email(email)
+        find_by(email: normalize_email(email))
       end
 
       def normalize_email(email)
@@ -143,7 +143,7 @@ module Clearance
         validates :email,
           email: { strict_mode: true },
           presence: true,
-          uniqueness: { allow_blank: true },
+          uniqueness: { allow_blank: true, case_sensitive: false },
           unless: :email_optional?
 
         validates :password, presence: true, unless: :skip_password_validation?

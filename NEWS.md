@@ -3,6 +3,22 @@
 The noteworthy changes for each Clearance version are included here. For a
 complete changelog, see the git history for each version via the version links.
 
+## [2.2.0] - July 9, 2020
+
+### Added
+
+- Add an Argon2 password strategy
+
+### Fixed
+
+- Use strings instead of classes on guard classes, avoids Rails deprecation
+  warning.
+- Use `find_by` style for finders, improves neo4j support
+- Provide explicit case sensitivity option for email uniqueness, avoid Rails
+  deprecation warning.
+
+[2.2.0]: https://github.com/thoughtbot/clearance/compare/v2.1.0...v2.2.0
+
 ## [2.1.0] - December 19, 2019
 
 ### Added
