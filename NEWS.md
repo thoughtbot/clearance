@@ -7,6 +7,8 @@ complete changelog, see the git history for each version via the version links.
 
 - Delete cookie correctly when a callable object is set as the custom domain
   setting.
+- Added sqlite3 to the top level Gemfile to fix errors for contributors
+  running the `./bin/setup` script.
 
 ## [2.2.0] - July 9, 2020
 
