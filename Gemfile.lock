@@ -108,6 +108,10 @@ GEM
     rack (2.2.3)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
+    rails-controller-testing (1.0.5)
+      actionpack (>= 5.0.1.rc1)
+      actionview (>= 5.0.1.rc1)
+      activesupport (>= 5.0.1.rc1)
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
@@ -157,12 +161,14 @@ DEPENDENCIES
   addressable (~> 2.6.0)
   ammeter
   appraisal
-  capybara (>= 2.6.2, < 3.33.0)
+  capybara
   clearance!
   database_cleaner (~> 1.0)
   factory_bot_rails (~> 5.0)
   nokogiri (~> 1.10.0)
   pry
+  rails-controller-testing
+  rspec-rails (~> 4.0.0.beta3)
   shoulda-matchers (~> 4.1)
   sqlite3
   timecop (~> 0.6)
