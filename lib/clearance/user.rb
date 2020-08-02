@@ -117,6 +117,8 @@ module Clearance
           if password.present? && user.authenticated?(password)
             user
           end
+        else
+          prevent_timing_attack
         end
       end
 
@@ -129,6 +131,13 @@ module Clearance
       end
 
       private
+
+      DUMMY_PASSWORD = "*"
+
+      def prevent_timing_attack
+        new(password: DUMMY_PASSWORD)
+        nil
+      end
 
       def password_strategy
         Clearance.configuration.password_strategy || PasswordStrategies::BCrypt
