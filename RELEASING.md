@@ -1,11 +1,13 @@
 # Releasing
 
 1. Update version file accordingly.
+1. Run `bundle install` to update Gemfile.lock
 1. Update `NEWS.md` to reflect the changes since last release.
 1. Commit changes.
    There shouldn't be code changes,
    and thus CI doesn't need to run,
    you can then add "[ci skip]" to the commit message.
+1. Push the new commit
 1. Tag the release: `git tag -s vVERSION`
     - We recommend the [_quick guide on how to sign a commit_] from GitHub.
 1. Push changes: `git push --tags`
