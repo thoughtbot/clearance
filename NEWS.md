@@ -3,6 +3,16 @@
 The noteworthy changes for each Clearance version are included here. For a
 complete changelog, see the git history for each version via the version links.
 
+## [2.2.1] - August 7, 2020
+
+### Fixed
+
+- Prevent user enumeration by timing attacks. Trying to log in with an
+  unrecognized email address will now take the same amount of time as for a user
+  that does exist in the system.
+
+[2.2.1]: https://github.com/thoughtbot/clearance/compare/v2.2.0...v2.2.1
+
 ## [2.2.0] - July 9, 2020
 
 ### Added
