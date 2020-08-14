@@ -3,12 +3,21 @@
 The noteworthy changes for each Clearance version are included here. For a
 complete changelog, see the git history for each version via the version links.
 
+## [2.3.0] - August 14, 2020
+
 ### Fixed
 
 - Delete cookie correctly when a callable object is set as the custom domain
   setting.
-- Added sqlite3 to the top level Gemfile to fix errors for contributors
-  running the `./bin/setup` script.
+- Strip `as` parameter when signing in through the back door.
+- Remove broken autoload for deprecated password strategies.
+
+### Changed
+
+- Deliver password reset email inline rather than in the background.
+- Remove unnecessary unsafe interpolation in erb templates.
+
+[2.3.0]: https://github.com/thoughtbot/clearance/compare/v2.2.0...v2.3.0
 
 ## [2.2.1] - August 7, 2020
 
