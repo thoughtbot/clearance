@@ -286,24 +286,6 @@ and `password` attributes. Over-riding the `email_optional?` or
 `skip_password_validation?` methods to return `true` will disable those
 validations from being added.
 
-### Deliver Email in Background Job
-
-Clearance has a password reset mailer. If you are using Rails 4.2 and Clearance
-1.6 or greater, Clearance will use ActiveJob's `deliver_later` method to
-automatically take advantage of your configured queue.
-
-If you are using an earlier version of Rails, you can override the
-`Clearance::Passwords` controller and define the behavior you need in the
-`deliver_email` method.
-
-```ruby
-class PasswordsController < Clearance::PasswordsController
-  def deliver_email(user)
-    ClearanceMailer.delay.change_password(user)
-  end
-end
-```
-
 ## Extending Sign In
 
 By default, Clearance will sign in any user with valid credentials. If you need
