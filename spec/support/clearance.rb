@@ -4,6 +4,17 @@ Clearance.configure do |config|
   # need an empty block to initialize the configuration object
 end
 
+# NOTE: to run the entire suite with signed cookies
+#       you can set the signed_cookie default to true
+#       and run all specs.
+#       However, to fake the actual signing process you
+#       can monkey-patch ActionDispatch so signed cookies
+#       behave like normal ones
+#
+# class ActionDispatch::Cookies::CookieJar
+#   def signed; self; end
+# end
+
 module Clearance
   module Test
     module Redirects

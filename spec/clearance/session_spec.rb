@@ -37,7 +37,19 @@ describe Clearance::Session do
       session.sign_in user
       session.add_cookie_to_headers(headers)
 
-      expect(headers["Set-Cookie"]).to match(/custom_cookie_name=.+;/)
+      expect(remember_token_cookie(session, "custom_cookie_name")).to be_present
+    end
+  end
+
+  context "with signed cookies" do
+    it "uses cookies.signed" do
+      Clearance.configuration.signed_cookie = true
+
+      cookie_jar = {}
+      expect(session).to receive(:cookies).and_return(cookie_jar)
+      expect(cookie_jar).to receive(:signed).and_return(cookie_jar)
+
+      session.sign_in user
     end
   end
 
@@ -159,7 +171,7 @@ describe Clearance::Session do
     it 'sets a httponly cookie' do
       session.add_cookie_to_headers(headers)
 
-      expect(headers['Set-Cookie']).to match(/remember_token=.+; HttpOnly/)
+      expect(remember_token_cookie(session)[:httponly]).to be_truthy
     end
   end
 
@@ -185,7 +197,7 @@ describe Clearance::Session do
     it "sets a same-site cookie" do
       session.add_cookie_to_headers(headers)
 
-      expect(headers["Set-Cookie"]).to match(/remember_token=.+; SameSite/)
+      expect(remember_token_cookie(session)[:same_site]).to eq(:lax)
     end
   end
 
@@ -210,10 +222,7 @@ describe Clearance::Session do
         session.sign_in user
         session.add_cookie_to_headers headers
 
-        expect(headers).to set_cookie(
-          'remember_token',
-          user.remember_token, 1.year.from_now
-        )
+        expect(remember_token_cookie(session)[:expires]).to eq(1.year.from_now)
       end
     end
 
@@ -230,13 +239,12 @@ describe Clearance::Session do
           session = Clearance::Session.new(environment)
           session.sign_in user
           session.add_cookie_to_headers headers
-
-          expect(headers).to set_cookie(
-            'remember_token',
-            user.remember_token,
-            remembered_expires
-          )
-
+          expect(
+            remember_token_cookie(session)[:expires]
+          ).to eq(remembered_expires)
+          expect(
+            remember_token_cookie(session)[:value]
+          ).to eq(user.remember_token)
         end
       end
     end
@@ -251,7 +259,7 @@ describe Clearance::Session do
       it 'sets a standard cookie' do
         session.add_cookie_to_headers(headers)
 
-        expect(headers['Set-Cookie']).not_to match(/remember_token=.+; secure/)
+        expect(remember_token_cookie(session)[:secure]).to be_falsey
       end
     end
 
@@ -264,7 +272,7 @@ describe Clearance::Session do
       it 'sets a secure cookie' do
         session.add_cookie_to_headers(headers)
 
-        expect(headers['Set-Cookie']).to match(/remember_token=.+; secure/)
+        expect(remember_token_cookie(session)[:secure]).to be_truthy
       end
     end
   end
@@ -282,7 +290,7 @@ describe Clearance::Session do
         it "sets a standard cookie" do
           session.add_cookie_to_headers(headers)
 
-          expect(headers['Set-Cookie']).to match(/domain=\.example\.com; path/)
+          expect(remember_token_cookie(session)[:domain]).to eq(cookie_domain)
         end
       end
 
@@ -292,7 +300,7 @@ describe Clearance::Session do
         it "sets a standard cookie" do
           session.add_cookie_to_headers(headers)
 
-          expect(headers['Set-Cookie']).to match(/domain=\.example\.com; path/)
+          expect(remember_token_cookie(session)[:domain]).to eq(".example.com")
         end
       end
     end
@@ -328,7 +336,7 @@ describe Clearance::Session do
       it 'sets a standard cookie' do
         session.add_cookie_to_headers(headers)
 
-        expect(headers['Set-Cookie']).to match(/path=\/user; expires/)
+        expect(remember_token_cookie(session)[:path]).to eq("/user")
       end
     end
   end
@@ -397,6 +405,13 @@ describe Clearance::Session do
         expect(cookie_jar.deleted?(:remember_token, domain: domain)).to be true
       end
     end
+  end
+
+  # a bit of a hack to get the cookies that ActionDispatch sets inside session
+  def remember_token_cookie(session, cookie_name="remember_token")
+    cookies = session.send(:cookies)
+    # see https://stackoverflow.com/a/21315095
+    cookies.instance_eval("@set_cookies")[cookie_name]
   end
 
   def env_with_cookies(cookies)

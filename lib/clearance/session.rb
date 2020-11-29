@@ -14,15 +14,9 @@ module Clearance
     # Called by {RackSession} to add the Clearance session cookie to a response.
     #
     # @return [void]
-    def add_cookie_to_headers(headers)
+    def add_cookie_to_headers(_headers)
       if signed_in_with_remember_token?
-        Rack::Utils.set_cookie_header!(
-          headers,
-          remember_token_cookie,
-          cookie_options.merge(
-            value: current_user.remember_token,
-          ),
-        )
+        set_remember_token(current_user.remember_token)
       end
     end
 
@@ -113,8 +107,22 @@ module Clearance
     end
 
     # @api private
+    def set_remember_token(token)
+      if Clearance.configuration.signed_cookie
+        cookies.signed[remember_token_cookie] = cookie_options(token)
+      else
+        cookies[remember_token_cookie] = cookie_options(token)
+      end
+      remember_token
+    end
+
+    # @api private
     def remember_token
-      cookies[remember_token_cookie]
+      if Clearance.configuration.signed_cookie
+        cookies.signed[remember_token_cookie]
+      else
+        cookies[remember_token_cookie]
+      end
     end
 
     # @api private
@@ -159,7 +167,7 @@ module Clearance
     end
 
     # @api private
-    def cookie_options
+    def cookie_options(value)
       {
         domain: domain,
         expires: remember_token_expires,
@@ -167,7 +175,7 @@ module Clearance
         same_site: Clearance.configuration.same_site,
         path: Clearance.configuration.cookie_path,
         secure: Clearance.configuration.secure_cookie,
-        value: remember_token,
+        value: value,
       }
     end
 

@@ -88,6 +88,14 @@ module Clearance
     # @return [Boolean]
     attr_accessor :secure_cookie
 
+    # Controls whether cookies are signed.
+    # Defaults to `false` for backwards compatibility.
+    # When set, using Rails' signed cookies
+    # (more secure against timing/bruteforce attachs)
+    # see [ActionDispatch::Cookies](https://api.rubyonrails.org/classes/ActionDispatch/Cookies.html)
+    # @return [Boolean]
+    attr_accessor :signed_cookie
+
     # The array of sign in guards to run when signing a user in.
     # Defaults to an empty array. Sign in guards respond to `call` and are
     # initialized with a session and the current stack. Each guard can decide
@@ -124,6 +132,7 @@ module Clearance
       @rotate_csrf_on_sign_in = true
       @routes = true
       @secure_cookie = false
+      @signed_cookie = false
       @sign_in_guards = []
     end
 
