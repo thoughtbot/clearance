@@ -93,7 +93,7 @@ module Clearance
     # When set, using Rails' signed cookies
     # (more secure against timing/bruteforce attachs)
     # see [ActionDispatch::Cookies](https://api.rubyonrails.org/classes/ActionDispatch/Cookies.html)
-    # @return [Boolean]
+    # @return [Boolean|:migrate]
     attr_accessor :signed_cookie
 
     # The array of sign in guards to run when signing a user in.
@@ -134,6 +134,14 @@ module Clearance
       @secure_cookie = false
       @signed_cookie = false
       @sign_in_guards = []
+    end
+
+    def signed_cookie=(value)
+      if [true, false, :migrate].include? value
+        @signed_cookie = value
+      else
+        raise "unexpected signed_cookie; allowed: true/false/:migrate"
+      end
     end
 
     # The class representing the configured user model.

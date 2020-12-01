@@ -41,7 +41,7 @@ describe Clearance::Session do
     end
   end
 
-  context "with signed cookies" do
+  context "with signed cookies == false" do
     it "uses cookies.signed" do
       Clearance.configuration.signed_cookie = true
 
@@ -50,6 +50,48 @@ describe Clearance::Session do
       expect(cookie_jar).to receive(:signed).and_return(cookie_jar)
 
       session.sign_in user
+    end
+  end
+
+  context "with signed cookies == true" do
+    it "uses cookies.signed" do
+      Clearance.configuration.signed_cookie = true
+
+      cookie_jar = {}
+      expect(session).to receive(:cookies).and_return(cookie_jar)
+      expect(cookie_jar).to receive(:signed).and_return(cookie_jar)
+
+      session.sign_in user
+    end
+  end
+
+  context "with signed cookies == :migrate" do
+    before do
+      Clearance.configuration.signed_cookie = :migrate
+    end
+
+    context "signed cookie exists" do
+      it "uses cookies.signed[remember_token]" do
+        cookie_jar = {"remember_token" => "signed cookie"}
+        expect(session).to receive(:cookies).and_return(cookie_jar)
+        expect(cookie_jar).to receive(:signed).and_return(cookie_jar)
+
+        session.sign_in user
+      end
+    end
+
+    context "signed cookie does not exist yet" do
+      it "uses cookies[remember_token] instead" do
+        cookie_jar = {"remember_token" => "signed cookie"}
+        # first call will try to get the signed cookie
+        expect(session).to receive(:cookies).and_return(cookie_jar)
+        # ... but signed_cookie doesn't exist
+        expect(cookie_jar).to receive(:signed).and_return({})
+        # then it attempts to retrieve the unsigned cookie
+        expect(session).to receive(:cookies).and_return(cookie_jar)
+
+        session.sign_in user
+      end
     end
   end
 
