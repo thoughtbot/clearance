@@ -8,6 +8,7 @@ complete changelog, see the git history for each version via the version links.
 ### Fixed
 
 - Support for accessing Rails 6.x primary_key_type in generator.
+- Fix password reset URLs when using a custom model
 
 ## [2.3.0] - August 14, 2020
 
