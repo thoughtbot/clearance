@@ -278,12 +278,10 @@ describe Clearance::Session do
           session = Clearance::Session.new(environment)
           session.sign_in user
           session.add_cookie_to_headers
-          expect(
-            remember_token_cookie(session)[:expires]
-          ).to eq(remembered_expires)
-          expect(
-            remember_token_cookie(session)[:value]
-          ).to eq(user.remember_token)
+          expect(remember_token_cookie(session)[:expires]).to \
+            eq(remembered_expires)
+          expect(remember_token_cookie(session)[:value]).to \
+            eq(user.remember_token)
         end
       end
     end
