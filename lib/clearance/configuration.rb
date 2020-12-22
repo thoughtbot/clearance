@@ -140,7 +140,9 @@ module Clearance
       if [true, false, :migrate].include? value
         @signed_cookie = value
       else
-        raise "unexpected signed_cookie; allowed: true/false/:migrate"
+        raise "Clearance's signed_cookie configuration value is invalid. " \
+              'Valid values are true, false, or :migrate. ' \
+              'Set this option via Clearance.configure in an initializer'
       end
     end
 
