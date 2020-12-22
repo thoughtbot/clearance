@@ -141,8 +141,8 @@ module Clearance
         @signed_cookie = value
       else
         raise "Clearance's signed_cookie configuration value is invalid. " \
-              'Valid values are true, false, or :migrate. ' \
-              'Set this option via Clearance.configure in an initializer'
+              "Valid values are true, false, or :migrate. " \
+              "Set this option via Clearance.configure in an initializer"
       end
     end
 
