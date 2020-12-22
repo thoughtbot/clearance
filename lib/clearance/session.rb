@@ -14,7 +14,7 @@ module Clearance
     # Called by {RackSession} to add the Clearance session cookie to a response.
     #
     # @return [void]
-    def add_cookie_to_headers(_headers)
+    def add_cookie_to_headers
       if signed_in_with_remember_token?
         set_remember_token(current_user.remember_token)
       end

@@ -4,7 +4,6 @@ describe Clearance::Session do
   before { Timecop.freeze }
   after { Timecop.return }
 
-  let(:headers) { {} }
   let(:session) { Clearance::Session.new(env_without_remember_token) }
   let(:user) { create(:user) }
 
@@ -35,7 +34,7 @@ describe Clearance::Session do
       Clearance.configuration.cookie_name = "custom_cookie_name"
 
       session.sign_in user
-      session.add_cookie_to_headers(headers)
+      session.add_cookie_to_headers
 
       expect(remember_token_cookie(session, "custom_cookie_name")).to be_present
     end
@@ -211,7 +210,7 @@ describe Clearance::Session do
     end
 
     it 'sets a httponly cookie' do
-      session.add_cookie_to_headers(headers)
+      session.add_cookie_to_headers
 
       expect(remember_token_cookie(session)[:httponly]).to be_truthy
     end
@@ -224,9 +223,9 @@ describe Clearance::Session do
     end
 
     it 'sets a standard cookie' do
-      session.add_cookie_to_headers(headers)
+      session.add_cookie_to_headers
 
-      expect(headers['Set-Cookie']).not_to match(/remember_token=.+; HttpOnly/)
+      expect(remember_token_cookie(session)[:httponly]).to be_falsey
     end
   end
 
@@ -237,7 +236,7 @@ describe Clearance::Session do
     end
 
     it "sets a same-site cookie" do
-      session.add_cookie_to_headers(headers)
+      session.add_cookie_to_headers
 
       expect(remember_token_cookie(session)[:same_site]).to eq(:lax)
     end
@@ -249,9 +248,9 @@ describe Clearance::Session do
     end
 
     it "sets a standard cookie" do
-      session.add_cookie_to_headers(headers)
+      session.add_cookie_to_headers
 
-      expect(headers["Set-Cookie"]).to_not match(/remember_token=.+; SameSite/)
+      expect(remember_token_cookie(session)[:same_site]).to be_nil
     end
   end
 
@@ -259,10 +258,9 @@ describe Clearance::Session do
     context 'default configuration' do
       it 'is set to 1 year from now' do
         user = double("User", remember_token: "123abc")
-        headers = {}
         session = Clearance::Session.new(env_without_remember_token)
         session.sign_in user
-        session.add_cookie_to_headers headers
+        session.add_cookie_to_headers
 
         expect(remember_token_cookie(session)[:expires]).to eq(1.year.from_now)
       end
@@ -276,11 +274,10 @@ describe Clearance::Session do
         end
         with_custom_expiration expires_at do
           user = double("User", remember_token: "123abc")
-          headers = {}
           environment = env_with_cookies(remember_me: 'true')
           session = Clearance::Session.new(environment)
           session.sign_in user
-          session.add_cookie_to_headers headers
+          session.add_cookie_to_headers
           expect(
             remember_token_cookie(session)[:expires]
           ).to eq(remembered_expires)
@@ -299,7 +296,7 @@ describe Clearance::Session do
       end
 
       it 'sets a standard cookie' do
-        session.add_cookie_to_headers(headers)
+        session.add_cookie_to_headers
 
         expect(remember_token_cookie(session)[:secure]).to be_falsey
       end
@@ -312,7 +309,7 @@ describe Clearance::Session do
       end
 
       it 'sets a secure cookie' do
-        session.add_cookie_to_headers(headers)
+        session.add_cookie_to_headers
 
         expect(remember_token_cookie(session)[:secure]).to be_truthy
       end
@@ -330,7 +327,7 @@ describe Clearance::Session do
         let(:cookie_domain) { ".example.com" }
 
         it "sets a standard cookie" do
-          session.add_cookie_to_headers(headers)
+          session.add_cookie_to_headers
 
           expect(remember_token_cookie(session)[:domain]).to eq(cookie_domain)
         end
@@ -340,7 +337,7 @@ describe Clearance::Session do
         let(:cookie_domain) { lambda { |_r| ".example.com" } }
 
         it "sets a standard cookie" do
-          session.add_cookie_to_headers(headers)
+          session.add_cookie_to_headers
 
           expect(remember_token_cookie(session)[:domain]).to eq(".example.com")
         end
@@ -351,9 +348,9 @@ describe Clearance::Session do
       before { session.sign_in(user) }
 
       it 'sets a standard cookie' do
-        session.add_cookie_to_headers(headers)
+        session.add_cookie_to_headers
 
-        expect(headers["Set-Cookie"]).not_to match(/domain=.+; path/)
+        expect(remember_token_cookie(session)[:domain]).to be_nil
       end
     end
   end
@@ -363,9 +360,9 @@ describe Clearance::Session do
       before { session.sign_in(user) }
 
       it 'sets a standard cookie' do
-        session.add_cookie_to_headers(headers)
+        session.add_cookie_to_headers
 
-        expect(headers["Set-Cookie"]).to_not match(/domain=.+; path/)
+        expect(remember_token_cookie(session)[:domain]).to be_nil
       end
     end
 
@@ -376,7 +373,7 @@ describe Clearance::Session do
       end
 
       it 'sets a standard cookie' do
-        session.add_cookie_to_headers(headers)
+        session.add_cookie_to_headers
 
         expect(remember_token_cookie(session)[:path]).to eq("/user")
       end
@@ -384,10 +381,9 @@ describe Clearance::Session do
   end
 
   it 'does not set a remember token when signed out' do
-    headers = {}
     session = Clearance::Session.new(env_without_remember_token)
-    session.add_cookie_to_headers headers
-    expect(headers["Set-Cookie"]).to be nil
+    session.add_cookie_to_headers
+    expect(remember_token_cookie(session)).to be_nil
   end
 
   describe "#sign_out" do

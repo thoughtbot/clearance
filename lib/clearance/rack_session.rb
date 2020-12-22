@@ -23,7 +23,7 @@ module Clearance
       response = @app.call(env)
 
       if session.authentication_successful?
-        session.add_cookie_to_headers response[1]
+        session.add_cookie_to_headers
       end
 
       response
