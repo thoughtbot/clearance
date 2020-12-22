@@ -71,7 +71,7 @@ describe Clearance::Session do
 
     context "signed cookie exists" do
       it "uses cookies.signed[remember_token]" do
-        cookie_jar = {"remember_token" => "signed cookie"}
+        cookie_jar = { "remember_token" => "signed cookie" }
         expect(session).to receive(:cookies).and_return(cookie_jar)
         expect(cookie_jar).to receive(:signed).and_return(cookie_jar)
 
@@ -81,7 +81,7 @@ describe Clearance::Session do
 
     context "signed cookie does not exist yet" do
       it "uses cookies[remember_token] instead" do
-        cookie_jar = {"remember_token" => "signed cookie"}
+        cookie_jar = { "remember_token" => "signed cookie" }
         # first call will try to get the signed cookie
         expect(session).to receive(:cookies).and_return(cookie_jar)
         # ... but signed_cookie doesn't exist
@@ -446,7 +446,7 @@ describe Clearance::Session do
   end
 
   # a bit of a hack to get the cookies that ActionDispatch sets inside session
-  def remember_token_cookie(session, cookie_name="remember_token")
+  def remember_token_cookie(session, cookie_name = "remember_token")
     cookies = session.send(:cookies)
     # see https://stackoverflow.com/a/21315095
     cookies.instance_eval("@set_cookies")[cookie_name]

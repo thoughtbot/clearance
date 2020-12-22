@@ -94,7 +94,7 @@ module Clearance
     # (more secure against timing/brute-force attacks)
     # see [ActionDispatch::Cookies](https://api.rubyonrails.org/classes/ActionDispatch/Cookies.html)
     # @return [Boolean|:migrate]
-    attr_accessor :signed_cookie
+    attr_reader :signed_cookie
 
     # The array of sign in guards to run when signing a user in.
     # Defaults to an empty array. Sign in guards respond to `call` and are
