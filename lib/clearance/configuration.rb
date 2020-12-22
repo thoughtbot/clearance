@@ -90,8 +90,8 @@ module Clearance
 
     # Controls whether cookies are signed.
     # Defaults to `false` for backwards compatibility.
-    # When set, using Rails' signed cookies
-    # (more secure against timing/bruteforce attachs)
+    # When set, uses Rails' signed cookies
+    # (more secure against timing/brute-force attacks)
     # see [ActionDispatch::Cookies](https://api.rubyonrails.org/classes/ActionDispatch/Cookies.html)
     # @return [Boolean|:migrate]
     attr_accessor :signed_cookie
