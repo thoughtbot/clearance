@@ -449,7 +449,9 @@ describe Clearance::Session do
   def remember_token_cookie(session, cookie_name = "remember_token")
     cookies = session.send(:cookies)
     # see https://stackoverflow.com/a/21315095
-    cookies.instance_eval("@set_cookies")[cookie_name]
+    cookies.instance_eval <<-RUBY, __FILE__, __LINE__ + 1
+      @set_cookies[cookie_name]
+    RUBY
   end
 
   def env_with_cookies(cookies)
