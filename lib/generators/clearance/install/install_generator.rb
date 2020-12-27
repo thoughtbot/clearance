@@ -129,7 +129,10 @@ module Clearance
       end
 
       def configured_key_type
-        Rails.configuration.generators.active_record[:primary_key_type]
+        active_record = Rails.configuration.generators.active_record
+        active_record ||= Rails.configuration.generators.options[:active_record]
+
+        active_record[:primary_key_type]
       end
 
       def models_inherit_from

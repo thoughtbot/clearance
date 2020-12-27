@@ -147,9 +147,15 @@ describe Clearance::Generators::InstallGenerator, :generator do
   end
 
   def preserve_original_primary_key_type_setting
-    original = Rails.configuration.generators.active_record[:primary_key_type]
+    active_record = Rails.configuration.generators.active_record
+    active_record ||= Rails.configuration.generators.options[:active_record]
+    original = active_record[:primary_key_type]
+
     yield
-    Rails.configuration.generators.active_record[:primary_key_type] = original
+
+    Rails.application.config.generators do |g|
+      g.orm :active_record, primary_key_type: original
+    end
   end
 
   def contain_models_inherit_from
