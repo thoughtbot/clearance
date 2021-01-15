@@ -52,14 +52,14 @@ describe User do
       password = user.password
 
       user_exists_time = Benchmark.realtime do
-        User.authenticate(user.email, password)
+        10.times { User.authenticate(user.email, password) }
       end
 
       user_does_not_exist_time = Benchmark.realtime do
-        User.authenticate("bad_email@example.com", password)
+        10.times { User.authenticate("bad_email@example.com", password) }
       end
 
-      expect(user_does_not_exist_time). to be_within(0.001).of(user_exists_time)
+      expect(user_does_not_exist_time). to be_within(0.01).of(user_exists_time)
     end
 
     it "takes the same amount of time to fail authentication regardless of whether user exists" do
