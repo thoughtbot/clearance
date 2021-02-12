@@ -21,15 +21,15 @@ class AddClearanceToUsers < ActiveRecord::Migration<%= migration_version %>
     end
   end
 
-  def self.down
+  def self.down                     
+<% config[:new_indexes].values.each do |index| -%>
+    <%= index.gsub("add_index", "remove_index") %>
+<% end -%>
+           
     change_table :users do |t|
 <% if config[:new_columns].any? -%>
       t.remove <%= new_columns.keys.map { |column| ":#{column}" }.join(", ") %>
 <% end -%>
     end
-                          
-<% config[:new_indexes].values.each do |index| -%>
-    <%= index.gsub("add_index", "remove_index") %>
-<% end -%>
   end
 end
