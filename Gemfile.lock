@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    clearance (2.3.0)
+    clearance (2.3.1)
       actionmailer (>= 5.0)
       activemodel (>= 5.0)
       activerecord (>= 5.0)
@@ -57,11 +57,11 @@ GEM
       bundler
       rake
       thor (>= 0.14.0)
-    argon2 (2.0.2)
-      ffi (~> 1.9)
-      ffi-compiler (>= 0.1)
+    argon2 (2.0.3)
+      ffi (~> 1.14)
+      ffi-compiler (~> 1.0)
     ast (2.4.2)
-    bcrypt (3.1.15)
+    bcrypt (3.1.16)
     better_html (1.0.16)
       actionview (>= 4.0)
       activesupport (>= 4.0)
@@ -99,7 +99,7 @@ GEM
     factory_bot_rails (6.1.0)
       factory_bot (~> 6.1.0)
       railties (>= 5.0.0)
-    ffi (1.13.1)
+    ffi (1.14.2)
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
       rake
@@ -115,10 +115,11 @@ GEM
       mini_mime (>= 0.1.1)
     method_source (1.0.0)
     mini_mime (1.0.2)
-    mini_portile2 (2.4.0)
+    mini_portile2 (2.5.0)
     minitest (5.14.4)
-    nokogiri (1.10.10)
-      mini_portile2 (~> 2.4.0)
+    nokogiri (1.11.1)
+      mini_portile2 (~> 2.5.0)
+      racc (~> 1.4)
     parallel (1.19.2)
     parser (3.0.0.0)
       ast (~> 2.4.1)
@@ -126,6 +127,7 @@ GEM
       coderay (~> 1.1)
       method_source (~> 1.0)
     public_suffix (4.0.5)
+    racc (1.5.2)
     rack (2.2.3)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)

@@ -3,12 +3,15 @@
 The noteworthy changes for each Clearance version are included here. For a
 complete changelog, see the git history for each version via the version links.
 
-## [Unreleased]
+## [2.3.1] - March 5, 2021
 
 ### Fixed
 
 - Support for accessing Rails 6.x primary_key_type in generator.
 - Fix password reset URLs when using a custom model
+- Fix flaky test that relied on too specific time delta
+- Revert case sensitivity for email uniqueness
+- Bump nokogiri and actionview dependencies to address security vulnerabilities
 
 ## [2.3.0] - August 14, 2020
 
