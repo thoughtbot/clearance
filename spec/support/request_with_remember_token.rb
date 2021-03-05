@@ -1,11 +1,13 @@
 module RememberTokenHelpers
   def request_with_remember_token(remember_token)
-    cookies = {
-      'action_dispatch.cookies' => {
-        Clearance.configuration.cookie_name => remember_token
-      }
-    }
-    env = { clearance: Clearance::Session.new(cookies) }
+    cookies = ActionDispatch::Request.new({}).cookie_jar
+    if Clearance.configuration.signed_cookie
+      cookies.signed[Clearance.configuration.cookie_name] = remember_token
+    else
+      cookies[Clearance.configuration.cookie_name] = remember_token
+    end
+
+    env = { clearance: Clearance::Session.new(cookies.request.env) }
     Rack::Request.new env
   end
 

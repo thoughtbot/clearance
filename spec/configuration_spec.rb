@@ -66,6 +66,34 @@ describe Clearance::Configuration do
     end
   end
 
+  context "when signed_cookie is set to true" do
+    it "returns true" do
+      Clearance.configure { |config| config.signed_cookie = true }
+      expect(Clearance.configuration.signed_cookie).to eq true
+    end
+  end
+
+  context "when signed_cookie is not specified" do
+    it "defaults to false" do
+      expect(Clearance.configuration.signed_cookie).to eq false
+    end
+  end
+
+  context "when signed_cookie is set to :migrate" do
+    it "returns :migrate" do
+      Clearance.configure { |config| config.signed_cookie = :migrate }
+      expect(Clearance.configuration.signed_cookie).to eq :migrate
+    end
+  end
+
+  context "when signed_cookie is set to an unexpected value" do
+    it "returns :migrate" do
+      expect {
+        Clearance.configure { |config| config.signed_cookie = "unknown" }
+      }.to raise_exception(RuntimeError)
+    end
+  end
+
   context "when no redirect URL specified" do
     it 'returns "/" as redirect URL' do
       expect(Clearance::Configuration.new.redirect_url).to eq "/"

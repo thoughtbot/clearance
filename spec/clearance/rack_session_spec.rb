@@ -20,7 +20,6 @@ describe Clearance::RackSession do
     response = Rack::MockResponse.new(*app.call(env))
 
     expect(response.body).to eq expected_session
-    expect(expected_session).to have_received(:add_cookie_to_headers).
-      with(hash_including(headers))
+    expect(expected_session).to have_received(:add_cookie_to_headers)
   end
 end
