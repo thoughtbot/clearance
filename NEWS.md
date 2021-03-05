@@ -3,6 +3,14 @@
 The noteworthy changes for each Clearance version are included here. For a
 complete changelog, see the git history for each version via the version links.
 
+## [2.4.0] - March 5, 2021
+
+### Added
+
+- Optionally use signed cookies to prevent remember token timing attacks
+
+[2.4.0]: https://github.com/thoughtbot/clearance/compare/v2.3.1...v2.4.0
+
 ## [2.3.1] - March 5, 2021
 
 ### Fixed
@@ -12,6 +20,8 @@ complete changelog, see the git history for each version via the version links.
 - Fix flaky test that relied on too specific time delta
 - Revert case sensitivity for email uniqueness
 - Bump nokogiri and actionview dependencies to address security vulnerabilities
+
+[2.3.1]: https://github.com/thoughtbot/clearance/compare/v2.3.0...v2.3.1
 
 ## [2.3.0] - August 14, 2020
 
