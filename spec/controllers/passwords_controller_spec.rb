@@ -111,7 +111,7 @@ describe Clearance::PasswordsController do
           user_id: user,
         }
 
-        expect(response).to be_successful
+        expect(response).to have_http_status(:unprocessable_entity)
         expect(response).to render_template(:edit)
         expect(assigns(:user)).to eq user
       end

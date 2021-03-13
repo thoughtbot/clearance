@@ -25,7 +25,7 @@ class Clearance::PasswordsController < Clearance::BaseController
       session[:password_reset_token] = params[:token]
       redirect_to url_for
     else
-      render template: "passwords/edit"
+      render template: "passwords/edit", status: :unprocessable_entity
     end
   end
 
