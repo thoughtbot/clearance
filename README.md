@@ -62,6 +62,7 @@ Clearance.configure do |config|
   config.rotate_csrf_on_sign_in = true
   config.same_site = nil
   config.secure_cookie = false
+  config.signed_cookie = false
   config.sign_in_guards = []
   config.user_model = "User"
   config.parent_controller = "ApplicationController"
@@ -285,6 +286,33 @@ which may conflict with or duplicate already present validations on the `email`
 and `password` attributes. Over-riding the `email_optional?` or
 `skip_password_validation?` methods to return `true` will disable those
 validations from being added.
+
+### Signed Cookies
+
+By default, Clearance uses unsigned cookies. If you would like to use signed
+cookies you can do so by overriding the default in an initializer like so:
+
+```ruby
+Clearance.configure do |config|
+  # ... other overrides
+  config.signed_cookie = true
+end
+```
+
+If you are currently not using unsigned cookies but would like to migrate your
+users over to them without breaking current sessions, you can do so by passing
+in `:migrate` rather than `true` as so:
+
+```ruby
+Clearance.configure do |config|
+  # ... other overrides
+  config.signed_cookie = :migrate
+end
+```
+
+You can read more about signed cookies in Clearance and why they are a good idea
+in the [pull request that added them](https://github.com/thoughtbot/clearance/pull/917).
+
 
 ## Extending Sign In
 
