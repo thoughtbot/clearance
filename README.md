@@ -299,7 +299,7 @@ Clearance.configure do |config|
 end
 ```
 
-If you are currently not using unsigned cookies but would like to migrate your
+If you are currently not using signed cookies but would like to migrate your
 users over to them without breaking current sessions, you can do so by passing
 in `:migrate` rather than `true` as so:
 
