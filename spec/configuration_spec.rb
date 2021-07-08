@@ -167,7 +167,14 @@ describe Clearance::Configuration do
   end
 
   describe "#user_parameter" do
-    it "returns the parameter key to use based on the user_model" do
+    context "when user_parameter is configured" do
+      it "returns the configured parameter" do
+        Clearance.configure { |config| config.user_parameter = :custom_param }
+        expect(Clearance.configuration.user_parameter).to eq :custom_param
+      end
+    end
+
+    it "returns the parameter key to use based on the user_model by default" do
       Account = Class.new(ActiveRecord::Base)
       Clearance.configure { |config| config.user_model = Account }
 
