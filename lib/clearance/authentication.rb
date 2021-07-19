@@ -25,7 +25,7 @@ module Clearance
     # @return [User, nil] The user or nil if authentication fails.
     def authenticate(params)
       Clearance.configuration.user_model.authenticate(
-        params[:session][:email], params[:session][:password]
+        params.dig(:session, :email), params.dig(:session, :password)
       )
     end
 

@@ -94,6 +94,15 @@ describe Clearance::SessionsController do
         should redirect_to(return_url)
       end
     end
+
+    context "with missing credentials" do
+      it "render the page with error" do
+        post :create
+
+        expect(response).to render_template(:new)
+        expect(flash[:alert]).to match(/^Bad email or password/)
+      end
+    end
   end
 
   describe "on DELETE to #destroy" do
