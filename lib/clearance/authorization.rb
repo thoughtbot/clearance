@@ -86,8 +86,14 @@ module Clearance
     def return_to
       if return_to_url
         uri = URI.parse(return_to_url)
-        "#{uri.path}?#{uri.query}".chomp("?") + "##{uri.fragment}".chomp("#")
+        path = path_without_leading_slashes(uri)
+        "#{path}?#{uri.query}".chomp("?") + "##{uri.fragment}".chomp("#")
       end
+    end
+
+    # @api private
+    def path_without_leading_slashes(uri)
+      uri.path.sub(/\A\/+/, "/")
     end
 
     # @api private

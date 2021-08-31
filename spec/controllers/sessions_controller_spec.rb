@@ -58,6 +58,19 @@ describe Clearance::SessionsController do
     end
 
     context "with good credentials and a session return url" do
+      it "redirects to the return URL removing leading slashes" do
+        user = create(:user)
+        url = "/url_in_the_session?foo=bar#baz"
+        return_url = "//////#{url}"
+        request.session[:return_to] = return_url
+
+        post :create, params: {
+          session: { email: user.email, password: user.password },
+        }
+
+        should redirect_to(url)
+      end
+
       it "redirects to the return URL maintaining query and fragment" do
         user = create(:user)
         return_url = "/url_in_the_session?foo=bar#baz"
