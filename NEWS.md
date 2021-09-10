@@ -3,6 +3,18 @@
 The noteworthy changes for each Clearance version are included here. For a
 complete changelog, see the git history for each version via the version links.
 
+## [2.5.0] - September 10, 2021
+
+### Fixed
+
+- Fix open redirect vulnerability
+
+### Changed
+
+- Rename default branch to `main`
+
+[2.4.0]: https://github.com/thoughtbot/clearance/compare/v2.3.1...v2.4.0
+
 ## [2.4.0] - March 5, 2021
 
 ### Added
