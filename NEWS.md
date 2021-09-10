@@ -13,7 +13,7 @@ complete changelog, see the git history for each version via the version links.
 
 - Rename default branch to `main`
 
-[2.4.0]: https://github.com/thoughtbot/clearance/compare/v2.3.1...v2.4.0
+[2.5.0]: https://github.com/thoughtbot/clearance/compare/v2.4.0...v2.5.0
 
 ## [2.4.0] - March 5, 2021
 
