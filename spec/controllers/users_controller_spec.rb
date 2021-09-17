@@ -67,6 +67,20 @@ describe Clearance::UsersController do
           expect(response).to redirect_to(return_url)
         end
       end
+
+      context "with invalid attributes" do
+        it "renders the page with error" do
+          user_attributes = FactoryBot.attributes_for(:user, email: nil)
+          old_user_count = User.count
+
+          post :create, params: {
+            user: user_attributes,
+          }
+
+          expect(User.count).to eq old_user_count
+          expect(response).to have_http_status(:unprocessable_entity)
+        end
+      end
     end
 
     context "when signed in" do
