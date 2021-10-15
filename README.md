@@ -221,8 +221,8 @@ These "failure" methods are called for signed out sessions:
 - `application#url_after_denied_access_when_signed_out`
 - `sessions#url_after_destroy`
 
-They both default to `sign_in_url`. Override this method to change both of their
-behavior, or override them individually to just change one.
+They both default to `sign_in_url`. To change either of these URLs, override
+the appropriate method in your subclassed controller.
 
 ### Views
 
