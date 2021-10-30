@@ -16,7 +16,7 @@ module Clearance
   #
   #     # in config/initializers/clearance.rb
   #     Clearance.configure do |config|
-  #       config.sign_in_guards = [ConfirmationGuard]
+  #       config.sign_in_guards = ["ConfirmationGuard"]
   #     end
   #
   #     # in lib/guards/confirmation_guard.rb
