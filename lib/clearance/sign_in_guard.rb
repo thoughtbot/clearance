@@ -19,7 +19,7 @@ module Clearance
   #       config.sign_in_guards = ["ConfirmationGuard"]
   #     end
   #
-  #     # in lib/guards/confirmation_guard.rb
+  #     # in app/guards/confirmation_guard.rb (or another path that is auto-loaded)
   #     class ConfirmationGuard < Clearance::SignInGuard
   #       def call
   #         if signed_in? && current_user.email_confirmed?
