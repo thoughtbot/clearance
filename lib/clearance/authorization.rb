@@ -77,8 +77,8 @@ module Clearance
     end
 
     # @api private
-    def redirect_back_or(default)
-      redirect_to(return_to || default)
+    def redirect_back_or(default, options = {})
+      redirect_to(return_to || default, options)
       clear_return_to
     end
 
