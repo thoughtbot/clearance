@@ -22,15 +22,15 @@ jobs:
           - "6.0"
           - "6.1"
         ruby:
-          - "2.4.9"
-          - "2.5.7"
-          - "2.6.5"
-          - "2.7.2"
+          - "2.4.10"
+          - "2.5.9"
+          - "2.6.9"
+          - "2.7.5"
         exclude:
           - gemfile: "6.0"
-            ruby: "2.4.9"
+            ruby: "2.4.10"
           - gemfile: "6.1"
-            ruby: "2.4.9"
+            ruby: "2.4.10"
 
     env:
       BUNDLE_GEMFILE: gemfiles/rails_${{ matrix.gemfile }}.gemfile
