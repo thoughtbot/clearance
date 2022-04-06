@@ -36,6 +36,7 @@ module Features
     end
 
     def expect_user_to_be_signed_out
+      visit root_path
       expect(page).to have_content I18n.t("layouts.application.sign_in")
     end
 
