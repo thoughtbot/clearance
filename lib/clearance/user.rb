@@ -234,7 +234,7 @@ module Clearance
     # Always false. Override this method in your user model to allow for other
     # forms of user authentication (username, Facebook, etc).
     #
-    # @return [false]
+    # @return [Boolean]
     def email_optional?
       false
     end
@@ -242,7 +242,7 @@ module Clearance
     # Always false. Override this method in your user model to allow for other
     # forms of user authentication (username, Facebook, etc).
     #
-    # @return [false]
+    # @return [Boolean]
     def password_optional?
       false
     end
