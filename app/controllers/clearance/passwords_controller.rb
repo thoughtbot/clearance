@@ -38,7 +38,7 @@ class Clearance::PasswordsController < Clearance::BaseController
       session[:password_reset_token] = nil
     else
       flash_failure_after_update
-      render template: "passwords/edit"
+      render template: "passwords/edit", status: :unprocessable_entity
     end
   end
 

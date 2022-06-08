@@ -211,6 +211,7 @@ describe Clearance::PasswordsController do
         )
 
         expect(flash.now[:alert]).to match(/password can't be blank/i)
+        expect(response).to have_http_status(:unprocessable_entity)
         expect(response).to render_template(:edit)
         expect(cookies[:remember_token]).to be_nil
       end
