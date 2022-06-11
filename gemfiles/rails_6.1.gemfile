@@ -17,5 +17,6 @@ gem "shoulda-matchers"
 gem "sqlite3"
 gem "timecop"
 gem "railties", "~> 6.1"
+gem "net-smtp", require: false
 
 gemspec path: "../"
