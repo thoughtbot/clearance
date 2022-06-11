@@ -1,5 +1,7 @@
 require "rails/all"
 
+require "clearance"
+
 module Dummy
   APP_ROOT = File.expand_path("..", __FILE__).freeze
 
