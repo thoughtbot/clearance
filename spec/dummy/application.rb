@@ -10,7 +10,6 @@ module Dummy
     config.active_support.deprecation = :stderr
     config.eager_load = false
 
-    # Otherwise: can't modify frozen Array: ["/.../app/controllers", ...]
     config.paths["app/controllers"] << "#{APP_ROOT}/app/controllers"
     config.paths["app/models"] << "#{APP_ROOT}/app/models"
     config.paths["app/views"] << "#{APP_ROOT}/app/views"
@@ -22,6 +21,14 @@ module Dummy
       config.active_record.sqlite3.represent_boolean_as_integer = true
     else
       config.active_record.legacy_connection_handling = false
+    end
+
+    def require_environment!
+      initialize!
+    end
+
+    def initialize!(&block)
+      super unless @initialized
     end
   end
 end
