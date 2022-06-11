@@ -16,21 +16,13 @@ jobs:
       fail-fast: false
       matrix:
         gemfile:
-          - "5.0"
-          - "5.1"
-          - "5.2"
           - "6.0"
           - "6.1"
+          - "7.0"
         ruby:
-          - "2.4.9"
-          - "2.5.7"
-          - "2.6.5"
-          - "2.7.2"
-        exclude:
-          - gemfile: "6.0"
-            ruby: "2.4.9"
-          - gemfile: "6.1"
-            ruby: "2.4.9"
+          - "2.7.6"
+          - "3.0.4"
+          - "3.1.2"
 
     env:
       BUNDLE_GEMFILE: gemfiles/rails_${{ matrix.gemfile }}.gemfile

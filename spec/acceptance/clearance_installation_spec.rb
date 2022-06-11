@@ -35,6 +35,7 @@ describe "Clearance Installation" do
        --skip-javascript
        --skip-keeps
        --skip-sprockets
+       --skip-asset-pipeline
     CMD
   end
 

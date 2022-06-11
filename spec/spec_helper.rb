@@ -5,6 +5,7 @@ require "dummy/application"
 
 require "clearance/rspec"
 require "factory_bot_rails"
+require "rails-controller-testing"
 require "rspec/rails"
 require "shoulda-matchers"
 require "timecop"
@@ -28,11 +29,6 @@ RSpec.configure do |config|
   end
 
   config.before { restore_default_warning_free_config }
-
-  require 'rails-controller-testing'
-  config.include Rails::Controller::Testing::TestProcess
-  config.include Rails::Controller::Testing::TemplateAssertions
-  config.include Rails::Controller::Testing::Integration
 end
 
 Shoulda::Matchers.configure do |config|
