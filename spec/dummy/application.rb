@@ -18,7 +18,7 @@ module Dummy
     config.paths["log"] = "tmp/log/development.log"
     config.paths.add "config/routes.rb", with: "#{APP_ROOT}/config/routes.rb"
 
-    if Rails.version =~ /^6.0/
+    if Rails.version.match?(/^6.0/)
       config.active_record.sqlite3.represent_boolean_as_integer = true
     else
       config.active_record.legacy_connection_handling = false
