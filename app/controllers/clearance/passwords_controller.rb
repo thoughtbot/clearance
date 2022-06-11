@@ -15,7 +15,7 @@ class Clearance::PasswordsController < Clearance::BaseController
       deliver_email(user)
     end
 
-    render template: "passwords/create"
+    render template: "passwords/create", status: :accepted
   end
 
   def edit
@@ -34,7 +34,7 @@ class Clearance::PasswordsController < Clearance::BaseController
 
     if @user.update_password(password_from_password_reset_params)
       sign_in @user
-      redirect_to url_after_update
+      redirect_to url_after_update, status: :see_other
       session[:password_reset_token] = nil
     else
       flash_failure_after_update
@@ -80,14 +80,14 @@ class Clearance::PasswordsController < Clearance::BaseController
   def ensure_email_present
     if email_from_password_params.blank?
       flash_failure_when_missing_email
-      render template: "passwords/new"
+      render template: "passwords/new", status: :unprocessable_entity
     end
   end
 
   def ensure_existing_user
     unless find_user_by_id_and_confirmation_token
       flash_failure_when_forbidden
-      render template: "passwords/new"
+      render template: "passwords/new", status: :unprocessable_entity
     end
   end
 

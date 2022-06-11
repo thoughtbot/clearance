@@ -17,7 +17,7 @@ class Clearance::SessionsController < Clearance::BaseController
 
   def destroy
     sign_out
-    redirect_to url_after_destroy
+    redirect_to url_after_destroy, status: :see_other
   end
 
   def new

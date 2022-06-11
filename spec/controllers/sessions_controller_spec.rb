@@ -117,6 +117,7 @@ describe Clearance::SessionsController do
       end
 
       it { should redirect_to_url_after_destroy }
+      it { expect(response).to have_http_status(:see_other) }
     end
 
     context "with a cookie" do
