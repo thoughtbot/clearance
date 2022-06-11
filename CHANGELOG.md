@@ -3,6 +3,13 @@
 The noteworthy changes for each Clearance version are included here. For a
 complete changelog, see the git history for each version via the version links.
 
+## [Unreleased]
+
+- Drops support for rails 5.0, 5.1 and 5.2, see https://endoflife.date/rails #964
+- Drops support for ruby 2.4, 2.5 and 2.6, see https://endoflife.date/ruby #964
+
+[Unreleased]: https://github.com/thoughtbot/clearance/compare/v2.5.0...main
+
 ## [2.5.0] - September 10, 2021
 
 ### Fixed
