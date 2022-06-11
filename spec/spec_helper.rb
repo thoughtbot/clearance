@@ -11,6 +11,8 @@ require "timecop"
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
+require "clearance"
+
 Dummy::Application.initialize!
 
 RSpec.configure do |config|
