@@ -24,8 +24,10 @@ module Clearance
     #   `params[:session][:password]` are required.
     # @return [User, nil] The user or nil if authentication fails.
     def authenticate(params)
+      session_params = params.require(:session)
+
       Clearance.configuration.user_model.authenticate(
-        params[:session][:email], params[:session][:password]
+        session_params[:email], session_params[:password]
       )
     end
 

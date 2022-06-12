@@ -9,6 +9,7 @@ complete changelog, see the git history for each version via the version links.
 - Drops support for Ruby 2.4, 2.5 and 2.6, see https://endoflife.date/ruby #964
 - Adds support for Turbo with appropriate status codes #965
 - Adds unique constraints on `remember_token` and `confirmation_token` #966
+- Adds `user_parameter` configuration #782 (Bryan Marble)
 
 [Unreleased]: https://github.com/thoughtbot/clearance/compare/v2.5.0...main
 
