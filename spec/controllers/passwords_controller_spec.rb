@@ -213,6 +213,34 @@ describe Clearance::PasswordsController do
         expect(user.reload.encrypted_password).not_to eq old_encrypted_password
         expect(response).to have_http_status(:see_other)
       end
+
+      it "signs in the user" do
+        user = create(:user, :with_forgotten_password)
+
+        put :update, params: update_parameters(
+          user,
+          new_password: "my_new_password",
+        )
+
+        expect(current_user).to eq(user)
+      end
+
+      context "when Clearance is configured to not sign in the user" do
+        it "doesn't sign in the user" do
+          Clearance.configure do |config|
+            config.sign_in_on_password_reset = false
+          end
+
+          user = create(:user, :with_forgotten_password)
+
+          put :update, params: update_parameters(
+            user,
+            new_password: "my_new_password",
+          )
+
+          expect(current_user).to be_nil
+        end
+      end
     end
 
     context "password update fails" do
@@ -253,7 +281,17 @@ describe Clearance::PasswordsController do
         expect(flash.now[:alert]).to match(/password can't be blank/i)
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response).to render_template(:edit)
-        expect(cookies[:remember_token]).to be_nil
+      end
+
+      it "doesn't sign in the user" do
+        user = create(:user, :with_forgotten_password)
+
+        put :update, params: update_parameters(
+          user,
+          new_password: "",
+        )
+
+        expect(current_user).to be_nil
       end
     end
   end
@@ -266,5 +304,9 @@ describe Clearance::PasswordsController do
       token: user.confirmation_token,
       password_reset: { password: new_password }
     }
+  end
+
+  def current_user
+    request.env[:clearance].current_user
   end
 end
