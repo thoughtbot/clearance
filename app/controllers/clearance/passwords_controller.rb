@@ -33,7 +33,7 @@ class Clearance::PasswordsController < Clearance::BaseController
     @user = find_user_for_update
 
     if @user.update_password(password_from_password_reset_params)
-      sign_in @user
+      sign_in @user if Clearance.configuration.sign_in_on_password_reset?
       redirect_to url_after_update, status: :see_other
       session[:password_reset_token] = nil
     else

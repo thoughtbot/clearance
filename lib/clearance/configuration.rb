@@ -123,6 +123,12 @@ module Clearance
     # @return [Symbol]
     attr_accessor :user_parameter
 
+    # Controls wether users are automatically signed in after successfully
+    # resetting their password.
+    # Defaults to `true`.
+    # @return [Boolean]
+    attr_writer :sign_in_on_password_reset
+
     def initialize
       @allow_sign_up = true
       @allowed_backdoor_environments = ["test", "ci", "development"]
@@ -140,6 +146,7 @@ module Clearance
       @signed_cookie = false
       @sign_in_guards = []
       @user_parameter = nil
+      @sign_in_on_password_reset = true
     end
 
     def signed_cookie=(value)
@@ -219,6 +226,10 @@ module Clearance
 
     def rotate_csrf_on_sign_in?
       !!rotate_csrf_on_sign_in
+    end
+
+    def sign_in_on_password_reset?
+      @sign_in_on_password_reset
     end
   end
 

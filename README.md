@@ -66,6 +66,7 @@ Clearance.configure do |config|
   config.sign_in_guards = []
   config.user_model = "User"
   config.parent_controller = "ApplicationController"
+  config.sign_in_on_password_reset = false
 end
 ```
 
