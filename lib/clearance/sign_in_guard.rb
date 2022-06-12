@@ -16,10 +16,10 @@ module Clearance
   #
   #     # in config/initializers/clearance.rb
   #     Clearance.configure do |config|
-  #       config.sign_in_guards = [ConfirmationGuard]
+  #       config.sign_in_guards = ["ConfirmationGuard"]
   #     end
   #
-  #     # in lib/guards/confirmation_guard.rb
+  #     # in app/guards/confirmation_guard.rb
   #     class ConfirmationGuard < Clearance::SignInGuard
   #       def call
   #         if signed_in? && current_user.email_confirmed?

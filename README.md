@@ -349,6 +349,7 @@ end
 ```
 
 ```ruby
+# app/guards/email_confirmation_guard.rb
 class EmailConfirmationGuard < Clearance::SignInGuard
   def call
     if unconfirmed?
