@@ -35,6 +35,16 @@ describe Clearance::PasswordsController do
         email = ActionMailer::Base.deliveries.last
         expect(email.subject).to match(/change your password/i)
       end
+
+      it "re-renders the page when turbo is enabled" do
+        user = create(:user)
+
+        post :create, params: {
+          password: { email: user.email.upcase },
+        }
+
+        expect(response).to have_http_status(:accepted)
+      end
     end
 
     context "email param is missing" do
@@ -46,6 +56,14 @@ describe Clearance::PasswordsController do
         expect(flash.now[:alert]).to match(/email can't be blank/i)
         expect(response).to render_template(:new)
       end
+
+      it "re-renders the page when turbo is enabled" do
+        post :create, params: {
+          password: {},
+        }
+
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
     end
 
     context "email param is blank" do
@@ -53,11 +71,21 @@ describe Clearance::PasswordsController do
         post :create, params: {
           password: {
             email: "",
-          }
+          },
         }
 
         expect(flash.now[:alert]).to match(/email can't be blank/i)
         expect(response).to render_template(:new)
+      end
+
+      it "re-renders the page when turbo is enabled" do
+        post :create, params: {
+          password: {
+            email: "",
+          },
+        }
+
+        expect(response).to have_http_status(:unprocessable_entity)
       end
     end
 
@@ -73,7 +101,7 @@ describe Clearance::PasswordsController do
         expect(ActionMailer::Base.deliveries).to be_empty
       end
 
-      it "still responds with success so as not to leak registered users" do
+      it "still responds with error so as not to leak registered users" do
         email = "this_user_does_not_exist@non_existent_domain.com"
 
         post :create, params: {
@@ -82,6 +110,16 @@ describe Clearance::PasswordsController do
 
         expect(response).to be_successful
         expect(response).to render_template "passwords/create"
+      end
+
+      it "has the same status code as a successful request" do
+        email = "this_user_does_not_exist@non_existent_domain.com"
+
+        post :create, params: {
+          password: { email: email },
+        }
+
+        expect(response).to have_http_status(:accepted)
       end
     end
   end
@@ -97,6 +135,7 @@ describe Clearance::PasswordsController do
         }
 
         expect(response).to be_redirect
+        expect(response).to have_http_status(:found)
         expect(response).to redirect_to edit_user_password_url(user)
         expect(session[:password_reset_token]).to eq user.confirmation_token
       end
@@ -172,6 +211,7 @@ describe Clearance::PasswordsController do
         )
 
         expect(user.reload.encrypted_password).not_to eq old_encrypted_password
+        expect(response).to have_http_status(:see_other)
       end
     end
 

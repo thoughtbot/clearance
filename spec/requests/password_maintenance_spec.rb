@@ -12,6 +12,7 @@ describe "Password maintenance" do
       }
 
       expect(response).to redirect_to(Clearance.configuration.redirect_url)
+      expect(response).to have_http_status(:see_other)
       expect(cookies["remember_token"]).to be_present
     end
   end
