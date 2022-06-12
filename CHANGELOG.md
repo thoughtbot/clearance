@@ -9,7 +9,12 @@ complete changelog, see the git history for each version via the version links.
 - Drops support for Ruby 2.4, 2.5 and 2.6, see https://endoflife.date/ruby #964
 - Adds support for Turbo with appropriate status codes #965
 - Adds unique constraints on `remember_token` and `confirmation_token` #966
-- Adds `user_parameter` configuration #782 (Bryan Marble)
+- Allows `user_parameter` to be configuration, e.g. `params[:custom_id]` instead of
+  `params[:user_id]` #782 (Bryan Marble)
+- Updates SignInGuard documentation #950 (Matthew LS)
+- Forward options in redirect_back_or helper (#968) (Matthew LS)
+- Add configuration option to disable sign in after password reset (#969) (Till
+  Prochaska)
 
 [Unreleased]: https://github.com/thoughtbot/clearance/compare/v2.5.0...main
 
