@@ -135,6 +135,12 @@ describe Clearance::Generators::InstallGenerator, :generator do
         expect(migration).to contain("add_index :users, :email")
         expect(migration).not_to contain("t.string :remember_token")
         expect(migration).not_to contain("add_index :users, :remember_token")
+        expect(migration).to(
+          contain("add_index :users, :confirmation_token, unique: true"),
+        )
+        expect(migration).to(
+          contain("remove_index :users, :confirmation_token, unique: true"),
+        )
       end
     end
   end
