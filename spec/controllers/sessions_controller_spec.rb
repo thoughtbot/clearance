@@ -24,6 +24,14 @@ describe Clearance::SessionsController do
   end
 
   describe "on POST to #create" do
+    context "when missing parameters" do
+      it "raises an error" do
+        expect do
+          post :create
+        end.to raise_error(ActionController::ParameterMissing)
+      end
+    end
+
     context "when password is optional" do
       it "renders the page with error" do
         user = create(:user_with_optional_password)
