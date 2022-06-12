@@ -1,9 +1,13 @@
-# News
+# CHANGELOG
 
 The noteworthy changes for each Clearance version are included here. For a
 complete changelog, see the git history for each version via the version links.
 
 ## [Unreleased]
+
+[Unreleased]: https://github.com/thoughtbot/clearance/compare/v2.6.0...main
+
+## [2.6.0] - June 12, 2022
 
 - Drops support for Rails 5.0, 5.1 and 5.2, see https://endoflife.date/rails #964
 - Drops support for Ruby 2.4, 2.5 and 2.6, see https://endoflife.date/ruby #964
@@ -16,7 +20,7 @@ complete changelog, see the git history for each version via the version links.
 - Add configuration option to disable sign in after password reset (#969) (Till
   Prochaska)
 
-[Unreleased]: https://github.com/thoughtbot/clearance/compare/v2.5.0...main
+[2.6.0]: https://github.com/thoughtbot/clearance/compare/v2.5.0...v2.6.0
 
 ## [2.5.0] - September 10, 2021
 
