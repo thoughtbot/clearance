@@ -27,7 +27,8 @@ Gem::Specification.new do |s|
     'Derek Prior',
     'Jason Morrison',
     'Galen Frechette',
-    'Josh Steiner'
+    'Josh Steiner',
+    'Dorian Marié'
   ]
   s.description = <<-DESCRIPTION
     Clearance is built to support authentication and authorization via an
