@@ -475,6 +475,10 @@ Thank you, [contributors]!
 [CONTRIBUTING.md]: /CONTRIBUTING.md
 [contributors]: https://github.com/thoughtbot/clearance/graphs/contributors
 
+## Security
+
+For security issues it's better to email security@thoughtbot.com / https://thoughtbot.com/security
+
 ## License
 
 Clearance is copyright © 2009-2019 thoughtbot. It is free software, and may be
