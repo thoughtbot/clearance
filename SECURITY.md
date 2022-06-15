@@ -9,7 +9,7 @@ We will provide security updates for the latest 3 versions.
 | 2.6.x   | ✅ |
 | 2.5.x   | ✅ |
 | 2.4.x   | ✅ |
-| < 2.4.0 | :x: |
+| < 2.4.0 | ✖️ |
 
 ## Reporting a Vulnerability
 
