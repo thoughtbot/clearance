@@ -477,7 +477,7 @@ Thank you, [contributors]!
 
 ## Security
 
-For security issues it's better to email security@thoughtbot.com / https://thoughtbot.com/security
+For security issues it's better to contact <security@thoughtbot.com> (See <https://thoughtbot.com/security>)
 
 ## License
 
