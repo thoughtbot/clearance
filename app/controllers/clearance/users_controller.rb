@@ -35,6 +35,7 @@ class Clearance::UsersController < Clearance::BaseController
   end
 
   def user_params
-    params.fetch(Clearance.configuration.user_parameter, {}).permit(:email, :password)
+    params.fetch(Clearance.configuration.user_parameter, {}).
+      permit(:email, :password)
   end
 end
