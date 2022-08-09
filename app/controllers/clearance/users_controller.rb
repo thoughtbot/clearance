@@ -31,16 +31,10 @@ class Clearance::UsersController < Clearance::BaseController
   end
 
   def user_from_params
-    email = user_params.delete(:email)
-    password = user_params.delete(:password)
-
-    Clearance.configuration.user_model.new(user_params).tap do |user|
-      user.email = email
-      user.password = password
-    end
+    Clearance.configuration.user_model.new(user_params)
   end
 
   def user_params
-    params[Clearance.configuration.user_parameter] || Hash.new
+    params.fetch(Clearance.configuration.user_parameter, {}).permit(:email, :password)
   end
 end
