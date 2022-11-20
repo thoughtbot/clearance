@@ -419,6 +419,41 @@ To Generate the clearance specs, run:
 rails generate clearance:specs
 ```
 
+### Request Test Helpers
+
+To test routes that are protected by `before_action :require_login`,
+require Clearance's test helpers in your test suite.
+
+For `rspec`, add the following line to your `spec/rails_helper.rb` or
+`spec/spec_helper` if `rails_helper` does not exist:
+
+```ruby
+require "clearance/rspec"
+```
+
+This will make available helper methods to assist you in your request tests.
+
+```ruby
+sign_in
+sign_in_as(user, password: "12345")
+sign_out
+```
+
+By default, these helpers will use `session_path` and `sign_out_path` to sign
+in and sign out user, but if you are using custom paths, you are able to
+provide your paths:
+
+```ruby
+sign_in_as(user, password: "12345", path: custom_sign_in_path)
+sign_out(user, password: "12345", path: custom_sign_out_path)
+```
+
+If you need the reference for signed in user, you can assign the `sign_in`
+return to a variable:
+
+```ruby
+user = sign_in
+```
 ### Controller Test Helpers
 
 To test controller actions that are protected by `before_action :require_login`,
