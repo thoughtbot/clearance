@@ -96,6 +96,12 @@ module Clearance
     # @return [Boolean|:migrate]
     attr_reader :signed_cookie
 
+    # Controls whether cookies are encrypted.
+    # Defaults to `nil` for backwards compatibility.
+    # When not nil overrides signed_cookie settings and if true uses Rails' encrypted cookies
+    # @return [Boolean|:migrate]
+    attr_reader :encrypted_cookie
+
     # The array of sign in guards to run when signing a user in.
     # Defaults to an empty array. Sign in guards respond to `call` and are
     # initialized with a session and the current stack. Each guard can decide
@@ -144,6 +150,7 @@ module Clearance
       @routes = true
       @secure_cookie = false
       @signed_cookie = false
+      @encrypted_cookie = nil
       @sign_in_guards = []
       @user_parameter = nil
       @sign_in_on_password_reset = true
@@ -154,6 +161,16 @@ module Clearance
         @signed_cookie = value
       else
         raise "Clearance's signed_cookie configuration value is invalid. " \
+              "Valid values are true, false, or :migrate. " \
+              "Set this option via Clearance.configure in an initializer"
+      end
+    end
+
+    def encrypted_cookie=(value)
+      if [true, false, :migrate].include? value
+        @encrypted_cookie = value
+      else
+        raise "Clearance's enrcypted_cookie configuration value is invalid. " \
               "Valid values are true, false, or :migrate. " \
               "Set this option via Clearance.configure in an initializer"
       end
