@@ -2,7 +2,7 @@
 
 1. Update version file accordingly.
 1. Run `bundle install` to update Gemfile.lock
-1. Update `NEWS.md` to reflect the changes since last release.
+1. Update `CHANGELOG.md` to reflect the changes since last release.
 1. Commit changes.
    There shouldn't be code changes,
    and thus CI doesn't need to run,
@@ -16,7 +16,7 @@
     gem build clearance.gemspec
     gem push clearance-*.gem
     ```
-1. Add a new GitHub release using the recent `NEWS.md` as the content. Sample
+1. Add a new GitHub release using the recent `CHANGELOG.md` as the content. Sample
    URL: https://github.com/thoughtbot/clearance/releases/new?tag=vVERSION
 1. Announce the new release,
    making sure to say "thank you" to the contributors
