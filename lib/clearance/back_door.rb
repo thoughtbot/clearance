@@ -50,9 +50,9 @@ module Clearance
     def sign_in_through_the_back_door(env)
       params = Rack::Utils.parse_query(env["QUERY_STRING"])
       user_param = params.delete("as")
-      env["QUERY_STRING"] = Rack::Utils.build_query(params)
 
       if user_param.present?
+        env["QUERY_STRING"] = Rack::Utils.build_query(params)
         user = find_user(user_param)
         env[:clearance].sign_in(user)
       end

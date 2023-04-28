@@ -23,6 +23,7 @@ jobs:
           - "2.7.6"
           - "3.0.4"
           - "3.1.2"
+          - "3.2.2"
 
     env:
       BUNDLE_GEMFILE: gemfiles/rails_${{ matrix.gemfile }}.gemfile
