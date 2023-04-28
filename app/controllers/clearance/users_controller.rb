@@ -41,6 +41,6 @@ class Clearance::UsersController < Clearance::BaseController
   end
 
   def user_params
-    params[Clearance.configuration.user_parameter] || Hash.new
+    params[Clearance.configuration.user_parameter] || {}
   end
 end
