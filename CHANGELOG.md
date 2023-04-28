@@ -5,7 +5,14 @@ complete changelog, see the git history for each version via the version links.
 
 ## [Unreleased]
 
-[Unreleased]: https://github.com/thoughtbot/clearance/compare/v2.6.0...main
+[Unreleased]: https://github.com/thoughtbot/clearance/compare/v2.6.1...main
+
+## [2.6.1] - September 23, 2022
+- Document how to report security issues
+- Only update the `env["QUERY_STRING"]` if the `as` parameter is present in
+  backdoor middleware
+
+[2.6.1]: https://github.com/thoughtbot/clearance/compare/v2.6.0...v2.6.1
 
 ## [2.6.0] - June 12, 2022
 
