@@ -59,8 +59,8 @@ GEM
       bundler
       rake
       thor (>= 0.14.0)
-    argon2 (2.1.1)
-      ffi (~> 1.14)
+    argon2 (2.2.0)
+      ffi (~> 1.15)
       ffi-compiler (~> 1.0)
     ast (2.4.2)
     bcrypt (3.1.18)
