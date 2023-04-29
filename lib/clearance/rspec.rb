@@ -8,6 +8,7 @@ RSpec.configure do |config|
   config.include Clearance::Testing::ControllerHelpers, type: :controller
   config.include Clearance::Testing::ViewHelpers, type: :view
   config.include Clearance::Testing::ViewHelpers, type: :helper
+  config.include Clearance::Testing::ViewHelpers, type: :component
 
   config.before(:each, type: :view) do
     view.extend Clearance::Testing::ViewHelpers::CurrentUser
@@ -15,5 +16,9 @@ RSpec.configure do |config|
 
   config.before(:each, type: :helper) do
     view.extend Clearance::Testing::ViewHelpers::CurrentUser
+  end
+
+  config.before(:each, type: :component) do
+    controller.extend Clearance::Testing::ViewHelpers::CurrentUser
   end
 end
