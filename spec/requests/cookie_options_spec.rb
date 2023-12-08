@@ -40,7 +40,7 @@ describe "Cookie options" do
       it { should_have_one_remember_token }
 
       it "should have the httponly flag set" do
-        expect(remember_token_cookies.last).to match(/HttpOnly/)
+        expect(remember_token_cookies.last.downcase).to match(/httponly/)
       end
     end
   end
