@@ -16,7 +16,8 @@ module RememberTokenHelpers
   end
 
   def remember_token_cookies
-    cookie_lines = headers["Set-Cookie"].lines.map(&:chomp)
+    cookies = headers["Set-Cookie"] || headers["set-cookie"]
+    cookie_lines = cookies.lines.map(&:chomp)
     cookie_lines.select { |name| name =~ /^remember_token/ }
   end
 end
