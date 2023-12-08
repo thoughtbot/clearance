@@ -39,7 +39,9 @@ jobs:
           bundler-cache: true
 
       - name: "Reset app database"
-        run: bundle exec rake dummy:db:reset
+        run: |
+          bundle exec rake dummy:db:drop
+          bundle exec rake dummy:db:setup
 
       - name: "Run tests"
         run: bundle exec rake
