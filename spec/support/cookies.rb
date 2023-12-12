@@ -36,7 +36,7 @@ RSpec::Matchers.define :set_cookie do |name, expected_value, expected_expires_at
   end
 
   def extract_cookies
-    @cookie_headers = @headers['Set-Cookie'] || []
+    @cookie_headers = @headers["Set-Cookie"] || @headers["set-cookie"] || []
     @cookie_headers = [@cookie_headers] if @cookie_headers.respond_to?(:to_str)
   end
 

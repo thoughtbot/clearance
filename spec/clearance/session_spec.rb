@@ -472,7 +472,7 @@ describe Clearance::Session do
       Rack::Utils.set_cookie_header! header, key, value
     end
 
-    cookie = header['set-cookie'] || header['Set-Cookie']
+    cookie = header["set-cookie"] || header["Set-Cookie"]
     cookie
   end
 
