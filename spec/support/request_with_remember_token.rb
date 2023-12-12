@@ -16,12 +16,7 @@ module RememberTokenHelpers
   end
 
   def remember_token_cookies
-    cookies = headers["Set-Cookie"] || headers["set-cookie"]
-    if cookies.is_a?(String)
-      cookie_lines = cookies.lines.map(&:chomp)
-    else
-      cookie_lines = cookies
-    end
+    cookie_lines = Array(headers["Set-Cookie"]).join("\n").lines.map(&:chomp)
     cookie_lines.select { |name| name =~ /^remember_token/ }
   end
 end
