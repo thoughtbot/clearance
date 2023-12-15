@@ -16,7 +16,7 @@ gem "rspec-rails"
 gem "shoulda-matchers"
 gem "sqlite3"
 gem "timecop"
-gem "railties", "~> 6.0"
+gem "railties", "~> 6.0.0"
 gem "net-smtp", require: false
 gem "psych", "< 4"
 

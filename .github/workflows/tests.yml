@@ -19,6 +19,7 @@ jobs:
           - "6.0"
           - "6.1"
           - "7.0"
+          - "7.1"
         ruby:
           - "2.7.6"
           - "3.0.4"
@@ -39,7 +40,9 @@ jobs:
           bundler-cache: true
 
       - name: "Reset app database"
-        run: bundle exec rake dummy:db:reset
+        run: |
+          bundle exec rake dummy:db:drop
+          bundle exec rake dummy:db:setup
 
       - name: "Run tests"
         run: bundle exec rake

@@ -66,7 +66,12 @@ module Clearance
       clearance_session.sign_in(user, &block)
 
       if signed_in? && Clearance.configuration.rotate_csrf_on_sign_in?
-        session.delete(:_csrf_token)
+        if request.respond_to?(:reset_csrf_token)
+          # Rails 7.1+
+          request.reset_csrf_token
+        else
+          request.session.try(:delete, :_csrf_token)
+        end
         form_authenticity_token
       end
     end
