@@ -12,6 +12,9 @@ describe User do
   it { is_expected.not_to allow_value("foo").for(:email) }
   it { is_expected.not_to allow_value("foo@").for(:email) }
   it { is_expected.not_to allow_value("foo@bar").for(:email) }
+  it { is_expected.not_to allow_value("foo;@example.com").for(:email) }
+  it { is_expected.not_to allow_value("foo@.example.com").for(:email) }
+  it { is_expected.not_to allow_value("foo@example..com").for(:email) }
 
   describe "#email" do
     it "stores email in down case and removes whitespace" do
