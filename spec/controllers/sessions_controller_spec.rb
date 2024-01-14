@@ -118,6 +118,12 @@ describe Clearance::SessionsController do
   end
 
   describe "on DELETE to #destroy" do
+    let(:configured_redirect_url) { nil }
+
+    before do
+      Clearance.configure { |config| config.url_after_destroy = configured_redirect_url }
+    end
+
     context "given a signed out user" do
       before do
         sign_out
@@ -126,6 +132,12 @@ describe Clearance::SessionsController do
 
       it { should redirect_to_url_after_destroy }
       it { expect(response).to have_http_status(:see_other) }
+
+      context "when the custom redirect URL is set" do
+        let(:configured_redirect_url) { "/redirected" }
+
+        it { should redirect_to(configured_redirect_url) }
+      end
     end
 
     context "with a cookie" do
@@ -144,6 +156,12 @@ describe Clearance::SessionsController do
 
       it "should unset the current user" do
         expect(request.env[:clearance].current_user).to be_nil
+      end
+
+      context "when the custom redirect URL is set" do
+        let(:configured_redirect_url) { "/redirected" }
+
+        it { should redirect_to(configured_redirect_url) }
       end
     end
   end

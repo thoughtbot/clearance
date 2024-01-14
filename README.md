@@ -59,6 +59,8 @@ Clearance.configure do |config|
   config.mailer_sender = "reply@example.com"
   config.password_strategy = Clearance::PasswordStrategies::BCrypt
   config.redirect_url = "/"
+  config.url_after_destroy = nil
+  config.url_after_denied_access_when_signed_out = nil
   config.rotate_csrf_on_sign_in = true
   config.same_site = nil
   config.secure_cookie = false
@@ -222,8 +224,16 @@ These "failure" methods are called for signed out sessions:
 - `application#url_after_denied_access_when_signed_out`
 - `sessions#url_after_destroy`
 
-They both default to `sign_in_url`. Override this method to change both of their
-behavior, or override them individually to just change one.
+You can override the appropriate method in your subclassed controller or you
+can set a configuration value for either of these URLs:
+
+- `Clearance.configuration.url_after_denied_access_when_signed_out`
+- `Clearance.configuration.url_after_destroy`
+
+Both configurations default to `nil` and if not set will default to
+`sign_in_url` in `sessions_controller.rb` and `authorization.rb` for backwards
+compatibility.
+
 
 ### Views
 
