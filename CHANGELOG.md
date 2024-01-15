@@ -5,6 +5,9 @@ complete changelog, see the git history for each version via the version links.
 
 ## [Unreleased]
 
+- Drops support for Rails 6.0, see https://endoflife.date/rails
+- Drops support for Ruby 2.7.6, see https://endoflife.date/ruby
+
 [Unreleased]: https://github.com/thoughtbot/clearance/compare/v2.6.2...main
 
 ## [2.6.2] January 15, 2024
@@ -19,6 +22,8 @@ deprecated active record handling in application.rb (#998)
 - Add Ruby 3.2.2 to testing matrix (#991)
 - Replace mentions of NEWS.md with CHANGELOG.md (#982)
 - Fix broken thoughtbot logo on README.md
+
+[2.6.2]: https://github.com/thoughtbot/clearance/compare/v2.6.1...v2.6.2
 
 ## [2.6.1] - September 23, 2022
 - Document how to report security issues
