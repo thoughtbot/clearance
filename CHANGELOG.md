@@ -5,7 +5,20 @@ complete changelog, see the git history for each version via the version links.
 
 ## [Unreleased]
 
-[Unreleased]: https://github.com/thoughtbot/clearance/compare/v2.6.1...main
+[Unreleased]: https://github.com/thoughtbot/clearance/compare/v2.6.2...main
+
+## [2.6.2] January 15, 2024
+- Fix typo in Clearance::Token docs (#1000) Gabe Berke-Williams
+- Add CODEOWNERS file (#994)
+- Add support for Rails 7.1 (#995) Samuel Giddens
+- Fix for setup & CI for Rails 7.1 support, update "MiniTest" to "Minitest",
+add handling for different versions of Rack::Utils.set_cookie_header!, remove
+deprecated active record handling in application.rb (#998)
+- Update argon2 to v2.2.0 (#989) Georg Leciejewski
+- Prefer literal hash creation notation (#984) Ivan Marynych
+- Add Ruby 3.2.2 to testing matrix (#991)
+- Replace mentions of NEWS.md with CHANGELOG.md (#982)
+- Fix broken thoughtbot logo on README.md
 
 ## [2.6.1] - September 23, 2022
 - Document how to report security issues
