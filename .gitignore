@@ -5,7 +5,6 @@
 *~
 .bundle
 db/*.sqlite3
-gemfiles/*.lock
 gemfiles/vendor/
 log/*.log
 pkg
