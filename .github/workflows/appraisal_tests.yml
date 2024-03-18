@@ -1,0 +1,23 @@
+name: Appraisal CI Tests
+
+on:
+  push:
+    branches: "main"
+  pull_request:
+    branches: "*"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - run: |
+          bundle install
+          bundle exec appraisal install
+          bundle exec appraisal rake db:create
+          bundle exec appraisal rake db:migrate
+
+      - name: "Run appraisal rspec"
+        run: bundle exec appraisal rspec
