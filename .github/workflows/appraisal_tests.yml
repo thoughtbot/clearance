@@ -34,10 +34,10 @@ jobs:
       - name: Install dependencies
         run: bundle install
 
-      - name: Setup database
+      - name: Reset app database
         run: |
-          bundle exec rake db:create
-          bundle exec rake db:migrate
+          bundle exec rake dummy:db:drop
+          bundle exec rake dummy:db:setup
 
       - name: "Run appraisal rspec"
         run: bundle install && bundle exec appraisal && bundle exec appraisal rspec
