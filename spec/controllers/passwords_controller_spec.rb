@@ -53,7 +53,7 @@ describe Clearance::PasswordsController do
           password: {},
         }
 
-        expect(flash.now[:alert]).to match(/email can't be blank/i)
+        expect(flash.now[:alert]).to match(/email can’t be blank/i)
         expect(response).to render_template(:new)
       end
 
@@ -74,7 +74,7 @@ describe Clearance::PasswordsController do
           },
         }
 
-        expect(flash.now[:alert]).to match(/email can't be blank/i)
+        expect(flash.now[:alert]).to match(/email can’t be blank/i)
         expect(response).to render_template(:new)
       end
 
@@ -278,7 +278,7 @@ describe Clearance::PasswordsController do
           new_password: "",
         )
 
-        expect(flash.now[:alert]).to match(/password can't be blank/i)
+        expect(flash.now[:alert]).to match(/password can’t be blank/i)
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response).to render_template(:edit)
       end
