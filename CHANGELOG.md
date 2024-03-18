@@ -5,9 +5,6 @@ complete changelog, see the git history for each version via the version links.
 
 ## [Unreleased]
 
-- Replace APOSTROPHE (U+0027) with RIGHT SINGLE QUOTATION MARK (U+2019) in locale.
-See https://github.com/rails/rails/pull/45463
-
 [Unreleased]: https://github.com/thoughtbot/clearance/compare/v2.6.2...main
 
 ## [2.6.2] January 15, 2024
