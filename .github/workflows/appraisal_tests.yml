@@ -13,14 +13,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        gemfile:
-          - 6.0
-          - 6.1
-          - 7.0
-          - 7.1
+        appraisal:
+          - rails_6.0
+          - rails_6.1
+          - rails_7.0
+          - rails_7.1
 
     env:
-      BUNDLE_GEMFILE: gemfiles/rails_${{ matrix.gemfile }}.gemfile
+      BUNDLE_GEMFILE: gemfiles/${{ matrix.appraisal }}.gemfile
       RAILS_ENV: test
 
     steps:
@@ -36,8 +36,8 @@ jobs:
 
       - name: Setup database
         run: |
-          bundle exec appraisal rake db:create
-          bundle exec appraisal rake db:migrate
+          bundle exec rake db:create
+          bundle exec rake db:migrate
 
       - name: "Run appraisal rspec"
-        run: cd gemfiles && bundle install && bundle exec appraisal && bundle exec appraisal rspec
+        run: bundle install && bundle exec appraisal && bundle exec appraisal rspec
