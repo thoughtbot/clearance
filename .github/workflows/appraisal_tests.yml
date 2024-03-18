@@ -14,10 +14,10 @@ jobs:
       fail-fast: false
       matrix:
         gemfile:
-          - rails_6.0
-          - rails_6.1
-          - rails_7.0
-          - rails_7.1
+          - 6.0
+          - 6.1
+          - 7.0
+          - 7.1
 
     env:
       BUNDLE_GEMFILE: gemfiles/rails_${{ matrix.gemfile }}.gemfile
