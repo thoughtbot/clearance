@@ -1,0 +1,44 @@
+name: Appraisal CI Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        appraisal:
+          - rails_6.0
+          - rails_6.1
+          - rails_7.0
+          - rails_7.1
+
+    env:
+      BUNDLE_GEMFILE: gemfiles/${{ matrix.appraisal }}.gemfile
+      RAILS_ENV: test
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: "Install Ruby 3.3"
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.3
+
+      - name: Install dependencies
+        run: bundle install
+
+      - name: Reset app database
+        run: |
+          bundle exec rake dummy:db:drop
+          bundle exec rake dummy:db:setup
+
+      - name: "Run appraisal rspec"
+        run: bundle install && bundle exec appraisal && bundle exec appraisal rspec
