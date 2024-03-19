@@ -37,7 +37,7 @@ class Clearance::SessionsController < Clearance::BaseController
   end
 
   def url_after_destroy
-    sign_in_url
+    Clearance.configuration.url_after_destroy || sign_in_url
   end
 
   def url_for_signed_in_users

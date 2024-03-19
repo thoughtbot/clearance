@@ -109,6 +109,34 @@ describe Clearance::Configuration do
     end
   end
 
+  context "when no url_after_destroy value specified" do
+    it "returns nil as the default" do
+      expect(Clearance::Configuration.new.url_after_destroy).to be_nil
+    end
+  end
+
+  context "when url_after_destroy value is specified" do
+    it "returns the url_after_destroy value" do
+      Clearance.configure { |config| config.url_after_destroy = "/redirect" }
+
+      expect(Clearance.configuration.url_after_destroy).to eq "/redirect"
+    end
+  end
+
+  context "when no url_after_denied_access_when_signed_out value specified" do
+    it "returns nil as the default" do
+      expect(Clearance::Configuration.new.url_after_denied_access_when_signed_out).to be_nil
+    end
+  end
+
+  context "when url_after_denied_access_when_signed_out value is specified" do
+    it "returns the url_after_denied_access_when_signed_out value" do
+      Clearance.configure { |config| config.url_after_denied_access_when_signed_out = "/redirect" }
+
+      expect(Clearance.configuration.url_after_denied_access_when_signed_out).to eq "/redirect"
+    end
+  end
+
   context "when specifying sign in guards" do
     it "returns the stack with added guards" do
       DummyGuard = Class.new

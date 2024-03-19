@@ -68,6 +68,20 @@ module Clearance
     # @return [String]
     attr_accessor :redirect_url
 
+    # The default path Clearance will redirect signed out users to.
+    # Defaults to `nil` so that the controller will use `sign_in_url`
+    # for backwards compatibility. This can be set here instead of overriding
+    # the method via an overridden session controller.
+    # @return [String]
+    attr_accessor :url_after_destroy
+
+    # The default path Clearance will redirect non-users to when denied access.
+    # Defaults to `nil` so that the authorization module will use `sign_in_url`
+    # for backwards compatibility. This can be set here instead of overriding
+    # the method via an overridden authorization module.
+    # @return [String]
+    attr_accessor :url_after_denied_access_when_signed_out
+
     # Controls whether Clearance will rotate the CSRF token on sign in.
     # Defaults to `nil` which generates a warning. Will default to true in
     # Clearance 2.0.
@@ -140,6 +154,8 @@ module Clearance
       @same_site = nil
       @mailer_sender = 'reply@example.com'
       @redirect_url = '/'
+      @url_after_destroy = nil
+      @url_after_denied_access_when_signed_out = nil
       @rotate_csrf_on_sign_in = true
       @routes = true
       @secure_cookie = false
