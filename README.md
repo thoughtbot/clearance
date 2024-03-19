@@ -393,6 +393,12 @@ Usage:
 visit root_path(as: user)
 ```
 
+You can even use the backdoor outside of Rails route helpers:
+
+```ruby
+visit "/dashboard?as=#{user.id}"
+```
+
 Additionally, if `User#to_param` is overridden, you can pass a block in
 order to override the default behavior:
 
