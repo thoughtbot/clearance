@@ -4,7 +4,7 @@ describe "Token expiration" do
   describe "after signing in" do
     before do
       Timecop.freeze
-      create_user_and_sign_in
+      sign_in
       @initial_cookies = remember_token_cookies
     end
 
@@ -22,7 +22,7 @@ describe "Token expiration" do
 
   describe "after signing in and making a followup request" do
     before do
-      create_user_and_sign_in
+      sign_in
       @initial_cookies = remember_token_cookies
 
       Timecop.travel(1.minute.from_now) do
@@ -45,15 +45,5 @@ describe "Token expiration" do
 
   def second_cookie
     Rack::Test::Cookie.new @followup_cookies.last
-  end
-
-  def create_user_and_sign_in
-    user = create(:user, password: "password")
-
-    get sign_in_path
-
-    post session_path, params: {
-      session: { email: user.email, password: "password" },
-    }
   end
 end
