@@ -114,7 +114,7 @@ module Clearance
     #
     # @return [String]
     def url_after_denied_access_when_signed_out
-      sign_in_url
+      Clearance.configuration.url_after_denied_access_when_signed_out || sign_in_url
     end
   end
 end
