@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    clearance (2.6.2)
+    clearance (2.7.0)
       actionmailer (>= 5.0)
       activemodel (>= 5.0)
       activerecord (>= 5.0)
@@ -110,8 +110,8 @@ GEM
       factory_bot (~> 6.2.0)
       railties (>= 5.0.0)
     ffi (1.16.3)
-    ffi-compiler (1.0.1)
-      ffi (>= 1.0.0)
+    ffi-compiler (1.3.2)
+      ffi (>= 1.15.5)
       rake
     globalid (1.2.1)
       activesupport (>= 6.1)
@@ -131,14 +131,14 @@ GEM
     mini_mime (1.1.2)
     mini_portile2 (2.8.0)
     minitest (5.15.0)
-    net-imap (0.4.9)
+    net-imap (0.4.10)
       date
       net-protocol
     net-pop (0.1.2)
       net-protocol
     net-protocol (0.2.2)
       timeout
-    net-smtp (0.4.0)
+    net-smtp (0.5.0)
       net-protocol
     nokogiri (1.13.6)
       mini_portile2 (~> 2.8.0)

@@ -5,12 +5,17 @@ complete changelog, see the git history for each version via the version links.
 
 ## [Unreleased]
 
-- Drops support for Rails 6.0, see https://endoflife.date/rails
-- Drops support for Ruby 2.7.6, see https://endoflife.date/ruby
+[Unreleased]: https://github.com/thoughtbot/clearance/compare/v2.7.0...main
 
-[Unreleased]: https://github.com/thoughtbot/clearance/compare/v2.6.2...main
+## [2.7.0] - April 19, 2024
+- Call dynamic README workflow (#1004)
+- Drop Ruby 2.76 and Rails 6.0 (#1005)
+- Update specs to match on translations (#1015)
+- Add configuration options for failure method redirects (#1002) Dan Sharp
 
-## [2.6.2] January 15, 2024
+[2.7.0]: https://github.com/thoughtbot/clearance/compare/v2.6.2...v2.7.0
+
+## [2.6.2] - January 15, 2024
 - Fix typo in Clearance::Token docs (#1000) Gabe Berke-Williams
 - Add CODEOWNERS file (#994)
 - Add support for Rails 7.1 (#995) Samuel Giddens
