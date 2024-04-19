@@ -491,21 +491,10 @@ For security issues it's better to contact <security@thoughtbot.com> (See <https
 
 ## License
 
-Clearance is copyright © 2009-2019 thoughtbot. It is free software, and may be
+Clearance is copyright © 2009 thoughtbot. It is free software, and may be
 redistributed under the terms specified in the [`LICENSE`] file.
 
 [`LICENSE`]: /LICENSE
 
-## About thoughtbot
-
-![thoughtbot](https://thoughtbot.com/brand_assets/93:44.svg)
-
-Clearance is maintained and funded by thoughtbot, inc.
-The names and logos for thoughtbot are trademarks of thoughtbot, inc.
-
-We love open source software!
-See [our other projects][community] or
-[hire us][hire] to design, develop, and grow your product.
-
-[community]: https://thoughtbot.com/community?utm_source=github
-[hire]: https://thoughtbot.com/hire-us?utm_source=github
+<!-- START /templates/footer.md -->
+<!-- END /templates/footer.md -->
