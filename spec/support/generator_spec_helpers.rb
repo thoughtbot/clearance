@@ -1,5 +1,5 @@
-require "ammeter/rspec/generator/example.rb"
-require "ammeter/rspec/generator/matchers.rb"
+require "ammeter/rspec/generator/example"
+require "ammeter/rspec/generator/matchers"
 require "ammeter/init"
 
 module GeneratorSpecHelpers

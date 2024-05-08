@@ -62,8 +62,8 @@ module Clearance
     #
     # Signing in will also regenerate the CSRF token for the current session,
     # provided {Configuration#rotate_csrf_on_sign_in?} is set.
-    def sign_in(user, &block)
-      clearance_session.sign_in(user, &block)
+    def sign_in(user, &)
+      clearance_session.sign_in(user, &)
 
       if signed_in? && Clearance.configuration.rotate_csrf_on_sign_in?
         if request.respond_to?(:reset_csrf_token)

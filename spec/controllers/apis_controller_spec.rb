@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 
 class ApisController < ActionController::Base
   include Clearance::Controller
@@ -21,7 +21,7 @@ describe ApisController do
     Rails.application.reload_routes!
   end
 
-  it 'responds with HTTP status code 401 when denied' do
+  it "responds with HTTP status code 401 when denied" do
     get :show, format: :js
     expect(subject).to respond_with(:unauthorized)
   end

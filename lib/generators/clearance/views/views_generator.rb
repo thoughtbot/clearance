@@ -1,4 +1,4 @@
-require 'rails/generators/base'
+require "rails/generators/base"
 
 module Clearance
   module Generators
@@ -20,18 +20,18 @@ module Clearance
       private
 
       def views
-        files_within_root('.', 'app/views/**/*.*')
+        files_within_root(".", "app/views/**/*.*")
       end
 
       def locales
-        files_within_root('.', 'config/locales/**/*.*')
+        files_within_root(".", "config/locales/**/*.*")
       end
 
       def files_within_root(prefix, glob)
         root = "#{self.class.source_root}/#{prefix}"
 
         Dir["#{root}/#{glob}"].sort.map do |full_path|
-          full_path.sub(root, '.').gsub('/./', '/')
+          full_path.sub(root, ".").gsub("/./", "/")
         end
       end
     end

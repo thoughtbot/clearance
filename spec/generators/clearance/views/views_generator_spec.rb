@@ -5,7 +5,7 @@ describe Clearance::Generators::ViewsGenerator, :generator do
   it "copies clearance views to the host application" do
     run_generator
 
-    views = %w(
+    views = %w[
       clearance_mailer/change_password.html.erb
       clearance_mailer/change_password.text.erb
       passwords/create.html.erb
@@ -15,7 +15,7 @@ describe Clearance::Generators::ViewsGenerator, :generator do
       sessions/new.html.erb
       users/_form.html.erb
       users/new.html.erb
-    )
+    ]
 
     view_files = views.map { |view| file("app/views/#{view}") }
 

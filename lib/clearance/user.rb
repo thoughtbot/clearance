@@ -1,7 +1,7 @@
-require 'digest/sha1'
-require 'active_model'
-require 'email_validator'
-require 'clearance/token'
+require "digest/sha1"
+require "active_model"
+require "email_validator"
+require "clearance/token"
 
 module Clearance
   # Required to be included in your configued user class, which is `User` by
@@ -152,7 +152,7 @@ module Clearance
         validates :email,
           email: { mode: :strict },
           presence: true,
-          uniqueness: { allow_blank: true, case_sensitive: true },
+          uniqueness: {allow_blank: true, case_sensitive: true},
           unless: :email_optional?
 
         validates :password, presence: true, unless: :skip_password_validation?

@@ -1,8 +1,8 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe Clearance::DefaultSignInGuard do
-  context 'session is signed in' do
-    it 'returns success' do
+  context "session is signed in" do
+    it "returns success" do
       session = double("Session", signed_in?: true)
       guard = Clearance::DefaultSignInGuard.new(session)
 
@@ -10,8 +10,8 @@ describe Clearance::DefaultSignInGuard do
     end
   end
 
-  context 'session is not signed in' do
-    it 'returns failure' do
+  context "session is not signed in" do
+    it "returns failure" do
       session = double("Session", signed_in?: false)
       guard = Clearance::DefaultSignInGuard.new(session)
 
@@ -23,6 +23,6 @@ describe Clearance::DefaultSignInGuard do
   end
 
   def default_failure_message
-    I18n.t('flashes.failure_after_create').html_safe
+    I18n.t("flashes.failure_after_create").html_safe
   end
 end

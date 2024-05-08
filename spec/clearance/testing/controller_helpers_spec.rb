@@ -7,7 +7,7 @@ describe Clearance::Testing::ControllerHelpers do
     def initialize
       @request = Class.new do
         def env
-          { clearance: Clearance::Session.new({}) }
+          {clearance: Clearance::Session.new({})}
         end
       end.new
     end
@@ -17,8 +17,8 @@ describe Clearance::Testing::ControllerHelpers do
     it "creates an instance of the clearance user model with FactoryBot" do
       MyUserModel = Class.new
       allow(FactoryBot).to receive(:create)
-      allow(Clearance.configuration).to receive(:user_model).
-        and_return(MyUserModel)
+      allow(Clearance.configuration).to receive(:user_model)
+        .and_return(MyUserModel)
 
       TestClass.new.sign_in
 

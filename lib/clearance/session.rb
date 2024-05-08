@@ -1,4 +1,4 @@
-require 'clearance/default_sign_in_guard'
+require "clearance/default_sign_in_guard"
 
 module Clearance
   # Represents a clearance session, ultimately persisted in
@@ -57,7 +57,7 @@ module Clearance
         @current_user = nil
       end
 
-      if block_given?
+      if block
         block.call(status)
       end
     end
@@ -89,7 +89,7 @@ module Clearance
     #
     # @return [Boolean]
     def signed_out?
-      ! signed_in?
+      !signed_in?
     end
 
     # True if a successful authentication has been performed
@@ -179,7 +179,7 @@ module Clearance
         same_site: Clearance.configuration.same_site,
         path: Clearance.configuration.cookie_path,
         secure: Clearance.configuration.secure_cookie,
-        value: value,
+        value: value
       }
     end
 

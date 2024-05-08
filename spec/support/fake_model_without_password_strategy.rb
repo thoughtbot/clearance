@@ -5,8 +5,11 @@ module FakeModelWithoutPasswordStrategy
 
       validates_with UniquenessValidator
 
-      def self.before_validation(*); end
-      def self.before_create(*); end
+      def self.before_validation(*)
+      end
+
+      def self.before_create(*)
+      end
 
       include Clearance::User
     end.new

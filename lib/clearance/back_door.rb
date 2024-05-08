@@ -79,13 +79,13 @@ module Clearance
 
     # @api private
     def error_message
-      unless allowed_environments.empty?
+      if allowed_environments.empty?
+        "BackDoor auth is disabled."
+      else
         <<-EOS.squish
           Can't use auth backdoor outside of
           configured environments (#{allowed_environments.join(", ")}).
         EOS
-      else
-        "BackDoor auth is disabled."
       end
     end
   end
