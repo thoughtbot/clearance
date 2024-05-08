@@ -1,0 +1,18 @@
+name: Run Linter
+
+on:
+  push:
+    branches: "main"
+  pull_request:
+    branches: "*"
+
+jobs:
+  standardrb:
+    name: StandardRB
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+      - run: bundle exec standardrb --format github --parallel
