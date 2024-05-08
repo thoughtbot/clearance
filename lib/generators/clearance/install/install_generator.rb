@@ -118,7 +118,7 @@ module Clearance
       end
 
       # for generating a timestamp when using `create_migration`
-      def self.next_migration_number(dir)
+      private_class_method def self.next_migration_number(dir)
         ActiveRecord::Generators::Base.next_migration_number(dir)
       end
 
