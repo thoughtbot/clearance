@@ -57,9 +57,7 @@ module Clearance
         @current_user = nil
       end
 
-      if block
-        block.call(status)
-      end
+      block&.call(status)
     end
 
     # Invalidates the users remember token and removes the remember token cookie

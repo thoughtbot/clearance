@@ -47,19 +47,19 @@ RSpec::Matchers.define :set_cookie do |name, expected_value, expected_expires_at
   end
 
   def parse_expiration
-    if @cookie && result = @cookie.match(/; expires=(.*?)(;|$)/)
+    if @cookie && (result = @cookie.match(/; expires=(.*?)(;|$)/))
       @expires_at = Time.parse(result[1])
     end
   end
 
   def parse_path
-    if @cookie && result = @cookie.match(/; path=(.*?)(;|$)/)
+    if @cookie && (result = @cookie.match(/; path=(.*?)(;|$)/))
       @path = result[1]
     end
   end
 
   def parse_value
-    if @cookie && result = @cookie.match(/=(.*?)(?:;|$)/)
+    if @cookie && (result = @cookie.match(/=(.*?)(?:;|$)/))
       @value = result[1]
     end
   end

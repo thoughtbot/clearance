@@ -113,7 +113,7 @@ module Clearance
     # @api private
     module ClassMethods
       def authenticate(email, password)
-        if user = find_by_normalized_email(email)
+        if (user = find_by_normalized_email(email))
           if password.present? && user.authenticated?(password)
             user
           end
