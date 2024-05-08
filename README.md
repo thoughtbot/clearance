@@ -50,6 +50,7 @@ Override any of these defaults in `config/initializers/clearance.rb`:
 ```ruby
 Clearance.configure do |config|
   config.allow_sign_up = true
+  config.allow_password_reset = true
   config.cookie_domain = ".example.com"
   config.cookie_expiration = lambda { |cookies| 1.year.from_now.utc }
   config.cookie_name = "remember_token"
