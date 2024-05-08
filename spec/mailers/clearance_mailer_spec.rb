@@ -1,5 +1,7 @@
 require "spec_helper"
 
+Person = Class.new(User)
+
 describe ClearanceMailer do
   it "is from DO_NOT_REPLY" do
     user = create(:user)
@@ -59,7 +61,6 @@ describe ClearanceMailer do
   context "when using a custom model" do
     it "contains a link for a custom model" do
       define_people_routes
-      Person = Class.new(User)
       person = Person.new(email: "person@example.com", password: "password")
 
       person.forgot_password!
