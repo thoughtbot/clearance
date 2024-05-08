@@ -15,4 +15,5 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
+          ruby-version: 3.0.0
       - run: bundle exec standardrb --format github --parallel
