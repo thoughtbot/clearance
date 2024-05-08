@@ -5,7 +5,12 @@ complete changelog, see the git history for each version via the version links.
 
 ## [Unreleased]
 
-[Unreleased]: https://github.com/thoughtbot/clearance/compare/v2.7.0...main
+[Unreleased]: https://github.com/thoughtbot/clearance/compare/v2.7.1...main
+
+## [2.7.1] May 8, 2024
+- Update sqlite3 and erb_lint gems (#1017) Jos O'shea
+
+[2.7.1]: https://github.com/thoughtbot/clearance/compare/v2.7.0...v2.7.1
 
 ## [2.7.0] - April 19, 2024
 - Call dynamic README workflow (#1004)
