@@ -44,6 +44,11 @@ module Clearance
         readme "README"
       end
 
+      # for generating a timestamp when using `create_migration`
+      def self.next_migration_number(dir)
+        ActiveRecord::Generators::Base.next_migration_number(dir)
+      end
+
       private
 
       def create_add_columns_migration
@@ -115,11 +120,6 @@ module Clearance
 
       def existing_users_indexes
         ActiveRecord::Base.connection.indexes(:users).map(&:name)
-      end
-
-      # for generating a timestamp when using `create_migration`
-      private_class_method def self.next_migration_number(dir)
-        ActiveRecord::Generators::Base.next_migration_number(dir)
       end
 
       def migration_version
