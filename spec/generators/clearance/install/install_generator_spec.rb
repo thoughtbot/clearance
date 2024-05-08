@@ -117,13 +117,13 @@ describe Clearance::Generators::InstallGenerator, :generator do
         existing_columns = [Struct::Named.new("remember_token")]
         existing_indexes = [Struct::Named.new("index_users_on_remember_token")]
 
-        allow(ActiveRecord::Base.connection).to receive(:columns).
-          with(:users).
-          and_return(existing_columns)
+        allow(ActiveRecord::Base.connection).to receive(:columns)
+          .with(:users)
+          .and_return(existing_columns)
 
-        allow(ActiveRecord::Base.connection).to receive(:indexes).
-          with(:users).
-          and_return(existing_indexes)
+        allow(ActiveRecord::Base.connection).to receive(:indexes)
+          .with(:users)
+          .and_return(existing_indexes)
 
         run_generator
         migration = migration_file("db/migrate/add_clearance_to_users.rb")
@@ -136,10 +136,10 @@ describe Clearance::Generators::InstallGenerator, :generator do
         expect(migration).not_to contain("t.string :remember_token")
         expect(migration).not_to contain("add_index :users, :remember_token")
         expect(migration).to(
-          contain("add_index :users, :confirmation_token, unique: true"),
+          contain("add_index :users, :confirmation_token, unique: true")
         )
         expect(migration).to(
-          contain("remove_index :users, :confirmation_token, unique: true"),
+          contain("remove_index :users, :confirmation_token, unique: true")
         )
       end
     end
@@ -147,9 +147,9 @@ describe Clearance::Generators::InstallGenerator, :generator do
 
   def table_does_not_exist(name)
     connection = ActiveRecord::Base.connection
-    allow(connection).to receive(:data_source_exists?).
-      with(name).
-      and_return(false)
+    allow(connection).to receive(:data_source_exists?)
+      .with(name)
+      .and_return(false)
   end
 
   def preserve_original_primary_key_type_setting

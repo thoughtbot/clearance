@@ -1,5 +1,5 @@
-require 'clearance/constraints/signed_in'
-require 'clearance/constraints/signed_out'
+require "clearance/constraints/signed_in"
+require "clearance/constraints/signed_out"
 
 module Clearance
   # Clearance provides Rails routing constraints that can control access and the

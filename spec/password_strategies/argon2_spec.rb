@@ -16,8 +16,8 @@ describe Clearance::PasswordStrategies::Argon2 do
     it "encrypts with Argon2 using default cost in non test environments" do
       hasher = stub_argon2_password
       model_instance = fake_model_with_argon2_strategy
-      allow(Rails).to receive(:env).
-        and_return(ActiveSupport::StringInquirer.new("production"))
+      allow(Rails).to receive(:env)
+        .and_return(ActiveSupport::StringInquirer.new("production"))
 
       model_instance.password = password
 
@@ -69,7 +69,7 @@ describe Clearance::PasswordStrategies::Argon2 do
 
   def fake_model_with_argon2_strategy
     @fake_model_with_argon2_strategy ||= fake_model_with_password_strategy(
-      Clearance::PasswordStrategies::Argon2,
+      Clearance::PasswordStrategies::Argon2
     )
   end
 

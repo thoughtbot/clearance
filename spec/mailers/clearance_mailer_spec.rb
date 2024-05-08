@@ -82,7 +82,7 @@ describe ClearanceMailer do
           resource(
             :password,
             controller: "clearance/passwords",
-            only: %i[edit update],
+            only: %i[edit update]
           )
         end
       end

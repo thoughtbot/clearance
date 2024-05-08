@@ -4,8 +4,8 @@ describe Clearance::Testing::ViewHelpers do
   describe "#sign_in" do
     it "sets the signed in user to a new user object" do
       user_model = Class.new
-      allow(Clearance.configuration).to receive(:user_model).
-        and_return(user_model)
+      allow(Clearance.configuration).to receive(:user_model)
+        .and_return(user_model)
 
       view = test_view_class.new
       view.sign_in

@@ -7,7 +7,7 @@ module Dummy
 
   class Application < Rails::Application
     config.action_controller.perform_caching = false
-    config.action_mailer.default_url_options = { host: "dummy.example.com" }
+    config.action_mailer.default_url_options = {host: "dummy.example.com"}
     config.action_mailer.delivery_method = :test
     config.active_support.deprecation = :stderr
     config.eager_load = false

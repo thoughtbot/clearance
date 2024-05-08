@@ -15,6 +15,7 @@ gem "rails-controller-testing"
 gem "rspec-rails"
 gem "shoulda-matchers"
 gem "sqlite3", "~> 1.7"
+gem "standard"
 gem "timecop"
 gem "railties", "~> 6.1.0"
 gem "net-smtp", require: false

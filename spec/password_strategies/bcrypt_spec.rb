@@ -15,14 +15,14 @@ describe Clearance::PasswordStrategies::BCrypt do
     it "encrypts with BCrypt using default cost in non test environments" do
       stub_bcrypt_password
       model_instance = fake_model_with_bcrypt_strategy
-      allow(Rails).to receive(:env).
-        and_return(ActiveSupport::StringInquirer.new("production"))
+      allow(Rails).to receive(:env)
+        .and_return(ActiveSupport::StringInquirer.new("production"))
 
       model_instance.password = password
 
       expect(BCrypt::Password).to have_received(:create).with(
         password,
-        cost: ::BCrypt::Engine::DEFAULT_COST,
+        cost: ::BCrypt::Engine::DEFAULT_COST
       )
     end
 

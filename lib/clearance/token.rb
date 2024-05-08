@@ -8,7 +8,7 @@ module Clearance
     #
     # @return [String]
     def self.new
-      SecureRandom.hex(20).encode('UTF-8')
+      SecureRandom.hex(20).encode("UTF-8")
     end
   end
 end

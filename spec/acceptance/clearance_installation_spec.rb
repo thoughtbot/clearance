@@ -67,10 +67,10 @@ describe "Clearance Installation" do
   end
 
   def successfully(command, silent = true)
-    if silent
-      silencer = "1>/dev/null"
+    silencer = if silent
+      "1>/dev/null"
     else
-      silencer = ""
+      ""
     end
 
     return_value = system("#{command} #{silencer}")
