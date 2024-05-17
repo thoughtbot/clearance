@@ -6,10 +6,10 @@ We will provide security updates for the latest 3 versions.
 
 | Version | Security updates |
 | - | - |
+| 2.7.x   | ✅ |
 | 2.6.x   | ✅ |
 | 2.5.x   | ✅ |
-| 2.4.x   | ✅ |
-| < 2.4.0 | :x: |
+| < 2.5.0 | :x: |
 
 ## Reporting a Vulnerability
 
