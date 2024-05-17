@@ -3,7 +3,6 @@
 [![Build Status](https://github.com/thoughtbot/clearance/actions/workflows/tests.yml/badge.svg)]( https://github.com/thoughtbot/clearance/actions/workflows/tests.yml?query=branch%3Amain)
 [![Code Climate](https://codeclimate.com/github/thoughtbot/clearance.svg)](https://codeclimate.com/github/thoughtbot/clearance)
 [![Documentation Quality](https://inch-ci.org/github/thoughtbot/clearance.svg?branch=main)](https://inch-ci.org/github/thoughtbot/clearance)
-[![Reviewed by Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com)
 
 Rails authentication with email & password.
 
