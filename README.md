@@ -62,7 +62,7 @@ Clearance.configure do |config|
   config.url_after_denied_access_when_signed_out = nil
   config.rotate_csrf_on_sign_in = true
   config.same_site = nil
-  config.secure_cookie = false
+  config.secure_cookie = Rails.configuration.force_ssl
   config.signed_cookie = false
   config.sign_in_guards = []
   config.user_model = "User"
