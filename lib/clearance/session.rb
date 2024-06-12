@@ -108,24 +108,44 @@ module Clearance
 
     # @api private
     def set_remember_token(token)
-      case Clearance.configuration.signed_cookie
-      when true, :migrate
-        cookies.signed[remember_token_cookie] = cookie_options(token)
-      when false
-        cookies[remember_token_cookie] = cookie_options(token)
+      if !Clearance.configuration.encrypted_cookie.nil?
+        case Clearance.configuration.encrypted_cookie
+        when true, :migrate
+          cookies.encrypted[remember_token_cookie] = cookie_options(token)
+        when false
+          cookies[remember_token_cookie] = cookie_options(token)
+        end
+      else
+        case Clearance.configuration.signed_cookie
+        when true, :migrate
+          cookies.signed[remember_token_cookie] = cookie_options(token)
+        when false
+          cookies[remember_token_cookie] = cookie_options(token)
+        end
       end
       remember_token
     end
 
     # @api private
     def remember_token
-      case Clearance.configuration.signed_cookie
-      when true
-        cookies.signed[remember_token_cookie]
-      when :migrate
-        cookies.signed[remember_token_cookie] || cookies[remember_token_cookie]
-      when false
-        cookies[remember_token_cookie]
+      if !Clearance.configuration.encrypted_cookie.nil?
+        case Clearance.configuration.encrypted_cookie
+        when true
+          cookies.encrypted[remember_token_cookie]
+        when :migrate
+          cookies.encrypted[remember_token_cookie] || cookies[remember_token_cookie]
+        when false
+          cookies[remember_token_cookie]
+        end
+      else
+        case Clearance.configuration.signed_cookie
+        when true
+          cookies.signed[remember_token_cookie]
+        when :migrate
+          cookies.signed[remember_token_cookie] || cookies[remember_token_cookie]
+        when false
+          cookies[remember_token_cookie]
+        end
       end
     end
 
