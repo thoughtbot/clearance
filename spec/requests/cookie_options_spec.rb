@@ -8,14 +8,7 @@ describe "Cookie options" do
   context "when httponly config value is false" do
     let(:httponly) { false }
     describe "sign in" do
-      before do
-        user = create(:user, password: "password")
-        get sign_in_path
-
-        post session_path, params: {
-          session: { email: user.email, password: "password" },
-        }
-      end
+      before { sign_in }
 
       it { should_have_one_remember_token }
 
@@ -28,14 +21,7 @@ describe "Cookie options" do
   context "when httponly config value is true" do
     let(:httponly) { true }
     describe "sign in" do
-      before do
-        user = create(:user, password: "password")
-        get sign_in_path
-
-        post session_path, params: {
-          session: { email: user.email, password: "password" },
-        }
-      end
+      before { sign_in }
 
       it { should_have_one_remember_token }
 
