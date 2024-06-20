@@ -179,6 +179,21 @@ describe Clearance::Configuration do
     end
   end
 
+  describe "#allow_password_reset?" do
+    context "when allow_password_reset is configured to false" do
+      it "returns false" do
+        Clearance.configure { |config| config.allow_password_reset = false }
+        expect(Clearance.configuration.allow_password_reset?).to eq false
+      end
+    end
+
+    context "when allow_sign_up has not been configured" do
+      it "returns true" do
+        expect(Clearance.configuration.allow_password_reset?).to eq true
+      end
+    end
+  end  
+
   describe "#user_actions" do
     context "when allow_sign_up is configured to false" do
       it "returns empty array" do

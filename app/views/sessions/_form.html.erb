@@ -17,6 +17,8 @@
     <% if Clearance.configuration.allow_sign_up? %>
       <%= link_to t(".sign_up"), sign_up_path %>
     <% end %>
-    <%= link_to t(".forgot_password"), new_password_path %>
+    <% if Clearance.configuration.allow_password_reset? %>
+      <%= link_to t(".forgot_password"), new_password_path %>
+    <% end %>
   </div>
 <% end %>

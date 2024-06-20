@@ -7,6 +7,13 @@ module Clearance
     # @return [Boolean]
     attr_writer :allow_sign_up
 
+    # Controls whether the password reset routes are enabled
+    # Defaults to `true`. Set to False to disable password reset routes
+    # The setting is ignored if routes are disabled.
+    # @param [Boolean] value
+    # @return [Boolean]
+    attr_writer :allow_password_reset
+
     # The domain to use for the clearance remember token cookie.
     # Defaults to `nil`, which causes the cookie domain to default to the
     # domain of the request. For more, see
@@ -145,6 +152,7 @@ module Clearance
 
     def initialize
       @allow_sign_up = true
+      @allow_password_reset = true
       @allowed_backdoor_environments = ["test", "ci", "development"]
       @cookie_domain = nil
       @cookie_expiration = ->(cookies) { 1.year.from_now.utc }
@@ -195,6 +203,12 @@ module Clearance
       @allow_sign_up
     end
 
+    # Are the password reset routes enabled?
+    # @return [Boolean]
+    def allow_password_reset?
+      @allow_password_reset
+    end
+    
     # Specifies which controller actions are allowed for user resources.
     # This will be `[:create]` is `allow_sign_up` is true (the default), and
     # empty otherwise.
