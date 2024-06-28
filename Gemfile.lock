@@ -158,6 +158,8 @@ GEM
       net-protocol
     nokogiri (1.16.4-arm64-darwin)
       racc (~> 1.4)
+    nokogiri (1.16.4-x86_64-darwin)
+      racc (~> 1.4)
     parallel (1.24.0)
     parser (3.3.1.0)
       ast (~> 2.4.1)
@@ -242,6 +244,7 @@ GEM
       activesupport (>= 5.2.0)
     smart_properties (1.17.0)
     sqlite3 (1.7.3-arm64-darwin)
+    sqlite3 (1.7.3-x86_64-darwin)
     standard (1.35.1)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.0)
@@ -268,6 +271,7 @@ GEM
 
 PLATFORMS
   arm64-darwin
+  x86_64-darwin-21
 
 DEPENDENCIES
   addressable
