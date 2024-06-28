@@ -3,7 +3,6 @@
 [![Build Status](https://github.com/thoughtbot/clearance/actions/workflows/tests.yml/badge.svg)]( https://github.com/thoughtbot/clearance/actions/workflows/tests.yml?query=branch%3Amain)
 [![Code Climate](https://codeclimate.com/github/thoughtbot/clearance.svg)](https://codeclimate.com/github/thoughtbot/clearance)
 [![Documentation Quality](https://inch-ci.org/github/thoughtbot/clearance.svg?branch=main)](https://inch-ci.org/github/thoughtbot/clearance)
-[![Reviewed by Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com)
 
 Rails authentication with email & password.
 
@@ -63,7 +62,7 @@ Clearance.configure do |config|
   config.url_after_denied_access_when_signed_out = nil
   config.rotate_csrf_on_sign_in = true
   config.same_site = nil
-  config.secure_cookie = false
+  config.secure_cookie = Rails.configuration.force_ssl
   config.signed_cookie = false
   config.sign_in_guards = []
   config.user_model = "User"
@@ -497,4 +496,19 @@ redistributed under the terms specified in the [`LICENSE`] file.
 [`LICENSE`]: /LICENSE
 
 <!-- START /templates/footer.md -->
+## About thoughtbot
+
+![thoughtbot](https://thoughtbot.com/thoughtbot-logo-for-readmes.svg)
+
+This repo is maintained and funded by thoughtbot, inc.
+The names and logos for thoughtbot are trademarks of thoughtbot, inc.
+
+We love open source software!
+See [our other projects][community].
+We are [available for hire][hire].
+
+[community]: https://thoughtbot.com/community?utm_source=github
+[hire]: https://thoughtbot.com/hire-us?utm_source=github
+
+
 <!-- END /templates/footer.md -->
