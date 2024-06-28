@@ -1,4 +1,3 @@
-require "clearance"
 require "rails/engine"
 
 module Clearance

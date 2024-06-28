@@ -135,7 +135,7 @@ module Clearance
     # The parameter for user routes. By default this is derived from the user
     # model.
     # @return [Symbol]
-    attr_accessor :user_parameter
+    attr_writer :user_parameter
 
     # Controls wether users are automatically signed in after successfully
     # resetting their password.
