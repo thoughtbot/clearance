@@ -40,8 +40,8 @@ describe Clearance::BackDoor do
 
   it "can't be used outside the allowed environments" do
     with_environment("production") do
-      expect { Clearance::BackDoor.new(mock_app) }.
-        to raise_exception "Can't use auth backdoor outside of configured \
+      expect { Clearance::BackDoor.new(mock_app) }
+        .to raise_exception "Can't use auth backdoor outside of configured \
           environments (test, ci, development).".squish
     end
   end
@@ -65,15 +65,15 @@ describe Clearance::BackDoor do
 
     it "raises an error for a default allowed env" do
       with_environment("test") do
-        expect { Clearance::BackDoor.new(mock_app) }.
-          to raise_exception "BackDoor auth is disabled."
+        expect { Clearance::BackDoor.new(mock_app) }
+          .to raise_exception "BackDoor auth is disabled."
       end
     end
   end
 
   context "when the environments are not defaults" do
     before do
-      Clearance.configuration.allowed_backdoor_environments = ['demo']
+      Clearance.configuration.allowed_backdoor_environments = ["demo"]
     end
 
     it "can be used with configured allowed environments" do

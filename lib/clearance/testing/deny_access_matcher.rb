@@ -43,12 +43,12 @@ module Clearance
           @flash = opts[:flash]
           @url = opts[:redirect]
 
-          @failure_message = ''
-          @failure_message_when_negated = ''
+          @failure_message = ""
+          @failure_message_when_negated = ""
         end
 
         def description
-          'deny access'
+          "deny access"
         end
 
         def matches?(controller)
@@ -104,7 +104,7 @@ module Clearance
               "Didn't expect to set the flash to #{@flash}"
             true
           else
-            @failure_message << "Expected the flash to be set to #{@flash} "\
+            @failure_message << "Expected the flash to be set to #{@flash} " \
               "but was #{flash_alert_value}"
             false
           end

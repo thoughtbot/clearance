@@ -39,8 +39,8 @@ describe "Authentication cookies in the response" do
 
   def draw_test_routes
     Rails.application.routes.draw do
-      get "/private" => "pages#private", as: :private
-      get "/public" => "pages#public", as: :public
+      get "/private" => "pages#private", :as => :private
+      get "/public" => "pages#public", :as => :public
       resource :session, controller: "clearance/sessions", only: [:create]
     end
   end
@@ -49,7 +49,7 @@ describe "Authentication cookies in the response" do
     user = create(:user, password: "password")
 
     post session_path, params: {
-      session: { email: user.email, password: "password" },
+      session: {email: user.email, password: "password"}
     }
   end
 end

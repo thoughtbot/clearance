@@ -1,4 +1,4 @@
-require 'clearance'
+require "clearance"
 
 Clearance.configure do |config|
   # need an empty block to initialize the configuration object

@@ -62,8 +62,12 @@ module Clearance
     #
     # Signing in will also regenerate the CSRF token for the current session,
     # provided {Configuration#rotate_csrf_on_sign_in?} is set.
+    # Disabling this because rubocop/standardrb wants to change `&block` to `&`,
+    # and that breaks Ruby 3.0.4 tests
+    # rubocop:disable Style/ArgumentsForwarding
     def sign_in(user, &block)
       clearance_session.sign_in(user, &block)
+      # rubocop:enable Style/ArgumentsForwarding
 
       if signed_in? && Clearance.configuration.rotate_csrf_on_sign_in?
         if request.respond_to?(:reset_csrf_token)
