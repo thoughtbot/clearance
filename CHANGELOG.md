@@ -5,9 +5,19 @@ complete changelog, see the git history for each version via the version links.
 
 ## [Unreleased]
 
-[Unreleased]: https://github.com/thoughtbot/clearance/compare/v2.7.1...main
+[Unreleased]: https://github.com/thoughtbot/clearance/compare/v2.7.2...main
 
-## [2.7.1] May 8, 2024
+## [2.7.2] - June 28, 2024
+- Fix method redefinition and circular require issues (#1027)
+- Add specs for email validator strict mode (#1001)
+- Create SECURITY.md (#972)
+- Fix validating email in strict mode (#976)
+- Update the example config in README.md (#977)
+- Remove Hound README badge (#1020)
+
+[2.7.2]: https://github.com/thoughtbot/clearance/compare/v2.7.1...v2.7.2
+
+## [2.7.1] - May 8, 2024
 - Update sqlite3 and erb_lint gems (#1017) Jos O'shea
 
 [2.7.1]: https://github.com/thoughtbot/clearance/compare/v2.7.0...v2.7.1
