@@ -2,10 +2,10 @@ name: update-security
 
 on:
   push:
-    branches:
-      - main
     paths:
       - SECURITY.md
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
