@@ -29,7 +29,7 @@ jobs:
       RAILS_ENV: test
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: "Install Ruby ${{ matrix.ruby  }}"
         uses: ruby/setup-ruby@v1
