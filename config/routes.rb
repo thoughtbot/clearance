@@ -13,7 +13,7 @@ if Clearance.configuration.routes_enabled?
       only: Clearance.configuration.user_actions do
         if Clearance.configuration.allow_password_reset?
           resource :password,
-            controller: 'clearance/passwords',
+            controller: "clearance/passwords",
             only: [:edit, :update]
         end
       end

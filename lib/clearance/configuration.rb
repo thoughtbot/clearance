@@ -208,7 +208,7 @@ module Clearance
     def allow_password_reset?
       @allow_password_reset
     end
-    
+
     # Specifies which controller actions are allowed for user resources.
     # This will be `[:create]` is `allow_sign_up` is true (the default), and
     # empty otherwise.

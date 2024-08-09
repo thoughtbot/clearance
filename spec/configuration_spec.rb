@@ -182,7 +182,7 @@ describe Clearance::Configuration do
         expect(Clearance.configuration.allow_password_reset?).to eq true
       end
     end
-  end  
+  end
 
   describe "#user_actions" do
     context "when allow_sign_up is configured to false" do

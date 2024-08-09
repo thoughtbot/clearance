@@ -63,7 +63,7 @@ describe "routes for Clearance" do
     end
   end
 
-  context 'password reset disabled' do
+  context "password reset disabled" do
     around do |example|
       Clearance.configure { |config| config.allow_password_reset = false }
       Rails.application.reload_routes!
@@ -72,24 +72,24 @@ describe "routes for Clearance" do
       Rails.application.reload_routes!
     end
 
-    it 'does not route password edit' do
+    it "does not route password edit" do
       user = create(:user)
       expect(get: "users/#{user.id}/password/edit").not_to be_routable
     end
 
-    it 'does not route to clearance/passwords#update' do
+    it "does not route to clearance/passwords#update" do
       user = create(:user)
       expect(patch: "/users/#{user.id}/password").not_to be_routable
     end
   end
 
-  context 'reset enabled' do
-    it 'does route password edit' do
+  context "reset enabled" do
+    it "does route password edit" do
       user = create(:user)
       expect(get: "users/#{user.id}/password/edit").to be_routable
     end
 
-    it 'does route to clearance/passwords#update' do
+    it "does route to clearance/passwords#update" do
       user = create(:user)
       expect(patch: "/users/#{user.id}/password").to be_routable
     end
