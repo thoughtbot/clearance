@@ -1,18 +1,18 @@
-require 'spec_helper'
+require "spec_helper"
 
-describe 'routes for Clearance' do
-  context 'routes enabled' do
-    it 'draws the default routes' do
-      expect(get: 'sign_up').to be_routable
-      expect(get: 'sign_in').to be_routable
-      expect(get: 'passwords/new').to be_routable
-      expect(post: 'session').to be_routable
-      expect(post: 'passwords').to be_routable
-      expect(post: 'users').to be_routable
+describe "routes for Clearance" do
+  context "routes enabled" do
+    it "draws the default routes" do
+      expect(get: "sign_up").to be_routable
+      expect(get: "sign_in").to be_routable
+      expect(get: "passwords/new").to be_routable
+      expect(post: "session").to be_routable
+      expect(post: "passwords").to be_routable
+      expect(post: "users").to be_routable
     end
   end
 
-  context 'routes disabled' do
+  context "routes disabled" do
     around do |example|
       Clearance.configure { |config| config.routes = false }
       Rails.application.reload_routes!
@@ -21,17 +21,17 @@ describe 'routes for Clearance' do
       Rails.application.reload_routes!
     end
 
-    it 'does not draw any routes' do
-      expect(get: 'sign_up').not_to be_routable
-      expect(get: 'sign_in').not_to be_routable
-      expect(get: 'passwords/new').not_to be_routable
-      expect(post: 'session').not_to be_routable
-      expect(post: 'passwords').not_to be_routable
-      expect(post: 'users').not_to be_routable
+    it "does not draw any routes" do
+      expect(get: "sign_up").not_to be_routable
+      expect(get: "sign_in").not_to be_routable
+      expect(get: "passwords/new").not_to be_routable
+      expect(post: "session").not_to be_routable
+      expect(post: "passwords").not_to be_routable
+      expect(post: "users").not_to be_routable
     end
   end
 
-  context 'signup disabled' do
+  context "signup disabled" do
     around do |example|
       Clearance.configure { |config| config.allow_sign_up = false }
       Rails.application.reload_routes!
@@ -40,30 +40,30 @@ describe 'routes for Clearance' do
       Rails.application.reload_routes!
     end
 
-    it 'does not route sign_up' do
-      expect(get: 'sign_up').not_to be_routable
+    it "does not route sign_up" do
+      expect(get: "sign_up").not_to be_routable
     end
 
-    it 'does not route to users#create' do
-      expect(post: 'users').not_to be_routable
+    it "does not route to users#create" do
+      expect(post: "users").not_to be_routable
     end
 
-    it 'does not route to users#new' do
-      expect(get: 'users/new').not_to be_routable
-    end
-  end
-
-  context 'signup enabled' do
-    it 'does route sign_up' do
-      expect(get: 'sign_up').to be_routable
-    end
-
-    it 'does route to users#create' do
-      expect(post: 'users').to be_routable
+    it "does not route to users#new" do
+      expect(get: "users/new").not_to be_routable
     end
   end
 
-  context 'password reset disabled' do
+  context "signup enabled" do
+    it "does route sign_up" do
+      expect(get: "sign_up").to be_routable
+    end
+
+    it "does route to users#create" do
+      expect(post: "users").to be_routable
+    end
+  end
+
+  context "password reset disabled" do
     around do |example|
       Clearance.configure { |config| config.allow_password_reset = false }
       Rails.application.reload_routes!
@@ -72,24 +72,24 @@ describe 'routes for Clearance' do
       Rails.application.reload_routes!
     end
 
-    it 'does not route password edit' do
+    it "does not route password edit" do
       user = create(:user)
       expect(get: "users/#{user.id}/password/edit").not_to be_routable
     end
 
-    it 'does not route to clearance/passwords#update' do
+    it "does not route to clearance/passwords#update" do
       user = create(:user)
       expect(patch: "/users/#{user.id}/password").not_to be_routable
     end
   end
 
-  context 'reset enabled' do
-    it 'does route password edit' do
+  context "reset enabled" do
+    it "does route password edit" do
       user = create(:user)
       expect(get: "users/#{user.id}/password/edit").to be_routable
     end
 
-    it 'does route to clearance/passwords#update' do
+    it "does route to clearance/passwords#update" do
       user = create(:user)
       expect(patch: "/users/#{user.id}/password").to be_routable
     end

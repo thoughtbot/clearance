@@ -18,7 +18,7 @@ describe Clearance::PasswordsController do
         user = create(:user)
 
         post :create, params: {
-          password: { email: user.email.upcase },
+          password: {email: user.email.upcase}
         }
 
         expect(user.reload.confirmation_token).not_to be_nil
@@ -29,7 +29,7 @@ describe Clearance::PasswordsController do
         user = create(:user)
 
         post :create, params: {
-          password: { email: user.email },
+          password: {email: user.email}
         }
 
         email = ActionMailer::Base.deliveries.last
@@ -40,7 +40,7 @@ describe Clearance::PasswordsController do
         user = create(:user)
 
         post :create, params: {
-          password: { email: user.email.upcase },
+          password: {email: user.email.upcase}
         }
 
         expect(response).to have_http_status(:accepted)
@@ -50,7 +50,7 @@ describe Clearance::PasswordsController do
     context "email param is missing" do
       it "displays flash error on new page" do
         post :create, params: {
-          password: {},
+          password: {}
         }
 
         expect(flash.now[:alert]).to match(translated_string("flashes.failure_when_missing_email"))
@@ -59,7 +59,7 @@ describe Clearance::PasswordsController do
 
       it "re-renders the page when turbo is enabled" do
         post :create, params: {
-          password: {},
+          password: {}
         }
 
         expect(response).to have_http_status(:unprocessable_entity)
@@ -70,8 +70,8 @@ describe Clearance::PasswordsController do
       it "displays flash error on new page" do
         post :create, params: {
           password: {
-            email: "",
-          },
+            email: ""
+          }
         }
 
         expect(flash.now[:alert]).to match(translated_string("flashes.failure_when_missing_email"))
@@ -81,8 +81,8 @@ describe Clearance::PasswordsController do
       it "re-renders the page when turbo is enabled" do
         post :create, params: {
           password: {
-            email: "",
-          },
+            email: ""
+          }
         }
 
         expect(response).to have_http_status(:unprocessable_entity)
@@ -95,7 +95,7 @@ describe Clearance::PasswordsController do
         email = "this_user_does_not_exist@non_existent_domain.com"
 
         post :create, params: {
-          password: { email: email },
+          password: {email: email}
         }
 
         expect(ActionMailer::Base.deliveries).to be_empty
@@ -105,7 +105,7 @@ describe Clearance::PasswordsController do
         email = "this_user_does_not_exist@non_existent_domain.com"
 
         post :create, params: {
-          password: { email: email },
+          password: {email: email}
         }
 
         expect(response).to be_successful
@@ -116,7 +116,7 @@ describe Clearance::PasswordsController do
         email = "this_user_does_not_exist@non_existent_domain.com"
 
         post :create, params: {
-          password: { email: email },
+          password: {email: email}
         }
 
         expect(response).to have_http_status(:accepted)
@@ -131,7 +131,7 @@ describe Clearance::PasswordsController do
 
         get :edit, params: {
           user_id: user,
-          token: user.confirmation_token,
+          token: user.confirmation_token
         }
 
         expect(response).to be_redirect
@@ -147,7 +147,7 @@ describe Clearance::PasswordsController do
 
         request.session[:password_reset_token] = user.confirmation_token
         get :edit, params: {
-          user_id: user,
+          user_id: user
         }
 
         expect(response).to be_successful
@@ -160,7 +160,7 @@ describe Clearance::PasswordsController do
       it "renders the new password reset form with a flash alert" do
         get :edit, params: {
           user_id: 1,
-          token: "",
+          token: ""
         }
 
         expect(response).to render_template(:new)
@@ -174,7 +174,7 @@ describe Clearance::PasswordsController do
 
         get :edit, params: {
           user_id: 1,
-          token: user.confirmation_token + "a",
+          token: user.confirmation_token + "a"
         }
 
         expect(response).to render_template(:new)
@@ -190,7 +190,7 @@ describe Clearance::PasswordsController do
         user.forgot_password!
         get :edit, params: {
           user_id: user.id,
-          token: user.reload.confirmation_token,
+          token: user.reload.confirmation_token
         }
 
         expect(response).to redirect_to(edit_user_password_url(user))
@@ -207,7 +207,7 @@ describe Clearance::PasswordsController do
 
         put :update, params: update_parameters(
           user,
-          new_password: "my_new_password",
+          new_password: "my_new_password"
         )
 
         expect(user.reload.encrypted_password).not_to eq old_encrypted_password
@@ -219,7 +219,7 @@ describe Clearance::PasswordsController do
 
         put :update, params: update_parameters(
           user,
-          new_password: "my_new_password",
+          new_password: "my_new_password"
         )
 
         expect(current_user).to eq(user)
@@ -235,7 +235,7 @@ describe Clearance::PasswordsController do
 
           put :update, params: update_parameters(
             user,
-            new_password: "my_new_password",
+            new_password: "my_new_password"
           )
 
           expect(current_user).to be_nil
@@ -250,7 +250,7 @@ describe Clearance::PasswordsController do
 
         put :update, params: update_parameters(
           user,
-          new_password: "",
+          new_password: ""
         )
 
         user.reload
@@ -265,7 +265,7 @@ describe Clearance::PasswordsController do
           put :update, params: {
             user_id: user,
             token: user.confirmation_token,
-            password_reset: {},
+            password_reset: {}
           }
         end.not_to raise_error
       end
@@ -275,7 +275,7 @@ describe Clearance::PasswordsController do
 
         put :update, params: update_parameters(
           user,
-          new_password: "",
+          new_password: ""
         )
 
         expect(flash.now[:alert]).to match(translated_string("flashes.failure_after_update"))
@@ -288,7 +288,7 @@ describe Clearance::PasswordsController do
 
         put :update, params: update_parameters(
           user,
-          new_password: "",
+          new_password: ""
         )
 
         expect(current_user).to be_nil
@@ -302,7 +302,7 @@ describe Clearance::PasswordsController do
     {
       user_id: user,
       token: user.confirmation_token,
-      password_reset: { password: new_password }
+      password_reset: {password: new_password}
     }
   end
 

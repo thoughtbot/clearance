@@ -12,7 +12,7 @@ describe PretendFriendsController, type: :controller do
   before do
     Rails.application.routes.draw do
       resources :pretend_friends, only: :index
-      get "/sign_in"  => "clearance/sessions#new", as: "sign_in"
+      get "/sign_in" => "clearance/sessions#new", :as => "sign_in"
     end
   end
 

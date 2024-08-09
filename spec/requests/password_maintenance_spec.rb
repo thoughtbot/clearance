@@ -8,7 +8,7 @@ describe "Password maintenance" do
       put user_password_url(user), params: {
         user_id: user,
         token: user.confirmation_token,
-        password_reset: { password: "my_new_password" },
+        password_reset: {password: "my_new_password"}
       }
 
       expect(response).to redirect_to(Clearance.configuration.redirect_url)

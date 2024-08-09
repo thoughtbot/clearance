@@ -13,7 +13,7 @@ describe "Cookie options" do
         get sign_in_path
 
         post session_path, params: {
-          session: { email: user.email, password: "password" },
+          session: {email: user.email, password: "password"}
         }
       end
 
@@ -33,7 +33,7 @@ describe "Cookie options" do
         get sign_in_path
 
         post session_path, params: {
-          session: { email: user.email, password: "password" },
+          session: {email: user.email, password: "password"}
         }
       end
 
