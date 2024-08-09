@@ -5,7 +5,15 @@ complete changelog, see the git history for each version via the version links.
 
 ## [Unreleased]
 
-[Unreleased]: https://github.com/thoughtbot/clearance/compare/v2.7.2...main
+[Unreleased]: https://github.com/thoughtbot/clearance/compare/v2.8.0...main
+
+## [2.8.0] - August 9, 2024
+- Feature: Added allow_password_resets config option (#1019) Jos O'shea
+- Added dependabot (#1028) Karine Vieira
+- Fixed some deprecation warnings (#1018)
+- Added a dynamic workflow to update SECURITY.md
+
+[2.8.0]: https://github.com/thoughtbot/clearance/compare/v2.7.2...v2.8.0
 
 ## [2.7.2] - June 28, 2024
 - Fix method redefinition and circular require issues (#1027)
