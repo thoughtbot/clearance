@@ -27,6 +27,8 @@ module Dummy
     config.paths["log"] = "tmp/log/development.log"
     config.paths.add "config/routes.rb", with: "#{APP_ROOT}/config/routes.rb"
 
+    config.middleware.use Clearance::BackDoor
+
     def require_environment!
       initialize!
     end
