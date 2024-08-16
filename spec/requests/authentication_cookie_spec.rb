@@ -18,7 +18,7 @@ end
 describe "Authentication cookies in the response" do
   before do
     draw_test_routes
-    create_user_and_sign_in
+    sign_in
   end
 
   after do
@@ -43,13 +43,5 @@ describe "Authentication cookies in the response" do
       get "/public" => "pages#public", as: :public
       resource :session, controller: "clearance/sessions", only: [:create]
     end
-  end
-
-  def create_user_and_sign_in
-    user = create(:user, password: "password")
-
-    post session_path, params: {
-      session: { email: user.email, password: "password" },
-    }
   end
 end

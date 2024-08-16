@@ -1,11 +1,13 @@
 require "rspec/rails"
 require "clearance/testing/deny_access_matcher"
 require "clearance/testing/controller_helpers"
+require "clearance/testing/request_helpers"
 require "clearance/testing/view_helpers"
 
 RSpec.configure do |config|
   config.include Clearance::Testing::Matchers, type: :controller
   config.include Clearance::Testing::ControllerHelpers, type: :controller
+  config.include Clearance::Testing::RequestHelpers, type: :request
   config.include Clearance::Testing::ViewHelpers, type: :view
   config.include Clearance::Testing::ViewHelpers, type: :helper
 
