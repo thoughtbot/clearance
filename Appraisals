@@ -10,3 +10,7 @@ end
 appraise "rails_7.1" do
   gem "railties", "~> 7.1.0"
 end
+
+appraise "rails_7.2" do
+  gem "railties", "~> 7.2.0"
+end

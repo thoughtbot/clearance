@@ -1,6 +1,6 @@
 module HTMLEscapeHelper
   def translated_string(key)
-    if Rails.version >= "7.0"
+    if [7.0, 7.1].include?(Rails::VERSION::STRING.to_f)
       ERB::Util.html_escape_once(I18n.t(key))
     else
       I18n.t(key)
