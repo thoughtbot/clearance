@@ -12,6 +12,11 @@ module Dummy
     if Rails.version.match?(/(6.1|7.0)/)
       config.active_record.legacy_connection_handling = false
     end
+
+    if Rails.gem_version >= Gem::Version.new("7.1")
+      config.active_support.cache_format_version = 7.0
+    end
+
     config.active_support.deprecation = :stderr
     config.eager_load = false
 
