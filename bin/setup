@@ -12,5 +12,5 @@ if [ -z "$CI" ]; then
 fi
 
 # Set up database for the application that Clearance tests against
-RAILS_ENV=test bundle exec rake dummy:db:drop
-RAILS_ENV=test bundle exec rake dummy:db:setup
+RAILS_ENV=test bundle exec rake db:drop
+RAILS_ENV=test bundle exec rake db:setup

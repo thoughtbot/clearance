@@ -1,5 +1,4 @@
-$LOAD_PATH.push File.expand_path('../lib', __FILE__)
-require 'clearance/version'
+require_relative 'lib/clearance/version'
 
 Gem::Specification.new do |s|
   s.add_dependency 'bcrypt', '>= 3.1.1'

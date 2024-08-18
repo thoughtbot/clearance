@@ -17,5 +17,9 @@ gem "shoulda-matchers"
 gem "sqlite3", "~> 1.7"
 gem "timecop"
 gem "railties", "~> 7.0.0"
+gem "base64", require: false
+gem "bigdecimal", require: false
+gem "drb", require: false
+gem "mutex_m", require: false
 
 gemspec path: "../"

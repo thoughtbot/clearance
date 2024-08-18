@@ -18,5 +18,9 @@ gem "sqlite3", "~> 1.7"
 gem "timecop"
 gem "railties", "~> 6.1.0"
 gem "net-smtp", require: false
+gem "base64", require: false
+gem "bigdecimal", require: false
+gem "drb", require: false
+gem "mutex_m", require: false
 
 gemspec path: "../"

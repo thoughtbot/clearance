@@ -44,8 +44,8 @@ jobs:
 
       - name: "Reset app database"
         run: |
-          bundle exec rake dummy:db:drop
-          bundle exec rake dummy:db:setup
+          bundle exec rake db:drop
+          bundle exec rake db:setup
 
       - name: "Run tests"
         run: bundle exec rake
