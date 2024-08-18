@@ -7,6 +7,7 @@ require "clearance/rspec"
 Dir[File.expand_path("spec/support/**/*.rb")].each { |f| require f }
 
 RSpec.configure do |config|
+  config.include ActiveSupport::Testing::TimeHelpers
   config.include FactoryBot::Syntax::Methods
   config.infer_spec_type_from_file_location!
   config.order = :random
