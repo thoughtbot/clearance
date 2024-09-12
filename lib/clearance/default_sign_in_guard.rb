@@ -29,7 +29,7 @@ module Clearance
       I18n.t(
         :bad_email_or_password,
         scope: [:clearance, :controllers, :sessions],
-        default: I18n.t('flashes.failure_after_create').html_safe
+        default: I18n.t("flashes.failure_after_create").html_safe
       )
     end
   end

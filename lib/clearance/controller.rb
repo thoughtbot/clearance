@@ -1,5 +1,5 @@
-require 'clearance/authentication'
-require 'clearance/authorization'
+require "clearance/authentication"
+require "clearance/authorization"
 
 module Clearance
   # Adds clearance controller helpers to the controller it is mixed into.

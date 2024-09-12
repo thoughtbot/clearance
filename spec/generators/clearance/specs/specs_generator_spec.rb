@@ -5,7 +5,7 @@ describe Clearance::Generators::SpecsGenerator, :generator do
   it "copies specs to host app" do
     run_generator
 
-    specs = %w(
+    specs = %w[
       factories/clearance
       features/clearance/user_signs_out_spec
       features/clearance/visitor_resets_password_spec
@@ -14,7 +14,7 @@ describe Clearance::Generators::SpecsGenerator, :generator do
       features/clearance/visitor_updates_password_spec
       support/clearance
       support/features/clearance_helpers
-    )
+    ]
 
     spec_files = specs.map { |spec| file("spec/#{spec}.rb") }
 

@@ -14,7 +14,7 @@ describe Clearance::UsersController do
 
       it "defaults email field to the value provided in the query string" do
         get :new, params: {
-          user: { email: "a@example.com" },
+          user: {email: "a@example.com"}
         }
 
         expect(assigns(:user).email).to eq "a@example.com"
@@ -42,7 +42,7 @@ describe Clearance::UsersController do
           old_user_count = User.count
 
           post :create, params: {
-            user: user_attributes,
+            user: user_attributes
           }
 
           expect(assigns(:user)).to be_present
@@ -59,7 +59,7 @@ describe Clearance::UsersController do
           @request.session[:return_to] = return_url
 
           post :create, params: {
-            user: user_attributes,
+            user: user_attributes
           }
 
           expect(assigns(:user)).to be_present
@@ -74,7 +74,7 @@ describe Clearance::UsersController do
           old_user_count = User.count
 
           post :create, params: {
-            user: user_attributes,
+            user: user_attributes
           }
 
           expect(User.count).to eq old_user_count
@@ -88,7 +88,7 @@ describe Clearance::UsersController do
         sign_in
 
         post :create, params: {
-          user: {},
+          user: {}
         }
 
         expect(response).to redirect_to(Clearance.configuration.redirect_url)

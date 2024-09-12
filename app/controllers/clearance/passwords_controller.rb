@@ -1,4 +1,4 @@
-require 'active_support/deprecation'
+require "active_support/deprecation"
 
 class Clearance::PasswordsController < Clearance::BaseController
   before_action :ensure_existing_user, only: [:edit, :update]
@@ -10,7 +10,7 @@ class Clearance::PasswordsController < Clearance::BaseController
   end
 
   def create
-    if user = find_user_for_create
+    if (user = find_user_for_create)
       user.forgot_password!
       deliver_email(user)
     end
@@ -56,8 +56,8 @@ class Clearance::PasswordsController < Clearance::BaseController
     user_param = Clearance.configuration.user_id_parameter
     token = params[:token] || session[:password_reset_token]
 
-    Clearance.configuration.user_model.
-      find_by(id: params[user_param], confirmation_token: token.to_s)
+    Clearance.configuration.user_model
+      .find_by(id: params[user_param], confirmation_token: token.to_s)
   end
 
   def email_from_password_params
@@ -65,8 +65,8 @@ class Clearance::PasswordsController < Clearance::BaseController
   end
 
   def find_user_for_create
-    Clearance.configuration.user_model.
-      find_by_normalized_email(email_from_password_params)
+    Clearance.configuration.user_model
+      .find_by_normalized_email(email_from_password_params)
   end
 
   def find_user_for_edit

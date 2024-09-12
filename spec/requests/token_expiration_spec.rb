@@ -15,7 +15,7 @@ describe "Token expiration" do
     it "should have a remember_token cookie with a future expiration" do
       expect(first_cookie.expires).to be_between(
         1.years.from_now - 1.second,
-        1.years.from_now,
+        1.years.from_now
       )
     end
   end
@@ -53,7 +53,7 @@ describe "Token expiration" do
     get sign_in_path
 
     post session_path, params: {
-      session: { email: user.email, password: "password" },
+      session: {email: user.email, password: "password"}
     }
   end
 end

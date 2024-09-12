@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 
 class ForgeriesController < ActionController::Base
   include Clearance::Controller
@@ -11,43 +11,43 @@ class ForgeriesController < ActionController::Base
   self.allow_forgery_protection = true
 
   def create
-    redirect_to action: 'index'
+    redirect_to action: "index"
   end
 end
 
 describe ForgeriesController do
-  context 'signed in user' do
+  context "signed in user" do
     before do
       Rails.application.routes.draw do
         resources :forgeries
-        get '/sign_in'  => 'clearance/sessions#new', as: 'sign_in'
+        get "/sign_in" => "clearance/sessions#new", :as => "sign_in"
       end
 
       @user = create(:user)
-      @user.update_attribute(:remember_token, 'old-token')
-      @request.cookies['remember_token'] = 'old-token'
+      @user.update_attribute(:remember_token, "old-token")
+      @request.cookies["remember_token"] = "old-token"
     end
 
     after do
       Rails.application.reload_routes!
     end
 
-    it 'succeeds with authentic token' do
+    it "succeeds with authentic token" do
       token = controller.send(:form_authenticity_token)
       post :create, params: {
-        authenticity_token: token,
+        authenticity_token: token
       }
-      expect(subject).to redirect_to(action: 'index')
+      expect(subject).to redirect_to(action: "index")
     end
 
-    it 'fails with invalid token' do
+    it "fails with invalid token" do
       post :create, params: {
-        authenticity_token: "hax0r",
+        authenticity_token: "hax0r"
       }
       expect(subject).to deny_access
     end
 
-    it 'fails with no token' do
+    it "fails with no token" do
       post :create
       expect(subject).to deny_access
     end

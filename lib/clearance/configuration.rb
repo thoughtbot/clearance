@@ -157,11 +157,11 @@ module Clearance
       @cookie_domain = nil
       @cookie_expiration = ->(cookies) { 1.year.from_now.utc }
       @cookie_name = "remember_token"
-      @cookie_path = '/'
+      @cookie_path = "/"
       @httponly = true
       @same_site = nil
-      @mailer_sender = 'reply@example.com'
-      @redirect_url = '/'
+      @mailer_sender = "reply@example.com"
+      @redirect_url = "/"
       @url_after_destroy = nil
       @url_after_denied_access_when_signed_out = nil
       @rotate_csrf_on_sign_in = true
@@ -208,12 +208,12 @@ module Clearance
     def allow_password_reset?
       @allow_password_reset
     end
-    
+
     # Specifies which controller actions are allowed for user resources.
     # This will be `[:create]` is `allow_sign_up` is true (the default), and
     # empty otherwise.
     # @return [Array<Symbol>]
-    def  user_actions
+    def user_actions
       if allow_sign_up?
         [:create]
       else
@@ -234,7 +234,7 @@ module Clearance
     # In the default configuration, this is `user_id`.
     # @return [Symbol]
     def user_id_parameter
-      "#{user_parameter}_id".to_sym
+      :"#{user_parameter}_id"
     end
 
     # @return [Boolean] are Clearance's built-in routes enabled?
