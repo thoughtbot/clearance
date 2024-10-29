@@ -5,7 +5,14 @@ complete changelog, see the git history for each version via the version links.
 
 ## [Unreleased]
 
-[Unreleased]: https://github.com/thoughtbot/clearance/compare/v2.8.0...main
+[Unreleased]: https://github.com/thoughtbot/clearance/compare/v2.9.0...main
+
+## [2.9.0] - October 29, 2024
+- Added Rails 7.2 and Ruby 3.3 to testing matrix
+  and overhauled dummy app (#1032) Hamed Asghari
+- Droped support for Ruby 3.0 and Rails 6.1 (#1036)
+
+[2.9.0]: https://github.com/thoughtbot/clearance/compare/v2.8.0...v2.9.0
 
 ## [2.8.0] - August 9, 2024
 - Feature: Added allow_password_resets config option (#1019) Jos O'shea
