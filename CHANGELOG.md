@@ -5,7 +5,10 @@ complete changelog, see the git history for each version via the version links.
 
 ## [Unreleased]
 
-[Unreleased]: https://github.com/thoughtbot/clearance/compare/v2.9.0...main
+[Unreleased]: https://github.com/thoughtbot/clearance/compare/v2.9.1...main
+
+## [2.9.1] - October 29, 2024
+ - Update gemspec
 
 ## [2.9.0] - October 29, 2024
 - Added Rails 7.2 and Ruby 3.3 to testing matrix
