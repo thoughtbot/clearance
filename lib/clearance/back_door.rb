@@ -54,7 +54,6 @@ module Clearance
       if user_param.present?
         query_string = Rack::Utils.build_query(params)
         env[Rack::QUERY_STRING] = query_string
-        env[Rack::RACK_REQUEST_QUERY_STRING] = query_string
         user = find_user(user_param)
         env[:clearance].sign_in(user)
       end
