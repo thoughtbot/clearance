@@ -5,7 +5,12 @@ complete changelog, see the git history for each version via the version links.
 
 ## [Unreleased]
 
-[Unreleased]: https://github.com/thoughtbot/clearance/compare/v2.9.2...main
+[Unreleased]: https://github.com/thoughtbot/clearance/compare/v2.9.3...main
+
+## [2.9.3] - November 26, 2024
+- Add Rails 8 to testing matrix (#1038) Hamed Asghari
+
+[2.9.3]: https://github.com/thoughtbot/clearance/compare/v2.9.2...v2.9.3
 
 ## [2.9.2] - November 14, 2024
 - Fix query params being clobbered by Clearance::BackDoor (#1041) Frederick Cheung
