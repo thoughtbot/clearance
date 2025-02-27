@@ -75,7 +75,9 @@ describe User do
 
       expect(user_does_not_exist_time). to be_within(0.01).of(user_exists_time)
     end
+  end
 
+  describe ".find_by_normalized_email" do
     it "is retrieved via a case-insensitive search" do
       user = create(:user)
 
