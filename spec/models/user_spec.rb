@@ -174,6 +174,14 @@ describe User do
     it { is_expected.to allow_value(nil).for(:email) }
     it { is_expected.to allow_value("").for(:email) }
 
+    it "converts blank emails to nil" do
+      [nil, "", "   "].each do |blank_email|
+        subject.email = blank_email
+        subject.valid?
+        expect(subject.email).to be_nil
+      end
+    end
+
     def user
       @user ||= User.new
       allow(@user).to receive(:email_optional?).and_return(true)

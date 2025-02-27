@@ -127,6 +127,7 @@ module Clearance
       end
 
       def normalize_email(email)
+        return if email.blank?
         email.to_s.downcase.gsub(/\s+/, "")
       end
 
