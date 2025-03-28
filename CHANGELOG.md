@@ -5,7 +5,12 @@ complete changelog, see the git history for each version via the version links.
 
 ## [Unreleased]
 
-[Unreleased]: https://github.com/thoughtbot/clearance/compare/v2.9.3...main
+[Unreleased]: https://github.com/thoughtbot/clearance/compare/v2.10.0...main
+
+## [2.10.0] - March 28, 2025
+- Drop support for Rails 7.0 and Ruby 3.1 (#1045)
+
+[2.10.0]: https://github.com/thoughtbot/clearance/compare/v2.9.3...v2.10.0
 
 ## [2.9.3] - November 26, 2024
 - Add Rails 8 to testing matrix (#1038) Hamed Asghari
