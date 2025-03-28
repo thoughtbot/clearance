@@ -18,7 +18,7 @@ monitored by contributors.
 
 ## Getting Started
 
-Clearance is a Rails engine tested against Rails `>= 7.0` and Ruby `>= 3.1.6`.
+Clearance is a Rails engine tested against Rails `>= 7.1` and Ruby `>= 3.2.8`.
 
 You can add it to your Gemfile with:
 

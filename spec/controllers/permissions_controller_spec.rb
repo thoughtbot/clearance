@@ -58,7 +58,7 @@ describe PermissionsController do
     it "denies access to show and display a flash message" do
       get :show
 
-      expect(flash[:alert]).to match(translated_string("flashes.failure_when_not_signed_in"))
+      expect(flash[:alert]).to match(I18n.t("flashes.failure_when_not_signed_in"))
     end
   end
 
