@@ -4,7 +4,10 @@
 *.swp
 *~
 .bundle
-db/*.sqlite3
+.idea
+.tool-versions
+spec/dummy/db/*.sqlite3*
+spec/dummy/log
 gemfiles/*.lock
 gemfiles/vendor/
 log/*.log

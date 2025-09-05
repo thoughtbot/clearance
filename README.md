@@ -18,7 +18,7 @@ monitored by contributors.
 
 ## Getting Started
 
-Clearance is a Rails engine tested against Rails `>= 6.1` and Ruby `>= 3.0.0`.
+Clearance is a Rails engine tested against Rails `>= 7.1` and Ruby `>= 3.2.8`.
 
 You can add it to your Gemfile with:
 
@@ -510,6 +510,5 @@ We are [available for hire][hire].
 
 [community]: https://thoughtbot.com/community?utm_source=github
 [hire]: https://thoughtbot.com/hire-us?utm_source=github
-
 
 <!-- END /templates/footer.md -->

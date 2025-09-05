@@ -2,10 +2,6 @@ require "spec_helper"
 require "generators/clearance/install/install_generator"
 
 describe Clearance::Generators::InstallGenerator, :generator do
-  def get_migration(path)
-    Pathname.new(migration_file(path))
-  end
-
   describe "initializer" do
     it "is copied to the application" do
       provide_existing_application_controller
@@ -70,7 +66,7 @@ describe Clearance::Generators::InstallGenerator, :generator do
         table_does_not_exist(:users)
 
         run_generator
-        migration = get_migration("db/migrate/create_users.rb")
+        migration = migration_file("db/migrate/create_users.rb")
 
         expect(migration).to exist
         expect(migration).to have_correct_syntax
@@ -92,7 +88,7 @@ describe Clearance::Generators::InstallGenerator, :generator do
           table_does_not_exist(:users)
 
           run_generator
-          migration = get_migration("db/migrate/create_users.rb")
+          migration = migration_file("db/migrate/create_users.rb")
 
           expect(migration).to exist
           expect(migration).to have_correct_syntax
@@ -106,8 +102,8 @@ describe Clearance::Generators::InstallGenerator, :generator do
         provide_existing_application_controller
 
         run_generator
-        create_migration = get_migration("db/migrate/create_users.rb")
-        add_migration = get_migration("db/migrate/add_clearance_to_users.rb")
+        create_migration = migration_file("db/migrate/create_users.rb")
+        add_migration = migration_file("db/migrate/add_clearance_to_users.rb")
 
         expect(create_migration).not_to exist
         expect(add_migration).not_to exist
@@ -130,7 +126,7 @@ describe Clearance::Generators::InstallGenerator, :generator do
           .and_return(existing_indexes)
 
         run_generator
-        migration = get_migration("db/migrate/add_clearance_to_users.rb")
+        migration = migration_file("db/migrate/add_clearance_to_users.rb")
 
         expect(migration).to exist
         expect(migration).to have_correct_syntax

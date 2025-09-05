@@ -1,8 +1,8 @@
 require "spec_helper"
 
 describe Clearance::Session do
-  before { Timecop.freeze }
-  after { Timecop.return }
+  before { freeze_time }
+  after { unfreeze_time }
 
   let(:session) { Clearance::Session.new(env_without_remember_token) }
   let(:user) { create(:user) }

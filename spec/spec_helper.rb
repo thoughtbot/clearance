@@ -1,20 +1,13 @@
 ENV["RAILS_ENV"] ||= "test"
+require_relative "dummy/config/environment"
 
-require "rails/all"
-require "dummy/application"
-
-require "clearance/rspec"
-require "factory_bot_rails"
-require "rails-controller-testing"
 require "rspec/rails"
-require "shoulda-matchers"
-require "timecop"
+require "clearance/rspec"
 
-Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
-
-Dummy::Application.initialize!
+Dir[File.expand_path("spec/support/**/*.rb")].each { |f| require f }
 
 RSpec.configure do |config|
+  config.include ActiveSupport::Testing::TimeHelpers
   config.include FactoryBot::Syntax::Methods
   config.infer_spec_type_from_file_location!
   config.order = :random

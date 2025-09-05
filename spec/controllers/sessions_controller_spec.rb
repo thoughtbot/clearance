@@ -41,7 +41,7 @@ describe Clearance::SessionsController do
         }
 
         expect(response).to render_template(:new)
-        expect(flash[:alert]).to match(translated_string("flashes.failure_after_create"))
+        expect(flash[:alert]).to match(I18n.t("flashes.failure_after_create"))
       end
     end
 

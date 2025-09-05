@@ -33,7 +33,7 @@ describe Clearance::PasswordsController do
         }
 
         email = ActionMailer::Base.deliveries.last
-        expect(email.subject).to match(translated_string("passwords.edit.title"))
+        expect(email.subject).to match(I18n.t("passwords.edit.title"))
       end
 
       it "re-renders the page when turbo is enabled" do
@@ -53,7 +53,7 @@ describe Clearance::PasswordsController do
           password: {}
         }
 
-        expect(flash.now[:alert]).to match(translated_string("flashes.failure_when_missing_email"))
+        expect(flash.now[:alert]).to match(I18n.t("flashes.failure_when_missing_email"))
         expect(response).to render_template(:new)
       end
 
@@ -74,7 +74,7 @@ describe Clearance::PasswordsController do
           }
         }
 
-        expect(flash.now[:alert]).to match(translated_string("flashes.failure_when_missing_email"))
+        expect(flash.now[:alert]).to match(I18n.t("flashes.failure_when_missing_email"))
         expect(response).to render_template(:new)
       end
 
@@ -164,7 +164,7 @@ describe Clearance::PasswordsController do
         }
 
         expect(response).to render_template(:new)
-        expect(flash.now[:alert]).to match(translated_string("flashes.failure_when_forbidden"))
+        expect(flash.now[:alert]).to match(I18n.t("flashes.failure_when_forbidden"))
       end
     end
 
@@ -178,7 +178,7 @@ describe Clearance::PasswordsController do
         }
 
         expect(response).to render_template(:new)
-        expect(flash.now[:alert]).to match(translated_string("flashes.failure_when_forbidden"))
+        expect(flash.now[:alert]).to match(I18n.t("flashes.failure_when_forbidden"))
       end
     end
 
@@ -278,7 +278,7 @@ describe Clearance::PasswordsController do
           new_password: ""
         )
 
-        expect(flash.now[:alert]).to match(translated_string("flashes.failure_after_update"))
+        expect(flash.now[:alert]).to match(I18n.t("flashes.failure_after_update"))
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response).to render_template(:edit)
       end

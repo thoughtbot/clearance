@@ -16,20 +16,20 @@ jobs:
       fail-fast: false
       matrix:
         gemfile:
-          - "6.1"
-          - "7.0"
           - "7.1"
+          - "7.2"
+          - "8.0"
         ruby:
-          - "3.0.7"
-          - "3.1.6"
-          - "3.2.5"
+          - "3.2.9"
+          - "3.3.9"
+          - "3.4.5"
 
     env:
       BUNDLE_GEMFILE: gemfiles/rails_${{ matrix.gemfile }}.gemfile
       RAILS_ENV: test
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v5
 
       - name: "Install Ruby ${{ matrix.ruby  }}"
         uses: ruby/setup-ruby@v1
