@@ -16,7 +16,7 @@ describe "CSRF Rotation" do
         original_token = csrf_token
 
         post session_path, params: {
-          authenticity_token: csrf_token, session: { email: user.email, password: "password" }
+          authenticity_token: csrf_token, session: {email: user.email, password: "password"}
         }
 
         expect(csrf_token).not_to eq original_token
@@ -30,6 +30,6 @@ describe "CSRF Rotation" do
   end
 
   def session_params(user, password)
-    { email: user.email, password: password, authenticity_token: csrf_token }
+    {email: user.email, password: password, authenticity_token: csrf_token}
   end
 end

@@ -8,5 +8,5 @@ end
 
 appraise "rails_8.0" do
   gem "railties", "~> 8.0.0"
-  gem 'sqlite3', '>= 2.1'
+  gem "sqlite3", ">= 2.1"
 end
