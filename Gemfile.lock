@@ -142,6 +142,8 @@ GEM
       net-protocol
     nokogiri (1.18.9-arm64-darwin)
       racc (~> 1.4)
+    nokogiri (1.18.9-x86_64-linux-gnu)
+      racc (~> 1.4)
     parallel (1.27.0)
     parser (3.3.7.3)
       ast (~> 2.4.1)
@@ -243,6 +245,7 @@ GEM
 
 PLATFORMS
   arm64-darwin-24
+  x86_64-linux
 
 DEPENDENCIES
   addressable
