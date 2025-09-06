@@ -28,8 +28,4 @@ describe "CSRF Rotation" do
   def csrf_token
     session[:_csrf_token]
   end
-
-  def session_params(user, password)
-    {email: user.email, password: password, authenticity_token: csrf_token}
-  end
 end
