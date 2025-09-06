@@ -1,31 +1,37 @@
-name: "CodeQL"
+name: "CodeQL Advanced"
 
 on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
   schedule:
-    - cron: '56 11 * * 5'
+    - cron: '21 23 * * 1'
 
 jobs:
   analyze:
-    name: Analyze
-    runs-on: [ubuntu-latest]
+    name: Analyze (${{ matrix.language }})
+    runs-on: 'ubuntu-latest'
     permissions:
-      actions: read
-      contents: read
       security-events: write
 
     strategy:
       fail-fast: false
       matrix:
-        language: [ 'ruby' ]
-
+        include:
+        - language: actions
+          build-mode: none
+        - language: ruby
+          build-mode: none
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
 
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v3
       with:
         languages: ${{ matrix.language }}
+        build-mode: ${{ matrix.build-mode }}
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
