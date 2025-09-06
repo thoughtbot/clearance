@@ -48,11 +48,12 @@ module Clearance
 
     # @api private
     def sign_in_through_the_back_door(env)
-      params = Rack::Utils.parse_query(env["QUERY_STRING"])
+      params = Rack::Utils.parse_query(env[Rack::QUERY_STRING])
       user_param = params.delete("as")
 
       if user_param.present?
-        env["QUERY_STRING"] = Rack::Utils.build_query(params)
+        query_string = Rack::Utils.build_query(params)
+        env[Rack::QUERY_STRING] = query_string
         user = find_user(user_param)
         env[:clearance].sign_in(user)
       end
@@ -79,13 +80,13 @@ module Clearance
 
     # @api private
     def error_message
-      unless allowed_environments.empty?
+      if allowed_environments.empty?
+        "BackDoor auth is disabled."
+      else
         <<-EOS.squish
           Can't use auth backdoor outside of
           configured environments (#{allowed_environments.join(", ")}).
         EOS
-      else
-        "BackDoor auth is disabled."
       end
     end
   end

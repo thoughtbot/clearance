@@ -37,11 +37,11 @@ describe Clearance::SessionsController do
         user = create(:user_with_optional_password)
 
         post :create, params: {
-          session: { email: user.email, password: user.password },
+          session: {email: user.email, password: user.password}
         }
 
         expect(response).to render_template(:new)
-        expect(flash[:alert]).to match(translated_string("flashes.failure_after_create"))
+        expect(flash[:alert]).to match(I18n.t("flashes.failure_after_create"))
       end
     end
 
@@ -50,7 +50,7 @@ describe Clearance::SessionsController do
         @user = create(:user)
         @user.update_attribute :remember_token, "old-token"
         post :create, params: {
-          session: { email: @user.email, password: @user.password },
+          session: {email: @user.email, password: @user.password}
         }
       end
 
@@ -73,7 +73,7 @@ describe Clearance::SessionsController do
         request.session[:return_to] = return_url
 
         post :create, params: {
-          session: { email: user.email, password: user.password },
+          session: {email: user.email, password: user.password}
         }
 
         should redirect_to(url)
@@ -85,7 +85,7 @@ describe Clearance::SessionsController do
         request.session[:return_to] = return_url
 
         post :create, params: {
-          session: { email: user.email, password: user.password },
+          session: {email: user.email, password: user.password}
         }
 
         should redirect_to(return_url)
@@ -97,7 +97,7 @@ describe Clearance::SessionsController do
         request.session[:return_to] = return_url
 
         post :create, params: {
-          session: { email: user.email, password: user.password },
+          session: {email: user.email, password: user.password}
         }
 
         should redirect_to(return_url)
@@ -109,7 +109,7 @@ describe Clearance::SessionsController do
         request.session[:return_to] = return_url
 
         post :create, params: {
-          session: { email: user.email, password: user.password },
+          session: {email: user.email, password: user.password}
         }
 
         should redirect_to(return_url)

@@ -60,7 +60,7 @@ describe User do
         User.authenticate("bad_email@example.com", password)
       end
 
-      expect(user_does_not_exist_time). to be_within(0.01).of(user_exists_time)
+      expect(user_does_not_exist_time).to be_within(0.01).of(user_exists_time)
     end
 
     it "takes the same amount of time to fail authentication regardless of whether user exists" do
@@ -74,7 +74,7 @@ describe User do
         User.authenticate("bad_email@example.com", "bad_password")
       end
 
-      expect(user_does_not_exist_time). to be_within(0.01).of(user_exists_time)
+      expect(user_does_not_exist_time).to be_within(0.01).of(user_exists_time)
     end
 
     it "is retrieved via a case-insensitive search" do

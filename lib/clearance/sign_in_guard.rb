@@ -1,4 +1,4 @@
-require 'clearance/session_status'
+require "clearance/session_status"
 
 module Clearance
   # The base class for {DefaultSignInGuard} and all custom sign in guards.

@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 
 class PermissionsController < ActionController::Base
   include Clearance::Controller
@@ -18,7 +18,7 @@ describe PermissionsController do
   before do
     Rails.application.routes.draw do
       resource :permission, only: [:new, :show]
-      get '/sign_in' => 'clearance/sessions#new', as: 'sign_in'
+      get "/sign_in" => "clearance/sessions#new", :as => "sign_in"
     end
   end
 
@@ -26,30 +26,30 @@ describe PermissionsController do
     Rails.application.reload_routes!
   end
 
-  context 'with signed in user' do
+  context "with signed in user" do
     before { sign_in }
 
-    it 'allows access to new' do
+    it "allows access to new" do
       get :new
 
       expect(subject).not_to deny_access
     end
 
-    it 'allows access to show' do
+    it "allows access to show" do
       get :show
 
       expect(subject).not_to deny_access
     end
   end
 
-  context 'with visitor' do
-    it 'allows access to new' do
+  context "with visitor" do
+    it "allows access to new" do
       get :new
 
       expect(subject).not_to deny_access
     end
 
-    it 'denies access to show' do
+    it "denies access to show" do
       get :show
 
       expect(subject).to deny_access(redirect: sign_in_url)
@@ -58,15 +58,15 @@ describe PermissionsController do
     it "denies access to show and display a flash message" do
       get :show
 
-      expect(flash[:alert]).to match(translated_string("flashes.failure_when_not_signed_in"))
+      expect(flash[:alert]).to match(I18n.t("flashes.failure_when_not_signed_in"))
     end
   end
 
-  context 'when remember_token is blank' do
-    it 'denies acess to show' do
+  context "when remember_token is blank" do
+    it "denies acess to show" do
       user = create(:user)
-      user.update(remember_token: '')
-      cookies[:remember_token] = ''
+      user.update(remember_token: "")
+      cookies[:remember_token] = ""
 
       get :show
 

@@ -5,15 +5,15 @@ FactoryBot.define do
 
   factory :user do
     email
-    password { 'password' }
+    password { "password" }
 
     trait :with_forgotten_password do
       confirmation_token { Clearance::Token.new }
     end
 
-    factory :user_with_optional_password, class: 'UserWithOptionalPassword' do
+    factory :user_with_optional_password, class: "UserWithOptionalPassword" do
       password { nil }
-      encrypted_password { '' }
+      encrypted_password { "" }
     end
   end
 end

@@ -2,10 +2,6 @@ require "spec_helper"
 require "generators/clearance/install/install_generator"
 
 describe Clearance::Generators::InstallGenerator, :generator do
-  def get_migration(path)
-    Pathname.new(migration_file(path))
-  end
-
   describe "initializer" do
     it "is copied to the application" do
       provide_existing_application_controller
@@ -70,7 +66,7 @@ describe Clearance::Generators::InstallGenerator, :generator do
         table_does_not_exist(:users)
 
         run_generator
-        migration = get_migration("db/migrate/create_users.rb")
+        migration = migration_file("db/migrate/create_users.rb")
 
         expect(migration).to exist
         expect(migration).to have_correct_syntax
@@ -92,7 +88,7 @@ describe Clearance::Generators::InstallGenerator, :generator do
           table_does_not_exist(:users)
 
           run_generator
-          migration = get_migration("db/migrate/create_users.rb")
+          migration = migration_file("db/migrate/create_users.rb")
 
           expect(migration).to exist
           expect(migration).to have_correct_syntax
@@ -106,8 +102,8 @@ describe Clearance::Generators::InstallGenerator, :generator do
         provide_existing_application_controller
 
         run_generator
-        create_migration = get_migration("db/migrate/create_users.rb")
-        add_migration = get_migration("db/migrate/add_clearance_to_users.rb")
+        create_migration = migration_file("db/migrate/create_users.rb")
+        add_migration = migration_file("db/migrate/add_clearance_to_users.rb")
 
         expect(create_migration).not_to exist
         expect(add_migration).not_to exist
@@ -121,16 +117,16 @@ describe Clearance::Generators::InstallGenerator, :generator do
         existing_columns = [Struct::Named.new("remember_token")]
         existing_indexes = [Struct::Named.new("index_users_on_remember_token")]
 
-        allow(ActiveRecord::Base.connection).to receive(:columns).
-          with(:users).
-          and_return(existing_columns)
+        allow(ActiveRecord::Base.connection).to receive(:columns)
+          .with(:users)
+          .and_return(existing_columns)
 
-        allow(ActiveRecord::Base.connection).to receive(:indexes).
-          with(:users).
-          and_return(existing_indexes)
+        allow(ActiveRecord::Base.connection).to receive(:indexes)
+          .with(:users)
+          .and_return(existing_indexes)
 
         run_generator
-        migration = get_migration("db/migrate/add_clearance_to_users.rb")
+        migration = migration_file("db/migrate/add_clearance_to_users.rb")
 
         expect(migration).to exist
         expect(migration).to have_correct_syntax
@@ -140,10 +136,10 @@ describe Clearance::Generators::InstallGenerator, :generator do
         expect(migration).not_to contain("t.string :remember_token")
         expect(migration).not_to contain("add_index :users, :remember_token")
         expect(migration).to(
-          contain("add_index :users, :confirmation_token, unique: true"),
+          contain("add_index :users, :confirmation_token, unique: true")
         )
         expect(migration).to(
-          contain("remove_index :users, :confirmation_token, unique: true"),
+          contain("remove_index :users, :confirmation_token, unique: true")
         )
       end
     end
@@ -151,9 +147,9 @@ describe Clearance::Generators::InstallGenerator, :generator do
 
   def table_does_not_exist(name)
     connection = ActiveRecord::Base.connection
-    allow(connection).to receive(:data_source_exists?).
-      with(name).
-      and_return(false)
+    allow(connection).to receive(:data_source_exists?)
+      .with(name)
+      .and_return(false)
   end
 
   def preserve_original_primary_key_type_setting

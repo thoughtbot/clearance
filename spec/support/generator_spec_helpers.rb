@@ -1,8 +1,18 @@
-require "ammeter/rspec/generator/example.rb"
-require "ammeter/rspec/generator/matchers.rb"
+require "ammeter/rspec/generator/example"
+require "ammeter/rspec/generator/matchers"
 require "ammeter/init"
 
 module GeneratorSpecHelpers
+  module FileMethods
+    def file(path)
+      Pathname.new(super)
+    end
+
+    def migration_file(path)
+      Pathname.new(super)
+    end
+  end
+
   TEMPLATE_PATH = File.expand_path("../../app_templates", __FILE__)
 
   def provide_existing_routes_file
@@ -36,6 +46,7 @@ end
 
 RSpec.configure do |config|
   config.include GeneratorSpecHelpers
+  config.prepend GeneratorSpecHelpers::FileMethods
 
   config.before(:example, :generator) do
     destination File.expand_path("../../../tmp", __FILE__)

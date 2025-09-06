@@ -3,19 +3,19 @@ require "spec_helper"
 describe "Token expiration" do
   describe "after signing in" do
     before do
-      Timecop.freeze
+      freeze_time
       create_user_and_sign_in
       @initial_cookies = remember_token_cookies
     end
 
     after do
-      Timecop.return
+      unfreeze_time
     end
 
     it "should have a remember_token cookie with a future expiration" do
       expect(first_cookie.expires).to be_between(
         1.years.from_now - 1.second,
-        1.years.from_now,
+        1.years.from_now
       )
     end
   end
@@ -25,7 +25,7 @@ describe "Token expiration" do
       create_user_and_sign_in
       @initial_cookies = remember_token_cookies
 
-      Timecop.travel(1.minute.from_now) do
+      travel_to(1.minute.from_now) do
         get root_path
         @followup_cookies = remember_token_cookies
       end
@@ -53,7 +53,7 @@ describe "Token expiration" do
     get sign_in_path
 
     post session_path, params: {
-      session: { email: user.email, password: "password" },
+      session: {email: user.email, password: "password"}
     }
   end
 end
