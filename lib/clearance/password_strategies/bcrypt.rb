@@ -11,7 +11,7 @@ module Clearance
     # by setting a higher cost in an initializer:
     # `BCrypt::Engine.cost = 12`
     module BCrypt
-      require 'bcrypt'
+      require "bcrypt"
 
       def authenticated?(password)
         if encrypted_password.present?
@@ -25,7 +25,7 @@ module Clearance
         if new_password.present?
           self.encrypted_password = ::BCrypt::Password.create(
             new_password,
-            cost: configured_bcrypt_cost,
+            cost: configured_bcrypt_cost
           )
         end
       end

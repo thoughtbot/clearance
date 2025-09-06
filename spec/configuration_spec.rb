@@ -1,5 +1,12 @@
 require "spec_helper"
 
+MyController = Class.new
+DummyGuard = Class.new
+Account = Class.new(ActiveRecord::Base)
+CustomUser = Class.new(ActiveRecord::Base)
+ConfiguredUser = Class.new
+MyUser = Class.new
+
 describe Clearance::Configuration do
   let(:config) { Clearance.configuration }
 
@@ -10,14 +17,6 @@ describe Clearance::Configuration do
   end
 
   context "when a custom user_model_name is specified" do
-    before(:each) do
-      MyUser = Class.new
-    end
-
-    after(:each) do
-      Object.send(:remove_const, :MyUser)
-    end
-
     it "is used instead of User" do
       Clearance.configure { |config| config.user_model = MyUser }
 
@@ -38,14 +37,6 @@ describe Clearance::Configuration do
   end
 
   context "when a custom parent_controller is specified" do
-    before(:each) do
-      MyController = Class.new
-    end
-
-    after(:each) do
-      Object.send(:remove_const, :MyController)
-    end
-
     it "is used instead of ApplicationController" do
       Clearance.configure { |config| config.parent_controller = MyController }
 
@@ -139,7 +130,6 @@ describe Clearance::Configuration do
 
   context "when specifying sign in guards" do
     it "returns the stack with added guards" do
-      DummyGuard = Class.new
       Clearance.configure { |config| config.sign_in_guards = [DummyGuard] }
 
       expect(Clearance.configuration.sign_in_guards).to eq [DummyGuard]
@@ -192,7 +182,7 @@ describe Clearance::Configuration do
         expect(Clearance.configuration.allow_password_reset?).to eq true
       end
     end
-  end  
+  end
 
   describe "#user_actions" do
     context "when allow_sign_up is configured to false" do
@@ -218,7 +208,6 @@ describe Clearance::Configuration do
     end
 
     it "returns the parameter key to use based on the user_model by default" do
-      Account = Class.new(ActiveRecord::Base)
       Clearance.configure { |config| config.user_model = Account }
 
       expect(Clearance.configuration.user_parameter).to eq :account
@@ -227,7 +216,6 @@ describe Clearance::Configuration do
 
   describe "#user_id_parameter" do
     it "returns the parameter key to use based on the user_model" do
-      CustomUser = Class.new(ActiveRecord::Base)
       Clearance.configure { |config| config.user_model = CustomUser }
 
       expect(Clearance.configuration.user_id_parameter).to eq :custom_user_id
@@ -247,7 +235,6 @@ describe Clearance::Configuration do
 
   describe "#reload_user_model" do
     it "returns the user model class if one has already been configured" do
-      ConfiguredUser = Class.new
       Clearance.configure { |config| config.user_model = ConfiguredUser }
 
       expect(Clearance.configuration.reload_user_model).to eq ConfiguredUser

@@ -1,14 +1,14 @@
-require 'rails/generators/base'
-require 'rails/generators/active_record'
+require "rails/generators/base"
+require "rails/generators/active_record"
 
 module Clearance
   module Generators
     class InstallGenerator < Rails::Generators::Base
       include Rails::Generators::Migration
-      source_root File.expand_path('../templates', __FILE__)
+      source_root File.expand_path("../templates", __FILE__)
 
       def create_clearance_initializer
-        copy_file 'clearance.rb', 'config/initializers/clearance.rb'
+        copy_file "clearance.rb", "config/initializers/clearance.rb"
       end
 
       def inject_clearance_into_application_controller
@@ -24,7 +24,7 @@ module Clearance
           inject_into_file(
             "app/models/user.rb",
             "  include Clearance::User\n\n",
-            after: "class User < #{models_inherit_from}\n",
+            after: "class User < #{models_inherit_from}\n"
           )
         else
           @inherit_from = models_inherit_from
@@ -41,7 +41,12 @@ module Clearance
       end
 
       def display_readme_in_terminal
-        readme 'README'
+        readme "README"
+      end
+
+      # for generating a timestamp when using `create_migration`
+      def self.next_migration_number(dir)
+        ActiveRecord::Generators::Base.next_migration_number(dir)
       end
 
       private
@@ -62,7 +67,7 @@ module Clearance
           migration_template(
             "db/migrate/#{migration_name}.rb.erb",
             "db/migrate/#{migration_name}.rb",
-            config.merge(migration_version: migration_version),
+            config.merge(migration_version: migration_version)
           )
         end
       end
@@ -76,7 +81,7 @@ module Clearance
           email: "t.string :email",
           encrypted_password: "t.string :encrypted_password, limit: 128",
           confirmation_token: "t.string :confirmation_token, limit: 128",
-          remember_token: "t.string :remember_token, limit: 128",
+          remember_token: "t.string :remember_token, limit: 128"
         }.reject { |column| existing_users_columns.include?(column.to_s) }
       end
 
@@ -87,7 +92,7 @@ module Clearance
           index_users_on_confirmation_token:
             "add_index :users, :confirmation_token, unique: true",
           index_users_on_remember_token:
-            "add_index :users, :remember_token, unique: true",
+            "add_index :users, :remember_token, unique: true"
         }.reject { |index| existing_users_indexes.include?(index.to_s) }
       end
 
@@ -102,7 +107,7 @@ module Clearance
       end
 
       def migration_name_without_timestamp(file)
-        file.sub(%r{^.*(db/migrate/)(?:\d+_)?}, '')
+        file.sub(%r{^.*(db/migrate/)(?:\d+_)?}, "")
       end
 
       def users_table_exists?
@@ -115,11 +120,6 @@ module Clearance
 
       def existing_users_indexes
         ActiveRecord::Base.connection.indexes(:users).map(&:name)
-      end
-
-      # for generating a timestamp when using `create_migration`
-      def self.next_migration_number(dir)
-        ActiveRecord::Generators::Base.next_migration_number(dir)
       end
 
       def migration_version
