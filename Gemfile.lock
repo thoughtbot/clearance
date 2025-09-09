@@ -127,7 +127,7 @@ GEM
       net-pop
       net-smtp
     matrix (0.4.3)
-    method_source (1.0.0)
+    method_source (1.1.0)
     mini_mime (1.1.5)
     minitest (5.22.3)
     net-imap (0.4.14)
@@ -148,7 +148,7 @@ GEM
       ast (~> 2.4.1)
       racc
     prism (1.4.0)
-    pry (0.14.1)
+    pry (0.15.2)
       coderay (~> 1.1)
       method_source (~> 1.0)
     public_suffix (6.0.2)
