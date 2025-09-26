@@ -2,6 +2,7 @@ require "spec_helper"
 
 class PagesController < ApplicationController
   include Clearance::Controller
+
   before_action :require_login, only: :private
 
   # A page requiring user authentication
