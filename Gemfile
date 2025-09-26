@@ -9,7 +9,7 @@ gem "capybara"
 gem "database_cleaner"
 gem "erb_lint", require: false
 gem "factory_bot_rails"
-gem "ffi", "< 1.17.0"
+gem "ffi", "< 1.18.0"
 gem "nokogiri"
 gem "pry", require: false
 gem "rails-controller-testing"
