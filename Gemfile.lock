@@ -274,7 +274,7 @@ GEM
       rubocop-performance (~> 1.25.0)
     stringio (3.1.7)
     thor (1.4.0)
-    timecop (0.9.5)
+    timecop (0.9.10)
     timeout (0.4.3)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
