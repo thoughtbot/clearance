@@ -5,7 +5,27 @@ complete changelog, see the git history for each version via the version links.
 
 ## [Unreleased]
 
-[Unreleased]: https://github.com/thoughtbot/clearance/compare/v2.10.0...main
+[Unreleased]: https://github.com/thoughtbot/clearance/compare/v2.11.0...main
+
+## [2.11.0] - September 26, 2025
+- Bump actions/checkout from 4 to 5 for tests workflow (#1051)
+- Bump nokogiri from 1.18.6 to 1.18.9 (#1052)
+- Bump Ruby 3.2.8 to 3.2.9 (#1053)
+- Bump Ruby 3.3.7 to 3.3.9 (#1053)
+- Add support for Ruby 3.4.5 (#1053)
+- Add Standardrb (#1021) Mina Slater, Sara Jackson, and Fernando Perales
+- Add code quality workflow (#1033) Sara Jackson and Fernando Perales
+- Use latest version of code scanning (#1054)
+- Update CodeQL settings: (#1055)
+- Bump actions/checkout from 4 to 5 for standardrb workflow (#1056)
+- Bump rspec-rails from 5.1.2 to 8.0.2 (#1057)
+- Bump sqlite3 from 1.7.3 to 2.7.4 (#1062)
+- Bump pry from 0.14.1 to 0.15.2 (#1059)
+- Bump ammeter from 1.1.5 to 1.1.7 (#1060)
+- Bump ffi from 1.16.3 to 1.17.2
+- Bump net-imap from 0.4.14 to 0.4.20 (#1063)
+
+[2.11.0]: https://github.com/thoughtbot/clearance/compare/v2.10.0...v2.11.0
 
 ## [2.10.0] - March 28, 2025
 - Drop support for Rails 7.0 and Ruby 3.1 (#1045)
