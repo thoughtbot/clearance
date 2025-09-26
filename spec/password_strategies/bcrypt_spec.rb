@@ -2,6 +2,7 @@ require "spec_helper"
 
 describe Clearance::PasswordStrategies::BCrypt do
   include FakeModelWithPasswordStrategy
+
   describe "#password=" do
     it "encrypts the password into encrypted_password" do
       stub_bcrypt_password

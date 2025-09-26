@@ -2,6 +2,7 @@ require "spec_helper"
 
 describe "Password strategy configuration" do
   include FakeModelWithoutPasswordStrategy
+
   describe "when Clearance.configuration.password_strategy is set" do
     it "includes the value it is set to" do
       mock_password_strategy = Module.new
