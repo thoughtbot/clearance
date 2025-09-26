@@ -154,7 +154,7 @@ GEM
     method_source (1.1.0)
     mini_mime (1.1.5)
     minitest (5.25.5)
-    net-imap (0.4.14)
+    net-imap (0.4.20)
       date
       net-protocol
     net-pop (0.1.2)
@@ -275,7 +275,7 @@ GEM
     stringio (3.1.7)
     thor (1.4.0)
     timecop (0.9.5)
-    timeout (0.4.1)
+    timeout (0.4.3)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unicode-display_width (3.1.5)
