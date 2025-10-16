@@ -2,6 +2,7 @@ require "spec_helper"
 
 class PretendFriendsController < ActionController::Base
   include Clearance::Controller
+
   before_action :require_login
 
   def index
