@@ -116,6 +116,14 @@ describe User do
         expect(user.confirmation_token).to be_nil
       end
 
+      it "clears the confirmation_token_created_at timestamp" do
+        user = create(:user, :with_forgotten_password)
+
+        user.update_password("new_password")
+
+        expect(user.confirmation_token_created_at).to be_nil
+      end
+
       it "sets the remember token" do
         user = create(:user, :with_forgotten_password)
 
@@ -143,6 +151,15 @@ describe User do
 
         expect(user.confirmation_token).not_to be_nil
       end
+
+      it "does not clear the confirmation_token_created_at timestamp" do
+        user = create(:user, :with_forgotten_password)
+        original_timestamp = user.confirmation_token_created_at
+
+        user.update_password("")
+
+        expect(user.confirmation_token_created_at).to eq original_timestamp
+      end
     end
   end
 
@@ -166,6 +183,86 @@ describe User do
       user.forgot_password!
 
       expect(user.confirmation_token).not_to be_nil
+    end
+
+    it "sets the confirmation_token_created_at timestamp" do
+      freeze_time do
+        user = create(:user)
+
+        user.forgot_password!
+
+        expect(user.confirmation_token_created_at).to eq Time.current
+      end
+    end
+
+    it "updates the existing timestamp when called again" do
+      user = create(:user)
+      user.forgot_password!
+      first_timestamp = user.confirmation_token_created_at
+
+      travel 1.hour do
+        user.forgot_password!
+        expect(user.confirmation_token_created_at).to be > first_timestamp
+      end
+    end
+  end
+
+  describe "#password_reset_token_expired?" do
+    context "when expiration is not configured" do
+      it "returns false for any token" do
+        user = create(:user, :with_forgotten_password)
+
+        expect(user.password_reset_token_expired?).to be false
+      end
+
+      it "returns false even if confirmation_token_created_at is old" do
+        user = create(:user, :with_forgotten_password, confirmation_token_created_at: 1.year.ago)
+
+        expect(user.password_reset_token_expired?).to be false
+      end
+    end
+
+    context "when expiration is configured" do
+      before do
+        Clearance.configure do |config|
+          config.password_reset_token_expiration_in = 2.hours
+        end
+      end
+
+      after do
+        Clearance.configure do |config|
+          config.password_reset_token_expiration_in = nil
+        end
+      end
+
+      it "returns false for a token issued within the expiration window" do
+        freeze_time do
+          user = create(:user, :with_forgotten_password, confirmation_token_created_at: 2.hours.ago + 5.minutes)
+
+          expect(user.password_reset_token_expired?).to be false
+        end
+      end
+
+      it "returns true for a token issued beyond the expiration window" do
+        user = create(:user, :with_forgotten_password, confirmation_token_created_at: 3.hours.ago)
+
+        expect(user.password_reset_token_expired?).to be true
+      end
+
+      it "returns true when confirmation_token_created_at is nil" do
+        user = create(:user, :with_forgotten_password, confirmation_token_created_at: nil)
+
+        expect(user.password_reset_token_expired?).to be true
+      end
+
+      it "returns true when confirmation_token_created_at column doesn't exist" do
+        user = create(:user, :with_forgotten_password)
+        allow(user.class).to receive(:column_names).and_return(
+          user.class.column_names - ["confirmation_token_created_at"]
+        )
+
+        expect(user.password_reset_token_expired?).to be true
+      end
     end
   end
 

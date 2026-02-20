@@ -56,6 +56,7 @@ Clearance.configure do |config|
   config.routes = true
   config.httponly = true
   config.mailer_sender = "reply@example.com"
+  config.password_reset_token_expiration_in = nil
   config.password_strategy = Clearance::PasswordStrategies::BCrypt
   config.redirect_url = "/"
   config.url_after_destroy = nil
@@ -130,6 +131,15 @@ Clearance.configure do |config|
   config.mailer_sender = "reply@example.com"
 end
 ```
+
+By default, password reset tokens do not expire. You can set an expiration time for password reset tokens by changing the `password_reset_token_expiration_in` configuration option:
+```ruby
+Clearance.configure do |config|
+  config.password_reset_token_expiration_in = 1.hour
+end
+```
+
+Note that this requires that your user model includes the `confirmation_token_created_at` column, which is added by default in the `clearance:install` generator's migration as of Clearance 2.12.0. If you are upgrading from an older version of Clearance, you will need to add this column to your user model's table with a migration.
 
 ### Multiple Domain Support
 

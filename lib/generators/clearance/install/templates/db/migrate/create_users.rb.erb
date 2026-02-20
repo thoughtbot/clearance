@@ -5,6 +5,7 @@ class CreateUsers < ActiveRecord::Migration<%= migration_version %>
       t.string :email, null: false
       t.string :encrypted_password, limit: 128, null: false
       t.string :confirmation_token, limit: 128
+      t.datetime :confirmation_token_created_at
       t.string :remember_token, limit: 128, null: false
     end
 

@@ -197,6 +197,32 @@ describe Clearance::PasswordsController do
         expect(session[:password_reset_token]).to eq(user.confirmation_token)
       end
     end
+
+    context "token has expired" do
+      before do
+        Clearance.configure do |config|
+          config.password_reset_token_expiration_in = 2.hours
+        end
+      end
+
+      after do
+        Clearance.configure do |config|
+          config.password_reset_token_expiration_in = nil
+        end
+      end
+
+      it "renders the new password reset form with a flash alert" do
+        user = create(:user, :with_forgotten_password, confirmation_token_created_at: 3.hours.ago)
+
+        get :edit, params: {
+          user_id: user,
+          token: user.confirmation_token
+        }
+
+        expect(response).to render_template(:new)
+        expect(flash.now[:alert]).to match(I18n.t("flashes.failure_when_forbidden"))
+      end
+    end
   end
 
   describe "#update" do
@@ -289,6 +315,55 @@ describe Clearance::PasswordsController do
         put :update, params: update_parameters(
           user,
           new_password: ""
+        )
+
+        expect(current_user).to be_nil
+      end
+    end
+
+    context "token has expired" do
+      before do
+        Clearance.configure do |config|
+          config.password_reset_token_expiration_in = 2.hours
+        end
+      end
+
+      after do
+        Clearance.configure do |config|
+          config.password_reset_token_expiration_in = nil
+        end
+      end
+
+      it "re-renders the password edit form" do
+        user = create(:user, :with_forgotten_password, confirmation_token_created_at: 3.hours.ago)
+
+        put :update, params: update_parameters(
+          user,
+          new_password: "new_password"
+        )
+
+        expect(response).to render_template(:new)
+        expect(flash.now[:alert]).to match(I18n.t("flashes.failure_when_forbidden"))
+      end
+
+      it "does not update the password" do
+        user = create(:user, :with_forgotten_password, confirmation_token_created_at: 3.hours.ago)
+        old_encrypted_password = user.encrypted_password
+
+        put :update, params: update_parameters(
+          user,
+          new_password: "new_password"
+        )
+
+        expect(user.reload.encrypted_password).to eq old_encrypted_password
+      end
+
+      it "does not sign in user" do
+        user = create(:user, :with_forgotten_password, confirmation_token_created_at: 3.hours.ago)
+
+        put :update, params: update_parameters(
+          user,
+          new_password: "new_password"
         )
 
         expect(current_user).to be_nil

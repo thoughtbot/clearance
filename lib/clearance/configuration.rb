@@ -69,6 +69,18 @@ module Clearance
     # @return [Module #authenticated? #password=]
     attr_accessor :password_strategy
 
+    # How long a password reset token is valid. Defaults to `nil` (no
+    # expiration). Set to an ActiveSupport::Duration to enable expiration, e.g.
+    #
+    #   config.password_reset_token_expiration_in = 2.hours
+    #
+    # When set, `forgot_password!` records the time the token was issued.
+    # Tokens with no recorded issue time (e.g. issued before upgrading or
+    # before running the migration) are treated as expired, forcing users to
+    # re-request a reset.
+    # @return [ActiveSupport::Duration, nil]
+    attr_accessor :password_reset_token_expiration_in
+
     # The default path Clearance will redirect signed in users to.
     # Defaults to `"/"`. This can often be overridden for specific scenarios by
     # overriding controller methods that rely on it.
@@ -161,6 +173,7 @@ module Clearance
       @httponly = true
       @same_site = nil
       @mailer_sender = "reply@example.com"
+      @password_reset_token_expiration_in = nil
       @redirect_url = "/"
       @url_after_destroy = nil
       @url_after_denied_access_when_signed_out = nil

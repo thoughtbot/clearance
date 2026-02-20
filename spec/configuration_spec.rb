@@ -266,4 +266,18 @@ describe Clearance::Configuration do
       expect(Clearance.configuration.rotate_csrf_on_sign_in?).to be false
     end
   end
+
+  describe "#password_reset_token_expiration_in" do
+    it "returns nil when unset" do
+      expect(Clearance.configuration.password_reset_token_expiration_in).to be_nil
+    end
+
+    it "returns 2.hours when set to 2.hours" do
+      Clearance.configure do |config|
+        config.password_reset_token_expiration_in = 2.hours
+      end
+
+      expect(Clearance.configuration.password_reset_token_expiration_in).to eq 2.hours
+    end
+  end
 end

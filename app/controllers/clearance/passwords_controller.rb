@@ -56,8 +56,10 @@ class Clearance::PasswordsController < Clearance::BaseController
     user_param = Clearance.configuration.user_id_parameter
     token = params[:token] || session[:password_reset_token]
 
-    Clearance.configuration.user_model
+    user = Clearance.configuration.user_model
       .find_by(id: params[user_param], confirmation_token: token.to_s)
+
+    user unless user&.password_reset_token_expired?
   end
 
   def email_from_password_params
