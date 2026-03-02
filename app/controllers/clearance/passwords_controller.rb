@@ -38,7 +38,7 @@ class Clearance::PasswordsController < Clearance::BaseController
       session[:password_reset_token] = nil
     else
       flash_failure_after_update
-      render template: "passwords/edit", status: :unprocessable_entity
+      render template: "passwords/edit", status: :unprocessable_content
     end
   end
 
@@ -80,14 +80,14 @@ class Clearance::PasswordsController < Clearance::BaseController
   def ensure_email_present
     if email_from_password_params.blank?
       flash_failure_when_missing_email
-      render template: "passwords/new", status: :unprocessable_entity
+      render template: "passwords/new", status: :unprocessable_content
     end
   end
 
   def ensure_existing_user
     unless find_user_by_id_and_confirmation_token
       flash_failure_when_forbidden
-      render template: "passwords/new", status: :unprocessable_entity
+      render template: "passwords/new", status: :unprocessable_content
     end
   end
 

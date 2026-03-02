@@ -62,7 +62,7 @@ describe Clearance::PasswordsController do
           password: {}
         }
 
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
       end
     end
 
@@ -85,7 +85,7 @@ describe Clearance::PasswordsController do
           }
         }
 
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
       end
     end
 
@@ -279,7 +279,7 @@ describe Clearance::PasswordsController do
         )
 
         expect(flash.now[:alert]).to match(I18n.t("flashes.failure_after_update"))
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
         expect(response).to render_template(:edit)
       end
 
