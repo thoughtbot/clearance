@@ -14,7 +14,7 @@ class Clearance::UsersController < Clearance::BaseController
       sign_in @user
       redirect_back_or url_after_create
     else
-      render template: "users/new", status: :unprocessable_entity
+      render template: "users/new", status: :unprocessable_content
     end
   end
 
