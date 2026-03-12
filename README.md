@@ -139,7 +139,7 @@ Clearance.configure do |config|
 end
 ```
 
-Note that this requires that your user model includes the `confirmation_token_created_at` column, which is added by default in the `clearance:install` generator's migration as of Clearance 2.12.0. If you are upgrading from an older version of Clearance, you will need to add this column to your user model's table with a migration.
+**Important:** This feature requires the `confirmation_token_created_at` column in your user model. Run `rails generate clearance:install` to add it if upgrading from a version of Clearance before 2.12.0.
 
 ### Multiple Domain Support
 
