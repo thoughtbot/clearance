@@ -132,14 +132,14 @@ Clearance.configure do |config|
 end
 ```
 
-By default, password reset tokens do not expire. You can set an expiration time for password reset tokens by changing the `password_reset_token_expiration_in` configuration option:
+By default, password reset tokens do not expire. It is recommended to set an expiration time for password reset tokens by changing the `password_reset_token_expiration_in` configuration option:
 ```ruby
 Clearance.configure do |config|
   config.password_reset_token_expiration_in = 1.hour
 end
 ```
 
-**Important:** This feature requires the `confirmation_token_created_at` column in your user model. Run `rails generate clearance:install` to add it if upgrading from a version of Clearance before 2.12.0.
+**Important:** The reset token expiration feature requires the `confirmation_token_created_at` column to exist in your user model. Run `rails generate clearance:install` to generate the appropriate migration file if upgrading from a version of Clearance before 2.12.0.
 
 ### Multiple Domain Support
 
