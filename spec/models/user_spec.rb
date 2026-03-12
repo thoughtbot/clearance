@@ -255,13 +255,14 @@ describe User do
         expect(user.password_reset_token_expired?).to be true
       end
 
-      it "returns true when confirmation_token_created_at column doesn't exist" do
+      it "raises exception when confirmation_token_created_at column doesn't exist" do
         user = create(:user, :with_forgotten_password)
         allow(user.class).to receive(:column_names).and_return(
           user.class.column_names - ["confirmation_token_created_at"]
         )
 
-        expect(user.password_reset_token_expired?).to be true
+        expect { user.password_reset_token_expired? }.to raise_error(
+          /`confirmation_token_created_at` column is required/ )
       end
     end
   end

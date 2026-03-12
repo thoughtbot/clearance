@@ -243,9 +243,11 @@ module Clearance
       expiration = Clearance.configuration.password_reset_token_expiration_in
       return false unless expiration
 
-      # Guard against the migration not having been run yet.
-      # FIXME: raise an exception instead
-      return true unless self.class.column_names.include?("confirmation_token_created_at")
+      unless self.class.column_names.include?("confirmation_token_created_at")
+        raise "The `confirmation_token_created_at` column is required to " \
+          "check for expired password reset tokens. Please run " \
+          "`rails generate clearance:install` to add the necessary migration."
+      end
 
       confirmation_token_created_at.nil? ||
         confirmation_token_created_at < expiration.ago
