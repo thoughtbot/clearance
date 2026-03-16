@@ -262,7 +262,8 @@ describe User do
         )
 
         expect { user.password_reset_token_expired? }.to raise_error(
-          /`confirmation_token_created_at` column is required/)
+          /`confirmation_token_created_at` column is required/
+        )
       end
     end
   end
