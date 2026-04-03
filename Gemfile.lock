@@ -66,7 +66,7 @@ GEM
       activesupport (>= 3.0)
       railties (>= 3.0)
       rspec-rails (>= 2.2)
-    appraisal (2.5.0)
+    appraisal (3.0.0.rc1)
       bundler
       rake
       thor (>= 0.14.0)
@@ -299,7 +299,7 @@ PLATFORMS
 DEPENDENCIES
   addressable
   ammeter
-  appraisal
+  appraisal (= 3.0.0.rc1)
   capybara
   clearance!
   database_cleaner

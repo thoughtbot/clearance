@@ -4,7 +4,7 @@ gemspec
 
 gem "addressable"
 gem "ammeter"
-gem "appraisal"
+gem "appraisal", "3.0.0.rc1"
 gem "capybara"
 gem "database_cleaner"
 gem "erb_lint", require: false
