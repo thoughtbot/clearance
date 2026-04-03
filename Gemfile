@@ -5,6 +5,7 @@ gemspec
 gem "addressable"
 gem "ammeter"
 gem "appraisal"
+gem "benchmark"
 gem "capybara"
 gem "database_cleaner"
 gem "erb_lint", require: false
