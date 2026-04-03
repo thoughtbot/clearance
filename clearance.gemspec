@@ -29,7 +29,8 @@ Gem::Specification.new do |s|
     "Galen Frechette",
     "Josh Steiner",
     "Dorian Marié",
-    "Sara Jackson"
+    "Sara Jackson",
+    "Fernando Perales"
   ]
   s.description = <<-DESCRIPTION
     Clearance is built to support authentication and authorization via an
@@ -46,7 +47,7 @@ Gem::Specification.new do |s|
   s.name = "clearance"
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
-  s.required_ruby_version = Gem::Requirement.new(">= 3.1.6")
+  s.required_ruby_version = Gem::Requirement.new(">= 3.3.11")
   s.summary = "Rails authentication & authorization with email & password."
   s.version = Clearance::VERSION
 end
