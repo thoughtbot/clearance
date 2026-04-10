@@ -9,6 +9,9 @@ on:
 jobs:
   test:
     name: "Ruby ${{ matrix.ruby }}, Rails ${{ matrix.gemfile }}"
+    permissions:
+      contents: read
+      pull-requests: write
 
     runs-on: ubuntu-latest
 
