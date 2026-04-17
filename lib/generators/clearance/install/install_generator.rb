@@ -82,6 +82,7 @@ module Clearance
           email: "t.string :email",
           encrypted_password: "t.string :encrypted_password, limit: 128",
           confirmation_token: "t.string :confirmation_token, limit: 128",
+          confirmation_token_created_at: "t.datetime :confirmation_token_created_at",
           remember_token: "t.string :remember_token, limit: 128"
         }.reject { |column| existing_users_columns.include?(column.to_s) }
       end
