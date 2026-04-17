@@ -5,7 +5,54 @@ complete changelog, see the git history for each version via the version links.
 
 ## [Unreleased]
 
-[Unreleased]: https://github.com/thoughtbot/clearance/compare/v2.11.0...main
+[Unreleased]: https://github.com/thoughtbot/clearance/compare/v2.12.0...main
+
+## [2.12.0] - April 17, 2026
+
+Highlights of this release:
+
+* Remove support for Ruby 3.2.9
+* Bump ruby 3.3.9 to 3.3.11
+* Make ruby 3.3.11 the minimum required version
+* Bump ruby 3.4.5 to 3.4.9
+* Add ruby 4.0.2
+* Remove RoR 7.1.0 support
+* Add RoR 8.1.0 support
+
+All changes:
+
+- Bump shoulda-matchers from 5.1.0 to 6.5.0 (#1066)
+- Bump nokogiri from 1.18.9 to 1.18.10 (#1067)
+- Bump standard from 1.50.0 to 1.51.1 (#1068)
+- Bump database_cleaner from 2.0.1 to 2.1.0 (#1069)
+- Bump timecop from 0.9.5 to 0.9.10 (#1070)
+- Bump github/codeql-action from 3 to 4 (#1072)
+- Bump rack from 3.1.16 to 3.1.18 (#1073)
+- Bump railties from 7.2.2.2 to 7.2.3 (#1074)
+- Bump standard from 1.51.1 to 1.52.0 (#1079)
+- Bump actions/checkout from 5 to 6 (#1080)
+- Bump addressable from 2.8.7 to 2.8.8 (#1081)
+- Bump sqlite3 from 2.7.4 to 2.8.1 (#1082)
+- Remove CodeClimate badge (broken) (#1084) Valeria Graffeo
+- Replace obsolete unprocessable_entity with unprocessable_content (#1085) Sara Jackson
+- Upgrade Ruby and Rails versions (#1088) Fernando Perales
+- Bump rack-session from 2.1.1 to 2.1.2 (#1089)
+- Bump activesupport from 7.2.3 to 7.2.3.1 (#1090)
+- Bump addressable from 2.8.8 to 2.9.0 (#1091)
+- Bump bcrypt from 3.1.20 to 3.1.22 (#1092)
+- Bump standard from 1.52.0 to 1.54.0 (#1093)
+- Bump pry from 0.15.2 to 0.16.0 (#1094)
+- Bump shoulda-matchers from 6.5.0 to 7.0.1 (#1095)
+- Bump json from 2.16.0 to 2.17.1.2 (#1096)
+- Bump nokogiri from 1.18.10 to 1.19.2 (#1099)
+- Add missing permissions to GitHub Actions jobs (#1100) Fernando Perales
+- Bump rspec-rails from 8.0.2 to 8.0.4 (#1101)
+- Bump sqlite3 from 2.8.1 to 2.9.2 (#1104)
+- Bump ffi from 1.17.2 to 1.17.4 (#1103)
+- Bump timecop from 0.9.10 to 0.9.11 (#1105)
+- Bump argon2 from 2.3.2 to 2.3.3 (#1102)
+
+[2.12.0]: https://github.com/thoughtbot/clearance/compare/v2.11.0...v2.12.0
 
 ## [2.11.0] - September 26, 2025
 - Bump actions/checkout from 4 to 5 for tests workflow (#1051)
