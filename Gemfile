@@ -16,6 +16,6 @@ gem "pry", require: false
 gem "rails-controller-testing"
 gem "rspec-rails"
 gem "shoulda-matchers"
-gem "sqlite3", "~> 2.8"
+gem "sqlite3", "~> 2.9"
 gem "standard", ">= 1.35.1", require: false
 gem "timecop"
