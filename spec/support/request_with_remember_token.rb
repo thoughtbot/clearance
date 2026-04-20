@@ -1,7 +1,9 @@
 module RememberTokenHelpers
   def request_with_remember_token(remember_token)
     cookies = ActionDispatch::Request.new({}).cookie_jar
-    if Clearance.configuration.signed_cookie
+    if Clearance.configuration.encrypted_cookie
+      cookies.encrypted[Clearance.configuration.cookie_name] = remember_token
+    elsif Clearance.configuration.signed_cookie
       cookies.signed[Clearance.configuration.cookie_name] = remember_token
     else
       cookies[Clearance.configuration.cookie_name] = remember_token
