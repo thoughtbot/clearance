@@ -6,12 +6,13 @@ Next steps:
 
     # config/initializers/webauthn.rb
     WebAuthn.configure do |config|
-      config.origin = "https://yourapp.example.com"
+      config.allowed_origins = ["https://yourapp.example.com"]
       config.rp_name = "Your Application Name"
     end
 
     In development, use your local server URL (e.g. "http://localhost:3000").
     In production, use your app's full HTTPS URL.
+    allowed_origins takes an array, so you can list multiple origins if needed.
 
 2. Migrate:
 
@@ -20,12 +21,38 @@ Next steps:
 3. Handle credential encoding on the frontend:
 
     The WebAuthn browser API returns ArrayBuffers, not plain strings. Use
-    a library like @github/webauthn-json to handle Base64url encoding
-    between the browser's native credential objects and the JSON your
-    server expects:
+    @github/webauthn-json to handle Base64url encoding between the
+    browser's native credential objects and the JSON your server expects.
 
-        npm install @github/webauthn-json
+    Install it using your app's JavaScript setup. For example, with
+    importmaps (Rails default):
 
-    See https://github.com/github/webauthn-json for usage.
+        ./bin/importmap pin @github/webauthn-json
+
+    Then in your JavaScript:
+
+        import { create, get } from "@github/webauthn-json"
+
+        // Registration (user must be signed in)
+        const options = await fetch("/passkeys/new").then(r => r.json())
+        const credential = await create({ publicKey: options })
+        await fetch("/passkeys", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "X-CSRF-Token": csrfToken },
+          body: JSON.stringify({ ...credential, label: "My device" })
+        })
+
+        // Authentication
+        const options = await fetch("/passkey_authentication/new").then(r => r.json())
+        const credential = await get({ publicKey: options })
+        const result = await fetch("/passkey_authentication", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "X-CSRF-Token": csrfToken },
+          body: JSON.stringify(credential)
+        }).then(r => r.json())
+        window.location = result.redirect_to
+
+    See https://github.com/github/webauthn-json for other installation
+    options.
 
 *******************************************************************************
