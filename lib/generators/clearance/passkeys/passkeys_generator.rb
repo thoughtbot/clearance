@@ -18,6 +18,20 @@ module Clearance
         copy_migration("create_passkeys") unless passkeys_table_exists?
       end
 
+      def inject_passkeys_into_user_model
+        return unless File.exist?("app/models/user.rb")
+
+        inject_into_class(
+          "app/models/user.rb",
+          "User",
+          "  has_many :passkeys, class_name: \"Clearance::Passkey\", dependent: :destroy\n"
+        )
+      end
+
+      def display_readme_in_terminal
+        readme "README"
+      end
+
       private
 
       def copy_migration(migration_name)

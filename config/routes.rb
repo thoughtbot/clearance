@@ -24,5 +24,13 @@ if Clearance.configuration.routes_enabled?
     if Clearance.configuration.allow_sign_up?
       get "/sign_up" => "clearance/users#new", :as => "sign_up"
     end
+
+    resources :passkeys,
+      controller: "clearance/passkeys",
+      only: [:new, :create]
+
+    resource :passkey_authentication,
+      controller: "clearance/passkey_authentications",
+      only: [:new, :create]
   end
 end

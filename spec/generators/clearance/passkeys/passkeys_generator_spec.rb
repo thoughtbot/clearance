@@ -72,6 +72,33 @@ describe Clearance::Generators::PasskeysGenerator, :generator do
       .to receive(:data_source_exists?).with(:passkeys).and_return(false)
   end
 
+  describe "user model" do
+    it "injects has_many :passkeys into an existing user model" do
+      stub_columns_for_users(without: "webauthn_id")
+      stub_passkeys_table_absent
+      provide_existing_user_class
+
+      run_generator
+      user_model = file("app/models/user.rb")
+
+      expect(user_model).to exist
+      expect(user_model).to have_correct_syntax
+      expect(user_model).to contain(
+        'has_many :passkeys, class_name: "Clearance::Passkey", dependent: :destroy'
+      )
+    end
+
+    it "does not create the user model if it does not exist" do
+      stub_columns_for_users(without: "webauthn_id")
+      stub_passkeys_table_absent
+
+      run_generator
+      user_model = file("app/models/user.rb")
+
+      expect(user_model).not_to exist
+    end
+  end
+
   def stub_passkeys_table_present
     allow(ActiveRecord::Base.connection)
       .to receive(:data_source_exists?).with(:passkeys).and_return(true)

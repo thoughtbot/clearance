@@ -1,0 +1,31 @@
+*******************************************************************************
+
+Next steps:
+
+1. Configure WebAuthn in an initializer:
+
+    # config/initializers/webauthn.rb
+    WebAuthn.configure do |config|
+      config.origin = "https://yourapp.example.com"
+      config.rp_name = "Your Application Name"
+    end
+
+    In development, use your local server URL (e.g. "http://localhost:3000").
+    In production, use your app's full HTTPS URL.
+
+2. Migrate:
+
+    Run `rails db:migrate` to add passkey database changes.
+
+3. Handle credential encoding on the frontend:
+
+    The WebAuthn browser API returns ArrayBuffers, not plain strings. Use
+    a library like @github/webauthn-json to handle Base64url encoding
+    between the browser's native credential objects and the JSON your
+    server expects:
+
+        npm install @github/webauthn-json
+
+    See https://github.com/github/webauthn-json for usage.
+
+*******************************************************************************

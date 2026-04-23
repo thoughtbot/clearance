@@ -1,3 +1,5 @@
+require "webauthn"
+
 module Clearance
   class Passkey < ActiveRecord::Base
     belongs_to :user, class_name: "::User", optional: false
