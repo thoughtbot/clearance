@@ -29,7 +29,11 @@ Next steps:
 
         ./bin/importmap pin @github/webauthn-json
 
-    Then in your JavaScript:
+    Then pin your own passkeys JS file in config/importmap.rb:
+
+        pin "passkeys", to: "passkeys.js"
+
+    Then in your JavaScript (app/javascript/passkeys.js):
 
         import { create, get } from "@github/webauthn-json"
 
