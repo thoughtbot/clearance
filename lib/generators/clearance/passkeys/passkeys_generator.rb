@@ -21,10 +21,10 @@ module Clearance
       def inject_passkeys_into_user_model
         return unless File.exist?("app/models/user.rb")
 
-        inject_into_class(
+        inject_into_file(
           "app/models/user.rb",
-          "User",
-          "  has_many :passkeys, class_name: \"Clearance::Passkey\", dependent: :destroy\n"
+          "  has_many :passkeys, class_name: \"Clearance::Passkey\", dependent: :destroy\n",
+          after: "include Clearance::User\n"
         )
       end
 

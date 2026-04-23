@@ -73,19 +73,22 @@ describe Clearance::Generators::PasskeysGenerator, :generator do
   end
 
   describe "user model" do
-    it "injects has_many :passkeys into an existing user model" do
+    it "injects has_many :passkeys after include Clearance::User" do
       stub_columns_for_users(without: "webauthn_id")
       stub_passkeys_table_absent
-      provide_existing_user_class
+      provide_user_class_with_clearance
 
       run_generator
       user_model = file("app/models/user.rb")
 
+      content = user_model.read
       expect(user_model).to exist
       expect(user_model).to have_correct_syntax
       expect(user_model).to contain(
         'has_many :passkeys, class_name: "Clearance::Passkey", dependent: :destroy'
       )
+      expect(content.index("include Clearance::User")).to be <
+        content.index("has_many :passkeys")
     end
 
     it "does not create the user model if it does not exist" do
@@ -96,6 +99,16 @@ describe Clearance::Generators::PasskeysGenerator, :generator do
       user_model = file("app/models/user.rb")
 
       expect(user_model).not_to exist
+    end
+
+    def provide_user_class_with_clearance
+      FileUtils.mkdir_p(File.join(destination_root, "app/models"))
+      File.write(
+        File.join(destination_root, "app/models/user.rb"),
+        "class User < ApplicationRecord\n  include Clearance::User\nend\n"
+      )
+      allow(File).to receive(:exist?).and_call_original
+      allow(File).to receive(:exist?).with("app/models/user.rb").and_return(true)
     end
   end
 
